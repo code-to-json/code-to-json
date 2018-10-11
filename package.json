@@ -1,0 +1,7 @@
+{
+  "name": "code-to-json",
+  "version": "0.0.0-development",
+  "main": "index.js",
+  "author": "Mike North <michael.l.north@gmail.com> (https://mike.works)",
+  "license": "BSD-2-Clause"
+}
