@@ -1,1 +1,1 @@
-export const foo = 'foo';
+export { walkProgram } from './walker';

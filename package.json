@@ -12,11 +12,20 @@
     "cz-conventional-changelog": "2.1.0",
     "cz-lerna-changelog": "^2.0.0",
     "lerna": "^3.4.3",
-    "ts-node": "^7.0.1"
+    "lerna-semantic-release": "^9.0.1",
+    "ts-node": "^7.0.1",
+    "semantic-release": "^15.9.17"
   },
   "config": {
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
     }
+  },
+  "scripts": {
+    "semantic-release": "semantic-release"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mike-north/code-to-json.git"
   }
 }
