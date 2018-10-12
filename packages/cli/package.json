@@ -1,0 +1,24 @@
+{
+  "name": "@code-to-json/cli",
+  "version": "0.0.0-development",
+  "description": "",
+  "main": "lib/index.js",
+  "typings": "lib/index.d.ts",
+  "bin": {
+    "code-to-json": "./src/cli/index.js"
+  },
+  "dependencies": {
+    "commander": "^2.19.0",
+    "lodash.get": "^4.4.2"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepublishOnly": "tsc -b ."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "BSD-2-Clause",
+  "devDependencies": {
+    "typescript": "^3.1.2"
+  }
+}
