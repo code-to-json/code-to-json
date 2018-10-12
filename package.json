@@ -22,7 +22,7 @@
     }
   },
   "scripts": {
-    "semantic-release": "semantic-release"
+    "semantic-release": "lerna-semantic-release pre && lerna-semantic-release post && lerna-semantic-release perform"
   },
   "repository": {
     "type": "git",
