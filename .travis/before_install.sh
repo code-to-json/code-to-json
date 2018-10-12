@@ -11,7 +11,7 @@ if [[ $TRAVIS_BRANCH == 'master' ]]; then
   rm -rf .git
   git init
   git clean -dfx
-  git remote add origin https://github.com/atlassian/lerna-semantic-release.git
+  git remote add origin https://github.com/mike-north/code-to-json.git
   git fetch origin
   git clone https://github.com/$TRAVIS_REPO_SLUG.git $TRAVIS_REPO_SLUG
   git checkout $TRAVIS_BRANCH
