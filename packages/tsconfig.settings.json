@@ -2,6 +2,7 @@
   "compilerOptions": {
     "target": "es5",
     "module": "commonjs",
+    "moduleResolution": "node",
     "lib": ["scripthost", "es2017"],
     "declaration": true,
     "declarationMap": true,

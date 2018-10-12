@@ -7,7 +7,7 @@ if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then
   exit 0
 fi
 
-if [[ $TRAVIS_BRANCH == 'caribou' ]]; then
+if [[ $TRAVIS_BRANCH == 'master' ]]; then
   rm -rf .git
   git init
   git clean -dfx
@@ -17,13 +17,13 @@ if [[ $TRAVIS_BRANCH == 'caribou' ]]; then
   git checkout $TRAVIS_BRANCH
 
   git config credential.helper store
-  echo "https://${RELEASE_GH_USERNAME}:${RELEASE_GH_TOKEN}@github.com/atlassian/lerna-semantic-release.git" > ~/.git-credentials
+  echo "https://mike-north:${GH_TOKEN}@github.com/mike-north/code-to-json.git" > ~/.git-credentials
 
   npm config set //registry.npmjs.org/:_authToken=$NPM_TOKEN -q
   npm prune
 
-  git config --global user.email "design-platform@atlassian.com"
-  git config --global user.name "Design Platform"
+  git config --global user.email "michael.l.north@gmail.com"
+  git config --global user.name "Mike North"
   git config --global push.default simple
 
   git fetch --tags
