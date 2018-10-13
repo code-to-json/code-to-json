@@ -2,6 +2,9 @@ import { Result } from './types';
 import { isEmpty, isDirectoryThatExists } from './validators';
 import * as path from 'path';
 
+/**
+ * Configuration
+ */
 interface Config {
   projectPath: string;
 }
