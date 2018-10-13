@@ -12,6 +12,7 @@
     "@types/node": "^10.11.7",
     "husky": "^1.1.2",
     "lerna": "^3.0.0",
+    "scripty": "^1.8.0",
     "travis-deploy-once": "^5.0.9",
     "ts-node": "^7.0.1"
   },
@@ -21,8 +22,8 @@
     ]
   },
   "scripts": {
-    "ci:publish": "git add -A && ./node_modules/.bin/lerna publish --message \"chore: update changelogs [skip-ci]\" --yes",
-    "test:ci": "./node_modules/.bin/commitlint-travis && ./node_modules/.bin/lerna run lint && ./node_modules/.bin/lerna run test"
+    "ci:publish": "scripty",
+    "test:ci": "scripty"
   },
   "repository": {
     "type": "git",
