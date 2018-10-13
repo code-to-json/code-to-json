@@ -8,5 +8,8 @@ notifications:
 node_js:
   - '10'
 script: yarn test:ci
+
 git:
   depth: 1
+after_success:
+  - npm run travis-deploy-once "lerna publish --message 'chore: update changelogs [skip-ci]' --yes"
