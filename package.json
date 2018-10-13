@@ -19,7 +19,6 @@
     ]
   },
   "scripts": {
-    "commitmsg": "./node_modules/.bin/commitlint -e $GIT_PARAMS",
     "test:ci": "./node_modules/.bin/lerna run lint && ./node_modules/.bin/lerna run test"
   },
   "repository": {
@@ -29,5 +28,10 @@
   "toolchain": {
     "node": "10.12.0",
     "yarn": "1.9.4"
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "./node_modules/.bin/commitlint -e $HUSKY_GIT_PARAMS"
+    }
   }
 }
