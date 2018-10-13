@@ -3,7 +3,7 @@ import { isEmpty, isDirectoryThatExists } from './validators';
 import * as path from 'path';
 
 /**
- * Configuration
+ * Configuration for the walker
  */
 interface Config {
   projectPath: string;
