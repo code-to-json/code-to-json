@@ -2,4 +2,4 @@
 echo "git status"
 git status
 echo "lerna publish"
-lerna publish --message \"chore: update changelogs [skip-ci]\" --yes
+lerna publish from-git --message \"chore: update changelogs [skip-ci]\" --yes
