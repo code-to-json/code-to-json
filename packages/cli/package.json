@@ -10,6 +10,7 @@
     "code-to-json": "./src/cli/index.js"
   },
   "dependencies": {
+    "@code-to-json/core": "^0.0.0-development",
     "commander": "^2.19.0",
     "lodash.get": "^4.4.2"
   },
