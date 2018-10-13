@@ -22,7 +22,7 @@
     ]
   },
   "scripts": {
-    "ci:publish": "scripty",
+    "publish": "scripty",
     "test:ci": "scripty"
   },
   "repository": {
