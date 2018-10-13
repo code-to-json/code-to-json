@@ -7,12 +7,7 @@ notifications:
   email: false
 node_js:
   - '10'
-script:
-  - npm run test:ci && ./node_modules/.bin/travis-deploy-once "npm run ci:publish"
 git:
   depth: 1
-before_install:
-  - npm config set //registry.npmjs.org/:_authToken=$NPM_TOKEN -q
-  - npm prune
-  - echo "npm whoami"
-  - npm whoami
+script: .travis/script.sh
+before_install: .travis/before_install.sh
