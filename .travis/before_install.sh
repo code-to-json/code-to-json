@@ -5,7 +5,7 @@ if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then
   exit 0
 fi
 
-if [[ $TRAVIS_BRANCH == 'caribou' ]]; then
+if [[ $TRAVIS_BRANCH == 'master' ]]; then
   rm -rf .git
   git init
   git clean -dfx
