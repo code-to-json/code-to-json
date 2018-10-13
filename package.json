@@ -10,11 +10,9 @@
     "@types/node": "^10.11.7",
     "commitizen": "^3.0.2",
     "cz-conventional-changelog": "2.1.0",
-    "cz-lerna-changelog": "^1.0.0",
-    "lerna": "^2.0.0",
-    "lerna-semantic-release": "^9.0.1",
-    "ts-node": "^7.0.1",
-    "semantic-release": "^15.9.17"
+    "cz-lerna-changelog": "^2.0.0",
+    "lerna": "^3.0.0",
+    "ts-node": "^7.0.1"
   },
   "config": {
     "commitizen": {
@@ -22,7 +20,8 @@
     }
   },
   "scripts": {
-    "semantic-release": "lerna-semantic-release pre && lerna-semantic-release post && lerna-semantic-release perform"
+    "test:ci": "./node_modules/.bin/lerna run lint && ./node_modules/.bin/lerna run test",
+    "commit": "./node_modules/.bin/git-cz"
   },
   "repository": {
     "type": "git",
