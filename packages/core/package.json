@@ -1,6 +1,6 @@
 {
   "name": "@code-to-json/core",
-  "version": "0.0.0-development",
+  "version": "0.0.1",
   "description": "",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
@@ -9,7 +9,6 @@
   "bin": {
     "code-to-json": "./src/cli/index.js"
   },
-  "dependencies": {},
   "scripts": {
     "lint": "echo \"Error: no lint specified\" && exit 0",
     "test": "echo \"Error: no test specified\" && exit 0",
