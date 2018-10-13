@@ -14,7 +14,7 @@ if [[ $TRAVIS_BRANCH == 'master' ]]; then
   git clone https://github.com/$TRAVIS_REPO_SLUG.git $TRAVIS_REPO_SLUG
   git checkout $TRAVIS_BRANCH
   git config credential.helper store
-  echo "https://mike-north:${GH_TOKEN}@github.com/atlassian/lerna-semantic-release.git" > ~/.git-credentials
+  echo "https://mike-north:${GH_TOKEN}@github.com/mike-north/code-to-json.git" > ~/.git-credentials
 
   npm config set //registry.npmjs.org/:_authToken=$NPM_TOKEN -q
   npm prune
