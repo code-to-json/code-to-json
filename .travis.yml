@@ -9,6 +9,7 @@ node_js:
   - '10'
 git:
   depth: 1
-script: .travis/script.sh
+script:
+  - npm run test:ci && ./node_modules/.bin/travis-deploy-once .travis/_publish.sh
 before_install: .travis/before_install.sh
 after_success: .travis/after_success.sh
