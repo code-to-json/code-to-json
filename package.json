@@ -21,7 +21,7 @@
     ]
   },
   "scripts": {
-    "ci:publish": "./node_modules/.bin/lerna publish --message \"chore: update changelogs [skip-ci]\" --yes",
+    "ci:publish": "git add -A && ./node_modules/.bin/lerna publish --message \"chore: update changelogs [skip-ci]\" --yes",
     "test:ci": "./node_modules/.bin/commitlint-travis && ./node_modules/.bin/lerna run lint && ./node_modules/.bin/lerna run test"
   },
   "repository": {
