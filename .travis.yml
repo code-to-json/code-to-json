@@ -7,8 +7,6 @@ notifications:
   email: false
 node_js:
   - '10'
-before_install: .travis/before_install.sh
-after_success: .travis/after_success.sh
-script: ./node_modules/.bin/lerna run lint && ./node_modules/.bin/lerna run test
+script: yarn test:ci
 git:
   depth: 1
