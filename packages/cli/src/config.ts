@@ -2,9 +2,6 @@ import { Result } from './types';
 import { isEmpty, isDirectoryThatExists } from './validators';
 import * as path from 'path';
 
-/**
- * Configuration for the walker
- */
 interface Config {
   projectPath: string;
 }
