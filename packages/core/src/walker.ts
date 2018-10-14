@@ -1,4 +1,4 @@
-import ts from 'typescript';
+import * as ts from 'typescript';
 
 /**
  * Walk a typescript program, using specified entry points, returning
