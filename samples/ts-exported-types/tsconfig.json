@@ -1,0 +1,10 @@
+{
+  "extends": "../../tsconfig.json",
+  "include": [
+    "./src/index.ts",
+    "./src/vehicle.ts",
+    "./src/car.ts",
+    "./src/cycles.ts",
+    "./src/types.ts"
+  ]
+}
