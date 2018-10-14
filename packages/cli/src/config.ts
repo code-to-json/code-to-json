@@ -2,7 +2,7 @@ import { Result } from './types';
 import { isEmpty, ValidationFeedback, isFileThatExists } from './validators';
 import * as path from 'path';
 import ValidationError from './errors/validation';
-import { isHomogenousArray } from '@code-to-json/core';
+import { isHomogenousArray } from '@code-to-json/utils';
 
 interface Config {
   entries: string[];
@@ -12,7 +12,7 @@ interface Config {
 export function validateEntries(entries: any): entries is string[] {
   return isHomogenousArray<string>(
     entries,
-    (e): e is string => typeof e === 'string'
+    (e: any): e is string => typeof e === 'string'
   );
 }
 
