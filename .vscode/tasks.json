@@ -4,17 +4,35 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "build",
+      "label": "build-cli",
       "type": "typescript",
-      "tsconfig": "tsconfig.json",
+      "tsconfig": "packages/cli/tsconfig.json",
       "problemMatcher": ["$tsc"],
       "presentation": {
         "echo": true,
         "reveal": "silent",
         "focus": false,
-        "panel": "dedicated",
-        "showReuseMessage": true
+        "panel": "shared"
       },
+      "group": "build"
+    },
+
+    {
+      "label": "build-core",
+      "type": "typescript",
+      "tsconfig": "packages/core/tsconfig.json",
+      "problemMatcher": ["$tsc"],
+      "presentation": {
+        "echo": true,
+        "reveal": "silent",
+        "focus": false,
+        "panel": "shared"
+      },
+      "group": "build"
+    },
+    {
+      "label": "build",
+      "dependsOn": ["build-core", "build-cli"],
       "group": {
         "kind": "build",
         "isDefault": true

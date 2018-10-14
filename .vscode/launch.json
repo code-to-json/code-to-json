@@ -7,11 +7,15 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "Launch Program",
+      "name": "Launch CLI",
       "preLaunchTask": "build",
       "timeout": 500,
       "runtimeArgs": ["-r", "ts-node/register"],
-      "program": "${workspaceFolder}/src/cli/index.js",
+      "program": "${workspaceFolder}/packages/cli/lib/index.js",
+      "args": [
+        "./samples/js-single-file/src/index.js",
+        "./samples/js-single-file/src/index.js"
+      ],
       "internalConsoleOptions": "openOnFirstSessionStart"
     }
   ]
