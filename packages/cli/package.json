@@ -7,7 +7,7 @@
   "license": "BSD-2-Clause",
   "author": "Mike North <michael.l.north@gmail.com> (https://mike.works)",
   "bin": {
-    "code-to-json": "./src/cli/index.js"
+    "code-to-json": "./lib/cli/index.js"
   },
   "dependencies": {
     "@code-to-json/core": "^0.1.3",
