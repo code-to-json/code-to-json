@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.1.8](https://github.com/mike-north/code-to-json/compare/@code-to-json/cli@0.1.7...@code-to-json/cli@0.1.8) (2018-10-15)
+
+
+### Bug Fixes
+
+* dedicated excutable script ([7f573f6](https://github.com/mike-north/code-to-json/commit/7f573f6))
+
+
+
+
+
 ## [0.1.7](https://github.com/mike-north/code-to-json/compare/@code-to-json/cli@0.1.6...@code-to-json/cli@0.1.7) (2018-10-15)
 
 
