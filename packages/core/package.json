@@ -11,6 +11,7 @@
     "test": "echo \"Error: no test specified\" && exit 0",
     "prepublishOnly": "tsc -b ."
   },
+  "repository": "https://github.com/mike-north/code-to-json/tree/master/packages/core",
   "keywords": [],
   "devDependencies": {
     "typescript": "^3.1.2"
