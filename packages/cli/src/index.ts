@@ -3,13 +3,15 @@ import { validateConfig } from './config';
 import run from './commands/run';
 const pkg = require('../package.json');
 
+process.title = 'code-to-json';
 let actionInvoked = false;
 const prog = commander
   .version(pkg.version)
   .name('code-to-json')
   .arguments('<entries...>')
   .description('a thing')
-  .option('-c,--config <config>', 'path to tsconfig.json')
+  .option('-c,--config <path>', 'path to tsconfig.json')
+  .option('-o,--out <path>', 'output path')
   .action(function(entries: string[]) {
     actionInvoked = true;
     setTimeout(() => {
@@ -22,8 +24,9 @@ const prog = commander
         prog.outputHelp();
         throw validationResult[1];
       } else {
-        console.log('Valid config!', validationResult[1]);
-        process.exit(0);
+        const cfg = validationResult[1];
+        console.log('Valid config!', cfg);
+        run(cfg.entries, cfg.out, cfg.configPath);
       }
     }, 0);
   })

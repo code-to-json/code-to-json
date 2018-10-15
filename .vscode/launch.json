@@ -11,11 +11,18 @@
       "preLaunchTask": "build",
       "timeout": 500,
       "runtimeArgs": ["-r", "ts-node/register"],
+      "env": {
+        "DEBUG": "code-to-json*"
+      },
       "program": "${workspaceFolder}/packages/cli/lib/index.js",
       "args": [
-        "./samples/js-single-file/src/index.js",
+        "-c",
+        "./samples/js-single-file",
+        "-o",
+        "./out.json",
         "./samples/js-single-file/src/index.js"
       ],
+      "console": "internalConsole",
       "internalConsoleOptions": "openOnFirstSessionStart"
     }
   ]
