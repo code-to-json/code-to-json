@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.1.0](https://github.com/mike-north/code-to-json/compare/@code-to-json/cli@0.0.8...@code-to-json/cli@0.1.0) (2018-10-15)
+
+
+### Features
+
+* basic walking functionality ([c432da9](https://github.com/mike-north/code-to-json/commit/c432da9))
+
+
+
+
+
 ## [0.0.8](https://github.com/mike-north/code-to-json/compare/@code-to-json/cli@0.0.7...@code-to-json/cli@0.0.8) (2018-10-14)
 
 **Note:** Version bump only for package @code-to-json/cli
