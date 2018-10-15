@@ -43,6 +43,7 @@
     }
   },
   "dependencies": {
+    "@code-to-json/cli": "^0.1.9",
     "tsutils": "^3.1.0"
   }
 }
