@@ -1,6 +1,6 @@
 {
   "name": "@code-to-json/cli",
-  "version": "0.1.10",
+  "version": "0.1.11",
   "description": "",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
@@ -11,8 +11,8 @@
     "code-to-json": "bin/code-to-json"
   },
   "dependencies": {
-    "@code-to-json/core": "^0.1.4",
-    "@code-to-json/utils": "^0.1.4",
+    "@code-to-json/core": "^0.1.5",
+    "@code-to-json/utils": "^0.1.5",
     "commander": "^2.19.0",
     "debug": "^4.1.0",
     "lodash.get": "^4.4.2"
