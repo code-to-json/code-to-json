@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.1.4](https://github.com/mike-north/code-to-json/tree/master/packages/utils/compare/@code-to-json/utils@0.1.3...@code-to-json/utils@0.1.4) (2018-10-15)
+
+**Note:** Version bump only for package @code-to-json/utils
+
+
+
+
+
 ## [0.1.3](https://github.com/mike-north/code-to-json/compare/@code-to-json/utils@0.1.2...@code-to-json/utils@0.1.3) (2018-10-15)
 
 
