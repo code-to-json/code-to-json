@@ -1,3 +1,9 @@
+import { readdirSync } from 'fs';
+
+/**
+ * @module js-single-file
+ */
+
 /**
  * Add two numbers
  * @param {number} a
