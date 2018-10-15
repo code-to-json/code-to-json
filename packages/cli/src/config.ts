@@ -1,11 +1,16 @@
 import { Result } from './types';
-import { isEmpty, ValidationFeedback, isFileThatExists } from './validators';
+import {
+  isEmpty,
+  ValidationFeedback,
+  isDirectoryThatExists
+} from './validators';
 import * as path from 'path';
 import ValidationError from './errors/validation';
 import { isHomogenousArray } from '@code-to-json/utils';
 
-interface Config {
+interface CliConfig {
   entries: string[];
+  out: string;
   configPath?: string;
 }
 
@@ -24,7 +29,7 @@ function isExistingFilePath(rawPath: any, errors: ValidationFeedback) {
   if (isEmpty(rawPath)) {
     pathErrors.push('path must not be empty');
   }
-  if (isFileThatExists(path.join(process.cwd(), rawPath))) {
+  if (!isDirectoryThatExists(path.join(process.cwd(), rawPath))) {
     console.error('----', path.join(process.cwd(), rawPath));
     pathErrors.push('path must point to a folder that exists');
   }
@@ -35,9 +40,10 @@ function isExistingFilePath(rawPath: any, errors: ValidationFeedback) {
 
 export function validateConfig(rawOptions: {
   [k: string]: string | string[];
-}): Result<Config, ValidationError> {
+}): Result<CliConfig, ValidationError> {
   const validationErrors: ValidationFeedback = {};
   const configPath = rawOptions.config;
+  const out = rawOptions.out;
   const entries = rawOptions.entries;
   if (!validateEntries(entries)) {
     validationErrors.entries = ['Invalid entries'];
@@ -45,8 +51,14 @@ export function validateConfig(rawOptions: {
   if (typeof configPath === 'string') {
     isExistingFilePath(configPath, validationErrors);
   }
+  if (typeof out !== 'string') {
+    validationErrors.out = [`Invalid output path: "${out}"`];
+  }
   if (Object.keys(validationErrors).length === 0) {
-    return ['ok', { entries: entries as string[], configPath } as Config];
+    return [
+      'ok',
+      { entries: entries as string[], configPath, out } as CliConfig
+    ];
   } else {
     return [
       'error',

@@ -14,5 +14,9 @@
   "keywords": [],
   "devDependencies": {
     "typescript": "^3.1.2"
+  },
+  "dependencies": {
+    "tsutils": "^3.1.0",
+    "@code-to-json/utils": "^0.0.1"
   }
 }
