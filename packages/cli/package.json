@@ -6,7 +6,9 @@
   "typings": "lib/index.d.ts",
   "license": "BSD-2-Clause",
   "author": "Mike North <michael.l.north@gmail.com> (https://mike.works)",
-  "bin": "bin/code-to-json",
+  "bin": {
+    "code-to-json": "bin/code-to-json"
+  },
   "dependencies": {
     "@code-to-json/core": "^0.1.3",
     "@code-to-json/utils": "^0.1.3",
