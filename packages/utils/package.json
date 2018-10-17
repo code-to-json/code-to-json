@@ -8,12 +8,13 @@
   "author": "Mike North <michael.l.north@gmail.com> (https://mike.works)",
   "repository": "https://github.com/mike-north/code-to-json/tree/master/packages/utils",
   "scripts": {
-    "lint": "echo \"Error: no lint specified\" && exit 0",
+    "lint": "tslint --project .",
     "test": "echo \"Error: no test specified\" && exit 0",
     "prepublishOnly": "tsc -b ."
   },
   "keywords": [],
   "devDependencies": {
+    "tslint": "^5.11.0",
     "typescript": "^3.1.2"
   }
 }

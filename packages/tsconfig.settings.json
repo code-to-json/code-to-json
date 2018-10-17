@@ -1,13 +1,15 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "es2018",
     "module": "commonjs",
     "moduleResolution": "node",
-    "lib": ["scripthost", "es2017"],
+    "lib": ["scripthost", "es2015"],
     "declaration": true,
     "declarationMap": true,
+    "downlevelIteration": true,
     "sourceMap": true,
     "strict": true,
     "composite": true
-  }
+  },
+  "exclude": ["node_modules/**/*"]
 }
