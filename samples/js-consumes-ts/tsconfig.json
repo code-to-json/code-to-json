@@ -1,9 +1,10 @@
 {
-  "extends": "../../tsconfig.json",
-  "include": [
-    "./src/index.ts",
-    "./src/vehicle.ts",
-    "./src/car.js",
-    "./src/cycles.js"
-  ]
+  "compilerOptions": {
+    "target": "es2017",
+    "moduleResolution": "node",
+    "checkJs": true,
+    "allowJs": true,
+    "noEmit": true
+  },
+  "include": ["./src/**/*"]
 }

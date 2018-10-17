@@ -12,16 +12,11 @@
       "timeout": 500,
       "runtimeArgs": ["-r", "ts-node/register"],
       "env": {
-        "DEBUG": "code-to-json*"
+        "DEBUG": "code-to-json:*"
       },
       "program": "${workspaceFolder}/packages/cli/lib/index.js",
-      "args": [
-        "-c",
-        "./samples/js-single-file",
-        "-o",
-        "./out.json",
-        "./samples/js-single-file/src/index.js"
-      ],
+      "args": ["-o", "./out.json", "-p", "samples/js-multi-file"],
+      "autoAttachChildProcesses": true,
       "console": "internalConsole",
       "internalConsoleOptions": "openOnFirstSessionStart"
     }

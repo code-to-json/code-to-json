@@ -8,5 +8,7 @@
     "**/.DS_Store": true,
     "src/**/*.js": { "when": "$(basename).ts" },
     "src/**/*.d.ts": { "when": "$(basename).ts" }
-  }
+  },
+  "eslint.autoFixOnSave": true,
+  "prettier.tslintIntegration": true
 }

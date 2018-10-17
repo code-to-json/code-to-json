@@ -1,2 +1,8 @@
 #!/usr/bin/env node
-require('../lib/index.js');
+var importLocal = require('import-local');
+
+if (importLocal(__filename)) {
+  console.log('Using local version of this package');
+} else {
+  require('../lib/index.js');
+}

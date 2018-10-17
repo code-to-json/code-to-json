@@ -1,13 +1,8 @@
 {
-  "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "lib": ["scripthost", "es2015", "dom"]
+    "target": "es2017",
+    "moduleResolution": "node",
+    "noEmit": true
   },
-  "include": [
-    "./src/index.ts",
-    "./src/vehicle.ts",
-    "./src/car.ts",
-    "./src/cycles.ts",
-    "./src/types.ts"
-  ]
+  "include": ["./src/**/*"]
 }

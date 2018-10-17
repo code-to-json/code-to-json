@@ -1,6 +1,3 @@
-import * as fs from 'fs';
-import * as path from 'path';
-
 function get(obj: any, propname: string) {
   if (obj && typeof obj === 'object') return obj[propname];
   else return undefined;
@@ -46,13 +43,3 @@ export function isBlank(obj: any): boolean {
 export function isPresent(obj: object): any {
   return !isBlank(obj);
 }
-
-export function isFileThatExists(pathString: string): boolean {
-  return fs.existsSync(pathString) && fs.lstatSync(pathString).isFile();
-}
-
-export function isDirectoryThatExists(pathString: string): boolean {
-  return fs.existsSync(pathString) && fs.lstatSync(pathString).isDirectory();
-}
-
-export type ValidationFeedback = { [k: string]: string[] };
