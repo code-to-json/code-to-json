@@ -23,7 +23,9 @@ export function flagsToString(
     if (flag === 0) {
       continue;
     }
+    // tslint:disable-next-line:no-bitwise
     if ((flag & flags) === flag) {
+      // tslint:disable-next-line:no-bitwise
       flags &= ~flag;
       flagNames.push(flagName);
     }
