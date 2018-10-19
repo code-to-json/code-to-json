@@ -1,10 +1,13 @@
 function get(obj: any, propname: string) {
-  if (obj && typeof obj === 'object') return obj[propname];
-  else return undefined;
+  if (obj && typeof obj === 'object') {
+    return obj[propname];
+  } else {
+    return undefined;
+  }
 }
 
 export function isEmpty(obj: any): boolean {
-  let none = obj === null || obj === undefined;
+  const none = obj === null || obj === undefined;
   if (none) {
     return none;
   }
@@ -13,10 +16,10 @@ export function isEmpty(obj: any): boolean {
     return !obj.size;
   }
 
-  let objectType = typeof obj;
+  const objectType = typeof obj;
 
   if (objectType === 'object') {
-    let size = get(obj, 'size');
+    const size = get(obj, 'size');
     if (typeof size === 'number') {
       return !size;
     }
@@ -27,7 +30,7 @@ export function isEmpty(obj: any): boolean {
   }
 
   if (objectType === 'object') {
-    let length = get(obj, 'length');
+    const length = get(obj, 'length');
     if (typeof length === 'number') {
       return !length;
     }

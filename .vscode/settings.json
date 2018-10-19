@@ -9,6 +9,6 @@
     "src/**/*.js": { "when": "$(basename).ts" },
     "src/**/*.d.ts": { "when": "$(basename).ts" }
   },
-  "eslint.autoFixOnSave": true,
-  "prettier.tslintIntegration": true
+  "tslint.autoFixOnSave": true,
+  "tslint.exclude": ["node_modules/**/*"]
 }

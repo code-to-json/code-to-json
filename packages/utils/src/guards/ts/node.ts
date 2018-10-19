@@ -6,8 +6,9 @@ import * as ts from 'typescript';
  * Based on ts.isDeclarationKind() from the compiler.
  * https://github.com/Microsoft/TypeScript/blob/v3.0.3/src/compiler/utilities.ts#L6382
  */
-export function isDeclarationKind(kind: ts.SyntaxKind): boolean {
+function isDeclarationKind(kind: ts.SyntaxKind): boolean {
   return (
+    kind === ts.SyntaxKind.SourceFile ||
     kind === ts.SyntaxKind.ArrowFunction ||
     kind === ts.SyntaxKind.BindingElement ||
     kind === ts.SyntaxKind.ClassDeclaration ||
@@ -42,4 +43,47 @@ export function isDeclarationKind(kind: ts.SyntaxKind): boolean {
     kind === ts.SyntaxKind.JSDocCallbackTag ||
     kind === ts.SyntaxKind.JSDocPropertyTag
   );
+}
+
+export function isNamedDeclaration(node: ts.Node): node is ts.NamedDeclaration {
+  return (
+    ts.isClassLike(node) ||
+    ts.isFunctionLike(node) ||
+    ts.isTypeParameterDeclaration(node) ||
+    ts.isParameter(node) ||
+    ts.isObjectLiteralElement(node) ||
+    ts.isPropertyDeclaration(node) ||
+    ts.isVariableDeclaration(node)
+  );
+}
+
+export function isDeclaration(
+  node: ts.Node | ts.Declaration
+): node is ts.Declaration {
+  return isDeclarationKind(node.kind);
+}
+
+/** True if this is visible outside this file, false otherwise */
+export function isNodeExported(node: ts.Declaration): boolean {
+  return (
+    // tslint:disable-next-line:no-bitwise
+    (ts.getCombinedModifierFlags(node) & ts.ModifierFlags.Export) !== 0 ||
+    (!!node.parent && node.parent.kind === ts.SyntaxKind.SourceFile)
+  );
+}
+
+export function isType(
+  thing: ts.Symbol | ts.Declaration | ts.Type | ts.Node
+): thing is ts.Type {
+  return !!(thing as ts.Type).getBaseTypes && !!(thing as ts.Type).isUnion;
+}
+export function isSymbol(
+  thing: ts.Symbol | ts.Declaration | ts.Type | ts.Node
+): thing is ts.Symbol {
+  return !!(thing as any).escapedName;
+}
+export function isNode(
+  thing: ts.Symbol | ts.Declaration | ts.Type | ts.Node
+): thing is ts.Node {
+  return !!(thing as any).kind;
 }

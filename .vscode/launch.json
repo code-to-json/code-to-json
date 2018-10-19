@@ -9,7 +9,7 @@
       "request": "launch",
       "name": "Launch CLI",
       "preLaunchTask": "build",
-      "timeout": 500,
+      "timeout": 10000,
       "runtimeArgs": ["-r", "ts-node/register"],
       "env": {
         "DEBUG": "code-to-json:*"
@@ -17,7 +17,7 @@
       "program": "${workspaceFolder}/packages/cli/lib/index.js",
       "args": ["-o", "./out.json", "-p", "samples/js-multi-file"],
       "autoAttachChildProcesses": true,
-      "console": "internalConsole",
+      "console": "integratedTerminal",
       "internalConsoleOptions": "openOnFirstSessionStart"
     }
   ]
