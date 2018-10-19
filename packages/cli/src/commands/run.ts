@@ -27,12 +27,12 @@ async function globsToPaths(
 ): Promise<string[]> {
   const valueSet = new Set<string>();
   await Promise.all(
-    globs.map((g) =>
+    globs.map(g =>
       pGlob(g)
         .then((files: string[]) => {
-          files.forEach((f) => valueSet.add(f));
+          files.forEach(f => valueSet.add(f));
         })
-        .catch((er) => {
+        .catch(er => {
           throw new InvalidArgumentsError(`Invalid glob: ${g}\n${er}`);
         })
     )
@@ -41,7 +41,7 @@ async function globsToPaths(
   // If extensions are provided, only return those files that match
   return extensions
     ? allPaths.filter(
-        (f) => extensions.indexOf(path.extname(f).toLowerCase()) >= 0
+        f => extensions.indexOf(path.extname(f).toLowerCase()) >= 0
       )
     : allPaths;
 }
@@ -117,7 +117,7 @@ export default async function run(
   options: { [k: string]: any },
   rawEntries?: string[]
 ): Promise<void> {
-  const { project } = options;
+  const { project, out = 'out.json' } = options;
   let program!: ts.Program;
   if (typeof project === 'string') {
     program = await createProgramFromTsConfig(project);
@@ -129,65 +129,8 @@ export default async function run(
     );
   }
   const walkResult = walkProgram(program);
-  debugLog('walk result', walkResult);
+  // debugLog('walk result', walkResult);
   // console.log(walkResult);
-  // const outputPath = path.isAbsolute(out) ? out : path.join(process.cwd(), out);
-  // fs.writeFileSync(outputPath, JSON.stringify(walkResult, null, '  '));
+  const outputPath = path.isAbsolute(out) ? out : path.join(process.cwd(), out);
+  fs.writeFileSync(outputPath, JSON.stringify(walkResult, null, '  '));
 }
-// export default function run(
-//   entries: string[],
-//   out: string,
-//   configPath?: string
-// ) {
-//   const beginTime = process.hrtime();
-//   let tsCompilerOptions: ts.CompilerOptions;
-//   if (configPath) {
-//     // const cfgFileText = fs
-//     //   .readFileSync(path.join(process.cwd(), configPath))
-//     //   .toString();
-//     const cfgPath = ts.findConfigFile(configPath, (fn: string) => true);
-//     if (!cfgPath) throw new Error('No config file found');
-//     const cfgFilePath = cfgPath;
-//     // const cfgFilePath = path.isAbsolute(cfgPath)
-//     //   ? cfgPath
-//     //   : path.join(process.cwd(), cfgPath);
-//     const { config, error } = ts.readConfigFile(cfgFilePath, (fPath: string) =>
-//       fs.readFileSync(fPath).toString()
-//     );
-//     if (error) {
-//       throw new Error(
-//         `Problem reading ${cfgFilePath}\n${error.messageText.toString()}`
-//       );
-//     } else {
-//       console.log(`Found config file\n${JSON.stringify(config, null, '  ')}`);
-//     }
-//     tsCompilerOptions = DEFAULT_COMPILER_OPTIONS;
-//     entries = ['samples/ts-single-file/src/index.ts']; //config.files;
-//   } else {
-//     tsCompilerOptions = DEFAULT_COMPILER_OPTIONS;
-//   }
-//   console.log(
-//     `Walking tree using TS compiler options \n${JSON.stringify(
-//       tsCompilerOptions
-//     )}`
-//   );
-//   console.log(`...and entries \n${JSON.stringify(entries)}`);
-//   ts.createProgram;
-//   let arr: any[] = [];
-//   const prog = ts.createProgram({
-//     rootNames: entries,
-//     options: tsCompilerOptions,
-//     configFileParsingDiagnostics: arr
-//   });
-//   console.log('DIAGNOSTICS=', arr);
-//   const walkResult = walkProgram(prog);
-//   const timeElapsed = process.hrtime(beginTime);
-//   console.log(
-//     `Code extraction took ${Math.round(
-//       (timeElapsed[0] * NS_PER_SEC + timeElapsed[1]) / 1e3
-//     ) / 1e3}ms`
-//   );
-//   console.log(walkResult);
-//   const outputPath = path.isAbsolute(out) ? out : path.join(process.cwd(), out);
-//   fs.writeFileSync(outputPath, JSON.stringify(walkResult, null, '  '));
-// }
