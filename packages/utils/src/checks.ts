@@ -1,3 +1,4 @@
+import * as ts from 'typescript';
 function get(obj: any, propname: string) {
   if (obj && typeof obj === 'object') {
     return obj[propname];
@@ -45,4 +46,13 @@ export function isBlank(obj: any): boolean {
 
 export function isPresent(obj: object): any {
   return !isBlank(obj);
+}
+
+/** True if this is visible outside this file, false otherwise */
+export function isNodeExported(node: ts.Declaration): boolean {
+  return (
+    // tslint:disable-next-line:no-bitwise
+    (ts.getCombinedModifierFlags(node) & ts.ModifierFlags.Export) !== 0 ||
+    (!!node.parent && node.parent.kind === ts.SyntaxKind.SourceFile)
+  );
 }

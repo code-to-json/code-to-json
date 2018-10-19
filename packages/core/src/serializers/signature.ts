@@ -1,10 +1,9 @@
 import * as ts from 'typescript';
-import { isRef, ProcessingQueue, Ref } from '../processing-queue';
-import { EntityMap } from '../types';
-import { SerializedSymbol } from './symbol';
+import { ProcessingQueue } from '../processing-queue';
+import Ref, { isRef } from '../processing-queue/ref';
 
 export interface SerializedSignature {
-  parameters: Array<Ref<EntityMap, 'symbol'>>;
+  parameters: Array<Ref<'symbol'>>;
   returnType: string; // TODO: type?
   documentation: string;
 }
@@ -13,7 +12,7 @@ export interface SerializedSignature {
 export default function serializeSignature(
   signature: ts.Signature,
   checker: ts.TypeChecker,
-  q: ProcessingQueue<EntityMap>
+  q: ProcessingQueue
 ): SerializedSignature {
   return {
     parameters: signature.parameters
