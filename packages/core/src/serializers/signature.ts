@@ -16,7 +16,7 @@ export default function serializeSignature(
 ): SerializedSignature {
   return {
     parameters: signature.parameters
-      .map(p => q.queue(p, 'symbol'))
+      .map((p) => q.queue(p, 'symbol'))
       .filter(isRef),
     returnType: checker.typeToString(signature.getReturnType()),
     documentation: ts.displayPartsToString(

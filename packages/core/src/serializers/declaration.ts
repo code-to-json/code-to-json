@@ -1,12 +1,13 @@
+import { isNamedDeclaration } from '@code-to-json/utils/lib/guards';
 import * as ts from 'typescript';
 import { ProcessingQueue } from '../processing-queue';
 import Ref from '../processing-queue/ref';
-import { EntityMap } from '../types';
 
 export interface SerializedDeclaration {
   thing: 'declaration';
   id: string;
   text: string;
+  name?: string;
 }
 
 export default function serializeDeclaration(
@@ -20,22 +21,10 @@ export default function serializeDeclaration(
     thing: 'declaration',
     text: decl.getText()
   };
-  // const name = isNamedDeclaration(decl) && decl.name;
-  // const sym = checker.getSymbolAtLocation(name || decl);
-  // if (sym) {
-  //   if (name) {
-  //     return {
-  //       name: name.getText()
-  //     };
-  //   } else {
-  //     return serializeSymbol(sym, checker, walkData);
-  //   }
-  // } else {
-  //   const typ = checker.getTypeAtLocation(name || decl);
-  //   if (typ) {
-  //     return serializeType(typ, checker, walkData);
-  //   }
-  //   debugger;
-  // }
+  const name = isNamedDeclaration(decl) && decl.name;
+  const sym = checker.getSymbolAtLocation(name || decl);
+  if (sym && name) {
+    details.name = name.getText();
+  }
   return details;
 }

@@ -28,10 +28,10 @@ export function generateId(
     return 'TYP' + (thing as any).id;
   } else if (isSymbol(thing)) {
     const parts: any[] = [thing.name, thing.flags];
-    if (thing.valueDeclaration) {
-      const { valueDeclaration } = thing;
-      parts.push(thing.valueDeclaration.pos);
-      parts.push(thing.valueDeclaration.end);
+    const { valueDeclaration } = thing;
+    if (valueDeclaration) {
+      parts.push(valueDeclaration.pos);
+      parts.push(valueDeclaration.end);
     }
     return generateHash('symbol' + parts.filter(Boolean).join('-'));
   } else {

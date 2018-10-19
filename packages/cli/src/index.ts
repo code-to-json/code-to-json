@@ -5,7 +5,6 @@ import * as commander from 'commander';
 import * as debug from 'debug';
 import * as leftpad from 'left-pad';
 import run from './commands/run';
-import InvalidArgumentsError from './invalid-arguments-error';
 
 // tslint:disable-next-line:no-var-requires
 const pkg = require('../package.json');

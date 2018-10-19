@@ -1,5 +1,4 @@
 import { walkProgram } from '@code-to-json/core';
-import chalk from 'chalk';
 import * as fs from 'fs';
 import * as glob from 'glob';
 import * as path from 'path';
@@ -27,12 +26,12 @@ async function globsToPaths(
 ): Promise<string[]> {
   const valueSet = new Set<string>();
   await Promise.all(
-    globs.map(g =>
+    globs.map((g) =>
       pGlob(g)
         .then((files: string[]) => {
-          files.forEach(f => valueSet.add(f));
+          files.forEach((f) => valueSet.add(f));
         })
-        .catch(er => {
+        .catch((er) => {
           throw new InvalidArgumentsError(`Invalid glob: ${g}\n${er}`);
         })
     )
@@ -41,7 +40,7 @@ async function globsToPaths(
   // If extensions are provided, only return those files that match
   return extensions
     ? allPaths.filter(
-        f => extensions.indexOf(path.extname(f).toLowerCase()) >= 0
+        (f) => extensions.indexOf(path.extname(f).toLowerCase()) >= 0
       )
     : allPaths;
 }
@@ -62,9 +61,9 @@ async function createProgramFromTsConfig(searchPath: string) {
     debugLog('tsconfig diagnostics', error);
     throw new InvalidArgumentsError('TSConfig error - ' + error.messageText);
   } else if (config) {
-    const diagReporter: ts.DiagnosticReporter = (ts as any).createDiagnosticReporter(
-      ts.sys
-    );
+    // const diagReporter: ts.DiagnosticReporter = (ts as any).createDiagnosticReporter(
+    //   ts.sys
+    // );
     const configResult = ts.getParsedCommandLineOfConfigFile(
       cfgPath,
       {},
