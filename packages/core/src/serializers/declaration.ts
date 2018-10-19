@@ -1,5 +1,6 @@
 import * as ts from 'typescript';
-import { ProcessingQueue, Ref } from '../processing-queue';
+import { ProcessingQueue } from '../processing-queue';
+import Ref from '../processing-queue/ref';
 import { EntityMap } from '../types';
 
 export interface SerializedDeclaration {
@@ -11,8 +12,8 @@ export interface SerializedDeclaration {
 export default function serializeDeclaration(
   decl: ts.Declaration,
   checker: ts.TypeChecker,
-  ref: Ref<EntityMap, 'declaration'>,
-  queue: ProcessingQueue<EntityMap>
+  ref: Ref<'declaration'>,
+  queue: ProcessingQueue
 ): SerializedDeclaration {
   const details: SerializedDeclaration = {
     id: ref.id,

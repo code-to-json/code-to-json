@@ -1,8 +1,7 @@
 import { Flags, flagsToString, mapUem } from '@code-to-json/utils';
 import * as ts from 'typescript';
-import { isRef, ProcessingQueue, Ref } from '../processing-queue';
-import { EntityMap } from '../types';
-import { SerializedDeclaration } from './declaration';
+import { ProcessingQueue } from '../processing-queue';
+import Ref, { isRef } from '../processing-queue/ref';
 import serializeSignature, { SerializedSignature } from './signature';
 
 export interface SerializedSymbol {
@@ -11,10 +10,10 @@ export interface SerializedSymbol {
   name: string;
   documentation: string;
   flags?: Flags;
-  type?: Ref<EntityMap, 'type'>;
-  members?: Array<Ref<EntityMap, 'symbol'>>;
-  exports?: Array<Ref<EntityMap, 'symbol'>>;
-  declarations: Array<Ref<EntityMap, 'declaration'>>;
+  type?: Ref<'type'>;
+  members?: Array<Ref<'symbol'>>;
+  exports?: Array<Ref<'symbol'>>;
+  declarations: Array<Ref<'declaration'>>;
   constructorSignatures?: SerializedSignature[];
   callSignatures?: SerializedSignature[];
 }
@@ -22,8 +21,8 @@ export interface SerializedSymbol {
 export default function serializeSymbol(
   symbol: ts.Symbol,
   checker: ts.TypeChecker,
-  ref: Ref<EntityMap, 'symbol'>,
-  queue: ProcessingQueue<EntityMap>
+  ref: Ref<'symbol'>,
+  queue: ProcessingQueue
 ): SerializedSymbol {
   const { exports, members, flags, declarations, valueDeclaration } = symbol;
   // Get the construct signatures

@@ -1,19 +1,17 @@
 import {
-  flagsToString,
   isDeclaration,
   isNodeExported,
   isSymbol,
   isType,
-  mapUem,
   UnreachableError
 } from '@code-to-json/utils';
 import * as ts from 'typescript';
-import { create as createQueue, Ref } from './processing-queue';
+import { create as createQueue } from './processing-queue';
+import Ref from './processing-queue/ref';
 import serializeDeclaration from './serializers/declaration';
 import serializeSymbol from './serializers/symbol';
 import serializeType from './serializers/type';
 import { EntityMap } from './types';
-// import WalkVisitor from './visitor';
 
 /**
  * Walk a typescript program, using specified entry points, returning
@@ -21,7 +19,6 @@ import { EntityMap } from './types';
  */
 export function walkProgram(program: ts.Program) {
   const checker = program.getTypeChecker();
-  // const v = new WalkVisitor();
   const sourceFiles = program
     .getSourceFiles()
     .filter(f => !f.isDeclarationFile);
@@ -33,27 +30,18 @@ export function walkProgram(program: ts.Program) {
     }
     return q.queue(sym, 'symbol');
   });
-  // const { types, declarations, symbols } = v.drainUntilDone(checker);
-  // tslint:disable-next-line:no-debugger
-  // const out = { files, types, declarations, symbols };
-  // tslint:disable-next-line:no-console
-  // console.log(JSON.stringify(out, null, '  '));
+
   const result = q.drain((ref, entity) => {
     const { id } = ref;
     if (isSymbol(entity)) {
-      return serializeSymbol(
-        entity,
-        checker,
-        ref as Ref<EntityMap, 'symbol'>,
-        q
-      );
+      return serializeSymbol(entity, checker, ref as Ref<'symbol'>, q);
     } else if (isType(entity)) {
-      return serializeType(entity, checker, ref as Ref<EntityMap, 'type'>, q);
+      return serializeType(entity, checker, ref as Ref<'type'>, q);
     } else if (isDeclaration(entity)) {
       return serializeDeclaration(
         entity,
         checker,
-        ref as Ref<EntityMap, 'declaration'>,
+        ref as Ref<'declaration'>,
         q
       );
     } else {
@@ -64,6 +52,7 @@ export function walkProgram(program: ts.Program) {
       throw new UnreachableError(entity, 'Unprocessable entity');
     }
   });
+  // tslint:disable-next-line:no-console
   console.log(JSON.stringify(result, null, '  '));
   return result;
 }

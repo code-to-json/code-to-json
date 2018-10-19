@@ -63,15 +63,6 @@ export function isDeclaration(
   return isDeclarationKind(node.kind);
 }
 
-/** True if this is visible outside this file, false otherwise */
-export function isNodeExported(node: ts.Declaration): boolean {
-  return (
-    // tslint:disable-next-line:no-bitwise
-    (ts.getCombinedModifierFlags(node) & ts.ModifierFlags.Export) !== 0 ||
-    (!!node.parent && node.parent.kind === ts.SyntaxKind.SourceFile)
-  );
-}
-
 export function isType(
   thing: ts.Symbol | ts.Declaration | ts.Type | ts.Node
 ): thing is ts.Type {
