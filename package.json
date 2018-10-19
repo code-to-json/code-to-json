@@ -13,6 +13,7 @@
     "@commitlint/travis-cli": "^7.2.1",
     "@types/debug": "0.0.31",
     "@types/glob": "^7.1.1",
+    "@types/hashids": "^1.0.30",
     "@types/left-pad": "^1.2.0",
     "@types/lodash": "^4.14.117",
     "@types/node": "^10.11.7",
@@ -48,6 +49,7 @@
   },
   "dependencies": {
     "@code-to-json/cli": "^0.1.9",
+    "hashids": "^1.2.2",
     "tsutils": "^3.1.0"
   }
 }

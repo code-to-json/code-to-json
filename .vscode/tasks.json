@@ -16,7 +16,6 @@
       },
       "group": "build"
     },
-
     {
       "label": "build-core",
       "type": "typescript",
@@ -31,8 +30,21 @@
       "group": "build"
     },
     {
+      "label": "build-utils",
+      "type": "typescript",
+      "tsconfig": "packages/utils/tsconfig.json",
+      "problemMatcher": ["$tsc"],
+      "presentation": {
+        "echo": true,
+        "reveal": "silent",
+        "focus": false,
+        "panel": "shared"
+      },
+      "group": "build"
+    },
+    {
       "label": "build",
-      "dependsOn": ["build-core", "build-cli"],
+      "dependsOn": ["build-cli", "build-core", "build-utils"],
       "group": {
         "kind": "build",
         "isDefault": true
