@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.2.0](https://github.com/mike-north/code-to-json/tree/master/packages/core/compare/@code-to-json/core@0.1.5...@code-to-json/core@0.2.0) (2018-10-19)
+
+
+### Features
+
+* queue/flush graph traversal ([5cc66c4](https://github.com/mike-north/code-to-json/tree/master/packages/core/commit/5cc66c4))
+* rebuild cli tool to support globs, walk symbols instead of nodes ([b8349e7](https://github.com/mike-north/code-to-json/tree/master/packages/core/commit/b8349e7))
+
+
+
+
+
 ## [0.1.5](https://github.com/mike-north/code-to-json/tree/master/packages/core/compare/@code-to-json/core@0.1.4...@code-to-json/core@0.1.5) (2018-10-15)
 
 **Note:** Version bump only for package @code-to-json/core

@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.2.0](https://github.com/mike-north/code-to-json/tree/master/packages/cli/compare/@code-to-json/cli@0.1.11...@code-to-json/cli@0.2.0) (2018-10-19)
+
+
+### Features
+
+* queue/flush graph traversal ([5cc66c4](https://github.com/mike-north/code-to-json/tree/master/packages/cli/commit/5cc66c4))
+* rebuild cli tool to support globs, walk symbols instead of nodes ([b8349e7](https://github.com/mike-north/code-to-json/tree/master/packages/cli/commit/b8349e7))
+
+
+
+
+
 ## [0.1.11](https://github.com/mike-north/code-to-json/tree/master/packages/cli/compare/@code-to-json/cli@0.1.10...@code-to-json/cli@0.1.11) (2018-10-15)
 
 **Note:** Version bump only for package @code-to-json/cli
