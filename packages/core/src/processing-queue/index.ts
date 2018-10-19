@@ -1,5 +1,3 @@
-import { isSymbol, isType } from '@code-to-json/utils';
-import Hashids from 'hashids';
 import * as ts from 'typescript';
 import { EntityMap } from '../types';
 import { generateId } from './generate-id';
@@ -39,7 +37,7 @@ export function create(): ProcessingQueue {
       processed: 0
     };
     (['declaration', 'symbol', 'type'] as Array<keyof EntityMap>).forEach(
-      key => {
+      (key) => {
         const map = data[key] as Map<EntityMap[K], RefTracking<K>>;
         map.forEach((rt, item) => {
           if (rt.processed === true) {

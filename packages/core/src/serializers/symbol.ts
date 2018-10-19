@@ -53,7 +53,7 @@ export default function serializeSymbol(
       ),
     declarations:
       declarations &&
-      declarations.map(d => queue.queue(d, 'declaration')).filter(isRef)
+      declarations.map((d) => queue.queue(d, 'declaration')).filter(isRef)
   };
   if (valueDeclaration) {
     const valDeclType = checker.getTypeOfSymbolAtLocation(
@@ -62,10 +62,10 @@ export default function serializeSymbol(
     );
     details.constructorSignatures = valDeclType
       .getConstructSignatures()
-      .map(s => serializeSignature(s, checker, queue));
+      .map((s) => serializeSignature(s, checker, queue));
     details.callSignatures = valDeclType
       .getCallSignatures()
-      .map(s => serializeSignature(s, checker, queue));
+      .map((s) => serializeSignature(s, checker, queue));
   }
   return details;
 }
