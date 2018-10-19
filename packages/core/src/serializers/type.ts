@@ -1,12 +1,13 @@
 import { flagsToString } from '@code-to-json/utils';
 import * as ts from 'typescript';
-import { ProcessingQueue, Ref } from '../processing-queue';
-import { EntityMap } from '../types';
+import { ProcessingQueue } from '../processing-queue';
+import Ref from '../processing-queue/ref';
+
 export default function serializeType(
   typ: ts.Type,
   checker: ts.TypeChecker,
-  ref: Ref<EntityMap, 'type'>,
-  queue: ProcessingQueue<EntityMap>
+  ref: Ref<'type'>,
+  queue: ProcessingQueue
 ) {
   const { flags, aliasSymbol, aliasTypeArguments, symbol } = typ;
 
