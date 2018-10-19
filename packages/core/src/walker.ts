@@ -11,7 +11,6 @@ import Ref from './processing-queue/ref';
 import serializeDeclaration from './serializers/declaration';
 import serializeSymbol from './serializers/symbol';
 import serializeType from './serializers/type';
-import { EntityMap } from './types';
 
 /**
  * Walk a typescript program, using specified entry points, returning
@@ -21,9 +20,9 @@ export function walkProgram(program: ts.Program) {
   const checker = program.getTypeChecker();
   const sourceFiles = program
     .getSourceFiles()
-    .filter(f => !f.isDeclarationFile);
+    .filter((f) => !f.isDeclarationFile);
   const q = createQueue();
-  sourceFiles.forEach(sf => {
+  sourceFiles.forEach((sf) => {
     const sym = checker.getSymbolAtLocation(sf);
     if (!sym) {
       throw new Error(`No symbol for source file ${sf.fileName}`);
@@ -32,7 +31,6 @@ export function walkProgram(program: ts.Program) {
   });
 
   const result = q.drain((ref, entity) => {
-    const { id } = ref;
     if (isSymbol(entity)) {
       return serializeSymbol(entity, checker, ref as Ref<'symbol'>, q);
     } else if (isType(entity)) {
@@ -46,6 +44,7 @@ export function walkProgram(program: ts.Program) {
       );
     } else {
       if (!isNodeExported(entity)) {
+        debugger;
         return;
       }
       debugger;
