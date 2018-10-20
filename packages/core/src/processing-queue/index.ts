@@ -1,20 +1,21 @@
 import * as ts from 'typescript';
 import { EntityMap } from '../types';
 import { generateId } from './generate-id';
-import Ref from './ref';
+import { RefFor, TypeRef } from './ref';
 
 export interface ProcessingQueue {
   queue<K extends keyof EntityMap>(
     thing: EntityMap[K],
-    refType: K
-  ): Ref<K> | undefined;
+    refType: K,
+    checker: ts.TypeChecker
+  ): RefFor<K> | undefined;
   drain<K extends keyof EntityMap>(
-    cb: (ref: Ref<K>, entity: EntityMap[K]) => any
+    cb: (ref: RefFor<K>, entity: EntityMap[K]) => any
   ): { [KK in keyof EntityMap]: any[] };
 }
 
 interface RefTracking<K extends keyof EntityMap> {
-  ref: Ref<K>;
+  ref: RefFor<K>;
   processed: boolean;
 }
 
@@ -22,40 +23,43 @@ export function create(): ProcessingQueue {
   const data: { [K in keyof EntityMap]: Map<EntityMap[K], RefTracking<K>> } = {
     symbol: new Map<ts.Symbol, RefTracking<'symbol'>>(),
     type: new Map<ts.Type, RefTracking<'type'>>(),
+    node: new Map<ts.Node, RefTracking<'node'>>(),
     declaration: new Map<ts.Declaration, RefTracking<'declaration'>>()
   };
 
   const out = {
     declaration: [] as any[],
     symbol: [] as any[],
-    type: [] as any[]
+    type: [] as any[],
+    node: [] as any[]
   };
   function flush<K extends keyof EntityMap>(
-    cb: (ref: Ref<K>, entity: EntityMap[K]) => any
+    cb: (ref: RefFor<K>, entity: EntityMap[K]) => any
   ): { processed: number } {
     const outputInfo = {
       processed: 0
     };
-    (['declaration', 'symbol', 'type'] as Array<keyof EntityMap>).forEach(
-      (key) => {
-        const map = data[key] as Map<EntityMap[K], RefTracking<K>>;
-        map.forEach((rt, item) => {
-          if (rt.processed === true) {
-            return;
-          }
-          out[key].push(cb(rt.ref as Ref<K>, item));
-          rt.processed = true;
-          outputInfo.processed++;
-        });
-      }
-    );
+    (['declaration', 'symbol', 'type', 'node'] as Array<
+      keyof EntityMap
+    >).forEach((key) => {
+      const map = data[key] as Map<EntityMap[K], RefTracking<K>>;
+      map.forEach((rt, item) => {
+        if (rt.processed === true) {
+          return;
+        }
+        out[key].push(cb(rt.ref as RefFor<K>, item));
+        rt.processed = true;
+        outputInfo.processed++;
+      });
+    });
     return outputInfo;
   }
   return {
     queue<K extends keyof EntityMap>(
       thing: EntityMap[K],
-      refType: K
-    ): Ref<K> | undefined {
+      refType: K,
+      checker: ts.TypeChecker
+    ): RefFor<K> | undefined {
       if (!thing) {
         return;
       }
@@ -65,13 +69,22 @@ export function create(): ProcessingQueue {
         return rt.ref;
       }
       const id = generateId(thing);
-      const ref = { refType, id } as Ref<K>;
-
+      const ref = { refType, id } as RefFor<K>;
+      if (refType === 'type') {
+        (ref as TypeRef).typeString = checker.typeToString(
+          thing as ts.Type,
+          undefined,
+          // tslint:disable-next-line:no-bitwise
+          ts.TypeFormatFlags.NoTruncation &
+            ts.TypeFormatFlags.UseAliasDefinedOutsideCurrentScope &
+            ts.TypeFormatFlags.AddUndefined
+        );
+      }
       map.set(thing, { ref, processed: false });
       return ref;
     },
     drain<K extends keyof EntityMap>(
-      cb: (ref: Ref<K>, entity: EntityMap[K]) => any
+      cb: (ref: RefFor<K>, entity: EntityMap[K]) => any
     ): { [KK in keyof EntityMap]: any[] } {
       const maxLoops = 10;
       const flushCount = 0;

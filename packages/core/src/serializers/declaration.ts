@@ -1,7 +1,8 @@
 import { isNamedDeclaration } from '@code-to-json/utils/lib/guards';
 import * as ts from 'typescript';
 import { ProcessingQueue } from '../processing-queue';
-import Ref from '../processing-queue/ref';
+import { DeclarationRef } from '../processing-queue/ref';
+import serializeNode from './node';
 
 export interface SerializedDeclaration {
   thing: 'declaration';
@@ -13,18 +14,8 @@ export interface SerializedDeclaration {
 export default function serializeDeclaration(
   decl: ts.Declaration,
   checker: ts.TypeChecker,
-  ref: Ref<'declaration'>,
-  queue: ProcessingQueue
+  ref: DeclarationRef,
+  _queue: ProcessingQueue
 ): SerializedDeclaration {
-  const details: SerializedDeclaration = {
-    id: ref.id,
-    thing: 'declaration',
-    text: decl.getText()
-  };
-  const name = isNamedDeclaration(decl) && decl.name;
-  const sym = checker.getSymbolAtLocation(name || decl);
-  if (sym && name) {
-    details.name = name.getText();
-  }
-  return details;
+  return { ...serializeNode(decl, checker, ref, _queue), thing: 'declaration' };
 }

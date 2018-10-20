@@ -21,9 +21,7 @@ function generateHash(str: string) {
   return hex.slice(-12);
 }
 
-export function generateId(
-  thing: ts.Symbol | ts.Declaration | ts.Type
-): string {
+export function generateId(thing: ts.Symbol | ts.Node | ts.Type): string {
   if (isType(thing)) {
     return 'TYP' + (thing as any).id;
   } else if (isSymbol(thing)) {
