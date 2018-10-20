@@ -1,7 +1,12 @@
 import { Flags, flagsToString, mapUem } from '@code-to-json/utils';
 import * as ts from 'typescript';
 import { ProcessingQueue } from '../processing-queue';
-import Ref, { isRef } from '../processing-queue/ref';
+import {
+  DeclarationRef,
+  isRef,
+  SymbolRef,
+  TypeRef
+} from '../processing-queue/ref';
 import serializeSignature, { SerializedSignature } from './signature';
 
 export interface SerializedSymbol {
@@ -10,10 +15,10 @@ export interface SerializedSymbol {
   name: string;
   documentation: string;
   flags?: Flags;
-  type?: Ref<'type'>;
-  members?: Array<Ref<'symbol'>>;
-  exports?: Array<Ref<'symbol'>>;
-  declarations: Array<Ref<'declaration'>>;
+  type?: TypeRef;
+  members?: SymbolRef[];
+  exports?: SymbolRef[];
+  declarations: DeclarationRef[];
   constructorSignatures?: SerializedSignature[];
   callSignatures?: SerializedSignature[];
 }
@@ -21,7 +26,7 @@ export interface SerializedSymbol {
 export default function serializeSymbol(
   symbol: ts.Symbol,
   checker: ts.TypeChecker,
-  ref: Ref<'symbol'>,
+  ref: SymbolRef,
   queue: ProcessingQueue
 ): SerializedSymbol {
   const { exports, members, flags, declarations, valueDeclaration } = symbol;
@@ -40,20 +45,22 @@ export default function serializeSymbol(
       symbol.getDocumentationComment(checker)
     ),
     flags: flagsToString(flags, 'symbol'),
-    type: queue.queue(typ, 'type'), // v.visit(typ),
+    type: queue.queue(typ, 'type', checker),
     members:
       members &&
-      mapUem(members, (val: ts.Symbol) => queue.queue(val, 'symbol')).filter(
-        isRef
-      ),
+      mapUem(members, (val: ts.Symbol) =>
+        queue.queue(val, 'symbol', checker)
+      ).filter(isRef),
     exports:
       exports &&
-      mapUem(exports, (val: ts.Symbol) => queue.queue(val, 'symbol')).filter(
-        isRef
-      ),
+      mapUem(exports, (val: ts.Symbol) =>
+        queue.queue(val, 'symbol', checker)
+      ).filter(isRef),
     declarations:
       declarations &&
-      declarations.map((d) => queue.queue(d, 'declaration')).filter(isRef)
+      declarations
+        .map((d) => queue.queue(d, 'declaration', checker))
+        .filter(isRef)
   };
   if (valueDeclaration) {
     const valDeclType = checker.getTypeOfSymbolAtLocation(
