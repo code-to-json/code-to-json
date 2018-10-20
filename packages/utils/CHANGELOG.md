@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.3.0](https://github.com/mike-north/code-to-json/tree/master/packages/utils/compare/@code-to-json/utils@0.2.0...@code-to-json/utils@0.3.0) (2018-10-20)
+
+
+### Bug Fixes
+
+* better typing on processing queue ([dbce5b2](https://github.com/mike-north/code-to-json/tree/master/packages/utils/commit/dbce5b2))
+
+
+### Features
+
+* human-readable types in type references ([6525b93](https://github.com/mike-north/code-to-json/tree/master/packages/utils/commit/6525b93))
+* serialize non-exports ([f1f9355](https://github.com/mike-north/code-to-json/tree/master/packages/utils/commit/f1f9355))
+
+
+
+
+
 # [0.2.0](https://github.com/mike-north/code-to-json/tree/master/packages/utils/compare/@code-to-json/utils@0.1.5...@code-to-json/utils@0.2.0) (2018-10-19)
 
 

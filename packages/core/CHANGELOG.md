@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.3.0](https://github.com/mike-north/code-to-json/tree/master/packages/core/compare/@code-to-json/core@0.2.0...@code-to-json/core@0.3.0) (2018-10-20)
+
+
+### Bug Fixes
+
+* better typing on processing queue ([dbce5b2](https://github.com/mike-north/code-to-json/tree/master/packages/core/commit/dbce5b2))
+* remove excess entity type checking ([bea38c5](https://github.com/mike-north/code-to-json/tree/master/packages/core/commit/bea38c5))
+
+
+### Features
+
+* human-readable types in type references ([6525b93](https://github.com/mike-north/code-to-json/tree/master/packages/core/commit/6525b93))
+* serialize non-exports ([f1f9355](https://github.com/mike-north/code-to-json/tree/master/packages/core/commit/f1f9355))
+
+
+
+
+
 # [0.2.0](https://github.com/mike-north/code-to-json/tree/master/packages/core/compare/@code-to-json/core@0.1.5...@code-to-json/core@0.2.0) (2018-10-19)
 
 
