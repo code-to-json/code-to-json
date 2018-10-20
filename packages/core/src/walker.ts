@@ -13,10 +13,12 @@ import {
   SymbolRef,
   TypeRef
 } from './processing-queue/ref';
-import serializeDeclaration from './serializers/declaration';
-import serializeNode from './serializers/node';
-import serializeSymbol from './serializers/symbol';
-import serializeType from './serializers/type';
+import serializeDeclaration, {
+  SerializedDeclaration
+} from './serializers/declaration';
+import serializeNode, { SerializedNode } from './serializers/node';
+import serializeSymbol, { SerializedSymbol } from './serializers/symbol';
+import serializeType, { SerializedType } from './serializers/type';
 
 /**
  * Walk a typescript program, using specified entry points, returning
@@ -50,17 +52,18 @@ export function walkProgram(program: ts.Program) {
     return q.queue(sym, 'symbol', checker);
   });
 
-  const result = q.drain((ref, entity) => {
-    if (isSymbol(entity)) {
-      return serializeSymbol(entity, checker, ref as SymbolRef, q);
-    } else if (isType(entity)) {
-      return serializeType(entity, checker, ref as TypeRef, q);
-    } else if (isDeclaration(entity)) {
-      return serializeDeclaration(entity, checker, ref as DeclarationRef, q);
-    } else if (isNode(entity)) {
-      return serializeNode(entity, checker, ref as NodeRef, q);
-    } else {
-      throw new UnreachableError(entity, 'Unprocessable entity');
+  const result = q.drain({
+    handleNode(ref: NodeRef, item: ts.Node) {
+      // return serializeNode(item, checker, ref as NodeRef, q);
+    },
+    handleType(ref: TypeRef, item: ts.Type) {
+      return serializeType(item, checker, ref as TypeRef, q);
+    },
+    handleSymbol(ref: SymbolRef, item: ts.Symbol) {
+      return serializeSymbol(item, checker, ref as SymbolRef, q);
+    },
+    handleDeclaration(ref: DeclarationRef, item: ts.Declaration) {
+      return serializeDeclaration(item, checker, ref, q);
     }
   });
   return result;

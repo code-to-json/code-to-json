@@ -1,11 +1,25 @@
 import * as ts from 'typescript';
-import { SerializedDeclaration } from '../serializers/declaration';
-import { SerializedNode } from '../serializers/node';
-import { SerializedSymbol } from '../serializers/symbol';
-import { SerializedType } from '../serializers/type';
+// import { SerializedDeclaration } from '../serializers/declaration';
+// import { SerializedNode } from '../serializers/node';
+// import { SerializedSymbol } from '../serializers/symbol';
+// import { SerializedType } from '../serializers/type';
 import { EntityMap } from '../types';
 import { generateId } from './generate-id';
-import { RefFor, TypeRef } from './ref';
+import { DeclarationRef, NodeRef, RefFor, SymbolRef, TypeRef } from './ref';
+
+export interface QueueSink<S, T, N, D> {
+  handleNode(ref: NodeRef, item: ts.Node): N;
+  handleType(ref: TypeRef, item: ts.Type): T;
+  handleDeclaration(ref: DeclarationRef, item: ts.Declaration): D;
+  handleSymbol(ref: SymbolRef, item: ts.Symbol): S;
+}
+
+export interface DrainOutput<S, T, N, D> {
+  symbol: S[];
+  type: T[];
+  node: N[];
+  declaration: D[];
+}
 
 export interface ProcessingQueue {
   queue<K extends keyof EntityMap>(
@@ -13,9 +27,7 @@ export interface ProcessingQueue {
     refType: K,
     checker: ts.TypeChecker
   ): RefFor<K> | undefined;
-  drain<K extends keyof EntityMap>(
-    cb: (ref: RefFor<K>, entity: EntityMap[K]) => any
-  ): { [KK in keyof EntityMap]: any[] };
+  drain<S, T, N, D>(sink: QueueSink<S, N, T, D>): DrainOutput<S, N, T, D>;
 }
 
 interface RefTracking<K extends keyof EntityMap> {
@@ -23,49 +35,54 @@ interface RefTracking<K extends keyof EntityMap> {
   processed: boolean;
 }
 
-interface SerializedEntityMap {
-  symbol: SerializedSymbol;
-  type: SerializedType;
-  node: SerializedNode;
-  declaration: SerializedDeclaration;
+// interface SerializedEntityMap {
+//   symbol: SerializedSymbol;
+//   type: SerializedType;
+//   node: SerializedNode;
+//   declaration: SerializedDeclaration;
+// }
+
+interface ProcessingData {
+  symbol: Map<ts.Symbol, RefTracking<'symbol'>>;
+  type: Map<ts.Type, RefTracking<'type'>>;
+  declaration: Map<ts.Declaration, RefTracking<'declaration'>>;
+  node: Map<ts.Node, RefTracking<'node'>>;
+}
+
+interface SinkFn<S, T, N, D> {
+  symbol: QueueSink<S, T, N, D>['handleSymbol'];
+  type: QueueSink<S, T, N, D>['handleType'];
+  declaration: QueueSink<S, T, N, D>['handleDeclaration'];
+  node: QueueSink<S, T, N, D>['handleNode'];
+}
+
+// tslint:disable-next-line:max-line-length
+function mapperForReferenceType<K extends keyof EntityMap, S, T, N, D>(
+  refType: K,
+  sink: Partial<QueueSink<S, T, N, D>>
+): SinkFn<S, T, N, D>[K] | undefined {
+  if (refType === 'symbol') {
+    return sink.handleSymbol;
+  } else if (refType === 'type') {
+    return sink.handleType;
+  } else if (refType === 'declaration') {
+    return sink.handleDeclaration;
+  } else if (refType === 'node') {
+    return sink.handleNode;
+  } else {
+    // Should never reach here
+    throw new Error('Unexpected reference type: ' + refType);
+  }
 }
 
 export function create(): ProcessingQueue {
-  const data: { [K in keyof EntityMap]: Map<EntityMap[K], RefTracking<K>> } = {
+  const data: ProcessingData = {
     symbol: new Map<ts.Symbol, RefTracking<'symbol'>>(),
     type: new Map<ts.Type, RefTracking<'type'>>(),
     node: new Map<ts.Node, RefTracking<'node'>>(),
     declaration: new Map<ts.Declaration, RefTracking<'declaration'>>()
   };
 
-  const out = {
-    declaration: [] as SerializedDeclaration[],
-    symbol: [] as SerializedSymbol[],
-    type: [] as SerializedType[],
-    node: [] as SerializedNode[]
-  };
-  function flush<K extends keyof EntityMap>(
-    cb: (ref: RefFor<K>, entity: EntityMap[K]) => SerializedEntityMap[K]
-  ): { processed: number } {
-    const outputInfo = {
-      processed: 0
-    };
-    (['declaration', 'symbol', 'type', 'node'] as Array<
-      keyof EntityMap
-    >).forEach((key) => {
-      const map = data[key] as Map<EntityMap[K], RefTracking<K>>;
-      const outArray: Array<SerializedEntityMap[K]> = out[key];
-      map.forEach((rt, item) => {
-        if (rt.processed === true) {
-          return;
-        }
-        outArray.push(cb(rt.ref as RefFor<K>, item) as SerializedEntityMap[K]);
-        rt.processed = true;
-        outputInfo.processed++;
-      });
-    });
-    return outputInfo;
-  }
   return {
     queue<K extends keyof EntityMap>(
       thing: EntityMap[K],
@@ -95,16 +112,47 @@ export function create(): ProcessingQueue {
       map.set(thing, { ref, processed: false });
       return ref;
     },
-    drain<K extends keyof EntityMap>(
-      cb: (ref: RefFor<K>, entity: EntityMap[K]) => any
-    ): { [KK in keyof EntityMap]: any[] } {
+    drain<S, T, N, D>(
+      sink: Partial<QueueSink<S, N, T, D>>
+    ): DrainOutput<S, N, T, D> {
+      const out: DrainOutput<S, N, T, D> = {
+        declaration: [],
+        symbol: [],
+        type: [],
+        node: []
+      };
+      function flush<K extends keyof EntityMap>(): { processed: number } {
+        const outputInfo = {
+          processed: 0
+        };
+
+        (['declaration', 'symbol', 'type', 'node'] as Array<
+          keyof EntityMap
+        >).forEach((key) => {
+          const map = data[key] as Map<EntityMap[K], RefTracking<K>>;
+          const outArray: Array<S | N | T | D> = out[key];
+          map.forEach((rt, item) => {
+            if (rt.processed === true) {
+              return;
+            }
+            const fn = mapperForReferenceType(rt.ref.refType, sink) as ((
+              ref: RefFor<K>,
+              item: EntityMap[K]
+            ) => S | N | D | T);
+            outArray.push(fn(rt.ref as RefFor<K>, item));
+            rt.processed = true;
+            outputInfo.processed++;
+          });
+        });
+        return outputInfo;
+      }
       const maxLoops = 10;
       const flushCount = 0;
-      let lastResult = flush(cb);
+      let lastResult = flush();
       while (lastResult.processed > 0 && flushCount < maxLoops) {
         // tslint:disable-next-line:no-console
         console.log(`Processed: ${lastResult.processed} things`);
-        lastResult = flush(cb);
+        lastResult = flush();
       }
       // tslint:disable-next-line:no-console
       console.log(`Processed: ${lastResult.processed} things`);
