@@ -19,5 +19,6 @@
     "**/packages/*/lib/**": true
   },
   "tslint.autoFixOnSave": true,
-  "prettier.tslintIntegration": true
+  "prettier.tslintIntegration": true,
+  "tslint.exclude": ["**/node_modules/**/*"]
 }

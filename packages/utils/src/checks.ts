@@ -49,7 +49,7 @@ export function isPresent(obj: object): any {
 }
 
 /** True if this is visible outside this file, false otherwise */
-export function isNodeExported(node: ts.Declaration): boolean {
+export function isDeclarationExported(node: ts.Declaration): boolean {
   return (
     // tslint:disable-next-line:no-bitwise
     (ts.getCombinedModifierFlags(node) & ts.ModifierFlags.Export) !== 0 ||
