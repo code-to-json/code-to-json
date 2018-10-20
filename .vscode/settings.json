@@ -5,10 +5,20 @@
     "**/.svn": true,
     "**/.hg": true,
     "**/CVS": true,
-    "**/.DS_Store": true,
-    "src/**/*.js": { "when": "$(basename).ts" },
-    "src/**/*.d.ts": { "when": "$(basename).ts" }
+    "**/.DS_Store": true
+  },
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/bower_components": true,
+    "**/lib": true
+  },
+  "files.watcherExclude": {
+    "**/.git/objects/**": true,
+    "**/.git/subtree-cache/**": true,
+    "**/node_modules/**": true,
+    "**/packages/*/lib/**": true
   },
   "tslint.autoFixOnSave": true,
-  "tslint.exclude": ["node_modules/**/*"]
+  "prettier.tslintIntegration": true,
+  "tslint.exclude": ["**/node_modules/**/*"]
 }

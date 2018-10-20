@@ -1,10 +1,16 @@
 import * as ts from 'typescript';
-import { isRef, ProcessingQueue, Ref } from '../processing-queue';
-import { EntityMap } from '../types';
-import { SerializedSymbol } from './symbol';
+import { ProcessingQueue } from '../processing-queue';
+import {
+  DeclarationRef,
+  isRef,
+  SymbolRef,
+  TypeRef
+} from '../processing-queue/ref';
 
 export interface SerializedSignature {
-  parameters: Array<Ref<EntityMap, 'symbol'>>;
+  parameters: SymbolRef[];
+  typeParameters?: TypeRef[];
+  declaration?: DeclarationRef;
   returnType: string; // TODO: type?
   documentation: string;
 }
@@ -13,12 +19,19 @@ export interface SerializedSignature {
 export default function serializeSignature(
   signature: ts.Signature,
   checker: ts.TypeChecker,
-  q: ProcessingQueue<EntityMap>
+  q: ProcessingQueue
 ): SerializedSignature {
+  const { parameters, typeParameters, declaration } = signature;
   return {
-    parameters: signature.parameters
-      .map(p => q.queue(p, 'symbol'))
+    parameters: parameters
+      .map((p) => q.queue(p, 'symbol', checker))
       .filter(isRef),
+    typeParameters: typeParameters
+      ? typeParameters.map((p) => q.queue(p, 'type', checker)).filter(isRef)
+      : undefined,
+    declaration: declaration
+      ? q.queue(declaration, 'declaration', checker)
+      : undefined,
     returnType: checker.typeToString(signature.getReturnType()),
     documentation: ts.displayPartsToString(
       signature.getDocumentationComment(checker)

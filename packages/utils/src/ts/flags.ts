@@ -4,6 +4,7 @@ import { Flags } from '../types';
 interface FlagsMap {
   type: ts.TypeFlags;
   node: ts.NodeFlags;
+  object: ts.ObjectFlags;
   nodeBuilder: ts.NodeBuilderFlags;
   symbol: ts.SymbolFlags;
   symbolFormat: ts.SymbolFormatFlags;
@@ -12,6 +13,8 @@ function getFlagMap<T extends keyof FlagsMap>(type: T): { [k: string]: any } {
   switch (type) {
     case 'type':
       return ts.TypeFlags;
+    case 'object':
+      return ts.ObjectFlags;
     case 'node':
       return ts.NodeFlags;
     case 'nodeBuilder':
@@ -58,4 +61,11 @@ export function flagsToString<T extends keyof FlagsMap>(
     return flagNames[0];
   }
   return flagNames;
+}
+
+export function getObjectFlags(type: ts.Type): ts.ObjectFlags | undefined {
+  // tslint:disable-next-line:no-bitwise
+  return type.flags & ts.TypeFlags.Object
+    ? (type as ts.ObjectType).objectFlags
+    : undefined;
 }

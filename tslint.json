@@ -4,10 +4,6 @@
   "jsRules": {
     "quotemark": false,
     "whitespace": false,
-    "no-trailing-whitespace": false,
-    "no-consecutive-blank-lines": false,
-    "arrow-parens": false,
-    "no-unused-variable": [true, { "ignore-pattern": "^_" }],
     "variable-name": [true, "allow-leading-underscore"],
     "trailing-comma": false,
     "object-literal-sort-keys": false,
@@ -16,10 +12,6 @@
   "rules": {
     "quotemark": false,
     "whitespace": false,
-    "no-trailing-whitespace": false,
-    "no-consecutive-blank-lines": false,
-    "arrow-parens": false,
-    "no-unused-variable": [true, { "ignore-pattern": "^_" }],
     "variable-name": [true, "allow-leading-underscore"],
     "trailing-comma": false,
     "object-literal-sort-keys": false,
