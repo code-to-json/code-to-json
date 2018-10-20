@@ -1,4 +1,8 @@
 import * as ts from 'typescript';
+import { SerializedDeclaration } from '../serializers/declaration';
+import { SerializedNode } from '../serializers/node';
+import { SerializedSymbol } from '../serializers/symbol';
+import { SerializedType } from '../serializers/type';
 import { EntityMap } from '../types';
 import { generateId } from './generate-id';
 import { RefFor, TypeRef } from './ref';
@@ -19,6 +23,13 @@ interface RefTracking<K extends keyof EntityMap> {
   processed: boolean;
 }
 
+interface SerializedEntityMap {
+  symbol: SerializedSymbol;
+  type: SerializedType;
+  node: SerializedNode;
+  declaration: SerializedDeclaration;
+}
+
 export function create(): ProcessingQueue {
   const data: { [K in keyof EntityMap]: Map<EntityMap[K], RefTracking<K>> } = {
     symbol: new Map<ts.Symbol, RefTracking<'symbol'>>(),
@@ -28,13 +39,13 @@ export function create(): ProcessingQueue {
   };
 
   const out = {
-    declaration: [] as any[],
-    symbol: [] as any[],
-    type: [] as any[],
-    node: [] as any[]
+    declaration: [] as SerializedDeclaration[],
+    symbol: [] as SerializedSymbol[],
+    type: [] as SerializedType[],
+    node: [] as SerializedNode[]
   };
   function flush<K extends keyof EntityMap>(
-    cb: (ref: RefFor<K>, entity: EntityMap[K]) => any
+    cb: (ref: RefFor<K>, entity: EntityMap[K]) => SerializedEntityMap[K]
   ): { processed: number } {
     const outputInfo = {
       processed: 0
@@ -43,11 +54,12 @@ export function create(): ProcessingQueue {
       keyof EntityMap
     >).forEach((key) => {
       const map = data[key] as Map<EntityMap[K], RefTracking<K>>;
+      const outArray: Array<SerializedEntityMap[K]> = out[key];
       map.forEach((rt, item) => {
         if (rt.processed === true) {
           return;
         }
-        out[key].push(cb(rt.ref as RefFor<K>, item));
+        outArray.push(cb(rt.ref as RefFor<K>, item) as SerializedEntityMap[K]);
         rt.processed = true;
         outputInfo.processed++;
       });

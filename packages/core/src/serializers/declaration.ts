@@ -17,5 +17,9 @@ export default function serializeDeclaration(
   ref: DeclarationRef,
   _queue: ProcessingQueue
 ): SerializedDeclaration {
-  return { ...serializeNode(decl, checker, ref, _queue), thing: 'declaration' };
+  const basicInfo: SerializedDeclaration = {
+    ...serializeNode(decl, checker, ref, _queue),
+    thing: 'declaration'
+  };
+  return basicInfo;
 }
