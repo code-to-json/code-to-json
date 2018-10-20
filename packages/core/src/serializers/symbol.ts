@@ -18,9 +18,14 @@ export interface SerializedSymbol {
   type?: TypeRef;
   members?: SymbolRef[];
   exports?: SymbolRef[];
-  declarations: DeclarationRef[];
+  globalExports?: SymbolRef[];
+  declarations?: DeclarationRef[];
   constructorSignatures?: SerializedSignature[];
   callSignatures?: SerializedSignature[];
+  jsDocTags?: Array<{
+    name: string;
+    text?: string;
+  }>;
 }
 
 export default function serializeSymbol(
@@ -29,7 +34,14 @@ export default function serializeSymbol(
   ref: SymbolRef,
   queue: ProcessingQueue
 ): SerializedSymbol {
-  const { exports, members, flags, declarations, valueDeclaration } = symbol;
+  const {
+    exports,
+    globalExports,
+    members,
+    flags,
+    declarations,
+    valueDeclaration
+  } = symbol;
   // Get the construct signatures
 
   const typ = checker.getTypeOfSymbolAtLocation(
@@ -56,12 +68,24 @@ export default function serializeSymbol(
       mapUem(exports, (val: ts.Symbol) =>
         queue.queue(val, 'symbol', checker)
       ).filter(isRef),
-    declarations:
-      declarations &&
-      declarations
-        .map((d) => queue.queue(d, 'declaration', checker))
-        .filter(isRef)
+    globalExports:
+      globalExports &&
+      mapUem(globalExports, (val: ts.Symbol) =>
+        queue.queue(val, 'symbol', checker)
+      ).filter(isRef)
+    // declarations:
+    //   declarations &&
+    //   declarations
+    //     .map((d) => {
+    //       if (d.getSourceFile().isDeclarationFile) {
+    //         return; // Skip anything that's in a declaration file
+    //         // TODO: figure out a better boundary for skipping stuff (i.e., things that can be linked to on MDN)
+    //       }
+    //       return queue.queue(d, 'declaration', checker);
+    //     })
+    //     .filter(isRef)
   };
+
   if (valueDeclaration) {
     const valDeclType = checker.getTypeOfSymbolAtLocation(
       symbol,
@@ -73,6 +97,10 @@ export default function serializeSymbol(
     details.callSignatures = valDeclType
       .getCallSignatures()
       .map((s) => serializeSignature(s, checker, queue));
+  }
+  const jsDocTags = symbol.getJsDocTags();
+  if (jsDocTags.length > 0) {
+    details.jsDocTags = [...jsDocTags];
   }
   return details;
 }
