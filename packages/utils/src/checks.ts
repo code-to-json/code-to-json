@@ -36,9 +36,7 @@ export default function isNone(obj: any): obj is null | undefined {
  * If the value is an object with a size property of type number, it is used to check emptiness.
  * @param obj
  */
-export function isEmpty(
-  obj: any
-): obj is null | undefined | 0 | { size: 0 } | [] | '' {
+export function isEmpty(obj: any): obj is null | undefined | 0 | { size: 0 } | [] | '' {
   const none = obj === null || obj === undefined;
   if (none) {
     return none;
@@ -95,9 +93,7 @@ export function isPresent(obj: object): boolean {
 export function isDeclarationExported(declaration: ts.Declaration): boolean {
   return (
     // tslint:disable-next-line:no-bitwise
-    (ts.getCombinedModifierFlags(declaration) & ts.ModifierFlags.Export) !==
-      0 ||
-    (!!declaration.parent &&
-      declaration.parent.kind === ts.SyntaxKind.SourceFile)
+    (ts.getCombinedModifierFlags(declaration) & ts.ModifierFlags.Export) !== 0 ||
+    (!!declaration.parent && declaration.parent.kind === ts.SyntaxKind.SourceFile)
   );
 }

@@ -1,24 +1,12 @@
 import { SourceFile, TypeChecker } from 'typescript';
 import { ProcessingQueue } from '../processing-queue';
-import {
-  isRef,
-  NodeRef,
-  SourceFileRef,
-  SymbolRef
-} from '../processing-queue/ref';
-import serializeAmdDependency, {
-  SerializedAmdDependency
-} from './amd-dependency';
+import { isRef, NodeRef, SourceFileRef, SymbolRef } from '../processing-queue/ref';
+import serializeAmdDependency, { SerializedAmdDependency } from './amd-dependency';
 import serializeDeclaration, { SerializedDeclaration } from './declaration';
-import serializeFileReference, {
-  SerializedFileReference
-} from './file-reference';
+import serializeFileReference, { SerializedFileReference } from './file-reference';
 
 export interface SerializedSourceFile
-  extends Pick<
-      SerializedDeclaration,
-      Exclude<keyof SerializedDeclaration, 'thing'>
-    > {
+  extends Pick<SerializedDeclaration, Exclude<keyof SerializedDeclaration, 'thing'>> {
   thing: 'sourceFile';
   moduleName?: string;
   fileName?: string;
@@ -54,27 +42,19 @@ export default function serializeSourceFile(
     libReferenceDirectives: _libReferenceDirectives
   } = sourceFile;
   const referencedFiles = _referencedFiles.map(serializeFileReference);
-  const typeReferenceDirectives = _typeReferenceDirectives.map(
-    serializeFileReference
-  );
-  const libReferenceDirectives = _libReferenceDirectives.map(
-    serializeFileReference
-  );
-  const statements = _statements
-    .map((s) => _queue.queue(s, 'node', checker))
-    .filter(isRef);
+  const typeReferenceDirectives = _typeReferenceDirectives.map(serializeFileReference);
+  const libReferenceDirectives = _libReferenceDirectives.map(serializeFileReference);
+  const statements = _statements.map(s => _queue.queue(s, 'node', checker)).filter(isRef);
   const basicInfo: SerializedSourceFile = {
     ...serializeDeclaration(sourceFile, checker, ref, _queue),
     thing: 'sourceFile',
     fileName,
     moduleName,
     isDeclarationFile,
-    amdDependencies:
-      amdDependencies && amdDependencies.map(serializeAmdDependency),
+    amdDependencies: amdDependencies && amdDependencies.map(serializeAmdDependency),
     statements,
     referencedFiles: referencedFiles.length > 0 ? referencedFiles : undefined,
-    libReferenceDirectives:
-      libReferenceDirectives.length > 0 ? libReferenceDirectives : undefined,
+    libReferenceDirectives: libReferenceDirectives.length > 0 ? libReferenceDirectives : undefined,
     typeReferenceDirectives:
       typeReferenceDirectives.length > 0 ? typeReferenceDirectives : undefined
   };

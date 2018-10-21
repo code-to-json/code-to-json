@@ -1,11 +1,5 @@
 // tslint:disable:no-bitwise
-import {
-  isDeclaration,
-  isNode,
-  isSymbol,
-  isType,
-  UnreachableError
-} from '@code-to-json/utils';
+import { isDeclaration, isNode, isSymbol, isType, UnreachableError } from '@code-to-json/utils';
 import { Node, Symbol as Sym, Type } from 'typescript';
 
 /**

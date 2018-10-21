@@ -33,11 +33,9 @@ const prog = commander
       debugLog(
         `${chalk.yellow(
           leftpad(
-            (
-              Math.round(
-                (startupElapsed[0] * NS_PER_SEC + startupElapsed[1]) / 1e3
-              ) / 1e3
-            ).toFixed(3),
+            (Math.round((startupElapsed[0] * NS_PER_SEC + startupElapsed[1]) / 1e3) / 1e3).toFixed(
+              3
+            ),
             6
           )
         )} ms ${chalk.green('(startup time)')}
@@ -50,11 +48,7 @@ const prog = commander
           debugLog(
             `${chalk.yellow(
               leftpad(
-                (
-                  Math.round(
-                    (timeElapsed[0] * NS_PER_SEC + timeElapsed[1]) / 1e3
-                  ) / 1e3
-                ).toFixed(3),
+                (Math.round((timeElapsed[0] * NS_PER_SEC + timeElapsed[1]) / 1e3) / 1e3).toFixed(3),
                 6
               )
             )} ms ${chalk.green('(extraction time)')}

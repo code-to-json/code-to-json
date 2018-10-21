@@ -2,13 +2,7 @@ import { Flags, flagsToString, mapChildren } from '@code-to-json/utils';
 import { isNamedDeclaration } from '@code-to-json/utils/lib/guards';
 import { Node, SyntaxKind, Type, TypeChecker } from 'typescript';
 import { ProcessingQueue } from '../processing-queue';
-import {
-  DeclarationRef,
-  isRef,
-  NodeRef,
-  SourceFileRef,
-  TypeRef
-} from '../processing-queue/ref';
+import { DeclarationRef, isRef, NodeRef, SourceFileRef, TypeRef } from '../processing-queue/ref';
 
 export interface SerializedNode {
   thing: 'node';
@@ -50,10 +44,10 @@ export default function serializeNode(
     flags: flagsToString(flags, 'node')
   };
   if (decorators && decorators.length) {
-    details.decorators = decorators.map((d) => SyntaxKind[d.kind]);
+    details.decorators = decorators.map(d => SyntaxKind[d.kind]);
   }
   if (modifiers && modifiers.length) {
-    details.modifiers = modifiers.map((d) => SyntaxKind[d.kind]);
+    details.modifiers = modifiers.map(d => SyntaxKind[d.kind]);
   }
   if (parent) {
     details.parent = q.queue(parent, 'node', checker);
@@ -68,7 +62,7 @@ export default function serializeNode(
   if (typ) {
     details.type = q.queue(typ, 'type', checker);
   }
-  const childReferences = mapChildren(n, (child) => {
+  const childReferences = mapChildren(n, child => {
     if (child.getSourceFile().isDeclarationFile) {
       return;
     }
