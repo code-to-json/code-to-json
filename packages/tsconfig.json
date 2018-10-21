@@ -1,4 +1,9 @@
 {
   "files": [],
-  "references": [{ "path": "cli" }, { "path": "core" }, { "path": "utils" }]
+  "references": [
+    { "path": "cli" },
+    { "path": "core" },
+    { "path": "utils" },
+    { "path": "formatter" }
+  ]
 }

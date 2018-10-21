@@ -1,4 +1,5 @@
 import { walkProgram } from '@code-to-json/core';
+import { formatWalkerOutput } from '@code-to-json/formatter';
 import * as fs from 'fs';
 import * as glob from 'glob';
 import * as path from 'path';
@@ -143,6 +144,7 @@ export default async function run(
     throw new InvalidArgumentsError('Either --program <path> or entries glob(s) must be defined');
   }
   const walkResult = walkProgram(program);
+  const formattedResult = formatWalkerOutput(walkResult);
   // debugLog('walk result', walkResult);
   // console.log(walkResult);
   const outputPath = path.isAbsolute(out) ? out : path.join(process.cwd(), out);
