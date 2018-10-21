@@ -29,6 +29,10 @@ export interface RefMap {
 
 export type RefFor<K extends keyof RefMap> = RefMap[K];
 
+/**
+ * Check to see whether a value is a reference
+ * @param thing value to check
+ */
 export function isRef<R extends AnyRef>(thing?: R): thing is R {
   return !!thing && !!thing.refType && !!thing.id;
 }

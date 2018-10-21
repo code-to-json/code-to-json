@@ -15,7 +15,8 @@
         "limit": 120,
         "ignore-pattern": "^import |^export {(.*?)} |^// |^\\s*\\*\\s"
       }
-    ]
+    ],
+    "no-unused-variable": [true, { "ignore-pattern": "^_" }]
   },
   "rules": {
     "quotemark": false,
@@ -33,7 +34,8 @@
         "ignore-pattern": "^import |^export {(.*?)} |^// |^\\s*\\*\\s"
       }
     ],
-    "typedef": [true, "call-signature"]
+    "typedef": [true, "call-signature"],
+    "no-unused-variable": [true, { "ignore-pattern": "^_" }]
   },
   "rulesDirectory": []
 }
