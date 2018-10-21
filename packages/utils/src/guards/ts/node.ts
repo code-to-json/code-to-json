@@ -45,6 +45,10 @@ function isDeclarationKind(kind: ts.SyntaxKind): boolean {
   );
 }
 
+/**
+ * Check to see whether a value is a named declaration
+ * @param node value to check
+ */
 export function isNamedDeclaration(node: ts.Node): node is ts.NamedDeclaration {
   return (
     ts.isClassLike(node) ||
@@ -57,22 +61,40 @@ export function isNamedDeclaration(node: ts.Node): node is ts.NamedDeclaration {
   );
 }
 
+/**
+ * Check to see whether a value is a ts.Declaration
+ * @param node value to check
+ */
 export function isDeclaration(
   node: ts.Node | ts.Declaration
 ): node is ts.Declaration {
   return isDeclarationKind(node.kind);
 }
 
+/**
+ * Check to see whether a value is a ts.Type
+ * @param thing value to check
+ */
 export function isType(
   thing: ts.Symbol | ts.Declaration | ts.Type | ts.Node
 ): thing is ts.Type {
   return !!(thing as ts.Type).getBaseTypes && !!(thing as ts.Type).isUnion;
 }
+
+/**
+ * Check to see whether a value is a ts.Symbol
+ * @param thing value to check
+ */
 export function isSymbol(
   thing: ts.Symbol | ts.Declaration | ts.Type | ts.Node
 ): thing is ts.Symbol {
   return !!(thing as any).escapedName;
 }
+
+/**
+ * Check to see whether a value is a ts.Node
+ * @param thing value to check
+ */
 export function isNode(
   thing: ts.Symbol | ts.Declaration | ts.Type | ts.Node
 ): thing is ts.Node {

@@ -1,20 +1,21 @@
-import { isNamedDeclaration } from '@code-to-json/utils/lib/guards';
-import * as ts from 'typescript';
+import { Declaration, TypeChecker } from 'typescript';
 import { ProcessingQueue } from '../processing-queue';
-import { DeclarationRef } from '../processing-queue/ref';
-import serializeNode from './node';
+import { DeclarationRef, SourceFileRef } from '../processing-queue/ref';
+import serializeNode, { SerializedNode } from './node';
 
-export interface SerializedDeclaration {
+export interface SerializedDeclaration
+  extends Pick<SerializedNode, Exclude<keyof SerializedNode, 'thing'>> {
   thing: 'declaration';
-  id: string;
-  text: string;
-  name?: string;
 }
 
+/**
+ * Serialize a Declaration to a POJO
+ * @param decl Declaration to serialize
+ */
 export default function serializeDeclaration(
-  decl: ts.Declaration,
-  checker: ts.TypeChecker,
-  ref: DeclarationRef,
+  decl: Declaration,
+  checker: TypeChecker,
+  ref: DeclarationRef | SourceFileRef,
   _queue: ProcessingQueue
 ): SerializedDeclaration {
   const basicInfo: SerializedDeclaration = {

@@ -1,13 +1,44 @@
 import * as ts from 'typescript';
-function get(obj: any, propname: string) {
+/**
+ * Get a property from a target object
+ * @param obj target
+ * @param propname property name
+ */
+function get(obj: any, propname: string): any {
   if (obj && typeof obj === 'object') {
     return obj[propname];
   } else {
     return undefined;
   }
 }
+// i
+/**
+ * Returns true if the passed value is null or undefined. This avoids errors
+ * from JSLint complaining about use of ==, which can be technically
+ * confusing.
+ * ```ts
+ * isNone();              // true
+ * isNone(null);          // true
+ * isNone(undefined);     // true
+ * isNone('');            // false
+ * isNone([]);            // false
+ * isNone(function() {}); // false
+ * ```
+ * @note: copied from https://github.com/emberjs/ember.js/blob/5a8873bee19774a55fd0abfdcc7279f3efc768cd/packages/ember-metal/lib/is_none.ts#L25-L27
+ */
+export default function isNone(obj: any): obj is null | undefined {
+  return obj === null || obj === undefined;
+}
 
-export function isEmpty(obj: any): boolean {
+/**
+ * Verifies that a value is null or undefined, an empty string, or an empty array.
+ * Constrains the rules on isNone by returning true for empty strings and empty arrays.
+ * If the value is an object with a size property of type number, it is used to check emptiness.
+ * @param obj
+ */
+export function isEmpty(
+  obj: any
+): obj is null | undefined | 0 | { size: 0 } | [] | '' {
   const none = obj === null || obj === undefined;
   if (none) {
     return none;
@@ -40,19 +71,33 @@ export function isEmpty(obj: any): boolean {
   return false;
 }
 
+/**
+ * Check a value for blankness
+ * @param obj value to check for blankness
+ * @see isPresent
+ */
 export function isBlank(obj: any): boolean {
   return isEmpty(obj) || (typeof obj === 'string' && /\S/.test(obj) === false);
 }
-
-export function isPresent(obj: object): any {
+/**
+ * Check a value for non-blankness
+ * @param obj object to check for presence
+ * @see isBlank
+ */
+export function isPresent(obj: object): boolean {
   return !isBlank(obj);
 }
 
-/** True if this is visible outside this file, false otherwise */
-export function isDeclarationExported(node: ts.Declaration): boolean {
+/**
+ * Check whether a declaration is visible outside its respective file
+ * @param declaration Declaration to check
+ */
+export function isDeclarationExported(declaration: ts.Declaration): boolean {
   return (
     // tslint:disable-next-line:no-bitwise
-    (ts.getCombinedModifierFlags(node) & ts.ModifierFlags.Export) !== 0 ||
-    (!!node.parent && node.parent.kind === ts.SyntaxKind.SourceFile)
+    (ts.getCombinedModifierFlags(declaration) & ts.ModifierFlags.Export) !==
+      0 ||
+    (!!declaration.parent &&
+      declaration.parent.kind === ts.SyntaxKind.SourceFile)
   );
 }

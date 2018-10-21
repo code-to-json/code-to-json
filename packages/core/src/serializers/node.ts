@@ -1,11 +1,12 @@
 import { Flags, flagsToString, mapChildren } from '@code-to-json/utils';
 import { isNamedDeclaration } from '@code-to-json/utils/lib/guards';
-import * as ts from 'typescript';
+import { Node, SyntaxKind, Type, TypeChecker } from 'typescript';
 import { ProcessingQueue } from '../processing-queue';
 import {
   DeclarationRef,
   isRef,
   NodeRef,
+  SourceFileRef,
   TypeRef
 } from '../processing-queue/ref';
 
@@ -15,7 +16,6 @@ export interface SerializedNode {
   flags?: Flags;
   parent?: NodeRef;
   children?: NodeRef[];
-  text: string;
   kind: string;
   pos: number;
   end: number;
@@ -25,10 +25,14 @@ export interface SerializedNode {
   type?: TypeRef;
 }
 
+/**
+ * Serialize a Node to a POJO
+ * @param n Node to serialize
+ */
 export default function serializeNode(
-  n: ts.Node,
-  checker: ts.TypeChecker,
-  ref: NodeRef | DeclarationRef,
+  n: Node,
+  checker: TypeChecker,
+  ref: NodeRef | DeclarationRef | SourceFileRef,
   _queue: ProcessingQueue
 ): SerializedNode {
   const { flags, kind, decorators, modifiers, pos, end, parent } = n;
@@ -37,21 +41,20 @@ export default function serializeNode(
     pos,
     end,
     thing: 'node',
-    kind: ts.SyntaxKind[kind],
-    flags: flagsToString(flags, 'node'),
-    text: n.getText()
+    kind: SyntaxKind[kind],
+    flags: flagsToString(flags, 'node')
   };
   if (decorators && decorators.length) {
-    details.decorators = decorators.map((d) => ts.SyntaxKind[d.kind]);
+    details.decorators = decorators.map((d) => SyntaxKind[d.kind]);
   }
   if (modifiers && modifiers.length) {
-    details.modifiers = modifiers.map((d) => ts.SyntaxKind[d.kind]);
+    details.modifiers = modifiers.map((d) => SyntaxKind[d.kind]);
   }
   if (parent) {
     details.parent = _queue.queue(parent, 'node', checker);
   }
   const name = isNamedDeclaration(n) && n.name;
-  let typ: ts.Type | undefined;
+  let typ: Type | undefined;
   const sym = checker.getSymbolAtLocation(name || n);
   if (sym && name) {
     details.name = name.getText();
@@ -61,7 +64,9 @@ export default function serializeNode(
     details.type = _queue.queue(typ, 'type', checker);
   }
   const childReferences = mapChildren(n, (child) => {
-    if (child.getSourceFile().isDeclarationFile) { return; }
+    if (child.getSourceFile().isDeclarationFile) {
+      return;
+    }
     return _queue.queue(child, 'node', checker);
   }).filter(isRef);
   if (childReferences && childReferences.length > 0) {
