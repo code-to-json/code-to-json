@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@code-to-json/core": "^0.4.0",
+    "@code-to-json/formatter": "^0.4.0",
     "@code-to-json/utils": "^0.3.2",
     "chalk": "^2.4.1",
     "commander": "^2.19.0",
