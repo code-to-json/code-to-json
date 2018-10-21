@@ -1,5 +1,5 @@
 import { Flags, flagsToString, mapUem } from '@code-to-json/utils';
-import * as ts from 'typescript';
+import { displayPartsToString, Symbol as Sym, TypeChecker } from 'typescript';
 import { ProcessingQueue } from '../processing-queue';
 import {
   DeclarationRef,
@@ -28,20 +28,20 @@ export interface SerializedSymbol {
   }>;
 }
 
+/**
+ * Serialize a TS Symbol
+ * @param symbol Symbol to serialize
+ * @param checker an instance of the TS type checker
+ * @param ref Reference to the symbol
+ * @param queue Processing queue
+ */
 export default function serializeSymbol(
-  symbol: ts.Symbol,
-  checker: ts.TypeChecker,
+  symbol: Sym,
+  checker: TypeChecker,
   ref: SymbolRef,
   queue: ProcessingQueue
 ): SerializedSymbol {
-  const {
-    exports,
-    globalExports,
-    members,
-    flags,
-    declarations,
-    valueDeclaration
-  } = symbol;
+  const { exports, globalExports, members, flags, valueDeclaration } = symbol;
   // Get the construct signatures
 
   const typ = checker.getTypeOfSymbolAtLocation(
@@ -53,24 +53,24 @@ export default function serializeSymbol(
     id: ref.id,
     thing: 'symbol',
     name: symbol.getName(),
-    documentation: ts.displayPartsToString(
+    documentation: displayPartsToString(
       symbol.getDocumentationComment(checker)
     ),
     flags: flagsToString(flags, 'symbol'),
     type: queue.queue(typ, 'type', checker),
     members:
       members &&
-      mapUem(members, (val: ts.Symbol) =>
-        queue.queue(val, 'symbol', checker)
-      ).filter(isRef),
+      mapUem(members, (val: Sym) => queue.queue(val, 'symbol', checker)).filter(
+        isRef
+      ),
     exports:
       exports &&
-      mapUem(exports, (val: ts.Symbol) =>
-        queue.queue(val, 'symbol', checker)
-      ).filter(isRef),
+      mapUem(exports, (val: Sym) => queue.queue(val, 'symbol', checker)).filter(
+        isRef
+      ),
     globalExports:
       globalExports &&
-      mapUem(globalExports, (val: ts.Symbol) =>
+      mapUem(globalExports, (val: Sym) =>
         queue.queue(val, 'symbol', checker)
       ).filter(isRef)
     // declarations:

@@ -1,6 +1,6 @@
 import { Flags, flagsToString, mapChildren } from '@code-to-json/utils';
 import { isNamedDeclaration } from '@code-to-json/utils/lib/guards';
-import * as ts from 'typescript';
+import { Node, SyntaxKind, Type, TypeChecker } from 'typescript';
 import { ProcessingQueue } from '../processing-queue';
 import {
   DeclarationRef,
@@ -25,9 +25,13 @@ export interface SerializedNode {
   type?: TypeRef;
 }
 
+/**
+ * Serialize a Node to a POJO
+ * @param n Node to serialize
+ */
 export default function serializeNode(
-  n: ts.Node,
-  checker: ts.TypeChecker,
+  n: Node,
+  checker: TypeChecker,
   ref: NodeRef | DeclarationRef | SourceFileRef,
   _queue: ProcessingQueue
 ): SerializedNode {
@@ -37,20 +41,20 @@ export default function serializeNode(
     pos,
     end,
     thing: 'node',
-    kind: ts.SyntaxKind[kind],
+    kind: SyntaxKind[kind],
     flags: flagsToString(flags, 'node')
   };
   if (decorators && decorators.length) {
-    details.decorators = decorators.map((d) => ts.SyntaxKind[d.kind]);
+    details.decorators = decorators.map((d) => SyntaxKind[d.kind]);
   }
   if (modifiers && modifiers.length) {
-    details.modifiers = modifiers.map((d) => ts.SyntaxKind[d.kind]);
+    details.modifiers = modifiers.map((d) => SyntaxKind[d.kind]);
   }
   if (parent) {
     details.parent = _queue.queue(parent, 'node', checker);
   }
   const name = isNamedDeclaration(n) && n.name;
-  let typ: ts.Type | undefined;
+  let typ: Type | undefined;
   const sym = checker.getSymbolAtLocation(name || n);
   if (sym && name) {
     details.name = name.getText();

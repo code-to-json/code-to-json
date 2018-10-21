@@ -1,11 +1,6 @@
-import * as ts from 'typescript';
+import { SourceFile, TypeChecker } from 'typescript';
 import { ProcessingQueue } from '../processing-queue';
-import {
-  DeclarationRef,
-  isRef,
-  NodeRef,
-  SourceFileRef
-} from '../processing-queue/ref';
+import { isRef, NodeRef, SourceFileRef } from '../processing-queue/ref';
 import serializeAmdDependency, {
   SerializedAmdDependency
 } from './amd-dependency';
@@ -13,7 +8,6 @@ import serializeDeclaration, { SerializedDeclaration } from './declaration';
 import serializeFileReference, {
   SerializedFileReference
 } from './file-reference';
-import serializeNode, { SerializedNode } from './node';
 
 export interface SerializedSourceFile
   extends Pick<
@@ -29,10 +23,16 @@ export interface SerializedSourceFile
   typeReferenceDirectives?: SerializedFileReference[];
   libReferenceDirectives?: SerializedFileReference[];
 }
-
+/**
+ * Serialize a SourceFile to a POJO
+ * @param sourceFile SourceFile to serialize
+ * @param checker A type-checker
+ * @param ref Refernece to the SourceFile being serialized
+ * @param _queue Processing queue
+ */
 export default function serializeSourceFile(
-  sourceFile: ts.SourceFile,
-  checker: ts.TypeChecker,
+  sourceFile: SourceFile,
+  checker: TypeChecker,
   ref: SourceFileRef,
   _queue: ProcessingQueue
 ): SerializedSourceFile {

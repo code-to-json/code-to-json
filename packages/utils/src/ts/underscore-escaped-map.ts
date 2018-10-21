@@ -1,8 +1,13 @@
-import * as ts from 'typescript';
+import { __String, UnderscoreEscapedMap } from 'typescript';
 
+/**
+ * Map over an UnderscoreEscapedMap
+ * @param uem UnderscoreEscapedMap to iterate over
+ * @param callback mapping function to apply to each key-value pair
+ */
 export function mapUem<T, S>(
-  uem: ts.UnderscoreEscapedMap<T>,
-  callback: ((t: T, key: ts.__String) => S)
+  uem: UnderscoreEscapedMap<T>,
+  callback: ((t: T, key: __String) => S)
 ): S[] {
   const arr: S[] = [];
   uem.forEach((val, key) => {

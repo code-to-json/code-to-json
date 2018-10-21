@@ -1,8 +1,12 @@
-import * as ts from 'typescript';
-// import { SerializedDeclaration } from '../serializers/declaration';
-// import { SerializedNode } from '../serializers/node';
-// import { SerializedSymbol } from '../serializers/symbol';
-// import { SerializedType } from '../serializers/type';
+import {
+  Declaration,
+  Node,
+  SourceFile,
+  Symbol as Sym,
+  Type,
+  TypeChecker,
+  TypeFormatFlags
+} from 'typescript';
 import { EntityMap } from '../types';
 import { generateId } from './generate-id';
 import {
@@ -15,11 +19,11 @@ import {
 } from './ref';
 
 export interface QueueSink<S, T, N, D, SF> {
-  handleNode(ref: NodeRef, item: ts.Node): N;
-  handleType(ref: TypeRef, item: ts.Type): T;
-  handleDeclaration(ref: DeclarationRef, item: ts.Declaration): D;
-  handleSymbol(ref: SymbolRef, item: ts.Symbol): S;
-  handleSourceFile(ref: SourceFileRef, item: ts.SourceFile): SF;
+  handleNode(ref: NodeRef, item: Node): N;
+  handleType(ref: TypeRef, item: Type): T;
+  handleDeclaration(ref: DeclarationRef, item: Declaration): D;
+  handleSymbol(ref: SymbolRef, item: Sym): S;
+  handleSourceFile(ref: SourceFileRef, item: SourceFile): SF;
 }
 
 export interface DrainOutput<S, T, N, D, SF> {
@@ -34,7 +38,7 @@ export interface ProcessingQueue {
   queue<K extends keyof EntityMap>(
     thing: EntityMap[K],
     refType: K,
-    checker: ts.TypeChecker
+    checker: TypeChecker
   ): RefFor<K> | undefined;
   drain<S, T, N, D, SF>(
     sink: QueueSink<S, N, T, D, SF>
@@ -46,19 +50,12 @@ interface RefTracking<K extends keyof EntityMap> {
   processed: boolean;
 }
 
-// interface SerializedEntityMap {
-//   symbol: SerializedSymbol;
-//   type: SerializedType;
-//   node: SerializedNode;
-//   declaration: SerializedDeclaration;
-// }
-
 interface ProcessingData {
-  symbol: Map<ts.Symbol, RefTracking<'symbol'>>;
-  type: Map<ts.Type, RefTracking<'type'>>;
-  declaration: Map<ts.Declaration, RefTracking<'declaration'>>;
-  node: Map<ts.Node, RefTracking<'node'>>;
-  sourceFile: Map<ts.SourceFile, RefTracking<'sourceFile'>>;
+  symbol: Map<Sym, RefTracking<'symbol'>>;
+  type: Map<Type, RefTracking<'type'>>;
+  declaration: Map<Declaration, RefTracking<'declaration'>>;
+  node: Map<Node, RefTracking<'node'>>;
+  sourceFile: Map<SourceFile, RefTracking<'sourceFile'>>;
 }
 
 interface SinkFn<S, T, N, D, SF> {
@@ -69,7 +66,13 @@ interface SinkFn<S, T, N, D, SF> {
   sourceFile: QueueSink<S, T, N, D, SF>['handleSourceFile'];
 }
 
-// tslint:disable-next-line:max-line-length
+/**
+ * Obtain the appropriate function from a `QueueSink` to handle a particular
+ * reference type
+ *
+ * @param refType reference type
+ * @param sink QueueSink
+ */
 function mapperForReferenceType<K extends keyof EntityMap, S, T, N, D, SF>(
   refType: K,
   sink: Partial<QueueSink<S, T, N, D, SF>>
@@ -90,20 +93,23 @@ function mapperForReferenceType<K extends keyof EntityMap, S, T, N, D, SF>(
   }
 }
 
+/**
+ * Create a new processing queue
+ */
 export function create(): ProcessingQueue {
   const data: ProcessingData = {
-    symbol: new Map<ts.Symbol, RefTracking<'symbol'>>(),
-    type: new Map<ts.Type, RefTracking<'type'>>(),
-    node: new Map<ts.Node, RefTracking<'node'>>(),
-    declaration: new Map<ts.Declaration, RefTracking<'declaration'>>(),
-    sourceFile: new Map<ts.SourceFile, RefTracking<'sourceFile'>>()
+    symbol: new Map<Sym, RefTracking<'symbol'>>(),
+    type: new Map<Type, RefTracking<'type'>>(),
+    node: new Map<Node, RefTracking<'node'>>(),
+    declaration: new Map<Declaration, RefTracking<'declaration'>>(),
+    sourceFile: new Map<SourceFile, RefTracking<'sourceFile'>>()
   };
 
   return {
     queue<K extends keyof EntityMap>(
       thing: EntityMap[K],
       refType: K,
-      checker: ts.TypeChecker
+      checker: TypeChecker
     ): RefFor<K> | undefined {
       if (!thing) {
         return;
@@ -117,12 +123,12 @@ export function create(): ProcessingQueue {
       const ref = { refType, id } as RefFor<K>;
       if (refType === 'type') {
         (ref as TypeRef).typeString = checker.typeToString(
-          thing as ts.Type,
+          thing as Type,
           undefined,
           // tslint:disable-next-line:no-bitwise
-          ts.TypeFormatFlags.NoTruncation &
-            ts.TypeFormatFlags.UseAliasDefinedOutsideCurrentScope &
-            ts.TypeFormatFlags.AddUndefined
+          TypeFormatFlags.NoTruncation &
+            TypeFormatFlags.UseAliasDefinedOutsideCurrentScope &
+            TypeFormatFlags.AddUndefined
         );
       }
       map.set(thing, { ref, processed: false });
@@ -138,6 +144,9 @@ export function create(): ProcessingQueue {
         node: [],
         sourceFile: []
       };
+      /**
+       * Flush any un-processed items from the processing queue to the drain output
+       */
       function flush<K extends keyof EntityMap>(): { processed: number } {
         const outputInfo = {
           processed: 0

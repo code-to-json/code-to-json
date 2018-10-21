@@ -6,13 +6,13 @@ import {
   isType,
   UnreachableError
 } from '@code-to-json/utils';
-import * as ts from 'typescript';
+import { Node, Symbol as Sym, Type } from 'typescript';
 
 /**
  * Generate a stable hash from a string
  * @param str string to generate a hash from
  */
-function generateHash(str: string) {
+function generateHash(str: string): string {
   let hash = 0;
 
   for (let i = 0; i < str.length; i++) {
@@ -34,7 +34,7 @@ function generateHash(str: string) {
  * Generate an id for an entity
  * @param thing Entity to generate an Id for
  */
-export function generateId(thing: ts.Symbol | ts.Node | ts.Type): string {
+export function generateId(thing: Sym | Node | Type): string {
   if (isType(thing)) {
     return 'typ-' + (thing as any).id;
   } else if (isSymbol(thing)) {

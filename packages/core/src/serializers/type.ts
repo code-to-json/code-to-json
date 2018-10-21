@@ -1,5 +1,5 @@
 import { Flags, flagsToString, getObjectFlags } from '@code-to-json/utils';
-import * as ts from 'typescript';
+import { Type, TypeChecker } from 'typescript';
 import { ProcessingQueue } from '../processing-queue';
 import { isRef, SymbolRef, TypeRef } from '../processing-queue/ref';
 
@@ -20,9 +20,16 @@ export interface SerializedType {
   baseTypes?: TypeRef[];
 }
 
+/**
+ * Serialize a Type to a POJO
+ * @param typ Type to serialize
+ * @param checker A type-checker
+ * @param ref Reference to the type being serialized
+ * @param queue Processing queue
+ */
 export default function serializeType(
-  typ: ts.Type,
-  checker: ts.TypeChecker,
+  typ: Type,
+  checker: TypeChecker,
   ref: TypeRef,
   queue: ProcessingQueue
 ): SerializedType {

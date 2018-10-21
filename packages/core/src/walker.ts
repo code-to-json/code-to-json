@@ -1,11 +1,11 @@
 import {
-  isDeclaration,
-  isNode,
-  isSymbol,
-  isType,
-  UnreachableError
-} from '@code-to-json/utils';
-import * as ts from 'typescript';
+  Declaration,
+  Node,
+  Program,
+  SourceFile,
+  Symbol as Sym,
+  Type
+} from 'typescript';
 import { create as createQueue } from './processing-queue';
 import {
   DeclarationRef,
@@ -28,7 +28,7 @@ import serializeType, { SerializedType } from './serializers/type';
  * Walk a typescript program, using specified entry points, returning
  * JSON information describing the code
  */
-export function walkProgram(program: ts.Program): any {
+export function walkProgram(program: Program): any {
   // Create the type-checker
   const checker = program.getTypeChecker();
 
@@ -44,24 +44,24 @@ export function walkProgram(program: ts.Program): any {
   });
 
   const result = q.drain({
-    handleNode(ref: NodeRef, item: ts.Node): SerializedNode {
+    handleNode(ref: NodeRef, item: Node): SerializedNode {
       return serializeNode(item, checker, ref as NodeRef, q);
     },
-    handleType(ref: TypeRef, item: ts.Type): SerializedType {
+    handleType(ref: TypeRef, item: Type): SerializedType {
       return serializeType(item, checker, ref as TypeRef, q);
     },
     handleSourceFile(
       ref: SourceFileRef,
-      item: ts.SourceFile
+      item: SourceFile
     ): SerializedSourceFile {
       return serializeSourceFile(item, checker, ref as SourceFileRef, q);
     },
-    handleSymbol(ref: SymbolRef, item: ts.Symbol): SerializedSymbol {
+    handleSymbol(ref: SymbolRef, item: Sym): SerializedSymbol {
       return serializeSymbol(item, checker, ref as SymbolRef, q);
     },
     handleDeclaration(
       ref: DeclarationRef,
-      item: ts.Declaration
+      item: Declaration
     ): SerializedDeclaration {
       return serializeDeclaration(item, checker, ref, q);
     }

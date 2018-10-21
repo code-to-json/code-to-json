@@ -1,5 +1,10 @@
 import * as ts from 'typescript';
-function get(obj: any, propname: string) {
+/**
+ * Get a property from a target object
+ * @param obj target
+ * @param propname property name
+ */
+function get(obj: any, propname: string): any {
   if (obj && typeof obj === 'object') {
     return obj[propname];
   } else {
@@ -66,10 +71,19 @@ export function isEmpty(
   return false;
 }
 
+/**
+ * Check a value for blankness
+ * @param obj value to check for blankness
+ * @see isPresent
+ */
 export function isBlank(obj: any): boolean {
   return isEmpty(obj) || (typeof obj === 'string' && /\S/.test(obj) === false);
 }
-
+/**
+ * Check a value for non-blankness
+ * @param obj object to check for presence
+ * @see isBlank
+ */
 export function isPresent(obj: object): boolean {
   return !isBlank(obj);
 }
