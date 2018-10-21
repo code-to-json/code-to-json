@@ -6,6 +6,7 @@ import {
   DeclarationRef,
   isRef,
   NodeRef,
+  SourceFileRef,
   TypeRef
 } from '../processing-queue/ref';
 
@@ -15,7 +16,6 @@ export interface SerializedNode {
   flags?: Flags;
   parent?: NodeRef;
   children?: NodeRef[];
-  text: string;
   kind: string;
   pos: number;
   end: number;
@@ -28,7 +28,7 @@ export interface SerializedNode {
 export default function serializeNode(
   n: ts.Node,
   checker: ts.TypeChecker,
-  ref: NodeRef | DeclarationRef,
+  ref: NodeRef | DeclarationRef | SourceFileRef,
   _queue: ProcessingQueue
 ): SerializedNode {
   const { flags, kind, decorators, modifiers, pos, end, parent } = n;
@@ -38,8 +38,7 @@ export default function serializeNode(
     end,
     thing: 'node',
     kind: ts.SyntaxKind[kind],
-    flags: flagsToString(flags, 'node'),
-    text: n.getText()
+    flags: flagsToString(flags, 'node')
   };
   if (decorators && decorators.length) {
     details.decorators = decorators.map((d) => ts.SyntaxKind[d.kind]);
@@ -61,7 +60,9 @@ export default function serializeNode(
     details.type = _queue.queue(typ, 'type', checker);
   }
   const childReferences = mapChildren(n, (child) => {
-    if (child.getSourceFile().isDeclarationFile) { return; }
+    if (child.getSourceFile().isDeclarationFile) {
+      return;
+    }
     return _queue.queue(child, 'node', checker);
   }).filter(isRef);
   if (childReferences && childReferences.length > 0) {
