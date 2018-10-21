@@ -42,9 +42,7 @@ export default function serializeType(
     typeString: checker.typeToString(typ),
     aliasTypeArguments:
       aliasTypeArguments &&
-      aliasTypeArguments
-        .map((ata) => queue.queue(ata, 'type', checker))
-        .filter(isRef),
+      aliasTypeArguments.map(ata => queue.queue(ata, 'type', checker)).filter(isRef),
     aliasSymbol: aliasSymbol && queue.queue(aliasSymbol, 'symbol', checker),
     flags: flagsToString(flags, 'type'),
     objectFlags: objFlags ? flagsToString(objFlags, 'object') : undefined
@@ -68,9 +66,7 @@ export default function serializeType(
   }
   const baseTypes = typ.getBaseTypes();
   if (baseTypes) {
-    typeData.baseTypes = baseTypes
-      .map((bt) => queue.queue(bt, 'type', checker))
-      .filter(isRef);
+    typeData.baseTypes = baseTypes.map(bt => queue.queue(bt, 'type', checker)).filter(isRef);
   }
   // if (
   //   typ.symbol &&

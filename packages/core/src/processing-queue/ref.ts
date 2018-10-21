@@ -12,12 +12,7 @@ export interface TypeRef extends Ref<'type'> {
 }
 export interface SourceFileRef extends Ref<'sourceFile'> {}
 
-export type AnyRef =
-  | SymbolRef
-  | DeclarationRef
-  | NodeRef
-  | TypeRef
-  | SourceFileRef;
+export type AnyRef = SymbolRef | DeclarationRef | NodeRef | TypeRef | SourceFileRef;
 
 export interface RefMap {
   symbol: SymbolRef;

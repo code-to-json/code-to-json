@@ -1,11 +1,6 @@
 import * as ts from 'typescript';
 import { ProcessingQueue } from '../processing-queue';
-import {
-  DeclarationRef,
-  isRef,
-  SymbolRef,
-  TypeRef
-} from '../processing-queue/ref';
+import { DeclarationRef, isRef, SymbolRef, TypeRef } from '../processing-queue/ref';
 
 export interface SerializedSignature {
   parameters: SymbolRef[];
@@ -23,18 +18,12 @@ export default function serializeSignature(
 ): SerializedSignature {
   const { parameters, typeParameters, declaration } = signature;
   return {
-    parameters: parameters
-      .map((p) => q.queue(p, 'symbol', checker))
-      .filter(isRef),
+    parameters: parameters.map(p => q.queue(p, 'symbol', checker)).filter(isRef),
     typeParameters: typeParameters
-      ? typeParameters.map((p) => q.queue(p, 'type', checker)).filter(isRef)
+      ? typeParameters.map(p => q.queue(p, 'type', checker)).filter(isRef)
       : undefined,
-    declaration: declaration
-      ? q.queue(declaration, 'declaration', checker)
-      : undefined,
+    declaration: declaration ? q.queue(declaration, 'declaration', checker) : undefined,
     returnType: checker.typeToString(signature.getReturnType()),
-    documentation: ts.displayPartsToString(
-      signature.getDocumentationComment(checker)
-    )
+    documentation: ts.displayPartsToString(signature.getDocumentationComment(checker))
   };
 }

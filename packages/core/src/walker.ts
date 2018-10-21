@@ -1,26 +1,9 @@
-import {
-  Declaration,
-  Node,
-  Program,
-  SourceFile,
-  Symbol as Sym,
-  Type
-} from 'typescript';
+import { Declaration, Node, Program, SourceFile, Symbol as Sym, Type } from 'typescript';
 import { create as createQueue } from './processing-queue';
-import {
-  DeclarationRef,
-  NodeRef,
-  SourceFileRef,
-  SymbolRef,
-  TypeRef
-} from './processing-queue/ref';
-import serializeDeclaration, {
-  SerializedDeclaration
-} from './serializers/declaration';
+import { DeclarationRef, NodeRef, SourceFileRef, SymbolRef, TypeRef } from './processing-queue/ref';
+import serializeDeclaration, { SerializedDeclaration } from './serializers/declaration';
 import serializeNode, { SerializedNode } from './serializers/node';
-import serializeSourceFile, {
-  SerializedSourceFile
-} from './serializers/source-file';
+import serializeSourceFile, { SerializedSourceFile } from './serializers/source-file';
 import serializeSymbol, { SerializedSymbol } from './serializers/symbol';
 import serializeType, { SerializedType } from './serializers/type';
 
@@ -38,7 +21,7 @@ export function walkProgram(program: Program): any {
 
   // Initialize the work-processing queue
   const q = createQueue();
-  sourceFiles.forEach((sf) => {
+  sourceFiles.forEach(sf => {
     return q.queue(sf, 'sourceFile', checker);
   });
 
@@ -49,19 +32,13 @@ export function walkProgram(program: Program): any {
     handleType(ref: TypeRef, item: Type): SerializedType {
       return serializeType(item, checker, ref as TypeRef, q);
     },
-    handleSourceFile(
-      ref: SourceFileRef,
-      item: SourceFile
-    ): SerializedSourceFile {
+    handleSourceFile(ref: SourceFileRef, item: SourceFile): SerializedSourceFile {
       return serializeSourceFile(item, checker, ref as SourceFileRef, q);
     },
     handleSymbol(ref: SymbolRef, item: Sym): SerializedSymbol {
       return serializeSymbol(item, checker, ref as SymbolRef, q);
     },
-    handleDeclaration(
-      ref: DeclarationRef,
-      item: Declaration
-    ): SerializedDeclaration {
+    handleDeclaration(ref: DeclarationRef, item: Declaration): SerializedDeclaration {
       return serializeDeclaration(item, checker, ref, q);
     }
   });
