@@ -1,1 +1,1 @@
-export { walkProgram } from './walker';
+export { walkProgram, WalkerOutput } from './walker';

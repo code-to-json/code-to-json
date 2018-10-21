@@ -7,11 +7,19 @@ import serializeSourceFile, { SerializedSourceFile } from './serializers/source-
 import serializeSymbol, { SerializedSymbol } from './serializers/symbol';
 import serializeType, { SerializedType } from './serializers/type';
 
+export interface WalkerOutput {
+  symbol: SerializedSymbol[];
+  type: SerializedType[];
+  node: SerializedNode[];
+  declaration: SerializedDeclaration[];
+  sourceFile: SerializedSourceFile[];
+}
+
 /**
  * Walk a typescript program, using specified entry points, returning
  * JSON information describing the code
  */
-export function walkProgram(program: Program): any {
+export function walkProgram(program: Program): WalkerOutput {
   // Create the type-checker
   const checker = program.getTypeChecker();
 
