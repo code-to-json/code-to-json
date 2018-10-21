@@ -2,24 +2,43 @@ import { walkProgram } from '@code-to-json/core';
 import * as fs from 'fs';
 import * as glob from 'glob';
 import * as path from 'path';
-import * as ts from 'typescript';
+import {
+  CompilerOptions,
+  createProgram,
+  findConfigFile,
+  getParsedCommandLineOfConfigFile,
+  ModuleResolutionKind,
+  Program,
+  readConfigFile,
+  ScriptTarget,
+  sys
+} from 'typescript';
 import { promisify } from 'util';
 import { debugLog } from '..';
 import InvalidArgumentsError from '../invalid-arguments-error';
 
-const DEFAULT_COMPILER_OPTIONS: ts.CompilerOptions = {
+const DEFAULT_COMPILER_OPTIONS: CompilerOptions = {
   allowJs: true,
   checkJs: true,
-  moduleResolution: ts.ModuleResolutionKind.NodeJs,
-  target: ts.ScriptTarget.ESNext
+  moduleResolution: ModuleResolutionKind.NodeJs,
+  target: ScriptTarget.ESNext
 };
 
-function tsConfigForPath(filePath: string) {
-  return ts.findConfigFile(filePath, (fileName: string) => true);
+/**
+ * Find the path to an appropriate TSConfig, given a search path
+ * @param filePath path to search
+ */
+function tsConfigForPath(filePath: string): string | undefined {
+  return findConfigFile(filePath, () => true);
 }
 
 const pGlob = promisify(glob);
 
+/**
+ * Resolve some globs into discrete files, matching a set of extensions
+ * @param globs Globs to search
+ * @param extensions Extensions of paths to retain
+ */
 async function globsToPaths(
   globs: string[],
   extensions: string[] = ['.js', '.ts']
@@ -45,7 +64,11 @@ async function globsToPaths(
     : allPaths;
 }
 
-async function createProgramFromTsConfig(searchPath: string) {
+/**
+ * Create a typescript program, given a search path
+ * @param searchPath Search path to use when looking for a typescript configuration
+ */
+async function createProgramFromTsConfig(searchPath: string): Promise<Program> {
   const cfgPath = tsConfigForPath(searchPath);
   if (!cfgPath) {
     throw new InvalidArgumentsError(
@@ -53,7 +76,7 @@ async function createProgramFromTsConfig(searchPath: string) {
     );
   }
   debugLog('Found typescript configuration file: ', cfgPath);
-  const configContent = ts.readConfigFile(cfgPath, (filePath: string) =>
+  const configContent = readConfigFile(cfgPath, (filePath: string) =>
     fs.readFileSync(filePath).toString()
   );
   const { error, config } = configContent;
@@ -64,10 +87,10 @@ async function createProgramFromTsConfig(searchPath: string) {
     // const diagReporter: ts.DiagnosticReporter = (ts as any).createDiagnosticReporter(
     //   ts.sys
     // );
-    const configResult = ts.getParsedCommandLineOfConfigFile(
+    const configResult = getParsedCommandLineOfConfigFile(
       cfgPath,
       {},
-      ts.sys as any
+      sys as any
     );
     if (!configResult) {
       throw new InvalidArgumentsError(
@@ -83,7 +106,7 @@ async function createProgramFromTsConfig(searchPath: string) {
     }
     debugLog('Using typescript compiler options', options);
     debugLog('applying to files', rootNames);
-    return ts.createProgram({
+    return createProgram({
       rootNames,
       options
     });
@@ -94,16 +117,25 @@ async function createProgramFromTsConfig(searchPath: string) {
   }
 }
 
-async function createProgramFromEntries(globs: string[]): Promise<ts.Program> {
+/**
+ * Create a typescript program from globs that describe entry files
+ * @param globs Globs that specify one or more entries
+ */
+async function createProgramFromEntries(globs: string[]): Promise<Program> {
   const rootNames = await globsToPaths(globs);
   debugLog('Globs are equivalent to files', rootNames);
-  const prog = ts.createProgram({
+  const prog = createProgram({
     rootNames,
     options: DEFAULT_COMPILER_OPTIONS
   });
   return prog;
 }
 
+/**
+ * Run the symbol walker to generate a JSON file based on some code
+ * @param options CLI options
+ * @param entries an array of entry globs
+ */
 export default async function run(
   options: { [k: string]: any } & { project: string },
   entries?: string[]
@@ -117,7 +149,7 @@ export default async function run(
   rawEntries?: string[]
 ): Promise<void> {
   const { project, out = 'out.json' } = options;
-  let program!: ts.Program;
+  let program!: Program;
   if (typeof project === 'string') {
     program = await createProgramFromTsConfig(project);
   } else if (!project && rawEntries && rawEntries.length > 0) {

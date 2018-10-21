@@ -1,4 +1,4 @@
-import * as ts from 'typescript';
+import { Declaration, TypeChecker } from 'typescript';
 import { ProcessingQueue } from '../processing-queue';
 import { DeclarationRef, SourceFileRef } from '../processing-queue/ref';
 import serializeNode, { SerializedNode } from './node';
@@ -8,9 +8,13 @@ export interface SerializedDeclaration
   thing: 'declaration';
 }
 
+/**
+ * Serialize a Declaration to a POJO
+ * @param decl Declaration to serialize
+ */
 export default function serializeDeclaration(
-  decl: ts.Declaration,
-  checker: ts.TypeChecker,
+  decl: Declaration,
+  checker: TypeChecker,
   ref: DeclarationRef | SourceFileRef,
   _queue: ProcessingQueue
 ): SerializedDeclaration {

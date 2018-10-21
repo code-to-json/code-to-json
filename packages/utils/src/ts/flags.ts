@@ -1,28 +1,43 @@
-import * as ts from 'typescript';
+import {
+  NodeBuilderFlags,
+  NodeFlags,
+  ObjectFlags,
+  ObjectType,
+  SymbolFlags,
+  SymbolFormatFlags,
+  Type,
+  TypeFlags
+} from 'typescript';
 import { Flags } from '../types';
 
 interface FlagsMap {
-  type: ts.TypeFlags;
-  node: ts.NodeFlags;
-  object: ts.ObjectFlags;
-  nodeBuilder: ts.NodeBuilderFlags;
-  symbol: ts.SymbolFlags;
-  symbolFormat: ts.SymbolFormatFlags;
+  type: TypeFlags;
+  node: NodeFlags;
+  object: ObjectFlags;
+  nodeBuilder: NodeBuilderFlags;
+  symbol: SymbolFlags;
+  symbolFormat: SymbolFormatFlags;
 }
+
+/**
+ * Get a flag map object
+ * @param type type of flag map
+ * @see flagsToString
+ */
 function getFlagMap<T extends keyof FlagsMap>(type: T): { [k: string]: any } {
   switch (type) {
     case 'type':
-      return ts.TypeFlags;
+      return TypeFlags;
     case 'object':
-      return ts.ObjectFlags;
+      return ObjectFlags;
     case 'node':
-      return ts.NodeFlags;
+      return NodeFlags;
     case 'nodeBuilder':
-      return ts.NodeBuilderFlags;
+      return NodeBuilderFlags;
     case 'symbol':
-      return ts.SymbolFlags;
+      return SymbolFlags;
     case 'symbolFormat':
-      return ts.SymbolFormatFlags;
+      return SymbolFormatFlags;
     default:
       throw new Error('Unsupported flag type: ' + type);
   }
@@ -63,9 +78,13 @@ export function flagsToString<T extends keyof FlagsMap>(
   return flagNames;
 }
 
-export function getObjectFlags(type: ts.Type): ts.ObjectFlags | undefined {
+/**
+ * Get the object flags from a type
+ * @param type bitmask of object flags
+ */
+export function getObjectFlags(type: Type): ObjectFlags | undefined {
   // tslint:disable-next-line:no-bitwise
-  return type.flags & ts.TypeFlags.Object
-    ? (type as ts.ObjectType).objectFlags
+  return type.flags & TypeFlags.Object
+    ? (type as ObjectType).objectFlags
     : undefined;
 }

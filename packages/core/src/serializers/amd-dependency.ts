@@ -5,6 +5,10 @@ export interface SerializedAmdDependency {
   path: string;
 }
 
+/**
+ * Serialize a AmdDependency to a POJO
+ * @param dep AmdDependency to serialize
+ */
 export default function serializeAmdDependency(
   dep: AmdDependency
 ): SerializedAmdDependency {

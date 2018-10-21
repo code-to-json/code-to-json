@@ -3,6 +3,10 @@ export interface SerializedPosition {
   end: number;
 }
 
+/**
+ * Serialize a position
+ * @param thing a value with a position
+ */
 export default function serializePosition(thing: {
   pos: number;
   end: number;
