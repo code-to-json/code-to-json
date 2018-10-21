@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.3.1](https://github.com/mike-north/code-to-json/tree/master/packages/utils/compare/@code-to-json/utils@0.3.0...@code-to-json/utils@0.3.1) (2018-10-21)
+
+
+### Bug Fixes
+
+* source files as top-level entity ([ef1a3d5](https://github.com/mike-north/code-to-json/tree/master/packages/utils/commit/ef1a3d5))
+
+
+
+
+
 # [0.3.0](https://github.com/mike-north/code-to-json/tree/master/packages/utils/compare/@code-to-json/utils@0.2.0...@code-to-json/utils@0.3.0) (2018-10-20)
 
 
