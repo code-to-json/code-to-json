@@ -45,12 +45,12 @@ async function globsToPaths(
 ): Promise<string[]> {
   const valueSet = new Set<string>();
   await Promise.all(
-    globs.map((g) =>
+    globs.map(g =>
       pGlob(g)
         .then((files: string[]) => {
-          files.forEach((f) => valueSet.add(f));
+          files.forEach(f => valueSet.add(f));
         })
-        .catch((er) => {
+        .catch(er => {
           throw new InvalidArgumentsError(`Invalid glob: ${g}\n${er}`);
         })
     )
@@ -58,9 +58,7 @@ async function globsToPaths(
   const allPaths = [...valueSet];
   // If extensions are provided, only return those files that match
   return extensions
-    ? allPaths.filter(
-        (f) => extensions.indexOf(path.extname(f).toLowerCase()) >= 0
-      )
+    ? allPaths.filter(f => extensions.indexOf(path.extname(f).toLowerCase()) >= 0)
     : allPaths;
 }
 
@@ -71,9 +69,7 @@ async function globsToPaths(
 async function createProgramFromTsConfig(searchPath: string): Promise<Program> {
   const cfgPath = tsConfigForPath(searchPath);
   if (!cfgPath) {
-    throw new InvalidArgumentsError(
-      `Could not find a tsconfig.json via path "${searchPath}"`
-    );
+    throw new InvalidArgumentsError(`Could not find a tsconfig.json via path "${searchPath}"`);
   }
   debugLog('Found typescript configuration file: ', cfgPath);
   const configContent = readConfigFile(cfgPath, (filePath: string) =>
@@ -87,15 +83,9 @@ async function createProgramFromTsConfig(searchPath: string): Promise<Program> {
     // const diagReporter: ts.DiagnosticReporter = (ts as any).createDiagnosticReporter(
     //   ts.sys
     // );
-    const configResult = getParsedCommandLineOfConfigFile(
-      cfgPath,
-      {},
-      sys as any
-    );
+    const configResult = getParsedCommandLineOfConfigFile(cfgPath, {}, sys as any);
     if (!configResult) {
-      throw new InvalidArgumentsError(
-        `Failed to parse config file "${cfgPath}"`
-      );
+      throw new InvalidArgumentsError(`Failed to parse config file "${cfgPath}"`);
     }
     const { fileNames: rootNames, options, errors } = configResult;
     if (errors && errors.length > 0) {
@@ -111,9 +101,7 @@ async function createProgramFromTsConfig(searchPath: string): Promise<Program> {
       options
     });
   } else {
-    throw new InvalidArgumentsError(
-      'reading tsconfig seemed to neither suceed or fail'
-    );
+    throw new InvalidArgumentsError('reading tsconfig seemed to neither suceed or fail');
   }
 }
 
@@ -140,10 +128,7 @@ export default async function run(
   options: { [k: string]: any } & { project: string },
   entries?: string[]
 ): Promise<void>;
-export default async function run(
-  options: { [k: string]: any },
-  entries: string[]
-): Promise<void>;
+export default async function run(options: { [k: string]: any }, entries: string[]): Promise<void>;
 export default async function run(
   options: { [k: string]: any },
   rawEntries?: string[]
@@ -155,9 +140,7 @@ export default async function run(
   } else if (!project && rawEntries && rawEntries.length > 0) {
     program = await createProgramFromEntries(rawEntries);
   } else {
-    throw new InvalidArgumentsError(
-      'Either --program <path> or entries glob(s) must be defined'
-    );
+    throw new InvalidArgumentsError('Either --program <path> or entries glob(s) must be defined');
   }
   const walkResult = walkProgram(program);
   // debugLog('walk result', walkResult);

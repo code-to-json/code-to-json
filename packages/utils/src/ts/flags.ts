@@ -84,7 +84,5 @@ export function flagsToString<T extends keyof FlagsMap>(
  */
 export function getObjectFlags(type: Type): ObjectFlags | undefined {
   // tslint:disable-next-line:no-bitwise
-  return type.flags & TypeFlags.Object
-    ? (type as ObjectType).objectFlags
-    : undefined;
+  return type.flags & TypeFlags.Object ? (type as ObjectType).objectFlags : undefined;
 }

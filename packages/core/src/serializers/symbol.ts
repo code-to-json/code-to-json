@@ -1,12 +1,7 @@
 import { Flags, flagsToString, mapUem } from '@code-to-json/utils';
 import { displayPartsToString, Symbol as Sym, TypeChecker } from 'typescript';
 import { ProcessingQueue } from '../processing-queue';
-import {
-  DeclarationRef,
-  isRef,
-  SymbolRef,
-  TypeRef
-} from '../processing-queue/ref';
+import { DeclarationRef, isRef, SymbolRef, TypeRef } from '../processing-queue/ref';
 import serializeSignature, { SerializedSignature } from './signature';
 
 export interface SerializedSymbol {
@@ -42,34 +37,21 @@ export default function serializeSymbol(
   queue: ProcessingQueue
 ): SerializedSymbol {
   const { exports, globalExports, members, flags, valueDeclaration } = symbol;
-  const typ = checker.getTypeOfSymbolAtLocation(
-    symbol,
-    symbol.valueDeclaration!
-  );
+  const typ = checker.getTypeOfSymbolAtLocation(symbol, symbol.valueDeclaration!);
   const details: SerializedSymbol = {
     id: ref.id,
     thing: 'symbol',
     name: symbol.getName(),
-    documentation: displayPartsToString(
-      symbol.getDocumentationComment(checker)
-    ),
+    documentation: displayPartsToString(symbol.getDocumentationComment(checker)),
     flags: flagsToString(flags, 'symbol'),
     type: queue.queue(typ, 'type', checker),
     members:
-      members &&
-      mapUem(members, (val: Sym) => queue.queue(val, 'symbol', checker)).filter(
-        isRef
-      ),
+      members && mapUem(members, (val: Sym) => queue.queue(val, 'symbol', checker)).filter(isRef),
     exports:
-      exports &&
-      mapUem(exports, (val: Sym) => queue.queue(val, 'symbol', checker)).filter(
-        isRef
-      ),
+      exports && mapUem(exports, (val: Sym) => queue.queue(val, 'symbol', checker)).filter(isRef),
     globalExports:
       globalExports &&
-      mapUem(globalExports, (val: Sym) =>
-        queue.queue(val, 'symbol', checker)
-      ).filter(isRef)
+      mapUem(globalExports, (val: Sym) => queue.queue(val, 'symbol', checker)).filter(isRef)
     // declarations:
     //   declarations &&
     //   declarations
@@ -84,16 +66,13 @@ export default function serializeSymbol(
   };
 
   if (valueDeclaration) {
-    const valDeclType = checker.getTypeOfSymbolAtLocation(
-      symbol,
-      valueDeclaration
-    );
+    const valDeclType = checker.getTypeOfSymbolAtLocation(symbol, valueDeclaration);
     details.constructorSignatures = valDeclType
       .getConstructSignatures()
-      .map((s) => serializeSignature(s, checker, queue));
+      .map(s => serializeSignature(s, checker, queue));
     details.callSignatures = valDeclType
       .getCallSignatures()
-      .map((s) => serializeSignature(s, checker, queue));
+      .map(s => serializeSignature(s, checker, queue));
   }
   const jsDocTags = symbol.getJsDocTags();
   if (jsDocTags.length > 0) {

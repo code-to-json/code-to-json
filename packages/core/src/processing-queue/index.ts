@@ -9,14 +9,7 @@ import {
 } from 'typescript';
 import { EntityMap } from '../types';
 import { generateId } from './generate-id';
-import {
-  DeclarationRef,
-  NodeRef,
-  RefFor,
-  SourceFileRef,
-  SymbolRef,
-  TypeRef
-} from './ref';
+import { DeclarationRef, NodeRef, RefFor, SourceFileRef, SymbolRef, TypeRef } from './ref';
 
 export interface QueueSink<S, T, N, D, SF> {
   handleNode(ref: NodeRef, item: Node): N;
@@ -40,9 +33,7 @@ export interface ProcessingQueue {
     refType: K,
     checker: TypeChecker
   ): RefFor<K> | undefined;
-  drain<S, T, N, D, SF>(
-    sink: QueueSink<S, N, T, D, SF>
-  ): DrainOutput<S, N, T, D, SF>;
+  drain<S, T, N, D, SF>(sink: QueueSink<S, N, T, D, SF>): DrainOutput<S, N, T, D, SF>;
 }
 
 interface RefTracking<K extends keyof EntityMap> {
@@ -134,9 +125,7 @@ export function create(): ProcessingQueue {
       map.set(thing, { ref, processed: false });
       return ref;
     },
-    drain<S, T, N, D, SF>(
-      sink: Partial<QueueSink<S, N, T, D, SF>>
-    ): DrainOutput<S, N, T, D, SF> {
+    drain<S, T, N, D, SF>(sink: Partial<QueueSink<S, N, T, D, SF>>): DrainOutput<S, N, T, D, SF> {
       const out: DrainOutput<S, N, T, D, SF> = {
         declaration: [],
         symbol: [],
@@ -152,24 +141,24 @@ export function create(): ProcessingQueue {
           processed: 0
         };
 
-        (['declaration', 'symbol', 'type', 'node', 'sourceFile'] as Array<
-          keyof EntityMap
-        >).forEach((key) => {
-          const map = data[key] as Map<EntityMap[K], RefTracking<K>>;
-          const outArray: Array<S | N | T | D | SF> = out[key];
-          map.forEach((rt, item) => {
-            if (rt.processed === true) {
-              return;
-            }
-            const fn = mapperForReferenceType(rt.ref.refType, sink) as ((
-              ref: RefFor<K>,
-              item: EntityMap[K]
-            ) => S | N | D | T);
-            outArray.push(fn(rt.ref as RefFor<K>, item));
-            rt.processed = true;
-            outputInfo.processed++;
-          });
-        });
+        (['declaration', 'symbol', 'type', 'node', 'sourceFile'] as Array<keyof EntityMap>).forEach(
+          key => {
+            const map = data[key] as Map<EntityMap[K], RefTracking<K>>;
+            const outArray: Array<S | N | T | D | SF> = out[key];
+            map.forEach((rt, item) => {
+              if (rt.processed === true) {
+                return;
+              }
+              const fn = mapperForReferenceType(rt.ref.refType, sink) as ((
+                ref: RefFor<K>,
+                item: EntityMap[K]
+              ) => S | N | D | T);
+              outArray.push(fn(rt.ref as RefFor<K>, item));
+              rt.processed = true;
+              outputInfo.processed++;
+            });
+          }
+        );
         return outputInfo;
       }
       const maxLoops = 60;
@@ -177,16 +166,12 @@ export function create(): ProcessingQueue {
       let lastResult = flush();
       while (lastResult.processed > 0 && flushCount < maxLoops) {
         // tslint:disable-next-line:no-console
-        console.log(
-          `(${flushCount}) Processed: ${lastResult.processed} things`
-        );
+        console.log(`(${flushCount}) Processed: ${lastResult.processed} things`);
         lastResult = flush();
         flushCount++;
       }
       // tslint:disable-next-line:no-console
-      console.log(
-        `(${flushCount} - final) Processed: ${lastResult.processed} things`
-      );
+      console.log(`(${flushCount} - final) Processed: ${lastResult.processed} things`);
       return out;
     }
   };

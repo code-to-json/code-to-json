@@ -1,6 +1,6 @@
 {
   "defaultSeverity": "error",
-  "extends": ["tslint:recommended"],
+  "extends": ["tslint:recommended", "tslint-config-prettier"],
   "jsRules": {
     "quotemark": false,
     "whitespace": false,
@@ -8,14 +8,7 @@
     "trailing-comma": false,
     "object-literal-sort-keys": false,
     "no-debugger": false,
-    "completed-docs": true,
-    "max-line-length": [
-      true,
-      {
-        "limit": 120,
-        "ignore-pattern": "^import |^export {(.*?)} |^// |^\\s*\\*\\s"
-      }
-    ],
+
     "no-unused-variable": [true, { "ignore-pattern": "^_" }]
   },
   "rules": {
@@ -26,14 +19,6 @@
     "object-literal-sort-keys": false,
     "interface-name": false,
     "no-debugger": false,
-    "completed-docs": true,
-    "max-line-length": [
-      true,
-      {
-        "limit": 120,
-        "ignore-pattern": "^import |^export {(.*?)} |^// |^\\s*\\*\\s"
-      }
-    ],
     "typedef": [true, "call-signature"],
     "no-unused-variable": [true, { "ignore-pattern": "^_" }]
   },
