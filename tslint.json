@@ -7,7 +7,15 @@
     "variable-name": [true, "allow-leading-underscore"],
     "trailing-comma": false,
     "object-literal-sort-keys": false,
-    "no-debugger": false
+    "no-debugger": false,
+    "completed-docs": true,
+    "max-line-length": [
+      true,
+      {
+        "limit": 120,
+        "ignore-pattern": "^import |^export {(.*?)} |^// |^\\s*\\*\\s"
+      }
+    ]
   },
   "rules": {
     "quotemark": false,
@@ -16,7 +24,16 @@
     "trailing-comma": false,
     "object-literal-sort-keys": false,
     "interface-name": false,
-    "no-debugger": false
+    "no-debugger": false,
+    "completed-docs": true,
+    "max-line-length": [
+      true,
+      {
+        "limit": 120,
+        "ignore-pattern": "^import |^export {(.*?)} |^// |^\\s*\\*\\s"
+      }
+    ],
+    "typedef": [true, "call-signature"]
   },
   "rulesDirectory": []
 }

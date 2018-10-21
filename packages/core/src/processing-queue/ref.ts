@@ -10,14 +10,21 @@ export interface NodeRef extends Ref<'node'> {}
 export interface TypeRef extends Ref<'type'> {
   typeString: string;
 }
+export interface SourceFileRef extends Ref<'sourceFile'> {}
 
-export type AnyRef = SymbolRef | DeclarationRef | NodeRef | TypeRef;
+export type AnyRef =
+  | SymbolRef
+  | DeclarationRef
+  | NodeRef
+  | TypeRef
+  | SourceFileRef;
 
 export interface RefMap {
   symbol: SymbolRef;
   node: NodeRef;
   declaration: DeclarationRef;
   type: TypeRef;
+  sourceFile: SourceFileRef;
 }
 
 export type RefFor<K extends keyof RefMap> = RefMap[K];
