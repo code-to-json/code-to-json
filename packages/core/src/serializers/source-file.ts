@@ -1,6 +1,11 @@
 import { SourceFile, TypeChecker } from 'typescript';
 import { ProcessingQueue } from '../processing-queue';
-import { isRef, NodeRef, SourceFileRef } from '../processing-queue/ref';
+import {
+  isRef,
+  NodeRef,
+  SourceFileRef,
+  SymbolRef
+} from '../processing-queue/ref';
 import serializeAmdDependency, {
   SerializedAmdDependency
 } from './amd-dependency';
@@ -18,6 +23,8 @@ export interface SerializedSourceFile
   moduleName?: string;
   fileName?: string;
   statements?: NodeRef[];
+  symbol?: SymbolRef;
+  isDeclarationFile: boolean;
   amdDependencies?: SerializedAmdDependency[];
   referencedFiles?: SerializedFileReference[];
   typeReferenceDirectives?: SerializedFileReference[];
@@ -40,6 +47,7 @@ export default function serializeSourceFile(
     fileName,
     moduleName,
     amdDependencies,
+    isDeclarationFile,
     statements: _statements,
     referencedFiles: _referencedFiles,
     typeReferenceDirectives: _typeReferenceDirectives,
@@ -60,6 +68,7 @@ export default function serializeSourceFile(
     thing: 'sourceFile',
     fileName,
     moduleName,
+    isDeclarationFile,
     amdDependencies:
       amdDependencies && amdDependencies.map(serializeAmdDependency),
     statements,
@@ -74,9 +83,10 @@ export default function serializeSourceFile(
    * to obtain a Symbol (AST + Type Information, via the binder)
    */
   const sym = checker.getSymbolAtLocation(sourceFile);
-  if (!sym) {
-    // I don't know how we could ever get here, but would be a showstopper
-    throw new Error(`No symbol for source file ${sourceFile.fileName}`);
+  if (sym) {
+    basicInfo.symbol = _queue.queue(sym, 'symbol', checker);
+    // // I don't know how we could ever get here, but would be a showstopper
+    // throw new Error(`No symbol for source file ${sourceFile.fileName}`);
   }
   /**
    * Obtain a reference for each source file's symbol.
