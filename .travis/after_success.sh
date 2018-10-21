@@ -1,2 +1,2 @@
 #!/bin/bash
-# After Success
+echo "-- No code in after_success hook --";
