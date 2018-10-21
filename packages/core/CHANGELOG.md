@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.4.0](https://github.com/mike-north/code-to-json/tree/master/packages/core/compare/@code-to-json/core@0.3.1...@code-to-json/core@0.4.0) (2018-10-21)
+
+
+### Features
+
+* nodes output their text ([13692a2](https://github.com/mike-north/code-to-json/tree/master/packages/core/commit/13692a2))
+
+
+
+
+
 ## [0.3.1](https://github.com/mike-north/code-to-json/tree/master/packages/core/compare/@code-to-json/core@0.3.0...@code-to-json/core@0.3.1) (2018-10-21)
 
 
