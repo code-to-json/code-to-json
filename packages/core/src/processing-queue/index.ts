@@ -172,16 +172,21 @@ export function create(): ProcessingQueue {
         });
         return outputInfo;
       }
-      const maxLoops = 10;
-      const flushCount = 0;
+      const maxLoops = 60;
+      let flushCount = 1;
       let lastResult = flush();
       while (lastResult.processed > 0 && flushCount < maxLoops) {
         // tslint:disable-next-line:no-console
-        console.log(`Processed: ${lastResult.processed} things`);
+        console.log(
+          `(${flushCount}) Processed: ${lastResult.processed} things`
+        );
         lastResult = flush();
+        flushCount++;
       }
       // tslint:disable-next-line:no-console
-      console.log(`Processed: ${lastResult.processed} things`);
+      console.log(
+        `(${flushCount} - final) Processed: ${lastResult.processed} things`
+      );
       return out;
     }
   };

@@ -45,7 +45,22 @@ const prog = commander
       );
       const beginTime = process.hrtime();
       try {
-        run({ ...opts, project }, entries);
+        run({ ...opts, project }, entries).then(() => {
+          const timeElapsed = process.hrtime(beginTime);
+          debugLog(
+            `${chalk.yellow(
+              leftpad(
+                (
+                  Math.round(
+                    (timeElapsed[0] * NS_PER_SEC + timeElapsed[1]) / 1e3
+                  ) / 1e3
+                ).toFixed(3),
+                6
+              )
+            )} ms ${chalk.green('(extraction time)')}
+`
+          );
+        });
       } catch (err) {
         if (err.__invalid_arguments_error) {
           process.stderr.write(chalk.red(`\n[ERROR] - ${err.message}\n`));
@@ -55,19 +70,6 @@ const prog = commander
           throw err;
         }
       }
-      const timeElapsed = process.hrtime(beginTime);
-      debugLog(
-        `${chalk.yellow(
-          leftpad(
-            (
-              Math.round((timeElapsed[0] * NS_PER_SEC + timeElapsed[1]) / 1e3) /
-              1e3
-            ).toFixed(3),
-            6
-          )
-        )} ms ${chalk.green('(extraction time)')}
-`
-      );
     }, 0);
   })
   .parse(process.argv);

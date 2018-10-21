@@ -33,9 +33,8 @@ export function walkProgram(program: Program): any {
   const checker = program.getTypeChecker();
 
   // Get all non-declaration source files
-  const sourceFiles = program
-    .getSourceFiles()
-    .filter((f) => !f.isDeclarationFile);
+  const sourceFiles = program.getSourceFiles();
+  // .filter((f) => !f.isDeclarationFile);
 
   // Initialize the work-processing queue
   const q = createQueue();

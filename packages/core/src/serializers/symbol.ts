@@ -42,13 +42,10 @@ export default function serializeSymbol(
   queue: ProcessingQueue
 ): SerializedSymbol {
   const { exports, globalExports, members, flags, valueDeclaration } = symbol;
-  // Get the construct signatures
-
   const typ = checker.getTypeOfSymbolAtLocation(
     symbol,
     symbol.valueDeclaration!
   );
-
   const details: SerializedSymbol = {
     id: ref.id,
     thing: 'symbol',
