@@ -1,6 +1,13 @@
 import { WalkerOutput } from '@code-to-json/core';
+import formatSourceFile, { FormattedSourceFile } from './formatters/source-file';
 
-export function formatWalkerOutput(wo: WalkerOutput): any {
-  debugger;
-  return wo;
+interface FormattedProgramInfo {
+  sourceFiles: FormattedSourceFile[];
+}
+
+export function formatWalkerOutput(wo: WalkerOutput): FormattedProgramInfo {
+  const { sourceFile } = wo;
+  return {
+    sourceFiles: Object.keys(sourceFile).map(fn => formatSourceFile(wo, sourceFile[fn]))
+  };
 }

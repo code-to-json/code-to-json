@@ -18,16 +18,33 @@ export { default as Car } from './car';
 export { Unicycle, Bike } from './cycles';
 export { VehicleLike } from './types';
 
-class VehicleUtils {
+/**
+ * Utilities for working with vehicles
+ *
+ * @example
+ * ```ts
+ * const x = VehicleUtils.description;
+ * ```
+ * @private
+ * @see Vehicle
+ * @author Mike North
+ */
+export class VehicleUtils {
   /**
    * Static things
    */
-  static description: 'Utilities for vehicles';
+  public static description: 'Utilities for vehicles';
   /**
    * Members
    */
-  memberFn() {
+  public memberFn() {
     return '';
+  }
+  protected protectedFn() {
+    return '';
+  }
+  protected privateFn<T extends 'foo' | 'bar'>(arg: T) {
+    return `${arg}, baz`;
   }
 }
 

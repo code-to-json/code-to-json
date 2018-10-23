@@ -15,7 +15,7 @@ function createMessage(message?: string): string {
 /**
  * An error that's associated with un-reachable code
  */
-export default class UnreachableError extends Error {
+export class UnreachableError extends Error {
   constructor(_arg: never, message?: string) {
     super(createMessage(message));
   }

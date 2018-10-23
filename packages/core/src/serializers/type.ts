@@ -1,7 +1,8 @@
-import { Flags, flagsToString, getObjectFlags } from '@code-to-json/utils';
+import { isRef, refId } from '@code-to-json/utils/lib/deferred-processing/ref';
 import { Type, TypeChecker } from 'typescript';
+import { Flags, flagsToString, getObjectFlags } from '../flags';
 import { ProcessingQueue } from '../processing-queue';
-import { isRef, SymbolRef, TypeRef } from '../processing-queue/ref';
+import { SymbolRef, TypeRef } from '../processing-queue/ref';
 
 export interface SerializedType {
   thing: 'type';
@@ -36,9 +37,9 @@ export default function serializeType(
   const { flags, aliasSymbol, aliasTypeArguments, symbol } = typ;
   const objFlags = getObjectFlags(typ);
   const typeData: SerializedType = {
-    id: ref.id,
+    id: refId(ref),
     thing: 'type' as 'type',
-    symbol: queue.queue(symbol, 'symbol', checker),
+    symbol: symbol && queue.queue(symbol, 'symbol', checker),
     typeString: checker.typeToString(typ),
     aliasTypeArguments:
       aliasTypeArguments &&
@@ -68,17 +69,6 @@ export default function serializeType(
   if (baseTypes) {
     typeData.baseTypes = baseTypes.map(bt => queue.queue(bt, 'type', checker)).filter(isRef);
   }
-  // if (
-  //   typ.symbol &&
-  //   typ.symbol.valueDeclaration &&
-  //   typ.symbol.valueDeclaration.kind !== ts.SyntaxKind.SourceFile
-  // ) {
-  //   if (properties && properties.length) {
-  //     typeData.properties = properties
-  //       .map((prop) => queue.queue(prop, 'symbol', checker))
-  //       .filter(isRef);
-  //   }
-  // }
 
   return typeData;
 }

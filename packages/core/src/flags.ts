@@ -8,7 +8,6 @@ import {
   Type,
   TypeFlags
 } from 'typescript';
-import { Flags } from '../types';
 
 interface FlagsMap {
   type: TypeFlags;
@@ -58,7 +57,7 @@ export function flagsToString<T extends keyof FlagsMap>(
   const keys = Object.keys(flagMap);
   for (let i = 0; i < keys.length && flags !== 0; i++) {
     const flagName = keys[i];
-    const flag = flagMap[flagName as string];
+    const flag = flagMap[flagName];
     if (flag === 0) {
       continue;
     }
@@ -78,11 +77,18 @@ export function flagsToString<T extends keyof FlagsMap>(
   return flagNames;
 }
 
+function isObjectType(type: Type): type is ObjectType {
+  // tslint:disable-next-line:no-bitwise
+  return !!(type.flags & TypeFlags.Object);
+}
+
 /**
  * Get the object flags from a type
  * @param type bitmask of object flags
  */
 export function getObjectFlags(type: Type): ObjectFlags | undefined {
   // tslint:disable-next-line:no-bitwise
-  return type.flags & TypeFlags.Object ? (type as ObjectType).objectFlags : undefined;
+  return isObjectType(type) ? type.objectFlags : undefined;
 }
+
+export type Flags = string | string[];
