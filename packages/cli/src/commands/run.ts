@@ -81,9 +81,6 @@ async function createProgramFromTsConfig(searchPath: string): Promise<Program> {
     debugLog('tsconfig diagnostics', error);
     throw new InvalidArgumentsError('TSConfig error - ' + error.messageText);
   } else if (config) {
-    // const diagReporter: ts.DiagnosticReporter = (ts as any).createDiagnosticReporter(
-    //   ts.sys
-    // );
     const configResult = getParsedCommandLineOfConfigFile(cfgPath, {}, sys as any);
     if (!configResult) {
       throw new InvalidArgumentsError(`Failed to parse config file "${cfgPath}"`);
@@ -145,8 +142,12 @@ export default async function run(
   }
   const walkResult = walkProgram(program);
   const formattedResult = formatWalkerOutput(walkResult);
-  // debugLog('walk result', walkResult);
-  // console.log(walkResult);
   const outputPath = path.isAbsolute(out) ? out : path.join(process.cwd(), out);
-  fs.writeFileSync(outputPath, JSON.stringify(walkResult, null, '  '));
+  const rawOutputPath = path.join(outputPath, 'raw.json');
+  const formattedOutputPath = path.join(outputPath, 'formatted.json');
+  if (!fs.existsSync(outputPath)) {
+    fs.mkdirSync(outputPath);
+  }
+  fs.writeFileSync(rawOutputPath, JSON.stringify(walkResult, null, '  '));
+  fs.writeFileSync(formattedOutputPath, JSON.stringify(formattedResult, null, '  '));
 }

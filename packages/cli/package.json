@@ -24,6 +24,9 @@
   "scripts": {
     "lint": "tslint --project .",
     "test": "echo \"Error: no test specified\" && exit 0",
+    "clean": "rm -rf ./lib",
+    "build": "tsc -b .",
+    "rebuild": "npm run clean & npm run build",
     "prepublishOnly": "tsc -b ."
   },
   "keywords": [],
@@ -31,6 +34,7 @@
     "@types/chalk": "^2.2.0",
     "@types/debug": "0.0.31",
     "@types/left-pad": "^1.2.0",
+    "scripty": "^1.8.0",
     "tslint": "^5.11.0",
     "typescript": "^3.1.2"
   }

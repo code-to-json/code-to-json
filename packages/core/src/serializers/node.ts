@@ -1,8 +1,10 @@
-import { Flags, flagsToString, mapChildren } from '@code-to-json/utils';
-import { isNamedDeclaration } from '@code-to-json/utils/lib/guards';
+import { isDeclarationExported, mapChildren } from '@code-to-json/utils';
+import { isRef, refId } from '@code-to-json/utils/lib/deferred-processing/ref';
+import { isDeclaration, isNamedDeclaration } from '@code-to-json/utils/lib/guards';
 import { Node, SyntaxKind, Type, TypeChecker } from 'typescript';
+import { Flags, flagsToString } from '../flags';
 import { ProcessingQueue } from '../processing-queue';
-import { DeclarationRef, isRef, NodeRef, SourceFileRef, TypeRef } from '../processing-queue/ref';
+import { DeclarationRef, NodeRef, SourceFileRef, TypeRef } from '../processing-queue/ref';
 
 export interface SerializedNode {
   thing: 'node';
@@ -25,6 +27,7 @@ export interface SerializedNode {
  * Serialize a Node to a POJO
  * @param n Node to serialize
  */
+// tslint:disable-next-line:cognitive-complexity
 export default function serializeNode(
   n: Node,
   checker: TypeChecker,
@@ -34,7 +37,7 @@ export default function serializeNode(
   const { flags, kind, decorators, modifiers, pos, end, parent } = n;
 
   const details: SerializedNode = {
-    id: ref.id,
+    id: refId(ref),
     pos,
     end,
     text: n.getText(),
@@ -66,7 +69,11 @@ export default function serializeNode(
     if (child.getSourceFile().isDeclarationFile) {
       return;
     }
-    return q.queue(child, 'node', checker);
+    if (isDeclaration(child) && isDeclarationExported(child)) {
+      return q.queue(child, 'node', checker);
+    } else {
+      return undefined;
+    }
   }).filter(isRef);
   if (childReferences && childReferences.length > 0) {
     details.children = childReferences;

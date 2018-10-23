@@ -43,8 +43,21 @@
       "group": "build"
     },
     {
+      "label": "build-formatter",
+      "type": "typescript",
+      "tsconfig": "packages/formatter/tsconfig.json",
+      "problemMatcher": ["$tsc"],
+      "presentation": {
+        "echo": true,
+        "reveal": "silent",
+        "focus": false,
+        "panel": "shared"
+      },
+      "group": "build"
+    },
+    {
       "label": "build",
-      "dependsOn": ["build-cli", "build-core", "build-utils"],
+      "dependsOn": ["build-utils", "build-formatter", "build-core", "build-cli"],
       "group": {
         "kind": "build",
         "isDefault": true

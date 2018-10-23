@@ -1,6 +1,7 @@
+import { isRef } from '@code-to-json/utils/lib/deferred-processing/ref';
 import { SourceFile, TypeChecker } from 'typescript';
 import { ProcessingQueue } from '../processing-queue';
-import { isRef, NodeRef, SourceFileRef, SymbolRef } from '../processing-queue/ref';
+import { NodeRef, SourceFileRef, SymbolRef } from '../processing-queue/ref';
 import serializeAmdDependency, { SerializedAmdDependency } from './amd-dependency';
 import serializeDeclaration, { SerializedDeclaration } from './declaration';
 import serializeFileReference, { SerializedFileReference } from './file-reference';
@@ -52,7 +53,7 @@ export default function serializeSourceFile(
     moduleName,
     isDeclarationFile,
     amdDependencies: amdDependencies && amdDependencies.map(serializeAmdDependency),
-    statements,
+    // statements,
     referencedFiles: referencedFiles.length > 0 ? referencedFiles : undefined,
     libReferenceDirectives: libReferenceDirectives.length > 0 ? libReferenceDirectives : undefined,
     typeReferenceDirectives:
@@ -65,12 +66,6 @@ export default function serializeSourceFile(
   const sym = checker.getSymbolAtLocation(sourceFile);
   if (sym) {
     basicInfo.symbol = _queue.queue(sym, 'symbol', checker);
-    // // I don't know how we could ever get here, but would be a showstopper
-    // throw new Error(`No symbol for source file ${sourceFile.fileName}`);
   }
-  /**
-   * Obtain a reference for each source file's symbol.
-   * Real analysis will happen later
-   */
   return basicInfo;
 }

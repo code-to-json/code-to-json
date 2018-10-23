@@ -16,7 +16,6 @@
       },
       "program": "${workspaceFolder}/packages/cli/lib/index.js",
       "args": ["-o", "./out.json", "-p", "samples/ts-advanced-types"],
-      "autoAttachChildProcesses": true,
       "console": "integratedTerminal",
       "internalConsoleOptions": "openOnFirstSessionStart"
     }

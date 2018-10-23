@@ -1,3 +1,5 @@
+import { createRegistry, RefFor } from '@code-to-json/utils';
+import { refId } from '@code-to-json/utils/lib/deferred-processing/ref';
 import {
   Declaration,
   Node,
@@ -9,8 +11,7 @@ import {
 } from 'typescript';
 import { EntityMap } from '../types';
 import { generateId } from './generate-id';
-import { DeclarationRef, NodeRef, RefFor, SourceFileRef, SymbolRef, TypeRef } from './ref';
-
+import { DeclarationRef, NodeRef, SourceFileRef, SymbolRef, TypeRef } from './ref';
 export interface QueueSink<S, T, N, D, SF> {
   handleNode(ref: NodeRef, item: Node): N;
   handleType(ref: TypeRef, item: Type): T;
@@ -20,11 +21,11 @@ export interface QueueSink<S, T, N, D, SF> {
 }
 
 export interface DrainOutput<S, T, N, D, SF> {
-  symbol: S[];
-  type: T[];
-  node: N[];
-  declaration: D[];
-  sourceFile: SF[];
+  symbol: { [k: string]: S };
+  type: { [k: string]: T };
+  node: { [k: string]: N };
+  declaration: { [k: string]: D };
+  sourceFile: { [k: string]: SF };
 }
 
 export interface ProcessingQueue {
@@ -33,7 +34,7 @@ export interface ProcessingQueue {
     refType: K,
     checker: TypeChecker
   ): RefFor<K> | undefined;
-  drain<S, T, N, D, SF>(sink: QueueSink<S, N, T, D, SF>): DrainOutput<S, N, T, D, SF>;
+  drain<S, T, N, D, SF>(sink: Partial<QueueSink<S, N, T, D, SF>>): DrainOutput<S, N, T, D, SF>;
 }
 
 interface RefTracking<K extends keyof EntityMap> {
@@ -49,51 +50,16 @@ interface ProcessingData {
   sourceFile: Map<SourceFile, RefTracking<'sourceFile'>>;
 }
 
-interface SinkFn<S, T, N, D, SF> {
-  symbol: QueueSink<S, T, N, D, SF>['handleSymbol'];
-  type: QueueSink<S, T, N, D, SF>['handleType'];
-  declaration: QueueSink<S, T, N, D, SF>['handleDeclaration'];
-  node: QueueSink<S, T, N, D, SF>['handleNode'];
-  sourceFile: QueueSink<S, T, N, D, SF>['handleSourceFile'];
-}
-
-/**
- * Obtain the appropriate function from a `QueueSink` to handle a particular
- * reference type
- *
- * @param refType reference type
- * @param sink QueueSink
- */
-function mapperForReferenceType<K extends keyof EntityMap, S, T, N, D, SF>(
-  refType: K,
-  sink: Partial<QueueSink<S, T, N, D, SF>>
-): SinkFn<S, T, N, D, SF>[K] | undefined {
-  if (refType === 'symbol') {
-    return sink.handleSymbol;
-  } else if (refType === 'type') {
-    return sink.handleType;
-  } else if (refType === 'sourceFile') {
-    return sink.handleSourceFile;
-  } else if (refType === 'declaration') {
-    return sink.handleDeclaration;
-  } else if (refType === 'node') {
-    return sink.handleNode;
-  } else {
-    // Should never reach here
-    throw new Error('Unexpected reference type: ' + refType);
-  }
-}
-
 /**
  * Create a new processing queue
  */
 export function create(): ProcessingQueue {
-  const data: ProcessingData = {
-    symbol: new Map<Sym, RefTracking<'symbol'>>(),
-    type: new Map<Type, RefTracking<'type'>>(),
-    node: new Map<Node, RefTracking<'node'>>(),
-    declaration: new Map<Declaration, RefTracking<'declaration'>>(),
-    sourceFile: new Map<SourceFile, RefTracking<'sourceFile'>>()
+  const registries = {
+    node: createRegistry('node', generateId),
+    symbol: createRegistry('symbol', generateId),
+    type: createRegistry('type', generateId),
+    sourceFile: createRegistry('sourceFile', generateId),
+    declaration: createRegistry('declaration', generateId)
   };
 
   return {
@@ -102,36 +68,26 @@ export function create(): ProcessingQueue {
       refType: K,
       checker: TypeChecker
     ): RefFor<K> | undefined {
-      if (!thing) {
-        return;
+      switch (refType) {
+        case 'declaration':
+          return registries.declaration.getOrCreateReference(thing);
+        case 'symbol':
+          return registries.symbol.getOrCreateReference(thing);
+        case 'type':
+          return registries.type.getOrCreateReference(thing);
+        case 'node':
+          return registries.node.getOrCreateReference(thing);
+        case 'sourceFile':
+          return registries.sourceFile.getOrCreateReference(thing);
       }
-      const map = data[refType] as Map<EntityMap[K], RefTracking<K>>;
-      const rt = map.get(thing);
-      if (rt) {
-        return rt.ref;
-      }
-      const id = generateId(thing);
-      const ref = { refType, id } as RefFor<K>;
-      if (refType === 'type') {
-        (ref as TypeRef).typeString = checker.typeToString(
-          thing as Type,
-          undefined,
-          // tslint:disable-next-line:no-bitwise
-          TypeFormatFlags.NoTruncation &
-            TypeFormatFlags.UseAliasDefinedOutsideCurrentScope &
-            TypeFormatFlags.AddUndefined
-        );
-      }
-      map.set(thing, { ref, processed: false });
-      return ref;
     },
     drain<S, T, N, D, SF>(sink: Partial<QueueSink<S, N, T, D, SF>>): DrainOutput<S, N, T, D, SF> {
       const out: DrainOutput<S, N, T, D, SF> = {
-        declaration: [],
-        symbol: [],
-        type: [],
-        node: [],
-        sourceFile: []
+        declaration: {},
+        symbol: {},
+        type: {},
+        node: {},
+        sourceFile: {}
       };
       /**
        * Flush any un-processed items from the processing queue to the drain output
@@ -140,25 +96,38 @@ export function create(): ProcessingQueue {
         const outputInfo = {
           processed: 0
         };
+        const { handleDeclaration, handleNode, handleSourceFile, handleType, handleSymbol } = sink;
+        if (handleSourceFile) {
+          outputInfo.processed += registries.sourceFile.drain((ref, item) => {
+            const sf = handleSourceFile(ref, item as SourceFile);
+            out.sourceFile[refId(ref)] = sf;
+          }).processedCount;
+        }
+        if (handleDeclaration) {
+          outputInfo.processed += registries.declaration.drain((ref, item) => {
+            const d = handleDeclaration(ref, item as Declaration);
+            out.declaration[refId(ref)] = d;
+          }).processedCount;
+        }
+        if (handleSymbol) {
+          outputInfo.processed += registries.symbol.drain((ref, item) => {
+            const d = handleSymbol(ref, item as Sym);
+            out.symbol[refId(ref)] = d;
+          }).processedCount;
+        }
+        if (handleNode) {
+          outputInfo.processed += registries.node.drain((ref, item) => {
+            const d = handleNode(ref, item as Node);
+            out.node[refId(ref)] = d;
+          }).processedCount;
+        }
+        if (handleType) {
+          outputInfo.processed += registries.type.drain((ref, item) => {
+            const d = handleType(ref, item as Type);
+            out.type[refId(ref)] = d;
+          }).processedCount;
+        }
 
-        (['declaration', 'symbol', 'type', 'node', 'sourceFile'] as Array<keyof EntityMap>).forEach(
-          key => {
-            const map = data[key] as Map<EntityMap[K], RefTracking<K>>;
-            const outArray: Array<S | N | T | D | SF> = out[key];
-            map.forEach((rt, item) => {
-              if (rt.processed === true) {
-                return;
-              }
-              const fn = mapperForReferenceType(rt.ref.refType, sink) as ((
-                ref: RefFor<K>,
-                item: EntityMap[K]
-              ) => S | N | D | T);
-              outArray.push(fn(rt.ref as RefFor<K>, item));
-              rt.processed = true;
-              outputInfo.processed++;
-            });
-          }
-        );
         return outputInfo;
       }
       const maxLoops = 60;

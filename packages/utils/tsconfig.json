@@ -3,6 +3,7 @@
   "compilerOptions": {
     "outDir": "lib",
     "rootDir": "src",
+    "baseUrl": ".",
     "target": "es2017",
     "lib": ["scripthost", "es2015"]
   },
