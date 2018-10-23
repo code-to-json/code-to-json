@@ -1,6 +1,6 @@
 // tslint:disable:no-bitwise
 import { isDeclaration, isNode, isSymbol, isType, UnreachableError } from '@code-to-json/utils';
-import { Node, Symbol as Sym, Type } from 'typescript';
+import { isSourceFile, Node, Symbol as Sym, Type } from 'typescript';
 
 /**
  * Generate a stable hash from a string
@@ -29,6 +29,9 @@ function generateHash(str: string): string {
  * @param thing Entity to generate an Id for
  */
 export function generateId(thing: Sym | Node | Type): string {
+  if (!thing) {
+    debugger;
+  }
   if (isType(thing)) {
     return 'typ-' + (thing as any).id;
   } else if (isSymbol(thing)) {
@@ -39,11 +42,14 @@ export function generateId(thing: Sym | Node | Type): string {
       parts.push(valueDeclaration.end);
     }
     return 'sym-' + generateHash(parts.filter(Boolean).join('-'));
+  } else if (thing && isSourceFile(thing)) {
+    return 'file-' + generateHash(thing.fileName);
   } else if (isDeclaration(thing)) {
     return 'decl-' + generateHash(thing.getFullText());
   } else if (isNode(thing)) {
     return 'node-' + generateHash(thing.getFullText());
   } else {
+    debugger;
     // tslint:disable-next-line:no-console
     console.error(thing);
     throw new UnreachableError(thing, 'Cannot generate an id for this object');

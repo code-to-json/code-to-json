@@ -1,6 +1,8 @@
-export { default as UnreachableError } from './errors/unreachable';
-export { isNode, isType, isSymbol, isDeclaration } from './guards';
+export { UnreachableError } from './errors/unreachable';
+export { isNode, isType, isSymbol, isDeclaration, isObject, isArray } from './guards';
 export { Result, ErrorResult, SuccessResult } from './types';
-export { mapChildren, mapUem, flagsToString, getObjectFlags } from './ts';
-export { isBlank, isEmpty, isDeclarationExported, isPresent } from './checks';
-export { Flags } from './types';
+export { mapUem } from './ts/underscore-escaped-map';
+export { mapChildren } from './ts/node';
+export { isDeclarationExported } from './checks';
+export { createRegistry } from './deferred-processing/registry';
+export { Ref, RefFor, AnyRef, refType, refId } from './deferred-processing/ref';

@@ -1,19 +1,20 @@
-import * as ts from 'typescript';
+import { isRef } from '@code-to-json/utils/lib/deferred-processing/ref';
+import { displayPartsToString, Signature, TypeChecker } from 'typescript';
 import { ProcessingQueue } from '../processing-queue';
-import { DeclarationRef, isRef, SymbolRef, TypeRef } from '../processing-queue/ref';
+import { DeclarationRef, SymbolRef, TypeRef } from '../processing-queue/ref';
 
 export interface SerializedSignature {
   parameters: SymbolRef[];
   typeParameters?: TypeRef[];
   declaration?: DeclarationRef;
-  returnType: string; // TODO: type?
+  returnType?: TypeRef;
   documentation: string;
 }
 
 /** Serialize a signature (call or construct) */
 export default function serializeSignature(
-  signature: ts.Signature,
-  checker: ts.TypeChecker,
+  signature: Signature,
+  checker: TypeChecker,
   q: ProcessingQueue
 ): SerializedSignature {
   const { parameters, typeParameters, declaration } = signature;
@@ -23,7 +24,7 @@ export default function serializeSignature(
       ? typeParameters.map(p => q.queue(p, 'type', checker)).filter(isRef)
       : undefined,
     declaration: declaration ? q.queue(declaration, 'declaration', checker) : undefined,
-    returnType: checker.typeToString(signature.getReturnType()),
-    documentation: ts.displayPartsToString(signature.getDocumentationComment(checker))
+    returnType: q.queue(signature.getReturnType(), 'type', checker),
+    documentation: displayPartsToString(signature.getDocumentationComment(checker))
   };
 }

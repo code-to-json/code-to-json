@@ -8,11 +8,11 @@ import serializeSymbol, { SerializedSymbol } from './serializers/symbol';
 import serializeType, { SerializedType } from './serializers/type';
 
 export interface WalkerOutput {
-  symbol: SerializedSymbol[];
-  type: SerializedType[];
-  node: SerializedNode[];
-  declaration: SerializedDeclaration[];
-  sourceFile: SerializedSourceFile[];
+  symbol: { [k: string]: Readonly<SerializedSymbol> };
+  type: { [k: string]: Readonly<SerializedType> };
+  node: { [k: string]: Readonly<SerializedNode> };
+  declaration: { [k: string]: Readonly<SerializedDeclaration> };
+  sourceFile: { [k: string]: Readonly<SerializedSourceFile> };
 }
 
 /**
@@ -24,8 +24,7 @@ export function walkProgram(program: Program): WalkerOutput {
   const checker = program.getTypeChecker();
 
   // Get all non-declaration source files
-  const sourceFiles = program.getSourceFiles();
-  // .filter((f) => !f.isDeclarationFile);
+  const sourceFiles = program.getSourceFiles(); // .filter(f => !f.isDeclarationFile);
 
   // Initialize the work-processing queue
   const q = createQueue();

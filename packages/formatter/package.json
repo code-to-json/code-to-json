@@ -9,6 +9,9 @@
   "scripts": {
     "lint": "tslint --project .",
     "test": "echo \"Error: no test specified\" && exit 0",
+    "clean": "rm -rf ./lib",
+    "build": "tsc -b .",
+    "rebuild": "npm run clean & npm run build",
     "prepublishOnly": "tsc -b ."
   },
   "repository": "https://github.com/mike-north/code-to-json/tree/master/packages/formatter",
@@ -18,6 +21,7 @@
     "typescript": "^3.1.2"
   },
   "dependencies": {
-    "@code-to-json/core": "^0.4.0"
+    "@code-to-json/core": "^0.4.0",
+    "@code-to-json/utils": "^0.3.3"
   }
 }

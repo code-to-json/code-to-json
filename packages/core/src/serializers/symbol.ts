@@ -1,7 +1,9 @@
-import { Flags, flagsToString, mapUem } from '@code-to-json/utils';
+import { mapUem } from '@code-to-json/utils';
+import { isRef, refId } from '@code-to-json/utils/lib/deferred-processing/ref';
 import { displayPartsToString, Symbol as Sym, TypeChecker } from 'typescript';
+import { Flags, flagsToString } from '../flags';
 import { ProcessingQueue } from '../processing-queue';
-import { DeclarationRef, isRef, SymbolRef, TypeRef } from '../processing-queue/ref';
+import { DeclarationRef, SymbolRef, TypeRef } from '../processing-queue/ref';
 import serializeSignature, { SerializedSignature } from './signature';
 
 export interface SerializedSymbol {
@@ -39,7 +41,7 @@ export default function serializeSymbol(
   const { exports, globalExports, members, flags, valueDeclaration } = symbol;
   const typ = checker.getTypeOfSymbolAtLocation(symbol, symbol.valueDeclaration!);
   const details: SerializedSymbol = {
-    id: ref.id,
+    id: refId(ref),
     thing: 'symbol',
     name: symbol.getName(),
     documentation: displayPartsToString(symbol.getDocumentationComment(checker)),
