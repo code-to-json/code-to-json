@@ -4,6 +4,8 @@ import * as ts from 'typescript';
  * @param obj target
  * @param propname property name
  */
+function get<O extends object, K extends keyof O>(obj: O, propname: K): O[K];
+function get(obj: any, propname: string): any;
 function get(obj: any, propname: string): any {
   if (obj && typeof obj === 'object') {
     return obj[propname];
@@ -51,20 +53,17 @@ export function isEmpty(obj: any): obj is null | undefined | 0 | { size: 0 } | [
 
   if (objectType === 'object') {
     const size = get(obj, 'size');
+    const length = get(obj, 'length');
     if (typeof size === 'number') {
       return !size;
+    }
+    if (typeof length === 'number') {
+      return !length;
     }
   }
 
   if (typeof obj.length === 'number' && objectType !== 'function') {
     return !obj.length;
-  }
-
-  if (objectType === 'object') {
-    const length = get(obj, 'length');
-    if (typeof length === 'number') {
-      return !length;
-    }
   }
 
   return false;
@@ -83,7 +82,7 @@ export function isBlank(obj: any): boolean {
  * @param obj object to check for presence
  * @see isBlank
  */
-export function isPresent(obj: object): boolean {
+export function isPresent(obj: any): boolean {
   return !isBlank(obj);
 }
 
