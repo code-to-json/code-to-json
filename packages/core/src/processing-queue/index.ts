@@ -1,14 +1,5 @@
-import { createRegistry, RefFor } from '@code-to-json/utils';
-import { refId } from '@code-to-json/utils/lib/deferred-processing/ref';
-import {
-  Declaration,
-  Node,
-  SourceFile,
-  Symbol as Sym,
-  Type,
-  TypeChecker,
-  TypeFormatFlags
-} from 'typescript';
+import { createQueue, RefFor, refId } from '@code-to-json/utils';
+import { Declaration, Node, SourceFile, Symbol as Sym, Type, TypeChecker } from 'typescript';
 import { EntityMap } from '../types';
 import { generateId } from './generate-id';
 import { DeclarationRef, NodeRef, SourceFileRef, SymbolRef, TypeRef } from './ref';
@@ -37,29 +28,16 @@ export interface ProcessingQueue {
   drain<S, T, N, D, SF>(sink: Partial<QueueSink<S, N, T, D, SF>>): DrainOutput<S, N, T, D, SF>;
 }
 
-interface RefTracking<K extends keyof EntityMap> {
-  ref: RefFor<K>;
-  processed: boolean;
-}
-
-interface ProcessingData {
-  symbol: Map<Sym, RefTracking<'symbol'>>;
-  type: Map<Type, RefTracking<'type'>>;
-  declaration: Map<Declaration, RefTracking<'declaration'>>;
-  node: Map<Node, RefTracking<'node'>>;
-  sourceFile: Map<SourceFile, RefTracking<'sourceFile'>>;
-}
-
 /**
  * Create a new processing queue
  */
 export function create(): ProcessingQueue {
   const registries = {
-    node: createRegistry('node', generateId),
-    symbol: createRegistry('symbol', generateId),
-    type: createRegistry('type', generateId),
-    sourceFile: createRegistry('sourceFile', generateId),
-    declaration: createRegistry('declaration', generateId)
+    node: createQueue('node', generateId),
+    symbol: createQueue('symbol', generateId),
+    type: createQueue('type', generateId),
+    sourceFile: createQueue('sourceFile', generateId),
+    declaration: createQueue('declaration', generateId)
   };
 
   return {
@@ -70,15 +48,15 @@ export function create(): ProcessingQueue {
     ): RefFor<K> | undefined {
       switch (refType) {
         case 'declaration':
-          return registries.declaration.getOrCreateReference(thing);
+          return registries.declaration.queue(thing);
         case 'symbol':
-          return registries.symbol.getOrCreateReference(thing);
+          return registries.symbol.queue(thing);
         case 'type':
-          return registries.type.getOrCreateReference(thing);
+          return registries.type.queue(thing);
         case 'node':
-          return registries.node.getOrCreateReference(thing);
+          return registries.node.queue(thing);
         case 'sourceFile':
-          return registries.sourceFile.getOrCreateReference(thing);
+          return registries.sourceFile.queue(thing);
       }
     },
     drain<S, T, N, D, SF>(sink: Partial<QueueSink<S, N, T, D, SF>>): DrainOutput<S, N, T, D, SF> {

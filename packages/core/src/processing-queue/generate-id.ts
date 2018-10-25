@@ -33,7 +33,7 @@ export function generateId(thing: Sym | Node | Type): string {
     debugger;
   }
   if (isType(thing)) {
-    return 'typ-' + (thing as any).id;
+    return (thing as any).id;
   } else if (isSymbol(thing)) {
     const parts: any[] = [thing.name, thing.flags];
     const { valueDeclaration } = thing;
@@ -41,15 +41,14 @@ export function generateId(thing: Sym | Node | Type): string {
       parts.push(valueDeclaration.pos);
       parts.push(valueDeclaration.end);
     }
-    return 'sym-' + generateHash(parts.filter(Boolean).join('-'));
+    return generateHash(parts.filter(Boolean).join('-'));
   } else if (thing && isSourceFile(thing)) {
-    return 'file-' + generateHash(thing.fileName);
+    return generateHash(thing.fileName);
   } else if (isDeclaration(thing)) {
-    return 'decl-' + generateHash(thing.getFullText());
+    return generateHash(thing.getFullText());
   } else if (isNode(thing)) {
-    return 'node-' + generateHash(thing.getFullText());
+    return generateHash(thing.getFullText());
   } else {
-    debugger;
     // tslint:disable-next-line:no-console
     console.error(thing);
     throw new UnreachableError(thing, 'Cannot generate an id for this object');

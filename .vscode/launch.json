@@ -15,7 +15,7 @@
         "DEBUG": "code-to-json:*"
       },
       "program": "${workspaceFolder}/packages/cli/lib/index.js",
-      "args": ["-o", "./out.json", "-p", "samples/ts-advanced-types"],
+      "args": ["-o", "./out", "-p", "samples/ts-advanced-types"],
       "console": "integratedTerminal",
       "internalConsoleOptions": "openOnFirstSessionStart"
     }

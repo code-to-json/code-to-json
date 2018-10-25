@@ -1,4 +1,4 @@
-import { isRef, refId } from '@code-to-json/utils/lib/deferred-processing/ref';
+import { isRef, refId } from '@code-to-json/utils';
 import { Type, TypeChecker } from 'typescript';
 import { Flags, flagsToString, getObjectFlags } from '../flags';
 import { ProcessingQueue } from '../processing-queue';
