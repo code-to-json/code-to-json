@@ -23,7 +23,8 @@
   },
   "scripts": {
     "lint": "tslint --project .",
-    "test": "../../node_modules/.bin/nyc ../../node_modules/.bin/mocha",
+    "test": "../../node_modules/.bin/mocha",
+    "test:coverage": "../../node_modules/.bin/nyc npm test",
     "clean": "rm -rf ./lib",
     "build": "tsc -b .",
     "rebuild": "npm run clean & npm run build",
