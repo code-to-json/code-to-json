@@ -3,7 +3,6 @@ import { isObject } from '@code-to-json/utils';
 import resolveReference from '../resolve-reference';
 import formatFlags from './flags';
 import formatSignature, { FormattedSignature } from './signature';
-import formatType from './type';
 
 export interface FormattedSymbol {
   name: string;

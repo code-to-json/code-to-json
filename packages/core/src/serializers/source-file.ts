@@ -1,4 +1,3 @@
-import { isRef } from '@code-to-json/utils/lib/src/deferred-processing/ref';
 import { SourceFile, TypeChecker } from 'typescript';
 import { ProcessingQueue } from '../processing-queue';
 import { NodeRef, SourceFileRef, SymbolRef } from '../processing-queue/ref';
@@ -37,7 +36,7 @@ export default function serializeSourceFile(
     moduleName,
     amdDependencies,
     isDeclarationFile,
-    statements: _statements,
+    // statements,
     referencedFiles: _referencedFiles,
     typeReferenceDirectives: _typeReferenceDirectives,
     libReferenceDirectives: _libReferenceDirectives
@@ -45,7 +44,8 @@ export default function serializeSourceFile(
   const referencedFiles = _referencedFiles.map(serializeFileReference);
   const typeReferenceDirectives = _typeReferenceDirectives.map(serializeFileReference);
   const libReferenceDirectives = _libReferenceDirectives.map(serializeFileReference);
-  const statements = _statements.map(s => _queue.queue(s, 'node', checker)).filter(isRef);
+  // tslint:disable-next-line:no-commented-code
+  // const statements = _statements.map(s => _queue.queue(s, 'node', checker)).filter(isRef);
   const basicInfo: SerializedSourceFile = {
     ...serializeDeclaration(sourceFile, checker, ref, _queue),
     thing: 'sourceFile',
