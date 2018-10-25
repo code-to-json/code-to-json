@@ -4,5 +4,5 @@ export { Result, ErrorResult, SuccessResult } from './types';
 export { mapUem } from './ts/underscore-escaped-map';
 export { mapChildren } from './ts/node';
 export { isDeclarationExported } from './checks';
-export { createRegistry } from './deferred-processing/registry';
-export { Ref, RefFor, AnyRef, refType, refId } from './deferred-processing/ref';
+export { createQueue } from './deferred-processing/queue';
+export { Ref, RefFor, AnyRef, refType, refId, isRef } from './deferred-processing/ref';

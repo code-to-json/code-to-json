@@ -1,29 +1,29 @@
 import { createRef, Ref, RefTypes } from './ref';
 
-export interface IRegistry<K extends string, T extends object> {
-  getOrCreateReference(item: T): Ref<K>;
-  numUnprocessed(): number;
-  drain(cb: (ref: Ref<K>, item: T) => void): { processedCount: number };
-  drainUntilEmpty(cb: (ref: Ref<K>, item: T) => void): { processedCount: number };
-}
-
 interface EntityInfo<K extends string, T extends object> {
   ref: Ref<K>;
   processed: boolean;
 }
 
-export function createRegistry<K extends RefTypes, T extends object>(
+export interface IRegistry<K extends string, T extends object> {
+  queue(item: T): Ref<K>;
+  numUnprocessed(): number;
+  drain(cb: (ref: Ref<K>, item: T) => void): { processedCount: number };
+  drainUntilEmpty(cb: (ref: Ref<K>, item: T) => void): { processedCount: number };
+}
+
+export function createQueue<K extends RefTypes, T extends object>(
   k: K,
   idGenerator: (t: T) => string
 ): IRegistry<K, T> {
   const itemToRef = new Map<T, EntityInfo<K, T>>();
   return {
-    getOrCreateReference(item: T): Ref<K> {
+    queue(item: T): Ref<K> {
       const existingInfo = itemToRef.get(item);
       if (existingInfo) {
         return existingInfo.ref;
       } else {
-        const id = `${k}-${idGenerator(item)}`;
+        const id = idGenerator(item);
         const ref: Ref<K> = createRef(k, id);
         itemToRef.set(item, { ref, processed: false });
         return ref;
@@ -35,11 +35,7 @@ export function createRegistry<K extends RefTypes, T extends object>(
     drain<V = void>(cb: (ref: Ref<K>, item: T) => V): { processedCount: number } {
       let processedCount = 0;
       itemToRef.forEach((value, key) => {
-        const {
-          ref,
-          ref: [id],
-          processed
-        } = value;
+        const { ref, processed } = value;
         if (processed) {
           return;
         }

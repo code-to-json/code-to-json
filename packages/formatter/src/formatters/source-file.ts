@@ -4,15 +4,22 @@ import formatSymbol, { FormattedSymbol } from './symbol';
 
 export interface FormattedSourceFile extends Partial<FormattedSymbol> {
   fileName: string;
+  isDeclarationFile: boolean;
+  referencedFiles?: string[];
 }
 
 export default function formatSourceFile(
   wo: WalkerOutput,
   sourceFile: Readonly<SerializedSourceFile>
 ): FormattedSourceFile {
+  const { fileName, isDeclarationFile, referencedFiles } = sourceFile;
   const info: FormattedSourceFile = {
-    fileName: sourceFile.fileName || '(unknown)'
+    fileName: sourceFile.fileName || '(unknown)',
+    isDeclarationFile
   };
+  if (referencedFiles && referencedFiles.length > 0) {
+    info.referencedFiles = referencedFiles.map(f => f.name as string).filter(Boolean);
+  }
   const { symbol: symbolRef } = sourceFile;
   if (symbolRef) {
     const symbol = resolveReference(wo, symbolRef);
