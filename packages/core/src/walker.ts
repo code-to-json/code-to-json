@@ -32,22 +32,21 @@ export function walkProgram(program: Program): WalkerOutput {
     return q.queue(sf, 'sourceFile', checker);
   });
 
-  const result = q.drain({
+  return q.drain({
     handleNode(ref: NodeRef, item: Node): SerializedNode {
-      return serializeNode(item, checker, ref as NodeRef, q);
+      return serializeNode(item, checker, ref, q);
     },
     handleType(ref: TypeRef, item: Type): SerializedType {
-      return serializeType(item, checker, ref as TypeRef, q);
+      return serializeType(item, checker, ref, q);
     },
     handleSourceFile(ref: SourceFileRef, item: SourceFile): SerializedSourceFile {
-      return serializeSourceFile(item, checker, ref as SourceFileRef, q);
+      return serializeSourceFile(item, checker, ref, q);
     },
     handleSymbol(ref: SymbolRef, item: Sym): SerializedSymbol {
-      return serializeSymbol(item, checker, ref as SymbolRef, q);
+      return serializeSymbol(item, checker, ref, q);
     },
     handleDeclaration(ref: DeclarationRef, item: Declaration): SerializedDeclaration {
       return serializeDeclaration(item, checker, ref, q);
     }
   });
-  return result;
 }

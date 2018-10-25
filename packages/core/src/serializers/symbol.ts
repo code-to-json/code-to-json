@@ -38,7 +38,7 @@ export default function serializeSymbol(
   queue: ProcessingQueue
 ): SerializedSymbol {
   const { exports, globalExports, members, flags, valueDeclaration } = symbol;
-  const typ = checker.getTypeOfSymbolAtLocation(symbol, symbol.valueDeclaration!);
+  const typ = checker.getTypeOfSymbolAtLocation(symbol, valueDeclaration);
   const details: SerializedSymbol = {
     id: refId(ref),
     thing: 'symbol',

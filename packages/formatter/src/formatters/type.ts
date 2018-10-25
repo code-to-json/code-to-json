@@ -1,4 +1,4 @@
-import { SerializedType, TypeRef, WalkerOutput } from '@code-to-json/core';
+import { SerializedType, WalkerOutput } from '@code-to-json/core';
 import resolveReference from '../resolve-reference';
 import formatFlags from './flags';
 import formatSymbol, { FormattedSymbol } from './symbol';
@@ -12,23 +12,23 @@ export interface FormattedType {
   stringIndexType?: FormattedType;
 }
 
-function resolveAndFormatType(wo: WalkerOutput, typeRef?: TypeRef): FormattedType | undefined {
-  if (!typeRef) {
-    return;
-  }
+// function resolveAndFormatType(wo: WalkerOutput, typeRef?: TypeRef): FormattedType | undefined {
+//   if (!typeRef) {
+//     return;
+//   }
 
-  const typ = resolveReference(wo, typeRef);
-  if (!typ) {
-    return;
-  }
-  return formatType(wo, typ);
-}
+//   const typ = resolveReference(wo, typeRef);
+//   if (!typ) {
+//     return;
+//   }
+//   return formatType(wo, typ);
+// }
 
 export default function formatType(
   wo: WalkerOutput,
   type: Readonly<SerializedType>
 ): FormattedType {
-  const { typeString, flags, objectFlags, properties, numberIndexType, stringIndexType } = type;
+  const { typeString, flags, objectFlags, properties } = type;
   const typeInfo: FormattedType = {
     text: typeString,
     flags: formatFlags(flags),
