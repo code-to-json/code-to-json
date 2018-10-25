@@ -26,12 +26,25 @@
     "@code-to-json/utils": "^0.3.3"
   },
   "nyc": {
+    "watermarks": {
+      "lines": [80, 95],
+      "functions": [80, 95],
+      "branches": [80, 95],
+      "statements": [80, 95]
+    },
     "require": [
       "ts-node/register",
       "source-map-support/register"
     ],
     "extension": [
       ".ts"
+    ],
+    "include": [
+      "src"
+    ],
+    "reporter": [
+      "lcov",
+      "text-summary"
     ]
   }
 }
