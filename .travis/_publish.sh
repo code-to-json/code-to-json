@@ -8,6 +8,6 @@ if [[ $TRAVIS_BRANCH == 'master' ]]; then
   echo "On master branch. Proceeding with publish"
   echo "git status"
   git status
-  echo "lerna publish"
-  ./node_modules/.bin/lerna publish --conventional-commits --message "chore: update changelogs [skip ci]" --yes
+  echo "lerna publish (SKIPPING)"
+  # ./node_modules/.bin/lerna publish --conventional-commits --message "chore: update changelogs [skip ci]" --yes
 fi
