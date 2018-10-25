@@ -28,7 +28,7 @@ function get(obj: any, propname: string): any {
  * ```
  * @note: copied from https://github.com/emberjs/ember.js/blob/5a8873bee19774a55fd0abfdcc7279f3efc768cd/packages/ember-metal/lib/is_none.ts#L25-L27
  */
-export default function isNone(obj: any): obj is null | undefined {
+export function isNone(obj: any): obj is null | undefined {
   return obj === null || obj === undefined;
 }
 
