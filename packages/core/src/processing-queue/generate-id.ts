@@ -33,6 +33,7 @@ export function generateId(thing: Sym | Node | Type): string {
     debugger;
   }
   if (isType(thing)) {
+    // tslint:disable-next-line:no-useless-cast
     return (thing as any).id;
   } else if (isSymbol(thing)) {
     const parts: any[] = [thing.name, thing.flags];
