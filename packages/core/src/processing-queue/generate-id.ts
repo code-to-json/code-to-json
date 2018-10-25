@@ -33,7 +33,7 @@ export function generateId(thing: Sym | Node | Type): string {
     debugger;
   }
   if (isType(thing)) {
-    return thing.id;
+    return (thing as any).id;
   } else if (isSymbol(thing)) {
     const parts: any[] = [thing.name, thing.flags];
     const { valueDeclaration } = thing;
