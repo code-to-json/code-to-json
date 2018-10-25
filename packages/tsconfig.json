@@ -4,6 +4,7 @@
     { "path": "cli" },
     { "path": "core" },
     { "path": "utils" },
+    { "path": "schema" },
     { "path": "formatter" }
   ]
 }
