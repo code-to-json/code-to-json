@@ -7,7 +7,7 @@ import * as leftpad from 'left-pad';
 import run from './commands/run';
 
 // tslint:disable-next-line:no-var-requires
-const pkg = require('../package.json');
+const pkg = require('../../package.json');
 
 const NS_PER_SEC = 1e9;
 
