@@ -1,15 +1,25 @@
 import { isArray } from '../guards';
+import RefRegistry from './ref-registry';
 
-export interface RefId {
-  __refid: any;
+export interface RefId<S> {
+  __do_not_use_this_refid: S;
 }
 export interface RefType<T> {
-  __reftype: T;
+  __do_not_use_this_reftype: T;
 }
-export type Ref<K extends string> = [RefType<K>, RefId];
 
-// tslint:disable-next-line:no-empty-interface
-export interface RefMap {}
+/**
+ * A reference to an entity in a registry
+ */
+export type Ref<K extends string, S extends {} = string> = [RefType<K>, RefId<S>];
+
+/**
+ * Get a reference type for a registry
+ */
+export type RefFor<K extends keyof RefRegistry> = RefRegistry[K];
+
+export type RefTypes = keyof RefRegistry;
+export type AnyRef = RefRegistry[RefTypes];
 
 /**
  * Check to see whether a value is a reference
@@ -25,19 +35,28 @@ export function isRef<R extends Ref<any>>(thing?: R): thing is R {
   );
 }
 
+/**
+ * Create a new reference
+ * @param type name of the reference type
+ * @param id registry-unique of the reference
+ * @returns the new reference
+ */
 export function createRef<K extends RefTypes>(type: K, id: string): Ref<K> {
   return [type as RefType<K>, id as any];
 }
 
-export function refType<K extends string, R extends Ref<K>>(ref: Ref<K>): K {
+/**
+ * Get a reference's type name
+ * @param ref the reference
+ */
+export function refType<K extends string, R extends Ref<K, any>>(ref: Ref<K, any>): K {
   return ref[0] as any;
 }
 
-export function refId(ref: Ref<any>): string {
+/**
+ * Get a reference's ID
+ * @param ref the reference
+ */
+export function refId<S extends {}>(ref: Ref<any, S>): S {
   return ref[1] as any;
 }
-
-export type RefFor<K extends keyof RefMap> = RefMap[K];
-
-export type RefTypes = keyof RefMap;
-export type AnyRef = RefMap[RefTypes];

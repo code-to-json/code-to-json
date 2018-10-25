@@ -36,6 +36,9 @@
     "publish": "scripty",
     "test:ci": "scripty",
     "build:watch": "scripty",
+    "clean": "scripty",
+    "build": "scripty",
+    "rebuild": "scripty",
     "watch": "scripty"
   },
   "repository": {

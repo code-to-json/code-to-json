@@ -6,8 +6,8 @@ export type NodeRef = Ref<'node'>;
 export type TypeRef = Ref<'type'>;
 export type SourceFileRef = Ref<'sourceFile'>;
 
-declare module '@code-to-json/utils/lib/deferred-processing/ref' {
-  export interface RefMap {
+declare module '@code-to-json/utils/lib/deferred-processing/ref-registry' {
+  export default interface RefRegistry {
     symbol: SymbolRef;
     node: NodeRef;
     declaration: DeclarationRef;
