@@ -1,5 +1,4 @@
-import { mapUem } from '@code-to-json/utils';
-import { isRef, refId } from '@code-to-json/utils/lib/deferred-processing/ref';
+import { isRef, mapUem, refId } from '@code-to-json/utils';
 import { displayPartsToString, Symbol as Sym, TypeChecker } from 'typescript';
 import { Flags, flagsToString } from '../flags';
 import { ProcessingQueue } from '../processing-queue';
