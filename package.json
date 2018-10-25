@@ -24,6 +24,7 @@
     "mocha": "^5.2.0",
     "mocha-typescript": "^1.1.17",
     "nodemon": "^1.18.4",
+    "nyc": "^13.1.0",
     "scripty": "^1.8.0",
     "snap-shot-it": "github:mike-north/snap-shot-it#types",
     "source-map-support": "^0.5.9",
