@@ -14,7 +14,7 @@ export default function formatSourceFile(
 ): FormattedSourceFile {
   const { fileName, isDeclarationFile, referencedFiles } = sourceFile;
   const info: FormattedSourceFile = {
-    fileName: sourceFile.fileName || '(unknown)',
+    fileName: fileName || '(unknown)',
     isDeclarationFile
   };
   if (referencedFiles && referencedFiles.length > 0) {
