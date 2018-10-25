@@ -71,6 +71,7 @@
     ],
     "reporter": [
       "lcov",
+      "json",
       "text-summary"
     ]
   }
