@@ -70,6 +70,42 @@ exports['Simple predicates isEmpty tests 9'] = {
   "result": false
 }
 
+exports['Simple predicates isNone tests 1'] = {
+  "result": false
+}
+
+exports['Simple predicates isNone tests 2'] = {
+  "result": true
+}
+
+exports['Simple predicates isNone tests 3'] = {
+  "result": false
+}
+
+exports['Simple predicates isNone tests 4'] = {
+  "result": false
+}
+
+exports['Simple predicates isNone tests 5'] = {
+  "result": false
+}
+
+exports['Simple predicates isNone tests 6'] = {
+  "result": false
+}
+
+exports['Simple predicates isNone tests 7'] = {
+  "result": false
+}
+
+exports['Simple predicates isNone tests 8'] = {
+  "result": false
+}
+
+exports['Simple predicates isNone tests 9'] = {
+  "result": false
+}
+
 exports['Simple predicates isPresent tests 1'] = {
   "result": true
 }
