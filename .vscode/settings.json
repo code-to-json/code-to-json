@@ -21,5 +21,13 @@
   },
   "tslint.autoFixOnSave": true,
   "prettier.tslintIntegration": true,
-  "tslint.exclude": ["**/node_modules/**/*"]
+  "tslint.exclude": ["**/node_modules/**/*"],
+  "bma-coverage": {
+    "lcovs": [
+      "./packages/utils/coverage/lcov.info",
+      "./packages/core/coverage/lcov.info",
+      "./packages/cli/coverage/lcov.info",
+      "./packages/formatter/coverage/lcov.info"
+    ]
+  }
 }
