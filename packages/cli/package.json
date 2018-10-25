@@ -23,7 +23,7 @@
   },
   "scripts": {
     "lint": "tslint --project .",
-    "test": "echo \"Error: no test specified\" && exit 0",
+    "test": "../../node_modules/.bin/mocha",
     "clean": "rm -rf ./lib",
     "build": "tsc -b .",
     "rebuild": "npm run clean & npm run build",

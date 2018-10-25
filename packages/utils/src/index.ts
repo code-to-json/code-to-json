@@ -1,5 +1,13 @@
 export { UnreachableError } from './errors/unreachable';
-export { isNode, isType, isSymbol, isDeclaration, isObject, isArray } from './guards';
+export {
+  isNode,
+  isType,
+  isSymbol,
+  isDeclaration,
+  isObject,
+  isArray,
+  isNamedDeclaration
+} from './guards';
 export { Result, ErrorResult, SuccessResult } from './types';
 export { mapUem } from './ts/underscore-escaped-map';
 export { mapChildren } from './ts/node';

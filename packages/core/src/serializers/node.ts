@@ -1,6 +1,11 @@
-import { isDeclarationExported, mapChildren } from '@code-to-json/utils';
-import { isRef, refId } from '@code-to-json/utils/lib/deferred-processing/ref';
-import { isDeclaration, isNamedDeclaration } from '@code-to-json/utils/lib/guards';
+import {
+  isDeclaration,
+  isDeclarationExported,
+  isNamedDeclaration,
+  isRef,
+  mapChildren,
+  refId
+} from '@code-to-json/utils';
 import { Node, SyntaxKind, Type, TypeChecker } from 'typescript';
 import { Flags, flagsToString } from '../flags';
 import { ProcessingQueue } from '../processing-queue';

@@ -11,8 +11,7 @@ import {
   TypeRef,
   WalkerOutput
 } from '@code-to-json/core';
-import { AnyRef, refId, refType } from '@code-to-json/utils';
-import { UnreachableError } from '../../utils/lib';
+import { AnyRef, refId, refType, UnreachableError } from '@code-to-json/utils';
 
 export default function resolveReference(wo: WalkerOutput, ref: SymbolRef): SerializedSymbol;
 export default function resolveReference(wo: WalkerOutput, ref: TypeRef): SerializedType;
