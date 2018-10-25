@@ -9,7 +9,7 @@
   "repository": "https://github.com/mike-north/code-to-json/tree/master/packages/utils",
   "scripts": {
     "lint": "tslint --project .",
-    "test": "../../node_modules/.bin/mocha",
+    "test": "../../node_modules/.bin/nyc ../../node_modules/.bin/mocha",
     "clean": "rm -rf ./lib",
     "build": "tsc -b .",
     "rebuild": "npm run clean & npm run build",
@@ -17,7 +17,17 @@
   },
   "keywords": [],
   "devDependencies": {
+    "nyc": "^13.1.0",
     "tslint": "^5.11.0",
     "typescript": "^3.1.2"
+  },
+  "nyc": {
+    "require": [
+      "ts-node/register",
+      "source-map-support/register"
+    ],
+    "extension": [
+      ".ts"
+    ]
   }
 }
