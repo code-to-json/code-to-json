@@ -1,6 +1,6 @@
 import { suite, test } from 'mocha-typescript';
 import * as snapshot from 'snap-shot-it';
-import { isEmpty, isBlank, isPresent } from '../src/checks';
+import { isEmpty, isBlank, isPresent, isNone } from '../src/checks';
 
 
 @suite('Simple predicates')
@@ -15,6 +15,17 @@ class SimpleChecks {
     snapshot({ result: isEmpty({length: 33})});
     snapshot({ result: isEmpty(() => {})});
     snapshot({ result: isEmpty(new Map([['a', 1]]))});
+  }
+  @test public 'isNone tests'() {
+    snapshot({ result: isNone(0)});
+    snapshot({ result: isNone(null)});
+    snapshot({ result: isNone([])});
+    snapshot({ result: isNone({size: 0})});
+    snapshot({ result: isNone({size: 33})});
+    snapshot({ result: isNone({length: 0})});
+    snapshot({ result: isNone({length: 33})});
+    snapshot({ result: isNone(() => {})});
+    snapshot({ result: isNone(new Map([['a', 1]]))});
   }
   @test public 'isBlank tests'() {
     snapshot({ result: isBlank(0)});
