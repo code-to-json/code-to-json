@@ -6,7 +6,7 @@
     "publish": {
       "allowBranch": "master",
       "conventionalCommits": true,
-      "message": "chore(release): publish %s",
+      "message": "chore(release): publish new release",
       "ignoreChanges": ["**/__snapshots__/**", "**/test/**", "**/*.md"]
     }
   }
