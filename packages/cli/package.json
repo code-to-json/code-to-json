@@ -32,6 +32,7 @@
   },
   "keywords": [],
   "devDependencies": {
+    "@code-to-json/test-helpers": "^0.0.2",
     "@types/chalk": "^2.2.0",
     "@types/debug": "0.0.31",
     "@types/left-pad": "^1.2.0",
