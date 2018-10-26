@@ -4,8 +4,10 @@
   "useWorkspaces": true,
   "command": {
     "publish": {
+      "allowBranch": "master",
       "conventionalCommits": true,
-      "message": "chore(release): publish %s"
+      "message": "chore(release): publish %s",
+      "ignoreChanges": ["**/__snapshots__/**", "**/test/**", "**/*.md"]
     }
   }
 }
