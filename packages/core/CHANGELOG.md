@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.4.5](https://github.com/mike-north/code-to-json/tree/master/packages/core/compare/@code-to-json/core@0.4.4...@code-to-json/core@0.4.5) (2018-10-26)
+
+
+### Bug Fixes
+
+* test-helpers package ([413432e](https://github.com/mike-north/code-to-json/tree/master/packages/core/commit/413432e))
+
+
+
+
+
 ## [0.4.4](https://github.com/mike-north/code-to-json/tree/master/packages/core/compare/@code-to-json/core@0.4.3...@code-to-json/core@0.4.4) (2018-10-25)
 
 **Note:** Version bump only for package @code-to-json/core
