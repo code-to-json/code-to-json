@@ -18,6 +18,7 @@
     "@types/lodash": "^4.14.117",
     "@types/mocha": "^5.2.5",
     "@types/node": "^10.12.0",
+    "@types/tmp": "0.0.33",
     "chai": "^4.2.0",
     "husky": "^1.1.2",
     "lerna": "^3.0.0",
@@ -29,6 +30,7 @@
     "snap-shot-it": "github:mike-north/snap-shot-it#types",
     "source-map-support": "^0.5.9",
     "strip-json-comments": "^2.0.1",
+    "tmp": "0.0.33",
     "travis-deploy-once": "^5.0.9",
     "ts-node": "^7.0.1",
     "tslint": "^5.11.0",
@@ -65,7 +67,6 @@
   },
   "dependencies": {
     "@code-to-json/cli": "^0.2.0",
-    "@microsoft/api-extractor": "^6.0.8",
     "concurrently": "^4.0.1",
     "hashids": "^1.2.2",
     "tsutils": "^3.2.0"
