@@ -1,11 +1,12 @@
 {
-  "name": "@code-to-json/core",
-  "version": "0.4.4",
+  "name": "@code-to-json/test-hepers",
+  "version": "0.0.1",
   "description": "",
   "main": "lib/src/index.js",
   "typings": "lib/src/index.d.ts",
   "license": "BSD-2-Clause",
   "author": "Mike North <michael.l.north@gmail.com> (https://mike.works)",
+  "repository": "https://github.com/mike-north/code-to-json/tree/master/packages/test-helpers",
   "scripts": {
     "lint": "tslint --project .",
     "test": "../../node_modules/.bin/mocha",
@@ -15,16 +16,17 @@
     "rebuild": "npm run clean & npm run build",
     "prepublishOnly": "tsc -b ."
   },
-  "repository": "https://github.com/mike-north/code-to-json/tree/master/packages/core",
   "keywords": [],
+  "dependencies": {
+    "fs-extra": "^7.0.0"
+  },
   "devDependencies": {
+    "@types/fs-extra": "^5.0.4",
+    "@types/node": "^10.12.0",
+    "@types/tmp": "0.0.33",
     "nyc": "^13.1.0",
     "tslint": "^5.11.0",
-    "typescript": "^3.1.2",
-    "debug": "^4.1.0"
-  },
-  "dependencies": {
-    "@code-to-json/utils": "^0.3.4"
+    "typescript": "^3.1.2"
   },
   "nyc": {
     "watermarks": {
