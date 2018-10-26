@@ -1,6 +1,6 @@
 {
   "name": "@code-to-json/formatter",
-  "version": "0.4.3",
+  "version": "0.4.4",
   "description": "",
   "main": "lib/src/index.js",
   "typings": "lib/src/index.d.ts",
@@ -23,7 +23,7 @@
     "typescript": "^3.1.2"
   },
   "dependencies": {
-    "@code-to-json/core": "^0.4.4",
+    "@code-to-json/core": "^0.4.5",
     "@code-to-json/utils": "^0.3.4"
   },
   "nyc": {
