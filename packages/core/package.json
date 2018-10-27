@@ -1,6 +1,6 @@
 {
   "name": "@code-to-json/core",
-  "version": "0.4.7",
+  "version": "0.4.8",
   "description": "",
   "main": "lib/src/index.js",
   "typings": "lib/src/index.d.ts",
@@ -18,14 +18,14 @@
   "repository": "https://github.com/mike-north/code-to-json/tree/master/packages/core",
   "keywords": [],
   "devDependencies": {
-    "@code-to-json/test-helpers": "^0.0.4",
+    "@code-to-json/test-helpers": "^0.0.5",
     "debug": "^4.1.0",
     "nyc": "^13.1.0",
     "tslint": "^5.11.0",
     "typescript": "^3.1.2"
   },
   "dependencies": {
-    "@code-to-json/utils": "^0.3.6"
+    "@code-to-json/utils": "^0.3.7"
   },
   "nyc": {
     "watermarks": {
