@@ -10,7 +10,7 @@ interface TestCase {
 
 function createDir(): Promise<TestCase> {
   return new Promise((res, rej) => {
-    tmp.dir({ dir: tmpdir() }, (err, path, cleanup) => {
+    tmp.dir({ dir: tmpdir(), template: 'c2j-case-XXXXXX' }, (err, path, cleanup) => {
       if (!err) {
         res({ rootPath: path, cleanup });
       } else {
