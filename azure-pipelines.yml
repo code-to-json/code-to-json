@@ -14,7 +14,7 @@ steps:
 
   - script: |
       echo "Installing global dependencies"
-      npm install -g ts-node yarn codecov scripty lerna
+      npm install -g ts-node yarn codecov scripty lerna nyc
     displayName: 'Setup global deps'
   - script: |
       echo "Installing project dependencies"
