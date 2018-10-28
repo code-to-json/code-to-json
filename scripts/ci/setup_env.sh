@@ -11,7 +11,7 @@ then
   source ./scripts/ci/setup_env/azure.sh
 else
   echo "Default Env Detected!"
-  npm run ci:setup_env:default
+  source ./scripts/ci/setup_env/default.sh
 fi
 
 if [ "$CI_BRANCH" == "master" ]
