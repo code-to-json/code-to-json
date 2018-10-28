@@ -9,8 +9,8 @@
   "repository": "https://github.com/mike-north/code-to-json/tree/master/packages/test-helpers",
   "scripts": {
     "lint": "tslint --project .",
-    "test": "../../node_modules/.bin/mocha",
-    "test:coverage": "node ../../node_modules/.bin/nyc npm test",
+    "test": "mocha",
+    "test:coverage": "nyc npm test",
     "clean": "rm -rf ./lib",
     "build": "tsc -b .",
     "rebuild": "npm run clean & npm run build",
