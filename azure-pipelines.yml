@@ -27,5 +27,5 @@ steps:
     displayName: 'Setup environment'
   - script: |
       node -e console.log(JSON.stringify(process.env));
-      lerna run test
+      TEMP="$AGENT_TEMPDIRECTORY" lerna run test
     displayName: 'Run tests'
