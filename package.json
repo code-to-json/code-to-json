@@ -52,7 +52,11 @@
     "clean": "scripty",
     "build": "scripty",
     "rebuild": "scripty",
-    "watch": "scripty"
+    "watch": "scripty",
+    "ci:setup_env": "scripty",
+    "ci:before_install": "scripty",
+    "ci:setup_tools": "scripty",
+    "ci:after_success": "scripty"
   },
   "repository": {
     "type": "git",
