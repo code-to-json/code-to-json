@@ -26,7 +26,8 @@ steps:
       bash ./scripts/ci/setup_env.sh
     displayName: 'Setup environment'
   - script: |
-      node -e console.log(JSON.stringify(process.env));
       export TEMP="$AGENT_TEMPDIRECTORY"
+      node -e "console.log('TMP ' + require('os').tmpdir())"
+      node -e "console.log(JSON.stringify(process.env, null, '  '))"
       lerna run test
     displayName: 'Run tests'
