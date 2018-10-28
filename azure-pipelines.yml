@@ -26,5 +26,6 @@ steps:
       bash ./scripts/ci/setup_env.sh
     displayName: 'Setup environment'
   - script: |
+      node -e console.log(JSON.stringify(process.env));
       lerna run test
     displayName: 'Run tests'
