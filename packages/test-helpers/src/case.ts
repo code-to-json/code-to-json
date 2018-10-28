@@ -1,4 +1,5 @@
 import { copy, existsSync, statSync } from 'fs-extra';
+import * as nodeCleanup from 'node-cleanup';
 import * as tmp from 'tmp';
 
 interface TestCase {
@@ -18,6 +19,8 @@ function createDir(): Promise<TestCase> {
   });
 }
 
+const TO_CLEANUP: Array<() => void> = [];
+
 export async function setupTestCase(casePath: string): Promise<TestCase> {
   const { rootPath, cleanup } = await createDir();
   if (!existsSync(casePath)) {
@@ -30,8 +33,18 @@ export async function setupTestCase(casePath: string): Promise<TestCase> {
   copy(casePath, rootPath, {
     errorOnExist: true
   });
+  TO_CLEANUP.push(cleanup);
   return {
     rootPath,
     cleanup
   };
 }
+
+export function cleanupAll(): void {
+  TO_CLEANUP.forEach(f => f());
+}
+
+// nodeCleanup((exitCode, signal) => {
+//   cleanupAll();
+//   return true;
+// });
