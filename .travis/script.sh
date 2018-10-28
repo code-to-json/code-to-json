@@ -1,3 +1,8 @@
 #!/bin/bash
 npm install -g codecov
-npm run test:ci && ./node_modules/.bin/travis-deploy-once .travis/_publish.sh
+if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then
+  echo "We are in a pull request, not setting up release"
+  npm run test:ci
+else
+  npm run test:ci && ./node_modules/.bin/travis-deploy-once .travis/_publish.sh
+fi
