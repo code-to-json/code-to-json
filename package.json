@@ -55,7 +55,6 @@
     "watch": "scripty",
     "ci:setup_env": "scripty",
     "ci:before_install": "scripty",
-    "ci:setup_tools": "scripty",
     "ci:run_tests": "scripty",
     "ci:after_success": "scripty"
   },
