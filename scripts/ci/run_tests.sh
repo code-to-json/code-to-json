@@ -2,7 +2,7 @@
 echo "=== Code-To-JSON [Run Tests] ==="
 if [ "$TRAVIS" != "" ]
 then
-  ./node_modules/.bin/commitlint-travis && npm run test:ci
+  ./node_modules/.bin/commitlint-travis && bash ./scripts/test/ci.sh
 else
-  npm run test:ci
+  bash ./scripts/test/ci.sh
 fi
