@@ -23,8 +23,8 @@ steps:
     displayName: 'Setup project'
   - script: |
       echo "Setting up environment"
-      npm run ci:setup_env
+      ./scripts/ci/setup_env.sh
     displayName: 'Setup environment'
   - script: |
-      npm run ci:run_tests
+      ./scripts/ci/run_tests.sh
     displayName: 'Run tests'
