@@ -3,6 +3,32 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 0.4.0 (2018-10-28)
+
+
+### Bug Fixes
+
+* add licenses ([6a04ef2](https://github.com/mike-north/code-to-json/tree/master/packages/utils/commit/6a04ef2))
+* add test-helpers devDep to all packages ([e3f69da](https://github.com/mike-north/code-to-json/tree/master/packages/utils/commit/e3f69da))
+* better typing on processing queue ([4ff3ad0](https://github.com/mike-north/code-to-json/tree/master/packages/utils/commit/4ff3ad0))
+* lock packages ([6cb8cbb](https://github.com/mike-north/code-to-json/tree/master/packages/utils/commit/6cb8cbb))
+* refactor registry and refs ([ca9eaa8](https://github.com/mike-north/code-to-json/tree/master/packages/utils/commit/ca9eaa8))
+* references are now tuples ([46ae8bd](https://github.com/mike-north/code-to-json/tree/master/packages/utils/commit/46ae8bd))
+* source files as top-level entity ([3afb975](https://github.com/mike-north/code-to-json/tree/master/packages/utils/commit/3afb975))
+
+
+### Features
+
+* basic walking functionality ([584f23e](https://github.com/mike-north/code-to-json/tree/master/packages/utils/commit/584f23e))
+* human-readable types in type references ([7b2abcb](https://github.com/mike-north/code-to-json/tree/master/packages/utils/commit/7b2abcb))
+* queue/flush graph traversal ([9cfed8f](https://github.com/mike-north/code-to-json/tree/master/packages/utils/commit/9cfed8f))
+* rebuild cli tool to support globs, walk symbols instead of nodes ([3c9539d](https://github.com/mike-north/code-to-json/tree/master/packages/utils/commit/3c9539d))
+* serialize non-exports ([613091d](https://github.com/mike-north/code-to-json/tree/master/packages/utils/commit/613091d))
+
+
+
+
+
 ## [0.3.7](https://github.com/mike-north/code-to-json/tree/master/packages/utils/compare/@code-to-json/utils@0.3.6...@code-to-json/utils@0.3.7) (2018-10-27)
 
 **Note:** Version bump only for package @code-to-json/utils

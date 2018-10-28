@@ -3,6 +3,39 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 0.4.0 (2018-10-28)
+
+
+### Bug Fixes
+
+* 🐛 core package ([8f6ce0c](https://github.com/mike-north/code-to-json/tree/master/packages/cli/commit/8f6ce0c))
+* add comments ([b83d0ca](https://github.com/mike-north/code-to-json/tree/master/packages/cli/commit/b83d0ca))
+* add comments ([e10979c](https://github.com/mike-north/code-to-json/tree/master/packages/cli/commit/e10979c))
+* add licenses ([6a04ef2](https://github.com/mike-north/code-to-json/tree/master/packages/cli/commit/6a04ef2))
+* add test-helpers devDep to all packages ([e3f69da](https://github.com/mike-north/code-to-json/tree/master/packages/cli/commit/e3f69da))
+* cli executable name ([64c0043](https://github.com/mike-north/code-to-json/tree/master/packages/cli/commit/64c0043))
+* correct path to cli executable ([7a77101](https://github.com/mike-north/code-to-json/tree/master/packages/cli/commit/7a77101))
+* correct path to cli executable ([da78379](https://github.com/mike-north/code-to-json/tree/master/packages/cli/commit/da78379))
+* correct path to cli executable ([4d38376](https://github.com/mike-north/code-to-json/tree/master/packages/cli/commit/4d38376))
+* correct path to cli executable ([ddad610](https://github.com/mike-north/code-to-json/tree/master/packages/cli/commit/ddad610))
+* dedicated excutable script ([eaf4607](https://github.com/mike-north/code-to-json/tree/master/packages/cli/commit/eaf4607))
+* lock packages ([6cb8cbb](https://github.com/mike-north/code-to-json/tree/master/packages/cli/commit/6cb8cbb))
+* refactor registry and refs ([ca9eaa8](https://github.com/mike-north/code-to-json/tree/master/packages/cli/commit/ca9eaa8))
+* tsutils dependency installed properly ([672ef86](https://github.com/mike-north/code-to-json/tree/master/packages/cli/commit/672ef86))
+* watch scripts point to lib/src now ([52bd297](https://github.com/mike-north/code-to-json/tree/master/packages/cli/commit/52bd297))
+
+
+### Features
+
+* basic walking functionality ([584f23e](https://github.com/mike-north/code-to-json/tree/master/packages/cli/commit/584f23e))
+* nodes output their text ([9bbab67](https://github.com/mike-north/code-to-json/tree/master/packages/cli/commit/9bbab67))
+* queue/flush graph traversal ([9cfed8f](https://github.com/mike-north/code-to-json/tree/master/packages/cli/commit/9cfed8f))
+* rebuild cli tool to support globs, walk symbols instead of nodes ([3c9539d](https://github.com/mike-north/code-to-json/tree/master/packages/cli/commit/3c9539d))
+
+
+
+
+
 ## [0.3.8](https://github.com/mike-north/code-to-json/tree/master/packages/cli/compare/@code-to-json/cli@0.3.7...@code-to-json/cli@0.3.8) (2018-10-27)
 
 **Note:** Version bump only for package @code-to-json/cli
