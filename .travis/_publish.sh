@@ -4,7 +4,7 @@ if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then
   exit 0
 fi
 
-if [[ $TRAVIS_BRANCH == 'master' ]]; then
+if [ ( $TRAVIS_BRANCH == 'master' ) -a ( "$TRAVIS_PULL_REQUEST" == "false" ) ]; then
   echo "On master branch. Proceeding with publish"
   echo "git status"
   git status
