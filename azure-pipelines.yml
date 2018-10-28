@@ -13,8 +13,11 @@ steps:
     displayName: 'Install Node.js'
 
   - script: |
-      npm install -g ts-node yarn codecov
+      echo "Installing global dependencies"
+      npm install -g ts-node yarn codecov scripty
+      echo "Installing project dependencies"
       npm install
+      echo "Setting up environment"
       npm run ci:setup_env
     displayName: 'Setup environment'
   - script: |
