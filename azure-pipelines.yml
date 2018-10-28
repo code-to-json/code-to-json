@@ -26,5 +26,5 @@ steps:
       bash ./scripts/ci/setup_env.sh
     displayName: 'Setup environment'
   - script: |
-      bash ./scripts/ci/run_tests.sh
+      node ./node_modules/.bin/lerna run test
     displayName: 'Run tests'
