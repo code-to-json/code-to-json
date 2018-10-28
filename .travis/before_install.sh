@@ -3,9 +3,7 @@
 if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then
   echo "We are in a pull request, not setting up release"
   exit 0
-fi
-
-if [[ $TRAVIS_BRANCH == 'master' ]]; then
+else if [[ $TRAVIS_BRANCH == 'master' ]]; then
   rm -rf .git
   git init
   git clean -dfx
