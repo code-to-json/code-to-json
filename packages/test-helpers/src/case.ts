@@ -44,7 +44,7 @@ export function cleanupAll(): void {
   TO_CLEANUP.forEach(f => f());
 }
 
-// nodeCleanup((exitCode, signal) => {
-//   cleanupAll();
-//   return true;
-// });
+nodeCleanup((exitCode, signal) => {
+  cleanupAll();
+  return true;
+});
