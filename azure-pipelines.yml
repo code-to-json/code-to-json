@@ -26,5 +26,5 @@ steps:
       bash ./scripts/ci/setup_env.sh
     displayName: 'Setup environment'
   - script: |
-    lerna run test
+      lerna run test
     displayName: 'Run tests'
