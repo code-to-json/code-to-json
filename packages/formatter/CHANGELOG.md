@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 0.4.8 (2018-10-28)
+
+
+### Bug Fixes
+
+* add test-helpers devDep to all packages ([e3f69da](https://github.com/mike-north/code-to-json/tree/master/packages/formatter/commit/e3f69da))
+* refactor registry and refs ([ca9eaa8](https://github.com/mike-north/code-to-json/tree/master/packages/formatter/commit/ca9eaa8))
+* references are now tuples ([46ae8bd](https://github.com/mike-north/code-to-json/tree/master/packages/formatter/commit/46ae8bd))
+
+
+
+
+
 ## [0.4.7](https://github.com/mike-north/code-to-json/tree/master/packages/formatter/compare/@code-to-json/formatter@0.4.6...@code-to-json/formatter@0.4.7) (2018-10-27)
 
 **Note:** Version bump only for package @code-to-json/formatter

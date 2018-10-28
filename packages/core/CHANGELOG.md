@@ -3,6 +3,39 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 0.5.0 (2018-10-28)
+
+
+### Bug Fixes
+
+* 🐛 core package ([8f6ce0c](https://github.com/mike-north/code-to-json/tree/master/packages/core/commit/8f6ce0c))
+* add licenses ([6a04ef2](https://github.com/mike-north/code-to-json/tree/master/packages/core/commit/6a04ef2))
+* add test-helpers devDep to all packages ([e3f69da](https://github.com/mike-north/code-to-json/tree/master/packages/core/commit/e3f69da))
+* better typing on processing queue ([4ff3ad0](https://github.com/mike-north/code-to-json/tree/master/packages/core/commit/4ff3ad0))
+* lock packages ([6cb8cbb](https://github.com/mike-north/code-to-json/tree/master/packages/core/commit/6cb8cbb))
+* refactor registry and refs ([ca9eaa8](https://github.com/mike-north/code-to-json/tree/master/packages/core/commit/ca9eaa8))
+* references are now tuples ([46ae8bd](https://github.com/mike-north/code-to-json/tree/master/packages/core/commit/46ae8bd))
+* remove excess entity type checking ([3f02353](https://github.com/mike-north/code-to-json/tree/master/packages/core/commit/3f02353))
+* source files as top-level entity ([3afb975](https://github.com/mike-north/code-to-json/tree/master/packages/core/commit/3afb975))
+* test-helpers package ([fc1fe79](https://github.com/mike-north/code-to-json/tree/master/packages/core/commit/fc1fe79))
+* type error ([6e037f6](https://github.com/mike-north/code-to-json/tree/master/packages/core/commit/6e037f6))
+* update walker comments ([7380c9d](https://github.com/mike-north/code-to-json/tree/master/packages/core/commit/7380c9d))
+* update walker docs ([1659e5d](https://github.com/mike-north/code-to-json/tree/master/packages/core/commit/1659e5d))
+
+
+### Features
+
+* basic walking functionality ([584f23e](https://github.com/mike-north/code-to-json/tree/master/packages/core/commit/584f23e))
+* human-readable types in type references ([7b2abcb](https://github.com/mike-north/code-to-json/tree/master/packages/core/commit/7b2abcb))
+* nodes output their text ([9bbab67](https://github.com/mike-north/code-to-json/tree/master/packages/core/commit/9bbab67))
+* queue/flush graph traversal ([9cfed8f](https://github.com/mike-north/code-to-json/tree/master/packages/core/commit/9cfed8f))
+* rebuild cli tool to support globs, walk symbols instead of nodes ([3c9539d](https://github.com/mike-north/code-to-json/tree/master/packages/core/commit/3c9539d))
+* serialize non-exports ([613091d](https://github.com/mike-north/code-to-json/tree/master/packages/core/commit/613091d))
+
+
+
+
+
 ## [0.4.8](https://github.com/mike-north/code-to-json/tree/master/packages/core/compare/@code-to-json/core@0.4.7...@code-to-json/core@0.4.8) (2018-10-27)
 
 **Note:** Version bump only for package @code-to-json/core
