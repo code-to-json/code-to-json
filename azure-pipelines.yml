@@ -23,8 +23,8 @@ steps:
     displayName: 'Setup project'
   - script: |
       echo "Setting up environment"
-      ./scripts/ci/setup_env.sh
+      source ./scripts/ci/setup_env.sh
     displayName: 'Setup environment'
   - script: |
-      ./scripts/ci/run_tests.sh
+      source ./scripts/ci/run_tests.sh
     displayName: 'Run tests'
