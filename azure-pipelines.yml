@@ -14,7 +14,7 @@ steps:
 
   - script: |
       echo "Installing global dependencies"
-      npm install -g ts-node yarn codecov scripty
+      npm install -g ts-node yarn codecov scripty lerna
     displayName: 'Setup global deps'
   - script: |
       echo "Installing project dependencies"
@@ -26,5 +26,5 @@ steps:
       bash ./scripts/ci/setup_env.sh
     displayName: 'Setup environment'
   - script: |
-      ./node_modules/.bin/lerna run test
+    lerna run test
     displayName: 'Run tests'
