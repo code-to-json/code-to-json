@@ -1,0 +1,15 @@
+queries:
+  - exclude: js/unused-local-variable
+
+extraction:
+  javascript:
+    index:
+      typescript: full
+
+path_classifiers:
+  test:
+    - '**/test/**.test.ts'
+  docs:
+    - README.md
+    - '**/CHANGELOG.md'
+    - LICENSE.txt
