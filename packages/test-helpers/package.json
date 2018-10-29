@@ -1,6 +1,6 @@
 {
   "name": "@code-to-json/test-helpers",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "",
   "main": "lib/src/index.js",
   "typings": "lib/src/index.d.ts",
