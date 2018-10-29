@@ -9,5 +9,10 @@ echo "npm whoami"
 npm whoami
 git checkout $TRAVIS_BRANCH
 echo "git status"
+git config credential.helper store
+git config --global user.email "michael.l.north@gmail.com"
+git config --global user.name "Mike North"
+git config --global push.default simple
+echo "https://mike-north:${GH_TOKEN}@github.com/mike-north/code-to-json.git" > ~/.git-credentials
 git status
 ./node_modules/.bin/lerna publish --yes
