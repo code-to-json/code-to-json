@@ -1,5 +1,8 @@
 #!/bin/bash
 echo "=== Code-To-JSON [Run Tests] ==="
+echo "IS_PULL_REQUEST=$IS_PULL_REQUEST"
+echo "IS_MASTER=$IS_MASTER"
+echo "TRAVIS=$TRAVIS"
 if [ "$TRAVIS" != "" -a "$IS_PULL_REQUEST" == "false"  -a "$IS_MASTER" == "true" ]
 then
     echo "TRAVIS: We are on master. Attempting publish after successful tests"
