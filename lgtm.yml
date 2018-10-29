@@ -8,7 +8,7 @@ extraction:
 
 path_classifiers:
   test:
-    - '**/test/**.test.ts'
+    - '**.test.ts'
   docs:
     - README.md
     - '**/CHANGELOG.md'
