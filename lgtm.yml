@@ -5,11 +5,3 @@ extraction:
   javascript:
     index:
       typescript: full
-
-path_classifiers:
-  test:
-    - '**.test.ts'
-  docs:
-    - README.md
-    - '**/CHANGELOG.md'
-    - LICENSE.txt
