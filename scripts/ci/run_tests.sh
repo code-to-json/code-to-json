@@ -5,6 +5,7 @@ then
     echo "TRAVIS: We are on master. Attempting publish after successful tests"
     npm run test:ci && ./node_modules/.bin/travis-deploy-once .travis/_publish.sh
 elif [ "$TRAVIS" != "" ]
+then
     echo "TRAVIS: Non master, non-pr build"
     npm run test:ci
 else
