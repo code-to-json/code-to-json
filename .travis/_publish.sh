@@ -14,5 +14,8 @@ git config --global user.email "michael.l.north@gmail.com"
 git config --global user.name "Mike North"
 git config --global push.default simple
 echo "https://mike-north:${GH_TOKEN}@github.com/mike-north/code-to-json.git" > ~/.git-credentials
+echo "git config --list"
+git config --list #debug
 git status
+npm run build
 ./node_modules/.bin/lerna publish --yes
