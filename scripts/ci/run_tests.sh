@@ -8,7 +8,7 @@ elif [ "$TRAVIS" != "" -a "$IS_PULL_REQUEST" != "false" -a "$CI_BRANCH" == "mast
 then
     echo "TRAVIS: PR build (master)"
     npm run test:ci
-elif [ "$TRAVIS" != "" -a "$TRAVIS_PULL_REQUEST" != "false" ]
+elif [ "$TRAVIS" != "" -a "$CI_BRANCH" != "master" ]
 then
     echo "TRAVIS: PR build (branch)"
     npm run test:ci
