@@ -1,0 +1,7 @@
+queries:
+  - exclude: js/unused-local-variable
+
+extraction:
+  javascript:
+    index:
+      typescript: full
