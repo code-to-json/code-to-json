@@ -1,6 +1,6 @@
 {
   "name": "@code-to-json/cli",
-  "version": "0.4.3",
+  "version": "0.4.4",
   "description": "",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
@@ -11,9 +11,9 @@
     "code-to-json": "bin/code-to-json"
   },
   "dependencies": {
-    "@code-to-json/core": "^0.5.3",
-    "@code-to-json/formatter": "^0.4.11",
-    "@code-to-json/utils": "^0.4.3",
+    "@code-to-json/core": "^0.5.4",
+    "@code-to-json/formatter": "^0.4.12",
+    "@code-to-json/utils": "^0.4.4",
     "chalk": "^2.4.1",
     "commander": "^2.19.0",
     "debug": "^4.1.0",
@@ -32,7 +32,7 @@
   },
   "keywords": [],
   "devDependencies": {
-    "@code-to-json/test-helpers": "^0.0.9",
+    "@code-to-json/test-helpers": "^0.0.10",
     "@types/chalk": "^2.2.0",
     "@types/debug": "0.0.31",
     "@types/left-pad": "^1.2.0",

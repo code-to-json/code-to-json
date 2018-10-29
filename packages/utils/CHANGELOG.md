@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 0.4.4 (2018-10-29)
+
+**Note:** Version bump only for package @code-to-json/utils
+
+
+
+
+
 ## 0.4.3 (2018-10-29)
 
 **Note:** Version bump only for package @code-to-json/utils
