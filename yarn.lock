@@ -6052,6 +6052,37 @@ snap-shot-core@7.1.7:
     pluralize "7.0.0"
     ramda "0.25.0"
 
+snap-shot-core@7.1.8:
+  version "7.1.8"
+  resolved "https://registry.yarnpkg.com/snap-shot-core/-/snap-shot-core-7.1.8.tgz#de1791d51218dbb1ca6a441591e19c2433689406"
+  integrity sha512-ud9d7RopkbJ8mhEDvzH9kSz85NwCMz5ZL1zLRtJtNF3bTDmF+waag85lD/WkPlXqlQRSwaBR6rY5JSofYPkfCA==
+  dependencies:
+    check-more-types "2.24.0"
+    common-tags "1.8.0"
+    debug "3.2.6"
+    escape-quotes "1.0.2"
+    folktale "2.3.1"
+    is-ci "1.2.1"
+    jsesc "2.5.1"
+    lazy-ass "1.6.0"
+    mkdirp "0.5.1"
+    pluralize "7.0.0"
+    ramda "0.25.0"
+
+snap-shot-it@^6.2.2:
+  version "6.2.2"
+  resolved "https://registry.yarnpkg.com/snap-shot-it/-/snap-shot-it-6.2.2.tgz#11ea6564000ca3f54d154086a33fc9e8438a6a77"
+  integrity sha512-yOxf2IxYAUftsmbplMhfIboZchkbFD5vtpN5cDpr4jHAXXHY7dG8ssuAxwP87c8XbyvOBZHrVIyNyRG4N7wAlQ==
+  dependencies:
+    "@bahmutov/data-driven" "1.0.0"
+    check-more-types "2.24.0"
+    debug "4.1.0"
+    has-only "1.1.1"
+    pluralize "7.0.0"
+    ramda "0.25.0"
+    snap-shot-compare "2.7.1"
+    snap-shot-core "7.1.8"
+
 "snap-shot-it@github:mike-north/snap-shot-it#types":
   version "0.0.0-development"
   resolved "https://codeload.github.com/mike-north/snap-shot-it/tar.gz/d98421fe031827b9f58ad067648118470ce91352"

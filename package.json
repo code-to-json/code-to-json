@@ -30,7 +30,7 @@
     "nodemon": "1.18.4",
     "nyc": "13.1.0",
     "scripty": "1.8.0",
-    "snap-shot-it": "github:mike-north/snap-shot-it#types",
+    "snap-shot-it": "^6.2.2",
     "source-map-support": "0.5.9",
     "strip-json-comments": "2.0.1",
     "tmp": "0.0.33",

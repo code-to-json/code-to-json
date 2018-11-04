@@ -27,6 +27,7 @@
     "@types/node-cleanup": "2.1.0",
     "@types/tmp": "0.0.33",
     "nyc": "13.1.0",
+    "snap-shot-it": "^6.2.2",
     "tslint": "5.11.0",
     "typescript": "3.1.6"
   },
