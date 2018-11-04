@@ -2519,13 +2519,6 @@ debug@3.1.0:
   dependencies:
     ms "2.0.0"
 
-debug@3.2.5:
-  version "3.2.5"
-  resolved "https://registry.yarnpkg.com/debug/-/debug-3.2.5.tgz#c2418fbfd7a29f4d4f70ff4cea604d4b64c46407"
-  integrity sha512-D61LaDQPQkxJ5AUM2mbSJRbPkNs/TmdmOeLAi1hgDkpDfIfetSrjmWhccwtuResSwMbACjx/xXQofvM9CE/aeg==
-  dependencies:
-    ms "^2.1.1"
-
 debug@3.2.6, debug@^3.1.0:
   version "3.2.6"
   resolved "https://registry.yarnpkg.com/debug/-/debug-3.2.6.tgz#e83d17de16d8a7efb7717edbe5fb10135eee629b"
@@ -6035,23 +6028,6 @@ snap-shot-compare@2.7.1:
     strip-ansi "4.0.0"
     variable-diff "1.1.0"
 
-snap-shot-core@7.1.7:
-  version "7.1.7"
-  resolved "https://registry.yarnpkg.com/snap-shot-core/-/snap-shot-core-7.1.7.tgz#803beda5b24666709d95f311e14e91c49d878efe"
-  integrity sha512-JG/y84dyVApiJcxW0hYqnPn5/tG4yTwTfxZipTGGJ5hpvYO4MZZkwTC19m6EmZY4evdFYiaZLjHu7bDWmTXVJQ==
-  dependencies:
-    check-more-types "2.24.0"
-    common-tags "1.8.0"
-    debug "3.2.5"
-    escape-quotes "1.0.2"
-    folktale "2.3.1"
-    is-ci "1.2.1"
-    jsesc "2.5.1"
-    lazy-ass "1.6.0"
-    mkdirp "0.5.1"
-    pluralize "7.0.0"
-    ramda "0.25.0"
-
 snap-shot-core@7.1.8:
   version "7.1.8"
   resolved "https://registry.yarnpkg.com/snap-shot-core/-/snap-shot-core-7.1.8.tgz#de1791d51218dbb1ca6a441591e19c2433689406"
@@ -6082,19 +6058,6 @@ snap-shot-it@^6.2.2:
     ramda "0.25.0"
     snap-shot-compare "2.7.1"
     snap-shot-core "7.1.8"
-
-"snap-shot-it@github:mike-north/snap-shot-it#types":
-  version "0.0.0-development"
-  resolved "https://codeload.github.com/mike-north/snap-shot-it/tar.gz/d98421fe031827b9f58ad067648118470ce91352"
-  dependencies:
-    "@bahmutov/data-driven" "1.0.0"
-    check-more-types "2.24.0"
-    debug "3.2.6"
-    has-only "1.1.1"
-    pluralize "7.0.0"
-    ramda "0.25.0"
-    snap-shot-compare "2.7.1"
-    snap-shot-core "7.1.7"
 
 snapdragon-node@^2.0.1:
   version "2.1.1"

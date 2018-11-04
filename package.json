@@ -63,10 +63,6 @@
     "type": "git",
     "url": "https://github.com/mike-north/code-to-json.git"
   },
-  "toolchain": {
-    "node": "10.12.0",
-    "yarn": "1.9.4"
-  },
   "husky": {
     "hooks": {
       "commit-msg": "./node_modules/.bin/commitlint -e $HUSKY_GIT_PARAMS"
@@ -78,5 +74,9 @@
     "hashids": "^1.2.2",
     "node-cleanup": "^2.1.2",
     "tsutils": "^3.2.0"
+  },
+  "toolchain": {
+    "node": "10.12.0",
+    "yarn": "1.10.0"
   }
 }
