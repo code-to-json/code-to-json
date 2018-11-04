@@ -2,6 +2,7 @@
   "packages": ["packages/*"],
   "version": "independent",
   "useWorkspaces": true,
+  "npmClient": "yarn",
   "command": {
     "publish": {
       "allowBranch": "master",
