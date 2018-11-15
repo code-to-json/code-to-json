@@ -1,6 +1,6 @@
 {
   "name": "@code-to-json/utils",
-  "version": "0.4.12",
+  "version": "0.4.13",
   "description": "",
   "main": "lib/src/index.js",
   "typings": "lib/src/index.d.ts",
@@ -18,7 +18,7 @@
   },
   "keywords": [],
   "devDependencies": {
-    "@code-to-json/test-helpers": "^0.0.18",
+    "@code-to-json/test-helpers": "^0.0.19",
     "nyc": "13.1.0",
     "snap-shot-it": "6.2.3",
     "tslint": "5.11.0",
