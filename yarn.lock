@@ -5482,6 +5482,11 @@ ramda@0.25.0:
   resolved "https://registry.yarnpkg.com/ramda/-/ramda-0.25.0.tgz#8fdf68231cffa90bc2f9460390a0cb74a29b29a9"
   integrity sha512-GXpfrYVPwx3K7RQ6aYT8KPS8XViSXUVJT1ONhoKPE9VAleW42YE+U+8VEyGWt41EnEQW7gwecYJriTI0pKoecQ==
 
+ramda@0.26.0:
+  version "0.26.0"
+  resolved "https://registry.yarnpkg.com/ramda/-/ramda-0.26.0.tgz#3cbe059f5c18fbc0eb86f2396ab1f8320705424c"
+  integrity sha512-maK1XqpgsOo5DwjhROjqDvpm1vkphLQbpleVv+b3t5Y9uOQ0t8hTHT582+mDs7RLrex1kd4lWYizNXWLVjsq9w==
+
 rc@^1.0.1, rc@^1.1.6, rc@^1.2.7:
   version "1.2.8"
   resolved "https://registry.yarnpkg.com/rc/-/rc-1.2.8.tgz#cd924bf5200a075b83c188cd6b9e211b7fc0d3ed"
@@ -6050,17 +6055,17 @@ snap-shot-core@7.1.9:
     pluralize "7.0.0"
     ramda "0.25.0"
 
-snap-shot-it@6.2.3:
-  version "6.2.3"
-  resolved "https://registry.yarnpkg.com/snap-shot-it/-/snap-shot-it-6.2.3.tgz#baca973f516f2faa7b98a35c1bc06621130f0fa0"
-  integrity sha512-EcEoGhuqnZA6LnP9BNHqkVRv+v28d+CA5sUFGQp8fkYmQYUK6Vng8nOQpqcHjqtbGpYUkeL01IKee5MCwpbrng==
+snap-shot-it@6.2.4:
+  version "6.2.4"
+  resolved "https://registry.yarnpkg.com/snap-shot-it/-/snap-shot-it-6.2.4.tgz#bab311134984560bf4e86d06503f2117f0085ddc"
+  integrity sha512-l4guLkgGsoYizziA30jnQp2vrn0Dj3d997WhWlnpvGRJgdrtgqEZZNIhDWn0x4wDHVgbxccpncBqKgvS4AuRgw==
   dependencies:
     "@bahmutov/data-driven" "1.0.0"
     check-more-types "2.24.0"
     debug "4.1.0"
     has-only "1.1.1"
     pluralize "7.0.0"
-    ramda "0.25.0"
+    ramda "0.26.0"
     snap-shot-compare "2.7.1"
     snap-shot-core "7.1.9"
 
