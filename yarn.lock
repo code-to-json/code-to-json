@@ -5477,11 +5477,6 @@ quick-lru@^1.0.0:
   resolved "https://registry.yarnpkg.com/quick-lru/-/quick-lru-1.1.0.tgz#4360b17c61136ad38078397ff11416e186dcfbb8"
   integrity sha1-Q2CxfGETatOAeDl/8RQW4Ybc+7g=
 
-ramda@0.25.0:
-  version "0.25.0"
-  resolved "https://registry.yarnpkg.com/ramda/-/ramda-0.25.0.tgz#8fdf68231cffa90bc2f9460390a0cb74a29b29a9"
-  integrity sha512-GXpfrYVPwx3K7RQ6aYT8KPS8XViSXUVJT1ONhoKPE9VAleW42YE+U+8VEyGWt41EnEQW7gwecYJriTI0pKoecQ==
-
 ramda@0.26.0:
   version "0.26.0"
   resolved "https://registry.yarnpkg.com/ramda/-/ramda-0.26.0.tgz#3cbe059f5c18fbc0eb86f2396ab1f8320705424c"
@@ -6038,10 +6033,10 @@ snap-shot-compare@2.7.1:
     strip-ansi "4.0.0"
     variable-diff "1.1.0"
 
-snap-shot-core@7.1.9:
-  version "7.1.9"
-  resolved "https://registry.yarnpkg.com/snap-shot-core/-/snap-shot-core-7.1.9.tgz#d6398f16da49dc9376272322f01e243b20b7f059"
-  integrity sha512-e6I3zioY0nAC0nAUianiFev7mgl3O+eBW8xC/qvGPGETIz79FHdEla8UCgc9P0x9YMn5IRDqHMv33bek7MQ+Ow==
+snap-shot-core@7.1.10:
+  version "7.1.10"
+  resolved "https://registry.yarnpkg.com/snap-shot-core/-/snap-shot-core-7.1.10.tgz#cf236189ec65f45ceb86cec67f282e9667cfe1c3"
+  integrity sha512-Q7XPxjeqOVEGU9YXx4MLjnyRY5bjJ8FN5fxOP1rfYXWq1XGn1PllmTrjMhuE0HMiFE0l8sH9zyajv0GKBjyD9g==
   dependencies:
     check-more-types "2.24.0"
     common-tags "1.8.0"
@@ -6053,12 +6048,12 @@ snap-shot-core@7.1.9:
     lazy-ass "1.6.0"
     mkdirp "0.5.1"
     pluralize "7.0.0"
-    ramda "0.25.0"
+    ramda "0.26.0"
 
-snap-shot-it@6.2.4:
-  version "6.2.4"
-  resolved "https://registry.yarnpkg.com/snap-shot-it/-/snap-shot-it-6.2.4.tgz#bab311134984560bf4e86d06503f2117f0085ddc"
-  integrity sha512-l4guLkgGsoYizziA30jnQp2vrn0Dj3d997WhWlnpvGRJgdrtgqEZZNIhDWn0x4wDHVgbxccpncBqKgvS4AuRgw==
+snap-shot-it@6.2.5:
+  version "6.2.5"
+  resolved "https://registry.yarnpkg.com/snap-shot-it/-/snap-shot-it-6.2.5.tgz#b418e0450fcf11334b068b4cbaf931f7a3c52622"
+  integrity sha512-I6L8wf4PJigaQNL/6iIQxFxVHv2Le3qcBoKJfhtHIdtxnJtIbmEEjbPKN/dwTCxkW4BIrl0hxiJQzzL9nc6/eQ==
   dependencies:
     "@bahmutov/data-driven" "1.0.0"
     check-more-types "2.24.0"
@@ -6067,7 +6062,7 @@ snap-shot-it@6.2.4:
     pluralize "7.0.0"
     ramda "0.26.0"
     snap-shot-compare "2.7.1"
-    snap-shot-core "7.1.9"
+    snap-shot-core "7.1.10"
 
 snapdragon-node@^2.0.1:
   version "2.1.1"

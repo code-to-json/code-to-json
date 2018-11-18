@@ -20,7 +20,7 @@
   "devDependencies": {
     "@code-to-json/test-helpers": "^0.0.22",
     "nyc": "13.1.0",
-    "snap-shot-it": "6.2.4",
+    "snap-shot-it": "6.2.5",
     "tslint": "5.11.0",
     "typescript": "3.1.6"
   },
