@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 0.0.25 (2018-11-21)
+
+**Note:** Version bump only for package @code-to-json/schema
+
+
+
+
+
 ## 0.0.24 (2018-11-21)
 
 **Note:** Version bump only for package @code-to-json/schema
