@@ -21,7 +21,7 @@
     "@code-to-json/test-helpers": "^0.0.27",
     "debug": "4.1.0",
     "nyc": "13.1.0",
-    "snap-shot-it": "6.2.5",
+    "snap-shot-it": "6.2.6",
     "tslint": "5.11.0",
     "typescript": "3.1.6"
   },
