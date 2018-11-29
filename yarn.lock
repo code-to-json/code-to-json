@@ -1334,32 +1334,33 @@
     mkdirp "^0.5.1"
     rimraf "^2.5.2"
 
-"@microsoft/api-extractor@^6.0.8":
-  version "6.1.1"
-  resolved "https://registry.yarnpkg.com/@microsoft/api-extractor/-/api-extractor-6.1.1.tgz#6734025a8ed90e47063ca170d6791da723c2d84a"
-  integrity sha512-bEGyeFZ34+fHEEnL7Eewcg7LZ6Ov00BL57bIn6ulU6vf9ulPCJvUBpeR85U/kA7Snd49Atjem5FubREG0fzwwA==
+"@microsoft/api-extractor@^7.0.0":
+  version "7.0.0"
+  resolved "https://registry.yarnpkg.com/@microsoft/api-extractor/-/api-extractor-7.0.0.tgz#6f1c6b0a4c11a757e258b91d6891950f53d01c2a"
+  integrity sha512-gFZuOwHvIDM5FyNsEuHI/GJvWXaeH7oIimy9b99aB+KSO4XRH1qnXPvQW2wFCBYmxShdoQ+Aez1xuIN0dGojog==
   dependencies:
-    "@microsoft/node-core-library" "3.5.0"
+    "@microsoft/node-core-library" "3.7.1"
     "@microsoft/ts-command-line" "4.2.2"
-    "@microsoft/tsdoc" "0.9.3"
+    "@microsoft/tsdoc" "0.12.4"
     "@types/node" "8.5.8"
     "@types/z-schema" "3.16.31"
     colors "~1.2.1"
     jju "~1.3.0"
     lodash "~4.17.5"
-    typescript "~3.0.3"
+    resolve "1.8.1"
+    typescript "~3.1.6"
     z-schema "~3.18.3"
 
-"@microsoft/node-core-library@3.5.0":
-  version "3.5.0"
-  resolved "https://registry.yarnpkg.com/@microsoft/node-core-library/-/node-core-library-3.5.0.tgz#27634998dec693ec538491dce407b813f0f86232"
-  integrity sha512-DZ16Aa64BMwsfw8yvHUDVhAX2YWqIpPpWXC0BQnDawG1BgkMCox7aBxC2JofnMnMOSzaeXmuUSuy32s4D64ZeA==
+"@microsoft/node-core-library@3.7.1":
+  version "3.7.1"
+  resolved "https://registry.yarnpkg.com/@microsoft/node-core-library/-/node-core-library-3.7.1.tgz#d3fd3a1f7b0bb80f84087cfb64b0a99f6a9f5631"
+  integrity sha512-OgZlw59/x+wJyy8Yc4bw0QRfNKqEQdfgVErg8Qgc6w8/Np3hZg/yLuZ7IceI2kk/cqMDuR/HCm73okNpcoxlSQ==
   dependencies:
-    "@types/fs-extra" "5.0.1"
+    "@types/fs-extra" "5.0.4"
     "@types/node" "8.5.8"
     "@types/z-schema" "3.16.31"
     colors "~1.2.1"
-    fs-extra "~5.0.0"
+    fs-extra "~7.0.1"
     jju "~1.3.0"
     z-schema "~3.18.3"
 
@@ -1373,10 +1374,10 @@
     argparse "~1.0.9"
     colors "~1.2.1"
 
-"@microsoft/tsdoc@0.9.3":
-  version "0.9.3"
-  resolved "https://registry.yarnpkg.com/@microsoft/tsdoc/-/tsdoc-0.9.3.tgz#30e1a0a0eb9714166966cca2b6f7d4346d6df111"
-  integrity sha512-eRJ5mGGdv0YU4gXg+WMdN3XQ7/V/4eRoS/mpmqqHs2bFXFayaB+fqAP6dgzxlpm3aXsSdv4aHq/zLM5c1cx7Cg==
+"@microsoft/tsdoc@0.12.4":
+  version "0.12.4"
+  resolved "https://registry.yarnpkg.com/@microsoft/tsdoc/-/tsdoc-0.12.4.tgz#42159590f2b12e23f6028c70aed41dd5b11275c3"
+  integrity sha512-nQZVQg3fXygj+9JT/FSPZOz3vqAIVAAR3ZuAuUdU4DSM/ubJq5lbl1hpLtl+REFmEq1rkvDmmPoJAbSoqjcmZQ==
 
 "@mrmlnc/readdir-enhanced@^2.2.1":
   version "2.2.1"
@@ -1431,13 +1432,6 @@
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/@types/events/-/events-1.2.0.tgz#81a6731ce4df43619e5c8c945383b3e62a89ea86"
   integrity sha512-KEIlhXnIutzKwRbQkGWb/I4HFqBuUykAdHgDED6xqwXJfONCjF5VoE0cXEiurh3XauygxzeDzgtXUqvLkxFzzA==
-
-"@types/fs-extra@5.0.1":
-  version "5.0.1"
-  resolved "https://registry.yarnpkg.com/@types/fs-extra/-/fs-extra-5.0.1.tgz#cd856fbbdd6af2c11f26f8928fd8644c9e9616c9"
-  integrity sha512-h3wnflb+jMTipvbbZnClgA2BexrT4w0GcfoCz5qyxd0IRsbqhLSyesM6mqZTAnhbVmhyTm5tuxfRu9R+8l+lGw==
-  dependencies:
-    "@types/node" "*"
 
 "@types/fs-extra@5.0.4":
   version "5.0.4"
@@ -3078,10 +3072,10 @@ fs-extra@^7.0.0:
     jsonfile "^4.0.0"
     universalify "^0.1.0"
 
-fs-extra@~5.0.0:
-  version "5.0.0"
-  resolved "https://registry.yarnpkg.com/fs-extra/-/fs-extra-5.0.0.tgz#414d0110cdd06705734d055652c5411260c31abd"
-  integrity sha512-66Pm4RYbjzdyeuqudYqhFiNBbCIuI9kgRqLPSHIlXHidW8NIQtVdkM1yeZ4lXwuhbTETv3EUGMNHAAw6hiundQ==
+fs-extra@~7.0.1:
+  version "7.0.1"
+  resolved "https://registry.yarnpkg.com/fs-extra/-/fs-extra-7.0.1.tgz#4f189c44aa123b895f722804f55ea23eadc348e9"
+  integrity sha512-YJDaCJZEnBmcbw13fvdAM9AwNOJwOzrE4pqMqBq5nFiEqXUqHwlK4B+3pUw6JNvfSPtX05xFHtYy/1ni01eGCw==
   dependencies:
     graceful-fs "^4.1.2"
     jsonfile "^4.0.0"
@@ -5789,7 +5783,7 @@ resolve-url@^0.2.1:
   resolved "https://registry.yarnpkg.com/resolve-url/-/resolve-url-0.2.1.tgz#2c637fe77c893afd2a663fe21aa9080068e2052a"
   integrity sha1-LGN/53yJOv0qZj/iGqkIAGjiBSo=
 
-resolve@^1.3.2:
+resolve@1.8.1, resolve@^1.3.2:
   version "1.8.1"
   resolved "https://registry.yarnpkg.com/resolve/-/resolve-1.8.1.tgz#82f1ec19a423ac1fbd080b0bab06ba36e84a7a26"
   integrity sha512-AicPrAC7Qu1JxPCZ9ZgCZlY35QgFnNqc+0LtbRNxnVw4TXvjQ72wnuL9JQcEBgXkI9JM8MsT9kaQoHcpCRJOYA==
@@ -6608,15 +6602,10 @@ typedarray@^0.0.6:
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
   integrity sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=
 
-typescript@3.1.6:
+typescript@3.1.6, typescript@~3.1.6:
   version "3.1.6"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.1.6.tgz#b6543a83cfc8c2befb3f4c8fba6896f5b0c9be68"
   integrity sha512-tDMYfVtvpb96msS1lDX9MEdHrW4yOuZ4Kdc4Him9oU796XldPYF/t2+uKoX0BBa0hXXwDlqYQbXY5Rzjzc5hBA==
-
-typescript@~3.0.3:
-  version "3.0.3"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.0.3.tgz#4853b3e275ecdaa27f78fda46dc273a7eb7fc1c8"
-  integrity sha512-kk80vLW9iGtjMnIv11qyxLqZm20UklzuR2tL0QAnDIygIUIemcZMxlMWudl9OOt76H3ntVzcTiddQ1/pAAJMYg==
 
 uglify-js@^3.1.4:
   version "3.4.9"
