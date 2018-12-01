@@ -6,18 +6,14 @@
   "configurations": [
     {
       "type": "node",
-      "request": "launch",
-      "name": "Launch CLI",
-      "preLaunchTask": "build",
-      "timeout": 10000,
-      "runtimeArgs": ["-r", "ts-node/register"],
-      "env": {
-        "DEBUG": "code-to-json:*"
-      },
-      "program": "${workspaceFolder}/packages/cli/lib/index.js",
-      "args": ["-o", "./out", "-p", "samples/ts-advanced-types"],
-      "console": "integratedTerminal",
-      "internalConsoleOptions": "openOnFirstSessionStart"
+      "request": "attach",
+      "name": "Node: Nodemon",
+      "restart": true,
+      "stopOnEntry": false,
+      "timeout": 60000,
+      "protocol": "inspector",
+      "showAsyncStacks": true,
+      "smartStep": true
     }
   ]
 }

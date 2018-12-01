@@ -53,6 +53,7 @@
     "build": "scripty",
     "rebuild": "scripty",
     "watch": "scripty",
+    "watch:debug": "scripty",
     "ci:setup_env": "scripty",
     "ci:before_install": "scripty",
     "ci:run_tests": "scripty",
