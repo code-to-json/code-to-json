@@ -1,18 +1,18 @@
+import { isRef, refId } from '@code-to-json/utils';
 import { SourceFile, TypeChecker } from 'typescript';
 import { ProcessingQueue } from '../processing-queue';
 import { NodeRef, SourceFileRef, SymbolRef } from '../processing-queue/ref';
+import { SerializedEntity } from '../types';
 import serializeAmdDependency, { SerializedAmdDependency } from './amd-dependency';
 import serializeDeclaration, { SerializedDeclaration } from './declaration';
 import serializeFileReference, { SerializedFileReference } from './file-reference';
 
-export interface SerializedSourceFile
-  extends Pick<SerializedDeclaration, Exclude<keyof SerializedDeclaration, 'thing'>> {
-  thing: 'sourceFile';
-  moduleName?: string;
+export interface SerializedSourceFile extends SerializedEntity<'sourceFile'> {
   fileName?: string;
+  isDeclarationFile: boolean;
+  moduleName?: string;
   statements?: NodeRef[];
   symbol?: SymbolRef;
-  isDeclarationFile: boolean;
   amdDependencies?: SerializedAmdDependency[];
   referencedFiles?: SerializedFileReference[];
   typeReferenceDirectives?: SerializedFileReference[];
@@ -34,31 +34,36 @@ export default function serializeSourceFile(
   const {
     fileName,
     moduleName,
-    amdDependencies,
     isDeclarationFile,
-    // statements,
+    amdDependencies,
     referencedFiles: _referencedFiles,
     typeReferenceDirectives: _typeReferenceDirectives,
     libReferenceDirectives: _libReferenceDirectives
+    // statements: _statements
   } = sourceFile;
-  const referencedFiles = _referencedFiles.map(serializeFileReference);
-  const typeReferenceDirectives = _typeReferenceDirectives.map(serializeFileReference);
-  const libReferenceDirectives = _libReferenceDirectives.map(serializeFileReference);
-  // tslint:disable-next-line:no-commented-code
+
   // const statements = _statements.map(s => _queue.queue(s, 'node', checker)).filter(isRef);
   const basicInfo: SerializedSourceFile = {
-    ...serializeDeclaration(sourceFile, checker, ref, _queue),
-    thing: 'sourceFile',
-    fileName,
+    id: refId(ref),
+    entity: 'sourceFile',
     moduleName,
-    isDeclarationFile,
-    amdDependencies: amdDependencies && amdDependencies.map(serializeAmdDependency),
-    // statements,
-    referencedFiles: referencedFiles.length > 0 ? referencedFiles : undefined,
-    libReferenceDirectives: libReferenceDirectives.length > 0 ? libReferenceDirectives : undefined,
-    typeReferenceDirectives:
-      typeReferenceDirectives.length > 0 ? typeReferenceDirectives : undefined
+    fileName,
+    isDeclarationFile
+    // statements
   };
+  if (amdDependencies && amdDependencies.length > 0) {
+    basicInfo.amdDependencies = amdDependencies.map(serializeAmdDependency);
+  }
+  if (_referencedFiles && _referencedFiles.length > 0) {
+    basicInfo.referencedFiles = _referencedFiles.map(serializeFileReference);
+  }
+  if (_typeReferenceDirectives && _typeReferenceDirectives.length > 0) {
+    basicInfo.referencedFiles = _typeReferenceDirectives.map(serializeFileReference);
+  }
+  if (_libReferenceDirectives && _libReferenceDirectives.length > 0) {
+    basicInfo.referencedFiles = _libReferenceDirectives.map(serializeFileReference);
+  }
+
   /**
    * Take the source file's AST node, and use the checker
    * to obtain a Symbol (AST + Type Information, via the binder)

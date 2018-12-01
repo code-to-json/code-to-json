@@ -2,30 +2,39 @@ import {
   isDeclaration,
   isDeclarationExported,
   isNamedDeclaration,
-  isRef,
-  mapChildren,
   refId
 } from '@code-to-json/utils';
-import { Node, SyntaxKind, Type, TypeChecker } from 'typescript';
-import { Flags, flagsToString } from '../flags';
+import { isVariableStatement, Node, SyntaxKind, Type, TypeChecker } from 'typescript';
+import { flagsToString } from '../flags';
 import { ProcessingQueue } from '../processing-queue';
 import { DeclarationRef, NodeRef, SourceFileRef, TypeRef } from '../processing-queue/ref';
+import { HasPosition, SerializedEntity } from '../types';
+import serializeLocation from './location';
 
-export interface SerializedNode {
-  thing: 'node';
-  id: string;
-  flags?: Flags;
-  parent?: NodeRef;
-  children?: NodeRef[];
-  kind: string;
-  pos: number;
-  end: number;
+export interface SerializedNode<TYP extends string = 'node'>
+  extends SerializedEntity<TYP>,
+    HasPosition {
   text: string;
-  sourceFile?: SourceFileRef;
-  name?: string;
+  kind: string;
   decorators?: string[];
   modifiers?: string[];
-  type?: TypeRef;
+  isExposed: boolean;
+  isExported: boolean;
+  // parent?: NodeRef;
+  // children?: NodeRef[];
+  // type?: TypeRef;
+}
+
+function nameForNode(n: Node, checker: TypeChecker): string {
+  const name = isNamedDeclaration(n) && n.name;
+  const sym = checker.getSymbolAtLocation(name || n);
+  if (sym && name) {
+    return name.getText();
+  } else if (isVariableStatement(n)) {
+    return '' + n.declarationList.declarations.length;
+  } else {
+    return '(unknown)';
+  }
 }
 
 /**
@@ -43,45 +52,51 @@ export default function serializeNode(
 
   const details: SerializedNode = {
     id: refId(ref),
-    pos,
-    end,
+    entity: 'node',
+    location: serializeLocation(n.getSourceFile(), pos, end),
+    name: nameForNode(n, checker),
     text: n.getText(),
+    isExposed: isDeclaration(n) && isDeclarationExported(n),
+    isExported: !!(
+      modifiers &&
+      modifiers.length &&
+      modifiers.map(m => m.kind).indexOf(SyntaxKind.ExportKeyword) >= 0
+    ),
     sourceFile: q.queue(n.getSourceFile(), 'sourceFile', checker),
-    thing: 'node',
     kind: SyntaxKind[kind],
     flags: flagsToString(flags, 'node')
   };
+
   if (decorators && decorators.length) {
     details.decorators = decorators.map(d => SyntaxKind[d.kind]);
   }
   if (modifiers && modifiers.length) {
     details.modifiers = modifiers.map(d => SyntaxKind[d.kind]);
   }
-  if (parent) {
-    details.parent = q.queue(parent, 'node', checker);
-  }
-  const name = isNamedDeclaration(n) && n.name;
-  let typ: Type | undefined;
-  const sym = checker.getSymbolAtLocation(name || n);
-  if (sym && name) {
-    details.name = name.getText();
-    typ = checker.getTypeOfSymbolAtLocation(sym, name);
-  }
-  if (typ) {
-    details.type = q.queue(typ, 'type', checker);
-  }
-  const childReferences = mapChildren(n, child => {
-    if (child.getSourceFile().isDeclarationFile) {
-      return;
-    }
-    if (isDeclaration(child) && isDeclarationExported(child)) {
-      return q.queue(child, 'node', checker);
-    } else {
-      return undefined;
-    }
-  }).filter(isRef);
-  if (childReferences && childReferences.length > 0) {
-    details.children = childReferences;
-  }
+  // if (parent) {
+  //   details.parent = q.queue(parent, 'node', checker);
+  // }
+  // let typ: Type | undefined;
+  // const sym = checker.getSymbolAtLocation(name || n);
+  // if (sym && name) {
+  //   details.name = name.getText();
+  //   typ = checker.getTypeOfSymbolAtLocation(sym, name);
+  // }
+  // if (typ) {
+  //   details.type = q.queue(typ, 'type', checker);
+  // }
+  // const childReferences = mapChildren(n, child => {
+  //   if (
+  //     !child.getSourceFile().isDeclarationFile &&
+  //     isDeclaration(child) &&
+  //     isDeclarationExported(child)
+  //   ) {
+  //     return q.queue(child, 'node', checker);
+  //   }
+  //   return;
+  // }).filter(isRef);
+  // if (childReferences && childReferences.length > 0) {
+  //   details.children = childReferences;
+  // }
   return details;
 }

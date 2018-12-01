@@ -1,4 +1,4 @@
-import { SerializedType, WalkerOutput } from '@code-to-json/core';
+import { SerializedType, WalkerOutputData } from '@code-to-json/core';
 import resolveReference from '../resolve-reference';
 import formatFlags from './flags';
 import formatSymbol, { FormattedSymbol } from './symbol';
@@ -25,7 +25,7 @@ export interface FormattedType {
 // }
 
 export default function formatType(
-  wo: WalkerOutput,
+  wo: WalkerOutputData,
   type: Readonly<SerializedType>
 ): FormattedType {
   const { typeString, flags, objectFlags, properties } = type;

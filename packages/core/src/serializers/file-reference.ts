@@ -1,8 +1,9 @@
 import { FileReference } from 'typescript';
-import serializePosition, { SerializedPosition } from './position';
+import { CodeRange } from '../types';
 
-export interface SerializedFileReference extends SerializedPosition {
+export interface SerializedFileReference {
   name?: string;
+  location?: CodeRange;
 }
 
 /**
@@ -10,8 +11,8 @@ export interface SerializedFileReference extends SerializedPosition {
  * @param fr FileReference to serialize
  */
 export default function serializeFileReference(fr: FileReference): SerializedFileReference {
+  debugger;
   return {
-    name: fr.fileName,
-    ...serializePosition(fr)
+    name: fr.fileName
   };
 }
