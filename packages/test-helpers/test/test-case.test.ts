@@ -27,7 +27,7 @@ export class TestCaseCreation {
     expect(rootPath).length.to.be.greaterThan(0);
     expect(cleanup).to.be.an.instanceOf(Function);
     expect(program.getSourceFiles().filter(sf => !sf.isDeclarationFile).map(sf => sf.fileName)).to.deep.equal([
-      [rootPath, 'src', 'index.ts'].join('/')
+      path.join(rootPath, 'src', 'index.ts')
     ]);
     cleanup();
   }
