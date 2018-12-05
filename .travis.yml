@@ -35,7 +35,6 @@ jobs:
       script: ./node_modules/.bin/lerna run test
     - node_js: 10
     - node_js: 8
-    - node_js: 6
 
     - stage: 'Deploy'
       name: 'Publish to NPM'
