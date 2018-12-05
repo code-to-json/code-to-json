@@ -10,6 +10,37 @@ node_js:
   - '10'
 git:
   depth: 1
-before_install: npm run ci:setup_env
-script: npm run ci:run_tests
-after_success: npm run ci:after_success
+
+stages:
+  - 'Basic Tests'
+  - 'Additional Tests'
+  - name: 'Deploy'
+    if: branch = master AND type = push
+
+jobs:
+  fail_fast: true
+  include:
+    - stage: 'Basic Tests'
+      name: 'Conventional Commits'
+      script: commitlint-travis
+    - name: 'Lint'
+      script: lerna run lint
+    - name: 'Fixed Dependencies'
+      install: yarn install --non-interactive
+      script: ./node_modules/.bin/lerna run test:coverage
+      after_success: codecov
+
+    - stage: 'Additional Tests'
+      name: 'Floating Dependencies'
+      script: ./node_modules/.bin/lerna run test
+    - node_js: 10
+    - node_js: 8
+
+    - stage: 'Deploy'
+      name: 'Publish to NPM'
+      script: .travis/_publish.sh
+
+install:
+  - yarn install --no-lockfile --non-interactive
+
+script: lerna run test

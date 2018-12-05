@@ -22,10 +22,6 @@ steps:
       echo "Setting up environment"
     displayName: 'Setup project'
   - script: |
-      echo "Setting up environment"
-      bash ./scripts/ci/setup_env.sh
-    displayName: 'Setup environment'
-  - script: |
       export TEMP="$AGENT_TEMPDIRECTORY"
       export NODE_TEMP="$(node -e "console.log(require('os').tmpdir())")"
       node -e "console.log('TMP ' + require('os').tmpdir())"

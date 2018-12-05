@@ -34,7 +34,6 @@
     "source-map-support": "0.5.9",
     "strip-json-comments": "2.0.1",
     "tmp": "0.0.33",
-    "travis-deploy-once": "5.0.9",
     "ts-node": "7.0.1",
     "tslint": "5.11.0",
     "tslint-config-prettier": "1.17.0",
