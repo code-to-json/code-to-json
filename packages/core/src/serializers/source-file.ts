@@ -1,10 +1,9 @@
-import { isRef, refId } from '@code-to-json/utils';
+import { refId } from '@code-to-json/utils';
 import { SourceFile, TypeChecker } from 'typescript';
 import { ProcessingQueue } from '../processing-queue';
 import { NodeRef, SourceFileRef, SymbolRef } from '../processing-queue/ref';
 import { SerializedEntity } from '../types';
 import serializeAmdDependency, { SerializedAmdDependency } from './amd-dependency';
-import serializeDeclaration, { SerializedDeclaration } from './declaration';
 import serializeFileReference, { SerializedFileReference } from './file-reference';
 
 export interface SerializedSourceFile extends SerializedEntity<'sourceFile'> {
@@ -42,6 +41,7 @@ export default function serializeSourceFile(
     // statements: _statements
   } = sourceFile;
 
+  // tslint:disable-next-line:no-commented-code
   // const statements = _statements.map(s => _queue.queue(s, 'node', checker)).filter(isRef);
   const basicInfo: SerializedSourceFile = {
     id: refId(ref),

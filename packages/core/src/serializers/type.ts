@@ -70,9 +70,9 @@ export default function serializeType(
         : undefined;
   }
   const properties = typ.getProperties();
-  // if (properties && properties.length > 0) {
-  //   typeData.properties = properties.map(sym => queue.queue(sym, 'symbol', checker)).filter(isRef);
-  // }
+  if (properties && properties.length > 0) {
+    typeData.properties = properties.map(sym => queue.queue(sym, 'symbol', checker)).filter(isRef);
+  }
   if (symbol) {
     typeData.symbol = queue.queue(symbol, 'symbol', checker);
   }

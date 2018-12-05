@@ -4,10 +4,10 @@ import {
   isNamedDeclaration,
   refId
 } from '@code-to-json/utils';
-import { isVariableStatement, Node, SyntaxKind, Type, TypeChecker } from 'typescript';
+import { isVariableStatement, Node, SyntaxKind, TypeChecker } from 'typescript';
 import { flagsToString } from '../flags';
 import { ProcessingQueue } from '../processing-queue';
-import { DeclarationRef, NodeRef, SourceFileRef, TypeRef } from '../processing-queue/ref';
+import { DeclarationRef, NodeRef, SourceFileRef } from '../processing-queue/ref';
 import { HasPosition, SerializedEntity } from '../types';
 import serializeLocation from './location';
 
@@ -48,7 +48,7 @@ export default function serializeNode(
   ref: NodeRef | DeclarationRef | SourceFileRef,
   q: ProcessingQueue
 ): SerializedNode {
-  const { flags, kind, decorators, modifiers, pos, end, parent } = n;
+  const { flags, kind, decorators, modifiers, pos, end } = n;
 
   const details: SerializedNode = {
     id: refId(ref),
@@ -73,6 +73,7 @@ export default function serializeNode(
   if (modifiers && modifiers.length) {
     details.modifiers = modifiers.map(d => SyntaxKind[d.kind]);
   }
+  // tslint:disable-next-line:no-commented-code
   // if (parent) {
   //   details.parent = q.queue(parent, 'node', checker);
   // }

@@ -1,16 +1,14 @@
 import { isRef, mapUem, refId } from '@code-to-json/utils';
 import {
   displayPartsToString,
-  getLineAndCharacterOfPosition,
-  isClassDeclaration,
   Symbol as Sym,
   SyntaxKind,
   TypeChecker,
   UnderscoreEscapedMap
 } from 'typescript';
-import { Flags, flagsToString } from '../flags';
+import { flagsToString } from '../flags';
 import { ProcessingQueue } from '../processing-queue';
-import { DeclarationRef, SymbolRef, TypeRef } from '../processing-queue/ref';
+import { SymbolRef, TypeRef } from '../processing-queue/ref';
 import { HasPosition, SerializedEntity } from '../types';
 import serializeLocation from './location';
 import serializeSignature, { SerializedSignature } from './signature';
@@ -73,7 +71,6 @@ export default function serializeSymbol(
   };
 
   const typ = checker.getTypeOfSymbolAtLocation(symbol, valueDeclaration);
-  const typeString = checker.typeToString(typ);
   if (valueDeclaration && valueDeclaration.getSourceFile().isDeclarationFile) {
     details.external = true;
     return details;

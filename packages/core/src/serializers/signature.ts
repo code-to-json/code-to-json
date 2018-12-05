@@ -17,7 +17,7 @@ export default function serializeSignature(
   checker: TypeChecker,
   q: ProcessingQueue
 ): SerializedSignature {
-  const { parameters, typeParameters, declaration } = signature;
+  const { parameters, typeParameters } = signature;
 
   return {
     parameters:
@@ -28,7 +28,7 @@ export default function serializeSignature(
       ? typeParameters.map(p => q.queue(p, 'type', checker)).filter(isRef)
       : undefined,
     // declaration: declaration ? q.queue(declaration, 'declaration', checker) : undefined,
-    returnType: q.queue(signature.getReturnType(), 'type', checker)
-    // documentation: displayPartsToString(signature.getDocumentationComment(checker))
+    returnType: q.queue(signature.getReturnType(), 'type', checker),
+    documentation: displayPartsToString(signature.getDocumentationComment(checker))
   };
 }

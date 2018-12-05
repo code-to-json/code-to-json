@@ -1,5 +1,4 @@
 import { UnreachableError } from '@code-to-json/utils';
-import { isHomogenousArray } from '@code-to-json/utils/lib/src/guards';
 import { SourceFile } from 'typescript';
 
 export interface IWalkerOptionArgs {
