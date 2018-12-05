@@ -1,9 +1,12 @@
+import * as debug from 'debug';
 import * as fs from 'fs';
 import { copy, existsSync, statSync } from 'fs-extra';
 import { tmpdir } from 'os';
 import * as path from 'path';
 import * as tmp from 'tmp';
 import * as ts from 'typescript';
+
+const log = debug('code-to-json:test-helpers');
 
 tmp.setGracefulCleanup();
 
@@ -18,15 +21,24 @@ export interface TestCase {
   cleanup: () => void;
 }
 
+/**
+ * Create a temporary folder
+ */
 function createDir(): Promise<TestCaseFolder> {
   return new Promise((res, rej) => {
-    tmp.dir({ dir: tmpdir(), unsafeCleanup: true }, (err, rootPath, cleanup) => {
-      if (!err) {
-        res({ rootPath, cleanup });
-      } else {
-        rej(err);
+    tmp.dir(
+      {
+        dir: tmpdir(),
+        unsafeCleanup: true // delete temp folder even if it's non-empty
+      },
+      (err, rootPath, cleanup) => {
+        if (!err) {
+          res({ rootPath, cleanup });
+        } else {
+          rej(err);
+        }
       }
-    });
+    );
   });
 }
 
@@ -34,9 +46,11 @@ function createDir(): Promise<TestCaseFolder> {
  * Create a new test case from fixture files on disk
  *
  * @param casePath path to test case fixture
+ * @public
  */
 export async function setupTestCaseFolder(casePath: string): Promise<TestCaseFolder> {
   const { rootPath, cleanup } = await createDir();
+  log(`created temporary folder "${rootPath}" from fixture "${casePath}"`);
   if (!existsSync(casePath)) {
     throw new Error(`Path "${casePath}" does not exist`);
   }
@@ -56,6 +70,7 @@ export async function setupTestCaseFolder(casePath: string): Promise<TestCaseFol
  * Create a new test case from fixture files on disk
  *
  * @param casePath path to test case fixture
+ * @public
  */
 export async function setupTestCase(casePath: string): Promise<TestCase> {
   const { rootPath, cleanup } = await setupTestCaseFolder(casePath);
@@ -69,7 +84,7 @@ export async function setupTestCase(casePath: string): Promise<TestCase> {
   if (!fs.statSync(entry).isFile) {
     throw new Error(`"${entry}" is not a file`);
   }
-
+  log(`setting up test case for entry "${entry}"`);
   const program = ts.createProgram({
     rootNames: [entry],
     options: {
