@@ -6,7 +6,8 @@ cache:
 notifications:
   email: false
 node_js:
-  - stable
+  - '8'
+  - '10'
 git:
   depth: 1
 
@@ -42,3 +43,5 @@ jobs:
 
 install:
   - yarn install --no-lockfile --non-interactive
+
+script: lerna run test
