@@ -1,10 +1,10 @@
 # code-to-json
 
-[![Build Status](https://travis-ci.org/mike-north/code-to-json.svg?branch=master)](https://travis-ci.org/mike-north/code-to-json)
-[![Build Status](https://dev.azure.com/code-to-json/code-to-json/_apis/build/status/mike-north.code-to-json)](https://dev.azure.com/code-to-json/code-to-json/_build/latest?definitionId=1)
+[![Build Status](https://travis-ci.org/code-to-json/code-to-json.svg?branch=master)](https://travis-ci.org/code-to-json/code-to-json)
+[![Build Status](https://dev.azure.com/code-to-json/code-to-json/_apis/build/status/code-to-json.code-to-json)](https://dev.azure.com/code-to-json/code-to-json/_build/latest?definitionId=1)
 [![Version](https://img.shields.io/npm/v/code-to-json.svg)](https://www.npmjs.com/package/code-to-json)
-[![codecov](https://codecov.io/gh/mike-north/code-to-json/branch/master/graph/badge.svg)](https://codecov.io/gh/mike-north/code-to-json)
-[![Total alerts](https://img.shields.io/lgtm/alerts/g/mike-north/code-to-json.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/mike-north/code-to-json/alerts/)
+[![codecov](https://codecov.io/gh/code-to-json/code-to-json/branch/master/graph/badge.svg)](https://codecov.io/gh/code-to-json/code-to-json)
+[![Total alerts](https://img.shields.io/lgtm/alerts/g/code-to-json/code-to-json.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/code-to-json/code-to-json/alerts/)
 
 > These libraries are unstable and under very active development, and will change radically from day-to-day. Please don't use them yet. No support will be provided until a 1.0 release is cut
 
