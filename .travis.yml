@@ -5,9 +5,7 @@ cache:
     - node_modules
 notifications:
   email: false
-node_js:
-  - '8'
-  - '10'
+node_js: '10'
 git:
   depth: 1
 
