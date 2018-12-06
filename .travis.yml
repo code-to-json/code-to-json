@@ -25,6 +25,7 @@ jobs:
       script: lerna run lint
     - name: 'Fixed Dependencies'
       install: yarn install --non-interactive
+      after_install: npm install -g codecov
       script: ./node_modules/.bin/lerna run test:coverage
       after_success: codecov
 
