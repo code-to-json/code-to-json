@@ -26,7 +26,7 @@ jobs:
     - name: 'Fixed Dependencies'
       install:
         - yarn install --non-interactive
-        - yarn add -D codecov
+        - yarn add -WD codecov
       script: ./node_modules/.bin/lerna run test:coverage
       after_success: ./node_modules/.bin/codecov
 
