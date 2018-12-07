@@ -43,7 +43,12 @@
   "commitlint": {
     "extends": [
       "@commitlint/config-conventional"
-    ]
+    ],
+    "rules": {
+      "subject-case": [
+        0
+      ]
+    }
   },
   "scripts": {
     "publish": "scripty",
@@ -53,6 +58,7 @@
     "build": "scripty",
     "rebuild": "scripty",
     "watch": "scripty",
+    "watch:debug": "scripty",
     "ci:setup_env": "scripty",
     "ci:before_install": "scripty",
     "ci:run_tests": "scripty",

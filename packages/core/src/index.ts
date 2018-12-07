@@ -1,4 +1,4 @@
-export { walkProgram, WalkerOutput } from './walker';
+export { walkProgram, WalkerOutput, WalkerOutputData, WalkerOutputMetadata } from './walker';
 
 export { SerializedSignature } from './serializers/signature';
 export { SerializedSymbol } from './serializers/symbol';

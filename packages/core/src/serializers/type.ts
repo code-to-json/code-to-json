@@ -3,15 +3,13 @@ import { Type, TypeChecker } from 'typescript';
 import { Flags, flagsToString, getObjectFlags } from '../flags';
 import { ProcessingQueue } from '../processing-queue';
 import { SymbolRef, TypeRef } from '../processing-queue/ref';
+import { SerializedEntity } from '../types';
 
-export interface SerializedType {
-  thing: 'type';
-  id: string;
+export interface SerializedType extends SerializedEntity<'type'> {
   symbol?: SymbolRef;
   typeString: string;
   aliasTypeArguments?: TypeRef[];
   aliasSymbol?: SymbolRef;
-  flags?: Flags;
   objectFlags?: Flags;
   defaultType?: TypeRef;
   numberIndexType?: TypeRef;
@@ -38,8 +36,7 @@ export default function serializeType(
   const objFlags = getObjectFlags(typ);
   const typeData: SerializedType = {
     id: refId(ref),
-    thing: 'type' as 'type',
-    symbol: symbol && queue.queue(symbol, 'symbol', checker),
+    entity: 'type',
     typeString: checker.typeToString(typ),
     aliasTypeArguments:
       aliasTypeArguments &&
@@ -67,8 +64,17 @@ export default function serializeType(
   }
   const baseTypes = typ.getBaseTypes();
   if (baseTypes) {
-    typeData.baseTypes = baseTypes.map(bt => queue.queue(bt, 'type', checker)).filter(isRef);
+    typeData.baseTypes =
+      baseTypes.length > 0
+        ? baseTypes.map(bt => queue.queue(bt, 'type', checker)).filter(isRef)
+        : undefined;
   }
-
+  const properties = typ.getProperties();
+  if (properties && properties.length > 0) {
+    typeData.properties = properties.map(sym => queue.queue(sym, 'symbol', checker)).filter(isRef);
+  }
+  if (symbol) {
+    typeData.symbol = queue.queue(symbol, 'symbol', checker);
+  }
   return typeData;
 }

@@ -1,8 +1,7 @@
 #!/usr/bin/env node
+// tslint:disable no-var-requires no-var-keyword
 var importLocal = require('import-local');
 
-if (importLocal(__filename)) {
-  console.log('Using local version of this package');
-} else {
+if (!importLocal(__filename)) {
   require('../lib/src/index.js');
 }

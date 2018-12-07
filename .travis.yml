@@ -24,9 +24,11 @@ jobs:
     - name: 'Lint'
       script: lerna run lint
     - name: 'Fixed Dependencies'
-      install: yarn install --non-interactive
+      install:
+        - yarn install --non-interactive
+        - yarn add -WD codecov
       script: ./node_modules/.bin/lerna run test:coverage
-      after_success: codecov
+      after_success: ./node_modules/.bin/codecov
 
     - stage: 'Additional Tests'
       name: 'Floating Dependencies'

@@ -19,7 +19,7 @@ export function isArray(value: any): value is any[] {
  * @param value value to check
  * @param validator validator to apply to each member of the collection
  */
-export function isHomogenousArray<T>(value: any, validator: (v: any) => v is T): value is T[] {
+export function isHomogenousArray<T>(value: any, validator: (v: any) => boolean): value is T[] {
   if (!isArray(value)) {
     return false;
   }

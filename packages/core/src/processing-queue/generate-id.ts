@@ -1,10 +1,12 @@
 // tslint:disable:no-bitwise
 import { isDeclaration, isNode, isSymbol, isType, UnreachableError } from '@code-to-json/utils';
+import * as debug from 'debug';
 import { isSourceFile, Node, Symbol as Sym, Type } from 'typescript';
-
+const log = debug('code-to-json:generate-id');
 /**
  * Generate a stable hash from a string
  * @param str string to generate a hash from
+ * @internal
  */
 function generateHash(str: string): string {
   let hash = 0;
@@ -27,6 +29,7 @@ function generateHash(str: string): string {
 /**
  * Generate an id for an entity
  * @param thing Entity to generate an Id for
+ * @internal
  */
 export function generateId(thing: Sym | Node | Type): string {
   if (!thing) {
@@ -34,9 +37,10 @@ export function generateId(thing: Sym | Node | Type): string {
   }
   if (isType(thing)) {
     // tslint:disable-next-line:no-useless-cast
-    return (thing as any).id;
+    const typeId = (thing as any).id;
+    return `${typeId}`;
   } else if (isSymbol(thing)) {
-    const parts: any[] = [thing.name, thing.flags];
+    const parts: Array<string | number> = [thing.name, thing.flags];
     const { valueDeclaration } = thing;
     if (valueDeclaration) {
       parts.push(valueDeclaration.pos);
@@ -44,14 +48,13 @@ export function generateId(thing: Sym | Node | Type): string {
     }
     return generateHash(parts.filter(Boolean).join('-'));
   } else if (thing && isSourceFile(thing)) {
-    return generateHash(thing.fileName);
+    return thing.fileName;
   } else if (isDeclaration(thing)) {
     return generateHash(thing.getFullText());
   } else if (isNode(thing)) {
     return generateHash(thing.getFullText());
   } else {
-    // tslint:disable-next-line:no-console
-    console.error(thing);
+    log(thing);
     throw new UnreachableError(thing, 'Cannot generate an id for this object');
   }
 }

@@ -1,4 +1,4 @@
-import { SerializedSymbol, WalkerOutput } from '@code-to-json/core';
+import { SerializedSymbol, WalkerOutputData } from '@code-to-json/core';
 import { isObject } from '@code-to-json/utils';
 import resolveReference from '../resolve-reference';
 import formatFlags from './flags';
@@ -6,7 +6,7 @@ import formatSignature, { FormattedSignature } from './signature';
 
 export interface FormattedSymbol {
   name: string;
-  documentation: string;
+  documentation?: string;
   flags?: string[];
   exports?: FormattedSymbol[];
   members?: FormattedSymbol[];
@@ -16,7 +16,7 @@ export interface FormattedSymbol {
 }
 
 export default function formatSymbol(
-  wo: WalkerOutput,
+  wo: WalkerOutputData,
   symbol: Readonly<SerializedSymbol>
 ): FormattedSymbol {
   const {
@@ -24,7 +24,7 @@ export default function formatSymbol(
     flags: _rawFlags,
     exports,
     members,
-    jsDocTags,
+    // jsDocTags,
     callSignatures,
     constructorSignatures,
     documentation
@@ -32,8 +32,8 @@ export default function formatSymbol(
   const info: FormattedSymbol = {
     name: name || '(anonymous)',
     flags: formatFlags(_rawFlags),
-    documentation,
-    jsDocTags
+    documentation
+    // jsDocTags
   };
   if (exports && exports.length > 0) {
     info.exports = exports

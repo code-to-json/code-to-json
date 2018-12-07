@@ -6,8 +6,10 @@ interface FormattedOutput {
 }
 
 export function formatWalkerOutput(wo: WalkerOutput): FormattedOutput {
-  const { sourceFile } = wo;
+  const {
+    data: { sourceFile }
+  } = wo;
   return {
-    sourceFiles: Object.keys(sourceFile).map(fn => formatSourceFile(wo, sourceFile[fn]))
+    sourceFiles: Object.keys(sourceFile).map(fn => formatSourceFile(wo.data, sourceFile[fn]))
   };
 }

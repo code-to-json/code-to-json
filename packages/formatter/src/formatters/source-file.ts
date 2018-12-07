@@ -1,4 +1,4 @@
-import { SerializedSourceFile, WalkerOutput } from '@code-to-json/core';
+import { SerializedSourceFile, WalkerOutputData } from '@code-to-json/core';
 import resolveReference from '../resolve-reference';
 import formatSymbol, { FormattedSymbol } from './symbol';
 
@@ -9,7 +9,7 @@ export interface FormattedSourceFile extends Partial<FormattedSymbol> {
 }
 
 export default function formatSourceFile(
-  wo: WalkerOutput,
+  wo: WalkerOutputData,
   sourceFile: Readonly<SerializedSourceFile>
 ): FormattedSourceFile {
   const { fileName, isDeclarationFile, referencedFiles } = sourceFile;

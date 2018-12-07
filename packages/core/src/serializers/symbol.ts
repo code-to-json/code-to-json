@@ -1,27 +1,51 @@
 import { isRef, mapUem, refId } from '@code-to-json/utils';
-import { displayPartsToString, Symbol as Sym, TypeChecker } from 'typescript';
-import { Flags, flagsToString } from '../flags';
+import {
+  displayPartsToString,
+  Symbol as Sym,
+  SyntaxKind,
+  TypeChecker,
+  UnderscoreEscapedMap
+} from 'typescript';
+import { flagsToString } from '../flags';
 import { ProcessingQueue } from '../processing-queue';
-import { DeclarationRef, SymbolRef, TypeRef } from '../processing-queue/ref';
+import { SymbolRef, TypeRef } from '../processing-queue/ref';
+import { HasPosition, SerializedEntity } from '../types';
+import serializeLocation from './location';
 import serializeSignature, { SerializedSignature } from './signature';
 
-export interface SerializedSymbol {
-  thing: 'symbol';
-  id: string;
+export interface SerializedHeritageClause {
+  clauseType: string;
+}
+
+export interface SerializedSymbol extends SerializedEntity<'symbol'>, Partial<HasPosition> {
   name: string;
-  documentation: string;
-  flags?: Flags;
+  documentation?: string;
+  external?: boolean;
   type?: TypeRef;
   members?: SymbolRef[];
   exports?: SymbolRef[];
+  decorators?: string[];
+  modifiers?: string[];
   globalExports?: SymbolRef[];
-  declarations?: DeclarationRef[];
+  // declarations?: DeclarationRef[];
   constructorSignatures?: SerializedSignature[];
   callSignatures?: SerializedSignature[];
+  heritageClauses?: SerializedHeritageClause[];
   jsDocTags?: Array<{
     name: string;
     text?: string;
   }>;
+}
+
+function appendSymbolMap(
+  uem: UnderscoreEscapedMap<Sym> | undefined,
+  queue: ProcessingQueue,
+  checker: TypeChecker
+): SymbolRef[] | undefined {
+  if (uem && uem.size > 0) {
+    return mapUem(uem, (val: Sym) => queue.queue(val, 'symbol', checker)).filter(isRef);
+  }
+  return undefined;
 }
 
 /**
@@ -38,42 +62,48 @@ export default function serializeSymbol(
   queue: ProcessingQueue
 ): SerializedSymbol {
   const { exports, globalExports, members, flags, valueDeclaration } = symbol;
-  const typ = checker.getTypeOfSymbolAtLocation(symbol, valueDeclaration);
+
   const details: SerializedSymbol = {
     id: refId(ref),
-    thing: 'symbol',
+    entity: 'symbol',
     name: symbol.getName(),
-    documentation: displayPartsToString(symbol.getDocumentationComment(checker)),
-    flags: flagsToString(flags, 'symbol'),
-    type: queue.queue(typ, 'type', checker),
-    members:
-      members && mapUem(members, (val: Sym) => queue.queue(val, 'symbol', checker)).filter(isRef),
-    exports:
-      exports && mapUem(exports, (val: Sym) => queue.queue(val, 'symbol', checker)).filter(isRef),
-    globalExports:
-      globalExports &&
-      mapUem(globalExports, (val: Sym) => queue.queue(val, 'symbol', checker)).filter(isRef)
-    // declarations:
-    //   declarations &&
-    //   declarations
-    //     .map((d) => {
-    //       if (d.getSourceFile().isDeclarationFile) {
-    //         return; // Skip anything that's in a declaration file
-    //         // TODO: figure out a better boundary for skipping stuff (i.e., things that can be linked to on MDN)
-    //       }
-    //       return queue.queue(d, 'declaration', checker);
-    //     })
-    //     .filter(isRef)
+    flags: flagsToString(flags, 'symbol')
   };
 
+  const typ = checker.getTypeOfSymbolAtLocation(symbol, valueDeclaration);
+  if (valueDeclaration && valueDeclaration.getSourceFile().isDeclarationFile) {
+    details.external = true;
+    return details;
+  }
+  details.type = queue.queue(typ, 'type', checker);
+  details.members = appendSymbolMap(members, queue, checker);
+  details.exports = appendSymbolMap(exports, queue, checker);
+  details.globalExports = appendSymbolMap(globalExports, queue, checker);
+
+  const docComment = symbol.getDocumentationComment(checker);
+  if (docComment.length > 0) {
+    details.documentation = displayPartsToString(docComment);
+  }
   if (valueDeclaration) {
+    const { modifiers, decorators, pos, end } = valueDeclaration;
     const valDeclType = checker.getTypeOfSymbolAtLocation(symbol, valueDeclaration);
-    details.constructorSignatures = valDeclType
+    const sourceFile = valueDeclaration.getSourceFile();
+    details.location = serializeLocation(sourceFile, pos, end);
+    details.sourceFile = queue.queue(sourceFile, 'sourceFile', checker);
+    details.modifiers = modifiers && modifiers.map(m => SyntaxKind[m.kind]);
+    details.decorators = decorators && decorators.map(d => SyntaxKind[d.kind]);
+    const constructorSignatures = valDeclType
       .getConstructSignatures()
       .map(s => serializeSignature(s, checker, queue));
-    details.callSignatures = valDeclType
+    if (constructorSignatures && constructorSignatures.length > 0) {
+      details.constructorSignatures = constructorSignatures;
+    }
+    const callSignatures = valDeclType
       .getCallSignatures()
       .map(s => serializeSignature(s, checker, queue));
+    if (callSignatures && callSignatures.length > 0) {
+      details.callSignatures = callSignatures;
+    }
   }
   const jsDocTags = symbol.getJsDocTags();
   if (jsDocTags.length > 0) {
