@@ -3,6 +3,30 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 0.0.38 (2018-12-08)
+
+**Note:** Version bump only for package @code-to-json/test-helpers
+
+
+
+
+
+## 0.0.37 (2018-12-07)
+
+**Note:** Version bump only for package @code-to-json/test-helpers
+
+
+
+
+
+## 0.0.36 (2018-12-07)
+
+**Note:** Version bump only for package @code-to-json/test-helpers
+
+
+
+
+
 ## 0.0.35 (2018-12-05)
 
 **Note:** Version bump only for package @code-to-json/test-helpers
