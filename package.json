@@ -52,17 +52,16 @@
   },
   "scripts": {
     "publish": "scripty",
-    "test:ci": "scripty",
     "build:watch": "scripty",
     "clean": "scripty",
     "build": "scripty",
     "rebuild": "scripty",
     "watch": "scripty",
     "watch:debug": "scripty",
-    "ci:setup_env": "scripty",
-    "ci:before_install": "scripty",
-    "ci:run_tests": "scripty",
-    "ci:after_success": "scripty"
+    "test": "lerna run test",
+    "test:watch": "scripty",
+    "lint": "lerna run lint",
+    "lint:watch": "scripty"
   },
   "repository": {
     "type": "git",

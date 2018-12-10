@@ -1,5 +1,11 @@
 {
   "verbose": true,
   "delay": 500,
-  "watch": ["packages/cli/lib", "packages/core/lib", "packages/formatter/lib", "packages/core/lib"]
+  "watch": [
+    "packages/cli/lib",
+    "packages/core/lib",
+    "packages/formatter/lib",
+    "packages/core/lib",
+    "packages/test-helpers/lib"
+  ]
 }
