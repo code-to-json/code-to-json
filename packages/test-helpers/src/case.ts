@@ -6,7 +6,7 @@ import * as path from 'path';
 import * as tmp from 'tmp';
 import { asTree, TreeObject } from 'treeify';
 import * as ts from 'typescript';
-import { asObject, asObject as folderAsObject } from './dir-tree';
+import { asObject as folderAsObject } from './dir-tree';
 
 const log = debug('code-to-json:test-helpers');
 
@@ -34,7 +34,7 @@ function createDir(): Promise<TestCaseFolder> {
       },
       (err, rootPath, cleanup) => {
         if (!err) {
-          res({ rootPath, tree: () => asObject(rootPath), cleanup });
+          res({ rootPath, tree: () => folderAsObject(rootPath), cleanup });
         } else {
           rej(err);
         }
