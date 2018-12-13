@@ -1,6 +1,6 @@
 {
   "name": "@code-to-json/schema",
-  "version": "0.0.39",
+  "version": "0.0.40",
   "description": "",
   "main": "lib/src/index.js",
   "typings": "lib/src/index.d.ts",
@@ -18,7 +18,7 @@
   "repository": "https://github.com/mike-north/code-to-json/tree/master/packages/schema",
   "keywords": [],
   "devDependencies": {
-    "@code-to-json/test-helpers": "^0.0.39",
+    "@code-to-json/test-helpers": "^0.0.40",
     "nyc": "13.1.0",
     "snap-shot-it": "6.2.7",
     "tslint": "5.11.0",
