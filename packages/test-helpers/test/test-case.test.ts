@@ -20,7 +20,7 @@ export class TestCaseCreation {
   }
   @test
   public async 'Create a new test case from a template'() {
-    let { rootPath, program, cleanup } = await setupTestCase(path.join(TEST_CASES_FOLDER_PATH, 'simple-variables'));
+    let { rootPath, program, cleanup } = await setupTestCase(path.join(TEST_CASES_FOLDER_PATH, 'simple-variables'), ['src/index.ts']);
     expect(rootPath).to.exist;
     expect(cleanup).to.exist;
     expect(program).to.exist;

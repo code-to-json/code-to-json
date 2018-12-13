@@ -6,6 +6,11 @@
     "packages/core/lib",
     "packages/formatter/lib",
     "packages/core/lib",
-    "packages/test-helpers/lib"
+    "packages/test-helpers/lib",
+    "packages/cli/test",
+    "packages/core/test",
+    "packages/formatter/test",
+    "packages/core/test",
+    "packages/test-helpers/test"
   ]
 }

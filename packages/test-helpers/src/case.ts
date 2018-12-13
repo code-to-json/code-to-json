@@ -66,21 +66,23 @@ export async function setupTestCaseFolder(casePath: string): Promise<TestCaseFol
     throw new Error(`Path "${rootPath}" does not exist`);
   }
 
-  log(`Created test case "${rootPath}" from fixture "${casePath}"`);
-  log(asTree(tree(), false, true));
+  log(`Created test case from fixture "${casePath}"
+${rootPath}
+${asTree(tree(), false, true)}`);
   return {
     tree,
     rootPath,
     cleanup
   };
 }
+
 /**
  * Create a new test case from fixture files on disk
  *
  * @param casePath path to test case fixture
  * @public
  */
-export async function setupTestCase(casePath: string): Promise<TestCase> {
+export async function setupTestCase(casePath: string, entryPaths: string[]): Promise<TestCase> {
   const { rootPath, cleanup, tree } = await setupTestCaseFolder(casePath);
   if (!fs.existsSync(rootPath)) {
     throw new Error(`"${rootPath}" does not exist`);
@@ -88,13 +90,33 @@ export async function setupTestCase(casePath: string): Promise<TestCase> {
   if (!fs.statSync(rootPath).isDirectory) {
     throw new Error(`"${rootPath}" is not a folder`);
   }
-  const entry = path.join(rootPath, 'src', 'index.ts');
-  if (!fs.statSync(entry).isFile) {
-    throw new Error(`"${entry}" is not a file`);
+  const entries = entryPaths.map(pth => path.join(rootPath, pth));
+  const entryErrors: { [k: string]: string[] } = {};
+  entries.forEach(pth => {
+    const localErrors: string[] = [];
+    if (!fs.existsSync(pth)) {
+      localErrors.push('was not found');
+    } else {
+      const stats = fs.statSync(pth);
+      if (!stats.isFile) {
+        localErrors.push('is not a file');
+      }
+    }
+    if (localErrors.length > 0) {
+      entryErrors[pth] = localErrors;
+    }
+  });
+  if (Object.keys(entryErrors).length > 0) {
+    throw new Error(`One or more problems was detected with the specified entries
+${JSON.stringify(entryErrors, null, '  ')}`);
   }
-  log(`setting up test case for entry "${entry}"`);
+  log(`setting up test case for entries ${entryPaths.map((s: string) => s).join('\n')}`);
+
+  log(`creating typescript program from fixture "${casePath}"
+${rootPath}
+${asTree(tree(), false, true)}`);
   const program = ts.createProgram({
-    rootNames: [entry],
+    rootNames: entries,
     options: {
       allowJs: true,
       noEmit: true,
