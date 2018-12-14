@@ -1,89 +1,19 @@
 import * as debug from 'debug';
 import * as fs from 'fs';
-import { copy, existsSync, statSync } from 'fs-extra';
-import { tmpdir } from 'os';
 import * as path from 'path';
-import * as tmp from 'tmp';
-import { asTree, TreeObject } from 'treeify';
+import { TreeObject } from 'treeify';
 import * as ts from 'typescript';
-import { asObject as folderAsObject } from './dir-tree';
+import { createTempFixtureFolder } from './file-fixtures';
+import { TestCase } from './types';
 
 const log = debug('code-to-json:test-helpers');
 
-tmp.setGracefulCleanup();
-
-export interface TestCaseFolder {
-  rootPath: string;
-  tree: () => TreeObject;
-  cleanup: () => void;
-}
-
-export interface TestCase extends TestCaseFolder {
-  program: ts.Program;
-}
-
-/**
- * Create a temporary folder
- */
-function createDir(): Promise<TestCaseFolder> {
-  return new Promise((res, rej) => {
-    tmp.dir(
-      {
-        dir: tmpdir(),
-        unsafeCleanup: true // delete temp folder even if it's non-empty
-      },
-      (err, rootPath, cleanup) => {
-        if (!err) {
-          res({ rootPath, tree: () => folderAsObject(rootPath), cleanup });
-        } else {
-          rej(err);
-        }
-      }
-    );
-  });
-}
-
-/**
- * Create a new test case from fixture files on disk
- *
- * @param casePath path to test case fixture
- * @public
- */
-export async function setupTestCaseFolder(casePath: string): Promise<TestCaseFolder> {
-  const { rootPath, cleanup, tree } = await createDir();
-  if (!existsSync(casePath)) {
-    throw new Error(`Path "${casePath}" does not exist`);
-  }
-
-  if (!statSync(casePath).isDirectory) {
-    throw new Error(`"${casePath}" is not a directory`);
-  }
-  await copy(casePath, rootPath, {
-    errorOnExist: true
-  });
-
-  if (!existsSync(rootPath)) {
-    throw new Error(`Path "${rootPath}" does not exist`);
-  }
-
-  log(`Created test case from fixture "${casePath}"
-${rootPath}
-${asTree(tree(), false, true)}`);
-  return {
-    tree,
-    rootPath,
-    cleanup
-  };
-}
-
-/**
- * Create a new test case from fixture files on disk
- *
- * @param casePath path to test case fixture
- * @public
- */
-export async function setupTestCase(casePath: string, entryPaths: string[]): Promise<TestCase> {
-  const { rootPath, cleanup, tree } = await setupTestCaseFolder(casePath);
+function createProgramFromTestCaseFolder(
+  name: string,
+  rootPath: string,
+  entryPaths: string[],
+  tree: object
+): ts.Program {
   if (!fs.existsSync(rootPath)) {
     throw new Error(`"${rootPath}" does not exist`);
   }
@@ -112,9 +42,9 @@ ${JSON.stringify(entryErrors, null, '  ')}`);
   }
   log(`setting up test case for entries ${entryPaths.map((s: string) => s).join('\n')}`);
 
-  log(`creating typescript program from fixture "${casePath}"
+  log(`creating typescript program from fixture "${name}"
 ${rootPath}
-${asTree(tree(), false, true)}`);
+${tree}`);
   const program = ts.createProgram({
     rootNames: entries,
     options: {
@@ -123,11 +53,29 @@ ${asTree(tree(), false, true)}`);
       moduleResolution: ts.ModuleResolutionKind.NodeJs
     }
   });
+  return program;
+}
 
-  return {
-    tree,
+/**
+ * Create a fixture on disk, and use it to create
+ * a TypeScript program, via the specified set of entries
+ *
+ * @param cse object representation of the fixture, or a path where it can be found on disk
+ * @param entryPaths list of entry files, which represent the library's public API
+ * @public
+ */
+export async function setupTestCase(
+  cse: TreeObject | string,
+  entryPaths: string[]
+): Promise<TestCase> {
+  const folder = await createTempFixtureFolder(cse);
+  const { rootPath } = folder;
+  const program = createProgramFromTestCaseFolder(
+    typeof cse === 'string' ? cse : JSON.stringify(cse, null, '  '),
     rootPath,
-    cleanup,
-    program
-  };
+    entryPaths,
+    folder
+  );
+
+  return { ...folder, program };
 }

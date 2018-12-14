@@ -1,1 +1,3 @@
-export { setupTestCaseFolder, setupTestCase } from './case';
+export { setupTestCase } from './case';
+export { createTempFixtureFolder } from './file-fixtures';
+export { FixtureFileContent, FixtureFolder, TestCase, TestCaseFolder } from './types';
