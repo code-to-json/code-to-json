@@ -37,18 +37,19 @@ export class VehicleUtils {
   /**
    * Members
    */
-  public memberFn() {
+  public memberFn(): string {
     return '';
   }
-  protected protectedFn() {
+  protected protectedFn(): string {
     return '';
   }
-  protected privateFn<T extends 'foo' | 'bar'>(arg: T) {
+  protected privateFn<T extends 'foo' | 'bar'>(arg: T): string {
     return `${arg}, baz`;
   }
 }
 
-namespace VehicleUtils {
+// tslint:disable-next-line:no-namespace
+export namespace VehicleUtils {
   /**
    * Create a new bike
    */
@@ -62,7 +63,7 @@ namespace VehicleUtils {
  */
 export const firstBike = VehicleUtils.createBike();
 
-function timeout(n: number) {
+function timeout(n: number): Promise<void> {
   return new Promise<void>(resolve => setTimeout(resolve, n));
 }
 
