@@ -29,5 +29,6 @@ steps:
       export NODE_TEMP="$(node -e "console.log(require('os').tmpdir())")"
       node -e "console.log('TMP ' + require('os').tmpdir())"
       node -e "console.log(JSON.stringify(process.env, null, '  '))"
-      yarn build && yarn test
+      lerna run build
+      yarn test
     displayName: 'Run tests'
