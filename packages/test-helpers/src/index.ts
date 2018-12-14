@@ -1,1 +1,1 @@
-export { setupTestCaseFolder, setupTestCase } from './case';
+export { setupTestCase } from './case';

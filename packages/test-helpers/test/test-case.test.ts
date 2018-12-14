@@ -2,7 +2,8 @@ import { expect } from 'chai';
 import * as fs from 'fs';
 import { suite, test } from 'mocha-typescript';
 import * as path from 'path';
-import { setupTestCase, setupTestCaseFolder } from '../src/index';
+import { setupTestCaseFolder } from '../src/file-fixtures';
+import { setupTestCase } from '../src/index';
 
 export const TEST_CASES_FOLDER_PATH = path.join(__dirname, '..', 'test-cases');
 
@@ -19,10 +20,60 @@ export class TestCaseCreation {
     expect(cleanup).to.be.an.instanceOf(Function);
     cleanup();
   }
+
   @test
-  public async 'Create a new test case from a template'() {
+  public async 'Create a new test case from a template on disk'() {
     const { rootPath, program, cleanup } = await setupTestCase(
       path.join(TEST_CASES_FOLDER_PATH, 'simple-variables'),
+      ['src/index.ts']
+    );
+    expect(rootPath).to.be.a('string');
+    expect(cleanup).to.be.a('function');
+    expect(program).to.be.a('object');
+    expect(rootPath).length.to.be.greaterThan(0);
+    expect(cleanup).to.be.an.instanceOf(Function);
+    const relevantFiles = program
+      .getSourceFiles()
+      .filter(sf => !sf.isDeclarationFile)
+      .map(sf => sf.fileName);
+    expect(relevantFiles).to.have.lengthOf(1);
+    cleanup();
+  }
+
+  @test
+  public async 'Create a new test case from a template object'() {
+    const { rootPath, program, cleanup } = await setupTestCase(
+      {
+        'tsconfig.json': `{
+        "compilerOptions": {
+          "noEmit": true,
+          "module": "es6",
+          "target": "es2015"
+        },
+        "include": ["src"]
+      }
+      `,
+        src: {
+          'index.ts': `/**
+          * This is a variable with an explicit type
+          */
+         const constWithExplicitType: string = 'foo';
+         /**
+          * This is a variable might be undefined
+          */
+         const constMaybeUndefined: string | undefined = 'foo';
+         /**
+          * This is a variable might be undefined, and is also reassignable;
+          */
+         let letMaybeUndefined: string | undefined;
+         letMaybeUndefined = 'foo';
+         /**
+          * This is a variable with an implicit type
+          */
+         const constWithImplicitType = 'foo';
+         `
+        }
+      },
       ['src/index.ts']
     );
     expect(rootPath).to.be.a('string');
