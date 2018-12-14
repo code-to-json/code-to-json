@@ -1,3 +1,3 @@
 #!/bin/bash
 ./node_modules/.bin/lerna link
-tsc -b packages/test-helpers && tsc -b packages/schema && tsc -b packages/utils && tsc -b packages/core && tsc -b packages/formatter && tsc -b packages/cli
+./node_modules/.bin/lerna run build

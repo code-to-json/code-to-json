@@ -1,39 +1,10 @@
 {
-  "folders": [
-    {
-      "name": "CLI",
-      "path": "packages/cli"
-    },
-    {
-      "name": "Core",
-      "path": "packages/core"
-    },
-    {
-      "name": "Formatter",
-      "path": "packages/formatter"
-    },
-    {
-      "name": "Schema Validatator",
-      "path": "packages/schema"
-    },
-    {
-      "name": "Testing Utilities",
-      "path": "packages/test-utils"
-    },
-    {
-      "name": "Utilities",
-      "path": "packages/utils"
-    },
-    {
-      "name": "Sample Projects",
-      "path": "samples"
-    },
-    {
-      "name": "root",
-      "path": "."
-    }
-  ],
   "settings": {
     "typescript.tsdk": "node_modules/typescript/lib"
-  }
+  },
+  "folders": [
+    {
+      "path": "."
+    }
+  ]
 }

@@ -18,13 +18,17 @@ steps:
     displayName: 'Setup global deps'
   - script: |
       echo "Installing project dependencies"
-      npm install
+      yarn install --no-lockfile --non-interactive
+    displayName: 'Installing deps'
+  - script: |
       echo "Setting up environment"
-    displayName: 'Setup project'
+      ./node_modules/.bin/lerna link
+    displayName: 'Linking project'
   - script: |
       export TEMP="$AGENT_TEMPDIRECTORY"
       export NODE_TEMP="$(node -e "console.log(require('os').tmpdir())")"
       node -e "console.log('TMP ' + require('os').tmpdir())"
       node -e "console.log(JSON.stringify(process.env, null, '  '))"
-      lerna run test
+      lerna run build
+      yarn test
     displayName: 'Run tests'

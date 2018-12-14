@@ -42,5 +42,5 @@ jobs:
 
 install:
   - yarn install --no-lockfile --non-interactive
-
-script: lerna run test
+before_script: yarn build
+script: yarn test
