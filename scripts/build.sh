@@ -1,3 +1,3 @@
 #!/bin/bash
-lerna link
-lerna run build
+./node_modules/.bin/lerna link
+./node_modules/.bin/lerna run build
