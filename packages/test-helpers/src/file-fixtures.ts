@@ -41,24 +41,6 @@ function createDir(): Promise<TestCaseFolder> {
   });
 }
 
-/**
- * Create a new test case from fixture files on disk
- *
- * @param cse path to test case fixture
- * @public
- */
-export async function createTempFixtureFolder(
-  cse: string | FixtureFolder
-): Promise<TestCaseFolder> {
-  if (typeof cse === 'string') {
-    return setupTestCaseFolderByPath(cse);
-  } else if (typeof cse === 'object') {
-    return setupTestCaseFolderByObj(cse);
-  } else {
-    throw new UnreachableError(cse);
-  }
-}
-
 function createFixtureFile(rootPath: string, subPath: string, content: FixtureFileContent): void {
   fs.writeFileSync(path.join(rootPath, subPath), content);
 }
@@ -112,4 +94,23 @@ async function setupTestCaseFolderByPath(casePath: string): Promise<TestCaseFold
 ${rootPath}
 ${folder}`);
   return folder;
+}
+
+/**
+ * Given a fixture or its location, set up files and folders
+ * on disk
+ *
+ * @param cse object representation of the fixture, or a path where it can be found on disk
+ * @public
+ */
+export async function createTempFixtureFolder(
+  cse: string | FixtureFolder
+): Promise<TestCaseFolder> {
+  if (typeof cse === 'string') {
+    return setupTestCaseFolderByPath(cse);
+  } else if (typeof cse === 'object') {
+    return setupTestCaseFolderByObj(cse);
+  } else {
+    throw new UnreachableError(cse);
+  }
 }

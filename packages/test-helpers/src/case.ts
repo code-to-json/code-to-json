@@ -57,9 +57,11 @@ ${tree}`);
 }
 
 /**
- * Create a new test case from fixture files on disk
+ * Create a fixture on disk, and use it to create
+ * a TypeScript program, via the specified set of entries
  *
- * @param cse path to test case fixture
+ * @param cse object representation of the fixture, or a path where it can be found on disk
+ * @param entryPaths list of entry files, which represent the library's public API
  * @public
  */
 export async function setupTestCase(
