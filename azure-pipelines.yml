@@ -19,7 +19,7 @@ steps:
   - script: |
       echo "Installing project dependencies"
       yarn install --no-lockfile --non-interactive
-      displayName: 'Installing deps'
+    displayName: 'Installing deps'
   - script: |
       echo "Setting up environment"
       yarn build
