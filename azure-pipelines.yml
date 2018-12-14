@@ -22,7 +22,8 @@ steps:
     displayName: 'Installing deps'
   - script: |
       echo "Setting up environment"
-      yarn build
+      ./node_modules/.bin/lerna link
+      ./node_modules/.bin/lerna run build
     displayName: 'Building project'
   - script: |
       export TEMP="$AGENT_TEMPDIRECTORY"
