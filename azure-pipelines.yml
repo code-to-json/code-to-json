@@ -18,10 +18,12 @@ steps:
     displayName: 'Setup global deps'
   - script: |
       echo "Installing project dependencies"
-      yarn
+      yarn install --no-lockfile --non-interactive
+      displayName: 'Installing deps'
+  - script: |
       echo "Setting up environment"
       yarn build
-    displayName: 'Setup project'
+    displayName: 'Building project'
   - script: |
       export TEMP="$AGENT_TEMPDIRECTORY"
       export NODE_TEMP="$(node -e "console.log(require('os').tmpdir())")"
