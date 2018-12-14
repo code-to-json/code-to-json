@@ -1,3 +1,5 @@
+// tslint:disable:max-classes-per-file
+
 /**
  * Add two numbers
  * @param a a number
@@ -30,7 +32,7 @@ class Vehicle {
    * Drive the vehicle
    * @returns {string}
    */
-  drive() {
+  public drive(): string {
     return `Driving with all ${this.numWheels} wheels`;
   }
 }
