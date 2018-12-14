@@ -30,5 +30,5 @@ steps:
       node -e "console.log('TMP ' + require('os').tmpdir())"
       node -e "console.log(JSON.stringify(process.env, null, '  '))"
       lerna run build
-      yarn test
+      lerna run test
     displayName: 'Run tests'
