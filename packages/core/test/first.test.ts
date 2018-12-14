@@ -1,23 +1,35 @@
-import { suite, test } from 'mocha-typescript';
-import * as snapshot from 'snap-shot-it';
-import { expect } from 'chai';
-import * as path from 'path';
 import { setupTestCase } from '@code-to-json/test-helpers';
+import { expect } from 'chai';
+import { suite, test } from 'mocha-typescript';
+import * as path from 'path';
+import * as snapshot from 'snap-shot-it';
 
-function add(x: number, y: number) { return x + y; }
+function add(x: number, y: number) {
+  return x + y;
+}
 
 @suite
 class TypeScriptFixturePrograms {
   @test
   // tslint:disable-next-line:typedef
   public async createSimpleJSProgram() {
-    const { program } = await setupTestCase( path.join(__dirname, '..', '..', '..', 'samples','js-single-file'), ['src/index.js']);
+    const { program } = await setupTestCase(
+      path.join(__dirname, '..', '..', '..', 'samples', 'js-single-file'),
+      ['src/index.js']
+    );
     const sourceFiles = program.getSourceFiles();
     const declarationFiles = sourceFiles.filter(sf => sf.isDeclarationFile);
     const nonDeclarationFiles = sourceFiles.filter(sf => !sf.isDeclarationFile);
-    const tsLibs = declarationFiles.filter(sf => sf.fileName.indexOf('node_modules/typescript/lib') > 0);
-    const tsLibNames = tsLibs.map(sf => `${sf.fileName.substring(sf.fileName.lastIndexOf('typescript/lib/') + 'typescript/lib/'.length)}`);
-    
+    const tsLibs = declarationFiles.filter(
+      sf => sf.fileName.indexOf('node_modules/typescript/lib') > 0
+    );
+    const tsLibNames = tsLibs.map(
+      sf =>
+        `${sf.fileName.substring(
+          sf.fileName.lastIndexOf('typescript/lib/') + 'typescript/lib/'.length
+        )}`
+    );
+
     snapshot(tsLibNames);
 
     expect(nonDeclarationFiles).to.be.lengthOf(1);
