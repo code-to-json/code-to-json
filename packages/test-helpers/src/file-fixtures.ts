@@ -4,23 +4,12 @@ import { copy, existsSync, statSync } from 'fs-extra';
 import { tmpdir } from 'os';
 import * as path from 'path';
 import * as tmp from 'tmp';
-import { asTree, TreeObject } from 'treeify';
+import { asTree } from 'treeify';
 import { asObject as folderAsObject } from './dir-tree';
 import { UnreachableError } from './errors';
+import { FixtureFileContent, FixtureFolder, TestCaseFolder } from './types';
 
 const log = debug('code-to-json:test-helpers');
-
-export type TestCaseFixtureFileContent = string;
-
-export interface TestCaseFixtureFolder {
-  [k: string]: TestCaseFixtureFolder | TestCaseFixtureFileContent;
-}
-
-export interface TestCaseFolder {
-  rootPath: string;
-  tree: () => TreeObject;
-  cleanup: () => void;
-}
 
 tmp.setGracefulCleanup();
 
@@ -36,7 +25,14 @@ function createDir(): Promise<TestCaseFolder> {
       },
       (err, rootPath, cleanup) => {
         if (!err) {
-          res({ rootPath, tree: () => folderAsObject(rootPath), cleanup });
+          res({
+            rootPath,
+            toString(): string {
+              const t = folderAsObject(rootPath);
+              return asTree(t, false, true);
+            },
+            cleanup
+          });
         } else {
           rej(err);
         }
@@ -51,8 +47,8 @@ function createDir(): Promise<TestCaseFolder> {
  * @param cse path to test case fixture
  * @public
  */
-export async function setupTestCaseFolder(
-  cse: string | TestCaseFixtureFolder
+export async function createTempFixtureFolder(
+  cse: string | FixtureFolder
 ): Promise<TestCaseFolder> {
   if (typeof cse === 'string') {
     return setupTestCaseFolderByPath(cse);
@@ -63,19 +59,11 @@ export async function setupTestCaseFolder(
   }
 }
 
-function createFixtureFile(
-  rootPath: string,
-  subPath: string,
-  content: TestCaseFixtureFileContent
-): void {
+function createFixtureFile(rootPath: string, subPath: string, content: FixtureFileContent): void {
   fs.writeFileSync(path.join(rootPath, subPath), content);
 }
 
-function createFixtureFolder(
-  rootPath: string,
-  subPath: string,
-  caseFixture: TestCaseFixtureFolder
-): void {
+function createFixtureFolder(rootPath: string, subPath: string, caseFixture: FixtureFolder): void {
   for (const f in caseFixture) {
     if (caseFixture.hasOwnProperty(f)) {
       const item = caseFixture[f];
@@ -94,21 +82,17 @@ function createFixtureFolder(
   }
 }
 
-async function setupTestCaseFolderByObj(
-  caseFixture: TestCaseFixtureFolder
-): Promise<TestCaseFolder> {
-  const { rootPath, cleanup, tree } = await createDir();
+async function setupTestCaseFolderByObj(caseFixture: FixtureFolder): Promise<TestCaseFolder> {
+  const folder = await createDir();
+  const { rootPath } = folder;
   createFixtureFolder(rootPath, '', caseFixture);
 
-  return {
-    tree,
-    cleanup,
-    rootPath
-  };
+  return folder;
 }
 
 async function setupTestCaseFolderByPath(casePath: string): Promise<TestCaseFolder> {
-  const { rootPath, cleanup, tree } = await createDir();
+  const folder = await createDir();
+  const { rootPath } = folder;
   if (!existsSync(casePath)) {
     throw new Error(`Path "${casePath}" does not exist`);
   }
@@ -126,10 +110,6 @@ async function setupTestCaseFolderByPath(casePath: string): Promise<TestCaseFold
 
   log(`Created test case from fixture "${casePath}"
 ${rootPath}
-${asTree(tree(), false, true)}`);
-  return {
-    tree,
-    rootPath,
-    cleanup
-  };
+${folder}`);
+  return folder;
 }

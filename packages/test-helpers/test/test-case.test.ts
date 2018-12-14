@@ -2,7 +2,7 @@ import { expect } from 'chai';
 import * as fs from 'fs';
 import { suite, test } from 'mocha-typescript';
 import * as path from 'path';
-import { setupTestCaseFolder } from '../src/file-fixtures';
+import { createTempFixtureFolder } from '../src/file-fixtures';
 import { setupTestCase } from '../src/index';
 
 export const TEST_CASES_FOLDER_PATH = path.join(__dirname, '..', 'test-cases');
@@ -11,7 +11,7 @@ export const TEST_CASES_FOLDER_PATH = path.join(__dirname, '..', 'test-cases');
 export class TestCaseCreation {
   @test
   public async 'Create a new test case folder from a template'() {
-    const { rootPath, cleanup } = await setupTestCaseFolder(
+    const { rootPath, cleanup } = await createTempFixtureFolder(
       path.join(TEST_CASES_FOLDER_PATH, 'simple-variables')
     );
     expect(rootPath).to.be.a('string');
@@ -91,7 +91,7 @@ export class TestCaseCreation {
 
   @test
   public async 'Test case actually exists on disk, and is a folder'() {
-    const { rootPath, cleanup } = await setupTestCaseFolder(
+    const { rootPath, cleanup } = await createTempFixtureFolder(
       path.join(TEST_CASES_FOLDER_PATH, 'simple-variables')
     );
     expect(fs.existsSync(rootPath), 'exists').to.equal(true);
@@ -100,7 +100,7 @@ export class TestCaseCreation {
 
   @test
   public async 'Cleanup function removes test case from disk'() {
-    const { rootPath, cleanup } = await setupTestCaseFolder(
+    const { rootPath, cleanup } = await createTempFixtureFolder(
       path.join(TEST_CASES_FOLDER_PATH, 'simple-variables')
     );
     expect(fs.existsSync(rootPath), 'exists').to.equal(true);
