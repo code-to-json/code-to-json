@@ -37,7 +37,7 @@ class SimpleChecks {
     snapshot({ result: isBlank({ size: 33 }) });
     snapshot({ result: isBlank({ length: 0 }) });
     snapshot({ result: isBlank({ length: 33 }) });
-    snapshot({ result: isBlank(() => {}) });
+    snapshot({ result: isBlank(() => ({})) });
     snapshot({ result: isBlank(new Map([['a', 1]])) });
   }
   @test
@@ -49,7 +49,7 @@ class SimpleChecks {
     snapshot({ result: isPresent({ size: 33 }) });
     snapshot({ result: isPresent({ length: 0 }) });
     snapshot({ result: isPresent({ length: 33 }) });
-    snapshot({ result: isPresent(() => {}) });
+    snapshot({ result: isPresent(() => ({})) });
     snapshot({ result: isPresent(new Map([['a', 1]])) });
   }
 }

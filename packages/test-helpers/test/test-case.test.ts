@@ -13,8 +13,8 @@ export class TestCaseCreation {
     const { rootPath, cleanup } = await setupTestCaseFolder(
       path.join(TEST_CASES_FOLDER_PATH, 'simple-variables')
     );
-    expect(rootPath).to.exist('string');
-    expect(cleanup).to.exist('string');
+    expect(rootPath).to.be.a('string');
+    expect(cleanup).to.be.a('function');
     expect(rootPath).length.to.be.greaterThan(0);
     expect(cleanup).to.be.an.instanceOf(Function);
     cleanup();
@@ -25,9 +25,9 @@ export class TestCaseCreation {
       path.join(TEST_CASES_FOLDER_PATH, 'simple-variables'),
       ['src/index.ts']
     );
-    expect(rootPath).to.exist('string');
-    expect(cleanup).to.exist('string');
-    expect(program).to.exist('string');
+    expect(rootPath).to.be.a('string');
+    expect(cleanup).to.be.a('function');
+    expect(program).to.be.a('object');
     expect(rootPath).length.to.be.greaterThan(0);
     expect(cleanup).to.be.an.instanceOf(Function);
     const relevantFiles = program

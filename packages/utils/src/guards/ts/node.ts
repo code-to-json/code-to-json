@@ -14,6 +14,43 @@ import {
   Type
 } from 'typescript';
 
+const DECLARATION_KINDS = [
+  SyntaxKind.SourceFile,
+  SyntaxKind.ArrowFunction,
+  SyntaxKind.BindingElement,
+  SyntaxKind.ClassDeclaration,
+  SyntaxKind.ClassExpression,
+  SyntaxKind.Constructor,
+  SyntaxKind.EnumDeclaration,
+  SyntaxKind.EnumMember,
+  SyntaxKind.ExportSpecifier,
+  SyntaxKind.FunctionDeclaration,
+  SyntaxKind.FunctionExpression,
+  SyntaxKind.GetAccessor,
+  SyntaxKind.ImportClause,
+  SyntaxKind.ImportEqualsDeclaration,
+  SyntaxKind.ImportSpecifier,
+  SyntaxKind.InterfaceDeclaration,
+  SyntaxKind.JsxAttribute,
+  SyntaxKind.MethodDeclaration,
+  SyntaxKind.MethodSignature,
+  SyntaxKind.ModuleDeclaration,
+  SyntaxKind.NamespaceExportDeclaration,
+  SyntaxKind.NamespaceImport,
+  SyntaxKind.Parameter,
+  SyntaxKind.PropertyAssignment,
+  SyntaxKind.PropertyDeclaration,
+  SyntaxKind.PropertySignature,
+  SyntaxKind.SetAccessor,
+  SyntaxKind.ShorthandPropertyAssignment,
+  SyntaxKind.TypeAliasDeclaration,
+  SyntaxKind.TypeParameter,
+  SyntaxKind.VariableDeclaration,
+  SyntaxKind.JSDocTypedefTag,
+  SyntaxKind.JSDocCallbackTag,
+  SyntaxKind.JSDocPropertyTag
+];
+
 /**
  * Returns true if the specified SyntaxKind is part of a declaration form.
  *
@@ -21,42 +58,7 @@ import {
  * https://github.com/Microsoft/TypeScript/blob/v3.0.3/src/compiler/utilities.ts#L6382
  */
 function isDeclarationKind(kind: SyntaxKind): boolean {
-  return (
-    kind === SyntaxKind.SourceFile ||
-    kind === SyntaxKind.ArrowFunction ||
-    kind === SyntaxKind.BindingElement ||
-    kind === SyntaxKind.ClassDeclaration ||
-    kind === SyntaxKind.ClassExpression ||
-    kind === SyntaxKind.Constructor ||
-    kind === SyntaxKind.EnumDeclaration ||
-    kind === SyntaxKind.EnumMember ||
-    kind === SyntaxKind.ExportSpecifier ||
-    kind === SyntaxKind.FunctionDeclaration ||
-    kind === SyntaxKind.FunctionExpression ||
-    kind === SyntaxKind.GetAccessor ||
-    kind === SyntaxKind.ImportClause ||
-    kind === SyntaxKind.ImportEqualsDeclaration ||
-    kind === SyntaxKind.ImportSpecifier ||
-    kind === SyntaxKind.InterfaceDeclaration ||
-    kind === SyntaxKind.JsxAttribute ||
-    kind === SyntaxKind.MethodDeclaration ||
-    kind === SyntaxKind.MethodSignature ||
-    kind === SyntaxKind.ModuleDeclaration ||
-    kind === SyntaxKind.NamespaceExportDeclaration ||
-    kind === SyntaxKind.NamespaceImport ||
-    kind === SyntaxKind.Parameter ||
-    kind === SyntaxKind.PropertyAssignment ||
-    kind === SyntaxKind.PropertyDeclaration ||
-    kind === SyntaxKind.PropertySignature ||
-    kind === SyntaxKind.SetAccessor ||
-    kind === SyntaxKind.ShorthandPropertyAssignment ||
-    kind === SyntaxKind.TypeAliasDeclaration ||
-    kind === SyntaxKind.TypeParameter ||
-    kind === SyntaxKind.VariableDeclaration ||
-    kind === SyntaxKind.JSDocTypedefTag ||
-    kind === SyntaxKind.JSDocCallbackTag ||
-    kind === SyntaxKind.JSDocPropertyTag
-  );
+  return DECLARATION_KINDS.indexOf(kind) >= 0;
 }
 
 /**
