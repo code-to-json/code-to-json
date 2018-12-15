@@ -28,5 +28,6 @@ git config --global push.default simple
 echo "https://mike-north:${GH_TOKEN}@github.com/mike-north/code-to-json.git" > ~/.git-credentials
 echo "git config --list"
 git config --list #debug
-npm run build
+yarn --non-interactive
+yarn build
 ./node_modules/.bin/lerna publish --yes

@@ -18,23 +18,23 @@ stages:
 jobs:
   fail_fast: true
   include:
-    - stage: 'Basic Tests'
-      name: 'Conventional Commits'
-      script: commitlint-travis
-    - name: 'Lint'
-      script: lerna run lint
-    - name: 'Fixed Dependencies'
-      install:
-        - yarn install --non-interactive
-        - yarn add -WD codecov
-      script: ./node_modules/.bin/lerna run test:coverage
-      after_success: ./node_modules/.bin/codecov
+    # - stage: 'Basic Tests'
+    #   name: 'Conventional Commits'
+    #   script: commitlint-travis
+    # - name: 'Lint'
+    #   script: lerna run lint
+    # - name: 'Fixed Dependencies'
+    #   install:
+    #     - yarn install --non-interactive
+    #     - yarn add -WD codecov
+    #   script: ./node_modules/.bin/lerna run test:coverage
+    #   after_success: ./node_modules/.bin/codecov
 
-    - stage: 'Additional Tests'
-      name: 'Floating Dependencies'
-      script: ./node_modules/.bin/lerna run test
-    - node_js: 10
-    - node_js: 8
+    # - stage: 'Additional Tests'
+    #   name: 'Floating Dependencies'
+    #   script: ./node_modules/.bin/lerna run test
+    # - node_js: 10
+    # - node_js: 8
 
     - stage: 'Deploy'
       name: 'Publish to NPM'
