@@ -1,6 +1,6 @@
 {
   "name": "@code-to-json/cli",
-  "version": "0.5.4",
+  "version": "0.5.5",
   "description": "",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
@@ -12,9 +12,9 @@
     "code-to-json": "bin/code-to-json"
   },
   "dependencies": {
-    "@code-to-json/core": "^0.6.4",
-    "@code-to-json/formatter": "^0.5.4",
-    "@code-to-json/utils": "^0.5.4",
+    "@code-to-json/core": "^0.6.5",
+    "@code-to-json/formatter": "^0.5.5",
+    "@code-to-json/utils": "^0.5.5",
     "chalk": "^2.4.1",
     "commander": "^2.19.0",
     "debug": "^4.1.0",
@@ -36,7 +36,7 @@
   },
   "keywords": [],
   "devDependencies": {
-    "@code-to-json/test-helpers": "^0.1.4",
+    "@code-to-json/test-helpers": "^0.1.5",
     "nyc": "13.1.0",
     "remark-cli": "6.0.1",
     "remark-lint": "6.0.4",

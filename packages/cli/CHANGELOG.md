@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 0.5.5 (2018-12-15)
+
+**Note:** Version bump only for package @code-to-json/cli
+
+
+
+
+
 ## 0.5.4 (2018-12-15)
 
 **Note:** Version bump only for package @code-to-json/cli
