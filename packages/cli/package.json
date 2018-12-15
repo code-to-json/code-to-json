@@ -47,7 +47,8 @@
     "remark-validate-links": "7.1.2",
     "scripty": "1.8.0",
     "snap-shot-it": "6.2.7",
-    "tslint": "5.11.0"
+    "tslint": "5.11.0",
+    "tslint-config-prettier": "^1.17.0"
   },
   "nyc": {
     "watermarks": {
