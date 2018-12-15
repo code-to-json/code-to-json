@@ -51,7 +51,3 @@ export function asObject(pth: string): treeify.TreeObject {
   children.forEach(ch => dirTreeAsObject(ch, obj));
   return obj;
 }
-
-// tslint:disable-next-line:no-commented-code
-// const p = path.join(__dirname, '..', 'test-cases', 'simple-variables');
-// console.log(asObject(p));
