@@ -5,7 +5,7 @@ import { isBlank, isEmpty, isNone, isPresent } from '../src/checks';
 @suite('Simple predicates')
 class SimpleChecks {
   @test
-  public 'isEmpty tests'() {
+  public 'isEmpty tests'(): void {
     snapshot({ result: isEmpty(0) });
     snapshot({ result: isEmpty(null) });
     snapshot({ result: isEmpty([]) });
@@ -17,7 +17,7 @@ class SimpleChecks {
     snapshot({ result: isEmpty(new Map([['a', 1]])) });
   }
   @test
-  public 'isNone tests'() {
+  public 'isNone tests'(): void {
     snapshot({ result: isNone(0) });
     snapshot({ result: isNone(null) });
     snapshot({ result: isNone([]) });
@@ -29,7 +29,7 @@ class SimpleChecks {
     snapshot({ result: isNone(new Map([['a', 1]])) });
   }
   @test
-  public 'isBlank tests'() {
+  public 'isBlank tests'(): void {
     snapshot({ result: isBlank(0) });
     snapshot({ result: isBlank(null) });
     snapshot({ result: isBlank([]) });
@@ -41,7 +41,7 @@ class SimpleChecks {
     snapshot({ result: isBlank(new Map([['a', 1]])) });
   }
   @test
-  public 'isPresent tests'() {
+  public 'isPresent tests'(): void {
     snapshot({ result: isPresent(0) });
     snapshot({ result: isPresent(null) });
     snapshot({ result: isPresent([]) });
