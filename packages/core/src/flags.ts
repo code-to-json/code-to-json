@@ -19,7 +19,7 @@ interface FlagsMap {
 }
 
 /**
- * Get a flag map object
+ * Get a flag map object of a particular type
  * @param type type of flag map
  * @see flagsToString
  */
