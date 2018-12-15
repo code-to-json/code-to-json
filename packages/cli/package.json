@@ -37,6 +37,7 @@
   "keywords": [],
   "devDependencies": {
     "@code-to-json/test-helpers": "^0.1.5",
+    "@types/chai": "^4.1.7",
     "@types/glob": "^7.1.1",
     "chai": "^4.2.0",
     "mocha": "^5.2.0",
