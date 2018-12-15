@@ -1,4 +1,4 @@
-exports['TypeScriptFixturePrograms createSimpleJSProgram 1'] = [
+exports['TypeScriptFixturePrograms creation of a simple JS program 1'] = [
   "lib.d.ts",
   "lib.es5.d.ts",
   "lib.dom.d.ts",

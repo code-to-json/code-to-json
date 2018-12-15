@@ -8,7 +8,7 @@ import * as snapshot from 'snap-shot-it';
 class TypeScriptFixturePrograms {
   @test
   // tslint:disable-next-line:typedef
-  public async createSimpleJSProgram() {
+  public async 'creation of a simple JS program'() {
     const { program } = await setupTestCase(
       path.join(__dirname, '..', '..', '..', 'samples', 'js-single-file'),
       ['src/index.js']
@@ -30,6 +30,8 @@ class TypeScriptFixturePrograms {
 
     expect(nonDeclarationFiles).to.be.lengthOf(1);
 
-    expect(nonDeclarationFiles[0].fileName).to.contain('src/index.js');
+    expect(nonDeclarationFiles[0].fileName)
+      .to.contain('src')
+      .to.contain('index.js');
   }
 }
