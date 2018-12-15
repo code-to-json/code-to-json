@@ -22,7 +22,7 @@
     "nyc": "13.1.0",
     "snap-shot-it": "6.2.7",
     "tslint": "5.11.0",
-    "typescript": "3.2.2"
+    "typescript": "^3.1.0"
   },
   "dependencies": {
     "@microsoft/api-extractor": "^6.0.8",
