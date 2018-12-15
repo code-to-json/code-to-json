@@ -14,8 +14,6 @@ import serializeSymbol, { SerializedSymbol } from '../serializers/symbol';
 import serializeType, { SerializedType } from '../serializers/type';
 import createWalkerOptions, { IWalkerOptionArgs } from './options';
 
-import * as pkg from '../../../package';
-
 export interface WalkerOutputData {
   symbol: { [k: string]: Readonly<SerializedSymbol> };
   type: { [k: string]: Readonly<SerializedType> };
@@ -75,7 +73,7 @@ export function walkProgram(
   return {
     codeToJson: {
       versions: {
-        core: pkg.version
+        core: 'pkg.version'
       },
       format: 'raw'
     },
