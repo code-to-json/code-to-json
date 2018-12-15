@@ -73,7 +73,7 @@
     }
   },
   "dependencies": {
-    "@code-to-json/cli": "^0.4.0",
+    "@code-to-json/cli": "^0.5.0",
     "concurrently": "^4.0.1",
     "hashids": "^1.2.2",
     "node-cleanup": "^2.1.2",
