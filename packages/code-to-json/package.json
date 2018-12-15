@@ -1,0 +1,30 @@
+{
+  "name": "code-to-json",
+  "version": "0.2.0",
+  "description": "TypeScript & JavaScript code data extraction",
+  "keywords": [
+    "documentation",
+    "code-to-json",
+    "ast"
+  ],
+  "author": "Mike North <michael.l.north@gmail.com>",
+  "homepage": "https://github.com/code-to-json/code-to-json",
+  "license": "BSD-2-Clause",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.com/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/code-to-json/code-to-json.git"
+  },
+  "scripts": {
+    "build": "cp ../../README.md README.md",
+    "test": "echo \"Error: run tests from root\" && exit 0"
+  },
+  "dependencies": {
+    "@code-to-json/cli": "^0.5.4"
+  },
+  "bugs": {
+    "url": "https://github.com/code-to-json/code-to-json/issues"
+  }
+}
