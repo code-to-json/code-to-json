@@ -21,8 +21,6 @@
     "no-debugger": false,
     "typedef": [true, "call-signature"],
     "prefer-immediate-return": false,
-    "no-dead-store": { "severity": "warning" },
-    "no-commented-code": { "severity": "warning" },
     "no-unused-variable": [true, { "ignore-pattern": "^_" }]
   },
   "rulesDirectory": []
