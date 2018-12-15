@@ -24,13 +24,13 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Features
 
-* remove dead code ([9a3dcfe](https://github.com/mike-north/code-to-json/tree/master/packages/formatter/commit/9a3dcfe))
+* remove dead code ([9a3dcfe](https://github.com/code-to-json/code-to-json/commit/9a3dcfe))
 
 
 
 
 
-## [0.4.49](https://github.com/mike-north/code-to-json/tree/master/packages/formatter/compare/@code-to-json/formatter@0.4.48...@code-to-json/formatter@0.4.49) (2018-12-15)
+## [0.4.49](https://github.com/code-to-json/code-to-json/compare/@code-to-json/formatter@0.4.48...@code-to-json/formatter@0.4.49) (2018-12-15)
 
 **Note:** Version bump only for package @code-to-json/formatter
 
@@ -363,23 +363,15 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Bug Fixes
 
-* add test-helpers devDep to all packages ([e3f69da](https://github.com/mike-north/code-to-json/tree/master/packages/formatter/commit/e3f69da))
-* refactor registry and refs ([ca9eaa8](https://github.com/mike-north/code-to-json/tree/master/packages/formatter/commit/ca9eaa8))
-* references are now tuples ([46ae8bd](https://github.com/mike-north/code-to-json/tree/master/packages/formatter/commit/46ae8bd))
+* add test-helpers devDep to all packages ([e3f69da](https://github.com/code-to-json/code-to-json/commit/e3f69da))
+* refactor registry and refs ([ca9eaa8](https://github.com/code-to-json/code-to-json/commit/ca9eaa8))
+* references are now tuples ([46ae8bd](https://github.com/code-to-json/code-to-json/commit/46ae8bd))
 
 
 
 
 
-## [0.4.7](https://github.com/mike-north/code-to-json/tree/master/packages/formatter/compare/@code-to-json/formatter@0.4.6...@code-to-json/formatter@0.4.7) (2018-10-27)
-
-**Note:** Version bump only for package @code-to-json/formatter
-
-
-
-
-
-## [0.4.6](https://github.com/mike-north/code-to-json/tree/master/packages/formatter/compare/@code-to-json/formatter@0.4.5...@code-to-json/formatter@0.4.6) (2018-10-26)
+## [0.4.7](https://github.com/code-to-json/code-to-json/compare/@code-to-json/formatter@0.4.6...@code-to-json/formatter@0.4.7) (2018-10-27)
 
 **Note:** Version bump only for package @code-to-json/formatter
 
@@ -387,26 +379,26 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-## [0.4.5](https://github.com/mike-north/code-to-json/tree/master/packages/formatter/compare/@code-to-json/formatter@0.4.4...@code-to-json/formatter@0.4.5) (2018-10-26)
+## [0.4.6](https://github.com/code-to-json/code-to-json/compare/@code-to-json/formatter@0.4.5...@code-to-json/formatter@0.4.6) (2018-10-26)
+
+**Note:** Version bump only for package @code-to-json/formatter
+
+
+
+
+
+## [0.4.5](https://github.com/code-to-json/code-to-json/compare/@code-to-json/formatter@0.4.4...@code-to-json/formatter@0.4.5) (2018-10-26)
 
 
 ### Bug Fixes
 
-* add test-helpers devDep to all packages ([637a178](https://github.com/mike-north/code-to-json/tree/master/packages/formatter/commit/637a178))
+* add test-helpers devDep to all packages ([637a178](https://github.com/code-to-json/code-to-json/commit/637a178))
 
 
 
 
 
-## [0.4.4](https://github.com/mike-north/code-to-json/tree/master/packages/formatter/compare/@code-to-json/formatter@0.4.3...@code-to-json/formatter@0.4.4) (2018-10-26)
-
-**Note:** Version bump only for package @code-to-json/formatter
-
-
-
-
-
-## [0.4.3](https://github.com/mike-north/code-to-json/tree/master/packages/formatter/compare/@code-to-json/formatter@0.4.2...@code-to-json/formatter@0.4.3) (2018-10-25)
+## [0.4.4](https://github.com/code-to-json/code-to-json/compare/@code-to-json/formatter@0.4.3...@code-to-json/formatter@0.4.4) (2018-10-26)
 
 **Note:** Version bump only for package @code-to-json/formatter
 
@@ -414,7 +406,15 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-## [0.4.2](https://github.com/mike-north/code-to-json/tree/master/packages/formatter/compare/@code-to-json/formatter@0.4.1...@code-to-json/formatter@0.4.2) (2018-10-25)
+## [0.4.3](https://github.com/code-to-json/code-to-json/compare/@code-to-json/formatter@0.4.2...@code-to-json/formatter@0.4.3) (2018-10-25)
+
+**Note:** Version bump only for package @code-to-json/formatter
+
+
+
+
+
+## [0.4.2](https://github.com/code-to-json/code-to-json/compare/@code-to-json/formatter@0.4.1...@code-to-json/formatter@0.4.2) (2018-10-25)
 
 **Note:** Version bump only for package @code-to-json/formatter
 
@@ -427,5 +427,5 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Bug Fixes
 
-* refactor registry and refs ([3a3bec9](https://github.com/mike-north/code-to-json/tree/master/packages/formatter/commit/3a3bec9))
-* references are now tuples ([81d9cc3](https://github.com/mike-north/code-to-json/tree/master/packages/formatter/commit/81d9cc3))
+* refactor registry and refs ([3a3bec9](https://github.com/code-to-json/code-to-json/commit/3a3bec9))
+* references are now tuples ([81d9cc3](https://github.com/code-to-json/code-to-json/commit/81d9cc3))

@@ -10,7 +10,7 @@ export const TEST_CASES_FOLDER_PATH = path.join(__dirname, '..', 'test-cases');
 @suite
 export class TestCaseCreation {
   @test
-  public async 'Create a new test case folder from a template'() {
+  public async 'Create a new test case folder from a template'(): Promise<void> {
     const { rootPath, cleanup } = await createTempFixtureFolder(
       path.join(TEST_CASES_FOLDER_PATH, 'simple-variables')
     );
@@ -22,7 +22,7 @@ export class TestCaseCreation {
   }
 
   @test
-  public async 'Create a new test case from a template on disk'() {
+  public async 'Create a new test case from a template on disk'(): Promise<void> {
     const { rootPath, program, cleanup } = await setupTestCase(
       path.join(TEST_CASES_FOLDER_PATH, 'simple-variables'),
       ['src/index.ts']
@@ -41,7 +41,7 @@ export class TestCaseCreation {
   }
 
   @test
-  public async 'Create a new test case from a template object'() {
+  public async 'Create a new test case from a template object'(): Promise<void> {
     const { rootPath, program, cleanup } = await setupTestCase(
       {
         'tsconfig.json': `{
@@ -90,7 +90,7 @@ export class TestCaseCreation {
   }
 
   @test
-  public async 'Test case actually exists on disk, and is a folder'() {
+  public async 'Test case actually exists on disk, and is a folder'(): Promise<void> {
     const { rootPath, cleanup } = await createTempFixtureFolder(
       path.join(TEST_CASES_FOLDER_PATH, 'simple-variables')
     );
@@ -99,7 +99,7 @@ export class TestCaseCreation {
   }
 
   @test
-  public async 'Cleanup function removes test case from disk'() {
+  public async 'Cleanup function removes test case from disk'(): Promise<void> {
     const { rootPath, cleanup } = await createTempFixtureFolder(
       path.join(TEST_CASES_FOLDER_PATH, 'simple-variables')
     );

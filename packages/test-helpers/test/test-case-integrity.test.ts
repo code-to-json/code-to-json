@@ -13,7 +13,7 @@ const TEST_CASE_FOLDERS = fs
 @suite
 class TestCaseIntegrity {
   @test
-  public async 'every test case has a tsconfig.json file'() {
+  public async 'every test case has a tsconfig.json file'(): Promise<void> {
     // each test case
     const offenders = TEST_CASE_FOLDERS.filter(projectRoot => {
       // this should be the path of tsconfig.json
@@ -28,7 +28,7 @@ class TestCaseIntegrity {
   }
 
   @test
-  public async 'every test case has a src folder'() {
+  public async 'every test case has a src folder'(): Promise<void> {
     // each test case
     const offenders = TEST_CASE_FOLDERS.filter(projectRoot => {
       // should be the path of the src folder
@@ -43,7 +43,7 @@ class TestCaseIntegrity {
   }
 
   @test
-  public async 'every test case has a src/index.ts or src/index.js file'() {
+  public async 'every test case has a src/index.ts or src/index.js file'(): Promise<void> {
     // each test case
     const offenders = TEST_CASE_FOLDERS.filter(projectRoot => {
       // this should be the index.ts file

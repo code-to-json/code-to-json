@@ -4,10 +4,6 @@ import { suite, test } from 'mocha-typescript';
 import * as path from 'path';
 import * as snapshot from 'snap-shot-it';
 
-function add(x: number, y: number) {
-  return x + y;
-}
-
 @suite
 class TypeScriptFixturePrograms {
   @test
