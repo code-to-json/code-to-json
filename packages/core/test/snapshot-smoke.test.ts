@@ -17,7 +17,7 @@ class SimpleSnapshotSmokeTests {
   protected sourceFiles!: ReadonlyArray<SourceFile>;
   protected data!: DrainOutput<string, any, {}, {}, SerializedSourceFile>;
 
-  public async before() {
+  public async before(): Promise<void> {
     const { program, rootPath } = await setupTestCase(
       path.join(__dirname, '..', '..', '..', 'samples', 'js-single-file'),
       ['src/index.js']
@@ -31,10 +31,10 @@ class SimpleSnapshotSmokeTests {
       return q.queue(sf, 'sourceFile', this.checker);
     });
     const data = q.drain({
-      handleType(_ref: TypeRef, item: Type) {
+      handleType(_ref: TypeRef, item: Type): string {
         return checker.typeToString(item);
       },
-      handleSymbol(_ref: SymbolRef, item: Sym) {
+      handleSymbol(_ref: SymbolRef, item: Sym): string {
         return item.getName();
       },
       handleSourceFile(ref: SourceFileRef, item: SourceFile): SerializedSourceFile {
@@ -44,7 +44,7 @@ class SimpleSnapshotSmokeTests {
     this.data = data;
   }
   @test
-  public async 'SourceFile serialization'() {
+  public async 'SourceFile serialization'(): Promise<void> {
     const indexFile = this.sourceFiles.filter(sf => !sf.isDeclarationFile)[0];
     expect(indexFile.fileName.replace(this.rootPath, ''))
       .to.contain('src')
