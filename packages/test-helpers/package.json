@@ -21,17 +21,13 @@
     "directory-tree": "mike-north/node-directory-tree#patch-1",
     "fs-extra": "^7.0.0",
     "node-cleanup": "^2.1.2",
-    "treeify": "^1.1.0"
+    "treeify": "^1.1.0",
+    "typescript": "^3.1.0"
   },
   "devDependencies": {
-    "@types/fs-extra": "5.0.4",
-    "@types/node": "10.12.15",
-    "@types/node-cleanup": "2.1.0",
-    "@types/tmp": "0.0.33",
     "nyc": "13.1.0",
     "snap-shot-it": "6.2.7",
-    "tslint": "5.11.0",
-    "typescript": "3.2.2"
+    "tslint": "5.11.0"
   },
   "nyc": {
     "watermarks": {
