@@ -24,13 +24,13 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Features
 
-* remove dead code ([9a3dcfe](https://github.com/mike-north/code-to-json/tree/master/packages/schema/commit/9a3dcfe))
+* remove dead code ([9a3dcfe](https://github.com/code-to-json/code-to-json/commit/9a3dcfe))
 
 
 
 
 
-## [0.0.47](https://github.com/mike-north/code-to-json/tree/master/packages/schema/compare/@code-to-json/schema@0.0.46...@code-to-json/schema@0.0.47) (2018-12-15)
+## [0.0.47](https://github.com/code-to-json/code-to-json/compare/@code-to-json/schema@0.0.46...@code-to-json/schema@0.0.47) (2018-12-15)
 
 **Note:** Version bump only for package @code-to-json/schema
 
@@ -363,21 +363,13 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Bug Fixes
 
-* add test-helpers devDep to all packages ([e3f69da](https://github.com/mike-north/code-to-json/tree/master/packages/schema/commit/e3f69da))
+* add test-helpers devDep to all packages ([e3f69da](https://github.com/code-to-json/code-to-json/commit/e3f69da))
 
 
 
 
 
-## [0.0.5](https://github.com/mike-north/code-to-json/tree/master/packages/schema/compare/@code-to-json/schema@0.0.4...@code-to-json/schema@0.0.5) (2018-10-27)
-
-**Note:** Version bump only for package @code-to-json/schema
-
-
-
-
-
-## [0.0.4](https://github.com/mike-north/code-to-json/tree/master/packages/schema/compare/@code-to-json/schema@0.0.3...@code-to-json/schema@0.0.4) (2018-10-26)
+## [0.0.5](https://github.com/code-to-json/code-to-json/compare/@code-to-json/schema@0.0.4...@code-to-json/schema@0.0.5) (2018-10-27)
 
 **Note:** Version bump only for package @code-to-json/schema
 
@@ -385,12 +377,20 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-## [0.0.3](https://github.com/mike-north/code-to-json/tree/master/packages/schema/compare/@code-to-json/schema@0.0.2...@code-to-json/schema@0.0.3) (2018-10-26)
+## [0.0.4](https://github.com/code-to-json/code-to-json/compare/@code-to-json/schema@0.0.3...@code-to-json/schema@0.0.4) (2018-10-26)
+
+**Note:** Version bump only for package @code-to-json/schema
+
+
+
+
+
+## [0.0.3](https://github.com/code-to-json/code-to-json/compare/@code-to-json/schema@0.0.2...@code-to-json/schema@0.0.3) (2018-10-26)
 
 
 ### Bug Fixes
 
-* add test-helpers devDep to all packages ([637a178](https://github.com/mike-north/code-to-json/tree/master/packages/schema/commit/637a178))
+* add test-helpers devDep to all packages ([637a178](https://github.com/code-to-json/code-to-json/commit/637a178))
 
 
 
