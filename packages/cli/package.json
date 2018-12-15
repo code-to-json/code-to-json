@@ -37,6 +37,7 @@
   "keywords": [],
   "devDependencies": {
     "@code-to-json/test-helpers": "^0.1.5",
+    "@types/glob": "^7.1.1",
     "nyc": "13.1.0",
     "remark-cli": "6.0.1",
     "remark-lint": "6.0.4",
