@@ -1,13 +1,24 @@
 #!/bin/bash
 
 echo "On master branch. Proceeding with publish"
+
+rm -rf .git
+git init
+git clean -dfx
+git remote add origin https://github.com/mike-north/code-to-json.git
+git fetch origin
+git checkout $TRAVIS_BRANCH
+
 echo "git status"
 git status
+
 echo "lerna publish"
 npm config set //registry.npmjs.org/:_authToken=$NPM_TOKEN -q
+npm prune
+
 echo "npm whoami"
 npm whoami
-git checkout $TRAVIS_BRANCH
+
 echo "git status"
 git status
 git config credential.helper store
