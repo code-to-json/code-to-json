@@ -5647,7 +5647,7 @@ release-zalgo@^1.0.0:
   dependencies:
     es6-error "^4.0.1"
 
-remark-cli@^6.0.1:
+remark-cli@6.0.1:
   version "6.0.1"
   resolved "https://registry.yarnpkg.com/remark-cli/-/remark-cli-6.0.1.tgz#ace67b94c05df0516b6be8dd70f326b6fa9c3770"
   integrity sha512-h7Hwnfdcm5J03t2mxhl9BAav+Goqauqfz3LhpE7TP+RIiPnK6njU7qRDD7qlUd/hLyMSB+WBjYc7gVDQT3pv0A==
@@ -5888,7 +5888,7 @@ remark-lint-no-consecutive-blank-lines@^1.0.0:
     unist-util-position "^3.0.0"
     unist-util-visit "^1.1.1"
 
-remark-lint-no-dead-urls@^0.4.1:
+remark-lint-no-dead-urls@0.4.1:
   version "0.4.1"
   resolved "https://registry.yarnpkg.com/remark-lint-no-dead-urls/-/remark-lint-no-dead-urls-0.4.1.tgz#aa6f28ef751ed3b4daa1198cb607c4f20f7aae5a"
   integrity sha512-R97MwHDqU84DVZ/8gAz4NCCR1Hij6BwkqmajL1rqVWTH7Tpj/nOwq2NvUpdC0holT1ysBnjpH/01lD/nqVvsZg==
@@ -6154,7 +6154,7 @@ remark-lint-unordered-list-marker-style@^1.0.0:
     unist-util-position "^3.0.0"
     unist-util-visit "^1.1.1"
 
-remark-lint@^6.0.0, remark-lint@^6.0.4:
+remark-lint@6.0.4, remark-lint@^6.0.0:
   version "6.0.4"
   resolved "https://registry.yarnpkg.com/remark-lint/-/remark-lint-6.0.4.tgz#13def899efd7d7d105188c274663a60e0fe8fa59"
   integrity sha512-miD6SKhjEkLgdJXgAmNhGsdY1yIGAzwpoGIn/59MR6nZhshdxSm9/pLPiw9fK3loNASA3j7k//kea6x5vHb+jQ==
@@ -6191,7 +6191,7 @@ remark-parse@^6.0.0:
     vfile-location "^2.0.0"
     xtend "^4.0.1"
 
-remark-preset-lint-markdown-style-guide@^2.1.2:
+remark-preset-lint-markdown-style-guide@2.1.2:
   version "2.1.2"
   resolved "https://registry.yarnpkg.com/remark-preset-lint-markdown-style-guide/-/remark-preset-lint-markdown-style-guide-2.1.2.tgz#a945814f4b014d3e6c0888fc034418bdfd77f44c"
   integrity sha512-0mYeeO084o3ZuDSQCvj5vpMZEGQ/HxPcO5vdNpicu+wKpuGNKV2hYZeHbXa/uZV0gjiQeuRmCHIDgNaDsMj5fg==
@@ -6242,7 +6242,7 @@ remark-preset-lint-markdown-style-guide@^2.1.2:
     remark-lint-table-pipes "^1.0.0"
     remark-lint-unordered-list-marker-style "^1.0.0"
 
-remark-preset-lint-recommended@^3.0.2:
+remark-preset-lint-recommended@3.0.2:
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/remark-preset-lint-recommended/-/remark-preset-lint-recommended-3.0.2.tgz#5ce675678895ce7131326c12b6df9105a5d0632c"
   integrity sha512-os4YNWLbkorjvDHVB4o+zCCufZLzGoD4Iwdk7SV7bSIZurUTrMp/ZrpNytyetN9ugIMXuHbWJUE+dF0ND+WorQ==
@@ -6284,7 +6284,7 @@ remark-stringify@^6.0.0:
     unherit "^1.0.4"
     xtend "^4.0.1"
 
-remark-validate-links@^7.1.2:
+remark-validate-links@7.1.2:
   version "7.1.2"
   resolved "https://registry.yarnpkg.com/remark-validate-links/-/remark-validate-links-7.1.2.tgz#be6ec6b45f360717ecb0ba9c4b03a3c84fc358df"
   integrity sha512-FrnRGfy6iuFooGPGLwQTqytKWZhe87YHb319PkzVjJizETkxatw2RFwMPf4Q1FY4kR1ajh27HaEG/Hu1MtVxeg==
