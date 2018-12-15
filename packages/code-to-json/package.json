@@ -24,10 +24,8 @@
   "dependencies": {
     "@code-to-json/cli": "^0.5.5"
   },
+  "devDependencies": {},
   "bugs": {
     "url": "https://github.com/code-to-json/code-to-json/issues"
-  },
-  "devDependencies": {
-    "tslint-config-prettier": "^1.17.0"
   }
 }
