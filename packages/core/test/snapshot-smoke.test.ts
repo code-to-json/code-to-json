@@ -49,9 +49,11 @@ class SimpleSnapshotSmokeTests {
     expect(indexFile.fileName.replace(this.rootPath, ''))
       .to.contain('src')
       .to.contain('index.js');
-
     const { sourceFile: sourceFileData } = this.data;
-    const indexFilePath = Object.keys(sourceFileData).filter(k => k.startsWith(this.rootPath))[0];
+    const indexFilePath = this.sourceFiles
+      .filter(sf => !sf.isDeclarationFile)
+      .map(sf => sf.fileName)[0];
+
     const indexFileData = sourceFileData[indexFilePath];
     expect(Object.keys(indexFileData))
       .contains('id')
