@@ -19,14 +19,17 @@
     "@types/left-pad": "1.2.0",
     "@types/lodash": "4.14.119",
     "@types/mocha": "5.2.5",
-    "@types/node": "10.12.15",
     "@types/node-cleanup": "2.1.0",
+    "@types/node": "10.12.15",
     "@types/tmp": "0.0.33",
     "chai": "4.2.0",
+    "concurrently": "^4.0.1",
+    "hashids": "^1.2.2",
     "husky": "1.2.1",
     "lerna": "3.6.0",
-    "mocha": "5.2.0",
     "mocha-typescript": "1.1.17",
+    "mocha": "5.2.0",
+    "node-cleanup": "^2.1.2",
     "nodemon": "1.18.9",
     "nyc": "13.1.0",
     "scripty": "1.8.0",
@@ -35,9 +38,10 @@
     "strip-json-comments": "2.0.1",
     "tmp": "0.0.33",
     "ts-node": "7.0.1",
-    "tslint": "5.11.0",
     "tslint-config-prettier": "1.17.0",
     "tslint-sonarts": "1.8.0",
+    "tslint": "5.11.0",
+    "tsutils": "^3.2.0",
     "typescript": "3.2.2"
   },
   "commitlint": {
@@ -72,13 +76,7 @@
       "commit-msg": "./node_modules/.bin/commitlint -e $HUSKY_GIT_PARAMS"
     }
   },
-  "dependencies": {
-    "@code-to-json/cli": "^0.4.0",
-    "concurrently": "^4.0.1",
-    "hashids": "^1.2.2",
-    "node-cleanup": "^2.1.2",
-    "tsutils": "^3.2.0"
-  },
+  "dependencies": {},
   "toolchain": {
     "node": "10.12.0",
     "yarn": "1.10.0"
