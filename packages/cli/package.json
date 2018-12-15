@@ -6,7 +6,8 @@
   "typings": "lib/index.d.ts",
   "license": "BSD-2-Clause",
   "author": "Mike North <michael.l.north@gmail.com> (https://mike.works)",
-  "repository": "https://github.com/mike-north/code-to-json/tree/master/packages/cli",
+  "repository": "https://github.com/mike-north/code-to-json/",
+  "homepage": "https://github.com/mike-north/code-to-json/tree/master/packages/cli",
   "bin": {
     "code-to-json": "bin/code-to-json"
   },

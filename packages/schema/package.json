@@ -17,7 +17,8 @@
     "rebuild": "npm run clean & npm run build",
     "prepublishOnly": "tsc -b ."
   },
-  "repository": "https://github.com/mike-north/code-to-json/tree/master/packages/schema",
+  "repository": "https://github.com/mike-north/code-to-json",
+  "homepage": "https://github.com/mike-north/code-to-json/tree/master/packages/schema",
   "keywords": [],
   "devDependencies": {
     "@code-to-json/test-helpers": "^0.1.2",

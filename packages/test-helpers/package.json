@@ -6,7 +6,8 @@
   "typings": "lib/src/index.d.ts",
   "license": "BSD-2-Clause",
   "author": "Mike North <michael.l.north@gmail.com> (https://mike.works)",
-  "repository": "https://github.com/mike-north/code-to-json/tree/master/packages/test-helpers",
+  "repository": "https://github.com/mike-north/code-to-json",
+  "homepage": "https://github.com/mike-north/code-to-json/tree/master/packages/test-helpers",
   "scripts": {
     "lint": "yarn lint:ts && yarn lint:md",
     "lint:ts": "tslint --project .",

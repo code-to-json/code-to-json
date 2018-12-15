@@ -17,7 +17,8 @@
     "rebuild": "yarn clean & yarn build",
     "prepublishOnly": "tsc -b ."
   },
-  "repository": "https://github.com/mike-north/code-to-json/tree/master/packages/core",
+  "repository": "https://github.com/mike-north/code-to-json/",
+  "homepage": "https://github.com/mike-north/code-to-json/tree/master/packages/core",
   "keywords": [],
   "dependencies": {
     "@code-to-json/utils": "^0.5.2",
