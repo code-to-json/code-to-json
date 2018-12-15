@@ -23,13 +23,13 @@
     "@types/node": "10.12.15",
     "@types/tmp": "0.0.33",
     "chai": "4.2.0",
-    "concurrently": "^4.0.1",
-    "hashids": "^1.2.2",
+    "concurrently": "4.1.0",
+    "hashids": "1.2.2",
     "husky": "1.2.1",
     "lerna": "3.6.0",
     "mocha-typescript": "1.1.17",
     "mocha": "5.2.0",
-    "node-cleanup": "^2.1.2",
+    "node-cleanup": "2.1.2",
     "nodemon": "1.18.9",
     "nyc": "13.1.0",
     "scripty": "1.8.0",
@@ -41,8 +41,8 @@
     "tslint-config-prettier": "1.17.0",
     "tslint-sonarts": "1.8.0",
     "tslint": "5.11.0",
-    "tsutils": "^3.2.0",
-    "typescript": "^3.1.0"
+    "tsutils": "3.5.1",
+    "typescript": "3.2.2"
   },
   "commitlint": {
     "extends": [
