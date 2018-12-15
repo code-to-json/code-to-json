@@ -30,6 +30,8 @@ class TypeScriptFixturePrograms {
 
     expect(nonDeclarationFiles).to.be.lengthOf(1);
 
-    expect(nonDeclarationFiles[0].fileName).to.contain('src/index.js');
+    expect(nonDeclarationFiles[0].fileName)
+      .to.contain('src')
+      .to.contain('index.js');
   }
 }
