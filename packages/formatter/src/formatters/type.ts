@@ -12,11 +12,13 @@ export interface FormattedType {
   stringIndexType?: FormattedType;
 }
 
+// tslint:disable-next-line:no-commented-code
 // function resolveAndFormatType(wo: WalkerOutput, typeRef?: TypeRef): FormattedType | undefined {
 //   if (!typeRef) {
 //     return;
 //   }
 
+// tslint:disable-next-line:no-commented-code
 //   const typ = resolveReference(wo, typeRef);
 //   if (!typ) {
 //     return;
@@ -26,13 +28,13 @@ export interface FormattedType {
 
 export default function formatType(
   wo: WalkerOutputData,
-  type: Readonly<SerializedType>
+  type: Readonly<SerializedType>,
 ): FormattedType {
   const { typeString, flags, objectFlags, properties } = type;
   const typeInfo: FormattedType = {
     text: typeString,
     flags: formatFlags(flags),
-    objectFlags: formatFlags(objectFlags)
+    objectFlags: formatFlags(objectFlags),
     // numberIndexType: resolveAndFormatType(wo, numberIndexType),
     // stringIndexType: resolveAndFormatType(wo, stringIndexType)
   };
