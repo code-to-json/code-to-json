@@ -1,5 +1,4 @@
 import { SerializedSymbol, WalkerOutputData } from '@code-to-json/core';
-import { isObject } from '@code-to-json/utils';
 import resolveReference from '../resolve-reference';
 import formatFlags from './flags';
 import formatSignature, { FormattedSignature } from './signature';
@@ -13,6 +12,10 @@ export interface FormattedSymbol {
   jsDocTags?: Array<{ name: string; text?: string }>;
   callSignatures?: FormattedSignature[];
   constructorSignatures?: FormattedSignature[];
+}
+
+function isObject<T extends object>(v?: T): v is T {
+  return typeof v !== 'undefined' && typeof v === 'object';
 }
 
 export default function formatSymbol(
