@@ -5,22 +5,22 @@
     "quotemark": false,
     "whitespace": false,
     "variable-name": [true, "allow-leading-underscore"],
-    "trailing-comma": false,
+    "trailing-comma": true,
     "object-literal-sort-keys": false,
     "no-debugger": false,
-
-    "no-unused-variable": [true, { "ignore-pattern": "^_" }]
+    "no-bitwise": false
   },
   "rules": {
     "quotemark": false,
     "whitespace": false,
     "variable-name": [true, "allow-leading-underscore"],
-    "trailing-comma": false,
+    "trailing-comma": true,
     "object-literal-sort-keys": false,
     "interface-name": false,
     "no-debugger": false,
     "typedef": [true, "call-signature"],
-    "prefer-immediate-return": false
+    "prefer-immediate-return": false,
+    "no-bitwise": false
   },
   "rulesDirectory": []
 }

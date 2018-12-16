@@ -22,7 +22,11 @@ jobs:
       name: 'Conventional Commits'
       script: commitlint-travis
     - name: 'Lint'
-      script: lerna run lint
+      script:
+        - lerna run lint:js
+        - lerna run lint:ts
+        - lerna run lint:hbs
+        - lerna run lint:md
     - name: 'Fixed Dependencies'
       install:
         - yarn install --non-interactive
