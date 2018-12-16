@@ -14,6 +14,6 @@ const apiExtractorSchema = fs
   )
   .toString();
 
-const STRIPPED = stripJsonComments(apiExtractorSchema);
+// const STRIPPED = stripJsonComments(apiExtractorSchema);
 
 export const formattedSchema = {};
