@@ -36,10 +36,10 @@ export function runCli(): void {
               (
                 Math.round((startupElapsed[0] * NS_PER_SEC + startupElapsed[1]) / 1e3) / 1e3
               ).toFixed(3),
-              6
-            )
+              6,
+            ),
           )} ms ${chalk.green('(startup time)')}
-`
+`,
         );
         const beginTime = process.hrtime();
         try {
@@ -49,18 +49,18 @@ export function runCli(): void {
               `${chalk.yellow(
                 leftpad(
                   (Math.round((timeElapsed[0] * NS_PER_SEC + timeElapsed[1]) / 1e3) / 1e3).toFixed(
-                    3
+                    3,
                   ),
-                  6
-                )
+                  6,
+                ),
               )} ms ${chalk.green('(extraction time)')}
-`
+`,
             );
           });
         } catch (err) {
           if (err.__invalid_arguments_error) {
             process.stderr.write(chalk.red(`\n[ERROR] - ${err.message}\n`));
-            process.stderr.write(prog.help() + '\n');
+            process.stderr.write(`${prog.help()}\n`);
             process.exit(1);
           } else {
             throw err;
@@ -72,7 +72,7 @@ export function runCli(): void {
 
   if (!actionInvoked) {
     setTimeout(() => {
-      process.stderr.write(prog.help() + '\n');
+      process.stderr.write(`${prog.help()}\n`);
       process.exit(1);
     }, 0);
   }

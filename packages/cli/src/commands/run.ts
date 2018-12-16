@@ -12,17 +12,17 @@ import {
   Program,
   readConfigFile,
   ScriptTarget,
-  sys
+  sys,
 } from 'typescript';
 import { promisify } from 'util';
-import { debugLog } from '..';
+import { debugLog } from '../index';
 import InvalidArgumentsError from '../invalid-arguments-error';
 
 const DEFAULT_COMPILER_OPTIONS: CompilerOptions = {
   allowJs: true,
   checkJs: true,
   moduleResolution: ModuleResolutionKind.NodeJs,
-  target: ScriptTarget.ESNext
+  target: ScriptTarget.ESNext,
 };
 
 /**
@@ -42,7 +42,7 @@ const pGlob = promisify(glob);
  */
 async function globsToPaths(
   globs: string[],
-  extensions: string[] = ['.js', '.ts']
+  extensions: string[] = ['.js', '.ts'],
 ): Promise<string[]> {
   const valueSet = new Set<string>();
   await Promise.all(
@@ -53,8 +53,8 @@ async function globsToPaths(
         })
         .catch(er => {
           throw new InvalidArgumentsError(`Invalid glob: ${g}\n${er}`);
-        })
-    )
+        }),
+    ),
   );
   const allPaths = [...valueSet];
   // If extensions are provided, only return those files that match
@@ -74,12 +74,12 @@ async function createProgramFromTsConfig(searchPath: string): Promise<Program> {
   }
   debugLog('Found typescript configuration file: ', cfgPath);
   const configContent = readConfigFile(cfgPath, (filePath: string) =>
-    fs.readFileSync(filePath).toString()
+    fs.readFileSync(filePath).toString(),
   );
   const { error, config } = configContent;
   if (error) {
     debugLog('tsconfig diagnostics', error);
-    throw new InvalidArgumentsError('TSConfig error - ' + error.messageText);
+    throw new InvalidArgumentsError(`TSConfig error - ${error.messageText}`);
   } else if (config) {
     const configResult = getParsedCommandLineOfConfigFile(cfgPath, {}, sys as any);
     if (!configResult) {
@@ -89,14 +89,14 @@ async function createProgramFromTsConfig(searchPath: string): Promise<Program> {
     if (errors && errors.length > 0) {
       debugLog('tsconfig config parse errors', errors);
       throw new InvalidArgumentsError(
-        `Detected errors while parsing tsconfig file: ${JSON.stringify(errors)}`
+        `Detected errors while parsing tsconfig file: ${JSON.stringify(errors)}`,
       );
     }
     debugLog('Using typescript compiler options', options);
     debugLog('applying to files', rootNames);
     return createProgram({
       rootNames,
-      options
+      options,
     });
   } else {
     throw new InvalidArgumentsError('reading tsconfig seemed to neither suceed or fail');
@@ -112,7 +112,7 @@ async function createProgramFromEntries(globs: string[]): Promise<Program> {
   debugLog('Globs are equivalent to files', rootNames);
   const prog = createProgram({
     rootNames,
-    options: DEFAULT_COMPILER_OPTIONS
+    options: DEFAULT_COMPILER_OPTIONS,
   });
   return prog;
 }
@@ -124,12 +124,12 @@ async function createProgramFromEntries(globs: string[]): Promise<Program> {
  */
 export default async function run(
   options: { [k: string]: any } & { project: string },
-  entries?: string[]
+  entries?: string[],
 ): Promise<void>;
 export default async function run(options: { [k: string]: any }, entries: string[]): Promise<void>;
 export default async function run(
   options: { [k: string]: any },
-  rawEntries?: string[]
+  rawEntries?: string[],
 ): Promise<void> {
   const { project, out = 'out.json' } = options;
   let program!: Program;
