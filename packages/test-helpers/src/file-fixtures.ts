@@ -21,7 +21,7 @@ function createDir(): Promise<TestCaseFolder> {
     tmp.dir(
       {
         dir: tmpdir(),
-        unsafeCleanup: true // delete temp folder even if it's non-empty
+        unsafeCleanup: true, // delete temp folder even if it's non-empty
       },
       (err, rootPath, cleanup) => {
         if (!err) {
@@ -31,12 +31,12 @@ function createDir(): Promise<TestCaseFolder> {
               const t = folderAsObject(rootPath);
               return asTree(t, false, true);
             },
-            cleanup
+            cleanup,
           });
         } else {
           rej(err);
         }
-      }
+      },
     );
   });
 }
@@ -46,8 +46,8 @@ function createFixtureFile(rootPath: string, subPath: string, content: FixtureFi
 }
 
 function createFixtureFolder(rootPath: string, subPath: string, caseFixture: FixtureFolder): void {
-  for (const f in caseFixture) {
-    if (caseFixture.hasOwnProperty(f)) {
+  for (const f of Object.keys(caseFixture)) {
+    if (Object.prototype.hasOwnProperty.call(caseFixture, f)) {
       const item = caseFixture[f];
       const itemPath = path.join(subPath, f);
       if (typeof item === 'object') {
@@ -83,7 +83,7 @@ async function setupTestCaseFolderByPath(casePath: string): Promise<TestCaseFold
     throw new Error(`"${casePath}" is not a directory`);
   }
   await copy(casePath, rootPath, {
-    errorOnExist: true
+    errorOnExist: true,
   });
 
   if (!existsSync(rootPath)) {
@@ -104,13 +104,14 @@ ${folder}`);
  * @public
  */
 export async function createTempFixtureFolder(
-  cse: string | FixtureFolder
+  cse: string | FixtureFolder,
 ): Promise<TestCaseFolder> {
   if (typeof cse === 'string') {
     return setupTestCaseFolderByPath(cse);
-  } else if (typeof cse === 'object') {
-    return setupTestCaseFolderByObj(cse);
-  } else {
-    throw new UnreachableError(cse);
   }
+  if (typeof cse === 'object') {
+    return setupTestCaseFolderByObj(cse);
+  }
+
+  throw new UnreachableError(cse);
 }

@@ -6,18 +6,22 @@ type DirectoryTree = ReturnType<typeof dirTree>;
 
 export function dirTreeAsObject(
   tree: DirectoryTree,
-  obj: treeify.TreeObject = {}
+  obj: treeify.TreeObject = {},
 ): treeify.TreeObject {
   const { type, name, children } = tree;
   switch (type) {
     case 'file':
+      // eslint-disable-next-line no-param-reassign
       obj[name] = '';
       break;
     case 'directory':
-      const o = {};
-      obj[name] = o;
-      if (children) {
-        children.forEach(ch => dirTreeAsObject(ch, o));
+      {
+        const o = {};
+        // eslint-disable-next-line no-param-reassign
+        obj[name] = o;
+        if (children) {
+          children.forEach(ch => dirTreeAsObject(ch, o));
+        }
       }
       break;
     default:
