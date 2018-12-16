@@ -1,6 +1,6 @@
 {
   "name": "@code-to-json/utils",
-  "version": "0.5.7",
+  "version": "0.5.8",
   "description": "",
   "main": "lib/src/index.js",
   "typings": "lib/src/index.d.ts",
@@ -22,7 +22,7 @@
   },
   "keywords": [],
   "devDependencies": {
-    "@code-to-json/test-helpers": "^0.1.7",
+    "@code-to-json/test-helpers": "^0.1.8",
     "@types/chai": "4.1.7",
     "chai": "4.2.0",
     "mocha": "5.2.0",
