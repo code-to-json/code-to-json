@@ -1,4 +1,5 @@
-import { isRef, mapUem, refId } from '@code-to-json/utils';
+import { isRef, refId } from '@code-to-json/utils';
+import { mapUem } from '@code-to-json/utils-ts';
 import {
   displayPartsToString,
   Symbol as Sym,

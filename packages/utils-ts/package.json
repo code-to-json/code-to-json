@@ -1,6 +1,6 @@
 {
-  "name": "@code-to-json/utils",
-  "version": "0.5.8",
+  "name": "@code-to-json/utils-ts",
+  "version": "0.0.0-development",
   "description": "",
   "main": "lib/src/index.js",
   "typings": "lib/src/index.d.ts",
@@ -21,7 +21,11 @@
     "prepublishOnly": "tsc -b ."
   },
   "keywords": [],
+  "dependencies": {
+    "typescript": "^3.1.0"
+  },
   "devDependencies": {
+    "@code-to-json/test-helpers": "^0.1.8",
     "@types/chai": "4.1.7",
     "chai": "4.2.0",
     "mocha": "5.2.0",
@@ -37,8 +41,7 @@
     "ts-node": "7.0.1",
     "tslint": "5.11.0",
     "tslint-config-prettier": "1.17.0",
-    "tslint-sonarts": "^1.8.0",
-    "typescript": "3.2.2"
+    "tslint-sonarts": "^1.8.0"
   },
   "nyc": {
     "watermarks": {

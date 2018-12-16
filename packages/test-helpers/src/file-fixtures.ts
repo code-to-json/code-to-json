@@ -1,3 +1,4 @@
+import { UnreachableError } from '@code-to-json/utils';
 import * as debug from 'debug';
 import * as fs from 'fs';
 import { copy, existsSync, statSync } from 'fs-extra';
@@ -6,7 +7,6 @@ import * as path from 'path';
 import * as tmp from 'tmp';
 import { asTree } from 'treeify';
 import { asObject as folderAsObject } from './dir-tree';
-import { UnreachableError } from './errors';
 import { FixtureFileContent, FixtureFolder, TestCaseFolder } from './types';
 
 const log = debug('code-to-json:test-helpers');

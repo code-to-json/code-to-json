@@ -1,6 +1,6 @@
+import { UnreachableError } from '@code-to-json/utils';
 import * as dirTree from 'directory-tree';
 import * as treeify from 'treeify';
-import { UnreachableError } from './errors';
 
 type DirectoryTree = ReturnType<typeof dirTree>;
 

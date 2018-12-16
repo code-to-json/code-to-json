@@ -1,9 +1,5 @@
-import {
-  isDeclaration,
-  isDeclarationExported,
-  isNamedDeclaration,
-  refId
-} from '@code-to-json/utils';
+import { refId } from '@code-to-json/utils';
+import { isDeclaration, isDeclarationExported, isNamedDeclaration } from '@code-to-json/utils-ts';
 import { isVariableStatement, Node, SyntaxKind, TypeChecker } from 'typescript';
 import { flagsToString } from '../flags';
 import { ProcessingQueue } from '../processing-queue';

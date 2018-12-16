@@ -1,5 +1,6 @@
 // tslint:disable:no-bitwise
-import { isDeclaration, isNode, isSymbol, isType, UnreachableError } from '@code-to-json/utils';
+import { UnreachableError } from '@code-to-json/utils';
+import { isDeclaration, isNode, isSymbol, isType } from '@code-to-json/utils-ts';
 import * as debug from 'debug';
 import { isSourceFile, Node, Symbol as Sym, Type } from 'typescript';
 const log = debug('code-to-json:generate-id');
