@@ -1,0 +1,26 @@
+{
+  "defaultSeverity": "error",
+  "extends": ["tslint:recommended", "tslint-config-prettier", "tslint-sonarts"],
+  "jsRules": {
+    "quotemark": false,
+    "whitespace": false,
+    "variable-name": [true, "allow-leading-underscore"],
+    "trailing-comma": false,
+    "object-literal-sort-keys": false,
+    "no-debugger": false,
+
+    "no-unused-variable": [true, { "ignore-pattern": "^_" }]
+  },
+  "rules": {
+    "quotemark": false,
+    "whitespace": false,
+    "variable-name": [true, "allow-leading-underscore"],
+    "trailing-comma": false,
+    "object-literal-sort-keys": false,
+    "interface-name": false,
+    "no-debugger": false,
+    "typedef": [true, "call-signature"],
+    "prefer-immediate-return": false
+  },
+  "rulesDirectory": []
+}
