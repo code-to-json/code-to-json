@@ -1,3 +1,4 @@
+/* eslint-disable import/prefer-default-export */
 // tslint:disable:no-commented-code
 
 // import * as fs from 'fs';
