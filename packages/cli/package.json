@@ -29,6 +29,7 @@
     "lint:md": "remark .",
     "test": "mocha",
     "test:coverage": "nyc npm test",
+    "codacy:transmit-coverage": "cat coverage/lcov.info | codacy-coverage",
     "clean": "rm -rf ./lib",
     "build": "tsc -b .",
     "rebuild": "npm run clean & npm run build",
