@@ -20,8 +20,7 @@
     "interface-name": false,
     "no-debugger": false,
     "typedef": [true, "call-signature"],
-    "prefer-immediate-return": false,
-    "no-unused-variable": [true, { "ignore-pattern": "^_" }]
+    "prefer-immediate-return": false
   },
   "rulesDirectory": []
 }
