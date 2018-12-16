@@ -11,8 +11,7 @@ export interface SerializedFileReference {
  * @param fr FileReference to serialize
  */
 export default function serializeFileReference(fr: FileReference): SerializedFileReference {
-  debugger;
   return {
-    name: fr.fileName
+    name: fr.fileName,
   };
 }

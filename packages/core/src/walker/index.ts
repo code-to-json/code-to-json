@@ -5,7 +5,7 @@ import {
   NodeRef,
   SourceFileRef,
   SymbolRef,
-  TypeRef
+  TypeRef,
 } from '../processing-queue/ref';
 import serializeDeclaration, { SerializedDeclaration } from '../serializers/declaration';
 import serializeNode, { SerializedNode } from '../serializers/node';
@@ -38,7 +38,7 @@ export interface WalkerOutput {
  */
 export function walkProgram(
   program: Program,
-  options: Partial<IWalkerOptionArgs> = {}
+  options: Partial<IWalkerOptionArgs> = {},
 ): WalkerOutput {
   const opts = createWalkerOptions(options);
   // Create the type-checker
@@ -49,9 +49,7 @@ export function walkProgram(
 
   // Initialize the work-processing queue
   const q = createQueue();
-  sourceFiles.forEach(sf => {
-    return q.queue(sf, 'sourceFile', checker);
-  });
+  sourceFiles.forEach(sf => q.queue(sf, 'sourceFile', checker));
 
   const data = q.drain({
     handleNode(ref: NodeRef, item: Node): SerializedNode {
@@ -68,15 +66,15 @@ export function walkProgram(
     },
     handleDeclaration(ref: DeclarationRef, item: Declaration): SerializedDeclaration {
       return serializeDeclaration(item, checker, ref, q);
-    }
+    },
   });
   return {
     codeToJson: {
       versions: {
-        core: 'pkg.version'
+        core: 'pkg.version',
       },
-      format: 'raw'
+      format: 'raw',
     },
-    data
+    data,
   };
 }

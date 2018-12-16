@@ -26,11 +26,11 @@ function nameForNode(n: Node, checker: TypeChecker): string {
   const sym = checker.getSymbolAtLocation(name || n);
   if (sym && name) {
     return name.getText();
-  } else if (isVariableStatement(n)) {
-    return '' + n.declarationList.declarations.length;
-  } else {
-    return '(unknown)';
   }
+  if (isVariableStatement(n)) {
+    return `${n.declarationList.declarations.length}`;
+  }
+  return '(unknown)';
 }
 
 /**
@@ -42,7 +42,7 @@ export default function serializeNode(
   n: Node,
   checker: TypeChecker,
   ref: NodeRef | DeclarationRef | SourceFileRef,
-  q: ProcessingQueue
+  q: ProcessingQueue,
 ): SerializedNode {
   const { flags, kind, decorators, modifiers, pos, end } = n;
 
@@ -60,7 +60,7 @@ export default function serializeNode(
     ),
     sourceFile: q.queue(n.getSourceFile(), 'sourceFile', checker),
     kind: SyntaxKind[kind],
-    flags: flagsToString(flags, 'node')
+    flags: flagsToString(flags, 'node'),
   };
 
   if (decorators && decorators.length) {

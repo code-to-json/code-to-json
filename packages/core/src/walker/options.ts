@@ -6,7 +6,7 @@ export interface IWalkerOptionArgs {
 }
 
 const DEFAULT_WALKER_OPTIONS: IWalkerOptionArgs = {
-  includeDeclarations: 'none'
+  includeDeclarations: 'none',
 };
 
 export interface WalkerOptions {
@@ -21,11 +21,11 @@ export default function createWalkerOptions(rawOpts: Partial<IWalkerOptionArgs>)
       const { includeDeclarations } = opts;
       if (includeDeclarations === 'all') {
         return true;
-      } else if (includeDeclarations === 'none') {
-        return !sf.isDeclarationFile;
-      } else {
-        throw new UnreachableError(includeDeclarations);
       }
-    }
+      if (includeDeclarations === 'none') {
+        return !sf.isDeclarationFile;
+      }
+      throw new UnreachableError(includeDeclarations);
+    },
   };
 }
