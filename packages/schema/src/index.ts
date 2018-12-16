@@ -1,3 +1,5 @@
+// tslint:disable:no-commented-code
+
 // import * as fs from 'fs';
 // import * as path from 'path';
 // import * as stripJsonComments from 'strip-json-comments';
