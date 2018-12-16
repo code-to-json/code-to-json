@@ -12,6 +12,7 @@
     "lint:md": "./node_modules/.bin/remark .",
     "test": "mocha",
     "test:coverage": "nyc npm test",
+    "codacy:transmit-coverage": "cat coverage/lcov.info | ./node_modules/.bin/codacy-coverage",
     "clean": "rm -rf ./lib",
     "build": "tsc -b .",
     "rebuild": "yarn clean & yarn build",
