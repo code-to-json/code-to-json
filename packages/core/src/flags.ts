@@ -1,3 +1,4 @@
+/* eslint-disable no-bitwise */
 import {
   NodeBuilderFlags,
   NodeFlags,
@@ -6,7 +7,7 @@ import {
   SymbolFlags,
   SymbolFormatFlags,
   Type,
-  TypeFlags
+  TypeFlags,
 } from 'typescript';
 
 interface FlagsMap {
@@ -38,7 +39,7 @@ function getFlagMap<T extends keyof FlagsMap>(type: T): { [k: string]: any } {
     case 'symbolFormat':
       return SymbolFormatFlags;
     default:
-      throw new Error('Unsupported flag type: ' + type);
+      throw new Error(`Unsupported flag type: ${type}`);
   }
 }
 
@@ -50,26 +51,29 @@ function getFlagMap<T extends keyof FlagsMap>(type: T): { [k: string]: any } {
  */
 export function flagsToString<T extends keyof FlagsMap>(
   flags: FlagsMap[T],
-  type: T
+  type: T,
 ): Flags | undefined {
+  let flg = flags;
   const flagMap = getFlagMap<T>(type);
   const flagNames = [] as string[];
   const keys = Object.keys(flagMap);
-  for (let i = 0; i < keys.length && flags !== 0; i++) {
+  for (let i = 0; i < keys.length && flg !== 0; i++) {
     const flagName = keys[i];
     const flag = flagMap[flagName];
     if (flag === 0) {
+      // eslint-disable-next-line no-continue
       continue;
     }
-    // tslint:disable-next-line:no-bitwise
-    if ((flag & flags) === flag) {
-      // tslint:disable-next-line:no-bitwise
-      flags &= ~flag;
+
+    // tslint:disable-next-line no-bitwise
+    if ((flag & flg) === flag) {
+      // tslint:disable-next-line no-bitwise
+      flg &= ~flag;
       flagNames.push(flagName);
     }
   }
   if (flagNames.length === 0) {
-    return;
+    return undefined;
   }
   if (flagNames.length === 1) {
     return flagNames[0];

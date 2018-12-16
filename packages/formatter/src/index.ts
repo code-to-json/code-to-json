@@ -5,11 +5,12 @@ interface FormattedOutput {
   sourceFiles: FormattedSourceFile[];
 }
 
+// eslint-disable-next-line import/prefer-default-export
 export function formatWalkerOutput(wo: WalkerOutput): FormattedOutput {
   const {
-    data: { sourceFile }
+    data: { sourceFile },
   } = wo;
   return {
-    sourceFiles: Object.keys(sourceFile).map(fn => formatSourceFile(wo.data, sourceFile[fn]))
+    sourceFiles: Object.keys(sourceFile).map(fn => formatSourceFile(wo.data, sourceFile[fn])),
   };
 }

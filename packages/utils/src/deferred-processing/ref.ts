@@ -49,7 +49,7 @@ export function createRef<K extends RefTypes>(type: K, id: string): Ref<K> {
  * Get a reference's type name
  * @param ref the reference
  */
-export function refType<K extends string, R extends Ref<K, any>>(ref: Ref<K, any>): K {
+export function refType<K extends string>(ref: Ref<K, any>): K {
   return ref[0] as any;
 }
 

@@ -1,7 +1,10 @@
+/* eslint-disable no-bitwise */
 // tslint:disable:no-bitwise
-import { isDeclaration, isNode, isSymbol, isType, UnreachableError } from '@code-to-json/utils';
+import { UnreachableError } from '@code-to-json/utils';
+import { isDeclaration, isNode, isSymbol, isType } from '@code-to-json/utils-ts';
 import * as debug from 'debug';
 import { isSourceFile, Node, Symbol as Sym, Type } from 'typescript';
+
 const log = debug('code-to-json:generate-id');
 /**
  * Generate a stable hash from a string
@@ -20,7 +23,7 @@ function generateHash(str: string): string {
   // strictly necessary but increases user understanding that the id is a SHA-like hash
   let hex = (0x10000000000000 + hash).toString(35);
   if (hex.length < 16) {
-    hex = '0000000' + hex;
+    hex = `0000000${hex}`;
   }
 
   return hex.slice(-12);
@@ -31,15 +34,17 @@ function generateHash(str: string): string {
  * @param thing Entity to generate an Id for
  * @internal
  */
-export function generateId(thing: Sym | Node | Type): string {
+export default function generateId(thing: Sym | Node | Type): string {
   if (!thing) {
+    // eslint-disable-next-line no-debugger
     debugger;
   }
   if (isType(thing)) {
     // tslint:disable-next-line:no-useless-cast
     const typeId = (thing as any).id;
     return `${typeId}`;
-  } else if (isSymbol(thing)) {
+  }
+  if (isSymbol(thing)) {
     const parts: Array<string | number> = [thing.name, thing.flags];
     const { valueDeclaration } = thing;
     if (valueDeclaration) {
@@ -47,14 +52,16 @@ export function generateId(thing: Sym | Node | Type): string {
       parts.push(valueDeclaration.end);
     }
     return generateHash(parts.filter(Boolean).join('-'));
-  } else if (thing && isSourceFile(thing)) {
-    return thing.fileName;
-  } else if (isDeclaration(thing)) {
-    return generateHash(thing.getFullText());
-  } else if (isNode(thing)) {
-    return generateHash(thing.getFullText());
-  } else {
-    log(thing);
-    throw new UnreachableError(thing, 'Cannot generate an id for this object');
   }
+  if (thing && isSourceFile(thing)) {
+    return thing.fileName;
+  }
+  if (isDeclaration(thing)) {
+    return generateHash(thing.getFullText());
+  }
+  if (isNode(thing)) {
+    return generateHash(thing.getFullText());
+  }
+  log(thing);
+  throw new UnreachableError(thing, 'Cannot generate an id for this object');
 }

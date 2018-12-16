@@ -1,6 +1,6 @@
 {
   "defaultSeverity": "error",
-  "extends": ["tslint:recommended", "tslint-config-prettier"],
+  "extends": ["tslint:recommended", "tslint-config-prettier", "tslint-sonarts"],
   "jsRules": {
     "quotemark": false,
     "whitespace": false,
@@ -8,8 +8,7 @@
     "trailing-comma": false,
     "object-literal-sort-keys": false,
     "no-debugger": false,
-
-    "no-unused-variable": [true, { "ignore-pattern": "^_" }]
+    "no-bitwise": false
   },
   "rules": {
     "quotemark": false,
@@ -21,7 +20,7 @@
     "no-debugger": false,
     "typedef": [true, "call-signature"],
     "prefer-immediate-return": false,
-    "no-unused-variable": [true, { "ignore-pattern": "^_" }]
+    "no-bitwise": false
   },
   "rulesDirectory": []
 }

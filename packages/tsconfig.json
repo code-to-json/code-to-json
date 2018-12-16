@@ -5,6 +5,7 @@
     { "path": "cli" },
     { "path": "core" },
     { "path": "utils" },
+    { "path": "utils-ts" },
     { "path": "schema" },
     { "path": "formatter" }
   ]

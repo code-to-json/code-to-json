@@ -1,5 +1,3 @@
-export * from './ts/node';
-
 export function isObject<T extends object>(val?: T): val is T {
   return typeof val !== 'undefined';
 }

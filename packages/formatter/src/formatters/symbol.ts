@@ -17,7 +17,7 @@ export interface FormattedSymbol {
 
 export default function formatSymbol(
   wo: WalkerOutputData,
-  symbol: Readonly<SerializedSymbol>
+  symbol: Readonly<SerializedSymbol>,
 ): FormattedSymbol {
   const {
     name,
@@ -27,12 +27,12 @@ export default function formatSymbol(
     // jsDocTags,
     callSignatures,
     constructorSignatures,
-    documentation
+    documentation,
   } = symbol;
   const info: FormattedSymbol = {
     name: name || '(anonymous)',
     flags: formatFlags(_rawFlags),
-    documentation
+    documentation,
     // jsDocTags
   };
   if (exports && exports.length > 0) {
@@ -40,7 +40,7 @@ export default function formatSymbol(
       .map(e => {
         const exp = resolveReference(wo, e);
         if (!exp) {
-          return;
+          return undefined;
         }
         return formatSymbol(wo, exp);
       })
@@ -51,7 +51,7 @@ export default function formatSymbol(
       .map(m => {
         const exp = resolveReference(wo, m);
         if (!exp) {
-          return;
+          return undefined;
         }
         return formatSymbol(wo, exp);
       })

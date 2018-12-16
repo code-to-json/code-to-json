@@ -19,7 +19,7 @@ const FLAGS_TRANSLATION_MAP: { [k: string]: string } = {
   Interface: 'interface',
   Prototype: 'prototype',
   Constructor: 'constructor',
-  TypeParameter: 'typeParameter'
+  TypeParameter: 'typeParameter',
 };
 
 function formatFlag(flagString: string): string {
@@ -29,11 +29,12 @@ function formatFlag(flagString: string): string {
 export default function formatFlags(flags?: Flags): string[] {
   if (isArray(flags)) {
     return flags.map(formatFlag);
-  } else if (typeof flags === 'string') {
-    return [formatFlag(flags)];
-  } else if (typeof flags === 'undefined') {
-    return [];
-  } else {
-    throw new UnreachableError(flags);
   }
+  if (typeof flags === 'string') {
+    return [formatFlag(flags)];
+  }
+  if (typeof flags === 'undefined') {
+    return [];
+  }
+  throw new UnreachableError(flags);
 }

@@ -1,3 +1,6 @@
+/* eslint-disable import/prefer-default-export */
+// tslint:disable:no-commented-code
+
 // import * as fs from 'fs';
 // import * as path from 'path';
 // import * as stripJsonComments from 'strip-json-comments';

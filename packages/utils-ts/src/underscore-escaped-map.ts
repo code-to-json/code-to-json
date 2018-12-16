@@ -1,3 +1,4 @@
+/* eslint-disable import/prefer-default-export */
 import { __String, UnderscoreEscapedMap } from 'typescript';
 
 /**
@@ -7,7 +8,7 @@ import { __String, UnderscoreEscapedMap } from 'typescript';
  */
 export function mapUem<T, S>(
   uem: UnderscoreEscapedMap<T>,
-  callback: ((t: T, key: __String) => S)
+  callback: ((t: T, key: __String) => S),
 ): S[] {
   const arr: S[] = [];
   uem.forEach((val, key) => {

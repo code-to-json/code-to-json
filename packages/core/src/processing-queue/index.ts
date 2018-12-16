@@ -2,7 +2,7 @@ import { createQueue, RefFor, refId, UnreachableError } from '@code-to-json/util
 import * as debug from 'debug';
 import { Declaration, Node, SourceFile, Symbol as Sym, Type, TypeChecker } from 'typescript';
 import { EntityMap } from '../types';
-import { generateId } from './generate-id';
+import generateId from './generate-id';
 import { DeclarationRef, NodeRef, SourceFileRef, SymbolRef, TypeRef } from './ref';
 
 export interface QueueSink<S, T, N, D, SF> {
@@ -27,7 +27,7 @@ export interface ProcessingQueue {
   queue<K extends keyof EntityMap, E extends EntityMap[K]>(
     thing: E,
     refType: K,
-    checker: TypeChecker
+    checker: TypeChecker,
   ): RefFor<K> | undefined;
   drain<S, T, N, D, SF>(sink: Partial<QueueSink<S, N, T, D, SF>>): DrainOutput<S, N, T, D, SF>;
 }
@@ -41,14 +41,14 @@ export function create(): ProcessingQueue {
     symbol: createQueue<'symbol', Sym>('symbol', generateId),
     type: createQueue<'type', Type>('type', generateId),
     sourceFile: createQueue<'sourceFile', SourceFile>('sourceFile', generateId),
-    declaration: createQueue<'declaration', Declaration>('declaration', generateId)
+    declaration: createQueue<'declaration', Declaration>('declaration', generateId),
   };
 
   return {
     queue<K extends keyof EntityMap>(
       thing: EntityMap[K],
       typ: K,
-      _checker: TypeChecker
+      _checker: TypeChecker,
     ): RefFor<K> | undefined {
       const refType: keyof EntityMap = typ;
       switch (refType) {
@@ -72,7 +72,7 @@ export function create(): ProcessingQueue {
         symbol: {},
         type: {},
         node: {},
-        sourceFile: {}
+        sourceFile: {},
       };
       /**
        * Flush any un-processed items from the processing queue to the drain output
@@ -86,33 +86,38 @@ export function create(): ProcessingQueue {
             type: 0,
             sourceFile: 0,
             symbol: 0,
-            node: 0
-          }
+            node: 0,
+          },
         };
         const { handleDeclaration, handleNode, handleSourceFile, handleType, handleSymbol } = sink;
         if (handleSourceFile) {
           outputInfo.processed.sourceFile += registries.sourceFile.drain(
-            (ref, item) => (out.sourceFile[refId(ref)] = handleSourceFile(ref, item))
+            // eslint-disable-next-line no-return-assign
+            (ref, item) => (out.sourceFile[refId(ref)] = handleSourceFile(ref, item)),
           ).processedCount;
         }
         if (handleDeclaration) {
           outputInfo.processed.declaration += registries.declaration.drain(
-            (ref, item) => (out.declaration[refId(ref)] = handleDeclaration(ref, item))
+            // eslint-disable-next-line no-return-assign
+            (ref, item) => (out.declaration[refId(ref)] = handleDeclaration(ref, item)),
           ).processedCount;
         }
         if (handleSymbol) {
           outputInfo.processed.symbol += registries.symbol.drain(
-            (ref, item) => (out.symbol[refId(ref)] = handleSymbol(ref, item))
+            // eslint-disable-next-line no-return-assign
+            (ref, item) => (out.symbol[refId(ref)] = handleSymbol(ref, item)),
           ).processedCount;
         }
         if (handleNode) {
           outputInfo.processed.node += registries.node.drain(
-            (ref, item) => (out.node[refId(ref)] = handleNode(ref, item))
+            // eslint-disable-next-line no-return-assign
+            (ref, item) => (out.node[refId(ref)] = handleNode(ref, item)),
           ).processedCount;
         }
         if (handleType) {
           outputInfo.processed.type += registries.type.drain(
-            (ref, item) => (out.type[refId(ref)] = handleType(ref, item))
+            // eslint-disable-next-line no-return-assign
+            (ref, item) => (out.type[refId(ref)] = handleType(ref, item)),
           ).processedCount;
         }
 
@@ -126,11 +131,13 @@ export function create(): ProcessingQueue {
       do {
         lastResult = flush();
         nonZeroCategories = Object.keys(lastResult.processed).reduce(
+          // eslint-disable-next-line no-loop-func
           (list, k) => ((lastResult.processed as any)[k] > 0 ? list.concat(k) : list),
-          [] as string[]
+          [] as string[],
         );
         const reportMessage = Object.keys(lastResult.processed)
           .sort()
+          // eslint-disable-next-line no-loop-func
           .map(k => {
             const amt = (lastResult.processed as any)[k];
             return amt > 0 ? `${amt} ${k}s` : null;
@@ -142,6 +149,6 @@ export function create(): ProcessingQueue {
       } while (nonZeroCategories.length > 0 && flushCount < maxPasses);
 
       return out;
-    }
+    },
   };
 }

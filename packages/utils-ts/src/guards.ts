@@ -86,11 +86,12 @@ export function isDeclaration(node?: Node | Declaration): node is Declaration {
   return !!node && isDeclarationKind(node.kind);
 }
 
+export type TypeIsh = Sym | Type | Node;
 /**
  * Check to see whether a value is a Type
  * @param thing value to check
  */
-export function isType(thing?: Sym | Type | Node): thing is Type {
+export function isType(thing?: TypeIsh): thing is Type {
   return !!thing && !!(thing as Type).getBaseTypes && !!(thing as Type).isUnion;
 }
 
