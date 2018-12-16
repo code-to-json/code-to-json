@@ -42,7 +42,7 @@ export function isRef<R extends Ref<any>>(thing?: R): thing is R {
  * @returns the new reference
  */
 export function createRef<K extends RefTypes>(type: K, id: string): Ref<K> {
-  return [type as RefType<K>, id as any];
+  return [(type as any) as RefType<K>, id as any];
 }
 
 /**
