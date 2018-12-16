@@ -3,5 +3,5 @@
 var importLocal = require('import-local');
 
 if (!importLocal(__filename)) {
-  require('../lib/src/index.js');
+  require('../lib/src/index.js').runCli();
 }
