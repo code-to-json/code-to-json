@@ -24,7 +24,7 @@
     "typescript": "^3.1.0"
   },
   "scripts": {
-    "lint": "yarn lint:ts && lint:js && lint:md",
+    "lint": "yarn lint:ts && yarn lint:js && yarn lint:md",
     "lint:ts": "tslint --project .",
     "lint:js": "eslint . --ext js,ts",
     "lint:md": "remark .",
