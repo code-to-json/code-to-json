@@ -30,7 +30,7 @@ jobs:
       script: ./node_modules/.bin/lerna run test:coverage
       after_success:
         - ./node_modules/.bin/codecov
-        - lerna run codacy:transmit-coverage --scope=@code-to-json/*
+        - lerna run codacy:transmit-coverage
 
     - stage: 'Additional Tests'
       name: 'Floating Dependencies'
