@@ -1,3 +1,4 @@
+/* eslint-disable import/prefer-default-export, no-bitwise */
 import * as ts from 'typescript';
 
 /**
