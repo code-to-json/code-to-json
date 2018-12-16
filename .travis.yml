@@ -30,6 +30,7 @@ jobs:
       script: ./node_modules/.bin/lerna run test:coverage
       after_success:
         - ./node_modules/.bin/codecov
+        - npm install -g codacy-coverage
         - lerna run codacy:transmit-coverage
 
     - stage: 'Additional Tests'
