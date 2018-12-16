@@ -8,9 +8,8 @@ function get(obj: any, propname: string): any;
 function get(obj: any, propname: string): any {
   if (obj && typeof obj === 'object') {
     return obj[propname];
-  } else {
-    return undefined;
   }
+  return undefined;
 }
 // i
 /**

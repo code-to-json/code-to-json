@@ -14,7 +14,7 @@ export interface IRegistry<K extends string, T extends object> {
 
 export function createQueue<K extends RefTypes, T extends object>(
   k: K,
-  idGenerator: (t: T) => string
+  idGenerator: (t: T) => string,
 ): IRegistry<K, T> {
   const itemToRef = new Map<T, EntityInfo<K, T>>();
   return {
@@ -22,12 +22,11 @@ export function createQueue<K extends RefTypes, T extends object>(
       const existingInfo = itemToRef.get(item);
       if (existingInfo) {
         return existingInfo.ref;
-      } else {
-        const id = idGenerator(item);
-        const ref: Ref<K> = createRef(k, id);
-        itemToRef.set(item, { ref, processed: false });
-        return ref;
       }
+      const id = idGenerator(item);
+      const ref: Ref<K> = createRef(k, id);
+      itemToRef.set(item, { ref, processed: false });
+      return ref;
     },
     numUnprocessed(): number {
       return [...itemToRef.values()].reduce((ct, info) => (info.processed ? ct : ct + 1), 0);
@@ -40,6 +39,7 @@ export function createQueue<K extends RefTypes, T extends object>(
           return;
         }
         cb(ref, key);
+        // eslint-disable-next-line no-param-reassign
         value.processed = true;
         processedCount++;
       });
@@ -53,6 +53,6 @@ export function createQueue<K extends RefTypes, T extends object>(
         processedCount += sweep;
       }
       return { processedCount };
-    }
+    },
   };
 }

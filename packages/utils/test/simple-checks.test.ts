@@ -16,6 +16,7 @@ class SimpleChecks {
     snapshot({ result: isEmpty(() => ({})) });
     snapshot({ result: isEmpty(new Map([['a', 1]])) });
   }
+
   @test
   public 'isNone tests'(): void {
     snapshot({ result: isNone(0) });
@@ -28,6 +29,7 @@ class SimpleChecks {
     snapshot({ result: isNone(() => ({})) });
     snapshot({ result: isNone(new Map([['a', 1]])) });
   }
+
   @test
   public 'isBlank tests'(): void {
     snapshot({ result: isBlank(0) });
@@ -40,6 +42,7 @@ class SimpleChecks {
     snapshot({ result: isBlank(() => ({})) });
     snapshot({ result: isBlank(new Map([['a', 1]])) });
   }
+
   @test
   public 'isPresent tests'(): void {
     snapshot({ result: isPresent(0) });

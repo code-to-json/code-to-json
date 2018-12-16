@@ -1,4 +1,4 @@
-export { UnreachableError } from './errors/unreachable';
+export { default as UnreachableError } from './errors/unreachable';
 export { isObject, isArray } from './guards';
 export { Result, ErrorResult, SuccessResult } from './types';
 export { isBlank, isPresent, isEmpty, isNone } from './checks';
