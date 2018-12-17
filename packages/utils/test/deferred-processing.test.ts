@@ -12,6 +12,7 @@ declare module '../src/deferred-processing/ref-registry' {
 @suite
 class DeferredProcessingTests {
   public q!: Queue<'foo', { idd: string }>;
+
   public before() {
     this.q = createQueue('foo', (val: { idd: string }) => `~~${val.idd}~~`);
   }
@@ -35,6 +36,7 @@ class DeferredProcessingTests {
     });
     expect(iterationCount).to.eq(1);
   }
+
   @test
   public '.drain returns the processed object count'(): void {
     this.q.queue({ idd: 'asdklh' });
