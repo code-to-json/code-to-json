@@ -24,8 +24,8 @@ const constWithExplicitType: string = 'foo';
   },
 };
 
-function runCli(args?: string[]): SpawnSyncReturns<string> {
-  return spawnSync('./bin/code-to-json', args);
+function runCli(args?: string[]): SpawnSyncReturns<Buffer> {
+  return spawnSync('./bin/code-to-json', args, { shell: true });
 }
 
 @suite
