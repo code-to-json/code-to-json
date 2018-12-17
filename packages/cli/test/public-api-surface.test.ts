@@ -3,9 +3,9 @@ import { suite, test } from 'mocha-typescript';
 import { runCli } from '../src/index';
 
 @suite
-class PublicApiSurface {
+class PublicApiSurfaceTests {
   @test
-  public method(): void {
+  public 'runCli method exists'(): void {
     expect(runCli).to.be.a('function');
   }
 }

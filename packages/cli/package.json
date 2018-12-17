@@ -48,6 +48,7 @@
     "eslint-plugin-node": "8.0.0",
     "eslint-plugin-prettier": "3.0.0",
     "eslint-plugin-typescript": "0.14.0",
+    "hook-std": "^1.2.0",
     "mocha": "5.2.0",
     "mocha-typescript": "1.1.17",
     "nyc": "13.1.0",
