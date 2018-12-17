@@ -5,9 +5,15 @@ import * as fs from 'fs';
 import { slow, suite, test, timeout as testTimeout } from 'mocha-typescript';
 import * as path from 'path';
 
+function runCli(args?: string[]): SpawnSyncReturns<Buffer> {
+  return spawnSync('./bin/code-to-json', args, { shell: true });
+}
+
 /**
  * Something is wrong with azure-CI -- I dont' have time to look at it now
  * and have manually verified that these things work in win10 cmd.exe
+ *
+ * details: https://github.com/code-to-json/code-to-json/issues/83
  */
 if (process.env.TRAVIS_CI) {
   const SAMPLE_PROJECT_CODE = {
@@ -28,10 +34,6 @@ const constWithExplicitType: string = 'foo';
  `,
     },
   };
-
-  function runCli(args?: string[]): SpawnSyncReturns<Buffer> {
-    return spawnSync('./bin/code-to-json', args, { shell: true });
-  }
 
   @suite
   @slow(2000)
