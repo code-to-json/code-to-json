@@ -11,7 +11,7 @@ declare module '../src/deferred-processing/ref-registry' {
 @suite
 class ErrorTests {
   @test
-  public 'isRef tests'(): void {
+  public 'UnreachableError tests'(): void {
     expect(() => {
       throw new UnreachableError('' as never);
     }).to.throw('Reached code that should be unreachable');

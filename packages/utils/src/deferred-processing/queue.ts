@@ -5,7 +5,7 @@ interface EntityInfo<K extends string, T extends object> {
   processed: boolean;
 }
 
-export interface IRegistry<K extends string, T extends object> {
+export interface Queue<K extends string, T extends object> {
   queue(item: T): Ref<K>;
   numUnprocessed(): number;
   drain(cb: (ref: Ref<K>, item: T) => void): { processedCount: number };
@@ -15,7 +15,7 @@ export interface IRegistry<K extends string, T extends object> {
 export function createQueue<K extends RefTypes, T extends object>(
   k: K,
   idGenerator: (t: T) => string,
-): IRegistry<K, T> {
+): Queue<K, T> {
   const itemToRef = new Map<T, EntityInfo<K, T>>();
   return {
     queue(item: T): Ref<K> {
