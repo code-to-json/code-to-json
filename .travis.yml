@@ -44,19 +44,19 @@ jobs:
     - node_js: 8
     - name: 'typescript@~3.0'
       before_script:
-        - .travis/setup-typescript-version ~3.0
+        - .travis/setup-typescript-version.sh ~3.0
         - yarn build
     - name: 'typescript@~3.1'
       before_script:
-        - .travis/setup-typescript-version ~3.1
+        - .travis/setup-typescript-version.sh ~3.1
         - yarn build
     - name: 'typescript@latest'
       before_script:
-        - .travis/setup-typescript-version latest
+        - .travis/setup-typescript-version.sh latest
         - yarn build
     - name: 'typescript@next'
       before_script:
-        - .travis/setup-typescript-version next
+        - .travis/setup-typescript-version.sh next
         - yarn build
     - stage: 'Deploy'
       name: 'Publish to NPM'
