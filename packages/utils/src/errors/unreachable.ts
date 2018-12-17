@@ -1,4 +1,4 @@
-const BASE_MESSAGE = 'Reached a case that should be unreachable';
+const BASE_MESSAGE = 'Reached code that should be unreachable';
 
 /**
  * Build an error message string that starts with `BASE_MESSAGE`
