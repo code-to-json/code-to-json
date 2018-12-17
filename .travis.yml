@@ -19,19 +19,17 @@ jobs:
   fail_fast: true
   include:
     - stage: 'Basic Tests'
-      name: 'Conventional Commits'
-      script: commitlint-travis
-    - name: 'Lint'
+      name: 'Conventional Commits, Lint and Fixed Dependencies'
+      install:
+        - yarn install --non-interactive
+        - yarn add -WD codecov
       script:
+        - commitlint-travis
         - lerna run lint:js
         - lerna run lint:ts
         - lerna run lint:hbs
         - lerna run lint:md
-    - name: 'Fixed Dependencies'
-      install:
-        - yarn install --non-interactive
-        - yarn add -WD codecov
-      script: ./node_modules/.bin/lerna run test:coverage
+        - ./node_modules/.bin/lerna run test:coverage
       after_success:
         - ./node_modules/.bin/codecov
         - npm install -g codacy-coverage
