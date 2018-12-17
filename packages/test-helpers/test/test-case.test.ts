@@ -6,13 +6,13 @@ import { createTempFixtureFolder } from '../src/file-fixtures';
 import { setupTestCase } from '../src/index';
 
 export const TEST_CASES_FOLDER_PATH = path.join(__dirname, '..', 'test-cases');
-
+const SIMPLE_VARIABLES_TEST_CASE_NAME = 'simple-variables';
 @suite
 export class TestCaseCreation {
   @test
   public async 'Create a new test case folder from a template'(): Promise<void> {
     const { rootPath, cleanup } = await createTempFixtureFolder(
-      path.join(TEST_CASES_FOLDER_PATH, 'simple-variables')
+      path.join(TEST_CASES_FOLDER_PATH, SIMPLE_VARIABLES_TEST_CASE_NAME),
     );
     expect(rootPath).to.be.a('string');
     expect(cleanup).to.be.a('function');
@@ -24,8 +24,8 @@ export class TestCaseCreation {
   @test
   public async 'Create a new test case from a template on disk'(): Promise<void> {
     const { rootPath, program, cleanup } = await setupTestCase(
-      path.join(TEST_CASES_FOLDER_PATH, 'simple-variables'),
-      ['src/index.ts']
+      path.join(TEST_CASES_FOLDER_PATH, SIMPLE_VARIABLES_TEST_CASE_NAME),
+      ['src/index.ts'],
     );
     expect(rootPath).to.be.a('string');
     expect(cleanup).to.be.a('function');
@@ -71,10 +71,10 @@ export class TestCaseCreation {
           * This is a variable with an implicit type
           */
          const constWithImplicitType = 'foo';
-         `
-        }
+         `,
+        },
       },
-      ['src/index.ts']
+      ['src/index.ts'],
     );
     expect(rootPath).to.be.a('string');
     expect(cleanup).to.be.a('function');
@@ -91,8 +91,8 @@ export class TestCaseCreation {
 
   @test
   public async 'Test case actually exists on disk, and is a folder'(): Promise<void> {
-    const { rootPath, cleanup } = await createTempFixtureFolder(
-      path.join(TEST_CASES_FOLDER_PATH, 'simple-variables')
+    const { rootPath } = await createTempFixtureFolder(
+      path.join(TEST_CASES_FOLDER_PATH, SIMPLE_VARIABLES_TEST_CASE_NAME),
     );
     expect(fs.existsSync(rootPath), 'exists').to.equal(true);
     expect(fs.statSync(rootPath).isDirectory(), 'is a directory').to.equal(true);
@@ -101,7 +101,7 @@ export class TestCaseCreation {
   @test
   public async 'Cleanup function removes test case from disk'(): Promise<void> {
     const { rootPath, cleanup } = await createTempFixtureFolder(
-      path.join(TEST_CASES_FOLDER_PATH, 'simple-variables')
+      path.join(TEST_CASES_FOLDER_PATH, SIMPLE_VARIABLES_TEST_CASE_NAME),
     );
     expect(fs.existsSync(rootPath), 'exists').to.equal(true);
     cleanup();
