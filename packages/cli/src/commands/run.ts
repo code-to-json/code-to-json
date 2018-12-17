@@ -131,14 +131,14 @@ export default async function run(
   options: { [k: string]: any },
   rawEntries?: string[],
 ): Promise<void> {
-  const { project, out = 'out.json' } = options;
+  const { project, out = 'out' } = options;
   let program!: Program;
   if (typeof project === 'string') {
     program = await createProgramFromTsConfig(project);
   } else if (!project && rawEntries && rawEntries.length > 0) {
     program = await createProgramFromEntries(rawEntries);
   } else {
-    throw new InvalidArgumentsError('Either --program <path> or entries glob(s) must be defined');
+    throw new InvalidArgumentsError('Either --project <path> or entries glob(s) must be defined');
   }
   const walkResult = walkProgram(program);
   const formattedResult = formatWalkerOutput(walkResult);

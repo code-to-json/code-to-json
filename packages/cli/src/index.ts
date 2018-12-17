@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 const start = process.hrtime();
 
 import chalk from 'chalk';
@@ -15,17 +16,9 @@ process.title = 'code-to-json';
 
 export const debugLog = debug('code-to-json:cli');
 
-export async function runCli({
-  args,
-  err,
-  exit,
-}: {
-  err: (str: string) => void;
-  out: (str: string) => void;
-  args: string[];
-  exit: (code: number) => void;
-}): Promise<void> {
-  return new Promise((resolve, _reject) => {
+export async function runCli({ args }: { args: string[] }): Promise<void> {
+  return new Promise((resolve, reject) => {
+    debugLog('about to kick of CLI parsing');
     let actionInvoked = false;
 
     const prog = commander
@@ -36,7 +29,7 @@ export async function runCli({
       .option('-o,--out <path>', 'output path')
       .action((entries: string[] | undefined, _command: commander.Command) => {
         actionInvoked = true;
-        setTimeout(() => {
+        setTimeout(async () => {
           const opts = _command.opts();
           const { project } = opts;
           const startupElapsed = process.hrtime(start);
@@ -53,7 +46,7 @@ export async function runCli({
           );
           const beginTime = process.hrtime();
           try {
-            run({ ...opts, project }, entries).then(() => {
+            await run({ ...opts, project }, entries).then(() => {
               const timeElapsed = process.hrtime(beginTime);
               debugLog(
                 `${chalk.yellow(
@@ -69,9 +62,10 @@ export async function runCli({
             });
           } catch (er) {
             if (er.__invalid_arguments_error) {
-              err(chalk.red(`\n[ERROR] - ${er.message}\n`));
-              err(`${prog.help()}\n`);
-              exit(1);
+              debugLog('completing due to invalid arguments');
+              console.error(chalk.red(`\n[ERROR] - ${er.message}\n`));
+              console.error(`${prog.help()}\n`);
+              reject(new Error('invalid arguments'));
             } else {
               throw er;
             }
@@ -80,12 +74,13 @@ export async function runCli({
         }, 0);
       })
       .parse(args);
+    debugLog('command parsed');
 
     if (!actionInvoked) {
       setTimeout(() => {
-        err(`${prog.help()}\n`);
-        resolve();
-        exit(1);
+        debugLog('completing due to no action being invoked');
+        console.error(`${prog.help()}\n`);
+        reject(new Error('No action'));
       }, 0);
     }
   });

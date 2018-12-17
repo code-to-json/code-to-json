@@ -10,17 +10,14 @@
   var importLocal = require('import-local');
 
   if (!importLocal(__filename)) {
-    require('../lib/src/index.js').runCli({
-      args: process.argv,
-      err(s) {
-        process.stderr.write(s);
-      },
-      out(s) {
-        process.stdout.write(s);
-      },
-      exit(n) {
-        process.exit(n);
-      },
-    });
+    require('../lib/src/index.js')
+      .runCli({
+        args: process.argv,
+      })
+      .catch(err => {
+        // eslint-disable-next-line no-console
+        console.error(`Deliberately exiting due to ${err}`);
+        process.exit(1);
+      });
   }
 })();

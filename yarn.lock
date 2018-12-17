@@ -3419,6 +3419,11 @@ he@1.1.1:
   resolved "https://registry.yarnpkg.com/he/-/he-1.1.1.tgz#93410fd21b009735151f8868c2f271f3427e23fd"
   integrity sha1-k0EP0hsAlzUVH4howvJx80J+I/0=
 
+hook-std@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/hook-std/-/hook-std-1.2.0.tgz#b37d533ea5f40068fe368cb4d022ee1992588c27"
+  integrity sha512-yntre2dbOAjgQ5yoRykyON0D9T96BfshR8IuiL/r3celeHD8I/76w4qo8m3z99houR4Z678jakV3uXrQdSvW/w==
+
 hosted-git-info@^2.1.4, hosted-git-info@^2.5.0, hosted-git-info@^2.6.0:
   version "2.7.1"
   resolved "https://registry.yarnpkg.com/hosted-git-info/-/hosted-git-info-2.7.1.tgz#97f236977bd6e125408930ff6de3eec6281ec047"
