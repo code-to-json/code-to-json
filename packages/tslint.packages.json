@@ -8,7 +8,8 @@
     "trailing-comma": true,
     "object-literal-sort-keys": false,
     "no-debugger": false,
-    "no-bitwise": false
+    "no-bitwise": false,
+    "no-console": false
   },
   "rules": {
     "quotemark": false,
@@ -20,7 +21,8 @@
     "no-debugger": false,
     "typedef": [true, "call-signature"],
     "prefer-immediate-return": false,
-    "no-bitwise": false
+    "no-bitwise": false,
+    "no-console": false
   },
   "rulesDirectory": []
 }
