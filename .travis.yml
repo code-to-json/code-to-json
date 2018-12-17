@@ -43,21 +43,21 @@ jobs:
     - node_js: 10
     - node_js: 8
     - name: 'typescript@~3.0'
-      after_install:
-        - lerna add typescript@~3.0 --scope=@code-to-json/core --scope=@code-to-json/utils-ts --scope=@code-to-json/utils-ts --scope=@code-to-json/test-helpers
-        - lerna add -D typescript@~3.0 --scope=@code-to-json/utils --scope=@code-to-json/cli --scope=@code-to-json/schema --scope=@code-to-json/formatter
+      before_script:
+        - .travis/setup-typescript-version ~3.0
+        - yarn build
     - name: 'typescript@~3.1'
-      after_install:
-        - lerna add typescript@~3.1 --scope=@code-to-json/core --scope=@code-to-json/utils-ts --scope=@code-to-json/utils-ts --scope=@code-to-json/test-helpers
-        - lerna add -D typescript@~3.1 --scope=@code-to-json/utils --scope=@code-to-json/cli --scope=@code-to-json/schema --scope=@code-to-json/formatter
+      before_script:
+        - .travis/setup-typescript-version ~3.1
+        - yarn build
     - name: 'typescript@latest'
-      after_install:
-        - lerna add typescript@latest --scope=@code-to-json/core --scope=@code-to-json/utils-ts --scope=@code-to-json/utils-ts --scope=@code-to-json/test-helpers
-        - lerna add -D typescript@latest --scope=@code-to-json/utils --scope=@code-to-json/cli --scope=@code-to-json/schema --scope=@code-to-json/formatter
+      before_script:
+        - .travis/setup-typescript-version latest
+        - yarn build
     - name: 'typescript@next'
-      after_install:
-        - lerna add typescript@next --scope=@code-to-json/core --scope=@code-to-json/utils-ts --scope=@code-to-json/utils-ts --scope=@code-to-json/test-helpers
-        - lerna add -D typescript@next --scope=@code-to-json/utils --scope=@code-to-json/cli --scope=@code-to-json/schema --scope=@code-to-json/formatter
+      before_script:
+        - .travis/setup-typescript-version next
+        - yarn build
     - stage: 'Deploy'
       name: 'Publish to NPM'
       script: .travis/_publish.sh
