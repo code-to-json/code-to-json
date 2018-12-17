@@ -25,7 +25,7 @@ export async function runCli({
   args: string[];
   exit: (code: number) => void;
 }): Promise<void> {
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve, _reject) => {
     let actionInvoked = false;
 
     const prog = commander
@@ -67,13 +67,13 @@ export async function runCli({
 `,
               );
             });
-          } catch (err) {
-            if (err.__invalid_arguments_error) {
-              err(chalk.red(`\n[ERROR] - ${err.message}\n`));
+          } catch (er) {
+            if (er.__invalid_arguments_error) {
+              err(chalk.red(`\n[ERROR] - ${er.message}\n`));
               err(`${prog.help()}\n`);
               exit(1);
             } else {
-              throw err;
+              throw er;
             }
           }
           resolve();

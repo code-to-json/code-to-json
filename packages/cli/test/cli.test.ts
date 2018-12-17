@@ -29,5 +29,8 @@ class CliTests {
     });
     await timeout(200);
     expect(true).to.eql(true);
+    expect(outArgs).to.eql([]);
+    expect(errArgs).to.eql([]);
+    expect(exitArgs).to.eql([]);
   }
 }
