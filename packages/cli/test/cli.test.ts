@@ -48,7 +48,7 @@ class CliTests {
       runCli()
         .stderr.toString()
         .trim(),
-    ).contains('[ERROR] - Either --program <path> or entries glob(s) must be defined');
+    ).contains('[ERROR] - Either --project <path> or entries glob(s) must be defined');
   }
 
   @test
