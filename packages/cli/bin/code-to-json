@@ -1,7 +1,26 @@
 #!/usr/bin/env node
-// tslint:disable no-var-requires no-var-keyword
-var importLocal = require('import-local');
+// tslint:disable
+/* eslint-disable global-require, no-var */
+/* eslint-env node */
 
-if (!importLocal(__filename)) {
-  require('../lib/src/index.js').runCli();
-}
+// tslint:disable-next-line:typedef
+(function runCodeToJson() {
+  'use strict';
+
+  var importLocal = require('import-local');
+
+  if (!importLocal(__filename)) {
+    require('../lib/src/index.js').runCli({
+      args: process.argv,
+      err(s) {
+        process.stderr.write(s);
+      },
+      out(s) {
+        process.stdout.write(s);
+      },
+      exit(n) {
+        process.exit(n);
+      },
+    });
+  }
+})();
