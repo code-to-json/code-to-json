@@ -56,9 +56,7 @@ class CliTests {
     const testCase = await setupTestCase(SAMPLE_PROJECT_CODE, ['src/index.ts']);
     const { rootPath, cleanup } = testCase;
     expect(rootPath).to.have.length.greaterThan(5);
-    const runResult = runCli(['--project', rootPath, '--out', path.join(rootPath, 'out')]);
-    expect(runResult.stderr.toString().trim()).to.eql('');
-    expect(runResult.stdout.toString().trim()).to.eql('');
+    runCli(['--project', rootPath, '--out', path.join(rootPath, 'out')]);
     expect(fs.statSync(path.join(rootPath, 'out')).isDirectory()).to.eq(
       true,
       'output subdirectory exists',
@@ -78,9 +76,7 @@ class CliTests {
     const testCase = await setupTestCase(SAMPLE_PROJECT_CODE, ['src/index.ts']);
     const { rootPath, cleanup } = testCase;
     expect(rootPath).to.have.length.greaterThan(5);
-    const runResult = runCli(['--out', path.join(rootPath, 'out'), path.join(rootPath, 'src/*')]);
-    expect(runResult.stderr.toString().trim()).to.eql('');
-    expect(runResult.stdout.toString().trim()).to.eql('');
+    runCli(['--out', path.join(rootPath, 'out'), path.join(rootPath, 'src/*')]);
     expect(fs.statSync(path.join(rootPath, 'out')).isDirectory()).to.eq(
       true,
       'output subdirectory exists',
