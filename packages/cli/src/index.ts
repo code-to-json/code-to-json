@@ -17,7 +17,7 @@ process.title = 'code-to-json';
 export const debugLog = debug('code-to-json:cli');
 
 export async function runCli({ args }: { args: string[] }): Promise<void> {
-  return new Promise((resolve, reject) => {
+  return new Promise<void>((resolve, reject) => {
     debugLog('about to kick of CLI parsing');
     let actionInvoked = false;
 
