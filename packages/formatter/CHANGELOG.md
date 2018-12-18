@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 0.5.15 (2018-12-18)
+
+**Note:** Version bump only for package @code-to-json/formatter
+
+
+
+
+
 ## 0.5.14 (2018-12-17)
 
 **Note:** Version bump only for package @code-to-json/formatter
