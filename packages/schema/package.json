@@ -1,6 +1,6 @@
 {
   "name": "@code-to-json/schema",
-  "version": "0.1.20",
+  "version": "0.1.21",
   "description": "",
   "main": "lib/src/index.js",
   "typings": "lib/src/index.d.ts",
@@ -23,7 +23,7 @@
   "homepage": "https://github.com/mike-north/code-to-json/tree/master/packages/schema",
   "keywords": [],
   "devDependencies": {
-    "@code-to-json/test-helpers": "^0.1.20",
+    "@code-to-json/test-helpers": "^0.1.21",
     "@types/chai": "4.1.7",
     "@types/strip-json-comments": "0.0.30",
     "chai": "4.2.0",

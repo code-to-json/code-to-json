@@ -1,6 +1,6 @@
 {
   "name": "@code-to-json/formatter",
-  "version": "0.5.20",
+  "version": "0.5.21",
   "description": "",
   "main": "lib/src/index.js",
   "typings": "lib/src/index.d.ts",
@@ -23,7 +23,7 @@
   "homepage": "https://github.com/mike-north/code-to-json/tree/master/packages/formatter",
   "keywords": [],
   "devDependencies": {
-    "@code-to-json/test-helpers": "^0.1.20",
+    "@code-to-json/test-helpers": "^0.1.21",
     "@types/chai": "4.1.7",
     "chai": "4.2.0",
     "eslint": "5.10.0",
@@ -50,8 +50,8 @@
     "typescript-eslint-parser": "21.0.2"
   },
   "dependencies": {
-    "@code-to-json/core": "^0.6.20",
-    "@code-to-json/utils": "^0.5.20"
+    "@code-to-json/core": "^0.6.21",
+    "@code-to-json/utils": "^0.5.21"
   },
   "nyc": {
     "watermarks": {
