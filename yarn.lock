@@ -7188,14 +7188,14 @@ snap-shot-core@7.1.11:
     pluralize "7.0.0"
     ramda "0.26.1"
 
-snap-shot-it@6.2.7:
-  version "6.2.7"
-  resolved "https://registry.yarnpkg.com/snap-shot-it/-/snap-shot-it-6.2.7.tgz#76b1a73545f9456f4a95939cfe82494d233eeaa8"
-  integrity sha512-tqEs/1IG3N9w1ru0t9qIiSiHLKp+ixS/b64Mw3hFngbeT9C5cCxJjhSJ+kNoC0ICLS61NJ9mWIMRLHHtoUjf1A==
+snap-shot-it@6.2.8:
+  version "6.2.8"
+  resolved "https://registry.yarnpkg.com/snap-shot-it/-/snap-shot-it-6.2.8.tgz#10366b5a26afd167e8e2c54b893ef5abbf638978"
+  integrity sha512-VJkubD1CiX7/M63zyD0cBj7EzdtM2/pMeV2t8pKfGtc8Nxm+fxYPPul0BXDrp+fLG8/7igpGe9Cnd0cs67FTgw==
   dependencies:
     "@bahmutov/data-driven" "1.0.0"
     check-more-types "2.24.0"
-    debug "4.1.0"
+    debug "4.1.1"
     has-only "1.1.1"
     pluralize "7.0.0"
     ramda "0.26.1"
