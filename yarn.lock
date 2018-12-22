@@ -2183,6 +2183,13 @@ debug@4.1.0, debug@^4.0.1, debug@^4.1.0:
   dependencies:
     ms "^2.1.1"
 
+debug@4.1.1:
+  version "4.1.1"
+  resolved "https://registry.yarnpkg.com/debug/-/debug-4.1.1.tgz#3b72260255109c6b589cee050f1d516139664791"
+  integrity sha512-pYAIzeRo8J6KPEaJ0VWOh5Pzkbw/RetuzehGM7QRRX5he4fPHx2rdKMB256ehJCkX+XRQm16eZLqLNS8RSZXZw==
+  dependencies:
+    ms "^2.1.1"
+
 debug@^2.1.2, debug@^2.2.0, debug@^2.3.3, debug@^2.6.8, debug@^2.6.9:
   version "2.6.9"
   resolved "https://registry.yarnpkg.com/debug/-/debug-2.6.9.tgz#5d128515df134ff327e90a4c93f4e077a536341f"
@@ -7181,14 +7188,14 @@ snap-shot-core@7.1.11:
     pluralize "7.0.0"
     ramda "0.26.1"
 
-snap-shot-it@6.2.7:
-  version "6.2.7"
-  resolved "https://registry.yarnpkg.com/snap-shot-it/-/snap-shot-it-6.2.7.tgz#76b1a73545f9456f4a95939cfe82494d233eeaa8"
-  integrity sha512-tqEs/1IG3N9w1ru0t9qIiSiHLKp+ixS/b64Mw3hFngbeT9C5cCxJjhSJ+kNoC0ICLS61NJ9mWIMRLHHtoUjf1A==
+snap-shot-it@6.2.8:
+  version "6.2.8"
+  resolved "https://registry.yarnpkg.com/snap-shot-it/-/snap-shot-it-6.2.8.tgz#10366b5a26afd167e8e2c54b893ef5abbf638978"
+  integrity sha512-VJkubD1CiX7/M63zyD0cBj7EzdtM2/pMeV2t8pKfGtc8Nxm+fxYPPul0BXDrp+fLG8/7igpGe9Cnd0cs67FTgw==
   dependencies:
     "@bahmutov/data-driven" "1.0.0"
     check-more-types "2.24.0"
-    debug "4.1.0"
+    debug "4.1.1"
     has-only "1.1.1"
     pluralize "7.0.0"
     ramda "0.26.1"
