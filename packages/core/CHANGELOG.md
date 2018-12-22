@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 0.6.20 (2018-12-22)
+
+
+### Bug Fixes
+
+* **deps:** update dependency debug to v4.1.1 ([ae07596](https://github.com/mike-north/code-to-json/commit/ae07596))
+
+
+
+
+
 ## 0.6.19 (2018-12-21)
 
 **Note:** Version bump only for package @code-to-json/core
