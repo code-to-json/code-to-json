@@ -29,7 +29,7 @@
     "@code-to-json/test-helpers": "^0.1.21",
     "@types/chai": "4.1.7",
     "chai": "4.2.0",
-    "eslint": "5.10.0",
+    "eslint": "5.11.0",
     "eslint-config-airbnb-base": "13.1.0",
     "eslint-config-prettier": "3.3.0",
     "eslint-plugin-import": "2.14.0",
