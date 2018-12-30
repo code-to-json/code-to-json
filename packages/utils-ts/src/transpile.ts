@@ -31,7 +31,12 @@ import * as ts from 'typescript';
 //   }, 100);
 // }
 
-class TranspileOuptut {
+export interface TranspileOuptut {
+  program: ts.Program;
+  output: string;
+}
+
+class TranspileOuptutData implements TranspileOuptut {
   public program: ts.Program;
 
   private outputText: string = '';
@@ -87,16 +92,15 @@ function transpileModule(input: string, options: ts.CompilerOptions): TranspileO
     input,
     options.target || ts.ScriptTarget.ES5,
   );
-  return new TranspileOuptut(inputFileName, sourceFile, options);
+  return new TranspileOuptutData(inputFileName, sourceFile, options);
 }
 
-export default function stringToProgram(input: string): ts.Program {
-  const out = transpileModule(input, {
+export function transpileTsString(input: string): TranspileOuptut {
+  return transpileModule(input, {
     module: ts.ModuleKind.AMD,
     target: ts.ScriptTarget.ES5,
     noLib: true,
     noResolve: true,
     suppressOutputPathCheck: true,
   });
-  return out.program;
 }
