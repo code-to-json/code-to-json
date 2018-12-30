@@ -1,5 +1,5 @@
-export * from './node';
-export * from './guards';
-export * from './checks';
-export * from './underscore-escaped-map';
+export { mapChildren } from './node';
+export { isDeclaration, isNamedDeclaration, isNode, isSymbol, isType } from './guards';
+export { isDeclarationExported } from './checks';
+export { mapUem } from './underscore-escaped-map';
 export { transpileTsString } from './transpile';
