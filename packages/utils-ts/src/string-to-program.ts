@@ -33,7 +33,9 @@ import * as ts from 'typescript';
 
 class TranspileOuptut {
   public program: ts.Program;
+
   private outputText: string = '';
+
   constructor(inputFileName: string, sourceFile: ts.SourceFile, options: ts.CompilerOptions) {
     const self = this;
     this.program = ts.createProgram([inputFileName], options, {
@@ -72,6 +74,7 @@ class TranspileOuptut {
       },
     });
   }
+
   public get output(): string {
     return this.outputText;
   }
