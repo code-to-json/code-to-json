@@ -34,7 +34,7 @@ class PublicApiSurface {
 
   @test
   public 'no extra exports'(): void {
-    expect(Object.keys(Exported)).to.eql([
+    expect(Object.keys(Exported).sort()).to.eql([
       'isDeclaration',
       'isDeclarationExported',
       'isNamedDeclaration',
