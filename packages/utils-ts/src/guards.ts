@@ -11,7 +11,7 @@ import {
   Node,
   Symbol as Sym,
   SyntaxKind,
-  Type
+  Type,
 } from 'typescript';
 
 const DECLARATION_KINDS = [
@@ -48,7 +48,7 @@ const DECLARATION_KINDS = [
   SyntaxKind.VariableDeclaration,
   SyntaxKind.JSDocTypedefTag,
   SyntaxKind.JSDocCallbackTag,
-  SyntaxKind.JSDocPropertyTag
+  SyntaxKind.JSDocPropertyTag,
 ];
 
 /**
