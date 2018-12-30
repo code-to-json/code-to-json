@@ -1,40 +1,17 @@
-// tslint:disable typedef
 import * as ts from 'typescript';
-
-// tslint:disable-next-line:no-commented-code
-// let compilerTriggerTimeoutID = null;
-// function triggerCompile() {
-//   if (compilerTriggerTimeoutID !== null) {
-//     window.clearTimeout(compilerTriggerTimeoutID);
-//   }
-//   compilerTriggerTimeoutID = window.setTimeout(function() {
-//     try {
-//       if (!sampleLoaded || !editorLoaded) {
-//         console.log('not loaded');
-//       }
-//       if (typeof output === 'string') {
-//         const rhsModel = rhs.editor.getModel();
-//         // Save view state
-//         const viewState = rhs.editor.saveViewState();
-//         // Update content
-//         rhsModel.setValue(output);
-//         // Remove flicker: force tokenization
-//         rhsModel.getLineTokens(rhsModel.getLineCount());
-//         // Restore view state
-//         rhs.editor.restoreViewState(viewState);
-//         // Remove flicker: force rendering
-//         rhs.editor.getOffsetForColumn(1, 1);
-//       }
-//     } catch (e) {
-//       console.log('Error from compilation: ' + e + '  ' + (e.stack || ''));
-//     }
-//   }, 100);
-// }
 
 export interface TranspileOuptut {
   program: ts.Program;
   output: string;
 }
+
+const STD_COMPILER_OPTIONS: ts.CompilerOptions = {
+  module: ts.ModuleKind.CommonJS,
+  target: ts.ScriptTarget.ES5,
+  noLib: true,
+  noResolve: true,
+  suppressOutputPathCheck: true,
+};
 
 class TranspileOuptutData implements TranspileOuptut {
   public program: ts.Program;
@@ -44,37 +21,37 @@ class TranspileOuptutData implements TranspileOuptut {
   constructor(inputFileName: string, sourceFile: ts.SourceFile, options: ts.CompilerOptions) {
     const self = this;
     this.program = ts.createProgram([inputFileName], options, {
-      getSourceFile(fileName) {
+      getSourceFile(fileName): ts.SourceFile | undefined {
         return fileName.indexOf('module') === 0 ? sourceFile : undefined;
       },
-      writeFile(_name, text) {
+      writeFile(_name, text): void {
         self.outputText = text;
       },
-      getDefaultLibFileName() {
+      getDefaultLibFileName(): string {
         return 'lib.d.ts';
       },
-      useCaseSensitiveFileNames() {
+      useCaseSensitiveFileNames(): boolean {
         return false;
       },
-      getCanonicalFileName(fileName) {
+      getCanonicalFileName(fileName: string): string {
         return fileName;
       },
-      getCurrentDirectory() {
+      getCurrentDirectory(): string {
         return '';
       },
-      getNewLine() {
+      getNewLine(): string {
         return '\r\n';
       },
-      fileExists(fileName) {
+      fileExists(fileName): boolean {
         return fileName === inputFileName;
       },
-      readFile() {
+      readFile(): string {
         return '';
       },
-      directoryExists() {
+      directoryExists(): boolean {
         return true;
       },
-      getDirectories() {
+      getDirectories(): string[] {
         return [];
       },
     });
@@ -96,11 +73,5 @@ function transpileModule(input: string, options: ts.CompilerOptions): TranspileO
 }
 
 export function transpileTsString(input: string): TranspileOuptut {
-  return transpileModule(input, {
-    module: ts.ModuleKind.AMD,
-    target: ts.ScriptTarget.ES5,
-    noLib: true,
-    noResolve: true,
-    suppressOutputPathCheck: true,
-  });
+  return transpileModule(input, STD_COMPILER_OPTIONS);
 }
