@@ -33,9 +33,9 @@ jobs:
         - lerna run lint:md
         - ./node_modules/.bin/lerna run test:coverage
       after_success:
-        - ./node_modules/.bin/codecov
-        - npm install -g codacy-coverage
-        - lerna run codacy:transmit-coverage
+        - test "$TRAVIS_BRANCH" = "master" && ./node_modules/.bin/codecov
+        - test "$TRAVIS_BRANCH" = "master" && npm install -g codacy-coverage
+        - test "$TRAVIS_BRANCH" = "master" && lerna run codacy:transmit-coverage
 
     - stage: 'Additional Tests'
       name: 'Floating Dependencies'

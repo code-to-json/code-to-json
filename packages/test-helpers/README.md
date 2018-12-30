@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.org/code-to-json/code-to-json.svg?branch=master)](https://travis-ci.org/code-to-json/code-to-json)
 [![Build Status](https://dev.azure.com/code-to-json/code-to-json/_apis/build/status/code-to-json.code-to-json)](https://dev.azure.com/code-to-json/code-to-json/_build/latest?definitionId=1)
 [![Version](https://img.shields.io/npm/v/@code-to-json/test-helpers.svg)](https://www.npmjs.com/package/@code-to-json/test-helpers)
-[![codecov](https://codecov.io/gh/code-to-json/code-to-json/branch/master/graph/badge.svg)](https://codecov.io/gh/code-to-json/code-to-json)
+[![codecov](https://codecov.io/gh/code-to-json/code-to-json/branch/master/graph/badge.svg)](https://codecov.io/gh/code-to-json/code-to-json/tree/master/packages/test-helpers/src)
 [![Total alerts](https://img.shields.io/lgtm/alerts/g/code-to-json/code-to-json.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/code-to-json/code-to-json/alerts/)
 
 This package contains a variety of test helpers, useful for testing tools built on top of the TypeScript compiler API in general, and [code-to-json](https://github.com/code-to-json/code-to-json) in particular
@@ -50,8 +50,8 @@ const { rootPath, cleanup } = await createTempFixtureFolder({
 * This is a variable with an explicit type
 */
 const constWithExplicitType: string = 'foo';
-`
-  }
+`,
+  },
 });
 
 cleanup(); // Completely delete the test case from disk
@@ -76,7 +76,7 @@ const program: ts.Program = await setupTestCase(
    * One or more entry points of your application. Any imports will be included
    * in the TS program as well
    */
-  ['src/index.ts']
+  ['src/index.ts'],
 );
 ```
 
