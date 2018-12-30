@@ -1,15 +1,19 @@
 import { expect } from 'chai';
 import { suite, test } from 'mocha-typescript';
 
-import {
+import * as Exported from '../src/index';
+
+const {
   isDeclaration,
   isDeclarationExported,
   isNamedDeclaration,
   isNode,
   isSymbol,
   isType,
+  mapChildren,
+  mapUem,
   transpileTsString,
-} from '../src/index';
+} = Exported;
 
 @suite
 class PublicApiSurface {
@@ -22,5 +26,24 @@ class PublicApiSurface {
     expect(isNode).to.be.a('function');
     expect(isSymbol).to.be.a('function');
     expect(isType).to.be.a('function');
+    expect(isSymbol).to.be.a('function');
+    expect(isType).to.be.a('function');
+    expect(mapChildren).to.be.a('function');
+    expect(mapUem).to.be.a('function');
+  }
+
+  @test
+  public 'no extra exports'(): void {
+    expect(Object.keys(Exported)).to.eql([
+      'isDeclaration',
+      'isDeclarationExported',
+      'isNamedDeclaration',
+      'isNode',
+      'isSymbol',
+      'isType',
+      'mapChildren',
+      'mapUem',
+      'transpileTsString',
+    ]);
   }
 }

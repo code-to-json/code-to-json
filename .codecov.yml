@@ -1,0 +1,46 @@
+ignore:
+  - 'samples'
+  - 'packages/code-to-json'
+  - 'packages/test-helpers/test-cases'
+
+coverage:
+  status:
+    project:
+      default: off
+      cli:
+        flags: cli
+      core:
+        flags: core
+      formatter:
+        flags: formatter
+      schema:
+        flags: schema
+      test-helpers:
+        flags: test-helpers
+      utils:
+        flags: utils
+      utils-ts:
+        flags: utils-ts
+
+flags:
+  cli:
+    paths:
+      - packages/cli/
+  core:
+    paths:
+      - packages/core/
+  formatter:
+    paths:
+      - packages/formatter/
+  schema:
+    paths:
+      - packages/schema
+  test-helpers:
+    paths:
+      - packages/test-helpers
+  utils:
+    paths:
+      - packages/utils
+  utils-ts:
+    paths:
+      - packages/utils-ts
