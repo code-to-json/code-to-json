@@ -33,6 +33,9 @@ jobs:
         - lerna run lint:md
         - ./node_modules/.bin/lerna run test:coverage
       after_success:
+        - echo "TRAVIS_BRANCH = $TRAVIS_BRANCH"
+        - echo "TRAVIS_PULL_REQUEST = $TRAVIS_PULL_REQUEST"
+        - echo "TRAVIS_PULL_REQUEST_BRANCH = $TRAVIS_PULL_REQUEST_BRANCH"
         - ./node_modules/.bin/codecov
         - npm install -g codacy-coverage
         - lerna run codacy:transmit-coverage

@@ -4,9 +4,11 @@ ignore:
   - 'packages/test-helpers/test-cases'
 
 coverage:
+  range: 60..80
+  round: down
+  precision: 2
   status:
     project:
-      default: off
       cli:
         flags: cli
       core:
@@ -25,22 +27,22 @@ coverage:
 flags:
   cli:
     paths:
-      - packages/cli/
+      - packages/cli/src/
   core:
     paths:
-      - packages/core/
+      - packages/core/src/
   formatter:
     paths:
-      - packages/formatter/
+      - packages/formatter/src/
   schema:
     paths:
-      - packages/schema
+      - packages/schema/src/
   test-helpers:
     paths:
-      - packages/test-helpers
+      - packages/test-helpers/src/
   utils:
     paths:
-      - packages/utils
+      - packages/utils/src/
   utils-ts:
     paths:
-      - packages/utils-ts
+      - packages/utils-ts/src/
