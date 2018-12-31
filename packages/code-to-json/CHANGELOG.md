@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 0.2.27 (2018-12-31)
+
+**Note:** Version bump only for package code-to-json
+
+
+
+
+
 ## 0.2.26 (2018-12-30)
 
 **Note:** Version bump only for package code-to-json
