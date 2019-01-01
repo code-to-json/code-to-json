@@ -12,7 +12,7 @@ import InvalidArgumentsError from '../invalid-arguments-error';
  * @param entries an array of entry globs
  */
 export default async function run(
-  options: { [k: string]: any } & { project: string },
+  options: { [k: string]: any } & { project?: string },
   entries?: string[],
 ): Promise<void>;
 export default async function run(options: { [k: string]: any }, entries: string[]): Promise<void>;
