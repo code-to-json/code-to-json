@@ -1,19 +1,12 @@
-import { setupTestCase } from '@code-to-json/test-helpers';
+// tslint:disable:no-duplicate-string
+
 import { expect } from 'chai';
-import { spawnSync, SpawnSyncReturns } from 'child_process';
 import * as commander from 'commander';
-import * as fs from 'fs';
-import { slow, suite, test } from 'mocha-typescript';
-import * as path from 'path';
+import { suite, test } from 'mocha-typescript';
 import { buildProgram, runAction, timeString } from '../src/cli';
 import InvalidArgumentsError from '../src/invalid-arguments-error';
 
-function runCli(args?: string[]): SpawnSyncReturns<Buffer> {
-  return spawnSync('./bin/code-to-json', args, { shell: true });
-}
-
 @suite
-@slow(2000)
 class CliUtilTests {
   @test
   public async 'program builds without error'(): Promise<void> {
@@ -88,36 +81,6 @@ Options:
     } catch (err) {
       expect(invocationCt).to.eq(1);
       expect(true).to.eql(true);
-    }
-  }
-
-  @test
-  public async 'runAction invalid arguments scenario'(): Promise<void> {
-    const cmd = commander.name('foo');
-    const logs: string[] = [];
-    function log(str: string) {
-      logs.push(str);
-    }
-    let invocationCt = 0;
-    const a = runAction(
-      cmd,
-      async () => {
-        invocationCt++;
-        throw new InvalidArgumentsError('foo');
-      },
-      log,
-    );
-    expect(!!a).to.eql(true, 'action is truthy');
-    try {
-      await a([], cmd);
-      expect(false).to.eql(true);
-    } catch (err) {
-      expect(invocationCt).to.eq(1);
-      if (err instanceof Error) {
-        expect(err.message).to.eql('invalid arguments');
-      } else {
-        expect(false).to.eql(true);
-      }
     }
   }
 }
