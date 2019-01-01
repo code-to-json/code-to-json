@@ -1,3 +1,4 @@
+import { UnreachableError } from '@code-to-json/utils';
 import * as ts from 'typescript';
 
 export interface TranspileOuptut {
@@ -10,6 +11,8 @@ const STD_COMPILER_OPTIONS: ts.CompilerOptions = {
   target: ts.ScriptTarget.ES5,
   noLib: true,
   noResolve: true,
+  checkJs: true,
+  allowJs: true,
   suppressOutputPathCheck: true,
 };
 
@@ -62,8 +65,12 @@ class TranspileOuptutData implements TranspileOuptut {
   }
 }
 
-function transpileModule(input: string, options: ts.CompilerOptions): TranspileOuptut {
-  const inputFileName = options.jsx ? 'module.tsx' : 'module.ts';
+function transpileModule(
+  input: string,
+  inputFileName: string,
+  scriptKind: ts.ScriptKind,
+  options: ts.CompilerOptions,
+): TranspileOuptut {
   const sourceFile = ts.createSourceFile(
     inputFileName,
     input,
@@ -72,6 +79,35 @@ function transpileModule(input: string, options: ts.CompilerOptions): TranspileO
   return new TranspileOuptutData(inputFileName, sourceFile, options);
 }
 
-export function transpileTsString(input: string): TranspileOuptut {
-  return transpileModule(input, STD_COMPILER_OPTIONS);
+function determineFileExtension(codeType: 'ts' | 'js'): string {
+  return codeType;
+}
+
+function determineScriptKind(codeType: 'ts' | 'js', options: ts.CompilerOptions): ts.ScriptKind {
+  const isJsx = !!options.jsx;
+  switch (codeType) {
+    case 'ts':
+      return isJsx ? ts.ScriptKind.TSX : ts.ScriptKind.TS;
+    case 'js':
+      return isJsx ? ts.ScriptKind.JSX : ts.ScriptKind.JS;
+    default:
+      throw new UnreachableError(codeType);
+  }
+}
+
+export type SupportedCompilerOptions = Pick<ts.CompilerOptions, 'target' | 'jsx' | 'module'>;
+
+export function transpileCodeString(
+  input: string,
+  codeType: 'ts' | 'js',
+  options: Partial<SupportedCompilerOptions> = {},
+): TranspileOuptut {
+  const opts: ts.CompilerOptions = { ...options, ...STD_COMPILER_OPTIONS };
+  const scriptKind: ts.ScriptKind = determineScriptKind(codeType, opts);
+  return transpileModule(
+    input,
+    `module.${determineFileExtension(codeType)}${opts.jsx ? 'x' : ''}`,
+    scriptKind,
+    opts,
+  );
 }

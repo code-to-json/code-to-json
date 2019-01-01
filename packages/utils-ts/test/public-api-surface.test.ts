@@ -12,7 +12,7 @@ const {
   isType,
   mapChildren,
   mapUem,
-  transpileTsString,
+  transpileCodeString,
 } = Exported;
 
 @suite
@@ -22,7 +22,7 @@ class PublicApiSurface {
     expect(isDeclaration).to.be.a('function');
     expect(isDeclarationExported).to.be.a('function');
     expect(isNamedDeclaration).to.be.a('function');
-    expect(transpileTsString).to.be.a('function');
+    expect(transpileCodeString).to.be.a('function');
     expect(isNode).to.be.a('function');
     expect(isSymbol).to.be.a('function');
     expect(isType).to.be.a('function');
@@ -43,7 +43,7 @@ class PublicApiSurface {
       'isType',
       'mapChildren',
       'mapUem',
-      'transpileTsString',
+      'transpileCodeString',
     ]);
   }
 }
