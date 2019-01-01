@@ -60,7 +60,11 @@ class CommandUtilsTests {
     const workspace = await makeWorkspace();
 
     const pth = tsConfigForPath(path.join(workspace.rootPath));
-    expect(pth).to.eql(path.join(workspace.rootPath, 'tsconfig.json'));
+    if (!pth) {
+      throw new Error('No path to tsconfig');
+    }
+    expect(pth).to.contain('tsconfig.json');
+    expect(fs.existsSync(pth)).to.equal(true);
     workspace.cleanup();
   }
 
