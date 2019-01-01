@@ -27,7 +27,7 @@
     "directory-tree": "mike-north/node-directory-tree#patch-1",
     "fs-extra": "^7.0.0",
     "node-cleanup": "^2.1.2",
-    "treeify": "^1.1.0",
+    "treeify": "mike-north/treeify#ts",
     "typescript": "^3.1.0"
   },
   "devDependencies": {
