@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 0.0.23 (2019-01-01)
+
+**Note:** Version bump only for package @code-to-json/utils-ts
+
+
+
+
+
 ## 0.0.22 (2018-12-31)
 
 **Note:** Version bump only for package @code-to-json/utils-ts
