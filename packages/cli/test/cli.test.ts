@@ -2,7 +2,7 @@ import { setupTestCase } from '@code-to-json/test-helpers';
 import { expect } from 'chai';
 import { spawnSync, SpawnSyncReturns } from 'child_process';
 import * as fs from 'fs';
-import { slow, suite, test, timeout as testTimeout } from 'mocha-typescript';
+import { slow, suite, test } from 'mocha-typescript';
 import * as path from 'path';
 
 function runCli(args?: string[]): SpawnSyncReturns<Buffer> {
