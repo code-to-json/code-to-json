@@ -25,7 +25,7 @@ class GenerateIdTests {
     const { program } = transpileCodeString(
       `
 export class Car {
-  public wheels: number = 4; 
+  public wheels: number = 4;
   constructor() {
     console.log('We are driving');
   }
