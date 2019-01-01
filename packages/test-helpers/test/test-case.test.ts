@@ -2,6 +2,7 @@ import { expect } from 'chai';
 import * as fs from 'fs';
 import { suite, test } from 'mocha-typescript';
 import * as path from 'path';
+import * as tmp from 'tmp';
 import { createTempFixtureFolder } from '../src/file-fixtures';
 import { setupTestCase } from '../src/index';
 
@@ -19,6 +20,29 @@ export class TestCaseCreation {
     expect(rootPath).length.to.be.greaterThan(0);
     expect(cleanup).to.be.an.instanceOf(Function);
     cleanup();
+  }
+
+  @test
+  public async 'Attempting to create a test case from a non-existent folder'(): Promise<void> {
+    const errors: Error[] = [];
+    await createTempFixtureFolder(path.join(TEST_CASES_FOLDER_PATH, 'foo-bar-baz')).catch(err => {
+      errors.push(err);
+    });
+    expect(errors.length).to.eq(1);
+    expect(errors[0].message).to.contain('does not exist');
+  }
+
+  @test
+  public async 'Attempting to create a test case from a non-folder (file)'(): Promise<void> {
+    const workspace = tmp.dirSync({ unsafeCleanup: true });
+    const filePath = path.join(workspace.name, 'file.txt');
+    fs.writeFileSync(filePath, 'hello world');
+    const errors: Error[] = [];
+    await createTempFixtureFolder(filePath).catch(err => {
+      errors.push(err);
+    });
+    expect(errors.length).to.eq(1);
+    workspace.removeCallback();
   }
 
   @test
