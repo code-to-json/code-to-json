@@ -2,7 +2,34 @@
   "settings": {
     "typescript.tsdk": "node_modules/typescript/lib",
     "prettier.eslintIntegration": true,
-    "eslint.validate": ["javascript", "typescript"]
+    "eslint.validate": ["javascript", "typescript"],
+
+    "files.exclude": {
+      "**/.git": true,
+      "**/.svn": true,
+      "**/.hg": true,
+      "**/CVS": true,
+      "**/.DS_Store": true,
+      "**/package-lock.json": true,
+      "**/.nyc_output": true,
+      "**/coverage": true,
+      "packages/**/*node_modules": true
+    },
+    "search.exclude": {
+      "**/node_modules": true,
+      "**/bower_components": true,
+      "**/lib": true
+    },
+    "files.watcherExclude": {
+      "**/.git/objects/**": true,
+      "**/.git/subtree-cache/**": true,
+      "**/node_modules/**": true,
+      "**/packages/*/lib/**": true
+    },
+    "tslint.autoFixOnSave": true,
+    "prettier.tslintIntegration": true,
+    "tslint.exclude": ["**/node_modules/**/*"],
+    "eslint.enable": true
   },
   "folders": [
     {

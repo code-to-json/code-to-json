@@ -11,7 +11,7 @@ const log = debug('code-to-json:generate-id');
  * @param str string to generate a hash from
  * @internal
  */
-function generateHash(str: string): string {
+export function generateHash(str: string): string {
   let hash = 0;
 
   for (let i = 0; i < str.length; i++) {
@@ -35,9 +35,8 @@ function generateHash(str: string): string {
  * @internal
  */
 export default function generateId(thing: Sym | Node | Type): string {
-  if (!thing) {
-    // eslint-disable-next-line no-debugger
-    debugger;
+  if (typeof thing === 'undefined' || thing === null) {
+    throw new Error('Cannot generate an ID for empty values');
   }
   if (isType(thing)) {
     // tslint:disable-next-line:no-useless-cast
