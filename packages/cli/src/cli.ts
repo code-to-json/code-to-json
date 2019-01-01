@@ -75,9 +75,8 @@ export function runCli({ args }: { args: string[] }): void {
     .action(
       runAction(
         prog,
-        (opts, project: string, entries: string[] | undefined) => {
-          return run({ ...opts, project }, entries);
-        },
+        (opts, project: string, entries: string[] | undefined) =>
+          run({ ...opts, project }, entries),
         debugLog,
       ),
     )
