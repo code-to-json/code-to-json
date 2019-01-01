@@ -75,6 +75,50 @@ exports.addToX = addToX;
   }
 
   @test
+  public 'simple valid jsx program'(): void {
+    const code = `export let x = <span>4</span>;`;
+    const out = transpileCodeString(code, 'js', { jsx: ts.JsxEmit.React });
+    const sourceFileNames = out.program.getSourceFiles().map(sf => sf.fileName);
+    expect(sourceFileNames.length).to.eql(1);
+    expect(sourceFileNames.join(',')).to.eql('module.jsx');
+
+    const firstFile = out.program.getSourceFiles()[0];
+    expect(firstFile.getText()).to.eql(code);
+
+    assertNumExports(out.program, firstFile, 1);
+
+    out.program.emit();
+    expect(out.output.replace(/\r\n/g, '\n')).to.eql(
+      `"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.x = React.createElement("span", null, "4");
+`,
+    );
+  }
+
+  @test
+  public 'simple valid tsx program'(): void {
+    const code = `export const x = <span>4</span>;`;
+    const out = transpileCodeString(code, 'ts', { jsx: ts.JsxEmit.React });
+    const sourceFileNames = out.program.getSourceFiles().map(sf => sf.fileName);
+    expect(sourceFileNames.length).to.eql(1);
+    expect(sourceFileNames.join(',')).to.eql('module.tsx');
+
+    const firstFile = out.program.getSourceFiles()[0];
+    expect(firstFile.getText()).to.eql(code);
+
+    assertNumExports(out.program, firstFile, 1);
+
+    out.program.emit();
+    expect(out.output.replace(/\r\n/g, '\n')).to.eql(
+      `"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.x = React.createElement("span", null, "4");
+`,
+    );
+  }
+
+  @test
   public 'simple invalid ts program'(): void {
     const code = `export let x: number = 4;
     x = false;`;
@@ -145,5 +189,69 @@ exports.x = 4;
 exports.x = false;
 `,
     );
+  }
+
+  @test
+  public 'simple invalid jsx program'(): void {
+    const code = `export let x = <span>4;
+    x = false;`;
+    const out = transpileCodeString(code, 'js', { jsx: ts.JsxEmit.React });
+    const sourceFileNames = out.program.getSourceFiles().map(sf => sf.fileName);
+    expect(sourceFileNames.length).to.eql(1, 'one source file');
+    expect(sourceFileNames.join(',')).to.eql('module.jsx');
+
+    const firstFile = out.program.getSourceFiles()[0];
+    expect(firstFile.getText()).to.eql(code);
+
+    assertNumExports(out.program, firstFile, 1);
+
+    expect(out.output).to.eql('', 'empty output before emit');
+    out.program.emit();
+
+    const syntacticErrors = out.program.getSyntacticDiagnostics(firstFile);
+    expect(syntacticErrors.length).to.eql(2, 'two syntactic errors');
+    expect(syntacticErrors[0].file.fileName).to.eql('module.jsx');
+    expect(syntacticErrors[0].start).to.eql(16);
+    expect(syntacticErrors[0].category).to.eql(ts.DiagnosticCategory.Error);
+    expect(syntacticErrors[0].messageText).to.eql(
+      "JSX element 'span' has no corresponding closing tag.",
+    );
+
+    expect(out.output.replace(/\r\n/g, '\n')).to.eql(`"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.x = React.createElement("span", null, "4; x = false;");
+`);
+  }
+
+  @test
+  public 'simple invalid tsx program'(): void {
+    const code = `export let x = <div>4;
+    x = false;`;
+    const out = transpileCodeString(code, 'ts', { jsx: ts.JsxEmit.React });
+    const sourceFileNames = out.program.getSourceFiles().map(sf => sf.fileName);
+    expect(sourceFileNames.length).to.eql(1, 'one source file');
+    expect(sourceFileNames.join(',')).to.eql('module.tsx');
+
+    const firstFile = out.program.getSourceFiles()[0];
+    expect(firstFile.getText()).to.eql(code);
+
+    assertNumExports(out.program, firstFile, 1);
+
+    expect(out.output).to.eql('', 'empty output before emit');
+    out.program.emit();
+
+    const syntacticErrors = out.program.getSyntacticDiagnostics(firstFile);
+    expect(syntacticErrors.length).to.eql(2, 'two syntactic errors');
+    expect(syntacticErrors[0].file.fileName).to.eql('module.tsx');
+    expect(syntacticErrors[0].start).to.eql(16);
+    expect(syntacticErrors[0].category).to.eql(ts.DiagnosticCategory.Error);
+    expect(syntacticErrors[0].messageText).to.eql(
+      "JSX element 'div' has no corresponding closing tag.",
+    );
+
+    expect(out.output.replace(/\r\n/g, '\n')).to.eql(`"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.x = React.createElement("div", null, "4; x = false;");
+`);
   }
 }
