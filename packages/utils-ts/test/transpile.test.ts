@@ -1,3 +1,5 @@
+// tslint:disable:no-duplicate-string
+
 import { expect } from 'chai';
 import { suite, test } from 'mocha-typescript';
 import * as ts from 'typescript';

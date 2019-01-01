@@ -14,7 +14,9 @@ import {
 @suite('Guard tests')
 class GuardTests {
   private sf!: ts.SourceFile;
+
   private sfSym!: ts.Symbol;
+
   private checker!: ts.TypeChecker;
 
   public before() {
