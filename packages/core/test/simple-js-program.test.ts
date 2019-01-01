@@ -3,28 +3,33 @@ import { expect } from 'chai';
 import { suite, test } from 'mocha-typescript';
 import * as path from 'path';
 import * as snapshot from 'snap-shot-it';
+import * as ts from 'typescript';
+import { transpileCodeString } from '../../utils-ts/lib/src';
+
+function getDeclarationFiles(sourceFiles: ReadonlyArray<ts.SourceFile>) {
+  const declarationFiles = sourceFiles.filter(sf => sf.isDeclarationFile);
+  const nonDeclarationFiles = sourceFiles.filter(sf => !sf.isDeclarationFile);
+  const tsLibs = declarationFiles.filter(
+    sf => sf.fileName.indexOf('node_modules/typescript/lib') > 0,
+  );
+  const tsLibNames = tsLibs.map(
+    sf =>
+      `${sf.fileName.substring(
+        sf.fileName.lastIndexOf('typescript/lib/') + 'typescript/lib/'.length,
+      )}`,
+  );
+  return { declarationFiles, nonDeclarationFiles, tsLibNames, tsLibs };
+}
 
 @suite
 class TypeScriptFixturePrograms {
   @test
-  // tslint:disable-next-line:typedef
-  public async 'creation of a simple JS program'() {
+  public async 'creation of a simple JS program from fixture files'(): Promise<void> {
     const { program } = await setupTestCase(
       path.join(__dirname, '..', '..', '..', 'samples', 'js-single-file'),
-      ['src/index.js']
+      ['src/index.js'],
     );
-    const sourceFiles = program.getSourceFiles();
-    const declarationFiles = sourceFiles.filter(sf => sf.isDeclarationFile);
-    const nonDeclarationFiles = sourceFiles.filter(sf => !sf.isDeclarationFile);
-    const tsLibs = declarationFiles.filter(
-      sf => sf.fileName.indexOf('node_modules/typescript/lib') > 0
-    );
-    const tsLibNames = tsLibs.map(
-      sf =>
-        `${sf.fileName.substring(
-          sf.fileName.lastIndexOf('typescript/lib/') + 'typescript/lib/'.length
-        )}`
-    );
+    const { tsLibNames, nonDeclarationFiles } = getDeclarationFiles(program.getSourceFiles());
 
     snapshot(tsLibNames);
 
@@ -33,5 +38,115 @@ class TypeScriptFixturePrograms {
     expect(nonDeclarationFiles[0].fileName)
       .to.contain('src')
       .to.contain('index.js');
+  }
+
+  @test
+  public async 'creation of a simple JS program from fixture object'(): Promise<void> {
+    const { program } = await setupTestCase(
+      {
+        'tsconfig.json': `{
+    "extends": "../tsconfig.json",
+    "compilerOptions": {
+      "experimentalDecorators": true,
+      "noEmit": true
+    },
+    "include": ["**/*.test.ts", "../src/**/*.ts"]
+  }
+`,
+        src: {
+          'index.js': `import { readdirSync } from 'fs';
+
+/**
+ * @module js-single-file
+ */
+
+/**
+ * Add two numbers
+ * @param {number} a
+ * @param {number} b
+ */
+export function add(a, b) {
+  return a + b;
+}
+
+export const SECRET_STRING = 'shhhhh!';
+
+/**
+ * A vehicle is a thing that goes places
+ */
+class Vehicle {
+  /**
+   * Create a new vehicle
+   * @param {number} numWheels Number of wheels
+   */
+  constructor(numWheels) {
+    this.numWheels = numWheels;
+  }
+  /**
+   * Drive the vehicle
+   * @returns {string}
+   */
+  drive() {
+    return \`Driving with all \${this.numWheels} wheels\`;
+  }
+}
+
+/**
+ * A car is a 4-wheeled vehicle
+ */
+export class Car extends Vehicle {
+  /**
+   * Create a new car
+   */
+  constructor() {
+    super(4);
+  }
+}
+
+/**
+ * A bike is a 2-wheeled vehicle
+ */
+export class Bike extends Vehicle {
+  constructor() {
+    super(2);
+  }
+}
+
+/**
+ * A Unicycle is a 1-wheeled vehicle
+ */
+export class Unicycle extends Vehicle {
+  constructor() {
+    super(1);
+  }
+}
+`,
+        },
+      },
+      ['src/index.js'],
+    );
+    const { tsLibNames, nonDeclarationFiles } = getDeclarationFiles(program.getSourceFiles());
+
+    snapshot(tsLibNames);
+
+    expect(nonDeclarationFiles).to.be.lengthOf(1);
+
+    expect(nonDeclarationFiles[0].fileName)
+      .to.contain('src')
+      .to.contain('index.js');
+  }
+
+  @test
+  public async 'creation of a simple TS program from string'(): Promise<void> {
+    const { program } = transpileCodeString("export const x: string = 'foo';", 'ts');
+    const { tsLibNames, nonDeclarationFiles } = getDeclarationFiles(program.getSourceFiles());
+
+    snapshot(tsLibNames);
+
+    expect(nonDeclarationFiles).to.be.lengthOf(1);
+
+    expect(nonDeclarationFiles[0].fileName)
+      .and.to.contain('module.ts')
+      .but.not.contain('src');
   }
 }
