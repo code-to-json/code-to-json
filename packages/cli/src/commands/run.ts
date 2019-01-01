@@ -15,7 +15,7 @@ import {
   sys,
 } from 'typescript';
 import { promisify } from 'util';
-import { debugLog } from '../index';
+import { debugLog } from '../cli';
 import InvalidArgumentsError from '../invalid-arguments-error';
 
 const DEFAULT_COMPILER_OPTIONS: CompilerOptions = {

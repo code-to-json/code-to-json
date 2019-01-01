@@ -19,6 +19,8 @@ module.exports = {
     'import/first': 'off',
     'import/no-extraneous-dependencies': 'off',
     'no-underscore-dangle': 'off',
+    'no-plusplus': 'off',
+    'import/prefer-default-export': 'off',
   },
   overrides: [
     {
