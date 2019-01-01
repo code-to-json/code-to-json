@@ -4,10 +4,7 @@ import * as treeify from 'treeify';
 
 type DirectoryTree = ReturnType<typeof dirTree>;
 
-export function dirTreeAsObject(
-  tree: DirectoryTree,
-  obj: treeify.TreeObject = {},
-): treeify.TreeObject {
+function dirTreeAsObject(tree: DirectoryTree, obj: treeify.TreeObject): treeify.TreeObject {
   const { type, name, children } = tree;
   switch (type) {
     case 'file':
@@ -33,7 +30,7 @@ export function dirTreeAsObject(
 function dirTreeAsString(tree: DirectoryTree): string {
   const { children } = tree;
   const obj: treeify.TreeObject = {};
-  if (!children) {
+  if (!children || children.length === 0) {
     return '(empty)';
   }
   children.forEach(ch => dirTreeAsObject(ch, obj));
