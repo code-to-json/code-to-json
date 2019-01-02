@@ -5,7 +5,7 @@ import {
   Symbol as Sym,
   SyntaxKind,
   TypeChecker,
-  UnderscoreEscapedMap
+  UnderscoreEscapedMap,
 } from 'typescript';
 import { flagsToString } from '../flags';
 import { ProcessingQueue } from '../processing-queue';
@@ -41,12 +41,26 @@ export interface SerializedSymbol extends SerializedEntity<'symbol'>, Partial<Ha
 function appendSymbolMap(
   uem: UnderscoreEscapedMap<Sym> | undefined,
   queue: ProcessingQueue,
-  checker: TypeChecker
+  checker: TypeChecker,
 ): SymbolRef[] | undefined {
   if (uem && uem.size > 0) {
     return mapUem(uem, (val: Sym) => queue.queue(val, 'symbol', checker)).filter(isRef);
   }
   return undefined;
+}
+
+function conditionallyAppendTransformed<H extends {}, B, A extends H[K], K extends keyof H>(
+  host: H,
+  property: B | undefined,
+  propertyName: K,
+  transform: (b: B) => A,
+  condition?: (prop: B) => prop is B,
+): void {
+  if (property && (condition ? condition(property) : true)) {
+    const x: Partial<Pick<H, K>> = {};
+    /* eslint-disable no-param-reassign */
+    host[propertyName] = transform(property);
+  }
 }
 
 /**
@@ -60,7 +74,7 @@ export default function serializeSymbol(
   symbol: Sym,
   checker: TypeChecker,
   ref: SymbolRef,
-  queue: ProcessingQueue
+  queue: ProcessingQueue,
 ): SerializedSymbol {
   const { exports, globalExports, members, flags, valueDeclaration } = symbol;
 
@@ -68,7 +82,7 @@ export default function serializeSymbol(
     id: refId(ref),
     entity: 'symbol',
     name: symbol.getName(),
-    flags: flagsToString(flags, 'symbol')
+    flags: flagsToString(flags, 'symbol'),
   };
 
   const typ = checker.getTypeOfSymbolAtLocation(symbol, valueDeclaration);
@@ -77,9 +91,15 @@ export default function serializeSymbol(
     return details;
   }
   details.type = queue.queue(typ, 'type', checker);
-  details.members = appendSymbolMap(members, queue, checker);
-  details.exports = appendSymbolMap(exports, queue, checker);
-  details.globalExports = appendSymbolMap(globalExports, queue, checker);
+  if (members) {
+    details.members = appendSymbolMap(members, queue, checker);
+  }
+  conditionallyAppendTransformed(details, exports, 'exports', exps =>
+    appendSymbolMap(exps, queue, checker),
+  );
+  conditionallyAppendTransformed(details, globalExports, 'globalExports', gexps =>
+    appendSymbolMap(gexps, queue, checker),
+  );
 
   const docComment = symbol.getDocumentationComment(checker);
   if (docComment.length > 0) {
@@ -91,8 +111,13 @@ export default function serializeSymbol(
     const sourceFile = valueDeclaration.getSourceFile();
     details.location = serializeLocation(sourceFile, pos, end);
     details.sourceFile = queue.queue(sourceFile, 'sourceFile', checker);
-    details.modifiers = modifiers && modifiers.map(m => SyntaxKind[m.kind]);
-    details.decorators = decorators && decorators.map(d => SyntaxKind[d.kind]);
+    conditionallyAppendTransformed(details, modifiers, 'modifiers', mods =>
+      mods.map(m => SyntaxKind[m.kind]),
+    );
+    conditionallyAppendTransformed(details, decorators, 'decorators', decs =>
+      decs.map(d => SyntaxKind[d.kind]),
+    );
+
     const constructorSignatures = valDeclType
       .getConstructSignatures()
       .map(s => serializeSignature(s, checker, queue));

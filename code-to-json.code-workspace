@@ -13,7 +13,8 @@
       "**/package-lock.json": true,
       "**/.nyc_output": true,
       "**/coverage": true,
-      "packages/**/*node_modules": true
+      "packages/**/*node_modules": true,
+      "**/packages/*/lib": true
     },
     "search.exclude": {
       "**/node_modules": true,

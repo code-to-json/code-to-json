@@ -28,7 +28,7 @@ export default function serializeSourceFile(
   sourceFile: SourceFile,
   checker: TypeChecker,
   ref: SourceFileRef,
-  _queue: ProcessingQueue
+  _queue: ProcessingQueue,
 ): SerializedSourceFile {
   const {
     fileName,
@@ -37,7 +37,7 @@ export default function serializeSourceFile(
     amdDependencies,
     referencedFiles: _referencedFiles,
     typeReferenceDirectives: _typeReferenceDirectives,
-    libReferenceDirectives: _libReferenceDirectives
+    libReferenceDirectives: _libReferenceDirectives,
     // statements: _statements
   } = sourceFile;
 
@@ -46,11 +46,13 @@ export default function serializeSourceFile(
   const basicInfo: SerializedSourceFile = {
     id: refId(ref),
     entity: 'sourceFile',
-    moduleName,
     fileName,
-    isDeclarationFile
+    isDeclarationFile,
     // statements
   };
+  if (typeof moduleName === 'string') {
+    basicInfo.moduleName = moduleName;
+  }
   if (amdDependencies && amdDependencies.length > 0) {
     basicInfo.amdDependencies = amdDependencies.map(serializeAmdDependency);
   }
