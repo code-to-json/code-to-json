@@ -56,6 +56,7 @@ function appendSymbolMap(
  * @param ref Reference to the symbol
  * @param queue Processing queue
  */
+// tslint:disable-next-line:cognitive-complexity
 export default function serializeSymbol(
   symbol: Sym,
   checker: TypeChecker,
