@@ -8,7 +8,7 @@ import serializeSourceFile from '../../src/serializers/source-file';
 import serializeSymbol from '../../src/serializers/symbol';
 import { setupScenario } from './helpers';
 
-@suite.only
+@suite
 class SourceFileSerializtionTests {
   @test
   public async 'single-function, no exports'(): Promise<void> {
@@ -73,15 +73,19 @@ console.log(x);`,
       q,
     );
 
-    expect(serializedFileSymbol).to.deep.eq({
-      entity: 'symbol',
-      exports: [['symbol', '01m4wm69lbfm']],
-      flags: 'ValueModule',
-      id: '01m4wmyyev72',
-      location: ['module.ts', 1, 1, 3, 15],
-      name: '"module"',
-      sourceFile: ['sourceFile', 'module.ts'],
-      type: ['type', '53'],
-    });
+    expect(serializedFileSymbol).to.have.property('entity', 'symbol');
+    expect(serializedFileSymbol)
+      .to.have.property('exports')
+      .deep.eq([['symbol', '01m4wm69lbfm']]);
+    expect(serializedFileSymbol).to.have.property('flags', 'ValueModule');
+    expect(serializedFileSymbol).to.have.property('id', '01m4wmyyev72');
+    expect(serializedFileSymbol)
+      .to.have.property('location')
+      .deep.eq(['module.ts', 1, 1, 3, 15]);
+    expect(serializedFileSymbol).to.have.property('name', '"module"');
+    expect(serializedFileSymbol)
+      .to.have.property('sourceFile')
+      .deep.eq(['sourceFile', 'module.ts']);
+    expect(serializedFileSymbol).to.haveOwnProperty('type');
   }
 }

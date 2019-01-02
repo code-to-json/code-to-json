@@ -97,10 +97,10 @@ export default function serializeSymbol(
     details.location = serializeLocation(sourceFile, pos, end);
     details.sourceFile = queue.queue(sourceFile, 'sourceFile', checker);
     if (modifiers) {
-      details.modifiers = modifiers && modifiers.map(m => SyntaxKind[m.kind]);
+      details.modifiers = modifiers.map(m => SyntaxKind[m.kind]);
     }
     if (decorators) {
-      details.decorators = decorators && decorators.map(d => SyntaxKind[d.kind]);
+      details.decorators = decorators.map(d => SyntaxKind[d.kind]);
     }
     const constructorSignatures = valDeclType
       .getConstructSignatures()
