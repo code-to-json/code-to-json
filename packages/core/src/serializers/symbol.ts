@@ -49,6 +49,20 @@ function appendSymbolMap(
   return undefined;
 }
 
+function conditionallyAppendTransformed<H extends {}, B, A extends H[K], K extends keyof H>(
+  host: H,
+  property: B | undefined,
+  propertyName: K,
+  transform: (b: B) => A,
+  condition?: (prop: B) => prop is B,
+): void {
+  if (property && (condition ? condition(property) : true)) {
+    const x: Partial<Pick<H, K>> = {};
+    /* eslint-disable no-param-reassign */
+    host[propertyName] = transform(property);
+  }
+}
+
 /**
  * Serialize a TS Symbol
  * @param symbol Symbol to serialize
@@ -56,7 +70,6 @@ function appendSymbolMap(
  * @param ref Reference to the symbol
  * @param queue Processing queue
  */
-// tslint:disable-next-line:cognitive-complexity
 export default function serializeSymbol(
   symbol: Sym,
   checker: TypeChecker,
@@ -81,10 +94,12 @@ export default function serializeSymbol(
   if (members) {
     details.members = appendSymbolMap(members, queue, checker);
   }
-  details.exports = appendSymbolMap(exports, queue, checker);
-  if (globalExports) {
-    details.globalExports = appendSymbolMap(globalExports, queue, checker);
-  }
+  conditionallyAppendTransformed(details, exports, 'exports', exps =>
+    appendSymbolMap(exps, queue, checker),
+  );
+  conditionallyAppendTransformed(details, globalExports, 'globalExports', gexps =>
+    appendSymbolMap(gexps, queue, checker),
+  );
 
   const docComment = symbol.getDocumentationComment(checker);
   if (docComment.length > 0) {
@@ -96,12 +111,13 @@ export default function serializeSymbol(
     const sourceFile = valueDeclaration.getSourceFile();
     details.location = serializeLocation(sourceFile, pos, end);
     details.sourceFile = queue.queue(sourceFile, 'sourceFile', checker);
-    if (modifiers) {
-      details.modifiers = modifiers.map(m => SyntaxKind[m.kind]);
-    }
-    if (decorators) {
-      details.decorators = decorators.map(d => SyntaxKind[d.kind]);
-    }
+    conditionallyAppendTransformed(details, modifiers, 'modifiers', mods =>
+      mods.map(m => SyntaxKind[m.kind]),
+    );
+    conditionallyAppendTransformed(details, decorators, 'decorators', decs =>
+      decs.map(d => SyntaxKind[d.kind]),
+    );
+
     const constructorSignatures = valDeclType
       .getConstructSignatures()
       .map(s => serializeSignature(s, checker, queue));
