@@ -4,5 +4,5 @@
     "experimentalDecorators": true,
     "noEmit": true
   },
-  "include": ["**/*.test.ts"]
+  "include": ["**/*.test.ts", "../src/**/*.ts"]
 }

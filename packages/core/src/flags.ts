@@ -23,6 +23,7 @@ interface FlagsMap {
  * Get a flag map object of a particular type
  * @param type type of flag map
  * @see flagsToString
+ * @internal
  */
 function getFlagMap<T extends keyof FlagsMap>(type: T): { [k: string]: any } {
   switch (type) {
@@ -48,6 +49,7 @@ function getFlagMap<T extends keyof FlagsMap>(type: T): { [k: string]: any } {
  * @param flags
  * @param flagMap
  * @author Kris Selden <https://github.com/krisselden>
+ * @internal
  */
 export function flagsToString<T extends keyof FlagsMap>(
   flags: FlagsMap[T],
@@ -80,8 +82,12 @@ export function flagsToString<T extends keyof FlagsMap>(
   }
   return flagNames;
 }
-
-function isObjectType(type: Type): type is ObjectType {
+/**
+ * Check whether a Type is an ObjectType
+ * @param type ts.Type
+ * @internal
+ */
+export function isObjectType(type: Type): type is ObjectType {
   // tslint:disable-next-line:no-bitwise
   return !!(type.flags & TypeFlags.Object);
 }
@@ -89,6 +95,7 @@ function isObjectType(type: Type): type is ObjectType {
 /**
  * Get the object flags from a type
  * @param type bitmask of object flags
+ * @internal
  */
 export function getObjectFlags(type: Type): ObjectFlags | undefined {
   // tslint:disable-next-line:no-bitwise
