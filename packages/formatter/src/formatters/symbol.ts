@@ -69,11 +69,11 @@ export default function formatSymbol(
     mem =>
       mem
         .map(m => {
-          const exp = resolveReference(wo, m);
-          if (!exp) {
+          const member = resolveReference(wo, m);
+          if (!member) {
             return undefined;
           }
-          return formatSymbol(wo, exp);
+          return formatSymbol(wo, member);
         })
         .filter(isObject),
     mem => !!(mem && mem.length > 0),
