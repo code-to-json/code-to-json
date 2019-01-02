@@ -1,4 +1,4 @@
-import { isRef, refId } from '@code-to-json/utils';
+import { conditionallyMergeTransformed, isRef, refId } from '@code-to-json/utils';
 import { mapUem } from '@code-to-json/utils-ts';
 import {
   displayPartsToString,
@@ -49,20 +49,6 @@ function appendSymbolMap(
   return undefined;
 }
 
-function conditionallyAppendTransformed<H extends {}, B, A extends H[K], K extends keyof H>(
-  host: H,
-  property: B | undefined,
-  propertyName: K,
-  transform: (b: B) => A,
-  condition?: (prop: B) => prop is B,
-): void {
-  if (property && (condition ? condition(property) : true)) {
-    const x: Partial<Pick<H, K>> = {};
-    /* eslint-disable no-param-reassign */
-    host[propertyName] = transform(property);
-  }
-}
-
 /**
  * Serialize a TS Symbol
  * @param symbol Symbol to serialize
@@ -94,10 +80,10 @@ export default function serializeSymbol(
   if (members) {
     details.members = appendSymbolMap(members, queue, checker);
   }
-  conditionallyAppendTransformed(details, exports, 'exports', exps =>
+  conditionallyMergeTransformed(details, exports, 'exports', exps =>
     appendSymbolMap(exps, queue, checker),
   );
-  conditionallyAppendTransformed(details, globalExports, 'globalExports', gexps =>
+  conditionallyMergeTransformed(details, globalExports, 'globalExports', gexps =>
     appendSymbolMap(gexps, queue, checker),
   );
 
@@ -111,10 +97,10 @@ export default function serializeSymbol(
     const sourceFile = valueDeclaration.getSourceFile();
     details.location = serializeLocation(sourceFile, pos, end);
     details.sourceFile = queue.queue(sourceFile, 'sourceFile', checker);
-    conditionallyAppendTransformed(details, modifiers, 'modifiers', mods =>
+    conditionallyMergeTransformed(details, modifiers, 'modifiers', mods =>
       mods.map(m => SyntaxKind[m.kind]),
     );
-    conditionallyAppendTransformed(details, decorators, 'decorators', decs =>
+    conditionallyMergeTransformed(details, decorators, 'decorators', decs =>
       decs.map(d => SyntaxKind[d.kind]),
     );
 

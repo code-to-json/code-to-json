@@ -1,4 +1,5 @@
 import { SerializedSymbol, WalkerOutputData } from '@code-to-json/core';
+import { conditionallyMergeTransformed } from '@code-to-json/utils';
 import resolveReference from '../resolve-reference';
 import formatFlags from './flags';
 import formatSignature, { FormattedSignature } from './signature';
@@ -34,37 +35,63 @@ export default function formatSymbol(
   } = symbol;
   const info: FormattedSymbol = {
     name: name || '(anonymous)',
-    flags: formatFlags(_rawFlags),
-    documentation,
     // jsDocTags
   };
-  if (exports && exports.length > 0) {
-    info.exports = exports
-      .map(e => {
-        const exp = resolveReference(wo, e);
-        if (!exp) {
-          return undefined;
-        }
-        return formatSymbol(wo, exp);
-      })
-      .filter(isObject);
-  }
-  if (members && members.length > 0) {
-    info.members = members
-      .map(m => {
-        const exp = resolveReference(wo, m);
-        if (!exp) {
-          return undefined;
-        }
-        return formatSymbol(wo, exp);
-      })
-      .filter(isObject);
-  }
-  if (callSignatures && callSignatures.length > 0) {
-    info.callSignatures = callSignatures.map(s => formatSignature(wo, s));
-  }
-  if (constructorSignatures && constructorSignatures.length > 0) {
-    info.constructorSignatures = constructorSignatures.map(s => formatSignature(wo, s));
-  }
+  conditionallyMergeTransformed(info, documentation, 'documentation', d => d);
+  conditionallyMergeTransformed(
+    info,
+    _rawFlags,
+    'flags',
+    f => formatFlags(f),
+    f => !!(f && f.length > 0),
+  );
+
+  conditionallyMergeTransformed(
+    info,
+    exports,
+    'exports',
+    ex =>
+      ex
+        .map(e => {
+          const exp = resolveReference(wo, e);
+          if (!exp) {
+            return undefined;
+          }
+          return formatSymbol(wo, exp);
+        })
+        .filter(isObject),
+    ex => !!(ex && ex.length > 0),
+  );
+  conditionallyMergeTransformed(
+    info,
+    members,
+    'members',
+    mem =>
+      mem
+        .map(m => {
+          const exp = resolveReference(wo, m);
+          if (!exp) {
+            return undefined;
+          }
+          return formatSymbol(wo, exp);
+        })
+        .filter(isObject),
+    mem => !!(mem && mem.length > 0),
+  );
+  conditionallyMergeTransformed(
+    info,
+    callSignatures,
+    'callSignatures',
+    cs => cs.map(s => formatSignature(wo, s)),
+    cs => cs && cs.length > 0,
+  );
+  conditionallyMergeTransformed(
+    info,
+    constructorSignatures,
+    'constructorSignatures',
+    cs => cs.map(s => formatSignature(wo, s)),
+    cs => cs && cs.length > 0,
+  );
+
   return info;
 }
