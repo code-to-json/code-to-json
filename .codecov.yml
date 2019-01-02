@@ -7,3 +7,43 @@ coverage:
   range: 60..80
   round: down
   precision: 2
+  status:
+    project:
+      default: off
+      core:
+        flags: core
+      cli:
+        flags: cli
+      utils:
+        flags: utils
+      formatter:
+        flags: formatter
+      schema:
+        flags: schema
+      utils_ts:
+        flags: utils_ts
+      test_helpers:
+        flags: test_helpers
+
+flags:
+  core:
+    paths:
+      - packages/core/
+  cli:
+    paths:
+      - packages/cli/
+  utils:
+    paths:
+      - packages/utils/
+  formatter:
+    paths:
+      - packages/formatter/
+  schema:
+    paths:
+      - packages/schema/
+  utils_ts:
+    paths:
+      - packages/utils-ts/
+  test_helpers:
+    paths:
+      - packages/test-helpers/
