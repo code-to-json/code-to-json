@@ -28,4 +28,4 @@ echo "git config --list"
 git config --list #debug
 
 echo "lerna publish"
-lerna publish
+lerna publish --yes
