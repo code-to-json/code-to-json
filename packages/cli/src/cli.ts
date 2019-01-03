@@ -5,7 +5,7 @@ import chalk from 'chalk';
 import * as commander from 'commander';
 import * as debug from 'debug';
 import * as leftpad from 'left-pad';
-import run from './commands/run';
+import generateJSON from './commands/generate-json';
 
 const NS_PER_SEC = 1e9;
 const PROGRAM_NAME = 'code-to-json';
@@ -76,7 +76,7 @@ export function runCli({ args }: { args: string[] }): void {
       runAction(
         prog,
         (opts, project: string, entries: string[] | undefined) =>
-          run({ ...opts, project }, entries),
+          generateJSON({ ...opts, project }, entries),
         debugLog,
       ),
     )

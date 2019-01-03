@@ -11,12 +11,12 @@ import InvalidArgumentsError from '../invalid-arguments-error';
  * @param options CLI options
  * @param entries an array of entry globs
  */
-export default async function run(
+export default async function generateJSON(
   options: { [k: string]: any } & { project?: string },
   entries?: string[],
 ): Promise<void>;
-export default async function run(options: { [k: string]: any }, entries: string[]): Promise<void>;
-export default async function run(
+export default async function generateJSON(options: { [k: string]: any }, entries: string[]): Promise<void>;
+export default async function generateJSON(
   options: { [k: string]: any },
   rawEntries?: string[],
 ): Promise<void> {

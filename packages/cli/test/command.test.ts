@@ -1,16 +1,9 @@
 // tslint:disable:no-duplicate-string
 import { createTempFixtureFolder, TestCaseFolder } from '@code-to-json/test-helpers';
 import { expect } from 'chai';
-import * as fs from 'fs';
 import { suite, test } from 'mocha-typescript';
 import * as path from 'path';
-import {
-  createProgramFromEntries,
-  createProgramFromTsConfig,
-  globsToPaths,
-  tsConfigForPath,
-} from '../src/command-utils';
-import run from '../src/commands/run';
+import generateJSONCommand from '../src/commands/generate-json';
 
 async function makeWorkspace(): Promise<TestCaseFolder> {
   const workspace = await createTempFixtureFolder({
@@ -36,7 +29,7 @@ class CommandTests {
   @test
   public async 'run command: --project'(): Promise<void> {
     const workspace = await makeWorkspace();
-    await run({ project: workspace.rootPath, out: workspace.rootPath });
+    await generateJSONCommand({ project: workspace.rootPath, out: workspace.rootPath });
     expect(workspace.toString()).to.eql(
       `├─ formatted.json
 ├─ raw.json
@@ -53,7 +46,7 @@ class CommandTests {
   @test
   public async 'run command: entries'(): Promise<void> {
     const workspace = await makeWorkspace();
-    await run({ out: path.join(workspace.rootPath, 'out') }, ['src/index.ts']);
+    await generateJSONCommand({ out: path.join(workspace.rootPath, 'out') }, ['src/index.ts']);
     expect(workspace.toString()).to.eql(
       `├─ out
 │  ├─ formatted.json
@@ -72,7 +65,7 @@ class CommandTests {
   public async 'run command: insufficient CLI args'(): Promise<void> {
     const workspace = await makeWorkspace();
     try {
-      await run({ out: path.join(workspace.rootPath, 'out') }).then(() => {
+      await generateJSONCommand({ out: path.join(workspace.rootPath, 'out') }).then(() => {
         expect(false).to.eql(true);
       });
     } catch (err) {
