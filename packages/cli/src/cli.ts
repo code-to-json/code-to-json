@@ -11,7 +11,7 @@ const NS_PER_SEC = 1e9;
 const PROGRAM_NAME = 'code-to-json';
 process.title = PROGRAM_NAME;
 
-export const debugLog = debug('code-to-json:cli');
+const debugLog = debug('code-to-json:cli');
 
 export function timeString(time: [number, number], message: string): string {
   const msg = `(${message})`;

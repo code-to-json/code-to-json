@@ -1,3 +1,4 @@
+import * as debug from 'debug';
 import * as fs from 'fs';
 import * as glob from 'glob';
 import * as path from 'path';
@@ -13,8 +14,10 @@ import {
   sys,
 } from 'typescript';
 import { promisify } from 'util';
-import { debugLog } from './cli';
+
 import InvalidArgumentsError from './invalid-arguments-error';
+
+const debugLog = debug('code-to-json:cli');
 
 const pGlob = promisify(glob);
 

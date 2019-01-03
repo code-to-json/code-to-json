@@ -15,7 +15,10 @@ export default async function generateJSON(
   options: { [k: string]: any } & { project?: string },
   entries?: string[],
 ): Promise<void>;
-export default async function generateJSON(options: { [k: string]: any }, entries: string[]): Promise<void>;
+export default async function generateJSON(
+  options: { [k: string]: any },
+  entries: string[],
+): Promise<void>;
 export default async function generateJSON(
   options: { [k: string]: any },
   rawEntries?: string[],
