@@ -27,5 +27,9 @@ npm whoami
 echo "git config --list"
 git config --list #debug
 
+yarn install --non-interactive
+lerna bootstrap
+yarn build
+
 echo "lerna publish"
 lerna publish --yes
