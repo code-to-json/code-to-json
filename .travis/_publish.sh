@@ -1,5 +1,5 @@
 #!/bin/bash
-
+npm install -g lerna
 echo "On master branch. Proceeding with publish"
 rm -rf .git
 git init
@@ -28,4 +28,4 @@ echo "git config --list"
 git config --list #debug
 
 echo "lerna publish"
-./node_modules/.bin/lerna publish
+lerna publish
