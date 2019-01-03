@@ -27,7 +27,5 @@ npm whoami
 echo "git config --list"
 git config --list #debug
 
-yarn build
-
 echo "lerna publish"
-./node_modules/.bin/lerna publish 
+./node_modules/.bin/lerna publish
