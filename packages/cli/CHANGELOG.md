@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.6.0](https://github.com/mike-north/code-to-json/compare/@code-to-json/cli@0.5.47...@code-to-json/cli@0.6.0) (2019-01-03)
+
+
+### Features
+
+* InvalidArgumentsError clearer messages ([92e1b73](https://github.com/mike-north/code-to-json/commit/92e1b73))
+* test change to publishing script ([70a246a](https://github.com/mike-north/code-to-json/commit/70a246a))
+
+
+
+
+
 ## 0.5.47 (2019-01-03)
 
 **Note:** Version bump only for package @code-to-json/cli
