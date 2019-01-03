@@ -1,9 +1,9 @@
 {
   "name": "@code-to-json/cli",
-  "version": "0.5.44",
+  "version": "0.5.45",
   "description": "",
-  "main": "lib/index.js",
-  "typings": "lib/index.d.ts",
+  "main": "lib/src/index.js",
+  "typings": "lib/src/index.d.ts",
   "license": "BSD-2-Clause",
   "author": "Mike North <michael.l.north@gmail.com> (https://mike.works)",
   "repository": "https://github.com/mike-north/code-to-json/",
@@ -12,9 +12,9 @@
     "code-to-json": "bin/code-to-json"
   },
   "dependencies": {
-    "@code-to-json/core": "^0.6.44",
-    "@code-to-json/formatter": "^0.5.44",
-    "@code-to-json/utils": "^0.5.44",
+    "@code-to-json/core": "^0.6.45",
+    "@code-to-json/formatter": "^0.5.45",
+    "@code-to-json/utils": "^0.5.45",
     "chalk": "^2.4.1",
     "commander": "^2.19.0",
     "debug": "^4.1.0",
@@ -38,7 +38,7 @@
   },
   "keywords": [],
   "devDependencies": {
-    "@code-to-json/test-helpers": "^0.1.44",
+    "@code-to-json/test-helpers": "^0.1.45",
     "@types/chai": "4.1.7",
     "@types/glob": "7.1.1",
     "chai": "4.2.0",
