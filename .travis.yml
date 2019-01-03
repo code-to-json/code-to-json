@@ -10,8 +10,8 @@ git:
   depth: 1
 
 stages:
-  - 'Basic Tests'
-  - 'Additional Tests'
+  # - 'Basic Tests'
+  # - 'Additional Tests'
   - name: 'Deploy'
     if: branch = master AND type = push
 
@@ -20,44 +20,44 @@ jobs:
   allow_failures:
     - name: 'typescript@next'
   include:
-    - stage: 'Basic Tests'
-      name: 'Conventional Commits, Lint and Fixed Dependencies'
-      install:
-        - yarn install --non-interactive
-        - yarn add -WD codecov
-      script:
-        - commitlint-travis
-        - lerna run lint:js
-        - lerna run lint:ts
-        - lerna run lint:hbs
-        - lerna run lint:md
-        - ./node_modules/.bin/lerna run test:coverage
-      after_success:
-        - test "$TRAVIS_BRANCH" = "master" && ./node_modules/.bin/codecov
-        - test "$TRAVIS_BRANCH" = "master" && npm install -g codacy-coverage
-        - test "$TRAVIS_BRANCH" = "master" && lerna run codacy:transmit-coverage
+    # - stage: 'Basic Tests'
+    #   name: 'Conventional Commits, Lint and Fixed Dependencies'
+    #   install:
+    #     - yarn install --non-interactive
+    #     - yarn add -WD codecov
+    #   script:
+    #     - commitlint-travis
+    #     - lerna run lint:js
+    #     - lerna run lint:ts
+    #     - lerna run lint:hbs
+    #     - lerna run lint:md
+    #     - ./node_modules/.bin/lerna run test:coverage
+    #   after_success:
+    #     - test "$TRAVIS_BRANCH" = "master" && ./node_modules/.bin/codecov
+    #     - test "$TRAVIS_BRANCH" = "master" && npm install -g codacy-coverage
+    #     - test "$TRAVIS_BRANCH" = "master" && lerna run codacy:transmit-coverage
 
-    - stage: 'Additional Tests'
-      name: 'Floating Dependencies'
-      script: ./node_modules/.bin/lerna run test
-    - node_js: 10
-    - node_js: 8
-    - name: 'typescript@~3.0'
-      before_script:
-        - .travis/setup-ts-version.sh ~3.0
-        - yarn build
-    - name: 'typescript@~3.1'
-      before_script:
-        - .travis/setup-ts-version.sh ~3.1
-        - yarn build
-    - name: 'typescript@latest'
-      before_script:
-        - .travis/setup-ts-version.sh latest
-        - yarn build
-    - name: 'typescript@next'
-      before_script:
-        - .travis/setup-ts-version.sh next
-        - yarn build
+    # - stage: 'Additional Tests'
+    #   name: 'Floating Dependencies'
+    #   script: ./node_modules/.bin/lerna run test
+    # - node_js: 10
+    # - node_js: 8
+    # - name: 'typescript@~3.0'
+    #   before_script:
+    #     - .travis/setup-ts-version.sh ~3.0
+    #     - yarn build
+    # - name: 'typescript@~3.1'
+    #   before_script:
+    #     - .travis/setup-ts-version.sh ~3.1
+    #     - yarn build
+    # - name: 'typescript@latest'
+    #   before_script:
+    #     - .travis/setup-ts-version.sh latest
+    #     - yarn build
+    # - name: 'typescript@next'
+    #   before_script:
+    #     - .travis/setup-ts-version.sh next
+    #     - yarn build
     - stage: 'Deploy'
       name: 'Publish to NPM'
       script: .travis/_publish.sh

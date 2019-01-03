@@ -16,6 +16,8 @@ git config --global user.name "Mike North"
 git config --global push.default simple
 echo "https://mike-north:${GH_TOKEN}@github.com/mike-north/code-to-json.git" > ~/.git-credentials
 git fetch --tags
+echo "GIT LOG"
+git log --oneline
 echo "LATEST GIT TAG"
 git describe --tags --abbrev=0
 echo "git config --list"
