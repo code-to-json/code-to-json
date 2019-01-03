@@ -15,6 +15,9 @@ git config --global user.email "michael.l.north@gmail.com"
 git config --global user.name "Mike North"
 git config --global push.default simple
 echo "https://mike-north:${GH_TOKEN}@github.com/mike-north/code-to-json.git" > ~/.git-credentials
+git fetch --tags
+echo "LATEST GIT TAG"
+git describe --tags --abbrev=0
 echo "git config --list"
 git config --list #debug
 yarn build
