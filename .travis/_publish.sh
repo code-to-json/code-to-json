@@ -7,7 +7,7 @@ echo "lerna publish"
 npm config set "//registry.npmjs.org/:_authToken=$NPM_TOKEN" -q
 echo "npm whoami"
 npm whoami
-git checkout "$TRAVIS_BRANCH"
+# git checkout "$TRAVIS_BRANCH"
 echo "git status"
 git status
 git config credential.helper store
