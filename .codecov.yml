@@ -28,22 +28,22 @@ coverage:
 flags:
   core:
     paths:
-      - packages/core/
+      - /home/travis/build/code-to-json/code-to-json/packages/core/
   cli:
     paths:
-      - packages/cli/
+      - /home/travis/build/code-to-json/code-to-json/packages/cli/
   utils:
     paths:
-      - packages/utils/
+      - /home/travis/build/code-to-json/code-to-json/packages/utils/
   formatter:
     paths:
-      - packages/formatter/
+      - /home/travis/build/code-to-json/code-to-json/packages/formatter/
   schema:
     paths:
-      - packages/schema/
+      - /home/travis/build/code-to-json/code-to-json/packages/schema/
   utils_ts:
     paths:
-      - packages/utils-ts/
+      - /home/travis/build/code-to-json/code-to-json/packages/utils-ts/
   test_helpers:
     paths:
-      - packages/test-helpers/
+      - /home/travis/build/code-to-json/code-to-json/packages/test-helpers/

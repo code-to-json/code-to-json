@@ -8,7 +8,13 @@
       "allowBranch": "master",
       "conventionalCommits": true,
       "message": "chore(release): publish new release [skip ci]",
-      "ignoreChanges": ["**/test/**", "*.md"]
+      "ignoreChanges": [
+        "**/__fixtures__/**",
+        "**/__snapshots__/**",
+        "**/__tests__/**",
+        "**/tests/**",
+        "**/*.md"
+      ]
     }
   }
 }
