@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.7.0](https://github.com/mike-north/code-to-json/compare/@code-to-json/cli@0.6.3...@code-to-json/cli@0.7.0) (2019-01-04)
+
+
+### Features
+
+* move InvalidArgumentsError to utils ([d58dd3f](https://github.com/mike-north/code-to-json/commit/d58dd3f))
+* move ts program factories to utils-ts ([c6debfb](https://github.com/mike-north/code-to-json/commit/c6debfb))
+* parameterize reference system over ref-registry ([7b6d54b](https://github.com/mike-north/code-to-json/commit/7b6d54b))
+
+
+
+
+
 ## [0.6.3](https://github.com/mike-north/code-to-json/compare/@code-to-json/cli@0.6.2...@code-to-json/cli@0.6.3) (2019-01-04)
 
 **Note:** Version bump only for package @code-to-json/cli

@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.6.0](https://github.com/mike-north/code-to-json/compare/@code-to-json/utils@0.5.49...@code-to-json/utils@0.6.0) (2019-01-04)
+
+
+### Features
+
+* move InvalidArgumentsError to utils ([d58dd3f](https://github.com/mike-north/code-to-json/commit/d58dd3f))
+* parameterize reference system over ref-registry ([7b6d54b](https://github.com/mike-north/code-to-json/commit/7b6d54b))
+
+
+
+
+
 ## [0.5.49](https://github.com/mike-north/code-to-json/compare/@code-to-json/utils@0.5.48...@code-to-json/utils@0.5.49) (2019-01-03)
 
 **Note:** Version bump only for package @code-to-json/utils
