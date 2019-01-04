@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.6.0](https://github.com/mike-north/code-to-json/compare/@code-to-json/formatter@0.5.49...@code-to-json/formatter@0.6.0) (2019-01-04)
+
+
+### Features
+
+* formatter tests ([5c950e7](https://github.com/mike-north/code-to-json/commit/5c950e7))
+
+
+
+
+
 ## [0.5.49](https://github.com/mike-north/code-to-json/compare/@code-to-json/formatter@0.5.48...@code-to-json/formatter@0.5.49) (2019-01-03)
 
 **Note:** Version bump only for package @code-to-json/formatter
