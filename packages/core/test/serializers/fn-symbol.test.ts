@@ -1,4 +1,4 @@
-import { createRef } from '@code-to-json/utils';
+import { Ref } from '@code-to-json/utils';
 import { createProgramFromCodeString } from '@code-to-json/utils-ts';
 import { expect } from 'chai';
 import { suite, test } from 'mocha-typescript';
@@ -8,10 +8,8 @@ import generateId from '../../src/processing-queue/generate-id';
 import { SourceFileRef } from '../../src/processing-queue/ref';
 import serializeSourceFile from '../../src/serializers/source-file';
 
-declare module '@code-to-json/utils/lib/src/deferred-processing/ref-registry' {
-  export default interface RefRegistry {
-    sourceFile: SourceFileRef;
-  }
+function createTestRef<T extends string>(type: T, id: string): Ref<T> {
+  return [type as any, id as any];
 }
 
 function setupScenario(code: string) {
@@ -42,7 +40,7 @@ class SymbolSerializtionTests {
     const [fnDecl] = fnSym.declarations;
     expect(fnDecl.getText()).to.eql('function add(a: number, b: number): number { return a + b; }');
 
-    const sfRef = createRef('sourceFile', generateId(sf));
+    const sfRef = createTestRef('sourceFile', generateId(sf));
     const serialized = serializeSourceFile(sf, checker, sfRef, q);
     expect(serialized).to.deep.eq({
       entity: 'sourceFile',
