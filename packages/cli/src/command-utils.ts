@@ -1,3 +1,4 @@
+import { InvalidArgumentsError } from '@code-to-json/utils';
 import * as debug from 'debug';
 import * as fs from 'fs';
 import * as glob from 'glob';
@@ -14,8 +15,6 @@ import {
   sys,
 } from 'typescript';
 import { promisify } from 'util';
-
-import InvalidArgumentsError from './invalid-arguments-error';
 
 const debugLog = debug('code-to-json:cli');
 
