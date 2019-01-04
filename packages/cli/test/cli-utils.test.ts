@@ -55,7 +55,14 @@ Options:
     expect(!!a).to.eql(true, 'action is truthy');
     await a([], cmd);
     expect(invocationCt).to.eq(1);
-    expect(logs.length).to.eq(1);
+    expect(
+      logs.map(s =>
+        s
+          .substr(s.indexOf('(') + 1)
+          .replace(')', '')
+          .trim(),
+      ),
+    ).to.deep.eq(['boot time', 'extraction time']);
   }
 
   @test
@@ -75,7 +82,7 @@ Options:
       log,
     );
     expect(!!a).to.eql(true, 'action is truthy');
-    expect(logs.length).to.eq(1);
+    expect(logs.map(s => s.substr(s.indexOf(')') + 1).trim())).to.deep.eq([]);
 
     try {
       await a([], cmd);
