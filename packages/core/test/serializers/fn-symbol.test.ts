@@ -5,7 +5,14 @@ import { suite, test } from 'mocha-typescript';
 import * as ts from 'typescript';
 import { create as createQueue } from '../../src/processing-queue';
 import generateId from '../../src/processing-queue/generate-id';
+import { SourceFileRef } from '../../src/processing-queue/ref';
 import serializeSourceFile from '../../src/serializers/source-file';
+
+declare module '@code-to-json/utils/lib/src/deferred-processing/ref-registry' {
+  export default interface RefRegistry {
+    sourceFile: SourceFileRef;
+  }
+}
 
 function setupScenario(code: string) {
   const workspace = createProgramFromCodeString(code, 'ts');
