@@ -1,6 +1,7 @@
 import {
   DeclarationRef,
   NodeRef,
+  RefRegistry,
   SerializedDeclaration,
   SerializedNode,
   SerializedSourceFile,
@@ -9,7 +10,7 @@ import {
   SourceFileRef,
   SymbolRef,
   TypeRef,
-  WalkerOutputData
+  WalkerOutputData,
 } from '@code-to-json/core';
 import { AnyRef, refId, refType, UnreachableError } from '@code-to-json/utils';
 
@@ -17,14 +18,14 @@ export default function resolveReference(wo: WalkerOutputData, ref: SymbolRef): 
 export default function resolveReference(wo: WalkerOutputData, ref: TypeRef): SerializedType;
 export default function resolveReference(
   wo: WalkerOutputData,
-  ref: DeclarationRef
+  ref: DeclarationRef,
 ): SerializedDeclaration;
 export default function resolveReference(wo: WalkerOutputData, ref: NodeRef): SerializedNode;
 export default function resolveReference(
   wo: WalkerOutputData,
-  ref: SourceFileRef
+  ref: SourceFileRef,
 ): SerializedSourceFile;
-export default function resolveReference(wo: WalkerOutputData, ref: AnyRef): any {
+export default function resolveReference(wo: WalkerOutputData, ref: AnyRef<RefRegistry>): any {
   const refTyp = refType(ref);
   const id = refId(ref);
   switch (refTyp) {

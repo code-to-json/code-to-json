@@ -1,9 +1,9 @@
 import { setupTestCase } from '@code-to-json/test-helpers';
+import { createProgramFromCodeString } from '@code-to-json/utils-ts';
 import { expect } from 'chai';
 import { suite, test } from 'mocha-typescript';
 import * as path from 'path';
 import * as snapshot from 'snap-shot-it';
-import { transpileCodeString } from '../../utils-ts/lib/src';
 import { getDeclarationFiles } from './test-helpers';
 
 @suite
@@ -123,7 +123,7 @@ export class Unicycle extends Vehicle {
 
   @test
   public async 'creation of a simple TS program from string'(): Promise<void> {
-    const { program } = transpileCodeString("export const x: string = 'foo';", 'ts');
+    const { program } = createProgramFromCodeString("export const x: string = 'foo';", 'ts');
     const { tsLibNames, nonDeclarationFiles } = getDeclarationFiles(program.getSourceFiles());
 
     snapshot(tsLibNames);

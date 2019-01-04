@@ -4,7 +4,6 @@ import { expect } from 'chai';
 import * as commander from 'commander';
 import { suite, test } from 'mocha-typescript';
 import { buildProgram, runAction, timeString } from '../src/cli';
-import InvalidArgumentsError from '../src/invalid-arguments-error';
 
 @suite
 class CliUtilTests {
@@ -56,6 +55,14 @@ Options:
     expect(!!a).to.eql(true, 'action is truthy');
     await a([], cmd);
     expect(invocationCt).to.eq(1);
+    expect(
+      logs.map(s =>
+        s
+          .substr(s.indexOf('(') + 1)
+          .replace(')', '')
+          .trim(),
+      ),
+    ).to.deep.eq(['boot time', 'extraction time']);
   }
 
   @test
@@ -75,6 +82,8 @@ Options:
       log,
     );
     expect(!!a).to.eql(true, 'action is truthy');
+    expect(logs.map(s => s.substr(s.indexOf(')') + 1).trim())).to.deep.eq([]);
+
     try {
       await a([], cmd);
       expect(false).to.eql(true);

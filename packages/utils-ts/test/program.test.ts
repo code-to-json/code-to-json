@@ -1,9 +1,22 @@
 // tslint:disable:no-duplicate-string
 
+import { createTempFixtureFolder, TestCaseFolder } from '@code-to-json/test-helpers';
+import { FileExistenceChecker, TextFileReader } from '@code-to-json/utils';
 import { expect } from 'chai';
+import { existsSync, readFileSync, statSync, unlinkSync, writeFileSync } from 'fs';
 import { suite, test } from 'mocha-typescript';
+import { join } from 'path';
 import * as ts from 'typescript';
-import { transpileCodeString } from '../src/index';
+import { createProgramFromCodeString, createProgramFromTsConfig } from '../src/index';
+
+const DEFAULT_TEXT_FILE_READER: TextFileReader = f => readFileSync(f).toString();
+const DEFAULT_FILE_EXISTENCE_CHECKER: FileExistenceChecker = f =>
+  existsSync(f) && statSync(f).isFile();
+
+const TEST_FILE_UTILS: [TextFileReader, FileExistenceChecker] = [
+  DEFAULT_TEXT_FILE_READER,
+  DEFAULT_FILE_EXISTENCE_CHECKER,
+];
 
 function assertNumExports(
   prog: ts.Program,
@@ -23,6 +36,25 @@ function assertNumExports(
   expect(exports.size).to.eql(n, message);
 }
 
+async function makeWorkspace(): Promise<TestCaseFolder> {
+  const workspace = await createTempFixtureFolder({
+    'tsconfig.json': JSON.stringify({
+      compilerOptions: {
+        allowJs: true,
+        checkJs: true,
+        target: 'ES2017',
+        noEmit: true,
+      },
+    }),
+    src: {
+      'index.ts': "const x: string = 'foo';",
+      'other.ts': "const y: string = 'bar';",
+      'more.js': "const z = 'baz';",
+    },
+  });
+  return workspace;
+}
+
 @suite('String to TypeScript program tests')
 class TranspileProgramTest {
   @test
@@ -30,7 +62,7 @@ class TranspileProgramTest {
     const code = `export let x: number = 4;
   
     export function addToX(y: number): number { return x + y; }`;
-    const out = transpileCodeString(code, 'ts');
+    const out = createProgramFromCodeString(code, 'ts');
     const sourceFileNames = out.program.getSourceFiles().map(sf => sf.fileName);
     expect(sourceFileNames.length).to.eql(1);
     expect(sourceFileNames.join(',')).to.eql('module.ts');
@@ -55,7 +87,7 @@ exports.addToX = addToX;
     const code = `export let x = 4;
   
     export function addToX(y) { return x + y; }`;
-    const out = transpileCodeString(code, 'js');
+    const out = createProgramFromCodeString(code, 'js');
     const sourceFileNames = out.program.getSourceFiles().map(sf => sf.fileName);
     expect(sourceFileNames.length).to.eql(1);
     expect(sourceFileNames.join(',')).to.eql('module.js');
@@ -79,7 +111,7 @@ exports.addToX = addToX;
   @test
   public 'simple valid jsx program'(): void {
     const code = `export let x = <span>4</span>;`;
-    const out = transpileCodeString(code, 'js', { jsx: ts.JsxEmit.React });
+    const out = createProgramFromCodeString(code, 'js', { jsx: ts.JsxEmit.React });
     const sourceFileNames = out.program.getSourceFiles().map(sf => sf.fileName);
     expect(sourceFileNames.length).to.eql(1);
     expect(sourceFileNames.join(',')).to.eql('module.jsx');
@@ -101,7 +133,7 @@ exports.x = React.createElement("span", null, "4");
   @test
   public 'simple valid tsx program'(): void {
     const code = `export const x = <span>4</span>;`;
-    const out = transpileCodeString(code, 'ts', { jsx: ts.JsxEmit.React });
+    const out = createProgramFromCodeString(code, 'ts', { jsx: ts.JsxEmit.React });
     const sourceFileNames = out.program.getSourceFiles().map(sf => sf.fileName);
     expect(sourceFileNames.length).to.eql(1);
     expect(sourceFileNames.join(',')).to.eql('module.tsx');
@@ -124,7 +156,7 @@ exports.x = React.createElement("span", null, "4");
   public 'simple invalid ts program'(): void {
     const code = `export let x: number = 4;
     x = false;`;
-    const out = transpileCodeString(code, 'ts');
+    const out = createProgramFromCodeString(code, 'ts');
     const sourceFileNames = out.program.getSourceFiles().map(sf => sf.fileName);
     expect(sourceFileNames.length).to.eql(1);
     expect(sourceFileNames.join(',')).to.eql('module.ts');
@@ -156,7 +188,7 @@ exports.x = false;
   public 'simple invalid js program'(): void {
     const code = `export let x: number = 4;
     x = false;`;
-    const out = transpileCodeString(code, 'js');
+    const out = createProgramFromCodeString(code, 'js');
     const sourceFileNames = out.program.getSourceFiles().map(sf => sf.fileName);
     expect(sourceFileNames.length).to.eql(1, 'one source file');
     expect(sourceFileNames.join(',')).to.eql('module.js');
@@ -197,7 +229,7 @@ exports.x = false;
   public 'simple invalid jsx program'(): void {
     const code = `export let x = <span>4;
     x = false;`;
-    const out = transpileCodeString(code, 'js', { jsx: ts.JsxEmit.React });
+    const out = createProgramFromCodeString(code, 'js', { jsx: ts.JsxEmit.React });
     const sourceFileNames = out.program.getSourceFiles().map(sf => sf.fileName);
     expect(sourceFileNames.length).to.eql(1, 'one source file');
     expect(sourceFileNames.join(',')).to.eql('module.jsx');
@@ -229,7 +261,7 @@ exports.x = React.createElement("span", null, "4; x = false;");
   public 'simple invalid tsx program'(): void {
     const code = `export let x = <div>4;
     x = false;`;
-    const out = transpileCodeString(code, 'ts', { jsx: ts.JsxEmit.React });
+    const out = createProgramFromCodeString(code, 'ts', { jsx: ts.JsxEmit.React });
     const sourceFileNames = out.program.getSourceFiles().map(sf => sf.fileName);
     expect(sourceFileNames.length).to.eql(1, 'one source file');
     expect(sourceFileNames.join(',')).to.eql('module.tsx');
@@ -255,5 +287,79 @@ exports.x = React.createElement("span", null, "4; x = false;");
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.x = React.createElement("div", null, "4; x = false;");
 `);
+  }
+
+  @test
+  public async 'createProgramFromTsConfig - simple case'(): Promise<void> {
+    const workspace = await makeWorkspace();
+
+    const prog = await createProgramFromTsConfig(workspace.rootPath, ...TEST_FILE_UTILS);
+    expect(!!prog).to.eql(true);
+    expect(prog.getSourceFiles().filter(sf => !sf.isDeclarationFile).length).to.eql(3);
+    expect(prog.getSourceFiles().length).to.be.greaterThan(3);
+    workspace.cleanup();
+  }
+
+  @test
+  public async 'createProgramFromTsConfig - missing config'(): Promise<void> {
+    const workspace = await makeWorkspace();
+    unlinkSync(join(workspace.rootPath, 'tsconfig.json'));
+
+    await createProgramFromTsConfig(workspace.rootPath, ...TEST_FILE_UTILS)
+      .then(() => {
+        expect(false).to.eql(true);
+      })
+      .catch((err: Error) => {
+        expect(err.message).to.contain('Could not find a tsconfig.json via path');
+      });
+    workspace.cleanup();
+  }
+
+  @test
+  public async 'createProgramFromTsConfig - invalid config (non-json)'(): Promise<void> {
+    const workspace = await makeWorkspace();
+    writeFileSync(join(workspace.rootPath, 'tsconfig.json'), '---');
+
+    await createProgramFromTsConfig(workspace.rootPath, ...TEST_FILE_UTILS)
+      .then(() => {
+        expect(false).to.eql(true);
+      })
+      .catch((err: Error) => {
+        expect(err.message).to.contain('TSConfig error');
+      });
+    workspace.cleanup();
+  }
+
+  @test
+  public async 'createProgramFromTsConfig - invalid config (invalid schema)'(): Promise<void> {
+    const workspace = await makeWorkspace();
+    writeFileSync(
+      join(workspace.rootPath, 'tsconfig.json'),
+      JSON.stringify({
+        compilerOptions: 'foo',
+      }),
+    );
+
+    await createProgramFromTsConfig(workspace.rootPath, ...TEST_FILE_UTILS)
+      .then(() => {
+        expect(false).to.eql(true);
+      })
+      .catch((err: Error) => {
+        expect(err.message).to.contain('Detected errors while parsing tsconfig file');
+      });
+    workspace.cleanup();
+  }
+
+  @test
+  public async tsConfigForPathTests(): Promise<void> {
+    const workspace = await makeWorkspace();
+
+    const pth = ts.findConfigFile(join(workspace.rootPath), DEFAULT_FILE_EXISTENCE_CHECKER);
+    if (!pth) {
+      throw new Error('No path to tsconfig');
+    }
+    expect(pth).to.contain('tsconfig.json');
+    expect(existsSync(pth)).to.equal(true);
+    workspace.cleanup();
   }
 }

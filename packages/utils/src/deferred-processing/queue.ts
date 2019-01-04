@@ -1,18 +1,18 @@
 import { createRef, Ref, RefTypes } from './ref';
 
-interface EntityInfo<K extends string, T extends object> {
+interface EntityInfo<K, T extends object> {
   ref: Ref<K>;
   processed: boolean;
 }
 
-export interface Queue<K extends string, T extends object> {
+export interface Queue<K, T extends object> {
   queue(item: T): Ref<K>;
   numUnprocessed(): number;
   drain(cb: (ref: Ref<K>, item: T) => void): { processedCount: number };
   drainUntilEmpty(cb: (ref: Ref<K>, item: T) => void): { processedCount: number };
 }
 
-export function createQueue<K extends RefTypes, T extends object>(
+export function createQueue<RefRegistry, K extends RefTypes<RefRegistry>, T extends object>(
   k: K,
   idGenerator: (t: T) => string,
 ): Queue<K, T> {
@@ -24,7 +24,7 @@ export function createQueue<K extends RefTypes, T extends object>(
         return existingInfo.ref;
       }
       const id = idGenerator(item);
-      const ref: Ref<K> = createRef(k, id);
+      const ref: Ref<K> = createRef<RefRegistry, K>(k, id);
       itemToRef.set(item, { ref, processed: false });
       return ref;
     },

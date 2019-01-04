@@ -1,7 +1,7 @@
+import { createProgramFromCodeString, mapUem } from '@code-to-json/utils-ts';
 import { expect } from 'chai';
 import { suite, test } from 'mocha-typescript';
 import * as ts from 'typescript';
-import { isDeclaration, mapUem, transpileCodeString } from '../../utils-ts/lib/src';
 import generateId from '../src/processing-queue/generate-id';
 import { getDeclarationFiles } from './test-helpers';
 
@@ -22,7 +22,7 @@ class GenerateIdTests {
   private varSym!: ts.Symbol;
 
   public before() {
-    const { program } = transpileCodeString(
+    const { program } = createProgramFromCodeString(
       `
 export class Car {
   public wheels: number = 4;

@@ -4,6 +4,7 @@ import { suite, test } from 'mocha-typescript';
 import * as ts from 'typescript';
 import { SymbolRef } from '../../src';
 import generateId from '../../src/processing-queue/generate-id';
+import { RefRegistry } from '../../src/processing-queue/ref';
 import serializeSourceFile from '../../src/serializers/source-file';
 import serializeSymbol from '../../src/serializers/symbol';
 import { setupScenario } from './helpers';
@@ -24,7 +25,7 @@ console.log(x);`,
     const [fnDecl] = fnSym.declarations;
     expect(fnDecl.getText()).to.eql('function add(a: number, b: number): number { return a + b; }');
 
-    const sfRef = createRef('sourceFile', generateId(sf));
+    const sfRef = createRef<RefRegistry, 'sourceFile'>('sourceFile', generateId(sf));
     const serialized = serializeSourceFile(sf, checker, sfRef, q);
     expect(serialized).to.deep.eq({
       entity: 'sourceFile',
@@ -48,7 +49,7 @@ console.log(x);`,
       'export function add(a: number, b: number): number { return a + b; }',
     );
 
-    const sfRef = createRef('sourceFile', generateId(sf));
+    const sfRef = createRef<RefRegistry, 'sourceFile'>('sourceFile', generateId(sf));
     const serialized = serializeSourceFile(sf, checker, sfRef, q);
     expect(serialized).to.deep.eq({
       entity: 'sourceFile',
@@ -67,7 +68,7 @@ console.log(x);`,
     const serializedFileSymbol = serializeSymbol(
       fileSymbol,
       checker,
-      createRef('symbol', generateId(fileSymbol)),
+      createRef<RefRegistry, 'symbol'>('symbol', generateId(fileSymbol)),
       q,
     );
 

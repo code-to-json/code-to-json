@@ -12,7 +12,9 @@ const {
   isType,
   mapChildren,
   mapUem,
-  transpileCodeString,
+  createProgramFromCodeString,
+  createProgramFromTsConfig,
+  createProgramFromEntries,
 } = Exported;
 
 @suite
@@ -22,7 +24,7 @@ class PublicApiSurface {
     expect(isDeclaration).to.be.a('function');
     expect(isDeclarationExported).to.be.a('function');
     expect(isNamedDeclaration).to.be.a('function');
-    expect(transpileCodeString).to.be.a('function');
+    expect(createProgramFromCodeString).to.be.a('function');
     expect(isNode).to.be.a('function');
     expect(isSymbol).to.be.a('function');
     expect(isType).to.be.a('function');
@@ -35,6 +37,9 @@ class PublicApiSurface {
   @test
   public 'no extra exports'(): void {
     expect(Object.keys(Exported).sort()).to.eql([
+      'createProgramFromCodeString',
+      'createProgramFromEntries',
+      'createProgramFromTsConfig',
       'isDeclaration',
       'isDeclarationExported',
       'isNamedDeclaration',
@@ -43,7 +48,6 @@ class PublicApiSurface {
       'isType',
       'mapChildren',
       'mapUem',
-      'transpileCodeString',
     ]);
   }
 }

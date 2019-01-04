@@ -10,12 +10,12 @@ export interface FormattedSourceFile extends Partial<FormattedSymbol> {
 
 export default function formatSourceFile(
   wo: WalkerOutputData,
-  sourceFile: Readonly<SerializedSourceFile>
+  sourceFile: Readonly<SerializedSourceFile>,
 ): FormattedSourceFile {
   const { fileName, isDeclarationFile, referencedFiles } = sourceFile;
   const info: FormattedSourceFile = {
     fileName: fileName || '(unknown)',
-    isDeclarationFile
+    isDeclarationFile,
   };
   if (referencedFiles && referencedFiles.length > 0) {
     info.referencedFiles = referencedFiles.map(f => f.name as string).filter(Boolean);

@@ -18,6 +18,7 @@ module.exports = {
     'import/export': 'off',
     'import/first': 'off',
     'import/no-extraneous-dependencies': 'off',
+    'import/default-export': 'off',
     'no-underscore-dangle': 'off',
     'no-plusplus': 'off',
   },

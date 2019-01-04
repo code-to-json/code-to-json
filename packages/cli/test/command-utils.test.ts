@@ -4,12 +4,8 @@ import { expect } from 'chai';
 import * as fs from 'fs';
 import { suite, test } from 'mocha-typescript';
 import * as path from 'path';
-import {
-  createProgramFromEntries,
-  createProgramFromTsConfig,
-  globsToPaths,
-  tsConfigForPath,
-} from '../src/command-utils';
+import { findConfigFile } from 'typescript';
+import { createProgramFromEntryGlobs, globsToPaths } from '../src/command-utils';
 
 async function makeWorkspace(): Promise<TestCaseFolder> {
   const workspace = await createTempFixtureFolder({
@@ -56,10 +52,13 @@ class CommandUtilsTests {
   }
 
   @test
-  public async tsConfigForPathTests(): Promise<void> {
+  public async tsConfigForEntryGlobsTest(): Promise<void> {
     const workspace = await makeWorkspace();
 
-    const pth = tsConfigForPath(path.join(workspace.rootPath));
+    const pth = findConfigFile(
+      path.join(workspace.rootPath),
+      f => fs.existsSync(f) && fs.statSync(f).isFile(),
+    );
     if (!pth) {
       throw new Error('No path to tsconfig');
     }
@@ -69,76 +68,15 @@ class CommandUtilsTests {
   }
 
   @test
-  public async 'createProgramFromTsConfig - simple case'(): Promise<void> {
-    const workspace = await makeWorkspace();
-
-    const prog = await createProgramFromTsConfig(workspace.rootPath);
-    expect(!!prog).to.eql(true);
-    expect(prog.getSourceFiles().filter(sf => !sf.isDeclarationFile).length).to.eql(3);
-    expect(prog.getSourceFiles().length).to.be.greaterThan(3);
-    workspace.cleanup();
-  }
-
-  @test
-  public async 'createProgramFromEntries - simple case'(): Promise<void> {
+  public async 'createProgramFromEntryGlobs - simple case'(): Promise<void> {
     const workspace = await makeWorkspace();
     const myGlob = path.join(workspace.rootPath, 'src', '*');
 
     const globs = await globsToPaths([myGlob]);
-    const prog = await createProgramFromEntries(globs);
+    const prog = await createProgramFromEntryGlobs(globs);
     expect(!!prog).to.eql(true);
     expect(prog.getSourceFiles().filter(sf => !sf.isDeclarationFile).length).to.eql(3);
     expect(prog.getSourceFiles().length).to.be.greaterThan(3);
-    workspace.cleanup();
-  }
-
-  @test
-  public async 'createProgramFromTsConfig - missing config'(): Promise<void> {
-    const workspace = await makeWorkspace();
-    fs.unlinkSync(path.join(workspace.rootPath, 'tsconfig.json'));
-
-    await createProgramFromTsConfig(workspace.rootPath)
-      .then(() => {
-        expect(false).to.eql(true);
-      })
-      .catch((err: Error) => {
-        expect(err.message).to.contain('TSConfig error');
-      });
-    workspace.cleanup();
-  }
-
-  @test
-  public async 'createProgramFromTsConfig - invalid config (non-json)'(): Promise<void> {
-    const workspace = await makeWorkspace();
-    fs.writeFileSync(path.join(workspace.rootPath, 'tsconfig.json'), '---');
-
-    await createProgramFromTsConfig(workspace.rootPath)
-      .then(() => {
-        expect(false).to.eql(true);
-      })
-      .catch((err: Error) => {
-        expect(err.message).to.contain('TSConfig error');
-      });
-    workspace.cleanup();
-  }
-
-  @test
-  public async 'createProgramFromTsConfig - invalid config (invalid schema)'(): Promise<void> {
-    const workspace = await makeWorkspace();
-    fs.writeFileSync(
-      path.join(workspace.rootPath, 'tsconfig.json'),
-      JSON.stringify({
-        compilerOptions: 'foo',
-      }),
-    );
-
-    await createProgramFromTsConfig(workspace.rootPath)
-      .then(() => {
-        expect(false).to.eql(true);
-      })
-      .catch((err: Error) => {
-        expect(err.message).to.contain('Detected errors while parsing tsconfig file');
-      });
     workspace.cleanup();
   }
 }

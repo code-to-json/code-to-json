@@ -1,5 +1,4 @@
 import { isArray } from '../array';
-import RefRegistry from './ref-registry';
 
 export interface RefId<S> {
   __do_not_use_this_refid: S;
@@ -11,15 +10,15 @@ export interface RefType<T> {
 /**
  * A reference to an entity in a registry
  */
-export type Ref<K extends string, S extends {} = string> = [RefType<K>, RefId<S>];
+export type Ref<K, S extends {} = string> = [RefType<K>, RefId<S>];
 
 /**
  * Get a reference type for a registry
  */
-export type RefFor<K extends keyof RefRegistry> = RefRegistry[K];
+export type RefFor<RefRegistry, K extends keyof RefRegistry> = RefRegistry[K];
 
-export type RefTypes = keyof RefRegistry;
-export type AnyRef = RefRegistry[RefTypes];
+export type RefTypes<RefRegistry> = keyof RefRegistry;
+export type AnyRef<RefRegistry> = RefRegistry[RefTypes<RefRegistry>];
 
 /**
  * Check to see whether a value is a reference
@@ -41,7 +40,10 @@ export function isRef<R extends Ref<any>>(thing?: R): thing is R {
  * @param id registry-unique of the reference
  * @returns the new reference
  */
-export function createRef<K extends RefTypes>(type: K, id: string): Ref<K> {
+export function createRef<RefRegistry, K extends RefTypes<RefRegistry>>(
+  type: K,
+  id: string,
+): Ref<K> {
   return [(type as any) as RefType<K>, id as any];
 }
 
