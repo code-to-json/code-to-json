@@ -32,6 +32,7 @@ jobs:
         - lerna run lint:hbs
         - lerna run lint:md
         - ./node_modules/.bin/lerna run test:coverage
+        - lerna exec "cat coverage/lcov.info"
       after_success:
         - test "$TRAVIS_BRANCH" = "master" && ./node_modules/.bin/codecov
         - test "$TRAVIS_BRANCH" = "master" && npm install -g codacy-coverage
