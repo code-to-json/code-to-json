@@ -3,7 +3,7 @@ import * as debug from 'debug';
 import { Declaration, Node, SourceFile, Symbol as Sym, Type, TypeChecker } from 'typescript';
 import { EntityMap } from '../types';
 import generateId from './generate-id';
-import { DeclarationRef, NodeRef, SourceFileRef, SymbolRef, TypeRef } from './ref';
+import { DeclarationRef, NodeRef, RefRegistry, SourceFileRef, SymbolRef, TypeRef } from './ref';
 
 export interface QueueSink<S, T, N, D, SF> {
   handleNode(ref: NodeRef, item: Node): N;
@@ -28,7 +28,7 @@ export interface ProcessingQueue {
     thing: E,
     refType: K,
     checker: TypeChecker,
-  ): RefFor<K> | undefined;
+  ): RefFor<RefRegistry, K> | undefined;
   drain<S, T, N, D, SF>(sink: Partial<QueueSink<S, N, T, D, SF>>): DrainOutput<S, N, T, D, SF>;
 }
 
@@ -37,11 +37,11 @@ export interface ProcessingQueue {
  */
 export function create(): ProcessingQueue {
   const registries = {
-    node: createQueue<'node', Node>('node', generateId),
-    symbol: createQueue<'symbol', Sym>('symbol', generateId),
-    type: createQueue<'type', Type>('type', generateId),
-    sourceFile: createQueue<'sourceFile', SourceFile>('sourceFile', generateId),
-    declaration: createQueue<'declaration', Declaration>('declaration', generateId),
+    node: createQueue<RefRegistry, 'node', Node>('node', generateId),
+    symbol: createQueue<RefRegistry, 'symbol', Sym>('symbol', generateId),
+    type: createQueue<RefRegistry, 'type', Type>('type', generateId),
+    sourceFile: createQueue<RefRegistry, 'sourceFile', SourceFile>('sourceFile', generateId),
+    declaration: createQueue<RefRegistry, 'declaration', Declaration>('declaration', generateId),
   };
 
   return {
@@ -49,7 +49,7 @@ export function create(): ProcessingQueue {
       thing: EntityMap[K],
       typ: K,
       _checker: TypeChecker,
-    ): RefFor<K> | undefined {
+    ): RefFor<RefRegistry, K> | undefined {
       const refType: keyof EntityMap = typ;
       switch (refType) {
         case 'declaration':

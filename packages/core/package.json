@@ -8,7 +8,7 @@
   "author": "Mike North <michael.l.north@gmail.com> (https://mike.works)",
   "scripts": {
     "lint": "yarn lint:ts && yarn lint:js && yarn lint:md",
-    "lint:ts": "tslint --project .",
+    "lint:ts": "tslint --project . && tslint --project test",
     "lint:js": "eslint . --ext js,ts",
     "lint:md": "./node_modules/.bin/remark .",
     "test": "mocha",

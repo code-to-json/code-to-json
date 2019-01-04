@@ -25,7 +25,7 @@
   },
   "scripts": {
     "lint": "yarn lint:ts && yarn lint:js && yarn lint:md",
-    "lint:ts": "tslint --project .",
+    "lint:ts": "tslint --project . && tslint --project test",
     "lint:js": "eslint . --ext js,ts",
     "lint:md": "remark .",
     "test": "mocha",

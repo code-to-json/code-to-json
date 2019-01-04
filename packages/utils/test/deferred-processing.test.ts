@@ -1,20 +1,16 @@
 import { expect } from 'chai';
 import { suite, test } from 'mocha-typescript';
-import { createRef } from '../src/deferred-processing/ref';
-import { createQueue, isRef, Queue } from '../src/index';
-
-declare module '../src/deferred-processing/ref-registry' {
-  export default interface RefRegistry {
-    foo: ['foo', string];
-  }
-}
+import { createQueue, Queue } from '../src/index';
 
 @suite
 class DeferredProcessingTests {
   public q!: Queue<'foo', { idd: string }>;
 
   public before() {
-    this.q = createQueue('foo', (val: { idd: string }) => `~~${val.idd}~~`);
+    this.q = createQueue<{ foo: any }, 'foo', { idd: string }>(
+      'foo',
+      (val: { idd: string }) => `~~${val.idd}~~`,
+    );
   }
 
   @test

@@ -10,7 +10,7 @@ export interface FormattedSignature {
 
 export default function formatSignature(
   wo: WalkerOutputData,
-  s: Readonly<SerializedSignature>
+  s: Readonly<SerializedSignature>,
 ): FormattedSignature {
   const { parameters, typeParameters, returnType } = s;
   const signatureInfo: FormattedSignature = {
@@ -22,9 +22,9 @@ export default function formatSignature(
         const typ = type && resolveReference(wo, type);
         return {
           name: sym.name,
-          type: typ && formatType(wo, typ)
+          type: typ && formatType(wo, typ),
         };
-      })
+      }),
   };
   if (returnType) {
     const typ = resolveReference(wo, returnType);

@@ -1,16 +1,13 @@
-import { Ref } from '@code-to-json/utils';
+import { createRef } from '@code-to-json/utils';
 import { createProgramFromCodeString } from '@code-to-json/utils-ts';
 import { expect } from 'chai';
 import { suite, test } from 'mocha-typescript';
 import * as ts from 'typescript';
+import { SourceFileRef } from '../../src';
 import { create as createQueue } from '../../src/processing-queue';
 import generateId from '../../src/processing-queue/generate-id';
-import { SourceFileRef } from '../../src/processing-queue/ref';
+import { RefRegistry } from '../../src/processing-queue/ref';
 import serializeSourceFile from '../../src/serializers/source-file';
-
-function createTestRef<T extends string>(type: T, id: string): Ref<T> {
-  return [type as any, id as any];
-}
 
 function setupScenario(code: string) {
   const workspace = createProgramFromCodeString(code, 'ts');
@@ -30,7 +27,7 @@ function setupScenario(code: string) {
 class SymbolSerializtionTests {
   @test
   public async 'Function signature'(): Promise<void> {
-    const { program, checker, sf, q } = setupScenario(
+    const { checker, sf, q } = setupScenario(
       'function add(a: number, b: number): number { return a + b; }',
     );
     const [fnSym] = checker.getSymbolsInScope(sf, ts.SymbolFlags.Function);
@@ -40,7 +37,7 @@ class SymbolSerializtionTests {
     const [fnDecl] = fnSym.declarations;
     expect(fnDecl.getText()).to.eql('function add(a: number, b: number): number { return a + b; }');
 
-    const sfRef = createTestRef('sourceFile', generateId(sf));
+    const sfRef: SourceFileRef = createRef<RefRegistry, 'sourceFile'>('sourceFile', generateId(sf));
     const serialized = serializeSourceFile(sf, checker, sfRef, q);
     expect(serialized).to.deep.eq({
       entity: 'sourceFile',
