@@ -1,10 +1,11 @@
 import { walkProgram } from '@code-to-json/core';
 import { formatWalkerOutput } from '@code-to-json/formatter';
+import { InvalidArgumentsError } from '@code-to-json/utils';
+import { createProgramFromTsConfig } from '@code-to-json/utils-ts';
 import * as fs from 'fs';
 import * as path from 'path';
 import { Program } from 'typescript';
-import { createProgramFromEntries, createProgramFromTsConfig } from '../command-utils';
-import InvalidArgumentsError from '../invalid-arguments-error';
+import { createProgramFromEntryGlobs } from '../command-utils';
 
 /**
  * Run the symbol walker to generate a JSON file based on some code
@@ -26,9 +27,13 @@ export default async function generateJSON(
   const { project, out = 'out' } = options;
   let program!: Program;
   if (typeof project === 'string') {
-    program = await createProgramFromTsConfig(project);
+    program = await createProgramFromTsConfig(
+      project,
+      f => fs.readFileSync(f).toString(),
+      f => fs.existsSync(f) && fs.statSync(f).isFile(),
+    );
   } else if (!project && rawEntries && rawEntries.length > 0) {
-    program = await createProgramFromEntries(rawEntries);
+    program = await createProgramFromEntryGlobs(rawEntries);
   } else {
     throw new InvalidArgumentsError('Either --project <path> or entries glob(s) must be defined');
   }

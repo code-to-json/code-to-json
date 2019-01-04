@@ -1,9 +1,9 @@
 /* eslint-disable import/prefer-default-export */
-import { transpileCodeString } from '@code-to-json/utils-ts';
-import { create as createQueue, ProcessingQueue } from '../../src/processing-queue';
+import { createProgramFromCodeString } from '@code-to-json/utils-ts';
+import { create as createQueue } from '../../src/processing-queue';
 
 export function setupScenario(code: string) {
-  const workspace = transpileCodeString(code, 'ts');
+  const workspace = createProgramFromCodeString(code, 'ts');
   const { program } = workspace;
   const [sf] = program.getSourceFiles().filter(f => !f.isDeclarationFile);
   if (!sf) {

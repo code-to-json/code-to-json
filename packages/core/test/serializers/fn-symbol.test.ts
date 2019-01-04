@@ -1,15 +1,14 @@
 import { createRef } from '@code-to-json/utils';
-import { transpileCodeString } from '@code-to-json/utils-ts';
+import { createProgramFromCodeString } from '@code-to-json/utils-ts';
 import { expect } from 'chai';
 import { suite, test } from 'mocha-typescript';
 import * as ts from 'typescript';
-import { create as createQueue, ProcessingQueue } from '../../src/processing-queue';
+import { create as createQueue } from '../../src/processing-queue';
 import generateId from '../../src/processing-queue/generate-id';
 import serializeSourceFile from '../../src/serializers/source-file';
-import serializeSymbol from '../../src/serializers/symbol';
 
 function setupScenario(code: string) {
-  const workspace = transpileCodeString(code, 'ts');
+  const workspace = createProgramFromCodeString(code, 'ts');
   const { program } = workspace;
   const [sf] = program.getSourceFiles().filter(f => !f.isDeclarationFile);
   if (!sf) {

@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import { suite, test } from 'mocha-typescript';
 import * as ts from 'typescript';
-import { isDeclarationExported, mapUem, transpileCodeString } from '../src/index';
+import { createProgramFromCodeString, isDeclarationExported, mapUem } from '../src/index';
 
 @suite('Checks tests')
 class ChecksTests {
@@ -15,7 +15,7 @@ class ChecksTests {
     const code = `export class Foo { bar: string; };
 let x: number = 4;
 function addToX(y: number): number { return x + y; }`;
-    const out = transpileCodeString(code, 'ts');
+    const out = createProgramFromCodeString(code, 'ts');
     const p = out.program;
     const sf = p.getSourceFile('module.ts');
     if (!sf) {

@@ -2,7 +2,7 @@
 import { expect } from 'chai';
 import { suite, test } from 'mocha-typescript';
 import * as ts from 'typescript';
-import { flagsToString, isObjectType } from '../src/flags';
+import { flagsToString } from '../src/flags';
 
 @suite
 class FlagsTests {
