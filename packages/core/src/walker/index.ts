@@ -12,7 +12,7 @@ import serializeNode, { SerializedNode } from '../serializers/node';
 import serializeSourceFile, { SerializedSourceFile } from '../serializers/source-file';
 import serializeSymbol, { SerializedSymbol } from '../serializers/symbol';
 import serializeType, { SerializedType } from '../serializers/type';
-import createWalkerOptions, { IWalkerOptionArgs } from './options';
+import createWalkerConfig, { WalkerOptions } from './options';
 
 export interface WalkerOutputData {
   symbol: { [k: string]: Readonly<SerializedSymbol> };
@@ -36,11 +36,8 @@ export interface WalkerOutput {
  * Walk a typescript program, using specified entry points, returning
  * JSON information describing the code
  */
-export function walkProgram(
-  program: Program,
-  options: Partial<IWalkerOptionArgs> = {},
-): WalkerOutput {
-  const opts = createWalkerOptions(options);
+export function walkProgram(program: Program, options: Partial<WalkerOptions> = {}): WalkerOutput {
+  const opts = createWalkerConfig(options);
   // Create the type-checker
   const checker = program.getTypeChecker();
 
