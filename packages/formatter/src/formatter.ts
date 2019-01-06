@@ -1,7 +1,7 @@
 import { WalkerOutput } from '@code-to-json/core';
 import formatSourceFile, { FormattedSourceFile } from './formatters/source-file';
 
-export interface FormattedOutput {
+export interface FormatterOutput {
   sourceFiles: FormattedSourceFile[];
 }
 
@@ -12,7 +12,7 @@ export interface FormatterOptions {}
 export function formatWalkerOutput(
   wo: WalkerOutput,
   _opts: Partial<FormatterOptions> = {},
-): FormattedOutput {
+): FormatterOutput {
   const {
     data: { sourceFile },
   } = wo;

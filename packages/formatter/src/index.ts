@@ -1,1 +1,1 @@
-export { FormattedOutput, FormatterOptions, formatWalkerOutput } from './formatter';
+export { FormatterOutput, FormatterOptions, formatWalkerOutput } from './formatter';

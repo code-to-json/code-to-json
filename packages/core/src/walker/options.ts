@@ -1,19 +1,19 @@
 import { UnreachableError } from '@code-to-json/utils';
 import { SourceFile } from 'typescript';
 
-export interface IWalkerOptionArgs {
+export interface WalkerOptions {
   includeDeclarations: 'all' | 'none';
 }
 
-const DEFAULT_WALKER_OPTIONS: IWalkerOptionArgs = {
+const DEFAULT_WALKER_OPTIONS: WalkerOptions = {
   includeDeclarations: 'none',
 };
 
-export interface WalkerOptions {
+export interface WalkerConfig {
   shouldIncludeSourceFile(sf: SourceFile): boolean;
 }
 
-export default function createWalkerOptions(rawOpts: Partial<IWalkerOptionArgs>): WalkerOptions {
+export default function createWalkerConfig(rawOpts: Partial<WalkerOptions>): WalkerConfig {
   const opts = Object.assign({}, DEFAULT_WALKER_OPTIONS, rawOpts);
 
   return {
