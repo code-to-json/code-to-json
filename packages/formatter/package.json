@@ -1,6 +1,6 @@
 {
   "name": "@code-to-json/formatter",
-  "version": "0.7.0",
+  "version": "0.8.0",
   "description": "",
   "main": "lib/src/index.js",
   "typings": "lib/src/index.d.ts",
@@ -50,7 +50,7 @@
     "typescript-eslint-parser": "21.0.2"
   },
   "dependencies": {
-    "@code-to-json/core": "^0.7.0",
+    "@code-to-json/core": "^0.8.0",
     "@code-to-json/utils": "^0.6.0"
   },
   "nyc": {

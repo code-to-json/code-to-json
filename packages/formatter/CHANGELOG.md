@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.8.0](https://github.com/mike-north/code-to-json/compare/@code-to-json/formatter@0.7.0...@code-to-json/formatter@0.8.0) (2019-01-06)
+
+
+### Features
+
+* **formatter:** export options and return types ([9ba3c6f](https://github.com/mike-north/code-to-json/commit/9ba3c6f))
+* expose walker options interface ([c8b881b](https://github.com/mike-north/code-to-json/commit/c8b881b))
+
+
+
+
+
 # [0.7.0](https://github.com/mike-north/code-to-json/compare/@code-to-json/formatter@0.6.1...@code-to-json/formatter@0.7.0) (2019-01-04)
 
 
