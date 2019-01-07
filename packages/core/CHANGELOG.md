@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.8.1](https://github.com/mike-north/code-to-json/compare/@code-to-json/core@0.8.0...@code-to-json/core@0.8.1) (2019-01-07)
+
+
+### Bug Fixes
+
+* **core:** export WalkerOptions type ([1df2b8b](https://github.com/mike-north/code-to-json/commit/1df2b8b))
+
+
+
+
+
 # [0.8.0](https://github.com/mike-north/code-to-json/compare/@code-to-json/core@0.7.0...@code-to-json/core@0.8.0) (2019-01-06)
 
 
