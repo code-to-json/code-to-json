@@ -1,5 +1,5 @@
 export { walkProgram, WalkerOutput, WalkerOutputData, WalkerOutputMetadata } from './walker';
-
+export { WalkerOptions } from './walker/options';
 export { SerializedSignature } from './serializers/signature';
 export { SerializedSymbol } from './serializers/symbol';
 export { SerializedType } from './serializers/type';
