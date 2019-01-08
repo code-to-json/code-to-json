@@ -18,7 +18,7 @@
     "url": "git+https://github.com/code-to-json/code-to-json.git"
   },
   "scripts": {
-    "build": "cp ../../README.md README.md",
+    "build": "node cp-readme.js",
     "test": "echo \"Error: run tests from root\" && exit 0"
   },
   "dependencies": {
