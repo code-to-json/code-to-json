@@ -8,38 +8,13 @@ import { suite, test } from 'mocha-typescript';
 import * as path from 'path';
 import * as ts from 'typescript';
 import { createProgramFromCodeString, createProgramFromTsConfig, SysHost } from '../src/index';
-
-const nodeHost: SysHost = {
-  readFileSync(filePath: string, encoding?: string): string | undefined {
-    return ts.sys.readFile(filePath, encoding);
-  },
-
-  writeFileSync(filePath: string, contents: string): void {
-    return ts.sys.writeFile(filePath, contents);
-  },
-
-  directoryExists(dirPath: string): boolean {
-    return ts.sys.directoryExists(dirPath);
-  },
-
-  fileExists(filePath: string): boolean {
-    return ts.sys.fileExists(filePath);
-  },
-
-  pathRelativeTo(from: string, to: string): string {
-    return path.relative(from, to);
-  },
-
-  combinePaths(...paths: string[]): string {
-    return path.join(...paths);
-  },
-};
+import { NodeHost } from './helpers';
 
 const DEFAULT_TEXT_FILE_READER: TextFileReader = f => readFileSync(f).toString();
 const DEFAULT_FILE_EXISTENCE_CHECKER: FileExistenceChecker = f =>
   existsSync(f) && statSync(f).isFile();
 
-const TEST_FILE_UTILS: [SysHost] = [nodeHost];
+const TEST_FILE_UTILS: [SysHost] = [new NodeHost()];
 
 function assertNumExports(
   prog: ts.Program,
