@@ -1,0 +1,4 @@
+{
+  "name": "ts-multi-file",
+  "main": "src/index.ts"
+}

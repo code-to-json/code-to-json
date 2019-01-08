@@ -1,15 +1,14 @@
 /* eslint-disable no-bitwise */
 // tslint:disable:no-bitwise
 import { UnreachableError } from '@code-to-json/utils';
-import { isDeclaration, isNode, isSymbol, isType } from '@code-to-json/utils-ts';
 import * as debug from 'debug';
 import { isSourceFile, Node, Symbol as Sym, Type } from 'typescript';
+import { isDeclaration, isNode, isSymbol, isType } from './guards';
 
 const log = debug('code-to-json:generate-id');
 /**
  * Generate a stable hash from a string
  * @param str string to generate a hash from
- * @internal
  */
 export function generateHash(str: string): string {
   let hash = 0;
@@ -32,9 +31,8 @@ export function generateHash(str: string): string {
 /**
  * Generate an id for an entity
  * @param thing Entity to generate an Id for
- * @internal
  */
-export default function generateId(thing: Sym | Node | Type): string {
+export function generateId(thing: Sym | Node | Type): string {
   if (typeof thing === 'undefined' || thing === null) {
     throw new Error('Cannot generate an ID for empty values');
   }
@@ -53,7 +51,7 @@ export default function generateId(thing: Sym | Node | Type): string {
     return generateHash(parts.filter(Boolean).join('-'));
   }
   if (thing && isSourceFile(thing)) {
-    return thing.fileName;
+    return generateHash(thing.fileName);
   }
   if (isDeclaration(thing)) {
     return generateHash(thing.getFullText());

@@ -1,8 +1,8 @@
 import { createQueue, RefFor, refId, UnreachableError } from '@code-to-json/utils';
+import { generateId } from '@code-to-json/utils-ts';
 import * as debug from 'debug';
 import { Declaration, Node, SourceFile, Symbol as Sym, Type, TypeChecker } from 'typescript';
 import { EntityMap } from '../types';
-import generateId from './generate-id';
 import { DeclarationRef, NodeRef, RefRegistry, SourceFileRef, SymbolRef, TypeRef } from './ref';
 
 export interface QueueSink<S, T, N, D, SF> {

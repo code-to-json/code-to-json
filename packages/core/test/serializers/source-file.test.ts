@@ -1,9 +1,9 @@
 import { createRef } from '@code-to-json/utils';
+import { generateId } from '@code-to-json/utils-ts';
 import { expect } from 'chai';
 import { suite, test } from 'mocha-typescript';
 import * as ts from 'typescript';
 import { SymbolRef } from '../../src';
-import generateId from '../../src/processing-queue/generate-id';
 import { RefRegistry } from '../../src/processing-queue/ref';
 import serializeSourceFile from '../../src/serializers/source-file';
 import serializeSymbol from '../../src/serializers/symbol';
@@ -13,7 +13,7 @@ import { setupScenario } from './helpers';
 class SourceFileSerializtionTests {
   @test
   public async 'single-function, no exports'(): Promise<void> {
-    const { checker, sf, q } = setupScenario(
+    const { checker, sf, collector } = setupScenario(
       `function add(a: number, b: number): number { return a + b; }
 const x = add(4, 5);
 console.log(x);`,
@@ -26,18 +26,21 @@ console.log(x);`,
     expect(fnDecl.getText()).to.eql('function add(a: number, b: number): number { return a + b; }');
 
     const sfRef = createRef<RefRegistry, 'sourceFile'>('sourceFile', generateId(sf));
-    const serialized = serializeSourceFile(sf, checker, sfRef, q);
+    const serialized = serializeSourceFile(sf, checker, sfRef, collector);
     expect(serialized).to.deep.eq({
       entity: 'sourceFile',
-      fileName: 'module.ts',
-      id: 'module.ts',
+      extension: 'ts',
+      moduleName: 'module',
+      pathInPackage: 'module',
+      originalFileName: 'module.ts',
+      id: '01m4wmih8qe9',
       isDeclarationFile: false,
     });
   }
 
   @test
   public async 'single exported function'(): Promise<void> {
-    const { checker, sf, q } = setupScenario(
+    const { checker, sf, collector } = setupScenario(
       `export function add(a: number, b: number): number { return a + b; }`,
     );
     const [fnSym] = checker.getSymbolsInScope(sf, ts.SymbolFlags.Function);
@@ -50,16 +53,19 @@ console.log(x);`,
     );
 
     const sfRef = createRef<RefRegistry, 'sourceFile'>('sourceFile', generateId(sf));
-    const serialized = serializeSourceFile(sf, checker, sfRef, q);
+    const serialized = serializeSourceFile(sf, checker, sfRef, collector);
     expect(serialized).to.deep.eq({
       entity: 'sourceFile',
-      fileName: 'module.ts',
-      id: 'module.ts',
+      extension: 'ts',
+      id: '01m4wmih8qe9',
       isDeclarationFile: false,
+      moduleName: 'module',
+      originalFileName: 'module.ts',
+      pathInPackage: 'module',
       symbol: ['symbol', '01m4wml8nqp3'],
     });
 
-    const { symbol: symbols } = q.drain({
+    const { symbol: symbols } = collector.queue.drain({
       handleSymbol(_ref: SymbolRef, sym: ts.Symbol) {
         return sym;
       },
@@ -69,7 +75,7 @@ console.log(x);`,
       fileSymbol,
       checker,
       createRef<RefRegistry, 'symbol'>('symbol', generateId(fileSymbol)),
-      q,
+      collector,
     );
 
     expect(serializedFileSymbol).to.deep.include({
@@ -79,7 +85,7 @@ console.log(x);`,
       exports: [['symbol', '01m4wm69lbfm']],
       location: ['module.ts', 1, 1, 1, 67],
       name: '"module"',
-      sourceFile: ['sourceFile', 'module.ts'],
+      sourceFile: ['sourceFile', '01m4wmih8qe9'],
     });
     expect(serializedFileSymbol)
       .to.haveOwnProperty('type')

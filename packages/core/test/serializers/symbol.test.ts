@@ -1,33 +1,18 @@
 import { createRef } from '@code-to-json/utils';
-import { createProgramFromCodeString } from '@code-to-json/utils-ts';
+import { generateId } from '@code-to-json/utils-ts';
 import { expect } from 'chai';
 import { suite, test } from 'mocha-typescript';
 import * as ts from 'typescript';
 import { SourceFileRef } from '../../src';
-import { create as createQueue } from '../../src/processing-queue';
-import generateId from '../../src/processing-queue/generate-id';
 import { RefRegistry } from '../../src/processing-queue/ref';
 import serializeSourceFile from '../../src/serializers/source-file';
-
-function setupScenario(code: string) {
-  const workspace = createProgramFromCodeString(code, 'ts');
-  const { program } = workspace;
-  const [sf] = program.getSourceFiles().filter(f => !f.isDeclarationFile);
-  if (!sf) {
-    throw new Error('No SourceFile module.ts found');
-  }
-
-  const checker = program.getTypeChecker();
-
-  const q = createQueue();
-  return { program, checker, sf, q };
-}
+import { setupScenario } from './helpers';
 
 @suite
 class SymbolSerializtionTests {
   @test
   public async 'Function signature'(): Promise<void> {
-    const { checker, sf, q } = setupScenario(
+    const { checker, sf, collector } = setupScenario(
       'function add(a: number, b: number): number { return a + b; }',
     );
     const [fnSym] = checker.getSymbolsInScope(sf, ts.SymbolFlags.Function);
@@ -38,12 +23,15 @@ class SymbolSerializtionTests {
     expect(fnDecl.getText()).to.eql('function add(a: number, b: number): number { return a + b; }');
 
     const sfRef: SourceFileRef = createRef<RefRegistry, 'sourceFile'>('sourceFile', generateId(sf));
-    const serialized = serializeSourceFile(sf, checker, sfRef, q);
+    const serialized = serializeSourceFile(sf, checker, sfRef, collector);
     expect(serialized).to.deep.eq({
       entity: 'sourceFile',
-      fileName: 'module.ts',
-      id: 'module.ts',
+      extension: 'ts',
+      id: '01m4wmih8qe9',
       isDeclarationFile: false,
+      moduleName: 'module',
+      originalFileName: 'module.ts',
+      pathInPackage: 'module',
     });
   }
 }

@@ -1,9 +1,9 @@
-import { createProgramFromCodeString, mapUem } from '@code-to-json/utils-ts';
+import { getDeclarationFiles } from '@code-to-json/test-helpers';
 import { expect } from 'chai';
 import { suite, test } from 'mocha-typescript';
 import * as ts from 'typescript';
-import generateId from '../src/processing-queue/generate-id';
-import { getDeclarationFiles } from './test-helpers';
+import { generateId } from '../src/generate-id';
+import { createProgramFromCodeString, mapUem } from '../src/index';
 
 @suite
 class GenerateIdTests {
@@ -67,7 +67,10 @@ export const x: string = 'foo';
 
   @test
   public async 'generateId for sourceFile'(): Promise<void> {
-    expect(generateId(this.sourceFile)).to.eql('module.ts', 'SourceFile ids are their module name');
+    expect(generateId(this.sourceFile)).to.eql(
+      '01m4wmih8qe9',
+      'SourceFile ids are hashed on their module name',
+    );
   }
 
   @test

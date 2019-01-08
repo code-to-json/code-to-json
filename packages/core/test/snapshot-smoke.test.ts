@@ -1,8 +1,11 @@
 import { setupTestCase } from '@code-to-json/test-helpers';
+import { NodeHost } from '@code-to-json/utils-node';
+import { generateId, PASSTHROUGH_MODULE_PATH_NORMALIZER } from '@code-to-json/utils-ts';
 import { expect } from 'chai';
 import { suite, test } from 'mocha-typescript';
 import * as path from 'path';
 import * as ts from 'typescript';
+import Collector from '../src/collector';
 import { create as createQueue, DrainOutput } from '../src/processing-queue';
 import { SourceFileRef, SymbolRef, TypeRef } from '../src/processing-queue/ref';
 import serializeSourceFile, { SerializedSourceFile } from '../src/serializers/source-file';
@@ -28,10 +31,20 @@ class SimpleSnapshotSmokeTests {
     this.rootPath = rootPath;
     const checker = program.getTypeChecker();
     this.checker = checker;
-    const q = createQueue();
+    const queue = createQueue();
+    const collector: Collector = {
+      queue,
+      host: new NodeHost(),
+      pathNormalizer: PASSTHROUGH_MODULE_PATH_NORMALIZER,
+      opts: {
+        pathNormalizer: PASSTHROUGH_MODULE_PATH_NORMALIZER,
+        includeDeclarations: 'none',
+      },
+    };
+
     this.sourceFiles = program.getSourceFiles();
-    this.sourceFiles.forEach(sf => q.queue(sf, 'sourceFile', this.checker));
-    const data = q.drain({
+    this.sourceFiles.forEach(sf => queue.queue(sf, 'sourceFile', this.checker));
+    const data = queue.drain({
       handleType(_ref: TypeRef, item: ts.Type): string {
         return checker.typeToString(item);
       },
@@ -39,7 +52,7 @@ class SimpleSnapshotSmokeTests {
         return item.getName();
       },
       handleSourceFile(ref: SourceFileRef, item: ts.SourceFile): SerializedSourceFile {
-        return serializeSourceFile(item, checker, ref, q);
+        return serializeSourceFile(item, checker, ref, collector);
       },
     });
     this.data = data;
@@ -52,15 +65,16 @@ class SimpleSnapshotSmokeTests {
       .to.contain('src')
       .to.contain('index.js');
     const { sourceFile: sourceFileData } = this.data;
-    const indexFilePath = this.sourceFiles
-      .filter(sf => !sf.isDeclarationFile)
-      .map(sf => sf.fileName)[0];
 
-    const indexFileData = sourceFileData[indexFilePath];
+    const indexFileId = generateId(indexFile);
+    const indexFileData = sourceFileData[indexFileId];
     expect(Object.keys(indexFileData))
       .contains('id')
       .contains('entity')
-      .contains('fileName')
+      .contains('moduleName')
+      .contains('originalFileName')
+      .contains('pathInPackage')
+      .contains('extension')
       .contains('symbol')
       .contains('isDeclarationFile');
   }

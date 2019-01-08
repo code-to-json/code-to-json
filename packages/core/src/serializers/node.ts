@@ -1,8 +1,8 @@
 import { refId } from '@code-to-json/utils';
 import { isDeclaration, isDeclarationExported, isNamedDeclaration } from '@code-to-json/utils-ts';
 import { isVariableStatement, Node, SyntaxKind, TypeChecker } from 'typescript';
+import Collector from '../collector';
 import { flagsToString } from '../flags';
-import { ProcessingQueue } from '../processing-queue';
 import { DeclarationRef, NodeRef, SourceFileRef } from '../processing-queue/ref';
 import { HasPosition, SerializedEntity } from '../types';
 import serializeLocation from './location';
@@ -42,10 +42,10 @@ export default function serializeNode(
   n: Node,
   checker: TypeChecker,
   ref: NodeRef | DeclarationRef | SourceFileRef,
-  q: ProcessingQueue,
+  c: Collector,
 ): SerializedNode {
   const { flags, kind, decorators, modifiers, pos, end } = n;
-
+  const { queue: q } = c;
   const details: SerializedNode = {
     id: refId(ref),
     entity: 'node',

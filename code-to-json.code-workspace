@@ -12,8 +12,7 @@
       "**/.DS_Store": true,
       "**/package-lock.json": true,
       "**/.nyc_output": true,
-      "**/coverage": true,
-      "packages/**/*node_modules": true
+      "**/coverage": true
     },
     "search.exclude": {
       "**/node_modules": true,
@@ -35,5 +34,19 @@
     {
       "path": "."
     }
-  ]
+  ],
+  "launch": {
+    "configurations": [
+      {
+        "type": "node",
+        "request": "attach",
+        "name": "Attach",
+        "port": 9229,
+        "restart": true,
+        "stopOnEntry": false,
+        "timeout": 30000
+      }
+    ],
+    "compounds": []
+  }
 }

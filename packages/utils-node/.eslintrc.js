@@ -9,7 +9,8 @@ module.exports = {
   env: {
     es6: true,
     browser: false,
-    node: false,
+    'shared-node-browser': true,
+    node: true,
   },
   rules: {
     camelcase: 'off',
@@ -18,9 +19,10 @@ module.exports = {
     'import/export': 'off',
     'import/first': 'off',
     'import/no-extraneous-dependencies': 'off',
+    'import/prefer-default-export': 'off',
     'no-underscore-dangle': 'off',
     'no-plusplus': 'off',
-    'no-useless-constructor': 'off',
+    'no-restricted-syntax': 'off',
   },
   overrides: [
     {

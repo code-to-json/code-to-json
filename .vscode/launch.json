@@ -3,17 +3,5 @@
   // Hover to view descriptions of existing attributes.
   // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
   "version": "0.2.0",
-  "configurations": [
-    {
-      "type": "node",
-      "request": "attach",
-      "name": "Node: Nodemon",
-      "restart": true,
-      "stopOnEntry": false,
-      "timeout": 60000,
-      "protocol": "inspector",
-      "showAsyncStacks": true,
-      "smartStep": true
-    }
-  ]
+  "configurations": []
 }

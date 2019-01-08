@@ -5,18 +5,41 @@ import { FileExistenceChecker, TextFileReader } from '@code-to-json/utils';
 import { expect } from 'chai';
 import { existsSync, readFileSync, statSync, unlinkSync, writeFileSync } from 'fs';
 import { suite, test } from 'mocha-typescript';
-import { join } from 'path';
+import * as path from 'path';
 import * as ts from 'typescript';
-import { createProgramFromCodeString, createProgramFromTsConfig } from '../src/index';
+import { createProgramFromCodeString, createProgramFromTsConfig, SysHost } from '../src/index';
+
+const nodeHost: SysHost = {
+  readFileSync(filePath: string, encoding?: string): string | undefined {
+    return ts.sys.readFile(filePath, encoding);
+  },
+
+  writeFileSync(filePath: string, contents: string): void {
+    return ts.sys.writeFile(filePath, contents);
+  },
+
+  directoryExists(dirPath: string): boolean {
+    return ts.sys.directoryExists(dirPath);
+  },
+
+  fileExists(filePath: string): boolean {
+    return ts.sys.fileExists(filePath);
+  },
+
+  pathRelativeTo(from: string, to: string): string {
+    return path.relative(from, to);
+  },
+
+  combinePaths(...paths: string[]): string {
+    return path.join(...paths);
+  },
+};
 
 const DEFAULT_TEXT_FILE_READER: TextFileReader = f => readFileSync(f).toString();
 const DEFAULT_FILE_EXISTENCE_CHECKER: FileExistenceChecker = f =>
   existsSync(f) && statSync(f).isFile();
 
-const TEST_FILE_UTILS: [TextFileReader, FileExistenceChecker] = [
-  DEFAULT_TEXT_FILE_READER,
-  DEFAULT_FILE_EXISTENCE_CHECKER,
-];
+const TEST_FILE_UTILS: [SysHost] = [nodeHost];
 
 function assertNumExports(
   prog: ts.Program,
@@ -303,7 +326,7 @@ exports.x = React.createElement("div", null, "4; x = false;");
   @test
   public async 'createProgramFromTsConfig - missing config'(): Promise<void> {
     const workspace = await makeWorkspace();
-    unlinkSync(join(workspace.rootPath, 'tsconfig.json'));
+    unlinkSync(path.join(workspace.rootPath, 'tsconfig.json'));
 
     await createProgramFromTsConfig(workspace.rootPath, ...TEST_FILE_UTILS)
       .then(() => {
@@ -318,7 +341,7 @@ exports.x = React.createElement("div", null, "4; x = false;");
   @test
   public async 'createProgramFromTsConfig - invalid config (non-json)'(): Promise<void> {
     const workspace = await makeWorkspace();
-    writeFileSync(join(workspace.rootPath, 'tsconfig.json'), '---');
+    writeFileSync(path.join(workspace.rootPath, 'tsconfig.json'), '---');
 
     await createProgramFromTsConfig(workspace.rootPath, ...TEST_FILE_UTILS)
       .then(() => {
@@ -334,7 +357,7 @@ exports.x = React.createElement("div", null, "4; x = false;");
   public async 'createProgramFromTsConfig - invalid config (invalid schema)'(): Promise<void> {
     const workspace = await makeWorkspace();
     writeFileSync(
-      join(workspace.rootPath, 'tsconfig.json'),
+      path.join(workspace.rootPath, 'tsconfig.json'),
       JSON.stringify({
         compilerOptions: 'foo',
       }),
@@ -354,7 +377,7 @@ exports.x = React.createElement("div", null, "4; x = false;");
   public async tsConfigForPathTests(): Promise<void> {
     const workspace = await makeWorkspace();
 
-    const pth = ts.findConfigFile(join(workspace.rootPath), DEFAULT_FILE_EXISTENCE_CHECKER);
+    const pth = ts.findConfigFile(path.join(workspace.rootPath), DEFAULT_FILE_EXISTENCE_CHECKER);
     if (!pth) {
       throw new Error('No path to tsconfig');
     }

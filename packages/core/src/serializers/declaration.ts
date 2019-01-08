@@ -1,5 +1,5 @@
 import { Declaration, TypeChecker } from 'typescript';
-import { ProcessingQueue } from '../processing-queue';
+import Collector from '../collector';
 import { DeclarationRef, SourceFileRef } from '../processing-queue/ref';
 import serializeNode, { SerializedNode } from './node';
 
@@ -16,11 +16,11 @@ export default function serializeDeclaration(
   decl: Declaration,
   checker: TypeChecker,
   ref: DeclarationRef | SourceFileRef,
-  _queue: ProcessingQueue
+  c: Collector,
 ): SerializedDeclaration {
   const basicInfo: SerializedDeclaration = {
-    ...serializeNode(decl, checker, ref, _queue),
-    thing: 'declaration'
+    ...serializeNode(decl, checker, ref, c),
+    thing: 'declaration',
   };
   return basicInfo;
 }

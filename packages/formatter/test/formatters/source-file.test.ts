@@ -15,22 +15,26 @@ class SourceFileFormatterTests {
       sourceFile: {
         'module.ts': {
           entity: 'sourceFile',
-          moduleName: '"module"',
+          moduleName: 'module',
+          extension: 'ts',
           isDeclarationFile: false,
+          pathInPackage: 'module',
           id: 'module.ts',
-          fileName: 'module.ts',
         },
       },
     };
     const fsf = formatSourceFile(wo, {
       entity: 'sourceFile',
-      moduleName: '"module"',
+      moduleName: 'module',
       isDeclarationFile: false,
       id: 'module.ts',
-      fileName: 'module.ts',
+      extension: 'ts',
+      pathInPackage: 'module',
     });
     expect(fsf).to.deep.eq({
-      fileName: 'module.ts',
+      moduleName: 'module',
+      extension: 'ts',
+      pathInPackage: 'module',
       isDeclarationFile: false,
     });
   }
@@ -51,26 +55,30 @@ class SourceFileFormatterTests {
       sourceFile: {
         'module.ts': {
           entity: 'sourceFile',
-          moduleName: '"module"',
+          moduleName: 'module',
           isDeclarationFile: false,
           id: 'module.ts',
-          fileName: 'module.ts',
+          pathInPackage: 'module',
+          extension: 'ts',
           symbol: ['symbol', '12345'] as any,
         },
       },
     };
     const fsf = formatSourceFile(wo, {
       entity: 'sourceFile',
-      moduleName: '"module"',
+      moduleName: 'module',
       isDeclarationFile: false,
       id: 'module.ts',
-      fileName: 'module.ts',
+      pathInPackage: 'module',
+      extension: 'ts',
       symbol: ['symbol', '12345'] as any,
     });
     expect(fsf).to.deep.eq({
-      fileName: 'module.ts',
+      pathInPackage: 'module',
+      extension: 'ts',
+      moduleName: 'module',
       isDeclarationFile: false,
-      name: 'module.ts',
+      name: 'module',
     });
   }
 }
