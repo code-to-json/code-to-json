@@ -22,6 +22,8 @@ coverage:
         flags: schema
       utils_ts:
         flags: utils_ts
+      utils_node:
+        flags: utils_node
       test_helpers:
         flags: test_helpers
 
@@ -44,6 +46,9 @@ flags:
   utils_ts:
     paths:
       - /home/travis/build/code-to-json/code-to-json/packages/utils-ts/
+  utils_node:
+    paths:
+      - /home/travis/build/code-to-json/code-to-json/packages/utils-node/
   test_helpers:
     paths:
       - /home/travis/build/code-to-json/code-to-json/packages/test-helpers/

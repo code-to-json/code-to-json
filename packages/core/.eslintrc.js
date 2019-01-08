@@ -20,10 +20,11 @@ module.exports = {
     'import/no-extraneous-dependencies': 'off',
     'no-underscore-dangle': 'off',
     'no-plusplus': 'off',
+    'no-useless-constructor': 'off',
   },
   overrides: [
     {
-      files: ['test/**/*.test.ts'],
+      files: ['test/**/*.ts'],
       env: {
         node: true,
       },

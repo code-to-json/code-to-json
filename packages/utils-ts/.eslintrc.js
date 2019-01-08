@@ -18,13 +18,13 @@ module.exports = {
     'import/export': 'off',
     'import/first': 'off',
     'import/no-extraneous-dependencies': 'off',
-    'import/default-export': 'off',
+    'import/prefer-default-export': 'off',
     'no-underscore-dangle': 'off',
     'no-plusplus': 'off',
   },
   overrides: [
     {
-      files: ['test/**/*.test.ts'],
+      files: ['test/**/*.ts'],
       env: {
         node: true,
       },

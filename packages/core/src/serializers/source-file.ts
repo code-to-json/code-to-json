@@ -1,15 +1,18 @@
 import { refId } from '@code-to-json/utils';
 import { SourceFile, TypeChecker } from 'typescript';
-import { ProcessingQueue } from '../processing-queue';
+import Collector from '../collector';
 import { NodeRef, SourceFileRef, SymbolRef } from '../processing-queue/ref';
 import { SerializedEntity } from '../types';
 import serializeAmdDependency, { SerializedAmdDependency } from './amd-dependency';
 import serializeFileReference, { SerializedFileReference } from './file-reference';
 
 export interface SerializedSourceFile extends SerializedEntity<'sourceFile'> {
-  fileName?: string;
+  originalFileName?: string;
+  moduleName: string;
+  extension: string | null;
+  pathInPackage: string;
+
   isDeclarationFile: boolean;
-  moduleName?: string;
   statements?: NodeRef[];
   symbol?: SymbolRef;
   amdDependencies?: SerializedAmdDependency[];
@@ -28,11 +31,10 @@ export default function serializeSourceFile(
   sourceFile: SourceFile,
   checker: TypeChecker,
   ref: SourceFileRef,
-  _queue: ProcessingQueue,
+  c: Collector,
 ): SerializedSourceFile {
   const {
     fileName,
-    moduleName,
     isDeclarationFile,
     amdDependencies,
     referencedFiles: _referencedFiles,
@@ -40,19 +42,21 @@ export default function serializeSourceFile(
     libReferenceDirectives: _libReferenceDirectives,
     // statements: _statements
   } = sourceFile;
-
+  const { moduleName, extension, relativePath } = c.pathNormalizer.filePathToModuleInfo(fileName);
   // tslint:disable-next-line:no-commented-code
   // const statements = _statements.map(s => _queue.queue(s, 'node', checker)).filter(isRef);
+
   const basicInfo: SerializedSourceFile = {
     id: refId(ref),
     entity: 'sourceFile',
-    fileName,
+    originalFileName: fileName,
     isDeclarationFile,
+    moduleName,
+    extension,
+    pathInPackage: relativePath,
     // statements
   };
-  if (typeof moduleName === 'string') {
-    basicInfo.moduleName = moduleName;
-  }
+
   if (amdDependencies && amdDependencies.length > 0) {
     basicInfo.amdDependencies = amdDependencies.map(serializeAmdDependency);
   }
@@ -71,8 +75,9 @@ export default function serializeSourceFile(
    * to obtain a Symbol (AST + Type Information, via the binder)
    */
   const sym = checker.getSymbolAtLocation(sourceFile);
+
   if (sym) {
-    basicInfo.symbol = _queue.queue(sym, 'symbol', checker);
+    basicInfo.symbol = c.queue.queue(sym, 'symbol', checker);
   }
   return basicInfo;
 }

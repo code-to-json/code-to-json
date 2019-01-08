@@ -1,6 +1,5 @@
 import { expect } from 'chai';
 import { suite, test } from 'mocha-typescript';
-import * as ts from 'typescript';
 import formatFlags from '../../src/formatters/flags';
 
 @suite

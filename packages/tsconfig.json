@@ -6,6 +6,7 @@
     { "path": "core" },
     { "path": "utils" },
     { "path": "utils-ts" },
+    { "path": "utils-node" },
     { "path": "schema" },
     { "path": "formatter" }
   ]

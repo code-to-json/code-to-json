@@ -4,8 +4,7 @@
     "outDir": "lib",
     "rootDir": ".",
     "baseUrl": "src",
-    "target": "es2017",
-    "lib": ["scripthost", "es2015"]
+    "lib": ["scripthost", "esnext"]
   },
   "include": ["src"],
   "exclude": ["lib"]

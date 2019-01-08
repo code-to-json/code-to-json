@@ -7,6 +7,7 @@ import {
   TypeChecker,
   UnderscoreEscapedMap,
 } from 'typescript';
+import Collector from '../collector';
 import { flagsToString } from '../flags';
 import { ProcessingQueue } from '../processing-queue';
 import { SymbolRef, TypeRef } from '../processing-queue/ref';
@@ -40,11 +41,11 @@ export interface SerializedSymbol extends SerializedEntity<'symbol'>, Partial<Ha
 
 function appendSymbolMap(
   uem: UnderscoreEscapedMap<Sym> | undefined,
-  queue: ProcessingQueue,
+  q: ProcessingQueue,
   checker: TypeChecker,
 ): SymbolRef[] | undefined {
   if (uem && uem.size > 0) {
-    return mapUem(uem, (val: Sym) => queue.queue(val, 'symbol', checker)).filter(isRef);
+    return mapUem(uem, (val: Sym) => q.queue(val, 'symbol', checker)).filter(isRef);
   }
   return undefined;
 }
@@ -60,8 +61,9 @@ export default function serializeSymbol(
   symbol: Sym,
   checker: TypeChecker,
   ref: SymbolRef,
-  queue: ProcessingQueue,
+  c: Collector,
 ): SerializedSymbol {
+  const { queue: q } = c;
   const { exports, globalExports, members, flags, valueDeclaration } = symbol;
 
   const details: SerializedSymbol = {
@@ -76,15 +78,15 @@ export default function serializeSymbol(
     details.external = true;
     return details;
   }
-  details.type = queue.queue(typ, 'type', checker);
+  details.type = q.queue(typ, 'type', checker);
   if (members) {
-    details.members = appendSymbolMap(members, queue, checker);
+    details.members = appendSymbolMap(members, q, checker);
   }
   conditionallyMergeTransformed(details, exports, 'exports', exps =>
-    appendSymbolMap(exps, queue, checker),
+    appendSymbolMap(exps, q, checker),
   );
   conditionallyMergeTransformed(details, globalExports, 'globalExports', gexps =>
-    appendSymbolMap(gexps, queue, checker),
+    appendSymbolMap(gexps, q, checker),
   );
 
   const docComment = symbol.getDocumentationComment(checker);
@@ -96,7 +98,7 @@ export default function serializeSymbol(
     const valDeclType = checker.getTypeOfSymbolAtLocation(symbol, valueDeclaration);
     const sourceFile = valueDeclaration.getSourceFile();
     details.location = serializeLocation(sourceFile, pos, end);
-    details.sourceFile = queue.queue(sourceFile, 'sourceFile', checker);
+    details.sourceFile = q.queue(sourceFile, 'sourceFile', checker);
     conditionallyMergeTransformed(details, modifiers, 'modifiers', mods =>
       mods.map(m => SyntaxKind[m.kind]),
     );
@@ -106,13 +108,13 @@ export default function serializeSymbol(
 
     const constructorSignatures = valDeclType
       .getConstructSignatures()
-      .map(s => serializeSignature(s, checker, queue));
+      .map(s => serializeSignature(s, checker, c));
     if (constructorSignatures && constructorSignatures.length > 0) {
       details.constructorSignatures = constructorSignatures;
     }
     const callSignatures = valDeclType
       .getCallSignatures()
-      .map(s => serializeSignature(s, checker, queue));
+      .map(s => serializeSignature(s, checker, c));
     if (callSignatures && callSignatures.length > 0) {
       details.callSignatures = callSignatures;
     }

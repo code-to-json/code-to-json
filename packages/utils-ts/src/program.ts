@@ -1,9 +1,4 @@
-import {
-  FileExistenceChecker,
-  InvalidArgumentsError,
-  TextFileReader,
-  UnreachableError,
-} from '@code-to-json/utils';
+import { InvalidArgumentsError, UnreachableError } from '@code-to-json/utils';
 import * as debug from 'debug';
 import {
   CompilerOptions,
@@ -19,6 +14,8 @@ import {
   ScriptTarget,
   sys,
 } from 'typescript';
+import CompilerHost from './compiler-host';
+import SysHost from './host';
 import TranspileOuptut from './program/transpile-output';
 import TranspileOuptutData from './program/transpile-output-data';
 
@@ -27,6 +24,8 @@ const debugLog = debug('code-to-json:cli');
 const DEFAULT_COMPILER_OPTIONS: CompilerOptions = {
   allowJs: true,
   checkJs: true,
+  rootDir: '.',
+  sourceRoot: 'src',
   moduleResolution: ModuleResolutionKind.NodeJs,
   target: ScriptTarget.ESNext,
 };
@@ -47,15 +46,14 @@ const STD_COMPILER_OPTIONS: CompilerOptions = {
  */
 export async function createProgramFromTsConfig(
   searchPath: string,
-  r: TextFileReader,
-  e: FileExistenceChecker,
+  host: SysHost,
 ): Promise<Program> {
-  const cfgPath = findConfigFile(searchPath, e);
+  const cfgPath = findConfigFile(searchPath, host.fileExists);
   if (!cfgPath) {
     throw new InvalidArgumentsError(`Could not find a tsconfig.json via path "${searchPath}"`);
   }
   debugLog('Found typescript configuration file: ', cfgPath);
-  const configContent = readConfigFile(cfgPath, r);
+  const configContent = readConfigFile(cfgPath, host.readFileSync);
   const { error, config } = configContent;
   if (error) {
     debugLog('tsconfig diagnostics', error);
@@ -74,9 +72,11 @@ export async function createProgramFromTsConfig(
     }
     debugLog('Using typescript compiler options', options);
     debugLog('applying to files', rootNames);
+    const ch = new CompilerHost(host);
     return createProgram({
       rootNames,
       options,
+      host: ch,
     });
   } else {
     throw new InvalidArgumentsError('reading tsconfig seemed to neither suceed or fail');

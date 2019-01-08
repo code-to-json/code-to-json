@@ -3,7 +3,9 @@ import resolveReference from '../resolve-reference';
 import formatSymbol, { FormattedSymbol } from './symbol';
 
 export interface FormattedSourceFile extends Partial<FormattedSymbol> {
-  fileName: string;
+  pathInPackage: string;
+  moduleName: string;
+  extension: string | null;
   isDeclarationFile: boolean;
   referencedFiles?: string[];
 }
@@ -12,9 +14,11 @@ export default function formatSourceFile(
   wo: WalkerOutputData,
   sourceFile: Readonly<SerializedSourceFile>,
 ): FormattedSourceFile {
-  const { fileName, isDeclarationFile, referencedFiles } = sourceFile;
+  const { pathInPackage, extension, isDeclarationFile, referencedFiles, moduleName } = sourceFile;
   const info: FormattedSourceFile = {
-    fileName: fileName || '(unknown)',
+    pathInPackage,
+    moduleName,
+    extension,
     isDeclarationFile,
   };
   if (referencedFiles && referencedFiles.length > 0) {
@@ -24,7 +28,7 @@ export default function formatSourceFile(
   if (symbolRef) {
     const symbol = resolveReference(wo, symbolRef);
     const serializedSymbol = formatSymbol(wo, symbol);
-    Object.assign(info, serializedSymbol);
+    Object.assign(info, serializedSymbol, { name: moduleName });
   }
   return info;
 }

@@ -1,6 +1,6 @@
 import { isRef } from '@code-to-json/utils/lib/src/deferred-processing/ref';
 import { displayPartsToString, Signature, TypeChecker } from 'typescript';
-import { ProcessingQueue } from '../processing-queue';
+import Collector from '../collector';
 import { DeclarationRef, SymbolRef, TypeRef } from '../processing-queue/ref';
 
 export interface SerializedSignature {
@@ -15,10 +15,10 @@ export interface SerializedSignature {
 export default function serializeSignature(
   signature: Signature,
   checker: TypeChecker,
-  q: ProcessingQueue
+  c: Collector,
 ): SerializedSignature {
   const { parameters, typeParameters } = signature;
-
+  const { queue: q } = c;
   return {
     parameters:
       parameters && parameters.length > 0
@@ -29,6 +29,6 @@ export default function serializeSignature(
       : undefined,
     // declaration: declaration ? q.queue(declaration, 'declaration', checker) : undefined,
     returnType: q.queue(signature.getReturnType(), 'type', checker),
-    documentation: displayPartsToString(signature.getDocumentationComment(checker))
+    documentation: displayPartsToString(signature.getDocumentationComment(checker)),
   };
 }

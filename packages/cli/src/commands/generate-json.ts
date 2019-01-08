@@ -1,7 +1,12 @@
 import { walkProgram } from '@code-to-json/core';
 import { formatWalkerOutput } from '@code-to-json/formatter';
 import { InvalidArgumentsError } from '@code-to-json/utils';
-import { createProgramFromTsConfig } from '@code-to-json/utils-ts';
+import { NodeHost, pathNormalizerForPackageJson } from '@code-to-json/utils-node';
+import {
+  createProgramFromTsConfig,
+  ModulePathNormalizer,
+  PASSTHROUGH_MODULE_PATH_NORMALIZER,
+} from '@code-to-json/utils-ts';
 import * as fs from 'fs';
 import * as path from 'path';
 import { Program } from 'typescript';
@@ -26,18 +31,21 @@ export default async function generateJSON(
 ): Promise<void> {
   const { project, out = 'out' } = options;
   let program!: Program;
+  let pathNormalizer: ModulePathNormalizer = PASSTHROUGH_MODULE_PATH_NORMALIZER;
+
+  const host = new NodeHost();
   if (typeof project === 'string') {
-    program = await createProgramFromTsConfig(
-      project,
-      f => fs.readFileSync(f).toString(),
-      f => fs.existsSync(f) && fs.statSync(f).isFile(),
-    );
+    program = await createProgramFromTsConfig(project, host);
+    pathNormalizer = await pathNormalizerForPackageJson(project, host);
   } else if (!project && rawEntries && rawEntries.length > 0) {
     program = await createProgramFromEntryGlobs(rawEntries);
   } else {
     throw new InvalidArgumentsError('Either --project <path> or entries glob(s) must be defined');
   }
-  const walkResult = walkProgram(program);
+  const walkResult = walkProgram(program, host, {
+    pathNormalizer,
+  });
+
   const formattedResult = formatWalkerOutput(walkResult);
   const outputPath = path.isAbsolute(out) ? out : path.join(process.cwd(), out);
   const rawOutputPath = path.join(outputPath, 'raw.json');

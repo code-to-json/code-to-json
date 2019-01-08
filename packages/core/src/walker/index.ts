@@ -1,4 +1,6 @@
+import { SysHost } from '@code-to-json/utils-ts';
 import { Declaration, Node, Program, SourceFile, Symbol as Sym, Type } from 'typescript';
+import Collector from '../collector';
 import { create as createQueue } from '../processing-queue';
 import {
   DeclarationRef,
@@ -12,7 +14,7 @@ import serializeNode, { SerializedNode } from '../serializers/node';
 import serializeSourceFile, { SerializedSourceFile } from '../serializers/source-file';
 import serializeSymbol, { SerializedSymbol } from '../serializers/symbol';
 import serializeType, { SerializedType } from '../serializers/type';
-import createWalkerConfig, { WalkerOptions } from './options';
+import { createWalkerConfig, populateWalkerOptions, WalkerOptions } from './options';
 
 export interface WalkerOutputData {
   symbol: { [k: string]: Readonly<SerializedSymbol> };
@@ -36,33 +38,43 @@ export interface WalkerOutput {
  * Walk a typescript program, using specified entry points, returning
  * JSON information describing the code
  */
-export function walkProgram(program: Program, options: Partial<WalkerOptions> = {}): WalkerOutput {
-  const opts = createWalkerConfig(options);
+export function walkProgram(
+  program: Program,
+  host: SysHost,
+  options: Partial<WalkerOptions> = {},
+): WalkerOutput {
+  const opts = populateWalkerOptions(options);
+  const cfg = createWalkerConfig(opts);
   // Create the type-checker
   const checker = program.getTypeChecker();
 
   // Get all non-declaration source files
-  const sourceFiles = program.getSourceFiles().filter(opts.shouldIncludeSourceFile);
+  const sourceFiles = program.getSourceFiles().filter(cfg.shouldIncludeSourceFile);
 
   // Initialize the work-processing queue
-  const q = createQueue();
-  sourceFiles.forEach(sf => q.queue(sf, 'sourceFile', checker));
-
-  const data = q.drain({
+  const queue = createQueue();
+  sourceFiles.forEach(sf => queue.queue(sf, 'sourceFile', checker));
+  const collector: Collector = {
+    queue,
+    host,
+    opts,
+    pathNormalizer: opts.pathNormalizer,
+  };
+  const data = queue.drain({
     handleNode(ref: NodeRef, item: Node): SerializedNode {
-      return serializeNode(item, checker, ref, q);
+      return serializeNode(item, checker, ref, collector);
     },
     handleType(ref: TypeRef, item: Type): SerializedType {
-      return serializeType(item, checker, ref, q);
+      return serializeType(item, checker, ref, collector);
     },
     handleSourceFile(ref: SourceFileRef, item: SourceFile): SerializedSourceFile {
-      return serializeSourceFile(item, checker, ref, q);
+      return serializeSourceFile(item, checker, ref, collector);
     },
     handleSymbol(ref: SymbolRef, item: Sym): SerializedSymbol {
-      return serializeSymbol(item, checker, ref, q);
+      return serializeSymbol(item, checker, ref, collector);
     },
     handleDeclaration(ref: DeclarationRef, item: Declaration): SerializedDeclaration {
-      return serializeDeclaration(item, checker, ref, q);
+      return serializeDeclaration(item, checker, ref, collector);
     },
   });
   return {
