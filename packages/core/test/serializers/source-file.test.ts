@@ -33,7 +33,7 @@ console.log(x);`,
       moduleName: 'module',
       pathInPackage: 'module',
       originalFileName: 'module.ts',
-      id: '01m4wmih8qe9',
+      id: '01m4wlwidurl',
       isDeclarationFile: false,
     });
   }
@@ -57,12 +57,12 @@ console.log(x);`,
     expect(serialized).to.deep.eq({
       entity: 'sourceFile',
       extension: 'ts',
-      id: '01m4wmih8qe9',
+      id: '01m4wlwidurl',
       isDeclarationFile: false,
       moduleName: 'module',
       originalFileName: 'module.ts',
       pathInPackage: 'module',
-      symbol: ['symbol', '01m4wml8nqp3'],
+      symbol: ['symbol', '01m4wlshjs98'],
     });
 
     const { symbol: symbols } = collector.queue.drain({
@@ -70,7 +70,7 @@ console.log(x);`,
         return sym;
       },
     });
-    const { '01m4wml8nqp3': fileSymbol } = symbols;
+    const { '01m4wlshjs98': fileSymbol } = symbols;
     const serializedFileSymbol = serializeSymbol(
       fileSymbol,
       checker,
@@ -81,11 +81,11 @@ console.log(x);`,
     expect(serializedFileSymbol).to.deep.include({
       entity: 'symbol',
       flags: 'ValueModule',
-      id: '01m4wml8nqp3',
-      exports: [['symbol', '01m4wm69lbfm']],
+      id: '01m4wlshjs98',
+      exports: [['symbol', '01m4wm55tsjg']],
       location: ['module.ts', 1, 1, 1, 67],
       name: '"module"',
-      sourceFile: ['sourceFile', '01m4wmih8qe9'],
+      sourceFile: ['sourceFile', '01m4wlwidurl'],
     });
     expect(serializedFileSymbol)
       .to.haveOwnProperty('type')

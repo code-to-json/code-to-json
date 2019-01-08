@@ -68,7 +68,7 @@ export const x: string = 'foo';
   @test
   public async 'generateId for sourceFile'(): Promise<void> {
     expect(generateId(this.sourceFile)).to.eql(
-      '01m4wmih8qe9',
+      '01m4wlwidurl',
       'SourceFile ids are hashed on their module name',
     );
   }
