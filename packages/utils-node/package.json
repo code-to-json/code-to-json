@@ -1,7 +1,7 @@
 {
   "name": "@code-to-json/utils-node",
   "version": "0.0.0-development",
-  "description": "",
+  "description": "Node.js utilities for code-to-json",
   "main": "lib/src/index.js",
   "typings": "lib/src/index.d.ts",
   "license": "BSD-2-Clause",
