@@ -10,9 +10,6 @@
   "author": "Mike North <michael.l.north@gmail.com>",
   "homepage": "https://github.com/code-to-json/code-to-json",
   "license": "BSD-2-Clause",
-  "publishConfig": {
-    "registry": "https://registry.npmjs.com/"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/code-to-json/code-to-json.git"
