@@ -32,7 +32,7 @@
     "publish": "scripty",
     "build:watch": "scripty",
     "clean": "scripty",
-    "build": "scripty",
+    "build": "lerna link && lerna run build",
     "rebuild": "scripty",
     "watch": "scripty",
     "watch:debug": "scripty",
