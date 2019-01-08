@@ -2,8 +2,9 @@
 echo "Removing old build"
 rm -rf packages/*/lib
 echo "Creating initial build"
-yarn build
-if [ $? -eq 0 ]; then
+
+if yarn build
+then
   echo "Setting up watch build"
   ./node_modules/.bin/concurrently \
     -n "utils,cli,core,formatter,test-helpers" \
