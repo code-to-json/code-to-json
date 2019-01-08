@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.3.0](https://github.com/mike-north/code-to-json/compare/@code-to-json/test-helpers@0.2.0...@code-to-json/test-helpers@0.3.0) (2019-01-08)
+
+
+### Features
+
+* module name normalization & reverse resolution ([6d771aa](https://github.com/mike-north/code-to-json/commit/6d771aa))
+
+
+
+
+
 # [0.2.0](https://github.com/mike-north/code-to-json/compare/@code-to-json/test-helpers@0.1.50...@code-to-json/test-helpers@0.2.0) (2019-01-04)
 
 

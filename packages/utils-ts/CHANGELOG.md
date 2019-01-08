@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.2.0](https://github.com/mike-north/code-to-json/compare/@code-to-json/utils-ts@0.1.0...@code-to-json/utils-ts@0.2.0) (2019-01-08)
+
+
+### Bug Fixes
+
+* **windows:** module normalization windows fixes ([2fecb4f](https://github.com/mike-north/code-to-json/commit/2fecb4f))
+* remove out-of-range bitshift ([e6e467a](https://github.com/mike-north/code-to-json/commit/e6e467a))
+
+
+### Features
+
+* module name normalization & reverse resolution ([6d771aa](https://github.com/mike-north/code-to-json/commit/6d771aa))
+
+
+
+
+
 # [0.1.0](https://github.com/mike-north/code-to-json/compare/@code-to-json/utils-ts@0.0.40...@code-to-json/utils-ts@0.1.0) (2019-01-04)
 
 

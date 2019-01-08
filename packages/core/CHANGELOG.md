@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.9.0](https://github.com/mike-north/code-to-json/compare/@code-to-json/core@0.8.1...@code-to-json/core@0.9.0) (2019-01-08)
+
+
+### Bug Fixes
+
+* remove out-of-range bitshift ([e6e467a](https://github.com/mike-north/code-to-json/commit/e6e467a))
+
+
+### Features
+
+* module name normalization & reverse resolution ([6d771aa](https://github.com/mike-north/code-to-json/commit/6d771aa))
+
+
+
+
+
 ## [0.8.1](https://github.com/mike-north/code-to-json/compare/@code-to-json/core@0.8.0...@code-to-json/core@0.8.1) (2019-01-07)
 
 
