@@ -1,8 +1,6 @@
 // tslint:disable no-duplicate-string
 import { expect } from 'chai';
 import { suite, test } from 'mocha-typescript';
-import * as path from 'path';
-import * as ts from 'typescript';
 import { generateModulePathNormalizer } from '../src/index';
 import { NodeHost } from './helpers';
 

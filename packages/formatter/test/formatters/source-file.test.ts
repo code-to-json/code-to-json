@@ -1,4 +1,4 @@
-import { WalkerOutput, WalkerOutputData } from '@code-to-json/core';
+import { WalkerOutputData } from '@code-to-json/core';
 import { expect } from 'chai';
 import { suite, test } from 'mocha-typescript';
 import formatSourceFile from '../../src/formatters/source-file';

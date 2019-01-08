@@ -24,6 +24,8 @@ class PublicApiSurface {
     expect(isDeclaration).to.be.a('function');
     expect(isDeclarationExported).to.be.a('function');
     expect(isNamedDeclaration).to.be.a('function');
+    expect(createProgramFromTsConfig).to.be.a('function');
+    expect(createProgramFromEntries).to.be.a('function');
     expect(createProgramFromCodeString).to.be.a('function');
     expect(isNode).to.be.a('function');
     expect(isSymbol).to.be.a('function');

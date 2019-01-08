@@ -10,7 +10,6 @@ import * as ts from 'typescript';
 import { createProgramFromCodeString, createProgramFromTsConfig, SysHost } from '../src/index';
 import { NodeHost } from './helpers';
 
-const DEFAULT_TEXT_FILE_READER: TextFileReader = f => readFileSync(f).toString();
 const DEFAULT_FILE_EXISTENCE_CHECKER: FileExistenceChecker = f =>
   existsSync(f) && statSync(f).isFile();
 

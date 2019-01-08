@@ -1,7 +1,6 @@
 import { createRef, Ref } from '@code-to-json/utils';
 import { expect } from 'chai';
 import { suite, test } from 'mocha-typescript';
-import { formatWalkerOutput } from '../src/index';
 import resolveReference from '../src/resolve-reference';
 
 @suite

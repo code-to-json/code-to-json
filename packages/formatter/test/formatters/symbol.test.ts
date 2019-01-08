@@ -1,8 +1,7 @@
-import { SerializedSymbol, WalkerOutput, WalkerOutputData } from '@code-to-json/core';
+import { SerializedSymbol, WalkerOutputData } from '@code-to-json/core';
 import { expect } from 'chai';
 import { suite, test } from 'mocha-typescript';
-import formatSourceFile from '../../src/formatters/source-file';
-import formatSymbol, { FormattedSymbol } from '../../src/formatters/symbol';
+import formatSymbol from '../../src/formatters/symbol';
 
 @suite
 class SymbolFormatterTests {
