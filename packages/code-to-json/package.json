@@ -1,6 +1,6 @@
 {
   "name": "code-to-json",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "TypeScript & JavaScript code data extraction",
   "keywords": [
     "documentation",
