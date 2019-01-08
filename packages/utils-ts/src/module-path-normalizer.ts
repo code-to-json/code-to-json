@@ -55,7 +55,7 @@ export function generateModulePathNormalizer(
           const srcFolder = host.combinePaths(absMain, '..');
           const relativeSrc = host.pathRelativeTo(path, srcFolder);
           const fileInSrc = host.pathRelativeTo(srcFolder, relativePath);
-          if (absMain === originalFileName) {
+          if (host.normalizePath(absMain) === host.normalizePath(originalFileName)) {
             moduleName = name;
           } else {
             moduleName = host.combinePaths(name, fileInSrc);
@@ -65,8 +65,8 @@ export function generateModulePathNormalizer(
       }
       return {
         originalFileName,
-        relativePath,
-        moduleName,
+        relativePath: host.normalizePath(relativePath),
+        moduleName: host.normalizePath(moduleName),
         extension,
       };
     },

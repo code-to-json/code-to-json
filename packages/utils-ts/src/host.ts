@@ -11,8 +11,10 @@ abstract class SysHost {
   public abstract fileExists(filePath: string): boolean;
 
   public abstract pathRelativeTo(a: string, relativeTo: string): string;
-
+  
   public abstract combinePaths(...paths: string[]): string;
+  
+  public abstract normalizePath(path: string): string;
 }
 
 export default SysHost;

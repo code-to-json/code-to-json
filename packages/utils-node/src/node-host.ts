@@ -27,6 +27,10 @@ class NodeHost extends SysHost {
   public combinePaths(...paths: string[]): string {
     return path.join(...paths);
   }
+
+  public normalizePath(pth: string): string {
+    return path.normalize(pth).replace(/\\/g, '/');
+  }
 }
 
 export default NodeHost;

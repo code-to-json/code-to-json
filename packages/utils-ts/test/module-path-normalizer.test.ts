@@ -5,18 +5,38 @@ import * as path from 'path';
 import * as ts from 'typescript';
 import { generateModulePathNormalizer, SysHost } from '../src/index';
 
-const host: SysHost = {
-  readFileSync: ts.sys.readFile,
-  writeFileSync: ts.sys.writeFile,
-  directoryExists: ts.sys.directoryExists,
-  fileExists: ts.sys.fileExists,
-  pathRelativeTo(from: string, to: string) {
+class NodeHost extends SysHost {
+  public readFileSync(filePath: string, encoding?: string): string | undefined {
+    return ts.sys.readFile(filePath, encoding);
+  }
+
+  public writeFileSync(filePath: string, contents: string): void {
+    return ts.sys.writeFile(filePath, contents);
+  }
+
+  public directoryExists(dirPath: string): boolean {
+    return ts.sys.directoryExists(dirPath);
+  }
+
+  public fileExists(filePath: string): boolean {
+    return ts.sys.fileExists(filePath);
+  }
+
+  public pathRelativeTo(from: string, to: string): string {
     return path.relative(from, to);
-  },
-  combinePaths(...paths: string[]): string {
+  }
+
+  public combinePaths(...paths: string[]): string {
     return path.join(...paths);
-  },
-};
+  }
+
+  public normalizePath(pth: string): string {
+    return path.normalize(pth).replace(/\\/g, '/');
+  }
+}
+
+
+const host = new NodeHost();
 
 @suite.only
 class ModulePathNormalizerTests {
