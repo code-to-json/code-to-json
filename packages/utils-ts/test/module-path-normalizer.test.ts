@@ -6,7 +6,7 @@ import { NodeHost } from './helpers';
 
 const host = new NodeHost();
 
-@suite.only
+@suite
 class ModulePathNormalizerTests {
   @test
   public async 'no project folder or main'() {
