@@ -1,4 +1,4 @@
 {
-  "name": "pkg-ts-multi-file",
+  "name": "pkg-ts-single-file",
   "doc:main": "src/index.ts"
 }

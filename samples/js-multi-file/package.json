@@ -1,0 +1,4 @@
+{
+  "name": "pkg-js-multi-file",
+  "doc:main": "src/index.js"
+}

@@ -1,0 +1,4 @@
+{
+  "name": "pkg-js-consumes-ts",
+  "doc:main": "src/index.js"
+}

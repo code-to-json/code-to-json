@@ -1,0 +1,4 @@
+{
+  "name": "pkg-ts-advanced-types",
+  "doc:main": "src/index.ts"
+}

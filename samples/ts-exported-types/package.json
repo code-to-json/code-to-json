@@ -1,0 +1,4 @@
+{
+  "name": "pkg-ts-exported-types",
+  "doc:main": "src/index.ts"
+}
