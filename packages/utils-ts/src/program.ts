@@ -48,7 +48,7 @@ export async function createProgramFromTsConfig(
   searchPath: string,
   host: SysHost,
 ): Promise<Program> {
-  const cfgPath = findConfigFile(searchPath, host.fileExists);
+  const cfgPath = findConfigFile(searchPath, host.fileOrFolderExists);
   if (!cfgPath) {
     throw new InvalidArgumentsError(`Could not find a tsconfig.json via path "${searchPath}"`);
   }

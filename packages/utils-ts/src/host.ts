@@ -6,10 +6,6 @@ interface SysHost {
 
   writeFileSync(filePath: string, contents: string): void;
 
-  directoryExists(dirPath: string): boolean;
-
-  fileExists(filePath: string): boolean;
-
   pathRelativeTo(a: string, relativeTo: string): string;
 
   combinePaths(...paths: string[]): string;
@@ -20,6 +16,16 @@ interface SysHost {
     name: string;
     cleanup(): void;
   };
+
+  createFolder(path: string): void;
+
+  isFolder(path: string): boolean;
+
+  isFile(path: string): boolean;
+
+  removeFolderAndContents(path: string): Promise<void>;
+
+  fileOrFolderExists(path: string): boolean;
 }
 
 export default SysHost;
