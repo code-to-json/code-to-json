@@ -16,6 +16,7 @@
     "test": "mocha",
     "test:coverage": "nyc npm test",
     "codacy:transmit-coverage": "cat coverage/lcov.info | codacy-coverage",
+    "coveralls:transmit-coverage": "cat coverage/lcov.info | coveralls",
     "clean": "rm -rf ./lib",
     "build": "tsc -b .",
     "rebuild": "npm run clean & npm run build",

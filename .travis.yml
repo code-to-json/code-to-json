@@ -25,6 +25,7 @@ jobs:
       install:
         - yarn install --non-interactive
         - yarn add -WD codecov
+        - yarn add -WD coveralls
       script:
         - commitlint-travis
         - lerna run lint:js
@@ -36,6 +37,7 @@ jobs:
         - test "$TRAVIS_BRANCH" = "master" && ./node_modules/.bin/codecov
         - test "$TRAVIS_BRANCH" = "master" && npm install -g codacy-coverage
         - test "$TRAVIS_BRANCH" = "master" && lerna run codacy:transmit-coverage
+        - test "$TRAVIS_BRANCH" = "master" && lerna run coveralls:transmit-coverage
 
     - stage: 'Additional Tests'
       name: 'Floating Dependencies'
