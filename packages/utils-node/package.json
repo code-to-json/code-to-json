@@ -1,6 +1,6 @@
 {
   "name": "@code-to-json/utils-node",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Node.js utilities for code-to-json",
   "main": "lib/src/index.js",
   "typings": "lib/src/index.d.ts",
@@ -91,8 +91,8 @@
     ]
   },
   "dependencies": {
-    "@code-to-json/utils": "^0.6.2",
-    "@code-to-json/utils-ts": "^0.2.2",
+    "@code-to-json/utils": "^0.6.3",
+    "@code-to-json/utils-ts": "^0.2.3",
     "pkg-up": "^2.0.0"
   }
 }
