@@ -1,6 +1,6 @@
 {
   "name": "@code-to-json/cli",
-  "version": "0.8.1",
+  "version": "0.8.3",
   "description": "",
   "main": "lib/src/index.js",
   "doc:main": "src/index.ts",
@@ -13,10 +13,10 @@
     "code-to-json": "bin/code-to-json"
   },
   "dependencies": {
-    "@code-to-json/core": "^0.9.1",
-    "@code-to-json/formatter": "^0.9.1",
-    "@code-to-json/utils": "^0.6.1",
-    "@code-to-json/utils-node": "^0.0.1",
+    "@code-to-json/core": "^0.9.3",
+    "@code-to-json/formatter": "^0.9.3",
+    "@code-to-json/utils": "^0.6.3",
+    "@code-to-json/utils-node": "^0.0.3",
     "chalk": "^2.4.1",
     "commander": "^2.19.0",
     "debug": "^4.1.0",
@@ -40,7 +40,7 @@
   },
   "keywords": [],
   "devDependencies": {
-    "@code-to-json/test-helpers": "^0.3.1",
+    "@code-to-json/test-helpers": "^0.3.3",
     "@types/chai": "4.1.7",
     "@types/glob": "7.1.1",
     "chai": "4.2.0",
@@ -59,7 +59,7 @@
     "remark-lint-no-dead-urls": "0.4.1",
     "remark-preset-lint-markdown-style-guide": "2.1.2",
     "remark-preset-lint-recommended": "3.0.2",
-    "remark-validate-links": "7.1.2",
+    "remark-validate-links": "8.0.0",
     "scripty": "1.9.0",
     "snap-shot-it": "6.2.8",
     "ts-node": "7.0.1",
