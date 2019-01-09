@@ -34,10 +34,10 @@ jobs:
         - lerna run lint:md
         - ./node_modules/.bin/lerna run test:coverage
       after_success:
-        - test "$TRAVIS_BRANCH" = "master" && ./node_modules/.bin/codecov
+        - node ./condense-coverage.js
         - test "$TRAVIS_BRANCH" = "master" && npm install -g codacy-coverage
         - test "$TRAVIS_BRANCH" = "master" && lerna run codacy:transmit-coverage
-        - test "$TRAVIS_BRANCH" = "master" && lerna run coveralls:transmit-coverage
+        - test "$TRAVIS_BRANCH" = "master" && cat coverage/merged.lcov | coveralls
 
     - stage: 'Additional Tests'
       name: 'Floating Dependencies'
