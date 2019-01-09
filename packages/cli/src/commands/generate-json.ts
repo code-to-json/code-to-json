@@ -1,7 +1,7 @@
 import { walkProgram } from '@code-to-json/core';
 import { formatWalkerOutput } from '@code-to-json/formatter';
 import { InvalidArgumentsError } from '@code-to-json/utils';
-import { NodeHost, pathNormalizerForPackageJson } from '@code-to-json/utils-node';
+import { nodeHost, pathNormalizerForPackageJson } from '@code-to-json/utils-node';
 import {
   createProgramFromTsConfig,
   ModulePathNormalizer,
@@ -33,16 +33,15 @@ export default async function generateJSON(
   let program!: Program;
   let pathNormalizer: ModulePathNormalizer = PASSTHROUGH_MODULE_PATH_NORMALIZER;
 
-  const host = new NodeHost();
   if (typeof project === 'string') {
-    program = await createProgramFromTsConfig(project, host);
-    pathNormalizer = await pathNormalizerForPackageJson(project, host);
+    program = await createProgramFromTsConfig(project, nodeHost);
+    pathNormalizer = await pathNormalizerForPackageJson(project, nodeHost);
   } else if (!project && rawEntries && rawEntries.length > 0) {
     program = await createProgramFromEntryGlobs(rawEntries);
   } else {
     throw new InvalidArgumentsError('Either --project <path> or entries glob(s) must be defined');
   }
-  const walkResult = walkProgram(program, host, {
+  const walkResult = walkProgram(program, nodeHost, {
     pathNormalizer,
   });
 

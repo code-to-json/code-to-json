@@ -11,6 +11,7 @@ export { default as SysHost } from './host';
 export {
   generateModulePathNormalizer,
   ModuleInfo,
+  ProjectInfo,
   ModulePathNormalizer,
   PASSTHROUGH_MODULE_PATH_NORMALIZER,
 } from './module-path-normalizer';

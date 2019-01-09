@@ -1,5 +1,5 @@
 import { setupTestCase } from '@code-to-json/test-helpers';
-import { NodeHost } from '@code-to-json/utils-node';
+import { nodeHost } from '@code-to-json/utils-node';
 import { generateId, PASSTHROUGH_MODULE_PATH_NORMALIZER } from '@code-to-json/utils-ts';
 import { expect } from 'chai';
 import { suite, test } from 'mocha-typescript';
@@ -34,7 +34,7 @@ class SimpleSnapshotSmokeTests {
     const queue = createQueue();
     const collector: Collector = {
       queue,
-      host: new NodeHost(),
+      host: nodeHost,
       pathNormalizer: PASSTHROUGH_MODULE_PATH_NORMALIZER,
       opts: {
         pathNormalizer: PASSTHROUGH_MODULE_PATH_NORMALIZER,

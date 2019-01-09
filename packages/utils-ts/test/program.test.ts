@@ -8,12 +8,12 @@ import { suite, test } from 'mocha-typescript';
 import * as path from 'path';
 import * as ts from 'typescript';
 import { createProgramFromCodeString, createProgramFromTsConfig, SysHost } from '../src/index';
-import { NodeHost } from './helpers';
+import { nodeHost } from './helpers';
 
 const DEFAULT_FILE_EXISTENCE_CHECKER: FileExistenceChecker = f =>
   existsSync(f) && statSync(f).isFile();
 
-const TEST_FILE_UTILS: [SysHost] = [new NodeHost()];
+const TEST_FILE_UTILS: [SysHost] = [nodeHost];
 
 function assertNumExports(
   prog: ts.Program,
