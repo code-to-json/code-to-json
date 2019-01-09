@@ -11,8 +11,7 @@
       "**/CVS": true,
       "**/.DS_Store": true,
       "**/package-lock.json": true,
-      "**/.nyc_output": true,
-      "**/coverage": true
+      "**/.nyc_output": true
     },
     "search.exclude": {
       "**/node_modules": true,
