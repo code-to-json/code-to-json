@@ -98,7 +98,7 @@ class CompilerHost implements ts.CompilerHost {
    * @returns {boolean}
    */
   public fileExists(fileName: string): boolean {
-    return this.h.fileExists(fileName);
+    return this.h.fileOrFolderExists(fileName);
   }
 
   /**
@@ -110,7 +110,7 @@ class CompilerHost implements ts.CompilerHost {
    * @returns {boolean}
    */
   public directoryExists(directoryName: string): boolean {
-    return this.h.directoryExists(directoryName);
+    return this.h.fileOrFolderExists(directoryName);
   }
 
   /**

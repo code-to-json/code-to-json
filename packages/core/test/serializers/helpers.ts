@@ -4,11 +4,16 @@ import {
   PASSTHROUGH_MODULE_PATH_NORMALIZER,
   SysHost,
 } from '@code-to-json/utils-ts';
+import * as fs from 'fs';
 import * as path from 'path';
+import * as rimraf from 'rimraf';
 import * as tmp from 'tmp';
 import * as ts from 'typescript';
+import { promisify } from 'util';
 import Collector from '../../src/collector';
 import { create as createQueue } from '../../src/processing-queue';
+
+const primraf = promisify(rimraf);
 
 export const nodeHost: SysHost = {
   readFileSync(filePath: string, encoding?: string): string | undefined {
@@ -19,12 +24,16 @@ export const nodeHost: SysHost = {
     return ts.sys.writeFile(filePath, contents);
   },
 
-  directoryExists(dirPath: string): boolean {
-    return ts.sys.directoryExists(dirPath);
+  fileOrFolderExists(pth: string): boolean {
+    return ts.sys.fileExists(pth) || ts.sys.directoryExists(pth);
   },
 
-  fileExists(filePath: string): boolean {
-    return ts.sys.fileExists(filePath);
+  isFile(pth: string): boolean {
+    return fs.statSync(pth).isFile();
+  },
+
+  isFolder(pth: string): boolean {
+    return fs.statSync(pth).isDirectory();
   },
 
   pathRelativeTo(from: string, to: string): string {
@@ -37,6 +46,14 @@ export const nodeHost: SysHost = {
 
   normalizePath(pth: string): string {
     return path.normalize(pth).replace(/\\/g, '/');
+  },
+
+  createFolder(pth: string): void {
+    fs.mkdirSync(pth, { recursive: true });
+  },
+
+  removeFolderAndContents(pth: string): Promise<void> {
+    return primraf(pth);
   },
 
   createTempFolder(): {
