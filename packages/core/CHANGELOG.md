@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.11.0](https://github.com/mike-north/code-to-json/compare/@code-to-json/core@0.10.0...@code-to-json/core@0.11.0) (2019-01-09)
+
+
+### Features
+
+* more consistent design for NodeHost ([d3dbc93](https://github.com/mike-north/code-to-json/commit/d3dbc93))
+
+
+
+
+
 # [0.10.0](https://github.com/mike-north/code-to-json/compare/@code-to-json/core@0.9.3...@code-to-json/core@0.10.0) (2019-01-09)
 
 

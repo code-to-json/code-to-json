@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.2.0](https://github.com/mike-north/code-to-json/compare/@code-to-json/utils-node@0.1.0...@code-to-json/utils-node@0.2.0) (2019-01-09)
+
+
+### Features
+
+* more consistent design for NodeHost ([d3dbc93](https://github.com/mike-north/code-to-json/commit/d3dbc93))
+
+
+
+
+
 # [0.1.0](https://github.com/mike-north/code-to-json/compare/@code-to-json/utils-node@0.0.3...@code-to-json/utils-node@0.1.0) (2019-01-09)
 
 
