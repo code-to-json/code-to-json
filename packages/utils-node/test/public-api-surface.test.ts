@@ -5,8 +5,8 @@ import * as Exported from '../src/index';
 @suite
 class PublicApiSurfaceTests {
   @test
-  public 'NodeHost class exists'(): void {
-    expect(Exported.NodeHost).to.be.a('function');
+  public 'nodeHost object exists'(): void {
+    expect(Exported.nodeHost).to.be.a('object');
   }
 
   @test
@@ -22,8 +22,8 @@ class PublicApiSurfaceTests {
   @test
   public 'no extra exports'(): void {
     expect(Object.keys(Exported).sort()).to.eql([
-      'NodeHost',
       'findPkgJson',
+      'nodeHost',
       'pathNormalizerForPackageJson',
     ]);
   }

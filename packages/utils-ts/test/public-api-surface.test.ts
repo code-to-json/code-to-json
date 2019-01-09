@@ -18,7 +18,6 @@ const {
   generateId,
   generateModulePathNormalizer,
   PASSTHROUGH_MODULE_PATH_NORMALIZER,
-  SysHost,
 } = Exported;
 
 @suite
@@ -50,7 +49,6 @@ class PublicApiSurface {
       'generateModulePathNormalizer is a function',
     );
     expect(mapUem).to.be.a('function', 'mapUem is a function');
-    expect(SysHost).to.be.a('function', 'SysHost is a function');
     expect(PASSTHROUGH_MODULE_PATH_NORMALIZER).to.be.a(
       'object',
       'PASSTHROUGH_MODULE_PATH_NORMALIZER is a object',
@@ -61,7 +59,6 @@ class PublicApiSurface {
   public 'no extra exports'(): void {
     expect(Object.keys(Exported).sort()).to.eql([
       'PASSTHROUGH_MODULE_PATH_NORMALIZER',
-      'SysHost',
       'createProgramFromCodeString',
       'createProgramFromEntries',
       'createProgramFromTsConfig',
