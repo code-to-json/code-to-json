@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.3.0](https://github.com/mike-north/code-to-json/compare/@code-to-json/utils-ts@0.2.3...@code-to-json/utils-ts@0.3.0) (2019-01-09)
+
+
+### Features
+
+* make NodeHost a pojo instead of a class ([c07587c](https://github.com/mike-north/code-to-json/commit/c07587c))
+
+
+
+
+
 ## [0.2.3](https://github.com/mike-north/code-to-json/compare/@code-to-json/utils-ts@0.2.2...@code-to-json/utils-ts@0.2.3) (2019-01-09)
 
 **Note:** Version bump only for package @code-to-json/utils-ts
