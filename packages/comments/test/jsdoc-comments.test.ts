@@ -170,4 +170,26 @@ this is a second line
       'single-line comment',
     );
   }
+
+  @test
+  public '@typeparam tags'(): void {
+    expect(
+      parseCommentString(`
+/**
+ * This is only a comment in a file
+ *
+ * @typeparam B - Response body
+ */
+`),
+    ).to.deep.eq({
+      summary: 'This is only a comment in a file',
+      typeParams: [
+        {
+          tagName: '@typeparam',
+          name: 'B',
+          content: 'Response body',
+        },
+      ],
+    });
+  }
 }

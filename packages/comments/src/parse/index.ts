@@ -7,14 +7,18 @@ import parseSummarySection from './summary-section';
 
 export function parseCommentString(str: string): CommentData {
   const parsed = parser.parseString(str);
-  const { summarySection, params, modifierTagSet, returnsBlock } = parsed.docComment;
+  const { summarySection, params, modifierTagSet, returnsBlock, typeParams } = parsed.docComment;
   const summary = parseSummarySection(summarySection).trim();
   const data: CommentData = { summary };
   const parsedParams = parseParams(params);
+  const parsedTypeParams = parseParams(typeParams);
   const modifierTags = parseModifierTagSet(modifierTagSet);
   const returns = parseReturnsBlock(returnsBlock);
   if (parsedParams.length > 0) {
     data.params = parsedParams;
+  }
+  if (parsedTypeParams.length > 0) {
+    data.typeParams = parsedTypeParams;
   }
   if (modifierTags.length > 0) {
     data.modifiers = modifierTags.map(t => t.replace('@', ''));

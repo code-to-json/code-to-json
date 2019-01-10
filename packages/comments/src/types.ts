@@ -12,6 +12,7 @@ export interface CommentParam extends CommentInlineTag, CommentParamDescription 
 export interface CommentData {
   summary: string;
   params?: CommentParam[];
+  typeParams?: CommentParam[];
   modifiers?: string[];
   returns?: any;
 }
