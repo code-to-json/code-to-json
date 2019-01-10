@@ -1,42 +1,37 @@
 {
-  "name": "@code-to-json/core",
-  "version": "0.11.0",
-  "description": "",
+  "name": "@code-to-json/comments",
+  "version": "0.0.0-development",
+  "description": "Comment-parsing utilities for code-to-json",
   "main": "lib/src/index.js",
   "typings": "lib/src/index.d.ts",
   "license": "BSD-2-Clause",
   "author": "Mike North <michael.l.north@gmail.com> (https://mike.works)",
+  "repository": "https://github.com/mike-north/code-to-json",
+  "homepage": "https://github.com/mike-north/code-to-json/tree/master/packages/utils",
   "scripts": {
     "lint": "yarn lint:ts && yarn lint:js && yarn lint:md",
     "lint:ts": "tslint --project . && tslint --project test",
     "lint:js": "eslint . --ext js,ts",
-    "lint:md": "./node_modules/.bin/remark .",
+    "lint:md": "remark .",
     "test": "mocha",
-    "test:debug": "mocha --inspect-brk",
     "test:coverage": "nyc npm test",
     "codacy:transmit-coverage": "cat coverage/lcov.info | codacy-coverage",
+    "coveralls:transmit-coverage": "cat coverage/lcov.info | coveralls",
     "clean": "rm -rf ./lib",
     "build": "tsc -b .",
-    "rebuild": "yarn clean & yarn build",
+    "rebuild": "npm run clean & npm run build",
     "prepublishOnly": "tsc -b ."
   },
-  "repository": "https://github.com/mike-north/code-to-json/",
-  "homepage": "https://github.com/mike-north/code-to-json/tree/master/packages/core",
   "keywords": [],
-  "dependencies": {
-    "@code-to-json/comments": "^0.0.0-development",
-    "@code-to-json/utils": "^0.6.3",
-    "@code-to-json/utils-ts": "^0.4.0",
-    "debug": "4.1.1",
-    "typescript": "^3.1.0"
+  "publishConfig": {
+    "access": "public"
   },
   "devDependencies": {
-    "@code-to-json/test-helpers": "^0.3.3",
-    "@code-to-json/utils-node": "^0.2.0",
     "@types/chai": "4.1.7",
     "chai": "4.2.0",
     "eslint": "5.12.0",
     "eslint-config-airbnb-base": "13.1.0",
+    "eslint-config-prettier": "3.3.0",
     "eslint-plugin-import": "2.14.0",
     "eslint-plugin-prettier": "3.0.1",
     "eslint-plugin-typescript": "0.14.0",
@@ -54,6 +49,7 @@
     "tslint": "5.12.0",
     "tslint-config-prettier": "1.17.0",
     "tslint-sonarts": "1.8.0",
+    "typescript": "3.2.2",
     "typescript-eslint-parser": "21.0.2"
   },
   "nyc": {
@@ -90,5 +86,14 @@
       "json",
       "text-summary"
     ]
+  },
+  "remarkConfig": {
+    "plugins": [
+      "remark-preset-lint-recommended",
+      "remark-preset-lint-markdown-style-guide"
+    ]
+  },
+  "dependencies": {
+    "@microsoft/tsdoc": "^0.12.4"
   }
 }
