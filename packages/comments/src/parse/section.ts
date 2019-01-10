@@ -1,16 +1,13 @@
 import { DocNode, DocNodeKind, DocParagraph, DocPlainText, DocSection } from '@microsoft/tsdoc';
 import parseParagraph from './paragraph';
 
-export default function parseDocSection(section?: DocSection): string | undefined {
-  if (!section) {
-    return undefined;
-  }
+export default function parseDocSection(section: DocSection): string | undefined {
   const textParts: string[] = [];
 
   function parse(node: DocNode): void {
     switch (node.kind) {
       case DocNodeKind.Paragraph:
-        textParts.push(parseParagraph(node as DocParagraph) || '');
+        textParts.push(parseParagraph(node as DocParagraph));
         break;
       case DocNodeKind.SoftBreak:
         textParts.push('\n');
@@ -26,6 +23,5 @@ export default function parseDocSection(section?: DocSection): string | undefine
   }
 
   section.nodes.forEach(parse);
-
   return textParts.join('\n').trim();
 }

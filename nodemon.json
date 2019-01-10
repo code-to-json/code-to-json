@@ -17,7 +17,6 @@
     "packages/utils-node/test",
     "packages/core/test",
     "packages/formatter/test",
-    "packages/cli/test",
-    "samples"
+    "packages/cli/test"
   ]
 }

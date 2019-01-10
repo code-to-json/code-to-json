@@ -16,9 +16,9 @@ class JSDocCommentsTests {
     );
     expect(
       parseCommentString(`/**
-hello world
-this is a second line
-*/`),
+    hello world
+    this is a second line
+    */`),
     ).to.deep.eq(
       {
         summary: 'hello world\nthis is a second line',
@@ -27,15 +27,15 @@ this is a second line
     );
 
     expect(
-      parseCommentString(`/**
-hello world
-
-
-this is a second line
-*/`),
+      parseCommentString(`
+/**
+ * hello world
+ *
+ * this is a second line
+ */`),
     ).to.deep.eq(
       {
-        summary: 'hello world\n\n\nthis is a second line',
+        summary: 'hello world\n\nthis is a second line',
       },
       'multi-line comment with blank lines',
     );
@@ -131,11 +131,10 @@ this is a second line
  *
  * @internal
  * @beta
- *
  * third thing
  */`),
     ).to.deep.eq({
-      summary: 'This is only a comment in a file\n\n\n\n\nthird thing',
+      summary: 'This is only a comment in a file\n\nthird thing',
       modifiers: ['internal', 'beta'],
     });
   }
@@ -214,7 +213,7 @@ this is a second line
 `),
     ).to.deep.eq({
       summary: 'This is only a comment in a file',
-      remarks: 'This is my first line\nanother line\nthe last line',
+      remarks: 'This is my first line\n\nanother line\n\nthe last line',
     });
   }
 }

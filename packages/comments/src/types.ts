@@ -15,6 +15,7 @@ export interface CommentData {
   typeParams?: CommentParam[];
   modifiers?: string[];
   remarks?: string;
+  deprecated?: string;
   returns?: any;
 }
 
