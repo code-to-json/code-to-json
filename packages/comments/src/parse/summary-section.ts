@@ -9,7 +9,8 @@ function parseSummaryParagraph(node: DocParagraph): string {
         return str + (ch as DocPlainText).text;
       case DocNodeKind.SoftBreak:
         return `${str}\n`;
-
+      case DocNodeKind.BlockTag:
+        return str;
       default:
         throw new Error(`Didn't expect to encounter a ${kind} as a child of a DocParagraph`);
     }

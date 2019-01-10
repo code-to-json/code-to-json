@@ -7,7 +7,7 @@ import { parseCommentString } from '../src/index';
 @suite
 class JSDocCommentsTests {
   @test
-  public 'simple comment wiht no tags'(): void {
+  public 'simple comment with no tags'(): void {
     expect(parseCommentString('/** hello world */')).to.deep.eq(
       {
         summary: 'hello world',
@@ -47,8 +47,8 @@ this is a second line
       parseCommentString(`
 /**
  * Add two numbers together
- * 
- * 
+ *
+ *
  * @param x first number
  * @param y second number
  */`),
@@ -74,8 +74,8 @@ this is a second line
       parseCommentString(`
 /**
  * Add two numbers together
- * 
- * 
+ *
+ *
  * @param x {string} first number
  * @param y {string} second number
  */`),
@@ -107,8 +107,8 @@ this is a second line
       parseCommentString(`
 /**
  * Add two numbers together
- * 
- * 
+ *
+ *
  * @param x - first number
  * @param y - second number
  */`),

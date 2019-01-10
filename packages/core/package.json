@@ -24,6 +24,7 @@
   "homepage": "https://github.com/mike-north/code-to-json/tree/master/packages/core",
   "keywords": [],
   "dependencies": {
+    "@code-to-json/comments": "^0.0.0-development",
     "@code-to-json/utils": "^0.6.3",
     "@code-to-json/utils-ts": "^0.3.0",
     "debug": "4.1.1",
