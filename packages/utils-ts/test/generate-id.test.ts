@@ -21,6 +21,8 @@ class GenerateIdTests {
 
   private varSym!: ts.Symbol;
 
+  private checker!: ts.TypeChecker;
+
   public before() {
     const { program } = createProgramFromCodeString(
       `
@@ -63,6 +65,7 @@ export const x: string = 'foo';
 
     expect(this.varSym.declarations.length).to.eql(1);
     [this.varDeclaration] = this.varSym.declarations;
+    this.checker = checker;
   }
 
   @test
@@ -82,7 +85,7 @@ export const x: string = 'foo';
 
   @test
   public async 'generateId for type'(): Promise<void> {
-    expect(generateId(this.typ))
+    expect(generateId(this.typ, this.checker))
       .to.be.a('string')
       .and.to.have.length.greaterThan(0);
   }

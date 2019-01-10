@@ -90,7 +90,10 @@ export default function serializeSourceFile(
   if (sym) {
     basicInfo.symbol = c.queue.queue(sym, 'symbol', checker);
   }
-  basicInfo.documentation = findSourceFileComment(sourceFile);
+  const doc = findSourceFileComment(sourceFile);
+  if (typeof doc !== 'undefined') {
+    basicInfo.documentation = doc;
+  }
 
   return basicInfo;
 }

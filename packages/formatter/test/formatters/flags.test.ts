@@ -24,7 +24,6 @@ class FlagFormatterTests {
       'Constructor',
       'TypeParameter',
     ].forEach(flag => {
-      expect(formatFlags(flag)).to.eql([flag[0].toLowerCase() + flag.substr(1)]);
       expect(formatFlags([flag])).to.eql([flag[0].toLowerCase() + flag.substr(1)]);
     });
   }
@@ -36,12 +35,12 @@ class FlagFormatterTests {
 
   @test
   public async blockScopedVariable(): Promise<void> {
-    expect(formatFlags('BlockScopedVariable')).to.eql(['variable']);
+    expect(formatFlags(['BlockScopedVariable'])).to.eql(['variable']);
   }
 
   @test
   public async valueModule(): Promise<void> {
-    expect(formatFlags('ValueModule')).to.eql(['module']);
+    expect(formatFlags(['ValueModule'])).to.eql(['module']);
   }
 
   @test
