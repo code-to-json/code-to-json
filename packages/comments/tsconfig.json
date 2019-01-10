@@ -1,0 +1,12 @@
+{
+  "extends": "../tsconfig.settings.json",
+  "compilerOptions": {
+    "outDir": "lib",
+    "rootDir": ".",
+    "baseUrl": "src",
+    "target": "es2017",
+    "lib": ["scripthost", "es2015"]
+  },
+  "include": ["src"],
+  "exclude": ["lib"]
+}
