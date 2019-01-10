@@ -1,6 +1,5 @@
-import { TSDocConfiguration, TSDocParser } from '@microsoft/tsdoc';
-
-const config = new TSDocConfiguration();
+import { TSDocParser } from '@microsoft/tsdoc';
+import config from './config';
 
 const parser = new TSDocParser(config);
 export default parser;

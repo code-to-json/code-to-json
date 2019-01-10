@@ -1,2 +1,3 @@
 export { default as parser } from './parser';
-export { parseCommentString, CommentData } from './parse-comment-string';
+export { parseCommentString } from './parse/index';
+export { CommentData } from './types';
