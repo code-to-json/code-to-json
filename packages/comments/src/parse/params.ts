@@ -7,6 +7,7 @@ import {
   DocSection,
 } from '@microsoft/tsdoc';
 import { CommentParam } from '../types';
+import { extractParamDescription } from './utils';
 
 function parseTagSection(tagName: string, node: DocSection): string {
   return node.getChildNodes().reduce((str, ch) => {
@@ -37,37 +38,21 @@ function parseTagSection(tagName: string, node: DocSection): string {
   }, '');
 }
 
-const JSDOC_PARAM_CONTENT_REGEX = /^\s*([\w_.]+)\s*\{([^}]+)\}\s*(.*)/;
-const TS_PARAM_CONTENT_REGEX = /^\s*([\w_.]+)\s+(.*)\s*$/;
-
-function extractVariableNameAndTypeFromParamContent(
-  s: string,
-): { name: string; type?: string; content: string } {
-  const jsdocMatch = JSDOC_PARAM_CONTENT_REGEX.exec(s);
-  if (jsdocMatch) {
-    const [, name, type, content] = jsdocMatch;
-    return { name, type, content };
-  }
-  const tsMatch = TS_PARAM_CONTENT_REGEX.exec(s);
-  if (tsMatch) {
-    const [, name, content] = tsMatch;
-    return { name, content };
-  }
-  return { name: '(unknown)', content: s };
-}
-
 export default function parseParams(params: DocParamCollection): CommentParam[] {
   return params.blocks.map(p => {
     const rawContent = parseTagSection('params', p.content).trim();
     if (p.parameterName) {
       return { tagName: p.blockTag.tagName, name: p.parameterName, content: rawContent };
     }
-    const { name, type, content } = extractVariableNameAndTypeFromParamContent(rawContent);
-    const basic = {
+    const { name, type, content, raw } = extractParamDescription(rawContent);
+    const basic: CommentParam = {
       tagName: p.blockTag.tagName,
       name,
       content,
     };
+    if (typeof raw !== 'undefined') {
+      basic.raw = raw;
+    }
     return type ? { ...basic, type } : basic;
   });
 }

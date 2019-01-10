@@ -102,6 +102,45 @@ this is a second line
   }
 
   @test
+  public '@returns tag'(): void {
+    expect(
+      parseCommentString(`
+/**
+ * This is only a comment in a file
+ *
+ * @returns {foo} another thing
+ * foo
+ *
+ * third thing
+ */`),
+    ).to.deep.eq({
+      summary: 'This is only a comment in a file',
+      returns: {
+        type: 'foo',
+        content: 'another thing\nfoo\nthird thing',
+      },
+    });
+  }
+
+  @test
+  public 'modifier tags'(): void {
+    expect(
+      parseCommentString(`
+/**
+ * This is only a comment in a file
+ *
+ * @internal
+ * @beta
+ *
+ * third thing
+ */`),
+    ).to.deep.eq({
+      summary: 'This is only a comment in a file\n\n\n\n\nthird thing',
+      modifiers: ['internal', 'beta'],
+    });
+  }
+
+  @test
   public '@param tags (TSDoc style)'(): void {
     expect(
       parseCommentString(`

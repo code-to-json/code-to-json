@@ -2,16 +2,22 @@
   "verbose": true,
   "delay": 500,
   "watch": [
-    "packages/cli/lib",
+    "packages/utils/lib",
+    "packages/comments/lib",
+    "packages/test-helpers/lib",
+    "packages/utils-ts/lib",
+    "packages/utils-node/lib",
     "packages/core/lib",
     "packages/formatter/lib",
-    "packages/core/lib",
-    "packages/test-helpers/lib",
-    "packages/cli/test",
+    "packages/cli/lib",
+    "packages/utils/test",
+    "packages/comments/test",
+    "packages/test-helpers/test",
+    "packages/utils-ts/test",
+    "packages/utils-node/test",
     "packages/core/test",
     "packages/formatter/test",
-    "packages/core/test",
-    "packages/test-helpers/test",
-    "node_modules/@code-to-json"
+    "packages/cli/test",
+    "samples"
   ]
 }

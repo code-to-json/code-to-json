@@ -3,10 +3,11 @@ import { Standardization, TSDocConfiguration, TSDocTagSyntaxKind } from '@micros
 const config = new TSDocConfiguration();
 
 config.addTagDefinition({
-  tagName: '@disclaimer',
-  tagNameWithUpperCase: '@DISCLAIMER',
+  tagName: '@author',
+  tagNameWithUpperCase: '@AUTHOR',
   syntaxKind: TSDocTagSyntaxKind.BlockTag,
   standardization: Standardization.Extended,
-  allowMultiple: true,
+  allowMultiple: false,
 });
+
 export default config;

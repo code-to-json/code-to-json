@@ -2,7 +2,7 @@
 // tslint:disable:no-bitwise
 import { UnreachableError } from '@code-to-json/utils';
 import * as debug from 'debug';
-import { isSourceFile, Node, Symbol as Sym, Type } from 'typescript';
+import { isSourceFile, Node, Symbol as Sym, Type, TypeChecker } from 'typescript';
 import { isDeclaration, isNode, isSymbol, isType } from './guards';
 
 const log = debug('code-to-json:generate-id');
@@ -32,14 +32,15 @@ export function generateHash(str: string): string {
  * Generate an id for an entity
  * @param thing Entity to generate an Id for
  */
-export function generateId(thing: Sym | Node | Type): string {
+export function generateId(thing: Type, checker: TypeChecker): string;
+export function generateId(thing: Sym | Node): string;
+export function generateId(thing: Sym | Node | Type, checker?: TypeChecker): string {
   if (typeof thing === 'undefined' || thing === null) {
     throw new Error('Cannot generate an ID for empty values');
   }
   if (isType(thing)) {
-    // tslint:disable-next-line:no-useless-cast
-    const typeId = (thing as any).id;
-    return `${typeId}`;
+    const ch = checker as TypeChecker;
+    return generateHash(ch.typeToString(thing));
   }
   if (isSymbol(thing)) {
     const parts: Array<string | number> = [thing.name, thing.flags];

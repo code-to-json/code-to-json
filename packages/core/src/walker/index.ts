@@ -52,7 +52,7 @@ export function walkProgram(
   const sourceFiles = program.getSourceFiles().filter(cfg.shouldIncludeSourceFile);
 
   // Initialize the work-processing queue
-  const queue = createQueue();
+  const queue = createQueue(checker);
   sourceFiles.forEach(sf => queue.queue(sf, 'sourceFile', checker));
   const collector: Collector = {
     queue,
