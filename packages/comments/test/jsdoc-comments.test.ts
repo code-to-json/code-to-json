@@ -192,4 +192,29 @@ this is a second line
       ],
     });
   }
+
+  @test
+  public '@remarks'(): void {
+    expect(
+      parseCommentString(`
+/**
+ * This is only a comment in a file
+ *
+ * @remarks
+ *
+ * This is my first line
+ *
+ * another line
+ *
+ * the last line
+ *
+ *
+ *
+ */
+`),
+    ).to.deep.eq({
+      summary: 'This is only a comment in a file',
+      remarks: 'This is my first line\nanother line\nthe last line',
+    });
+  }
 }

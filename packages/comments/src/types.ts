@@ -14,6 +14,7 @@ export interface CommentData {
   params?: CommentParam[];
   typeParams?: CommentParam[];
   modifiers?: string[];
+  remarks?: string;
   returns?: any;
 }
 
