@@ -216,4 +216,32 @@ class JSDocCommentsTests {
       remarks: 'This is my first line\n\nanother line\n\nthe last line',
     });
   }
+
+  @test
+  public '@deprecated'(): void {
+    expect(
+      parseCommentString(`
+/**
+ * This is only a comment in a file
+ *
+ * @deprecated
+ */
+`),
+    ).to.deep.eq({
+      summary: 'This is only a comment in a file',
+      deprecated: '',
+    });
+    expect(
+      parseCommentString(`
+/**
+ * This is only a comment in a file
+ *
+ * @deprecated until v99.0.0
+ */
+`),
+    ).to.deep.eq({
+      summary: 'This is only a comment in a file',
+      deprecated: 'until v99.0.0',
+    });
+  }
 }
