@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.6.4](https://github.com/mike-north/code-to-json/compare/@code-to-json/utils@0.6.3...@code-to-json/utils@0.6.4) (2019-01-11)
+
+
+### Bug Fixes
+
+* **comments:** more newline edge and corner cases ([7141bb4](https://github.com/mike-north/code-to-json/commit/7141bb4))
+
+
+
+
+
 ## [0.6.3](https://github.com/mike-north/code-to-json/compare/@code-to-json/utils@0.6.2...@code-to-json/utils@0.6.3) (2019-01-09)
 
 **Note:** Version bump only for package @code-to-json/utils

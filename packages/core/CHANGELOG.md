@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.12.0](https://github.com/mike-north/code-to-json/compare/@code-to-json/core@0.11.1...@code-to-json/core@0.12.0) (2019-01-11)
+
+
+### Bug Fixes
+
+* consume comment structured data ([e457b6a](https://github.com/mike-north/code-to-json/commit/e457b6a))
+
+
+### Features
+
+* **comments:** parsing of returns tag ([9b54bd3](https://github.com/mike-north/code-to-json/commit/9b54bd3))
+
+
+
+
+
 ## [0.11.1](https://github.com/mike-north/code-to-json/compare/@code-to-json/core@0.11.0...@code-to-json/core@0.11.1) (2019-01-10)
 
 **Note:** Version bump only for package @code-to-json/core

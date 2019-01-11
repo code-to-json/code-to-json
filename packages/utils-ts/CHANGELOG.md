@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.5.0](https://github.com/mike-north/code-to-json/compare/@code-to-json/utils-ts@0.4.0...@code-to-json/utils-ts@0.5.0) (2019-01-11)
+
+
+### Bug Fixes
+
+* **comments:** more newline edge and corner cases ([7141bb4](https://github.com/mike-north/code-to-json/commit/7141bb4))
+
+
+### Features
+
+* **comments:** parsing of returns tag ([9b54bd3](https://github.com/mike-north/code-to-json/commit/9b54bd3))
+
+
+
+
+
 # [0.4.0](https://github.com/mike-north/code-to-json/compare/@code-to-json/utils-ts@0.3.0...@code-to-json/utils-ts@0.4.0) (2019-01-09)
 
 

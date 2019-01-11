@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.1.0](https://github.com/mike-north/code-to-json/compare/@code-to-json/comments@0.0.0...@code-to-json/comments@0.1.0) (2019-01-11)
+
+
+### Bug Fixes
+
+* **comments:** more newline edge and corner cases ([7141bb4](https://github.com/mike-north/code-to-json/commit/7141bb4))
+* **comments:** proper handling of newlines in block comments ([6553937](https://github.com/mike-north/code-to-json/commit/6553937))
+
+
+### Features
+
+* **comments:** parsing of returns tag ([9b54bd3](https://github.com/mike-north/code-to-json/commit/9b54bd3))
+* typeparam tags ([6a01882](https://github.com/mike-north/code-to-json/commit/6a01882))
+* **comments:** remarks tag ([d8ef9e5](https://github.com/mike-north/code-to-json/commit/d8ef9e5))
+
+
+
+
+
 # 0.0.0 (2019-01-10)
 
 

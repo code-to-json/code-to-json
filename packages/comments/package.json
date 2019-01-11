@@ -1,6 +1,6 @@
 {
   "name": "@code-to-json/comments",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Comment-parsing utilities for code-to-json",
   "main": "lib/src/index.js",
   "typings": "lib/src/index.d.ts",
@@ -94,7 +94,7 @@
     ]
   },
   "dependencies": {
-    "@code-to-json/utils": "^0.6.3",
+    "@code-to-json/utils": "^0.6.4",
     "@microsoft/tsdoc": "^0.12.4"
   }
 }
