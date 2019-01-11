@@ -24,8 +24,6 @@ snap-doc \
   --format md    # markdown (md), json (json) or a single-page app (spa)s
 ```
 
-## Why another documentation tool?
-
 ## Packages
 
 - [@code-to-json/utils](https://github.com/code-to-json/code-to-json/tree/master/packages/utils) [![Version](https://img.shields.io/npm/v/@code-to-json/utils.svg)](https://www.npmjs.com/package/@code-to-json/utils) - Low level utilities, with no dependencies
@@ -35,6 +33,8 @@ snap-doc \
 - [@code-to-json/utils-node](https://github.com/code-to-json/code-to-json/tree/master/packages/utils-node) [![Version](https://img.shields.io/npm/v/@code-to-json/utils-node.svg)](https://www.npmjs.com/package/@code-to-json/utils-node) - <b>[NODE]</b> Node.js utilities
 
 - [@code-to-json/core](https://github.com/code-to-json/code-to-json/tree/master/packages/core) [![Version](https://img.shields.io/npm/v/@code-to-json/core.svg)](https://www.npmjs.com/package/@code-to-json/core) - Code analysis functionality
+
+- [@code-to-json/comments](https://github.com/code-to-json/code-to-json/tree/master/packages/comments) [![Version](https://img.shields.io/npm/v/@code-to-json/comments.svg)](https://www.npmjs.com/package/@code-to-json/comments) - Comment-parsing functionality
 
 - [@code-to-json/test-helpers](https://github.com/code-to-json/code-to-json/tree/master/packages/test-helpers) [![Version](https://img.shields.io/npm/v/@code-to-json/test-helpers.svg)](https://www.npmjs.com/package/@code-to-json/test-helpers) - <b>[NODE]</b> Testing helpers for running mocha in node
 
