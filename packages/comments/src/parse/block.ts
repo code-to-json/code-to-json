@@ -1,9 +1,11 @@
 import { DocBlock } from '@microsoft/tsdoc';
+import { CommentParagraphContent } from 'types';
 import parseDocSection from './section';
+import { trimParagraphContent } from './utils';
 
 interface ParsedDocBlock {
   tag: string;
-  content?: string;
+  content?: CommentParagraphContent;
 }
 
 export default function parseDocBlock(block?: DocBlock): ParsedDocBlock | undefined {
@@ -12,5 +14,7 @@ export default function parseDocBlock(block?: DocBlock): ParsedDocBlock | undefi
   }
   const { blockTag, content } = block;
   const parsedContent = parseDocSection(content);
-  return { tag: blockTag.tagName, content: parsedContent };
+  trimParagraphContent(parsedContent);
+
+  return { tag: blockTag.tagName.replace('@', ''), content: parsedContent };
 }

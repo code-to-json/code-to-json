@@ -83,3 +83,7 @@ export function isBlank(obj: any): boolean {
 export function isPresent(obj: any): boolean {
   return !isBlank(obj);
 }
+
+export function isTruthy<T>(t: T | null | undefined): t is T {
+  return !!t;
+}

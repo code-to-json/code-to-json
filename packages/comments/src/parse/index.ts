@@ -1,10 +1,12 @@
+import { isTruthy } from '@code-to-json/utils';
 import parser from '../parser';
-import { CommentData } from '../types';
+import { CommentData, CommentParam } from '../types';
 import parseDocBlock from './block';
 import parseModifierTagSet from './modifier-tag-set';
 import parseParams from './params';
 import parseReturnsBlock from './returns-block';
 import parseDocSection from './section';
+import { trimParagraphContent } from './utils';
 
 export function parseCommentString(str: string): CommentData {
   const parsed = parser.parseString(str);
@@ -16,8 +18,10 @@ export function parseCommentString(str: string): CommentData {
     typeParams,
     remarksBlock,
     deprecatedBlock,
+    customBlocks,
   } = parsed.docComment;
-  const summary = (parseDocSection(summarySection) || '').trim();
+  const summary = parseDocSection(summarySection);
+  trimParagraphContent(summary);
   const data: CommentData = { summary };
   const parsedParams = parseParams(params);
   const parsedTypeParams = parseParams(typeParams);
@@ -25,6 +29,7 @@ export function parseCommentString(str: string): CommentData {
   const returns = parseReturnsBlock(returnsBlock);
   const remarks = parseDocBlock(remarksBlock);
   const deprecated = parseDocBlock(deprecatedBlock);
+  const customTags = customBlocks.map(b => parseDocBlock(b)).filter(isTruthy);
   if (parsedParams.length > 0) {
     data.params = parsedParams;
   }
@@ -32,16 +37,25 @@ export function parseCommentString(str: string): CommentData {
     data.typeParams = parsedTypeParams;
   }
   if (modifierTags.length > 0) {
-    data.modifiers = modifierTags.map(t => t.replace('@', ''));
+    data.modifiers = modifierTags.map(t => t.tagName.replace('@', ''));
   }
   if (typeof returns !== 'undefined') {
     data.returns = returns;
   }
   if (typeof remarks !== 'undefined') {
-    data.remarks = remarks.content ? remarks.content.trim() : undefined;
+    data.remarks = remarks.content;
   }
-  if (typeof deprecated !== 'undefined') {
+  if (typeof deprecated !== 'undefined' && deprecated.content) {
     data.deprecated = deprecated.content;
+  }
+  if (customTags.length > 0) {
+    data.customTags = customTags.map<CommentParam>(t => {
+      trimParagraphContent(t.content);
+      return {
+        tagName: t.tag,
+        content: t.content,
+      };
+    });
   }
   return data;
 }

@@ -1,19 +1,20 @@
 import { DocNode, DocNodeKind, DocParagraph, DocPlainText, DocSection } from '@microsoft/tsdoc';
+import { CommentInlineTag, CommentParagraphContent } from 'types';
 import parseParagraph from './paragraph';
 
-export default function parseDocSection(section: DocSection): string | undefined {
-  const textParts: string[] = [];
+export default function parseDocSection(section: DocSection): CommentParagraphContent {
+  const parts: Array<string | CommentInlineTag> = [];
 
   function parse(node: DocNode): void {
     switch (node.kind) {
       case DocNodeKind.Paragraph:
-        textParts.push(parseParagraph(node as DocParagraph));
+        parts.push(...parseParagraph(node as DocParagraph));
         break;
       case DocNodeKind.SoftBreak:
-        textParts.push('\n');
+        parts.push('\n');
         break;
       case DocNodeKind.PlainText:
-        textParts.push((node as DocPlainText).text);
+        parts.push((node as DocPlainText).text);
         break;
       case DocNodeKind.Excerpt:
         break;
@@ -23,5 +24,5 @@ export default function parseDocSection(section: DocSection): string | undefined
   }
 
   section.nodes.forEach(parse);
-  return textParts.join('\n').trim();
+  return parts;
 }

@@ -1,27 +1,29 @@
-export interface CommentInlineTag {
+export type CommentParagraphContent = Array<CommentInlineTag | CommentLinkTag | string>;
+
+export interface CommentInlineTag<C = string[]> {
   tagName: string;
+  content?: C;
   raw?: string;
 }
 
-export interface CommentParam extends CommentInlineTag, CommentParamDescription {
+export interface CommentLinkTag extends CommentInlineTag {
+  url?: string;
+}
+
+export interface CommentBlockTag extends CommentInlineTag<CommentParagraphContent> {}
+
+export interface CommentParam extends CommentBlockTag {
   name?: string;
   type?: string;
-  content: string;
 }
 
 export interface CommentData {
-  summary: string;
+  summary: CommentParagraphContent;
   params?: CommentParam[];
   typeParams?: CommentParam[];
   modifiers?: string[];
-  remarks?: string;
-  deprecated?: string;
+  remarks?: CommentParagraphContent;
+  deprecated?: CommentParagraphContent;
   returns?: any;
-}
-
-export interface CommentParamDescription {
-  name?: string;
-  type?: string;
-  content: string;
-  raw?: string;
+  customTags?: CommentBlockTag[];
 }

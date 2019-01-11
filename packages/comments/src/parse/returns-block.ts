@@ -1,29 +1,13 @@
 import { DocBlock, DocErrorText, DocNodeKind, DocParagraph, DocPlainText } from '@microsoft/tsdoc';
-import { CommentParamDescription } from 'types';
-import { extractParamDescription } from './utils';
+import { CommentParam } from '../types';
+import parseParagraph from './paragraph';
+import { extractParamDescription, trimParagraphContent } from './utils';
 
-function parseReturnsParagraph(paragraph: DocParagraph): string {
-  return paragraph
-    .getChildNodes()
-    .map(n => {
-      if (n.kind === DocNodeKind.PlainText) {
-        return (n as DocPlainText).text;
-      }
-      if (n.kind === DocNodeKind.ErrorText) {
-        return (n as DocErrorText).text;
-      }
-      if (n.kind === DocNodeKind.SoftBreak) {
-        return '\n';
-      }
-      throw new Error(
-        `Did not expect to find a ${n.kind} within a DocParagraph of a @returns DocBlock`,
-      );
-    })
-    .join('')
-    .trim();
+function isString(val: any): val is string {
+  return typeof val === 'string';
 }
 
-export default function parseReturnsBlock(block?: DocBlock): CommentParamDescription | undefined {
+export default function parseReturnsBlock(block?: DocBlock): CommentParam | undefined {
   if (!block) {
     return undefined;
   }
@@ -37,16 +21,40 @@ export default function parseReturnsBlock(block?: DocBlock): CommentParamDescrip
       } instead`,
     );
   }
-  const desc: CommentParamDescription = extractParamDescription(
-    parseReturnsParagraph(firstChild as DocParagraph),
-  );
+  const parsedFirstParagraph = parseParagraph(firstChild as DocParagraph);
+  let firstNewline = 0;
+  while (
+    firstNewline < parsedFirstParagraph.length &&
+    parsedFirstParagraph[firstNewline] !== '\n'
+  ) {
+    firstNewline++;
+  }
+
+  if (firstNewline > 0) {
+    parsedFirstParagraph.splice(
+      0,
+      firstNewline,
+      parsedFirstParagraph
+        .slice(0, firstNewline)
+        .join('')
+        .trim(),
+    );
+  }
+
+  const st = parsedFirstParagraph.filter(isString);
+  const [stFirst, ...stRest] = st;
+  const desc: CommentParam = extractParamDescription('returns', stFirst);
+  desc.content = desc.content ? desc.content.concat(stRest) : stRest;
   otherChildren.forEach(otherch => {
     if (otherch.kind !== DocNodeKind.Paragraph) {
       throw new Error(
         `Expected children of a @returns DocBlock to be a Paragraph. Found ${otherch.kind} instead`,
       );
     }
-    desc.content += `\n${parseReturnsParagraph(otherch as DocParagraph)}`;
+    desc.content = desc.content
+      ? desc.content.concat(...parseParagraph(otherch as DocParagraph))
+      : parseParagraph(otherch as DocParagraph);
+    trimParagraphContent(desc.content);
   });
   delete desc.name;
   delete desc.raw;
