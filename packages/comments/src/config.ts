@@ -13,10 +13,23 @@ config.addTagDefinitions([
   {
     tagName: '@file',
     tagNameWithUpperCase: '@FILE',
-    syntaxKind: TSDocTagSyntaxKind.InlineTag,
+    syntaxKind: TSDocTagSyntaxKind.BlockTag,
+    standardization: Standardization.Extended,
+    allowMultiple: true,
+  },
+  {
+    tagName: '@see',
+    tagNameWithUpperCase: '@SEE',
+    syntaxKind: TSDocTagSyntaxKind.BlockTag,
+    standardization: Standardization.Extended,
+    allowMultiple: true,
+  },
+  {
+    tagName: '@since',
+    tagNameWithUpperCase: '@SINCE',
+    syntaxKind: TSDocTagSyntaxKind.BlockTag,
     standardization: Standardization.Extended,
     allowMultiple: true,
   },
 ]);
-
 export default config;

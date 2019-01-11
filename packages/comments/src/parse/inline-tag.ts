@@ -5,6 +5,7 @@ export default function parseInlineTag(tag: DocInlineTag): CommentInlineTag {
   const { tagName, tagContent: content } = tag;
   return {
     tagName,
+    kind: 'inlineTag',
     content: [content],
   };
 }

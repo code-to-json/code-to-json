@@ -8,17 +8,17 @@ export function extractParamDescription(rawRagName: string, s: string): CommentP
   const jsdocMatch = JSDOC_PARAM_CONTENT_REGEX.exec(s.trim());
   if (jsdocMatch) {
     const [, name, type, content] = jsdocMatch;
-    return { tagName, name, type, content: [content] };
+    return { tagName, name, type, content: [content], kind: 'param' };
   }
   const tsMatch = TS_PARAM_CONTENT_REGEX.exec(s);
   if (tsMatch) {
     const [, name, content] = tsMatch;
-    return { tagName, name, content: [content] };
+    return { tagName, name, content: [content], kind: 'param' };
   }
-  return { tagName, name: '(unknown)', content: [s] };
+  return { tagName, name: '(unknown)', content: [s], kind: 'param' };
 }
 
-function isEmpty(element: CommentInlineTag | string): boolean {
+function isEmpty(element: any): boolean {
   return typeof element === 'string' && /^[\s\n]*$/m.test(element);
 }
 

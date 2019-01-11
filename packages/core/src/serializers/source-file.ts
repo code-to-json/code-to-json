@@ -81,7 +81,13 @@ export default function serializeSourceFile(
   if (_libReferenceDirectives && _libReferenceDirectives.length > 0) {
     basicInfo.referencedFiles = _libReferenceDirectives.map(serializeFileReference);
   }
-
+  const leadingComments = sourceFile.getFullText().substring(0, sourceFile.getLeadingTriviaWidth());
+  const firstClose = leadingComments.indexOf('*/');
+  const lastClose = leadingComments.lastIndexOf('*/');
+  if (firstClose !== lastClose) {
+    const leadingComment = `${leadingComments.split('*/')[0]}*/`;
+    basicInfo.documentation = parseCommentString(leadingComment);
+  }
   /**
    * Take the source file's AST node, and use the checker
    * to obtain a Symbol (AST + Type Information, via the binder)
@@ -89,10 +95,6 @@ export default function serializeSourceFile(
   const sym = checker.getSymbolAtLocation(sourceFile);
   if (sym) {
     basicInfo.symbol = c.queue.queue(sym, 'symbol', checker);
-  }
-  const doc = findSourceFileComment(sourceFile);
-  if (typeof doc !== 'undefined') {
-    basicInfo.documentation = doc;
   }
 
   return basicInfo;

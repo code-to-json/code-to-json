@@ -1,14 +1,25 @@
-import { DocNode, DocNodeKind, DocParagraph, DocPlainText, DocSection } from '@microsoft/tsdoc';
-import { CommentInlineTag, CommentParagraphContent } from 'types';
+import {
+  DocFencedCode,
+  DocNode,
+  DocNodeKind,
+  DocParagraph,
+  DocPlainText,
+  DocSection,
+} from '@microsoft/tsdoc';
+import { CommentParagraphContent } from 'types';
+import parseFencedCode from './fenced-code';
 import parseParagraph from './paragraph';
 
 export default function parseDocSection(section: DocSection): CommentParagraphContent {
-  const parts: Array<string | CommentInlineTag> = [];
+  const parts: CommentParagraphContent = [];
 
   function parse(node: DocNode): void {
     switch (node.kind) {
       case DocNodeKind.Paragraph:
         parts.push(...parseParagraph(node as DocParagraph));
+        break;
+      case DocNodeKind.FencedCode:
+        parts.push(parseFencedCode(node as DocFencedCode));
         break;
       case DocNodeKind.SoftBreak:
         parts.push('\n');
