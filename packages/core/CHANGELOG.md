@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.13.0](https://github.com/mike-north/code-to-json/compare/@code-to-json/core@0.12.0...@code-to-json/core@0.13.0) (2019-01-11)
+
+
+### Features
+
+* **comments:** paragraphs support code blocks and inline tags ([571aa2f](https://github.com/mike-north/code-to-json/commit/571aa2f))
+
+
+
+
+
 # [0.12.0](https://github.com/mike-north/code-to-json/compare/@code-to-json/core@0.11.1...@code-to-json/core@0.12.0) (2019-01-11)
 
 
