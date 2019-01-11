@@ -1,3 +1,4 @@
+import { CommentData } from '@code-to-json/comments';
 import * as ts from 'typescript';
 import { Flags } from './flags';
 import { SourceFileRef } from './processing-queue/ref';
@@ -24,4 +25,9 @@ export type CodeRange = [string, number, number, number, number];
 export interface HasPosition {
   sourceFile?: SourceFileRef;
   location: CodeRange;
+}
+
+export interface HasDocumentation {
+  documentation?: CommentData;
+  comment?: string;
 }

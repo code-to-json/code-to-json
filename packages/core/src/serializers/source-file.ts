@@ -1,12 +1,24 @@
+import { CommentData, parseCommentString } from '@code-to-json/comments';
 import { refId } from '@code-to-json/utils';
-import { SourceFile, TypeChecker } from 'typescript';
+import * as ts from 'typescript';
 import Collector from '../collector';
 import { NodeRef, SourceFileRef, SymbolRef } from '../processing-queue/ref';
-import { SerializedEntity } from '../types';
+import { HasDocumentation, SerializedEntity } from '../types';
 import serializeAmdDependency, { SerializedAmdDependency } from './amd-dependency';
 import serializeFileReference, { SerializedFileReference } from './file-reference';
 
-export interface SerializedSourceFile extends SerializedEntity<'sourceFile'> {
+function findSourceFileComment(sourceFile: ts.SourceFile): undefined | CommentData {
+  const leadingTrivia = sourceFile.getFullText().substr(0, sourceFile.getLeadingTriviaWidth());
+  const leadingCommentRanges = ts.getLeadingCommentRanges(leadingTrivia, 0);
+  if (!leadingCommentRanges || leadingCommentRanges.length !== 2) {
+    return undefined;
+  }
+  const [fileCommentRange] = leadingCommentRanges;
+  const fileComment = sourceFile.text.substr(fileCommentRange.pos, fileCommentRange.end);
+  return parseCommentString(fileComment);
+}
+
+export interface SerializedSourceFile extends SerializedEntity<'sourceFile'>, HasDocumentation {
   originalFileName?: string;
   moduleName: string;
   extension: string | null;
@@ -28,8 +40,8 @@ export interface SerializedSourceFile extends SerializedEntity<'sourceFile'> {
  * @param _queue Processing queue
  */
 export default function serializeSourceFile(
-  sourceFile: SourceFile,
-  checker: TypeChecker,
+  sourceFile: ts.SourceFile,
+  checker: ts.TypeChecker,
   ref: SourceFileRef,
   c: Collector,
 ): SerializedSourceFile {
@@ -75,9 +87,13 @@ export default function serializeSourceFile(
    * to obtain a Symbol (AST + Type Information, via the binder)
    */
   const sym = checker.getSymbolAtLocation(sourceFile);
-
   if (sym) {
     basicInfo.symbol = c.queue.queue(sym, 'symbol', checker);
   }
+  const doc = findSourceFileComment(sourceFile);
+  if (typeof doc !== 'undefined') {
+    basicInfo.documentation = doc;
+  }
+
   return basicInfo;
 }

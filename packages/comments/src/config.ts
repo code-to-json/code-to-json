@@ -2,11 +2,21 @@ import { Standardization, TSDocConfiguration, TSDocTagSyntaxKind } from '@micros
 
 const config = new TSDocConfiguration();
 
-config.addTagDefinition({
-  tagName: '@disclaimer',
-  tagNameWithUpperCase: '@DISCLAIMER',
-  syntaxKind: TSDocTagSyntaxKind.BlockTag,
-  standardization: Standardization.Extended,
-  allowMultiple: true,
-});
+config.addTagDefinitions([
+  {
+    tagName: '@author',
+    tagNameWithUpperCase: '@AUTHOR',
+    syntaxKind: TSDocTagSyntaxKind.BlockTag,
+    standardization: Standardization.Extended,
+    allowMultiple: false,
+  },
+  {
+    tagName: '@file',
+    tagNameWithUpperCase: '@FILE',
+    syntaxKind: TSDocTagSyntaxKind.InlineTag,
+    standardization: Standardization.Extended,
+    allowMultiple: true,
+  },
+]);
+
 export default config;

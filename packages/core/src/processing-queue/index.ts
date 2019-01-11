@@ -35,11 +35,11 @@ export interface ProcessingQueue {
 /**
  * Create a new processing queue
  */
-export function create(): ProcessingQueue {
+export function create(checker: TypeChecker): ProcessingQueue {
   const registries = {
     node: createQueue<RefRegistry, 'node', Node>('node', generateId),
     symbol: createQueue<RefRegistry, 'symbol', Sym>('symbol', generateId),
-    type: createQueue<RefRegistry, 'type', Type>('type', generateId),
+    type: createQueue<RefRegistry, 'type', Type>('type', typ => generateId(typ, checker)),
     sourceFile: createQueue<RefRegistry, 'sourceFile', SourceFile>('sourceFile', generateId),
     declaration: createQueue<RefRegistry, 'declaration', Declaration>('declaration', generateId),
   };

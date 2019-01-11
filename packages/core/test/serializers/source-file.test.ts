@@ -80,7 +80,7 @@ console.log(x);`,
 
     expect(serializedFileSymbol).to.deep.include({
       entity: 'symbol',
-      flags: 'ValueModule',
+      flags: ['ValueModule'],
       id: '01m4wlshjs98',
       exports: [['symbol', '01m4wm55tsjg']],
       location: ['module.ts', 1, 1, 1, 67],

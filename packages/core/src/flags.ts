@@ -77,9 +77,6 @@ export function flagsToString<T extends keyof FlagsMap>(
   if (flagNames.length === 0) {
     return undefined;
   }
-  if (flagNames.length === 1) {
-    return flagNames[0];
-  }
   return flagNames;
 }
 /**
@@ -102,4 +99,4 @@ export function getObjectFlags(type: Type): ObjectFlags | undefined {
   return isObjectType(type) ? type.objectFlags : undefined;
 }
 
-export type Flags = string | string[];
+export type Flags = string[];

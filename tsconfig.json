@@ -1,6 +1,26 @@
 {
   "compilerOptions": {
-    "skipLibCheck": true
+    "target": "esnext",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "declarationMap": true,
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "noImplicitReturns": true,
+    "strictFunctionTypes": true,
+    "pretty": true,
+    "stripInternal": true,
+    "strictNullChecks": true,
+    "downlevelIteration": true,
+    "experimentalDecorators": true,
+    "inlineSourceMap": true,
+    "strict": true,
+    "noEmit": true,
+    "composite": true,
+    "allowJs": true,
+    "checkJs": true
   },
+  "include": ["condense-coverage.js", "scripts", ".travis"],
   "exclude": ["node_modules/**/*"]
 }

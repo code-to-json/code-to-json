@@ -23,6 +23,7 @@
   "homepage": "https://github.com/mike-north/code-to-json/tree/master/packages/formatter",
   "keywords": [],
   "devDependencies": {
+    "@code-to-json/comments": "^0.0.0",
     "@code-to-json/test-helpers": "^0.3.3",
     "@types/chai": "4.1.7",
     "chai": "4.2.0",

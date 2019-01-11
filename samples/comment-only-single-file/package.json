@@ -1,0 +1,4 @@
+{
+  "name": "pkg-comment-only-single-file",
+  "doc:main": "src/index.ts"
+}

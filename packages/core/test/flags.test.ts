@@ -8,7 +8,7 @@ import { flagsToString } from '../src/flags';
 class FlagsTests {
   @test
   public async flagsToStringTests() {
-    expect(flagsToString(ts.ObjectFlags.Class, 'object')).to.eq('Class', 'single flag');
+    expect(flagsToString(ts.ObjectFlags.Class, 'object')).to.deep.eq(['Class'], 'single flag');
     expect(flagsToString(ts.ObjectFlags.ClassOrInterface, 'object')).to.eql(
       ['Class', 'Interface'],
       'multiple flags',
@@ -21,23 +21,23 @@ class FlagsTests {
   }
 
   @test public async 'type flags'() {
-    expect(flagsToString(ts.TypeFlags.Intersection, 'type')).to.eql('Intersection');
+    expect(flagsToString(ts.TypeFlags.Intersection, 'type')).to.deep.equal(['Intersection']);
   }
 
   @test public async 'node flags'() {
-    expect(flagsToString(ts.NodeFlags.AwaitContext, 'node')).to.eql('AwaitContext');
+    expect(flagsToString(ts.NodeFlags.AwaitContext, 'node')).to.deep.equal(['AwaitContext']);
   }
 
   @test public async 'nodeBuilder flags'() {
-    expect(flagsToString(ts.NodeBuilderFlags.AllowEmptyTuple, 'nodeBuilder')).to.eql(
+    expect(flagsToString(ts.NodeBuilderFlags.AllowEmptyTuple, 'nodeBuilder')).to.deep.eq([
       'AllowEmptyTuple',
-    );
+    ]);
   }
 
   @test public async 'symbolFormat flags'() {
     expect(
       flagsToString(ts.SymbolFormatFlags.UseAliasDefinedOutsideCurrentScope, 'symbolFormat'),
-    ).to.eql('UseAliasDefinedOutsideCurrentScope');
+    ).to.deep.eq(['UseAliasDefinedOutsideCurrentScope']);
   }
 
   @test public async 'invalid flag type'() {

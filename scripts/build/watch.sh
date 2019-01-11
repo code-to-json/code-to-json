@@ -9,14 +9,14 @@ then
   ./node_modules/.bin/concurrently \
     -n "utils,utils-ts,utils-node,cli,core,comments,formatter,test-helpers" \
     -c "magenta,cyan,green,yellow,blue,purple,orange,grey" \
-    "tsc -w -p ./packages/utils" \
-    "tsc -w -p ./packages/utils-ts" \
-    "tsc -w -p ./packages/utils-node" \
-    "tsc -w -p ./packages/cli" \
-    "tsc -w -p ./packages/core" \
-    "tsc -w -p ./packages/comments" \
-    "tsc -w -p ./packages/formatter" \
-    "tsc -w -p ./packages/test-helpers"
+    "tsc -w --pretty --preserveWatchOutput -p ./packages/utils" \
+    "tsc -w --pretty --preserveWatchOutput -p ./packages/utils-ts" \
+    "tsc -w --pretty --preserveWatchOutput -p ./packages/utils-node" \
+    "tsc -w --pretty --preserveWatchOutput -p ./packages/cli" \
+    "tsc -w --pretty --preserveWatchOutput -p ./packages/core" \
+    "tsc -w --pretty --preserveWatchOutput -p ./packages/comments" \
+    "tsc -w --pretty --preserveWatchOutput -p ./packages/formatter" \
+    "tsc -w --pretty --preserveWatchOutput -p ./packages/test-helpers"
 else
     echo "Initial build failed"
 fi

@@ -80,7 +80,7 @@ export function setupScenario(code: string) {
 
   const checker = program.getTypeChecker();
 
-  const queue = createQueue();
+  const queue = createQueue(checker);
   const collector: Collector = {
     queue,
     pathNormalizer: PASSTHROUGH_MODULE_PATH_NORMALIZER,

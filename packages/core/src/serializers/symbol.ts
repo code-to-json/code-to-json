@@ -1,17 +1,12 @@
+import { CommentData, parseCommentString } from '@code-to-json/comments';
 import { conditionallyMergeTransformed, isRef, refId } from '@code-to-json/utils';
 import { mapUem } from '@code-to-json/utils-ts';
-import {
-  displayPartsToString,
-  Symbol as Sym,
-  SyntaxKind,
-  TypeChecker,
-  UnderscoreEscapedMap,
-} from 'typescript';
+import * as ts from 'typescript';
 import Collector from '../collector';
 import { flagsToString } from '../flags';
 import { ProcessingQueue } from '../processing-queue';
 import { SymbolRef, TypeRef } from '../processing-queue/ref';
-import { HasPosition, SerializedEntity } from '../types';
+import { HasDocumentation, HasPosition, SerializedEntity } from '../types';
 import serializeLocation from './location';
 import serializeSignature, { SerializedSignature } from './signature';
 
@@ -19,9 +14,11 @@ export interface SerializedHeritageClause {
   clauseType: string;
 }
 
-export interface SerializedSymbol extends SerializedEntity<'symbol'>, Partial<HasPosition> {
+export interface SerializedSymbol
+  extends SerializedEntity<'symbol'>,
+    Partial<HasPosition>,
+    HasDocumentation {
   name: string;
-  documentation?: string;
   external?: boolean;
   type?: TypeRef;
   members?: SymbolRef[];
@@ -40,12 +37,12 @@ export interface SerializedSymbol extends SerializedEntity<'symbol'>, Partial<Ha
 }
 
 function appendSymbolMap(
-  uem: UnderscoreEscapedMap<Sym> | undefined,
+  uem: ts.UnderscoreEscapedMap<ts.Symbol> | undefined,
   q: ProcessingQueue,
-  checker: TypeChecker,
+  checker: ts.TypeChecker,
 ): SymbolRef[] | undefined {
   if (uem && uem.size > 0) {
-    return mapUem(uem, (val: Sym) => q.queue(val, 'symbol', checker)).filter(isRef);
+    return mapUem(uem, (val: ts.Symbol) => q.queue(val, 'symbol', checker)).filter(isRef);
   }
   return undefined;
 }
@@ -58,8 +55,8 @@ function appendSymbolMap(
  * @param queue Processing queue
  */
 export default function serializeSymbol(
-  symbol: Sym,
-  checker: TypeChecker,
+  symbol: ts.Symbol,
+  checker: ts.TypeChecker,
   ref: SymbolRef,
   c: Collector,
 ): SerializedSymbol {
@@ -91,19 +88,24 @@ export default function serializeSymbol(
 
   const docComment = symbol.getDocumentationComment(checker);
   if (docComment.length > 0) {
-    details.documentation = displayPartsToString(docComment);
+    details.comment = ts.displayPartsToString(docComment);
   }
   if (valueDeclaration) {
+    const { jsDoc }: { jsDoc?: ts.Node[] } = valueDeclaration as any;
+    if (jsDoc) {
+      const commentText: string = jsDoc[0].getText();
+      details.documentation = parseCommentString(commentText);
+    }
     const { modifiers, decorators, pos, end } = valueDeclaration;
     const valDeclType = checker.getTypeOfSymbolAtLocation(symbol, valueDeclaration);
     const sourceFile = valueDeclaration.getSourceFile();
     details.location = serializeLocation(sourceFile, pos, end);
     details.sourceFile = q.queue(sourceFile, 'sourceFile', checker);
     conditionallyMergeTransformed(details, modifiers, 'modifiers', mods =>
-      mods.map(m => SyntaxKind[m.kind]),
+      mods.map(m => ts.SyntaxKind[m.kind]),
     );
     conditionallyMergeTransformed(details, decorators, 'decorators', decs =>
-      decs.map(d => SyntaxKind[d.kind]),
+      decs.map(d => ts.SyntaxKind[d.kind]),
     );
 
     const constructorSignatures = valDeclType
