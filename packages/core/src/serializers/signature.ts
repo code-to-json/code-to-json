@@ -8,7 +8,7 @@ export interface SerializedSignature {
   typeParameters?: TypeRef[];
   declaration?: DeclarationRef;
   returnType?: TypeRef;
-  documentation?: string;
+  comment?: string;
 }
 
 /** Serialize a signature (call or construct) */
@@ -29,6 +29,6 @@ export default function serializeSignature(
       : undefined,
     // declaration: declaration ? q.queue(declaration, 'declaration', checker) : undefined,
     returnType: q.queue(signature.getReturnType(), 'type', checker),
-    documentation: displayPartsToString(signature.getDocumentationComment(checker)),
+    comment: displayPartsToString(signature.getDocumentationComment(checker)),
   };
 }

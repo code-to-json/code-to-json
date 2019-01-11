@@ -29,4 +29,5 @@ export interface HasPosition {
 
 export interface HasDocumentation {
   documentation?: CommentData;
+  comment?: string;
 }

@@ -1,3 +1,4 @@
+import { CommentData } from '@code-to-json/comments';
 import { SerializedSymbol, WalkerOutputData } from '@code-to-json/core';
 import { conditionallyMergeTransformed } from '@code-to-json/utils';
 import resolveReference from '../resolve-reference';
@@ -6,7 +7,7 @@ import formatSignature, { FormattedSignature } from './signature';
 
 export interface FormattedSymbol {
   name: string;
-  documentation?: string;
+  documentation?: CommentData;
   flags?: string[];
   exports?: FormattedSymbol[];
   members?: FormattedSymbol[];
