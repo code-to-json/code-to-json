@@ -3,7 +3,6 @@ import { CommentInlineTag } from 'types';
 
 function parseDocBlockTag(blockTag: DocBlockTag): CommentInlineTag {
   function parse(node: DocNode): void {
-    // tslint:disable-next-line:no-small-switch
     switch (node.kind) {
       case DocNodeKind.Excerpt:
         break;
@@ -15,6 +14,7 @@ function parseDocBlockTag(blockTag: DocBlockTag): CommentInlineTag {
   blockTag.getChildNodes().forEach(parse);
   return {
     tagName: blockTag.tagName,
+    kind: 'inlineTag',
   };
 }
 

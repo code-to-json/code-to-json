@@ -5,14 +5,8 @@ export default function parseBlockTag(tag: DocBlockTag): CommentBlockTag {
   const { tagName } = tag;
 
   function parse(node: DocNode): void {
-    // tslint:disable-next-line:no-small-switch
     switch (node.kind) {
       case DocNodeKind.Excerpt:
-        // tslint:disable-next-line:no-commented-code
-        // {
-        //   const e = node as DocExcerpt;
-        //   // TODO
-        // }
         break;
       default:
         throw new Error(`Didn't expect to find a node of kind ${node.kind} in a DocBlockTag`);
@@ -22,6 +16,7 @@ export default function parseBlockTag(tag: DocBlockTag): CommentBlockTag {
   tag.getChildNodes().forEach(parse);
 
   return {
+    kind: 'blockTag',
     tagName: tagName.replace('@', ''),
   };
 }

@@ -1,6 +1,6 @@
 import { isTruthy } from '@code-to-json/utils';
 import parser from '../parser';
-import { CommentData, CommentParam } from '../types';
+import { CommentBlockTag, CommentData, CommentParam } from '../types';
 import parseDocBlock from './block';
 import parseModifierTagSet from './modifier-tag-set';
 import parseParams from './params';
@@ -49,10 +49,11 @@ export function parseCommentString(str: string): CommentData {
     data.deprecated = deprecated.content;
   }
   if (customTags.length > 0) {
-    data.customTags = customTags.map<CommentParam>(t => {
+    data.customTags = customTags.map<CommentBlockTag>(t => {
       trimParagraphContent(t.content);
       return {
         tagName: t.tag,
+        kind: 'blockTag',
         content: t.content,
       };
     });

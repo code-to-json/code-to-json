@@ -48,7 +48,12 @@ export default function parseParams(params: DocParamCollection): CommentParam[] 
     const rawContent = parseTagSection('params', p.content);
     trimParagraphContent(rawContent);
     if (p.parameterName) {
-      return { tagName: p.blockTag.tagName, name: p.parameterName, content: rawContent };
+      return {
+        tagName: p.blockTag.tagName,
+        name: p.parameterName,
+        content: rawContent,
+        kind: 'param' as 'param',
+      };
     }
     const { name, type, content, raw } = extractParamDescription(
       'param',
@@ -56,9 +61,10 @@ export default function parseParams(params: DocParamCollection): CommentParam[] 
     );
     trimParagraphContent(content);
     const basic: CommentParam = {
-      tagName: p.blockTag.tagName,
+      tagName: p.blockTag.tagName.replace('@', ''),
       name,
       content,
+      kind: 'param' as 'param',
     };
     if (typeof raw !== 'undefined') {
       basic.raw = raw;

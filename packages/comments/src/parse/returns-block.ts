@@ -54,8 +54,8 @@ export default function parseReturnsBlock(block?: DocBlock): CommentParam | unde
     desc.content = desc.content
       ? desc.content.concat(...parseParagraph(otherch as DocParagraph))
       : parseParagraph(otherch as DocParagraph);
-    trimParagraphContent(desc.content);
   });
+  trimParagraphContent(desc.content);
   delete desc.name;
   delete desc.raw;
   return desc;

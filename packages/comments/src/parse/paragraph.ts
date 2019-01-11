@@ -8,7 +8,7 @@ import {
   DocParagraph,
   DocPlainText,
 } from '@microsoft/tsdoc';
-import { CommentInlineTag, CommentParagraphContent } from 'types';
+import { CommentParagraphContent } from 'types';
 import parseBlockTag from './block-tag';
 import parseInlineTag from './inline-tag';
 
@@ -35,6 +35,7 @@ export default function parseParagraph(p: DocParagraph): CommentParagraphContent
             tagName: l.tagName,
             content: l.linkText ? [l.linkText] : [],
             url: l.urlDestination,
+            kind: 'linkTag',
           });
         }
         break;
@@ -48,18 +49,20 @@ export default function parseParagraph(p: DocParagraph): CommentParagraphContent
         // TODO
         break;
       case DocNodeKind.ErrorText:
-        switch ((node as DocErrorText).text) {
-          case '{':
-            parts[parts.length - 1] = `${parts[parts.length - 1] as string} {`;
-            break;
-          case '}':
-            parts[parts.length - 1] = `${parts[parts.length - 1] as string}} `;
-            break;
-          default:
-            parts[parts.length - 1] = `${parts[parts.length - 1] as string}${
-              (node as DocErrorText).text
-            }`;
-            break;
+        {
+          const lastIdx = parts.length - 1;
+          const lastP = parts[lastIdx] as string;
+          switch ((node as DocErrorText).text) {
+            case '{':
+              parts[lastIdx] = `${lastP} {`;
+              break;
+            case '}':
+              parts[lastIdx] = `${lastP}} `;
+              break;
+            default:
+              parts[lastIdx] = `${lastP}${(node as DocErrorText).text}`;
+              break;
+          }
         }
         break;
       case DocNodeKind.BlockTag:
