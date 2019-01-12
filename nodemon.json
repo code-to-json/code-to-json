@@ -1,6 +1,7 @@
 {
   "verbose": true,
   "delay": 500,
+  "ext": "js,ts,json",
   "watch": [
     "packages/utils/lib",
     "packages/comments/lib",
