@@ -1,6 +1,6 @@
 {
   "name": "@code-to-json/core",
-  "version": "0.13.0",
+  "version": "0.13.1",
   "description": "",
   "main": "lib/src/index.js",
   "typings": "lib/src/index.d.ts",
@@ -24,7 +24,7 @@
   "homepage": "https://github.com/mike-north/code-to-json/tree/master/packages/core",
   "keywords": [],
   "dependencies": {
-    "@code-to-json/comments": "^0.2.0",
+    "@code-to-json/comments": "^0.3.0",
     "@code-to-json/utils": "^0.6.4",
     "@code-to-json/utils-ts": "^0.5.0",
     "debug": "4.1.1",

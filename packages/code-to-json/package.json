@@ -1,6 +1,6 @@
 {
   "name": "code-to-json",
-  "version": "0.3.9",
+  "version": "0.3.10",
   "description": "TypeScript & JavaScript code data extraction",
   "keywords": [
     "documentation",
@@ -19,7 +19,7 @@
     "test": "echo \"Error: run tests from root\" && exit 0"
   },
   "dependencies": {
-    "@code-to-json/cli": "^0.9.4"
+    "@code-to-json/cli": "^0.9.5"
   },
   "bugs": {
     "url": "https://github.com/code-to-json/code-to-json/issues"

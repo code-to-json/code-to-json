@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.3.0](https://github.com/mike-north/code-to-json/compare/@code-to-json/comments@0.2.0...@code-to-json/comments@0.3.0) (2019-01-12)
+
+
+### Features
+
+* export more types from [@code-to-json](https://github.com/code-to-json)/comments ([13051fa](https://github.com/mike-north/code-to-json/commit/13051fa))
+
+
+
+
+
 # [0.2.0](https://github.com/mike-north/code-to-json/compare/@code-to-json/comments@0.1.0...@code-to-json/comments@0.2.0) (2019-01-11)
 
 
