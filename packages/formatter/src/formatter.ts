@@ -1,5 +1,6 @@
 import { WalkerOutput } from '@code-to-json/core';
-import formatSourceFile, { FormattedSourceFile } from './formatters/source-file';
+import formatSourceFile from './source-file';
+import { FormattedSourceFile } from './types';
 
 export interface FormatterOutput {
   sourceFiles: FormattedSourceFile[];

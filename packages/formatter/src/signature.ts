@@ -1,12 +1,7 @@
 import { SerializedSignature, WalkerOutputData } from '@code-to-json/core';
-import resolveReference from '../resolve-reference';
-import formatType, { FormattedType } from './type';
-
-export interface FormattedSignature {
-  parameters?: Array<{ name: string; type?: FormattedType }>;
-  typeParameters?: FormattedType[];
-  returnType?: FormattedType;
-}
+import resolveReference from './resolve-reference';
+import formatType from './type';
+import { FormattedSignature } from './types';
 
 export default function formatSignature(
   wo: WalkerOutputData,

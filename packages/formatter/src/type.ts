@@ -1,16 +1,8 @@
 import { SerializedType, WalkerOutputData } from '@code-to-json/core';
-import resolveReference from '../resolve-reference';
 import formatFlags from './flags';
-import formatSymbol, { FormattedSymbol } from './symbol';
-
-export interface FormattedType {
-  text: string;
-  flags?: string[];
-  objectFlags?: string[];
-  properties?: FormattedSymbol[];
-  numberIndexType?: FormattedType;
-  stringIndexType?: FormattedType;
-}
+import resolveReference from './resolve-reference';
+import formatSymbol from './symbol';
+import { FormattedType } from './types';
 
 // tslint:disable-next-line:no-commented-code
 // function resolveAndFormatType(wo: WalkerOutput, typeRef?: TypeRef): FormattedType | undefined {

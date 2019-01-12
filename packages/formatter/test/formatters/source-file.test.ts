@@ -1,7 +1,7 @@
 import { WalkerOutputData } from '@code-to-json/core';
 import { expect } from 'chai';
 import { suite, test } from 'mocha-typescript';
-import formatSourceFile from '../../src/formatters/source-file';
+import formatSourceFile from '../../src/source-file';
 
 @suite
 class SourceFileFormatterTests {
