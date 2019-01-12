@@ -9,7 +9,6 @@ import {
   DocParagraph,
   DocPlainText,
 } from '@microsoft/tsdoc';
-import * as circularJSON from 'circular-json';
 import * as debug from 'debug';
 import { CommentParagraphContent } from 'types';
 import parseBlockTag from './block-tag';
@@ -18,7 +17,6 @@ import parseInlineTag from './inline-tag';
 const log = debug('code-to-json:comments:paragraph');
 
 export default function parseParagraph(p: DocParagraph): CommentParagraphContent {
-  log(`parsing: ${circularJSON.stringify(p, null, '  ')}`);
   const parts: CommentParagraphContent = [];
   function parse(node: DocNode): void {
     switch (node.kind) {
