@@ -1,4 +1,5 @@
 import { SerializedType, WalkerOutputData } from '@code-to-json/core';
+import { SerializedCustomType } from '@code-to-json/core/lib/src/serializers/type';
 import formatFlags from './flags';
 import resolveReference from './resolve-reference';
 import formatSymbol from './symbol';
@@ -22,7 +23,7 @@ export default function formatType(
   wo: WalkerOutputData,
   type: Readonly<SerializedType>,
 ): FormattedType {
-  const { typeString, flags, objectFlags, properties } = type;
+  const { typeString, flags, objectFlags, isBuiltIn } = type;
   const typeInfo: FormattedType = {
     text: typeString,
     flags: formatFlags(flags),
@@ -30,12 +31,14 @@ export default function formatType(
     // numberIndexType: resolveAndFormatType(wo, numberIndexType),
     // stringIndexType: resolveAndFormatType(wo, stringIndexType)
   };
-
-  if (properties && properties.length > 0) {
-    typeInfo.properties = properties.map(s => {
-      const sym = resolveReference(wo, s);
-      return formatSymbol(wo, sym);
-    });
+  if (!isBuiltIn) {
+    const { properties } = type as SerializedCustomType;
+    if (properties && properties.length > 0) {
+      typeInfo.properties = properties.map(s => {
+        const sym = resolveReference(wo, s);
+        return formatSymbol(wo, sym);
+      });
+    }
   }
 
   return typeInfo;

@@ -64,10 +64,10 @@ class SimpleSnapshotSmokeTests {
     expect(indexFile.fileName.replace(this.rootPath, ''))
       .to.contain('src')
       .to.contain('index.js');
-    const { sourceFile: sourceFileData } = this.data;
+    const { sourceFiles } = this.data;
 
     const indexFileId = generateId(indexFile);
-    const indexFileData = sourceFileData[indexFileId];
+    const indexFileData = sourceFiles[indexFileId];
     expect(Object.keys(indexFileData))
       .contains('id')
       .contains('entity')

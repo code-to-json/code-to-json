@@ -8,11 +8,11 @@ class SourceFileFormatterTests {
   @test
   public async 'file without exports'() {
     const wo: WalkerOutputData = {
-      symbol: {},
-      type: {},
-      node: {},
-      declaration: {},
-      sourceFile: {
+      symbols: {},
+      types: {},
+      nodes: {},
+      declarations: {},
+      sourceFiles: {
         'module.ts': {
           entity: 'sourceFile',
           moduleName: 'module',
@@ -42,17 +42,17 @@ class SourceFileFormatterTests {
   @test
   public async 'file with exports'() {
     const wo: WalkerOutputData = {
-      symbol: {
+      symbols: {
         '12345': {
           name: 'module.ts',
           entity: 'symbol',
           id: '12345',
         },
       },
-      type: {},
-      node: {},
-      declaration: {},
-      sourceFile: {
+      types: {},
+      nodes: {},
+      declarations: {},
+      sourceFiles: {
         'module.ts': {
           entity: 'sourceFile',
           moduleName: 'module',

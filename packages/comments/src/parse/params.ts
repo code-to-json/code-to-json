@@ -1,5 +1,7 @@
 // tslint:disable no-small-switch
 import {
+  DocBlockTag,
+  DocCodeSpan,
   DocErrorText,
   DocNodeKind,
   DocParamCollection,
@@ -26,20 +28,25 @@ function parseTagSection(tagName: string, node: DocSection): CommentParagraphCon
                     return a.concat('\n');
                   case DocNodeKind.ErrorText:
                     return a.concat((gch as DocErrorText).text);
+                  case DocNodeKind.BlockTag:
+                    // TODO: handle properly
+                    return a;
+                  case DocNodeKind.CodeSpan:
+                    return a.concat({ kind: 'inlineCode', code: (gch as DocCodeSpan).code });
                   default:
                     throw new Error(
                       `Didn't expect to encounter a ${kind} as a child of a DocParagraph`,
                     );
                 }
               },
-              [] as string[],
+              [] as CommentParagraphContent,
             ),
           );
         default:
           throw new Error(`Didn't expect to encounter a ${k} as a child of a DocSection`);
       }
     },
-    [] as string[],
+    [] as CommentParagraphContent,
   );
 }
 

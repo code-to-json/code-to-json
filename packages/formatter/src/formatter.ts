@@ -15,9 +15,9 @@ export function formatWalkerOutput(
   _opts: Partial<FormatterOptions> = {},
 ): FormatterOutput {
   const {
-    data: { sourceFile },
+    data: { sourceFiles },
   } = wo;
   return {
-    sourceFiles: Object.keys(sourceFile).map(fn => formatSourceFile(wo.data, sourceFile[fn])),
+    sourceFiles: Object.keys(sourceFiles).map(fn => formatSourceFile(wo.data, sourceFiles[fn])),
   };
 }

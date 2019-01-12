@@ -13,13 +13,13 @@ class SymbolFormatterTests {
       entity: 'symbol',
     };
     const wo: WalkerOutputData = {
-      symbol: {
+      symbols: {
         '1234': sym,
       },
-      type: {},
-      node: {},
-      declaration: {},
-      sourceFile: {},
+      types: {},
+      nodes: {},
+      declarations: {},
+      sourceFiles: {},
     };
     expect(formatSymbol(wo, sym)).to.deep.eq({
       name: 'foo',
@@ -35,13 +35,13 @@ class SymbolFormatterTests {
       entity: 'symbol',
     };
     const wo: WalkerOutputData = {
-      symbol: {
+      symbols: {
         '1234': sym,
       },
-      type: {},
-      node: {},
-      declaration: {},
-      sourceFile: {},
+      types: {},
+      nodes: {},
+      declarations: {},
+      sourceFiles: {},
     };
     expect(formatSymbol(wo, sym)).to.deep.eq({
       name: 'foo',
@@ -58,7 +58,7 @@ class SymbolFormatterTests {
       entity: 'symbol',
     };
     const wo: WalkerOutputData = {
-      symbol: {
+      symbols: {
         '1234': sym,
         '3456': {
           id: '3456',
@@ -66,10 +66,10 @@ class SymbolFormatterTests {
           entity: 'symbol',
         },
       },
-      type: {},
-      node: {},
-      declaration: {},
-      sourceFile: {},
+      types: {},
+      nodes: {},
+      declarations: {},
+      sourceFiles: {},
     };
     expect(formatSymbol(wo, sym)).to.deep.eq({
       name: 'foo',
@@ -90,13 +90,13 @@ class SymbolFormatterTests {
       entity: 'symbol',
     };
     const wo: WalkerOutputData = {
-      symbol: {
+      symbols: {
         '1234': sym,
       },
-      type: {},
-      node: {},
-      declaration: {},
-      sourceFile: {},
+      types: {},
+      nodes: {},
+      declarations: {},
+      sourceFiles: {},
     };
     expect(formatSymbol(wo, sym)).to.deep.eq({
       name: 'foo',
@@ -112,7 +112,7 @@ class SymbolFormatterTests {
       entity: 'symbol',
     };
     const wo: WalkerOutputData = {
-      symbol: {
+      symbols: {
         '1234': sym,
         '3456': {
           id: '3456',
@@ -120,10 +120,10 @@ class SymbolFormatterTests {
           entity: 'symbol',
         },
       },
-      type: {},
-      node: {},
-      declaration: {},
-      sourceFile: {},
+      types: {},
+      nodes: {},
+      declarations: {},
+      sourceFiles: {},
     };
     expect(formatSymbol(wo, sym)).to.deep.eq({
       name: 'foo',
@@ -144,13 +144,13 @@ class SymbolFormatterTests {
       entity: 'symbol',
     };
     const wo: WalkerOutputData = {
-      symbol: {
+      symbols: {
         '1234': sym,
       },
-      type: {},
-      node: {},
-      declaration: {},
-      sourceFile: {},
+      types: {},
+      nodes: {},
+      declarations: {},
+      sourceFiles: {},
     };
     expect(formatSymbol(wo, sym)).to.deep.eq({
       name: 'foo',
@@ -167,13 +167,13 @@ class SymbolFormatterTests {
       entity: 'symbol',
     };
     const wo: WalkerOutputData = {
-      symbol: {
+      symbols: {
         '1234': sym,
       },
-      type: {},
-      node: {},
-      declaration: {},
-      sourceFile: {},
+      types: {},
+      nodes: {},
+      declarations: {},
+      sourceFiles: {},
     };
     expect(formatSymbol(wo, sym)).to.deep.eq({
       name: 'foo',
@@ -189,13 +189,13 @@ class SymbolFormatterTests {
       entity: 'symbol',
     };
     const wo: WalkerOutputData = {
-      symbol: {
+      symbols: {
         '1234': sym,
       },
-      type: {},
-      node: {},
-      declaration: {},
-      sourceFile: {},
+      types: {},
+      nodes: {},
+      declarations: {},
+      sourceFiles: {},
     };
     expect(formatSymbol(wo, sym)).to.deep.eq({
       name: 'foo',
@@ -213,13 +213,13 @@ class SymbolFormatterTests {
       entity: 'symbol',
     };
     const wo: WalkerOutputData = {
-      symbol: {
+      symbols: {
         '1234': sym,
       },
-      type: {},
-      node: {},
-      declaration: {},
-      sourceFile: {},
+      types: {},
+      nodes: {},
+      declarations: {},
+      sourceFiles: {},
     };
     expect(formatSymbol(wo, sym)).to.deep.eq({
       name: 'foo',

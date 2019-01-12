@@ -65,7 +65,7 @@ console.log(x);`,
       symbol: ['symbol', '01m4wlshjs98'],
     });
 
-    const { symbol: symbols } = collector.queue.drain({
+    const { symbols } = collector.queue.drain({
       handleSymbol(_ref: SymbolRef, sym: ts.Symbol) {
         return sym;
       },

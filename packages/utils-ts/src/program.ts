@@ -1,3 +1,4 @@
+import { setupTestCase } from '@code-to-json/test-helpers';
 import { InvalidArgumentsError, UnreachableError } from '@code-to-json/utils';
 import * as debug from 'debug';
 import {
@@ -33,8 +34,6 @@ const DEFAULT_COMPILER_OPTIONS: CompilerOptions = {
 const STD_COMPILER_OPTIONS: CompilerOptions = {
   module: ModuleKind.CommonJS,
   target: ScriptTarget.ES5,
-  noLib: true,
-  noResolve: true,
   checkJs: true,
   allowJs: true,
   suppressOutputPathCheck: true,

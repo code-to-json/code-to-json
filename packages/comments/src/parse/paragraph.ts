@@ -1,5 +1,6 @@
 import {
   DocBlockTag,
+  DocCodeSpan,
   DocErrorText,
   DocInlineTag,
   DocLinkTag,
@@ -8,11 +9,16 @@ import {
   DocParagraph,
   DocPlainText,
 } from '@microsoft/tsdoc';
+import * as circularJSON from 'circular-json';
+import * as debug from 'debug';
 import { CommentParagraphContent } from 'types';
 import parseBlockTag from './block-tag';
 import parseInlineTag from './inline-tag';
 
+const log = debug('code-to-json:comments:paragraph');
+
 export default function parseParagraph(p: DocParagraph): CommentParagraphContent {
+  log(`parsing: ${circularJSON.stringify(p, null, '  ')}`);
   const parts: CommentParagraphContent = [];
   function parse(node: DocNode): void {
     switch (node.kind) {
@@ -70,6 +76,11 @@ export default function parseParagraph(p: DocParagraph): CommentParagraphContent
         break;
       case DocNodeKind.InlineTag:
         parseInlineTag(node as DocInlineTag);
+        break;
+      case DocNodeKind.CodeSpan:
+        parts.push({ kind: 'inlineCode', code: (node as DocCodeSpan).code });
+        break;
+      case DocNodeKind.HtmlStartTag:
         break;
       default:
         throw new Error(`Didn't expect to find a node of kind ${node.kind} in a DocParagraph`);
