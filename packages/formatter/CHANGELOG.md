@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.12.0](https://github.com/mike-north/code-to-json/compare/@code-to-json/formatter@0.11.0...@code-to-json/formatter@0.12.0) (2019-01-13)
+
+
+### Features
+
+* modifiers and decorators ([8d57ef2](https://github.com/mike-north/code-to-json/commit/8d57ef2))
+
+
+
+
+
 # [0.11.0](https://github.com/mike-north/code-to-json/compare/@code-to-json/formatter@0.10.1...@code-to-json/formatter@0.11.0) (2019-01-13)
 
 
