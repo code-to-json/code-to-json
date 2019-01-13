@@ -1,6 +1,11 @@
 export type CommentParagraphContent = Array<
   // tslint:disable-next-line:max-union-size
-  CommentInlineTag | CommentLinkTag | CommentFencedCode | CommentInlineCode | string
+  | CommentBlockTag
+  | CommentInlineTag
+  | CommentLinkTag
+  | CommentFencedCode
+  | CommentInlineCode
+  | string
 >;
 
 export interface CommentInlineTag<C = string[]> {
