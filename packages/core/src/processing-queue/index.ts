@@ -1,4 +1,5 @@
 import { createQueue, RefFor, refId, UnreachableError } from '@code-to-json/utils';
+
 import { generateId } from '@code-to-json/utils-ts';
 import * as debug from 'debug';
 import { Declaration, Node, SourceFile, Symbol as Sym, Type, TypeChecker } from 'typescript';

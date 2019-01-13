@@ -23,7 +23,7 @@ export default function formatType(
   wo: WalkerOutputData,
   type: Readonly<SerializedType>,
 ): FormattedType {
-  const { typeString, flags, objectFlags, isBuiltIn } = type;
+  const { typeString, flags, objectFlags, typeKind } = type;
   const typeInfo: FormattedType = {
     text: typeString,
     flags: formatFlags(flags),
@@ -31,7 +31,7 @@ export default function formatType(
     // numberIndexType: resolveAndFormatType(wo, numberIndexType),
     // stringIndexType: resolveAndFormatType(wo, stringIndexType)
   };
-  if (!isBuiltIn) {
+  if (typeKind === 'custom') {
     const { properties } = type as SerializedCustomType;
     if (properties && properties.length > 0) {
       typeInfo.properties = properties.map(s => {
