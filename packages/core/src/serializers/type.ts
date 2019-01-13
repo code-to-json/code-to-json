@@ -166,9 +166,7 @@ function serializeCustomType(
   if (properties && properties.length > 0) {
     typeData.properties = properties.map(sym => q.queue(sym, 'symbol', checker)).filter(isRef);
   }
-  if (symbol) {
-    typeData.symbol = q.queue(symbol, 'symbol', checker);
-  }
+  typeData.symbol = q.queue(symbol, 'symbol', checker);
   return typeData;
 }
 
