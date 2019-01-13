@@ -40,7 +40,7 @@
     "watch:debug": "scripty",
     "test": "lerna run test",
     "test:watch": "scripty",
-    "lint": "lerna run lint",
+    "lint": "lerna run lint --parallel",
     "lint:watch": "scripty"
   },
   "repository": {
