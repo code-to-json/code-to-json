@@ -1,10 +1,5 @@
 import { FileReference } from 'typescript';
-import { CodeRange } from '../types';
-
-export interface SerializedFileReference {
-  name?: string;
-  location?: CodeRange;
-}
+import { CodeRange, SerializedFileReference } from '../types';
 
 /**
  * Serialize a FileReference to a POJO

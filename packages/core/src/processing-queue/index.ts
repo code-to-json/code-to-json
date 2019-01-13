@@ -3,8 +3,15 @@ import { createQueue, RefFor, refId, UnreachableError } from '@code-to-json/util
 import { generateId } from '@code-to-json/utils-ts';
 import * as debug from 'debug';
 import { Declaration, Node, SourceFile, Symbol as Sym, Type, TypeChecker } from 'typescript';
-import { EntityMap } from '../types';
-import { DeclarationRef, NodeRef, RefRegistry, SourceFileRef, SymbolRef, TypeRef } from './ref';
+import {
+  DeclarationRef,
+  EntityMap,
+  NodeRef,
+  RefRegistry,
+  SourceFileRef,
+  SymbolRef,
+  TypeRef,
+} from '../types';
 
 export interface QueueSink<S, T, N, D, SF> {
   handleNode(ref: NodeRef, item: Node): N;

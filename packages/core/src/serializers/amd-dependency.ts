@@ -1,9 +1,5 @@
 import { AmdDependency } from 'typescript';
-
-export interface SerializedAmdDependency {
-  name?: string;
-  path: string;
-}
+import { SerializedAmdDependency } from '../types';
 
 /**
  * Serialize a AmdDependency to a POJO

@@ -35,18 +35,34 @@ class Vehicle {
   public drive(): string {
     return `Driving with all ${this.numWheels} wheels`;
   }
+  /**
+   * Drive the vehicle in reverse
+   * @returns {string} foo
+   */
+  protected reverse(): string {
+    return `Reversing with all ${this.numWheels} wheels`;
+  }
+}
+
+export interface HasRegistration {
+  registration: number;
+}
+export interface HasVin extends HasRegistration {
+  vin: number;
 }
 
 /**
  * A car is a 4-wheeled vehicle
  */
-export class Car extends Vehicle {
+export class Car extends Vehicle implements HasVin {
   /**
    * Create a new car
    */
   constructor() {
     super(4);
   }
+  registration = 41;
+  vin = 99;
 }
 
 /**

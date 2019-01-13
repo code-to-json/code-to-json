@@ -5,36 +5,9 @@ import * as ts from 'typescript';
 import Collector from '../collector';
 import { flagsToString } from '../flags';
 import { ProcessingQueue } from '../processing-queue';
-import { SymbolRef, TypeRef } from '../processing-queue/ref';
-import { HasDocumentation, HasPosition, SerializedEntity } from '../types';
+import { SerializedSymbol, SymbolRef } from '../types';
 import serializeLocation from './location';
-import serializeSignature, { SerializedSignature } from './signature';
-
-export interface SerializedHeritageClause {
-  clauseType: string;
-}
-
-export interface SerializedSymbol
-  extends SerializedEntity<'symbol'>,
-    Partial<HasPosition>,
-    HasDocumentation {
-  name: string;
-  external?: boolean;
-  type?: TypeRef;
-  members?: SymbolRef[];
-  exports?: SymbolRef[];
-  decorators?: string[];
-  modifiers?: string[];
-  globalExports?: SymbolRef[];
-  // declarations?: DeclarationRef[];
-  constructorSignatures?: SerializedSignature[];
-  callSignatures?: SerializedSignature[];
-  heritageClauses?: SerializedHeritageClause[];
-  jsDocTags?: Array<{
-    name: string;
-    text?: string;
-  }>;
-}
+import serializeSignature from './signature';
 
 function appendSymbolMap(
   uem: ts.UnderscoreEscapedMap<ts.Symbol> | undefined,

@@ -4,7 +4,7 @@ import { CodeRange } from '../types';
 export default function serializeLocation(
   sourceFile: SourceFile,
   pos: number,
-  end: number
+  end: number,
 ): CodeRange {
   const posStart = getLineAndCharacterOfPosition(sourceFile, pos + 1);
   const posEnd = getLineAndCharacterOfPosition(sourceFile, end);
@@ -13,6 +13,6 @@ export default function serializeLocation(
     posStart.line + 1,
     posStart.character,
     posEnd.line + 1,
-    posEnd.character
+    posEnd.character,
   ];
 }

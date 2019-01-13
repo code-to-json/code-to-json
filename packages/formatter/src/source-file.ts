@@ -1,11 +1,13 @@
 import { SerializedSourceFile, WalkerOutputData } from '@code-to-json/core';
+import { DataCollector } from './data-collector';
 import resolveReference from './resolve-reference';
 import formatSymbol from './symbol';
-import { FormattedSourceFile } from './types';
+import { FormattedSourceFile, SideloadedDataCollector } from './types';
 
 export default function formatSourceFile(
   wo: WalkerOutputData,
   sourceFile: Readonly<SerializedSourceFile>,
+  collector: DataCollector,
 ): FormattedSourceFile {
   const {
     pathInPackage,
@@ -30,7 +32,7 @@ export default function formatSourceFile(
   const { symbol: symbolRef } = sourceFile;
   if (symbolRef) {
     const symbol = resolveReference(wo, symbolRef);
-    const serializedSymbol = formatSymbol(wo, symbol);
+    const serializedSymbol = formatSymbol(wo, symbol, collector);
     Object.assign(info, serializedSymbol, { name: moduleName });
   }
   return info;

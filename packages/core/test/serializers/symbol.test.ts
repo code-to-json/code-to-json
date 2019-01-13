@@ -3,8 +3,7 @@ import { generateId } from '@code-to-json/utils-ts';
 import { expect } from 'chai';
 import { suite, test } from 'mocha-typescript';
 import * as ts from 'typescript';
-import { SourceFileRef } from '../../src';
-import { RefRegistry } from '../../src/processing-queue/ref';
+import { RefRegistry, SourceFileRef } from '../../src';
 import serializeSourceFile from '../../src/serializers/source-file';
 import { setupScenario } from './helpers';
 

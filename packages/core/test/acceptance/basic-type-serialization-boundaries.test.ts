@@ -81,6 +81,7 @@ class TypeSerialiationBoundaryTests {
         type: {
           flags: ['Object'],
           typeKind: 'built-in',
+          objectFlags: ['Reference'],
           libName: 'lib.es5.d.ts',
           typeString: 'string[]',
         },
@@ -100,6 +101,7 @@ class TypeSerialiationBoundaryTests {
         type: {
           flags: ['Object'],
           libName: 'lib.es5.d.ts',
+          objectFlags: ['Reference'],
           typeKind: 'built-in',
           typeString: 'Promise<number>',
         },

@@ -7,8 +7,8 @@ import * as path from 'path';
 import * as ts from 'typescript';
 import Collector from '../src/collector';
 import { create as createQueue, DrainOutput } from '../src/processing-queue';
-import { SourceFileRef, SymbolRef, TypeRef } from '../src/processing-queue/ref';
-import serializeSourceFile, { SerializedSourceFile } from '../src/serializers/source-file';
+import serializeSourceFile from '../src/serializers/source-file';
+import { SerializedSourceFile, SourceFileRef, SymbolRef, TypeRef } from '../src/types';
 
 @suite
 class SimpleSnapshotSmokeTests {

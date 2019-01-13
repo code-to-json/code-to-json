@@ -1,6 +1,7 @@
 import { WalkerOutputData } from '@code-to-json/core';
 import { expect } from 'chai';
 import { suite, test } from 'mocha-typescript';
+import { create } from '../../src/data-collector';
 import formatSourceFile from '../../src/source-file';
 
 @suite
@@ -23,14 +24,18 @@ class SourceFileFormatterTests {
         },
       },
     };
-    const fsf = formatSourceFile(wo, {
-      entity: 'sourceFile',
-      moduleName: 'module',
-      isDeclarationFile: false,
-      id: 'module.ts',
-      extension: 'ts',
-      pathInPackage: 'module',
-    });
+    const fsf = formatSourceFile(
+      wo,
+      {
+        entity: 'sourceFile',
+        moduleName: 'module',
+        isDeclarationFile: false,
+        id: 'module.ts',
+        extension: 'ts',
+        pathInPackage: 'module',
+      },
+      create(),
+    );
     expect(fsf).to.deep.eq({
       moduleName: 'module',
       extension: 'ts',
@@ -64,15 +69,19 @@ class SourceFileFormatterTests {
         },
       },
     };
-    const fsf = formatSourceFile(wo, {
-      entity: 'sourceFile',
-      moduleName: 'module',
-      isDeclarationFile: false,
-      id: 'module.ts',
-      pathInPackage: 'module',
-      extension: 'ts',
-      symbol: ['symbol', '12345'] as any,
-    });
+    const fsf = formatSourceFile(
+      wo,
+      {
+        entity: 'sourceFile',
+        moduleName: 'module',
+        isDeclarationFile: false,
+        id: 'module.ts',
+        pathInPackage: 'module',
+        extension: 'ts',
+        symbol: ['symbol', '12345'] as any,
+      },
+      create(),
+    );
     expect(fsf).to.deep.eq({
       pathInPackage: 'module',
       extension: 'ts',

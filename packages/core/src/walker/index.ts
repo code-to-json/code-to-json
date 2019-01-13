@@ -2,18 +2,24 @@ import { SysHost } from '@code-to-json/utils-ts';
 import { Declaration, Node, Program, SourceFile, Symbol as Sym, Type } from 'typescript';
 import Collector from '../collector';
 import { create as createQueue } from '../processing-queue';
+
+import serializeDeclaration from '../serializers/declaration';
+import serializeNode from '../serializers/node';
+import serializeSourceFile from '../serializers/source-file';
+import serializeSymbol from '../serializers/symbol';
+import serializeType from '../serializers/type';
 import {
   DeclarationRef,
   NodeRef,
+  SerializedDeclaration,
+  SerializedNode,
+  SerializedSourceFile,
+  SerializedSymbol,
+  SerializedType,
   SourceFileRef,
   SymbolRef,
   TypeRef,
-} from '../processing-queue/ref';
-import serializeDeclaration, { SerializedDeclaration } from '../serializers/declaration';
-import serializeNode, { SerializedNode } from '../serializers/node';
-import serializeSourceFile, { SerializedSourceFile } from '../serializers/source-file';
-import serializeSymbol, { SerializedSymbol } from '../serializers/symbol';
-import serializeType, { SerializedBuiltInType, SerializedType } from '../serializers/type';
+} from '../types';
 import { createWalkerConfig, populateWalkerOptions, WalkerOptions } from './options';
 
 export interface WalkerOutputData {

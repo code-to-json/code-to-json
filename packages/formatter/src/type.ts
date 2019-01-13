@@ -1,43 +1,63 @@
-import { SerializedType, WalkerOutputData } from '@code-to-json/core';
-import { SerializedCustomType } from '@code-to-json/core/lib/src/serializers/type';
+import { SerializedType, TypeRef, WalkerOutputData } from '@code-to-json/core';
+import { isRef, isTruthy } from '@code-to-json/utils';
+import { DataCollector } from './data-collector';
 import formatFlags from './flags';
 import resolveReference from './resolve-reference';
-import formatSymbol from './symbol';
-import { FormattedType } from './types';
+import { FormattedType, FormattedTypeRef } from './types';
+import { symbolRefListToFormattedSymbolMap } from './utils';
 
-// tslint:disable-next-line:no-commented-code
-// function resolveAndFormatType(wo: WalkerOutput, typeRef?: TypeRef): FormattedType | undefined {
-//   if (!typeRef) {
-//     return;
-//   }
+function resolveAndFormatType(
+  wo: WalkerOutputData,
+  collector: DataCollector,
+  typeRef?: TypeRef,
+): FormattedTypeRef | undefined {
+  if (!typeRef) {
+    return undefined;
+  }
 
-// tslint:disable-next-line:no-commented-code
-//   const typ = resolveReference(wo, typeRef);
-//   if (!typ) {
-//     return;
-//   }
-//   return formatType(wo, typ);
-// }
+  const typ = resolveReference(wo, typeRef);
 
+  if (!typ) {
+    return undefined;
+  }
+  return collector.queue(typ, 't');
+}
+
+// tslint:disable-next-line:cognitive-complexity
 export default function formatType(
   wo: WalkerOutputData,
   type: Readonly<SerializedType>,
+  collector: DataCollector,
 ): FormattedType {
-  const { typeString, flags, objectFlags, typeKind } = type;
+  const { typeString, flags, objectFlags } = type;
   const typeInfo: FormattedType = {
     text: typeString,
     flags: formatFlags(flags),
     objectFlags: formatFlags(objectFlags),
-    // numberIndexType: resolveAndFormatType(wo, numberIndexType),
-    // stringIndexType: resolveAndFormatType(wo, stringIndexType)
   };
-  if (typeKind === 'custom') {
-    const { properties } = type as SerializedCustomType;
+  if (type.typeKind === 'custom' || type.typeKind === 'built-in') {
+    const { libName, numberIndexType, stringIndexType, baseTypes } = type;
+    if (libName) {
+      typeInfo.libName = libName;
+    }
+    if (baseTypes && baseTypes.length > 0) {
+      typeInfo.baseTypes = baseTypes
+        .map(bt => collector.queue(resolveReference(wo, bt), 't'))
+        .filter(isRef);
+    }
+    const numberIndexTypeArr = resolveAndFormatType(wo, collector, numberIndexType);
+    const stringIndexTypeArr = resolveAndFormatType(wo, collector, stringIndexType);
+    if (numberIndexTypeArr && numberIndexTypeArr.length > 0) {
+      typeInfo.numberIndexType = numberIndexTypeArr;
+    }
+    if (stringIndexTypeArr && stringIndexTypeArr.length > 0) {
+      typeInfo.stringIndexType = stringIndexTypeArr;
+    }
+  }
+  if (type.typeKind === 'custom') {
+    const { properties } = type;
     if (properties && properties.length > 0) {
-      typeInfo.properties = properties.map(s => {
-        const sym = resolveReference(wo, s);
-        return formatSymbol(wo, sym);
-      });
+      typeInfo.properties = symbolRefListToFormattedSymbolMap(properties, wo, collector);
     }
   }
 
