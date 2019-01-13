@@ -1,15 +1,14 @@
 import { setupTestCase } from '@code-to-json/test-helpers';
 import { refId, refType } from '@code-to-json/utils';
 import { nodeHost } from '@code-to-json/utils-node';
-import { createProgramFromCodeString } from '@code-to-json/utils-ts';
 import { expect } from 'chai';
-import { WalkerOutput, walkProgram } from '../../src';
+import { walkProgram } from '../../src';
 import {
   SerializedBuiltInType,
   SerializedCoreType,
   SerializedCustomType,
   SerializedType,
-} from '../../src/serializers/type';
+} from '../../src/types';
 
 interface TypeSummary {
   typeString: string;
