@@ -20,6 +20,7 @@ jobs:
   allow_failures:
     - name: 'typescript@next'
     - name: 'Publish to NPM'
+    - name: 'TS 3.1'
   include:
     - stage: 'Basic Tests'
       name: 'Conventional Commits, Lint and Fixed Dependencies'
