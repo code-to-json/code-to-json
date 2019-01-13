@@ -2,7 +2,7 @@
 
 import { expect } from 'chai';
 import { suite, test } from 'mocha-typescript';
-import { singleExportModuleExports } from './acceptance-test-helpers';
+import { singleExportModuleExports } from './helpers';
 
 @suite
 class CustomTypeSerialiationBoundaryTests {
@@ -16,6 +16,8 @@ export const x: Foo = { num: 4 };`);
         name: 'x',
         type: {
           flags: ['Object'],
+          typeKind: 'custom',
+          objectFlags: ['Interface'],
           typeString: 'Foo',
         },
       },

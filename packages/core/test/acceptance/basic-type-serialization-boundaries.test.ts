@@ -2,7 +2,7 @@
 
 import { expect } from 'chai';
 import { suite, test } from 'mocha-typescript';
-import { singleExportModuleExports } from './acceptance-test-helpers';
+import { singleExportModuleExports } from './helpers';
 
 @suite
 class TypeSerialiationBoundaryTests {
@@ -14,6 +14,7 @@ class TypeSerialiationBoundaryTests {
         name: 'x',
         type: {
           flags: ['Number'],
+          typeKind: 'core',
           typeString: 'number',
         },
       },
@@ -29,6 +30,7 @@ class TypeSerialiationBoundaryTests {
         name: 'x',
         type: {
           flags: ['NumberLiteral'],
+          typeKind: 'core',
           typeString: '1',
         },
       },
@@ -45,6 +47,7 @@ class TypeSerialiationBoundaryTests {
         type: {
           flags: ['Number'],
           typeString: 'number',
+          typeKind: 'core',
         },
       },
     });
@@ -61,6 +64,7 @@ class TypeSerialiationBoundaryTests {
         name: 'x',
         type: {
           flags: ['Union'],
+          typeKind: 'core',
           typeString: 'string | number',
         },
       },
@@ -78,6 +82,8 @@ class TypeSerialiationBoundaryTests {
         name: 'x',
         type: {
           flags: ['Object'],
+          typeKind: 'built-in',
+          libName: 'lib.es5.d.ts',
           typeString: 'string[]',
         },
       },
@@ -95,6 +101,8 @@ class TypeSerialiationBoundaryTests {
         name: 'x',
         type: {
           flags: ['Object'],
+          libName: 'lib.es5.d.ts',
+          typeKind: 'built-in',
           typeString: 'Promise<number>',
         },
       },
@@ -114,6 +122,8 @@ class TypeSerialiationBoundaryTests {
         name: 'x',
         type: {
           flags: ['Object'],
+          objectFlags: ['Anonymous'],
+          typeKind: 'custom',
           typeString: '{ p: Promise<number[]>; }',
         },
       },

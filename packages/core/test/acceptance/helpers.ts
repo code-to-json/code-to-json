@@ -3,11 +3,20 @@ import { refId, refType } from '@code-to-json/utils';
 import { nodeHost } from '@code-to-json/utils-node';
 import { createProgramFromCodeString } from '@code-to-json/utils-ts';
 import { expect } from 'chai';
-import { WalkerOutput, walkProgram } from '../src';
+import { WalkerOutput, walkProgram } from '../../src';
+import {
+  SerializedBuiltInType,
+  SerializedCoreType,
+  SerializedCustomType,
+  SerializedType,
+} from '../../src/serializers/type';
 
 interface TypeSummary {
   typeString: string;
   flags?: string[];
+  objectFlags?: string[];
+  libName?: string;
+  typeKind: string;
 }
 
 interface ExportSummary {
@@ -17,6 +26,45 @@ interface ExportSummary {
 
 interface ExportSummaries {
   [k: string]: ExportSummary;
+}
+
+function summarizeCoreType(typ: SerializedCoreType): TypeSummary {
+  const { flags, typeString, objectFlags, typeKind } = typ;
+  const toReturn: TypeSummary = { typeString, flags, typeKind };
+  if (objectFlags) {
+    toReturn.objectFlags = objectFlags;
+  }
+  return toReturn;
+}
+function summarizeBuiltInType(typ: SerializedBuiltInType): TypeSummary {
+  const { flags, typeString, libName, objectFlags, typeKind } = typ;
+  const toReturn: TypeSummary = { typeString, flags, libName, typeKind };
+  if (objectFlags) {
+    toReturn.objectFlags = objectFlags;
+  }
+  return toReturn;
+}
+
+function summarizeCustomType(typ: SerializedCustomType): TypeSummary {
+  const { flags, typeString, objectFlags, properties, typeKind } = typ;
+  const toReturn: TypeSummary = { typeString, flags, typeKind };
+  if (objectFlags) {
+    toReturn.objectFlags = objectFlags;
+  }
+  return toReturn;
+}
+
+function summarizeType(typ: SerializedType): TypeSummary {
+  switch (typ.typeKind) {
+    case 'built-in':
+      return summarizeBuiltInType(typ);
+    case 'core':
+      return summarizeCoreType(typ);
+    case 'custom':
+      return summarizeCustomType(typ);
+    default:
+      throw new Error(`Unknown typeKind value: ${JSON.stringify(typ)}`);
+  }
 }
 
 export async function singleExportModuleExports(
@@ -77,13 +125,8 @@ export async function singleExportModuleExports(
         const { name, type: expTypeRef } = exp;
         const summary: ExportSummary = { name };
         if (expTypeRef) {
-          const { flags, typeString } = types[refId(expTypeRef)];
-          summary.type = {
-            typeString,
-          };
-          if (flags) {
-            summary.type.flags = flags;
-          }
+          const typ = types[refId(expTypeRef)];
+          summary.type = summarizeType(typ);
         }
         // eslint-disable-next-line no-param-reassign
         summaries[name] = summary;
