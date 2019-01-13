@@ -13,15 +13,15 @@ import serializeDeclaration, { SerializedDeclaration } from '../serializers/decl
 import serializeNode, { SerializedNode } from '../serializers/node';
 import serializeSourceFile, { SerializedSourceFile } from '../serializers/source-file';
 import serializeSymbol, { SerializedSymbol } from '../serializers/symbol';
-import serializeType, { SerializedType } from '../serializers/type';
+import serializeType, { SerializedBuiltInType, SerializedType } from '../serializers/type';
 import { createWalkerConfig, populateWalkerOptions, WalkerOptions } from './options';
 
 export interface WalkerOutputData {
-  symbol: { [k: string]: Readonly<SerializedSymbol> };
-  type: { [k: string]: Readonly<SerializedType> };
-  node: { [k: string]: Readonly<SerializedNode> };
-  declaration: { [k: string]: Readonly<SerializedDeclaration> };
-  sourceFile: { [k: string]: Readonly<SerializedSourceFile> };
+  symbols: { [k: string]: Readonly<SerializedSymbol> };
+  types: { [k: string]: Readonly<SerializedType> };
+  nodes: { [k: string]: Readonly<SerializedNode> };
+  declarations: { [k: string]: Readonly<SerializedDeclaration> };
+  sourceFiles: { [k: string]: Readonly<SerializedSourceFile> };
 }
 export interface WalkerOutputMetadata {
   versions: {

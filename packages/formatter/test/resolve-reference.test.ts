@@ -10,7 +10,7 @@ class ResolveReferenceTests {
     const typeRef: Ref<'type'> = (createRef as any)('type', '12345');
     const resolved = resolveReference(
       {
-        type: {
+        types: {
           '12345': {
             id: '12345',
           },
@@ -26,7 +26,7 @@ class ResolveReferenceTests {
     const symbolRef: Ref<'symbol'> = (createRef as any)('symbol', '12345');
     const resolved = resolveReference(
       {
-        symbol: {
+        symbols: {
           '12345': {
             id: '12345',
           },
@@ -42,7 +42,7 @@ class ResolveReferenceTests {
     const nodeRef: Ref<'node'> = (createRef as any)('node', '12345');
     const resolved = resolveReference(
       {
-        node: {
+        nodes: {
           '12345': {
             id: '12345',
           },
@@ -58,7 +58,7 @@ class ResolveReferenceTests {
     const declarationRef: Ref<'declaration'> = (createRef as any)('declaration', '12345');
     const resolved = resolveReference(
       {
-        declaration: {
+        declarations: {
           '12345': {
             id: '12345',
           },
@@ -74,7 +74,7 @@ class ResolveReferenceTests {
     const sourceFileRef: Ref<'sourceFile'> = (createRef as any)('sourceFile', '12345');
     const resolved = resolveReference(
       {
-        sourceFile: {
+        sourceFiles: {
           '12345': {
             id: '12345',
           },

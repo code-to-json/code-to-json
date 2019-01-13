@@ -1,14 +1,7 @@
 import { SerializedSourceFile, WalkerOutputData } from '@code-to-json/core';
-import resolveReference from '../resolve-reference';
-import formatSymbol, { FormattedSymbol } from './symbol';
-
-export interface FormattedSourceFile extends Partial<FormattedSymbol> {
-  pathInPackage: string;
-  moduleName: string;
-  extension: string | null;
-  isDeclarationFile: boolean;
-  referencedFiles?: string[];
-}
+import resolveReference from './resolve-reference';
+import formatSymbol from './symbol';
+import { FormattedSourceFile } from './types';
 
 export default function formatSourceFile(
   wo: WalkerOutputData,

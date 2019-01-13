@@ -3,7 +3,6 @@ import { createProgramFromCodeString } from '@code-to-json/utils-ts';
 import { expect } from 'chai';
 import { suite, test } from 'mocha-typescript';
 import * as path from 'path';
-import * as snapshot from 'snap-shot-it';
 import { getDeclarationFiles } from './test-helpers';
 
 @suite
@@ -16,7 +15,13 @@ class TypeScriptFixturePrograms {
     );
     const { tsLibNames, nonDeclarationFiles } = getDeclarationFiles(program.getSourceFiles());
 
-    snapshot(tsLibNames);
+    expect(tsLibNames).to.deep.eq([
+      'lib.d.ts',
+      'lib.es5.d.ts',
+      'lib.dom.d.ts',
+      'lib.webworker.importscripts.d.ts',
+      'lib.scripthost.d.ts',
+    ]);
 
     expect(nonDeclarationFiles).to.be.lengthOf(1);
 
@@ -112,7 +117,13 @@ export class Unicycle extends Vehicle {
     );
     const { tsLibNames, nonDeclarationFiles } = getDeclarationFiles(program.getSourceFiles());
 
-    snapshot(tsLibNames);
+    expect(tsLibNames).to.deep.eq([
+      'lib.d.ts',
+      'lib.es5.d.ts',
+      'lib.dom.d.ts',
+      'lib.webworker.importscripts.d.ts',
+      'lib.scripthost.d.ts',
+    ]);
 
     expect(nonDeclarationFiles).to.be.lengthOf(1);
 
@@ -126,7 +137,7 @@ export class Unicycle extends Vehicle {
     const { program } = createProgramFromCodeString("export const x: string = 'foo';", 'ts');
     const { tsLibNames, nonDeclarationFiles } = getDeclarationFiles(program.getSourceFiles());
 
-    snapshot(tsLibNames);
+    expect(tsLibNames).to.deep.eq([]);
 
     expect(nonDeclarationFiles).to.be.lengthOf(1);
 

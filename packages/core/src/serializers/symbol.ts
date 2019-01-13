@@ -1,4 +1,4 @@
-import { CommentData, parseCommentString } from '@code-to-json/comments';
+import { parseCommentString } from '@code-to-json/comments';
 import { conditionallyMergeTransformed, isRef, refId } from '@code-to-json/utils';
 import { mapUem } from '@code-to-json/utils-ts';
 import * as ts from 'typescript';
@@ -73,7 +73,6 @@ export default function serializeSymbol(
   const typ = checker.getTypeOfSymbolAtLocation(symbol, valueDeclaration);
   if (valueDeclaration && valueDeclaration.getSourceFile().isDeclarationFile) {
     details.external = true;
-    return details;
   }
   details.type = q.queue(typ, 'type', checker);
   if (members) {
@@ -85,7 +84,6 @@ export default function serializeSymbol(
   conditionallyMergeTransformed(details, globalExports, 'globalExports', gexps =>
     appendSymbolMap(gexps, q, checker),
   );
-
   const docComment = symbol.getDocumentationComment(checker);
   if (docComment.length > 0) {
     details.comment = ts.displayPartsToString(docComment);

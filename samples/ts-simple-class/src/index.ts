@@ -1,4 +1,4 @@
-import add from 'other';
+import add from './other';
 
 export const abc = 'abc';
 

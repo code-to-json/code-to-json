@@ -30,15 +30,15 @@ export default function resolveReference(wo: WalkerOutputData, ref: AnyRef<RefRe
   const id = refId(ref);
   switch (refTyp) {
     case 'type':
-      return wo.type[id];
+      return wo.types[id];
     case 'node':
-      return wo.node[id];
+      return wo.nodes[id];
     case 'declaration':
-      return wo.declaration[id];
+      return wo.declarations[id];
     case 'sourceFile':
-      return wo.sourceFile[id];
+      return wo.sourceFiles[id];
     case 'symbol':
-      return wo.symbol[id];
+      return wo.symbols[id];
     default:
       throw new UnreachableError(refTyp);
   }

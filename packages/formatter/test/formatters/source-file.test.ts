@@ -1,18 +1,18 @@
 import { WalkerOutputData } from '@code-to-json/core';
 import { expect } from 'chai';
 import { suite, test } from 'mocha-typescript';
-import formatSourceFile from '../../src/formatters/source-file';
+import formatSourceFile from '../../src/source-file';
 
 @suite
 class SourceFileFormatterTests {
   @test
   public async 'file without exports'() {
     const wo: WalkerOutputData = {
-      symbol: {},
-      type: {},
-      node: {},
-      declaration: {},
-      sourceFile: {
+      symbols: {},
+      types: {},
+      nodes: {},
+      declarations: {},
+      sourceFiles: {
         'module.ts': {
           entity: 'sourceFile',
           moduleName: 'module',
@@ -42,17 +42,17 @@ class SourceFileFormatterTests {
   @test
   public async 'file with exports'() {
     const wo: WalkerOutputData = {
-      symbol: {
+      symbols: {
         '12345': {
           name: 'module.ts',
           entity: 'symbol',
           id: '12345',
         },
       },
-      type: {},
-      node: {},
-      declaration: {},
-      sourceFile: {
+      types: {},
+      nodes: {},
+      declarations: {},
+      sourceFiles: {
         'module.ts': {
           entity: 'sourceFile',
           moduleName: 'module',

@@ -1,5 +1,6 @@
 import {
   DocBlockTag,
+  DocCodeSpan,
   DocErrorText,
   DocInlineTag,
   DocLinkTag,
@@ -8,9 +9,14 @@ import {
   DocParagraph,
   DocPlainText,
 } from '@microsoft/tsdoc';
+import * as debug from 'debug';
 import { CommentParagraphContent } from 'types';
 import parseBlockTag from './block-tag';
+import parseCodeSpan from './code-span';
 import parseInlineTag from './inline-tag';
+import parseLinkTag from './link-tag';
+
+const log = debug('code-to-json:comments:paragraph');
 
 export default function parseParagraph(p: DocParagraph): CommentParagraphContent {
   const parts: CommentParagraphContent = [];
@@ -28,24 +34,12 @@ export default function parseParagraph(p: DocParagraph): CommentParagraphContent
       case DocNodeKind.Excerpt:
         break;
       case DocNodeKind.LinkTag:
-        {
-          const l = node as DocLinkTag;
-          // TODO code destination and other link types
-          parts.push({
-            tagName: l.tagName,
-            content: l.linkText ? [l.linkText] : [],
-            url: l.urlDestination,
-            kind: 'linkTag',
-          });
-        }
+        parts.push(parseLinkTag(node as DocLinkTag));
         break;
       case DocNodeKind.DeclarationReference:
-        // TODO
-        break;
       case DocNodeKind.MemberReference:
-        // TODO
-        break;
       case DocNodeKind.MemberIdentifier:
+      case DocNodeKind.HtmlStartTag:
         // TODO
         break;
       case DocNodeKind.ErrorText:
@@ -66,10 +60,13 @@ export default function parseParagraph(p: DocParagraph): CommentParagraphContent
         }
         break;
       case DocNodeKind.BlockTag:
-        parseBlockTag(node as DocBlockTag);
+        parts.push(parseBlockTag(node as DocBlockTag));
         break;
       case DocNodeKind.InlineTag:
-        parseInlineTag(node as DocInlineTag);
+        parts.push(parseInlineTag(node as DocInlineTag));
+        break;
+      case DocNodeKind.CodeSpan:
+        parts.push(parseCodeSpan(node as DocCodeSpan));
         break;
       default:
         throw new Error(`Didn't expect to find a node of kind ${node.kind} in a DocParagraph`);

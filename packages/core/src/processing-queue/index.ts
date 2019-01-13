@@ -1,4 +1,5 @@
 import { createQueue, RefFor, refId, UnreachableError } from '@code-to-json/utils';
+
 import { generateId } from '@code-to-json/utils-ts';
 import * as debug from 'debug';
 import { Declaration, Node, SourceFile, Symbol as Sym, Type, TypeChecker } from 'typescript';
@@ -16,11 +17,11 @@ export interface QueueSink<S, T, N, D, SF> {
 const log = debug('code-to-json:processor');
 
 export interface DrainOutput<S, T, N, D, SF> {
-  symbol: { [k: string]: S };
-  type: { [k: string]: T };
-  node: { [k: string]: N };
-  declaration: { [k: string]: D };
-  sourceFile: { [k: string]: SF };
+  symbols: { [k: string]: S };
+  types: { [k: string]: T };
+  nodes: { [k: string]: N };
+  declarations: { [k: string]: D };
+  sourceFiles: { [k: string]: SF };
 }
 
 export interface ProcessingQueue {
@@ -68,11 +69,11 @@ export function create(checker: TypeChecker): ProcessingQueue {
     },
     drain<S, T, N, D, SF>(sink: Partial<QueueSink<S, N, T, D, SF>>): DrainOutput<S, N, T, D, SF> {
       const out: DrainOutput<S, N, T, D, SF> = {
-        declaration: {},
-        symbol: {},
-        type: {},
-        node: {},
-        sourceFile: {},
+        declarations: {},
+        symbols: {},
+        types: {},
+        nodes: {},
+        sourceFiles: {},
       };
       /**
        * Flush any un-processed items from the processing queue to the drain output
@@ -93,31 +94,31 @@ export function create(checker: TypeChecker): ProcessingQueue {
         if (handleSourceFile) {
           outputInfo.processed.sourceFile += registries.sourceFile.drain(
             // eslint-disable-next-line no-return-assign
-            (ref, item) => (out.sourceFile[refId(ref)] = handleSourceFile(ref, item)),
+            (ref, item) => (out.sourceFiles[refId(ref)] = handleSourceFile(ref, item)),
           ).processedCount;
         }
         if (handleDeclaration) {
           outputInfo.processed.declaration += registries.declaration.drain(
             // eslint-disable-next-line no-return-assign
-            (ref, item) => (out.declaration[refId(ref)] = handleDeclaration(ref, item)),
+            (ref, item) => (out.declarations[refId(ref)] = handleDeclaration(ref, item)),
           ).processedCount;
         }
         if (handleSymbol) {
           outputInfo.processed.symbol += registries.symbol.drain(
             // eslint-disable-next-line no-return-assign
-            (ref, item) => (out.symbol[refId(ref)] = handleSymbol(ref, item)),
+            (ref, item) => (out.symbols[refId(ref)] = handleSymbol(ref, item)),
           ).processedCount;
         }
         if (handleNode) {
           outputInfo.processed.node += registries.node.drain(
             // eslint-disable-next-line no-return-assign
-            (ref, item) => (out.node[refId(ref)] = handleNode(ref, item)),
+            (ref, item) => (out.nodes[refId(ref)] = handleNode(ref, item)),
           ).processedCount;
         }
         if (handleType) {
           outputInfo.processed.type += registries.type.drain(
             // eslint-disable-next-line no-return-assign
-            (ref, item) => (out.type[refId(ref)] = handleType(ref, item)),
+            (ref, item) => (out.types[refId(ref)] = handleType(ref, item)),
           ).processedCount;
         }
 

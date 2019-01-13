@@ -1,18 +1,13 @@
 import { SerializedSignature, WalkerOutputData } from '@code-to-json/core';
-import resolveReference from '../resolve-reference';
-import formatType, { FormattedType } from './type';
-
-export interface FormattedSignature {
-  parameters?: Array<{ name: string; type?: FormattedType }>;
-  typeParameters?: FormattedType[];
-  returnType?: FormattedType;
-}
+import resolveReference from './resolve-reference';
+import formatType from './type';
+import { FormattedSignature } from './types';
 
 export default function formatSignature(
   wo: WalkerOutputData,
   s: Readonly<SerializedSignature>,
 ): FormattedSignature {
-  const { parameters, typeParameters, returnType } = s;
+  const { parameters, typeParameters } = s;
   const signatureInfo: FormattedSignature = {
     parameters:
       parameters &&
@@ -26,10 +21,11 @@ export default function formatSignature(
         };
       }),
   };
-  if (returnType) {
-    const typ = resolveReference(wo, returnType);
-    signatureInfo.returnType = formatType(wo, typ);
-  }
+  // tslint:disable-next-line:no-commented-code
+  // if (returnType) {
+  //   const typ = resolveReference(wo, returnType);
+  //   signatureInfo.returnType = formatType(wo, typ);
+  // }
   if (typeParameters) {
     signatureInfo.typeParameters = typeParameters.map(tp => {
       const typ = resolveReference(wo, tp);

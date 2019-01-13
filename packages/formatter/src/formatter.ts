@@ -1,5 +1,6 @@
 import { WalkerOutput } from '@code-to-json/core';
-import formatSourceFile, { FormattedSourceFile } from './formatters/source-file';
+import formatSourceFile from './source-file';
+import { FormattedSourceFile } from './types';
 
 export interface FormatterOutput {
   sourceFiles: FormattedSourceFile[];
@@ -14,9 +15,9 @@ export function formatWalkerOutput(
   _opts: Partial<FormatterOptions> = {},
 ): FormatterOutput {
   const {
-    data: { sourceFile },
+    data: { sourceFiles },
   } = wo;
   return {
-    sourceFiles: Object.keys(sourceFile).map(fn => formatSourceFile(wo.data, sourceFile[fn])),
+    sourceFiles: Object.keys(sourceFiles).map(fn => formatSourceFile(wo.data, sourceFiles[fn])),
   };
 }

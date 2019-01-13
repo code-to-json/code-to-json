@@ -1,20 +1,9 @@
-import { CommentData } from '@code-to-json/comments';
 import { SerializedSymbol, WalkerOutputData } from '@code-to-json/core';
 import { conditionallyMergeTransformed } from '@code-to-json/utils';
-import resolveReference from '../resolve-reference';
 import formatFlags from './flags';
-import formatSignature, { FormattedSignature } from './signature';
-
-export interface FormattedSymbol {
-  name: string;
-  documentation?: CommentData;
-  flags?: string[];
-  exports?: FormattedSymbol[];
-  members?: FormattedSymbol[];
-  jsDocTags?: Array<{ name: string; text?: string }>;
-  callSignatures?: FormattedSignature[];
-  constructorSignatures?: FormattedSignature[];
-}
+import resolveReference from './resolve-reference';
+import formatSignature from './signature';
+import { FormattedSymbol } from './types';
 
 function isObject<T extends object>(v?: T): v is T {
   return typeof v !== 'undefined' && typeof v === 'object';

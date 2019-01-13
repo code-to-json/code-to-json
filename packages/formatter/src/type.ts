@@ -1,16 +1,9 @@
 import { SerializedType, WalkerOutputData } from '@code-to-json/core';
-import resolveReference from '../resolve-reference';
+import { SerializedCustomType } from '@code-to-json/core/lib/src/serializers/type';
 import formatFlags from './flags';
-import formatSymbol, { FormattedSymbol } from './symbol';
-
-export interface FormattedType {
-  text: string;
-  flags?: string[];
-  objectFlags?: string[];
-  properties?: FormattedSymbol[];
-  numberIndexType?: FormattedType;
-  stringIndexType?: FormattedType;
-}
+import resolveReference from './resolve-reference';
+import formatSymbol from './symbol';
+import { FormattedType } from './types';
 
 // tslint:disable-next-line:no-commented-code
 // function resolveAndFormatType(wo: WalkerOutput, typeRef?: TypeRef): FormattedType | undefined {
@@ -30,7 +23,7 @@ export default function formatType(
   wo: WalkerOutputData,
   type: Readonly<SerializedType>,
 ): FormattedType {
-  const { typeString, flags, objectFlags, properties } = type;
+  const { typeString, flags, objectFlags, typeKind } = type;
   const typeInfo: FormattedType = {
     text: typeString,
     flags: formatFlags(flags),
@@ -38,12 +31,14 @@ export default function formatType(
     // numberIndexType: resolveAndFormatType(wo, numberIndexType),
     // stringIndexType: resolveAndFormatType(wo, stringIndexType)
   };
-
-  if (properties && properties.length > 0) {
-    typeInfo.properties = properties.map(s => {
-      const sym = resolveReference(wo, s);
-      return formatSymbol(wo, sym);
-    });
+  if (typeKind === 'custom') {
+    const { properties } = type as SerializedCustomType;
+    if (properties && properties.length > 0) {
+      typeInfo.properties = properties.map(s => {
+        const sym = resolveReference(wo, s);
+        return formatSymbol(wo, sym);
+      });
+    }
   }
 
   return typeInfo;
