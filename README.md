@@ -16,12 +16,11 @@
 
 ```sh
 # install this library
-yarn add -D snap-doc
-# generate documentation from a TypeScript or JavaScript program
-snap-doc \
+yarn add -D code-to-json
+# generate JSON information about a TypeScript or JavaScript program
+code-to-json \
   --program . \  # path to a folder containing a tsconfig.json
-  --out ./docs \ # folder to generate docs
-  --format md    # markdown (md), json (json) or a single-page app (spa)s
+  --out ./docs \ # folder where output is written to
 ```
 
 ## Packages
