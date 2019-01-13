@@ -45,8 +45,9 @@ function summarizeBuiltInType(typ: SerializedBuiltInType): TypeSummary {
   return toReturn;
 }
 
+// tslint:disable-next-line:no-identical-functions
 function summarizeCustomType(typ: SerializedCustomType): TypeSummary {
-  const { flags, typeString, objectFlags, properties, typeKind } = typ;
+  const { flags, typeString, objectFlags, typeKind } = typ;
   const toReturn: TypeSummary = { typeString, flags, typeKind };
   if (objectFlags) {
     toReturn.objectFlags = objectFlags;
