@@ -30,15 +30,15 @@ jobs:
         - yarn add -WD coveralls
       script:
         - commitlint-travis
-        - lerna run lint:js
-        - lerna run lint:ts
-        - lerna run lint:hbs
-        - lerna run lint:md
-        - ./node_modules/.bin/lerna run test:coverage
+        - lerna run lint:js --parallel
+        - lerna run lint:ts --parallel
+        - lerna run lint:hbs --parallel
+        - lerna run lint:md --parallel
+        - ./node_modules/.bin/lerna run test:coverage --parallel
       after_success:
         - node ./condense-coverage.js
         - test "$TRAVIS_BRANCH" = "master" && npm install -g codacy-coverage
-        - test "$TRAVIS_BRANCH" = "master" && lerna run codacy:transmit-coverage
+        - test "$TRAVIS_BRANCH" = "master" && lerna run codacy:transmit-coverage --parallel
         - test "$TRAVIS_BRANCH" = "master" && cat coverage/merged.lcov | coveralls
 
     - stage: 'Additional Tests'
