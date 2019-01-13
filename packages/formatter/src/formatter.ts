@@ -1,9 +1,38 @@
-import { WalkerOutput } from '@code-to-json/core';
+import {
+  SerializedSourceFile,
+  SerializedSymbol,
+  SerializedType,
+  WalkerOutput,
+} from '@code-to-json/core';
+import { create as createDataCollector } from './data-collector';
 import formatSourceFile from './source-file';
-import { FormattedSourceFile } from './types';
+import formatSymbol from './symbol';
+import formatType from './type';
+import {
+  FormattedSourceFile,
+  FormattedSourceFileRef,
+  FormattedSymbol,
+  FormattedSymbolRef,
+  FormattedType,
+  FormattedTypeRef,
+} from './types';
+
+export interface FormatterOutputMetadata {
+  versions: {
+    core: string;
+  };
+  format: 'formatted';
+}
+
+export interface FormatterOutputData {
+  sourceFiles: { [k: string]: FormattedSourceFile };
+  types: { [k: string]: FormattedType };
+  symbols: { [k: string]: FormattedSymbol };
+}
 
 export interface FormatterOutput {
-  sourceFiles: FormattedSourceFile[];
+  codeToJson: FormatterOutputMetadata;
+  data: FormatterOutputData;
 }
 
 // tslint:disable-next-line:no-empty-interface
@@ -17,7 +46,27 @@ export function formatWalkerOutput(
   const {
     data: { sourceFiles },
   } = wo;
+  const collector = createDataCollector();
+  Object.keys(sourceFiles).forEach(sf => collector.queue(sourceFiles[sf], 'f'));
+
+  const data = collector.drain({
+    handleType(ref: FormattedTypeRef, item: SerializedType): FormattedType {
+      return formatType(wo.data, item, collector);
+    },
+    handleSourceFile(ref: FormattedSourceFileRef, item: SerializedSourceFile): FormattedSourceFile {
+      return formatSourceFile(wo.data, item, collector);
+    },
+    handleSymbol(ref: FormattedSymbolRef, item: SerializedSymbol): FormattedSymbol {
+      return formatSymbol(wo.data, item, collector);
+    },
+  });
   return {
-    sourceFiles: Object.keys(sourceFiles).map(fn => formatSourceFile(wo.data, sourceFiles[fn])),
+    codeToJson: {
+      versions: {
+        core: 'pkg.version',
+      },
+      format: 'formatted',
+    },
+    data,
   };
 }

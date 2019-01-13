@@ -1,13 +1,16 @@
 import { SerializedSignature, WalkerOutputData } from '@code-to-json/core';
+import { isTruthy } from '@code-to-json/utils';
+import { DataCollector } from './data-collector';
 import resolveReference from './resolve-reference';
 import formatType from './type';
-import { FormattedSignature } from './types';
+import { FormattedSignature, SideloadedDataCollector } from './types';
 
 export default function formatSignature(
   wo: WalkerOutputData,
   s: Readonly<SerializedSignature>,
+  collector: DataCollector,
 ): FormattedSignature {
-  const { parameters, typeParameters } = s;
+  const { parameters, typeParameters, returnType } = s;
   const signatureInfo: FormattedSignature = {
     parameters:
       parameters &&
@@ -17,20 +20,21 @@ export default function formatSignature(
         const typ = type && resolveReference(wo, type);
         return {
           name: sym.name,
-          type: typ && formatType(wo, typ),
+          type: typ && collector.queue(typ, 't'),
         };
       }),
   };
-  // tslint:disable-next-line:no-commented-code
-  // if (returnType) {
-  //   const typ = resolveReference(wo, returnType);
-  //   signatureInfo.returnType = formatType(wo, typ);
-  // }
+  if (returnType) {
+    const typ = resolveReference(wo, returnType);
+    signatureInfo.returnType = collector.queue(typ, 't');
+  }
   if (typeParameters) {
-    signatureInfo.typeParameters = typeParameters.map(tp => {
-      const typ = resolveReference(wo, tp);
-      return formatType(wo, typ);
-    });
+    signatureInfo.typeParameters = typeParameters
+      .map(tp => {
+        const typ = resolveReference(wo, tp);
+        return collector.queue(typ, 't');
+      })
+      .filter(isTruthy);
   }
   return signatureInfo;
 }

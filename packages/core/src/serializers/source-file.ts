@@ -1,37 +1,11 @@
-import { CommentData, parseCommentString } from '@code-to-json/comments';
+import { parseCommentString } from '@code-to-json/comments';
 import { refId } from '@code-to-json/utils';
 import * as ts from 'typescript';
 import Collector from '../collector';
-import { NodeRef, SourceFileRef, SymbolRef } from '../processing-queue/ref';
-import { HasDocumentation, SerializedEntity } from '../types';
-import serializeAmdDependency, { SerializedAmdDependency } from './amd-dependency';
-import serializeFileReference, { SerializedFileReference } from './file-reference';
+import { SerializedSourceFile, SourceFileRef } from '../types';
+import serializeAmdDependency from './amd-dependency';
+import serializeFileReference from './file-reference';
 
-function findSourceFileComment(sourceFile: ts.SourceFile): undefined | CommentData {
-  const leadingTrivia = sourceFile.getFullText().substr(0, sourceFile.getLeadingTriviaWidth());
-  const leadingCommentRanges = ts.getLeadingCommentRanges(leadingTrivia, 0);
-  if (!leadingCommentRanges || leadingCommentRanges.length !== 2) {
-    return undefined;
-  }
-  const [fileCommentRange] = leadingCommentRanges;
-  const fileComment = sourceFile.text.substr(fileCommentRange.pos, fileCommentRange.end);
-  return parseCommentString(fileComment);
-}
-
-export interface SerializedSourceFile extends SerializedEntity<'sourceFile'>, HasDocumentation {
-  originalFileName?: string;
-  moduleName: string;
-  extension: string | null;
-  pathInPackage: string;
-
-  isDeclarationFile: boolean;
-  statements?: NodeRef[];
-  symbol?: SymbolRef;
-  amdDependencies?: SerializedAmdDependency[];
-  referencedFiles?: SerializedFileReference[];
-  typeReferenceDirectives?: SerializedFileReference[];
-  libReferenceDirectives?: SerializedFileReference[];
-}
 /**
  * Serialize a SourceFile to a POJO
  * @param sourceFile SourceFile to serialize

@@ -3,23 +3,8 @@ import { isDeclaration, isDeclarationExported, isNamedDeclaration } from '@code-
 import { isVariableStatement, Node, SyntaxKind, TypeChecker } from 'typescript';
 import Collector from '../collector';
 import { flagsToString } from '../flags';
-import { DeclarationRef, NodeRef, SourceFileRef } from '../processing-queue/ref';
-import { HasPosition, SerializedEntity } from '../types';
+import { DeclarationRef, NodeRef, SerializedNode, SourceFileRef } from '../types';
 import serializeLocation from './location';
-
-export interface SerializedNode<TYP extends string = 'node'>
-  extends SerializedEntity<TYP>,
-    HasPosition {
-  text: string;
-  kind: string;
-  decorators?: string[];
-  modifiers?: string[];
-  isExposed: boolean;
-  isExported: boolean;
-  // parent?: NodeRef;
-  // children?: NodeRef[];
-  // type?: TypeRef;
-}
 
 function nameForNode(n: Node, checker: TypeChecker): string {
   const name = isNamedDeclaration(n) && n.name;

@@ -1,5 +1,6 @@
 /* eslint-disable no-bitwise */
 import {
+  ModifierFlags,
   NodeBuilderFlags,
   NodeFlags,
   ObjectFlags,
@@ -15,6 +16,7 @@ interface FlagsMap {
   node: NodeFlags;
   object: ObjectFlags;
   nodeBuilder: NodeBuilderFlags;
+  modifier: ModifierFlags;
   symbol: SymbolFlags;
   symbolFormat: SymbolFormatFlags;
 }

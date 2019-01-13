@@ -1,43 +1,20 @@
 import { isRef, refId } from '@code-to-json/utils';
 import * as ts from 'typescript';
 import Collector from '../collector';
-import { Flags, flagsToString, getObjectFlags } from '../flags';
-import { SymbolRef, TypeRef } from '../processing-queue/ref';
-import { SerializedEntity } from '../types';
+import { flagsToString, getObjectFlags } from '../flags';
+import { ProcessingQueue } from '../processing-queue';
+import {
+  SerializedBuiltInType,
+  SerializedCoreType,
+  SerializedCustomType,
+  SerializedType,
+  TypeRef,
+} from '../types';
 
 function getTsLibFilename(fileName: string): string | undefined {
   const [, libName] = fileName.split(/\/node_modules\/typescript\/lib\//);
   return typeof libName !== 'undefined' && libName.endsWith('.d.ts') ? libName : undefined;
 }
-
-export interface SerializedCustomType
-  extends Pick<SerializedBuiltInType, Exclude<keyof SerializedBuiltInType, 'typeKind'>> {
-  symbol?: SymbolRef;
-  aliasTypeArguments?: TypeRef[];
-  aliasSymbol?: SymbolRef;
-  defaultType?: TypeRef;
-  numberIndexType?: TypeRef;
-  constraint?: TypeRef;
-  stringIndexType?: TypeRef;
-  properties?: SymbolRef[];
-  baseTypes?: TypeRef[];
-  typeKind: 'custom';
-}
-
-export interface SerializedBuiltInType
-  extends Pick<SerializedCoreType, Exclude<keyof SerializedCoreType, 'typeKind'>> {
-  typeKind: 'built-in';
-  libName?: string;
-  moduleName?: string;
-}
-
-export interface SerializedCoreType extends SerializedEntity<'type'> {
-  typeKind: 'core';
-  typeString: string;
-  objectFlags?: Flags;
-}
-
-export type SerializedType = SerializedBuiltInType | SerializedCustomType | SerializedCoreType;
 
 function relevantDeclarationForSymbol(sym: ts.Symbol): ts.Declaration | undefined {
   const { valueDeclaration } = sym;
@@ -52,101 +29,72 @@ function relevantDeclarationForSymbol(sym: ts.Symbol): ts.Declaration | undefine
   return undefined;
 }
 
-function serializeCoreType({
-  id,
-  flags,
-  typeString,
-  objectFlags,
-}: {
-  id: string;
-  flags?: string[];
-  typeString: string;
-  objectFlags?: string[];
-}): SerializedCoreType {
-  const toReturn = {
-    id,
-    entity: 'type',
-    typeKind: 'core',
-    typeString,
-  } as SerializedCoreType;
-  if (flags) {
-    toReturn.flags = flags;
-  }
-  return toReturn;
+function serializeCoreType(
+  typ: ts.Type,
+  ref: TypeRef,
+  checker: ts.TypeChecker,
+): SerializedCoreType {
+  const { flags: rawFlags } = typ;
+  const id = refId(ref);
+  const flags = flagsToString(rawFlags, 'type');
+  const typeString = checker.typeToString(typ);
+  const objFlags = getObjectFlags(typ);
+  const objectFlags = objFlags ? flagsToString(objFlags, 'object') : undefined;
+
+  return { id, entity: 'type', typeKind: 'core', typeString, flags, objectFlags };
 }
 
-function serializeBuiltInType({
-  id,
-  flags,
-  typeString,
-  libName,
-  moduleName,
-  objectFlags,
-}: {
-  id: string;
-  flags?: string[];
-  libName: string;
-  moduleName?: string;
-  typeString: string;
-  objectFlags?: string[];
-}): SerializedBuiltInType {
-  // lib types
-  const toReturn = {
-    entity: 'type',
+function serializeBuiltInType(
+  typ: ts.Type,
+  ref: TypeRef,
+  checker: ts.TypeChecker,
+  decl: ts.Declaration,
+  q: ProcessingQueue,
+): SerializedBuiltInType {
+  const { fileName, moduleName } = decl.getSourceFile();
+  const libName = getTsLibFilename(fileName);
+  const t: SerializedBuiltInType = {
+    ...serializeCoreType(typ, ref, checker),
     typeKind: 'built-in',
-    id,
     libName,
     moduleName,
-    typeString,
-  } as SerializedBuiltInType;
-  if (flags) {
-    toReturn.flags = flags;
+  };
+
+  const numberIdxType = typ.getNumberIndexType();
+  if (numberIdxType) {
+    t.numberIndexType = q.queue(numberIdxType, 'type', checker);
   }
-  return toReturn;
+  const stringIdxType = typ.getNumberIndexType();
+  if (stringIdxType) {
+    t.stringIndexType = q.queue(stringIdxType, 'type', checker);
+  }
+  const baseTypes = typ.getBaseTypes();
+  if (baseTypes) {
+    t.baseTypes =
+      baseTypes.length > 0
+        ? baseTypes.map(bt => q.queue(bt, 'type', checker)).filter(isRef)
+        : undefined;
+  }
+  return t;
 }
 
 function serializeCustomType(
-  c: Collector,
   typ: ts.Type,
+  ref: TypeRef,
   checker: ts.TypeChecker,
-  {
-    id,
-    flags,
-    typeString,
-    objectFlags,
-  }: {
-    id: string;
-    flags?: string[];
-    typeString: string;
-    objectFlags?: string[];
-  },
+  decl: ts.Declaration,
+  q: ProcessingQueue,
 ): SerializedCustomType {
-  const { queue: q } = c;
   const { aliasSymbol, aliasTypeArguments, symbol } = typ;
 
   const typeData: SerializedCustomType = {
-    id,
-    entity: 'type',
+    ...serializeBuiltInType(typ, ref, checker, decl, q),
     typeKind: 'custom',
-    typeString,
     aliasTypeArguments:
       aliasTypeArguments &&
       aliasTypeArguments.map(ata => q.queue(ata, 'type', checker)).filter(isRef),
     aliasSymbol: aliasSymbol && q.queue(aliasSymbol, 'symbol', checker),
-    objectFlags,
   };
-  if (flags) {
-    typeData.flags = flags;
-  }
-
-  const numberIdxType = typ.getNumberIndexType();
-  if (numberIdxType) {
-    typeData.numberIndexType = q.queue(numberIdxType, 'type', checker);
-  }
-  const stringIdxType = typ.getNumberIndexType();
-  if (stringIdxType) {
-    typeData.stringIndexType = q.queue(stringIdxType, 'type', checker);
-  }
   const defaultType = typ.getDefault();
   if (defaultType) {
     typeData.defaultType = q.queue(defaultType, 'type', checker);
@@ -155,13 +103,7 @@ function serializeCustomType(
   if (constraint) {
     typeData.constraint = q.queue(constraint, 'type', checker);
   }
-  const baseTypes = typ.getBaseTypes();
-  if (baseTypes) {
-    typeData.baseTypes =
-      baseTypes.length > 0
-        ? baseTypes.map(bt => q.queue(bt, 'type', checker)).filter(isRef)
-        : undefined;
-  }
+
   const properties = typ.getProperties();
   if (properties && properties.length > 0) {
     typeData.properties = properties.map(sym => q.queue(sym, 'symbol', checker)).filter(isRef);
@@ -183,26 +125,21 @@ export default function serializeType(
   ref: TypeRef,
   c: Collector,
 ): SerializedType {
-  const { flags: rawFlags, symbol } = typ;
-  const id = refId(ref);
-  const flags = flagsToString(rawFlags, 'type');
-  const typeString = checker.typeToString(typ);
-
-  const objFlags = getObjectFlags(typ);
-  const objectFlags = objFlags ? flagsToString(objFlags, 'object') : undefined;
+  const { symbol } = typ;
 
   if (!symbol) {
     // core types
-    return serializeCoreType({ id, flags, typeString, objectFlags });
+    return serializeCoreType(typ, ref, checker);
   }
   const decl = relevantDeclarationForSymbol(symbol);
 
   if (decl) {
-    const { fileName, moduleName } = decl.getSourceFile();
+    const { fileName } = decl.getSourceFile();
     const libName = getTsLibFilename(fileName);
     if (libName) {
-      return serializeBuiltInType({ id, typeString, flags, libName, moduleName, objectFlags });
+      return serializeBuiltInType(typ, ref, checker, decl, c.queue);
     }
-  } // TODO: handle else clause (what does it mean to have no declaration?)
-  return serializeCustomType(c, typ, checker, { id, flags, typeString, objectFlags });
+    return serializeCustomType(typ, ref, checker, decl, c.queue);
+  }
+  throw new Error(`No symbol or declaration for type: ${checker.typeToString(typ)}`);
 }

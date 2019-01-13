@@ -1,6 +1,7 @@
 import { SerializedSymbol, WalkerOutputData } from '@code-to-json/core';
 import { expect } from 'chai';
 import { suite, test } from 'mocha-typescript';
+import { create as createDataCollector } from '../../src/data-collector';
 import formatSymbol from '../../src/symbol';
 
 @suite
@@ -21,7 +22,7 @@ class SymbolFormatterTests {
       declarations: {},
       sourceFiles: {},
     };
-    expect(formatSymbol(wo, sym)).to.deep.eq({
+    expect(formatSymbol(wo, sym, createDataCollector())).to.deep.eq({
       name: 'foo',
     });
   }
@@ -43,7 +44,7 @@ class SymbolFormatterTests {
       declarations: {},
       sourceFiles: {},
     };
-    expect(formatSymbol(wo, sym)).to.deep.eq({
+    expect(formatSymbol(wo, sym, createDataCollector())).to.deep.eq({
       name: 'foo',
       flags: ['interface'],
     });
@@ -71,13 +72,9 @@ class SymbolFormatterTests {
       declarations: {},
       sourceFiles: {},
     };
-    expect(formatSymbol(wo, sym)).to.deep.eq({
+    expect(formatSymbol(wo, sym, createDataCollector())).to.deep.eq({
       name: 'foo',
-      exports: [
-        {
-          name: 'somethingExported',
-        },
-      ],
+      exports: { somethingExported: ['s', '3456'] },
     });
   }
 
@@ -98,7 +95,7 @@ class SymbolFormatterTests {
       declarations: {},
       sourceFiles: {},
     };
-    expect(formatSymbol(wo, sym)).to.deep.eq({
+    expect(formatSymbol(wo, sym, createDataCollector())).to.deep.eq({
       name: 'foo',
     });
   }
@@ -116,7 +113,7 @@ class SymbolFormatterTests {
         '1234': sym,
         '3456': {
           id: '3456',
-          name: 'somethingExported',
+          name: 'someMember',
           entity: 'symbol',
         },
       },
@@ -125,13 +122,9 @@ class SymbolFormatterTests {
       declarations: {},
       sourceFiles: {},
     };
-    expect(formatSymbol(wo, sym)).to.deep.eq({
+    expect(formatSymbol(wo, sym, createDataCollector())).to.deep.eq({
       name: 'foo',
-      members: [
-        {
-          name: 'somethingExported',
-        },
-      ],
+      members: { someMember: ['s', '3456'] },
     });
   }
 
@@ -152,9 +145,9 @@ class SymbolFormatterTests {
       declarations: {},
       sourceFiles: {},
     };
-    expect(formatSymbol(wo, sym)).to.deep.eq({
+    expect(formatSymbol(wo, sym, createDataCollector())).to.deep.eq({
       name: 'foo',
-      members: [],
+      members: {},
     });
   }
 
@@ -175,7 +168,7 @@ class SymbolFormatterTests {
       declarations: {},
       sourceFiles: {},
     };
-    expect(formatSymbol(wo, sym)).to.deep.eq({
+    expect(formatSymbol(wo, sym, createDataCollector())).to.deep.eq({
       name: 'foo',
     });
   }
@@ -197,9 +190,9 @@ class SymbolFormatterTests {
       declarations: {},
       sourceFiles: {},
     };
-    expect(formatSymbol(wo, sym)).to.deep.eq({
+    expect(formatSymbol(wo, sym, createDataCollector())).to.deep.eq({
       name: 'foo',
-      exports: [],
+      exports: {},
     });
   }
 
@@ -221,7 +214,7 @@ class SymbolFormatterTests {
       declarations: {},
       sourceFiles: {},
     };
-    expect(formatSymbol(wo, sym)).to.deep.eq({
+    expect(formatSymbol(wo, sym, createDataCollector())).to.deep.eq({
       name: 'foo',
       callSignatures: [
         {

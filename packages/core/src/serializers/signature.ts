@@ -1,7 +1,7 @@
-import { isRef } from '@code-to-json/utils/lib/src/deferred-processing/ref';
+import { isRef } from '@code-to-json/utils';
 import { displayPartsToString, Signature, TypeChecker } from 'typescript';
 import Collector from '../collector';
-import { DeclarationRef, SymbolRef, TypeRef } from '../processing-queue/ref';
+import { DeclarationRef, SymbolRef, TypeRef } from '../types';
 
 export interface SerializedSignature {
   parameters?: SymbolRef[];

@@ -1,12 +1,7 @@
 import { Declaration, TypeChecker } from 'typescript';
 import Collector from '../collector';
-import { DeclarationRef, SourceFileRef } from '../processing-queue/ref';
-import serializeNode, { SerializedNode } from './node';
-
-export interface SerializedDeclaration
-  extends Pick<SerializedNode, Exclude<keyof SerializedNode, 'thing'>> {
-  thing: 'declaration';
-}
+import { DeclarationRef, SerializedDeclaration, SourceFileRef } from '../types';
+import serializeNode from './node';
 
 /**
  * Serialize a Declaration to a POJO
