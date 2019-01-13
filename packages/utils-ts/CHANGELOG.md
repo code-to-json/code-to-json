@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.6.0](https://github.com/mike-north/code-to-json/compare/@code-to-json/utils-ts@0.5.0...@code-to-json/utils-ts@0.6.0) (2019-01-13)
+
+
+### Features
+
+* type serialization boundary ([9e88702](https://github.com/mike-north/code-to-json/commit/9e88702))
+
+
+
+
+
 # [0.5.0](https://github.com/mike-north/code-to-json/compare/@code-to-json/utils-ts@0.4.0...@code-to-json/utils-ts@0.5.0) (2019-01-11)
 
 

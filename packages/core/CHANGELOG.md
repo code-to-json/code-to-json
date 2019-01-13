@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.14.0](https://github.com/mike-north/code-to-json/compare/@code-to-json/core@0.13.1...@code-to-json/core@0.14.0) (2019-01-13)
+
+
+### Features
+
+* type serialization boundary ([9e88702](https://github.com/mike-north/code-to-json/commit/9e88702))
+
+
+
+
+
 ## [0.13.1](https://github.com/mike-north/code-to-json/compare/@code-to-json/core@0.13.0...@code-to-json/core@0.13.1) (2019-01-12)
 
 **Note:** Version bump only for package @code-to-json/core

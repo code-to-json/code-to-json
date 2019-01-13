@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.3.5](https://github.com/mike-north/code-to-json/compare/@code-to-json/test-helpers@0.3.4...@code-to-json/test-helpers@0.3.5) (2019-01-13)
+
+
+### Bug Fixes
+
+* **test-helpers:** add missing dependency ([852d153](https://github.com/mike-north/code-to-json/commit/852d153))
+
+
+
+
+
 ## [0.3.4](https://github.com/mike-north/code-to-json/compare/@code-to-json/test-helpers@0.3.3...@code-to-json/test-helpers@0.3.4) (2019-01-11)
 
 **Note:** Version bump only for package @code-to-json/test-helpers
