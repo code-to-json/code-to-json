@@ -45,19 +45,23 @@ jobs:
       script: ./node_modules/.bin/lerna run test
     - node_js: 10
     - node_js: 8
-    - name: 'typescript@~3.0'
+    - name: 'TS 3.0'
       before_script:
-        - .travis/setup-ts-version.sh ~3.0
+        - .travis/setup-ts-version.sh ~3.0.0
         - yarn build
-    - name: 'typescript@~3.1'
+    - name: 'TS 3.1'
       before_script:
-        - .travis/setup-ts-version.sh ~3.1
+        - .travis/setup-ts-version.sh ~3.1.0
         - yarn build
-    - name: 'typescript@latest'
+    - name: 'TS 3.2'
+      before_script:
+        - .travis/setup-ts-version.sh ~3.2.0
+        - yarn build
+    - name: 'TS@latest'
       before_script:
         - .travis/setup-ts-version.sh latest
         - yarn build
-    - name: 'typescript@next'
+    - name: 'TS@next'
       before_script:
         - .travis/setup-ts-version.sh next
         - yarn build
