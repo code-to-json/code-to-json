@@ -24,6 +24,7 @@
   "keywords": [],
   "dependencies": {
     "@code-to-json/utils": "^0.6.5",
+    "@mike-north/types": "^1.0.7",
     "typescript": "^3.1.0"
   },
   "devDependencies": {

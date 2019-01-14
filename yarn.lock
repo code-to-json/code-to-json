@@ -843,6 +843,11 @@
   resolved "https://registry.yarnpkg.com/@microsoft/tsdoc/-/tsdoc-0.12.4.tgz#42159590f2b12e23f6028c70aed41dd5b11275c3"
   integrity sha512-nQZVQg3fXygj+9JT/FSPZOz3vqAIVAAR3ZuAuUdU4DSM/ubJq5lbl1hpLtl+REFmEq1rkvDmmPoJAbSoqjcmZQ==
 
+"@mike-north/types@^1.0.7":
+  version "1.0.7"
+  resolved "https://registry.yarnpkg.com/@mike-north/types/-/types-1.0.7.tgz#40e667f97276d8773dc8d4d0c907143b0dd4b561"
+  integrity sha512-UoMyDIxFPxmetQNwLT2+bcz7STgZMCVjGvW0nrttOxTpbZAnjN4aO3lmX2IcshxW3UO5iZJmvnTEQgNibqla+Q==
+
 "@mrmlnc/readdir-enhanced@^2.2.1":
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/@mrmlnc/readdir-enhanced/-/readdir-enhanced-2.2.1.tgz#524af240d1a360527b730475ecfa1344aa540dde"

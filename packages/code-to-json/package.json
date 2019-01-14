@@ -19,7 +19,8 @@
     "test": "echo \"Error: run tests from root\" && exit 0"
   },
   "dependencies": {
-    "@code-to-json/cli": "^0.9.8"
+    "@code-to-json/cli": "^0.9.8",
+    "@mike-north/types": "^1.0.7"
   },
   "bugs": {
     "url": "https://github.com/code-to-json/code-to-json/issues"
