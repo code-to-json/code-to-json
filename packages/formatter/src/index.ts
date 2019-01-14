@@ -1,4 +1,9 @@
-export { FormatterOutput, FormatterOptions, formatWalkerOutput } from './formatter';
+export {
+  FormatterOutput,
+  FormatterOutputData,
+  FormatterOptions,
+  formatWalkerOutput,
+} from './formatter';
 export {
   FormattedSignature,
   FormattedSourceFile,
