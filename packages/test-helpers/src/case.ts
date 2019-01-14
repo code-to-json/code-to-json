@@ -4,7 +4,7 @@ import * as path from 'path';
 import { TreeObject } from 'treeify';
 import * as ts from 'typescript';
 import { createTempFixtureFolder } from './file-fixtures';
-import { TestCase } from './types';
+import { FixtureFolder, TestCase } from './types';
 
 const log = debug('code-to-json:test-helpers');
 
@@ -12,7 +12,7 @@ function createProgramFromTestCaseFolder(
   name: string,
   rootPath: string,
   entryPaths: string[],
-  tree: object
+  tree: object,
 ): ts.Program {
   if (!fs.existsSync(rootPath)) {
     throw new Error(`"${rootPath}" does not exist`);
@@ -50,8 +50,8 @@ ${tree}`);
     options: {
       allowJs: true,
       noEmit: true,
-      moduleResolution: ts.ModuleResolutionKind.NodeJs
-    }
+      moduleResolution: ts.ModuleResolutionKind.NodeJs,
+    },
   });
   return program;
 }
@@ -65,8 +65,8 @@ ${tree}`);
  * @public
  */
 export async function setupTestCase(
-  cse: TreeObject | string,
-  entryPaths: string[]
+  cse: FixtureFolder | string,
+  entryPaths: string[],
 ): Promise<TestCase> {
   const folder = await createTempFixtureFolder(cse);
   const { rootPath } = folder;
@@ -74,7 +74,7 @@ export async function setupTestCase(
     typeof cse === 'string' ? cse : JSON.stringify(cse, null, '  '),
     rootPath,
     entryPaths,
-    folder
+    folder,
   );
 
   return { ...folder, program };
