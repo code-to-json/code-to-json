@@ -1,6 +1,6 @@
 {
   "name": "@code-to-json/cli",
-  "version": "0.9.10",
+  "version": "0.9.11",
   "description": "",
   "main": "lib/src/index.js",
   "doc:main": "src/index.ts",
@@ -13,10 +13,10 @@
     "code-to-json": "bin/code-to-json"
   },
   "dependencies": {
-    "@code-to-json/core": "^0.15.2",
-    "@code-to-json/formatter": "^0.12.3",
+    "@code-to-json/core": "^0.15.3",
+    "@code-to-json/formatter": "^0.13.0",
     "@code-to-json/utils": "^0.6.6",
-    "@code-to-json/utils-node": "^0.2.4",
+    "@code-to-json/utils-node": "^0.2.5",
     "@mike-north/types": "^1.0.7",
     "chalk": "^2.4.1",
     "commander": "^2.19.0",
@@ -41,7 +41,7 @@
   },
   "keywords": [],
   "devDependencies": {
-    "@code-to-json/test-helpers": "^0.3.7",
+    "@code-to-json/test-helpers": "^0.3.8",
     "@types/chai": "4.1.7",
     "@types/glob": "7.1.1",
     "chai": "4.2.0",

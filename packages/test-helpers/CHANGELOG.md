@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.3.8](https://github.com/mike-north/code-to-json/compare/@code-to-json/test-helpers@0.3.7...@code-to-json/test-helpers@0.3.8) (2019-01-14)
+
+
+### Bug Fixes
+
+* migrate away from custom forks, and back to mainline builds ([6000d75](https://github.com/mike-north/code-to-json/commit/6000d75))
+
+
+
+
+
 ## [0.3.7](https://github.com/mike-north/code-to-json/compare/@code-to-json/test-helpers@0.3.6...@code-to-json/test-helpers@0.3.7) (2019-01-14)
 
 **Note:** Version bump only for package @code-to-json/test-helpers
