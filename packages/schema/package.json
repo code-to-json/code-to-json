@@ -52,6 +52,7 @@
     "typescript-eslint-parser": "21.0.2"
   },
   "dependencies": {
+    "@mike-north/types": "^1.0.7",
     "strip-json-comments": "^2.0.1"
   },
   "nyc": {

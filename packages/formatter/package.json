@@ -52,7 +52,8 @@
   },
   "dependencies": {
     "@code-to-json/core": "^0.15.1",
-    "@code-to-json/utils": "^0.6.5"
+    "@code-to-json/utils": "^0.6.5",
+    "@mike-north/types": "^1.0.7"
   },
   "nyc": {
     "watermarks": {
