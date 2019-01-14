@@ -1,6 +1,7 @@
 import { CommentData } from '@code-to-json/comments';
 import { SerializedSourceFile, SerializedSymbol, SerializedType } from '@code-to-json/core';
 import { Queue, Ref } from '@code-to-json/utils';
+import { Dict } from '@mike-north/types';
 
 export type FormattedTypeRef = Ref<'t'>;
 export type FormattedSymbolRef = Ref<'s'>;
@@ -22,9 +23,7 @@ export interface FormattedType {
   text: string;
   flags?: string[];
   objectFlags?: string[];
-  properties?: {
-    [k: string]: FormattedSymbolRef | undefined;
-  };
+  properties?: Dict<FormattedSymbolRef>;
   baseTypes?: FormattedTypeRef[];
   numberIndexType?: FormattedTypeRef;
   stringIndexType?: FormattedTypeRef;
@@ -38,12 +37,8 @@ export interface FormattedSymbol {
   modifiers?: string[];
   decorators?: string[];
   heritageClauses?: string[];
-  exports?: {
-    [k: string]: FormattedSymbolRef | undefined;
-  };
-  members?: {
-    [k: string]: FormattedSymbolRef | undefined;
-  };
+  exports?: Dict<FormattedSymbolRef>;
+  members?: Dict<FormattedSymbolRef>;
   jsDocTags?: Array<{ name: string; text?: string }>;
   callSignatures?: FormattedSignature[];
   constructorSignatures?: FormattedSignature[];
