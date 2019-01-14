@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.12.3](https://github.com/mike-north/code-to-json/compare/@code-to-json/formatter@0.12.2...@code-to-json/formatter@0.12.3) (2019-01-14)
+
+
+### Bug Fixes
+
+* **formatter:** use Dict<T> instead of literal dicts where possible ([389f233](https://github.com/mike-north/code-to-json/commit/389f233))
+
+
+
+
+
 ## [0.12.2](https://github.com/mike-north/code-to-json/compare/@code-to-json/formatter@0.12.1...@code-to-json/formatter@0.12.2) (2019-01-14)
 
 
