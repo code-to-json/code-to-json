@@ -22,6 +22,7 @@ export interface SideloadedDataCollector {
 export interface FormattedType {
   text: string;
   flags?: string[];
+  constraint?: FormattedTypeRef;
   objectFlags?: string[];
   properties?: Dict<FormattedSymbolRef>;
   baseTypes?: FormattedTypeRef[];

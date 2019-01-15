@@ -115,7 +115,6 @@ export interface SerializedCustomType
   aliasSymbol?: SymbolRef;
   defaultType?: TypeRef;
   constraint?: TypeRef;
-  properties?: SymbolRef[];
   typeKind: 'custom';
 }
 
@@ -124,6 +123,7 @@ export interface SerializedBuiltInType
   numberIndexType?: TypeRef;
   stringIndexType?: TypeRef;
   typeKind: 'built-in';
+  default?: TypeRef;
   libName?: string;
   baseTypes?: TypeRef[];
   moduleName?: string;
@@ -131,6 +131,7 @@ export interface SerializedBuiltInType
 
 export interface SerializedCoreType extends SerializedEntity<'type'> {
   typeKind: 'core';
+  properties?: SymbolRef[];
   typeString: string;
   objectFlags?: Flags;
 }

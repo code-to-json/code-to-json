@@ -60,11 +60,15 @@ function serializeBuiltInType(
     moduleName,
   };
 
+  const defaultType = typ.getDefault();
+  if (defaultType) {
+    t.default = q.queue(defaultType, 'type', checker);
+  }
   const numberIdxType = typ.getNumberIndexType();
   if (numberIdxType) {
     t.numberIndexType = q.queue(numberIdxType, 'type', checker);
   }
-  const stringIdxType = typ.getNumberIndexType();
+  const stringIdxType = typ.getStringIndexType();
   if (stringIdxType) {
     t.stringIndexType = q.queue(stringIdxType, 'type', checker);
   }

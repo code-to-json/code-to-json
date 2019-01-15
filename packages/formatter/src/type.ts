@@ -55,9 +55,13 @@ export default function formatType(
     }
   }
   if (type.typeKind === 'custom') {
-    const { properties } = type;
+    const { properties, constraint: constraintRef } = type;
     if (properties && properties.length > 0) {
       typeInfo.properties = symbolRefListToFormattedSymbolMap(properties, wo, collector);
+    }
+    if (constraintRef) {
+      const constraint = resolveReference(wo, constraintRef);
+      typeInfo.constraint = collector.queue(constraint, 't');
     }
   }
 
