@@ -33,15 +33,36 @@ function serializeCoreType(
   typ: ts.Type,
   ref: TypeRef,
   checker: ts.TypeChecker,
+  q: ProcessingQueue,
 ): SerializedCoreType {
-  const { flags: rawFlags } = typ;
+  const { flags: rawFlags, aliasSymbol, aliasTypeArguments } = typ;
   const id = refId(ref);
   const flags = flagsToString(rawFlags, 'type');
   const typeString = checker.typeToString(typ);
   const objFlags = getObjectFlags(typ);
   const objectFlags = objFlags ? flagsToString(objFlags, 'object') : undefined;
 
-  return { id, entity: 'type', typeKind: 'core', typeString, flags, objectFlags };
+  const defaultType = typ.getDefault();
+  const typeData: SerializedCoreType = {
+    id,
+    entity: 'type',
+    typeKind: 'core',
+    typeString,
+    flags,
+    objectFlags,
+    aliasTypeArguments:
+      aliasTypeArguments &&
+      aliasTypeArguments.map(ata => q.queue(ata, 'type', checker)).filter(isRef),
+    aliasSymbol: aliasSymbol && q.queue(aliasSymbol, 'symbol', checker),
+  };
+  if (defaultType) {
+    typeData.defaultType = q.queue(defaultType, 'type', checker);
+  }
+  const constraint = typ.getConstraint();
+  if (constraint) {
+    typeData.constraint = q.queue(constraint, 'type', checker);
+  }
+  return typeData;
 }
 
 function serializeBuiltInType(
@@ -54,7 +75,7 @@ function serializeBuiltInType(
   const { fileName, moduleName } = decl.getSourceFile();
   const libName = getTsLibFilename(fileName);
   const t: SerializedBuiltInType = {
-    ...serializeCoreType(typ, ref, checker),
+    ...serializeCoreType(typ, ref, checker, q),
     typeKind: 'built-in',
     libName,
     moduleName,
@@ -89,24 +110,12 @@ function serializeCustomType(
   decl: ts.Declaration,
   q: ProcessingQueue,
 ): SerializedCustomType {
-  const { aliasSymbol, aliasTypeArguments, symbol } = typ;
+  const { symbol } = typ;
 
   const typeData: SerializedCustomType = {
     ...serializeBuiltInType(typ, ref, checker, decl, q),
     typeKind: 'custom',
-    aliasTypeArguments:
-      aliasTypeArguments &&
-      aliasTypeArguments.map(ata => q.queue(ata, 'type', checker)).filter(isRef),
-    aliasSymbol: aliasSymbol && q.queue(aliasSymbol, 'symbol', checker),
   };
-  const defaultType = typ.getDefault();
-  if (defaultType) {
-    typeData.defaultType = q.queue(defaultType, 'type', checker);
-  }
-  const constraint = typ.getConstraint();
-  if (constraint) {
-    typeData.constraint = q.queue(constraint, 'type', checker);
-  }
 
   const properties = typ.getProperties();
   if (properties && properties.length > 0) {
@@ -133,7 +142,7 @@ export default function serializeType(
 
   if (!symbol) {
     // core types
-    return serializeCoreType(typ, ref, checker);
+    return serializeCoreType(typ, ref, checker, c.queue);
   }
   const decl = relevantDeclarationForSymbol(symbol);
 

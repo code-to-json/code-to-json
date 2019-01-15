@@ -28,6 +28,9 @@ export interface FormattedType {
   baseTypes?: FormattedTypeRef[];
   numberIndexType?: FormattedTypeRef;
   stringIndexType?: FormattedTypeRef;
+  aliasSymbol?: FormattedSymbolRef;
+  aliasTypeArguments?: FormattedTypeRef[];
+  defaultType?: FormattedTypeRef;
   libName?: string;
 }
 

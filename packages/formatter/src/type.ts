@@ -29,12 +29,35 @@ export default function formatType(
   type: Readonly<SerializedType>,
   collector: DataCollector,
 ): FormattedType {
-  const { typeString, flags, objectFlags } = type;
+  const {
+    typeString,
+    flags,
+    objectFlags,
+    aliasSymbol: aliasSymbolRef,
+    aliasTypeArguments: aliasTypeArgumentRefs,
+    defaultType: defaultTypeRef,
+    constraint: constraintRef,
+  } = type;
+
   const typeInfo: FormattedType = {
     text: typeString,
     flags: formatFlags(flags),
     objectFlags: formatFlags(objectFlags),
   };
+  if (aliasSymbolRef) {
+    typeInfo.aliasSymbol = collector.queue(resolveReference(wo, aliasSymbolRef), 's');
+  }
+  if (aliasTypeArgumentRefs) {
+    typeInfo.aliasTypeArguments = aliasTypeArgumentRefs
+      .map(r => collector.queue(resolveReference(wo, r), 't'))
+      .filter(isTruthy);
+  }
+  if (constraintRef) {
+    typeInfo.constraint = collector.queue(resolveReference(wo, constraintRef), 't');
+  }
+  if (defaultTypeRef) {
+    typeInfo.defaultType = collector.queue(resolveReference(wo, defaultTypeRef), 't');
+  }
   if (type.typeKind === 'custom' || type.typeKind === 'built-in') {
     const { libName, numberIndexType, stringIndexType, baseTypes } = type;
     if (libName) {
@@ -55,7 +78,7 @@ export default function formatType(
     }
   }
   if (type.typeKind === 'custom') {
-    const { properties, constraint: constraintRef } = type;
+    const { properties } = type;
     if (properties && properties.length > 0) {
       typeInfo.properties = symbolRefListToFormattedSymbolMap(properties, wo, collector);
     }
