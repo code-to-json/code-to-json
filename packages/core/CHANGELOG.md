@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.16.0](https://github.com/mike-north/code-to-json/compare/@code-to-json/core@0.15.4...@code-to-json/core@0.16.0) (2019-01-15)
+
+
+### Features
+
+* add missing properties to serialized type and symbol ([d1f564d](https://github.com/mike-north/code-to-json/commit/d1f564d))
+* **core, formatter:** info about type parameters of built-in types ([b4c209d](https://github.com/mike-north/code-to-json/commit/b4c209d))
+
+
+
+
+
 ## [0.15.4](https://github.com/mike-north/code-to-json/compare/@code-to-json/core@0.15.3...@code-to-json/core@0.15.4) (2019-01-14)
 
 **Note:** Version bump only for package @code-to-json/core

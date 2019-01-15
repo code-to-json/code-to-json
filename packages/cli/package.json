@@ -1,6 +1,6 @@
 {
   "name": "@code-to-json/cli",
-  "version": "0.9.12",
+  "version": "0.9.13",
   "description": "",
   "main": "lib/src/index.js",
   "doc:main": "src/index.ts",
@@ -13,8 +13,8 @@
     "code-to-json": "bin/code-to-json"
   },
   "dependencies": {
-    "@code-to-json/core": "^0.15.4",
-    "@code-to-json/formatter": "^0.13.1",
+    "@code-to-json/core": "^0.16.0",
+    "@code-to-json/formatter": "^0.14.0",
     "@code-to-json/utils": "^0.6.6",
     "@code-to-json/utils-node": "^0.2.6",
     "@mike-north/types": "^1.0.7",
