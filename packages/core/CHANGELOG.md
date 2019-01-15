@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.16.2](https://github.com/mike-north/code-to-json/compare/@code-to-json/core@0.16.1...@code-to-json/core@0.16.2) (2019-01-15)
+
+
+### Bug Fixes
+
+* **core:** workaround for constrained type parameters ([4e73991](https://github.com/mike-north/code-to-json/commit/4e73991))
+
+
+
+
+
 ## [0.16.1](https://github.com/mike-north/code-to-json/compare/@code-to-json/core@0.16.0...@code-to-json/core@0.16.1) (2019-01-15)
 
 
