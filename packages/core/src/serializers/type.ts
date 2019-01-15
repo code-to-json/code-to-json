@@ -1,4 +1,4 @@
-import { isRef, refId } from '@code-to-json/utils';
+import { isRef, isTruthy, refId } from '@code-to-json/utils';
 import * as ts from 'typescript';
 import Collector from '../collector';
 import { flagsToString, getObjectFlags } from '../flags';
@@ -139,20 +139,33 @@ export default function serializeType(
   c: Collector,
 ): SerializedType {
   const { symbol } = typ;
-
+  let serializedType: SerializedType;
   if (!symbol) {
     // core types
-    return serializeCoreType(typ, ref, checker, c.queue);
-  }
-  const decl = relevantDeclarationForSymbol(symbol);
+    serializedType = serializeCoreType(typ, ref, checker, c.queue);
+  } else {
+    const decl = relevantDeclarationForSymbol(symbol);
 
-  if (decl) {
-    const { fileName } = decl.getSourceFile();
-    const libName = getTsLibFilename(fileName);
-    if (libName) {
-      return serializeBuiltInType(typ, ref, checker, decl, c.queue);
+    if (decl) {
+      const { fileName } = decl.getSourceFile();
+      const libName = getTsLibFilename(fileName);
+      if (libName) {
+        serializedType = serializeBuiltInType(typ, ref, checker, decl, c.queue);
+      } else {
+        serializedType = serializeCustomType(typ, ref, checker, decl, c.queue);
+      }
+    } else {
+      throw new Error(`No symbol or declaration for type: ${checker.typeToString(typ)}`);
     }
-    return serializeCustomType(typ, ref, checker, decl, c.queue);
   }
-  throw new Error(`No symbol or declaration for type: ${checker.typeToString(typ)}`);
+  if (typ.isClassOrInterface()) {
+    const cTyp = typ as ts.InterfaceType;
+    const { typeParameters } = cTyp;
+    if (typeParameters) {
+      serializedType.aliasTypeArguments = typeParameters
+        .map(tp => c.queue.queue(tp, 'type', checker))
+        .filter(isTruthy);
+    }
+  }
+  return serializedType;
 }
