@@ -17,6 +17,8 @@ export function add(a: number | string, b: number | string): number | string {
   }
 }
 
+export type Dict<T extends string[]> = { [k: string]: T | undefined };
+
 export const SECRET_STRING = 'shhhhh!';
 
 /**

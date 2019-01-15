@@ -20,6 +20,23 @@ function appendSymbolMap(
   return undefined;
 }
 
+function typeForSymbol(checker: ts.TypeChecker, symbol: ts.Symbol): ts.Type {
+  const { valueDeclaration: _valDecl, flags } = symbol;
+  const valueDeclaration = _valDecl as ts.Declaration | undefined;
+  if (valueDeclaration) {
+    return checker.getTypeOfSymbolAtLocation(symbol, valueDeclaration);
+  }
+  const declarations = symbol.getDeclarations();
+  if (declarations && declarations.length > 0) {
+    return checker.getTypeAtLocation(declarations[0]);
+  }
+  // eslint-disable-next-line no-bitwise
+  if (flags & ts.SymbolFlags.Prototype) {
+    return checker.getDeclaredTypeOfSymbol(symbol);
+  }
+  throw new Error(`Could not determine type of symbol ${symbol.name}`);
+}
+
 /**
  * Serialize a TS Symbol
  * @param symbol Symbol to serialize
@@ -34,16 +51,16 @@ export default function serializeSymbol(
   c: Collector,
 ): SerializedSymbol {
   const { queue: q } = c;
-  const { exports, globalExports, members, flags, valueDeclaration } = symbol;
-
+  const { exports, globalExports, members, flags, valueDeclaration: _valDecl, name } = symbol;
+  const valueDeclaration = _valDecl as ts.Declaration | undefined;
   const details: SerializedSymbol = {
     id: refId(ref),
     entity: 'symbol',
-    name: symbol.getName(),
+    name,
     flags: flagsToString(flags, 'symbol'),
   };
 
-  const typ = checker.getTypeOfSymbolAtLocation(symbol, valueDeclaration);
+  const typ = typeForSymbol(checker, symbol);
   if (valueDeclaration && valueDeclaration.getSourceFile().isDeclarationFile) {
     details.external = true;
   }

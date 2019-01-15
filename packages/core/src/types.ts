@@ -111,11 +111,6 @@ export interface SerializedFileReference {
 export interface SerializedCustomType
   extends Pick<SerializedBuiltInType, Exclude<keyof SerializedBuiltInType, 'typeKind'>> {
   symbol?: SymbolRef;
-  aliasTypeArguments?: TypeRef[];
-  aliasSymbol?: SymbolRef;
-  defaultType?: TypeRef;
-  constraint?: TypeRef;
-  properties?: SymbolRef[];
   typeKind: 'custom';
 }
 
@@ -124,13 +119,19 @@ export interface SerializedBuiltInType
   numberIndexType?: TypeRef;
   stringIndexType?: TypeRef;
   typeKind: 'built-in';
+  default?: TypeRef;
   libName?: string;
   baseTypes?: TypeRef[];
   moduleName?: string;
 }
 
 export interface SerializedCoreType extends SerializedEntity<'type'> {
+  aliasTypeArguments?: TypeRef[];
+  aliasSymbol?: SymbolRef;
+  defaultType?: TypeRef;
+  constraint?: TypeRef;
   typeKind: 'core';
+  properties?: SymbolRef[];
   typeString: string;
   objectFlags?: Flags;
 }

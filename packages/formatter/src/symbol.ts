@@ -1,7 +1,10 @@
 import { SerializedSymbol, SymbolRef, WalkerOutputData } from '@code-to-json/core';
 import { conditionallyMergeTransformed, isRef } from '@code-to-json/utils';
+import { isString } from 'util';
 import { DataCollector } from './data-collector';
+import { mapDecorator } from './decorator';
 import formatFlags from './flags';
+import { mapModifier } from './modifiers';
 import resolveReference from './resolve-reference';
 import formatSignature from './signature';
 import { FormattedSymbol, FormattedSymbolRef, SideloadedDataCollector } from './types';
@@ -42,8 +45,12 @@ export default function formatSymbol(
   conditionallyMergeTransformed(info, heritageClauses, 'heritageClauses', hc =>
     hc.map(h => h.clauseType),
   );
-  conditionallyMergeTransformed(info, modifiers, 'modifiers', d => d);
-  conditionallyMergeTransformed(info, decorators, 'decorators', d => d);
+  conditionallyMergeTransformed(info, modifiers, 'modifiers', list =>
+    list.filter(isString).map(mapModifier),
+  );
+  conditionallyMergeTransformed(info, decorators, 'decorators', list =>
+    list.filter(isString).map(mapDecorator),
+  );
   conditionallyMergeTransformed(
     info,
     _rawFlags,
