@@ -1,6 +1,6 @@
 {
   "name": "@code-to-json/utils-ts",
-  "version": "0.6.3",
+  "version": "0.6.4",
   "description": "",
   "main": "lib/src/index.js",
   "typings": "lib/src/index.d.ts",
@@ -28,7 +28,7 @@
     "typescript": "^3.1.0"
   },
   "devDependencies": {
-    "@code-to-json/test-helpers": "^0.3.8",
+    "@code-to-json/test-helpers": "^0.3.9",
     "@types/chai": "4.1.7",
     "chai": "4.2.0",
     "eslint": "5.12.0",
