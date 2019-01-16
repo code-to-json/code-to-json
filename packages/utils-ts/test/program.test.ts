@@ -1,9 +1,7 @@
-// tslint:disable:no-duplicate-string
-
 import { createTempFixtureFolder, TestCaseFolder } from '@code-to-json/test-helpers';
-import { FileExistenceChecker, TextFileReader } from '@code-to-json/utils';
+import { FileExistenceChecker } from '@code-to-json/utils';
 import { expect } from 'chai';
-import { existsSync, readFileSync, statSync, unlinkSync, writeFileSync } from 'fs';
+import { existsSync, statSync, unlinkSync, writeFileSync } from 'fs';
 import { suite, test } from 'mocha-typescript';
 import * as path from 'path';
 import * as ts from 'typescript';

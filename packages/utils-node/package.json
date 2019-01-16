@@ -10,7 +10,7 @@
   "homepage": "https://github.com/mike-north/code-to-json/tree/master/packages/utils-node",
   "scripts": {
     "lint": "yarn lint:ts && yarn lint:js && yarn lint:md",
-    "lint:ts": "tslint --project . && tslint --project test",
+    "lint:ts": "tslint --project . && tsc -b test && tslint --project test",
     "lint:js": "eslint . --ext js,ts",
     "lint:md": "remark .",
     "test": "mocha",
@@ -24,6 +24,7 @@
   "keywords": [],
   "devDependencies": {
     "@types/chai": "4.1.7",
+    "@types/mocha": "5.2.5",
     "@types/pkg-up": "2.0.0",
     "@types/rimraf": "2.0.2",
     "@types/tmp": "0.0.33",

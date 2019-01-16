@@ -1,12 +1,14 @@
 // tslint:disable prefer-const
 /* eslint-disable prefer-const */
-import { FormattedOutput, FormatterOptions } from '../src/index';
+import { FormatterOptions, FormatterOutput } from '../src/index';
 
 // ensure the exported types exist
-let x!: FormattedOutput;
+let x!: FormatterOutput;
 let y!: FormatterOptions;
 
 let yAsObject = y as object;
 let xAsObject = x as object;
 
-const { sourceFiles } = x;
+const {
+  data: { sourceFiles },
+} = x;

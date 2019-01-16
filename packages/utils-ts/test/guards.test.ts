@@ -1,15 +1,7 @@
 import { expect } from 'chai';
 import { suite, test } from 'mocha-typescript';
 import * as ts from 'typescript';
-import {
-  createProgramFromCodeString,
-  isDeclaration,
-  isNamedDeclaration,
-  isNode,
-  isSymbol,
-  isType,
-  mapUem,
-} from '../src/index';
+import { createProgramFromCodeString, isDeclaration, isNamedDeclaration, isNode, isSymbol, isType, mapUem } from '../src/index';
 
 @suite('Guard tests')
 class GuardTests {

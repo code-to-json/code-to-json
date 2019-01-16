@@ -33,7 +33,7 @@ function serializeCoreType(
   const typeData: SerializedAtomicType = {
     id,
     entity: 'type',
-    typeKind: 'core',
+    typeKind: 'atomic',
     typeString,
     flags,
     objectFlags,
@@ -62,7 +62,7 @@ function serializeBuiltInType(
   const libName = getTsLibFilename(fileName);
   const t: SerializedLibType = {
     ...serializeCoreType(typ, ref, checker, q),
-    typeKind: 'built-in',
+    typeKind: 'lib',
     libName,
     moduleName,
   };

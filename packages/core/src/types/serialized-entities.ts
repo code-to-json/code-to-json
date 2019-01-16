@@ -133,7 +133,7 @@ export interface SerializedHeritageClause {
  * Examples include `string`, `number`, primitive literal types, etc...
  */
 export interface SerializedAtomicType extends SerializedEntity<'type'> {
-  typeKind: 'core';
+  typeKind: 'atomic';
   aliasTypeArguments?: TypeRef[];
   aliasSymbol?: SymbolRef;
   defaultType?: TypeRef;
@@ -150,7 +150,7 @@ export interface SerializedAtomicType extends SerializedEntity<'type'> {
  */
 export interface SerializedLibType
   extends Pick<SerializedAtomicType, Exclude<keyof SerializedAtomicType, 'typeKind'>> {
-  typeKind: 'built-in';
+  typeKind: 'lib';
   numberIndexType?: TypeRef;
   stringIndexType?: TypeRef;
   default?: TypeRef;
