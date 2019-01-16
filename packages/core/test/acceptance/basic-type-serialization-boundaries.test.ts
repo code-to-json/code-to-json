@@ -14,7 +14,7 @@ class TypeSerialiationBoundaryTests {
         name: 'x',
         type: {
           flags: ['Number'],
-          typeKind: 'core',
+          typeKind: 'atomic',
           typeString: 'number',
         },
       },
@@ -29,7 +29,7 @@ class TypeSerialiationBoundaryTests {
       name: 'x',
     });
     expect(exports.x.type).to.include({
-      typeKind: 'core',
+      typeKind: 'atomic',
       typeString: '1',
     });
     expect(exports.x.type!.flags).to.contain('NumberLiteral');
@@ -45,7 +45,7 @@ class TypeSerialiationBoundaryTests {
         type: {
           flags: ['Number'],
           typeString: 'number',
-          typeKind: 'core',
+          typeKind: 'atomic',
         },
       },
     });
@@ -62,7 +62,7 @@ class TypeSerialiationBoundaryTests {
         name: 'x',
         type: {
           flags: ['Union'],
-          typeKind: 'core',
+          typeKind: 'atomic',
           typeString: 'string | number',
         },
       },
@@ -80,7 +80,7 @@ class TypeSerialiationBoundaryTests {
         name: 'x',
         type: {
           flags: ['Object'],
-          typeKind: 'built-in',
+          typeKind: 'lib',
           objectFlags: ['Reference'],
           libName: 'lib.es5.d.ts',
           typeString: 'string[]',
@@ -102,7 +102,7 @@ class TypeSerialiationBoundaryTests {
           flags: ['Object'],
           libName: 'lib.es5.d.ts',
           objectFlags: ['Reference'],
-          typeKind: 'built-in',
+          typeKind: 'lib',
           typeString: 'Promise<number>',
         },
       },

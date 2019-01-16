@@ -1,22 +1,24 @@
-export { Flags } from './flags';
 export {
-  DeclarationRef,
-  NodeRef,
-  RefRegistry,
   SerializedDeclaration,
   SerializedSignature,
   SerializedSourceFile,
   SerializedNode,
   SerializedSymbol,
   SerializedType,
-  SourceFileRef,
-  SymbolRef,
   SerializedAmdDependency,
-  SerializedBuiltInType,
-  SerializedCoreType,
+  SerializedLibType as SerializedBuiltInType,
+  SerializedAtomicType as SerializedCoreType,
   SerializedCustomType,
   SerializedFileReference,
+} from './types/serialized-entities';
+export {
+  DeclarationRef,
+  NodeRef,
+  RefRegistry,
+  SourceFileRef,
+  SymbolRef,
   TypeRef,
-} from './types';
-export { WalkerOutput, WalkerOutputData, WalkerOutputMetadata, walkProgram } from './walker';
+} from './types/ref';
+export { WalkerOutput, WalkerOutputData, WalkerOutputMetadata } from './types/walker';
+export { walkProgram } from './walker';
 export { WalkerOptions } from './walker/options';

@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 const start = process.hrtime();
 
 import chalk from 'chalk';
@@ -13,6 +12,12 @@ process.title = PROGRAM_NAME;
 
 const debugLog = debug('code-to-json:cli');
 
+/**
+ * Convert a hrtime into human-readable text
+ * @param time proces.hrtime value
+ * @param message description of time value
+ * @internal
+ */
 export function timeString(time: [number, number], message: string): string {
   const msg = `(${message})`;
   return `${chalk.yellow(
@@ -21,6 +26,10 @@ export function timeString(time: [number, number], message: string): string {
 `;
 }
 
+/**
+ * Build the commander program
+ * @internal
+ */
 export function buildProgram(): commander.Command {
   return commander
     .name(PROGRAM_NAME)
@@ -30,6 +39,12 @@ export function buildProgram(): commander.Command {
     .option('-o,--out <path>', 'output path');
 }
 
+/**
+ * Run a CLI action
+ * @param prog commander program
+ * @param runnable the action
+ * @internal
+ */
 export function runAction(
   prog: commander.Command,
   runnable: (
@@ -39,7 +54,7 @@ export function runAction(
     project: string,
     entries: string[] | undefined,
   ) => Promise<void>,
-  logger: (str: string) => void,
+  log: (formatter: any, ...args: any[]) => void,
 ): (entries: string[] | undefined, cmd: commander.Command) => any {
   return async function runActionImpl(
     entries: string[] | undefined,
@@ -48,16 +63,16 @@ export function runAction(
     const opts = command.opts();
     const { project } = opts;
     const startupElapsed = process.hrtime(start);
-    logger(timeString(startupElapsed, 'boot time'));
+    log(timeString(startupElapsed, 'boot time'));
     const beginTime = process.hrtime();
     try {
       await runnable(opts, project, entries).then(() => {
         const timeElapsed = process.hrtime(beginTime);
-        logger(timeString(timeElapsed, 'extraction time'));
+        log(timeString(timeElapsed, 'extraction time'));
       });
     } catch (er) {
       if (er.__invalid_arguments_error) {
-        logger('completing due to invalid arguments');
+        log('completing due to invalid arguments');
         console.error(chalk.red(`\n[ERROR] - ${er.message}\n`));
         console.error(`${prog.help()}\n`);
         throw new Error('invalid arguments');
@@ -68,7 +83,11 @@ export function runAction(
   };
 }
 
-export function runCli({ args }: { args: string[] }): void {
+/**
+ * Run the code-to-json cli command
+ * @param args command-line arguments
+ */
+export function runCli(args: string[]): void {
   const prog = buildProgram();
 
   prog

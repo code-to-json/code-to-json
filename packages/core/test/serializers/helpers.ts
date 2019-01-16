@@ -4,8 +4,8 @@ import {
   generateModulePathNormalizer,
   PASSTHROUGH_MODULE_PATH_NORMALIZER,
 } from '@code-to-json/utils-ts';
-import Collector from '../../src/collector';
 import { create as createQueue } from '../../src/processing-queue';
+import { Collector } from '../../src/types/walker';
 
 export function setupScenario(code: string) {
   const workspace = createProgramFromCodeString(code, 'ts');

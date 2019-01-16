@@ -21,6 +21,7 @@ module.exports = {
     'no-underscore-dangle': 'off',
     'no-plusplus': 'off',
     'import/prefer-default-export': 'off',
+    'no-console': 'off',
   },
   overrides: [
     {

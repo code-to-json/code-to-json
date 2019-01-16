@@ -1,48 +1,20 @@
 import { SysHost } from '@code-to-json/utils-ts';
-import { Declaration, Node, Program, SourceFile, Symbol as Sym, Type } from 'typescript';
-import Collector from '../collector';
+import { Program } from 'typescript';
 import { create as createQueue } from '../processing-queue';
-
 import serializeDeclaration from '../serializers/declaration';
 import serializeNode from '../serializers/node';
 import serializeSourceFile from '../serializers/source-file';
 import serializeSymbol from '../serializers/symbol';
 import serializeType from '../serializers/type';
-import {
-  DeclarationRef,
-  NodeRef,
-  SerializedDeclaration,
-  SerializedNode,
-  SerializedSourceFile,
-  SerializedSymbol,
-  SerializedType,
-  SourceFileRef,
-  SymbolRef,
-  TypeRef,
-} from '../types';
+import { Collector, WalkerOutput } from '../types/walker';
 import { createWalkerConfig, populateWalkerOptions, WalkerOptions } from './options';
 
-export interface WalkerOutputData {
-  symbols: { [k: string]: Readonly<SerializedSymbol> };
-  types: { [k: string]: Readonly<SerializedType> };
-  nodes: { [k: string]: Readonly<SerializedNode> };
-  declarations: { [k: string]: Readonly<SerializedDeclaration> };
-  sourceFiles: { [k: string]: Readonly<SerializedSourceFile> };
-}
-export interface WalkerOutputMetadata {
-  versions: {
-    core: string;
-  };
-  format: 'raw';
-}
-export interface WalkerOutput {
-  codeToJson: WalkerOutputMetadata;
-  data: WalkerOutputData;
-}
-
 /**
- * Walk a typescript program, using specified entry points, returning
- * JSON information describing the code
+ * Walk a typescript program, using specified entry points, returning JSON information describing the code
+ *
+ * @param program typescript program to analyze
+ * @param host abstraction of the host this program is running on
+ * @param options
  */
 export function walkProgram(
   program: Program,
@@ -59,30 +31,26 @@ export function walkProgram(
 
   // Initialize the work-processing queue
   const queue = createQueue(checker);
-  sourceFiles.forEach(sf => queue.queue(sf, 'sourceFile', checker));
+  sourceFiles.forEach(sf => queue.queue(sf, 'sourceFile'));
   const collector: Collector = {
     queue,
     host,
     opts,
     pathNormalizer: opts.pathNormalizer,
   };
-  const data = queue.drain({
-    handleNode(ref: NodeRef, item: Node): SerializedNode {
-      return serializeNode(item, checker, ref, collector);
-    },
-    handleType(ref: TypeRef, item: Type): SerializedType {
-      return serializeType(item, checker, ref, collector);
-    },
-    handleSourceFile(ref: SourceFileRef, item: SourceFile): SerializedSourceFile {
-      return serializeSourceFile(item, checker, ref, collector);
-    },
-    handleSymbol(ref: SymbolRef, item: Sym): SerializedSymbol {
-      return serializeSymbol(item, checker, ref, collector);
-    },
-    handleDeclaration(ref: DeclarationRef, item: Declaration): SerializedDeclaration {
-      return serializeDeclaration(item, checker, ref, collector);
-    },
+
+  /**
+   * set up the processors for the queue, and iteratively drain until
+   * we reach the iteration limit or no more work remains
+   */
+  const data = queue.process({
+    mapNode: (ref, item) => serializeNode(item, checker, ref, collector),
+    mapType: (ref, item) => serializeType(item, checker, ref, collector),
+    mapSourceFile: (ref, item) => serializeSourceFile(item, checker, ref, collector),
+    mapSymbol: (ref, item) => serializeSymbol(item, checker, ref, collector),
+    mapDeclaration: (ref, item) => serializeDeclaration(item, checker, ref, collector),
   });
+
   return {
     codeToJson: {
       versions: {

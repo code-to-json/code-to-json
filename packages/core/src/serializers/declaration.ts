@@ -1,11 +1,15 @@
 import { Declaration, TypeChecker } from 'typescript';
-import Collector from '../collector';
-import { DeclarationRef, SerializedDeclaration, SourceFileRef } from '../types';
+import { DeclarationRef, SourceFileRef } from '../types/ref';
+import { SerializedDeclaration } from '../types/serialized-entities';
+import { Collector } from '../types/walker';
 import serializeNode from './node';
 
 /**
  * Serialize a Declaration to a POJO
  * @param decl Declaration to serialize
+ * @param checker type checker
+ * @param ref reference to the declaration
+ * @param c walker collector
  */
 export default function serializeDeclaration(
   decl: Declaration,
@@ -15,7 +19,7 @@ export default function serializeDeclaration(
 ): SerializedDeclaration {
   const basicInfo: SerializedDeclaration = {
     ...serializeNode(decl, checker, ref, c),
-    thing: 'declaration',
+    entity: 'declaration',
   };
   return basicInfo;
 }

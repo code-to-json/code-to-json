@@ -1,40 +1,27 @@
 import { isRef, isTruthy, refId } from '@code-to-json/utils';
-import * as ts from 'typescript';
-import Collector from '../collector';
-import { flagsToString, getObjectFlags } from '../flags';
-import { ProcessingQueue } from '../processing-queue';
 import {
-  SerializedBuiltInType,
-  SerializedCoreType,
+  flagsToString,
+  getObjectFlags,
+  getTsLibFilename,
+  relevantDeclarationForSymbol,
+} from '@code-to-json/utils-ts';
+import * as ts from 'typescript';
+import { Queue } from '../processing-queue';
+import { TypeRef } from '../types/ref';
+import {
+  SerializedAtomicType,
   SerializedCustomType,
+  SerializedLibType,
   SerializedType,
-  TypeRef,
-} from '../types';
-
-function getTsLibFilename(fileName: string): string | undefined {
-  const [, libName] = fileName.split(/\/node_modules\/typescript\/lib\//);
-  return typeof libName !== 'undefined' && libName.endsWith('.d.ts') ? libName : undefined;
-}
-
-function relevantDeclarationForSymbol(sym: ts.Symbol): ts.Declaration | undefined {
-  const { valueDeclaration } = sym;
-  if (valueDeclaration) {
-    return valueDeclaration;
-  }
-  const allDeclarations = sym.getDeclarations();
-  if (allDeclarations && allDeclarations.length > 0) {
-    // TODO: properly handle >1 declaration case
-    return allDeclarations[0];
-  }
-  return undefined;
-}
+} from '../types/serialized-entities';
+import { Collector } from '../types/walker';
 
 function serializeCoreType(
   typ: ts.Type,
   ref: TypeRef,
   checker: ts.TypeChecker,
-  q: ProcessingQueue,
-): SerializedCoreType {
+  q: Queue,
+): SerializedAtomicType {
   const { flags: rawFlags, aliasSymbol, aliasTypeArguments } = typ;
   const id = refId(ref);
   const flags = flagsToString(rawFlags, 'type');
@@ -43,24 +30,23 @@ function serializeCoreType(
   const objectFlags = objFlags ? flagsToString(objFlags, 'object') : undefined;
 
   const defaultType = typ.getDefault();
-  const typeData: SerializedCoreType = {
+  const typeData: SerializedAtomicType = {
     id,
     entity: 'type',
-    typeKind: 'core',
+    typeKind: 'atomic',
     typeString,
     flags,
     objectFlags,
     aliasTypeArguments:
-      aliasTypeArguments &&
-      aliasTypeArguments.map(ata => q.queue(ata, 'type', checker)).filter(isRef),
-    aliasSymbol: aliasSymbol && q.queue(aliasSymbol, 'symbol', checker),
+      aliasTypeArguments && aliasTypeArguments.map(ata => q.queue(ata, 'type')).filter(isRef),
+    aliasSymbol: aliasSymbol && q.queue(aliasSymbol, 'symbol'),
   };
   if (defaultType) {
-    typeData.defaultType = q.queue(defaultType, 'type', checker);
+    typeData.defaultType = q.queue(defaultType, 'type');
   }
   const constraint = typ.getConstraint();
   if (constraint) {
-    typeData.constraint = q.queue(constraint, 'type', checker);
+    typeData.constraint = q.queue(constraint, 'type');
   }
   return typeData;
 }
@@ -70,35 +56,33 @@ function serializeBuiltInType(
   ref: TypeRef,
   checker: ts.TypeChecker,
   decl: ts.Declaration,
-  q: ProcessingQueue,
-): SerializedBuiltInType {
+  q: Queue,
+): SerializedLibType {
   const { fileName, moduleName } = decl.getSourceFile();
   const libName = getTsLibFilename(fileName);
-  const t: SerializedBuiltInType = {
+  const t: SerializedLibType = {
     ...serializeCoreType(typ, ref, checker, q),
-    typeKind: 'built-in',
+    typeKind: 'lib',
     libName,
     moduleName,
   };
 
   const defaultType = typ.getDefault();
   if (defaultType) {
-    t.default = q.queue(defaultType, 'type', checker);
+    t.default = q.queue(defaultType, 'type');
   }
   const numberIdxType = typ.getNumberIndexType();
   if (numberIdxType) {
-    t.numberIndexType = q.queue(numberIdxType, 'type', checker);
+    t.numberIndexType = q.queue(numberIdxType, 'type');
   }
   const stringIdxType = typ.getStringIndexType();
   if (stringIdxType) {
-    t.stringIndexType = q.queue(stringIdxType, 'type', checker);
+    t.stringIndexType = q.queue(stringIdxType, 'type');
   }
   const baseTypes = typ.getBaseTypes();
   if (baseTypes) {
     t.baseTypes =
-      baseTypes.length > 0
-        ? baseTypes.map(bt => q.queue(bt, 'type', checker)).filter(isRef)
-        : undefined;
+      baseTypes.length > 0 ? baseTypes.map(bt => q.queue(bt, 'type')).filter(isRef) : undefined;
   }
   return t;
 }
@@ -108,7 +92,7 @@ function serializeCustomType(
   ref: TypeRef,
   checker: ts.TypeChecker,
   decl: ts.Declaration,
-  q: ProcessingQueue,
+  q: Queue,
 ): SerializedCustomType {
   const { symbol } = typ;
 
@@ -119,9 +103,9 @@ function serializeCustomType(
 
   const properties = typ.getProperties();
   if (properties && properties.length > 0) {
-    typeData.properties = properties.map(sym => q.queue(sym, 'symbol', checker)).filter(isRef);
+    typeData.properties = properties.map(sym => q.queue(sym, 'symbol')).filter(isRef);
   }
-  typeData.symbol = q.queue(symbol, 'symbol', checker);
+  typeData.symbol = q.queue(symbol, 'symbol');
   return typeData;
 }
 
@@ -162,7 +146,7 @@ export default function serializeType(
     const { typeParameters } = typ;
     if (typeParameters) {
       serializedType.aliasTypeArguments = typeParameters
-        .map(tp => c.queue.queue(tp, 'type', checker))
+        .map(tp => c.queue.queue(tp, 'type'))
         .filter(isTruthy);
     }
   }

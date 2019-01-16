@@ -1,14 +1,14 @@
 import { setupTestCase } from '@code-to-json/test-helpers';
-import { refId, refType } from '@code-to-json/utils';
+import { refId, refType, UnreachableError } from '@code-to-json/utils';
 import { nodeHost } from '@code-to-json/utils-node';
 import { expect } from 'chai';
 import { walkProgram } from '../../src';
 import {
-  SerializedBuiltInType,
-  SerializedCoreType,
+  SerializedAtomicType,
   SerializedCustomType,
+  SerializedLibType,
   SerializedType,
-} from '../../src/types';
+} from '../../src/types/serialized-entities';
 
 interface TypeSummary {
   typeString: string;
@@ -27,7 +27,7 @@ interface ExportSummaries {
   [k: string]: ExportSummary;
 }
 
-function summarizeCoreType(typ: SerializedCoreType): TypeSummary {
+function summarizeAtomicType(typ: SerializedAtomicType): TypeSummary {
   const { flags, typeString, objectFlags, typeKind } = typ;
   const toReturn: TypeSummary = { typeString, flags, typeKind };
   if (objectFlags) {
@@ -35,7 +35,7 @@ function summarizeCoreType(typ: SerializedCoreType): TypeSummary {
   }
   return toReturn;
 }
-function summarizeBuiltInType(typ: SerializedBuiltInType): TypeSummary {
+function summarizeLibType(typ: SerializedLibType): TypeSummary {
   const { flags, typeString, libName, objectFlags, typeKind } = typ;
   const toReturn: TypeSummary = { typeString, flags, libName, typeKind };
   if (objectFlags) {
@@ -56,14 +56,14 @@ function summarizeCustomType(typ: SerializedCustomType): TypeSummary {
 
 function summarizeType(typ: SerializedType): TypeSummary {
   switch (typ.typeKind) {
-    case 'built-in':
-      return summarizeBuiltInType(typ);
-    case 'core':
-      return summarizeCoreType(typ);
+    case 'atomic':
+      return summarizeAtomicType(typ);
+    case 'lib':
+      return summarizeLibType(typ);
     case 'custom':
       return summarizeCustomType(typ);
     default:
-      throw new Error(`Unknown typeKind value: ${JSON.stringify(typ)}`);
+      throw new UnreachableError(typ);
   }
 }
 

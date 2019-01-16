@@ -58,7 +58,7 @@ export default function formatType(
   if (defaultTypeRef) {
     typeInfo.defaultType = collector.queue(resolveReference(wo, defaultTypeRef), 't');
   }
-  if (type.typeKind === 'custom' || type.typeKind === 'built-in') {
+  if (type.typeKind === 'custom' || type.typeKind === 'lib') {
     const { libName, numberIndexType, stringIndexType, baseTypes } = type;
     if (libName) {
       typeInfo.libName = libName;

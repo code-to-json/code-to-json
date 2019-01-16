@@ -1,17 +1,27 @@
-/* eslint-disable no-bitwise */
 import {
   ModifierFlags,
   NodeBuilderFlags,
   NodeFlags,
   ObjectFlags,
-  ObjectType,
   SymbolFlags,
   SymbolFormatFlags,
   Type,
   TypeFlags,
 } from 'typescript';
+import { isObjectType } from './guards';
 
-interface FlagsMap {
+/**
+ * Get the object flags from a type
+ * @param type bitmask of object flags
+ */
+export function getObjectFlags(type: Type): ObjectFlags | undefined {
+  // tslint:disable-next-line:no-bitwise
+  return isObjectType(type) ? type.objectFlags : undefined;
+}
+
+export type Flags = string[];
+
+export interface FlagsMap {
   type: TypeFlags;
   node: NodeFlags;
   object: ObjectFlags;
@@ -51,7 +61,6 @@ function getFlagMap<T extends keyof FlagsMap>(type: T): { [k: string]: any } {
  * @param flags
  * @param flagMap
  * @author Kris Selden <https://github.com/krisselden>
- * @internal
  */
 export function flagsToString<T extends keyof FlagsMap>(
   flags: FlagsMap[T],
@@ -81,24 +90,3 @@ export function flagsToString<T extends keyof FlagsMap>(
   }
   return flagNames;
 }
-/**
- * Check whether a Type is an ObjectType
- * @param type ts.Type
- * @internal
- */
-export function isObjectType(type: Type): type is ObjectType {
-  // tslint:disable-next-line:no-bitwise
-  return !!(type.flags & TypeFlags.Object);
-}
-
-/**
- * Get the object flags from a type
- * @param type bitmask of object flags
- * @internal
- */
-export function getObjectFlags(type: Type): ObjectFlags | undefined {
-  // tslint:disable-next-line:no-bitwise
-  return isObjectType(type) ? type.objectFlags : undefined;
-}
-
-export type Flags = string[];

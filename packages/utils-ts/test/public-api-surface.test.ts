@@ -62,9 +62,12 @@ class PublicApiSurface {
       'createProgramFromCodeString',
       'createProgramFromEntries',
       'createProgramFromTsConfig',
+      'flagsToString',
       'generateHash',
       'generateId',
       'generateModulePathNormalizer',
+      'getObjectFlags',
+      'getTsLibFilename',
       'isDeclaration',
       'isDeclarationExported',
       'isNamedDeclaration',
@@ -73,6 +76,9 @@ class PublicApiSurface {
       'isType',
       'mapChildren',
       'mapUem',
+      'nameForNode',
+      'relevantDeclarationForSymbol',
+      'relevantTypeForSymbol',
     ]);
   }
 }

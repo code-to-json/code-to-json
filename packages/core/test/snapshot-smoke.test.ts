@@ -5,10 +5,10 @@ import { expect } from 'chai';
 import { suite, test } from 'mocha-typescript';
 import * as path from 'path';
 import * as ts from 'typescript';
-import Collector from '../src/collector';
-import { create as createQueue, DrainOutput } from '../src/processing-queue';
+import { SerializedSourceFile, SourceFileRef, SymbolRef } from '../src';
+import { create as createQueue, ProcessResult, Queue } from '../src/processing-queue';
 import serializeSourceFile from '../src/serializers/source-file';
-import { SerializedSourceFile, SourceFileRef, SymbolRef, TypeRef } from '../src/types';
+import { Collector } from '../src/types/walker';
 
 @suite
 class SimpleSnapshotSmokeTests {
@@ -20,7 +20,7 @@ class SimpleSnapshotSmokeTests {
 
   protected sourceFiles!: ReadonlyArray<ts.SourceFile>;
 
-  protected data!: DrainOutput<string, any, {}, {}, SerializedSourceFile>;
+  protected data!: ProcessResult<string, any, {}, {}, SerializedSourceFile>;
 
   public async before(): Promise<void> {
     const { program, rootPath } = await setupTestCase(
@@ -43,17 +43,12 @@ class SimpleSnapshotSmokeTests {
     };
 
     this.sourceFiles = program.getSourceFiles();
-    this.sourceFiles.forEach(sf => queue.queue(sf, 'sourceFile', this.checker));
-    const data = queue.drain({
-      handleType(_ref: TypeRef, item: ts.Type): string {
-        return checker.typeToString(item);
-      },
-      handleSymbol(_ref: SymbolRef, item: ts.Symbol): string {
-        return item.getName();
-      },
-      handleSourceFile(ref: SourceFileRef, item: ts.SourceFile): SerializedSourceFile {
-        return serializeSourceFile(item, checker, ref, collector);
-      },
+    this.sourceFiles.forEach(sf => queue.queue(sf, 'sourceFile'));
+    const data = queue.process({
+      mapType: (_ref, item) => checker.typeToString(item),
+      mapSymbol: (_ref: SymbolRef, item: ts.Symbol) => item.getName(),
+      mapSourceFile: (ref: SourceFileRef, item: ts.SourceFile) =>
+        serializeSourceFile(item, checker, ref, collector),
     });
     this.data = data;
   }
