@@ -35,45 +35,64 @@ export default function serializeSymbol(
 ): SerializedSymbol {
   const { queue: q } = c;
   const { exports, globalExports, members, flags, valueDeclaration: _valDecl, name } = symbol;
+  /**
+   * The typescript types lie here. symbol.valueDeclaration has the potential to be undefined
+   * @example
+   * ```ts
+   *  export Dict<T> = {[k: string]: T | undefined}
+   * ```
+   */
   const valueDeclaration = _valDecl as ts.Declaration | undefined;
-  const details: SerializedSymbol = {
+
+  // starting point w/ minimal (and mandatory) information
+  const serialied: SerializedSymbol = {
     id: refId(ref),
     entity: 'symbol',
     name,
     flags: flagsToString(flags, 'symbol'),
   };
 
+  // try to determine this symbol's type
   const typ = relevantTypeForSymbol(checker, symbol);
+
+  // if we can identify a valueDeclaration and its source file is a declaration file, we can determine this type to be "external"
   if (valueDeclaration && valueDeclaration.getSourceFile().isDeclarationFile) {
-    details.external = true;
+    // TODO: does this really mean "external"? what about in-project declaration files
+    serialied.external = true;
   }
-  details.type = q.queue(typ, 'type');
-  if (members) {
-    details.members = appendSymbolMap(members, q);
-  }
-  conditionallyMergeTransformed(details, exports, 'exports', exps => appendSymbolMap(exps, q));
-  conditionallyMergeTransformed(details, globalExports, 'globalExports', gexps =>
+  // queue the type for processing later
+  serialied.type = q.queue(typ, 'type');
+
+  /**
+   * if the symbol has members, exports, globalExports create dictionaries for them, queue for later processing
+   * and place them on the `serialized` object under appropriate property names
+   */
+  conditionallyMergeTransformed(serialied, members, 'members', mems => appendSymbolMap(mems, q));
+  conditionallyMergeTransformed(serialied, exports, 'exports', exps => appendSymbolMap(exps, q));
+  conditionallyMergeTransformed(serialied, globalExports, 'globalExports', gexps =>
     appendSymbolMap(gexps, q),
   );
+
+  // TODO: update to new documentation strategy
   const docComment = symbol.getDocumentationComment(checker);
   if (docComment.length > 0) {
-    details.comment = ts.displayPartsToString(docComment);
+    serialied.comment = ts.displayPartsToString(docComment);
   }
   if (valueDeclaration) {
     const { jsDoc }: { jsDoc?: ts.Node[] } = valueDeclaration as any;
     if (jsDoc) {
       const commentText: string = jsDoc[0].getText();
-      details.documentation = parseCommentString(commentText);
+      serialied.documentation = parseCommentString(commentText);
     }
     const { modifiers, decorators, pos, end } = valueDeclaration;
     const valDeclType = checker.getTypeOfSymbolAtLocation(symbol, valueDeclaration);
     const sourceFile = valueDeclaration.getSourceFile();
-    details.location = serializeLocation(sourceFile, pos, end, q);
-    details.sourceFile = q.queue(sourceFile, 'sourceFile');
-    conditionallyMergeTransformed(details, modifiers, 'modifiers', mods =>
+    serialied.location = serializeLocation(sourceFile, pos, end, q);
+    serialied.sourceFile = q.queue(sourceFile, 'sourceFile');
+    conditionallyMergeTransformed(serialied, modifiers, 'modifiers', mods =>
       mods.map(m => ts.SyntaxKind[m.kind]),
     );
-    conditionallyMergeTransformed(details, decorators, 'decorators', decs =>
+    conditionallyMergeTransformed(serialied, decorators, 'decorators', decs =>
       decs.map(d => ts.SyntaxKind[d.kind]),
     );
 
@@ -81,18 +100,18 @@ export default function serializeSymbol(
       .getConstructSignatures()
       .map(s => serializeSignature(s, checker, c));
     if (constructorSignatures && constructorSignatures.length > 0) {
-      details.constructorSignatures = constructorSignatures;
+      serialied.constructorSignatures = constructorSignatures;
     }
     const callSignatures = valDeclType
       .getCallSignatures()
       .map(s => serializeSignature(s, checker, c));
     if (callSignatures && callSignatures.length > 0) {
-      details.callSignatures = callSignatures;
+      serialied.callSignatures = callSignatures;
     }
   }
   const jsDocTags = symbol.getJsDocTags();
   if (jsDocTags.length > 0) {
-    details.jsDocTags = [...jsDocTags];
+    serialied.jsDocTags = [...jsDocTags];
   }
-  return details;
+  return serialied;
 }
