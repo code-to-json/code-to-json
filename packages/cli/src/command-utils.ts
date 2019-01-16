@@ -14,6 +14,7 @@ const pGlob = promisify(glob);
  * Resolve some globs into discrete files, matching a set of extensions
  * @param globs Globs to search
  * @param extensions Extensions of paths to retain
+ * @internal
  */
 export async function globsToPaths(
   globs: string[],
@@ -21,17 +22,19 @@ export async function globsToPaths(
 ): Promise<string[]> {
   const valueSet = new Set<string>();
   await Promise.all(
-    globs.map(g =>
-      pGlob(g)
+    globs.map((
+      g, // for each glob in the list
+    ) =>
+      pGlob(g) // get the collection of files
         .then((files: string[]) => {
-          files.forEach(f => valueSet.add(f));
+          files.forEach(f => valueSet.add(f)); // add each file to the set
         })
         .catch(er => {
           throw new InvalidArgumentsError(`Invalid glob: ${g}\n${er}`);
         }),
     ),
   );
-  const allPaths = [...valueSet];
+  const allPaths = [...valueSet]; // Set<string> -> string[]
   // If extensions are provided, only return those files that match
   return extensions
     ? allPaths.filter(f => extensions.indexOf(path.extname(f).toLowerCase()) >= 0)
@@ -45,6 +48,6 @@ export async function globsToPaths(
  */
 export async function createProgramFromEntryGlobs(globs: string[]): Promise<Program> {
   const rootNames = await globsToPaths(globs);
-  debugLog('Globs are equivalent to files', rootNames);
+  debugLog('globs are equivalent to files', rootNames);
   return createProgramFromEntries(rootNames);
 }

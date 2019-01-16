@@ -11,9 +11,7 @@
 
   if (!importLocal(__filename)) {
     try {
-      require('../lib/src/index.js').runCli({
-        args: process.argv,
-      });
+      require('../lib/src/index.js').runCli(process.argv);
     } catch (err) {
       // eslint-disable-next-line no-console
       console.error(`Deliberately exiting due to ${err}`);
