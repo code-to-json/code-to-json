@@ -1,17 +1,15 @@
 import { isRef } from '@code-to-json/utils';
 import { displayPartsToString, Signature, TypeChecker } from 'typescript';
-import Collector from '../collector';
-import { DeclarationRef, SymbolRef, TypeRef } from '../types/ref';
+import { SerializedSignature } from '../types/serialized-entities';
+import { Collector } from '../types/walker';
 
-export interface SerializedSignature {
-  parameters?: SymbolRef[];
-  typeParameters?: TypeRef[];
-  declaration?: DeclarationRef;
-  returnType?: TypeRef;
-  comment?: string;
-}
-
-/** Serialize a signature (call or construct) */
+/**
+ * Serialize a ts.Signature to JSON
+ *
+ * @param signature signature to serialize
+ * @param checker type-checker
+ * @param c walker collector
+ */
 export default function serializeSignature(
   signature: Signature,
   checker: TypeChecker,
@@ -22,13 +20,13 @@ export default function serializeSignature(
   return {
     parameters:
       parameters && parameters.length > 0
-        ? parameters.map(p => q.queue(p, 'symbol', checker)).filter(isRef)
+        ? parameters.map(p => q.queue(p, 'symbol')).filter(isRef)
         : undefined,
     typeParameters: typeParameters
-      ? typeParameters.map(p => q.queue(p, 'type', checker)).filter(isRef)
+      ? typeParameters.map(p => q.queue(p, 'type')).filter(isRef)
       : undefined,
-    // declaration: declaration ? q.queue(declaration, 'declaration', checker) : undefined,
-    returnType: q.queue(signature.getReturnType(), 'type', checker),
+    // declaration: declaration ? q.queue(declaration, 'declaration') : undefined,
+    returnType: q.queue(signature.getReturnType(), 'type'),
     comment: displayPartsToString(signature.getDocumentationComment(checker)),
   };
 }

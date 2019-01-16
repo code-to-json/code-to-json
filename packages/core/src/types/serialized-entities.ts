@@ -2,6 +2,26 @@ import { CommentData } from '@code-to-json/comments';
 import { Flags } from '@code-to-json/utils-ts';
 import { DeclarationRef, SourceFileRef, SymbolRef, TypeRef } from './ref';
 
+/**
+ * Serialized representation of a ts.Sourcefile
+ */
+export interface SerializedSourceFile extends SerializedEntity<'sourceFile'>, HasDocumentation {
+  originalFileName?: string;
+  moduleName: string;
+  extension: string | null;
+  pathInPackage: string;
+
+  isDeclarationFile: boolean;
+  symbol?: SymbolRef;
+  amdDependencies?: SerializedAmdDependency[];
+  referencedFiles?: SerializedFileReference[];
+  typeReferenceDirectives?: SerializedFileReference[];
+  libReferenceDirectives?: SerializedFileReference[];
+}
+
+/**
+ * Serialized representation of a ts.Symbol
+ */
 export interface SerializedSymbol
   extends SerializedEntity<'symbol'>,
     Partial<HasPosition>,
@@ -24,21 +44,9 @@ export interface SerializedSymbol
   }>;
 }
 
-export interface SerializedFileReference {
-  name?: string;
-  location?: CodeRange;
-}
-
-export interface HasPosition {
-  sourceFile?: SourceFileRef;
-  location: CodeRange;
-}
-
-export interface HasDocumentation {
-  documentation?: CommentData;
-  comment?: string;
-}
-
+/**
+ * Serialized representation of a ts.Signature
+ */
 export interface SerializedSignature {
   parameters?: SymbolRef[];
   typeParameters?: TypeRef[];
@@ -47,13 +55,57 @@ export interface SerializedSignature {
   comment?: string;
 }
 
+/**
+ * Serialized representation of a ts.FileReference
+ */
+export interface SerializedFileReference {
+  name?: string;
+  location?: CodeRange;
+}
+
+/**
+ * Serialized representation of a code location
+ * within a ts.SourceFile
+ */
+export interface HasPosition {
+  sourceFile?: SourceFileRef;
+  location: CodeRange;
+}
+
+/**
+ * An entity that is (or may be associated with) a declaration that has block comment
+ */
+export interface HasDocumentation {
+  documentation?: CommentData;
+  comment?: string;
+}
+
+/**
+ * Serialized representation of a ts.Signature
+ */
+export interface SerializedSignature {
+  parameters?: SymbolRef[];
+  typeParameters?: TypeRef[];
+  declaration?: DeclarationRef;
+  returnType?: TypeRef;
+  comment?: string;
+}
+
+/**
+ * Serialized representation of a ts.AmdDependency
+ */
 export interface SerializedAmdDependency {
   name?: string;
   path: string;
 }
 
-export interface SerializedNode<TYP extends string = 'node'>
-  extends SerializedEntity<TYP>,
+/**
+ * Serialized representation of a ts.Node
+ *
+ * @template EntityName name of the node sub-type (i.e. "node" or "declaration"). Should be a string literal type
+ */
+export interface SerializedNode<Type extends string = 'node'>
+  extends SerializedEntity<Type>,
     HasPosition {
   text: string;
   kind: string;
@@ -61,71 +113,94 @@ export interface SerializedNode<TYP extends string = 'node'>
   modifiers?: string[];
   isExposed: boolean;
   isExported: boolean;
-  // parent?: NodeRef;
-  // children?: NodeRef[];
-  // type?: TypeRef;
 }
 
-export interface SerializedDeclaration
-  extends Pick<SerializedNode, Exclude<keyof SerializedNode, 'thing'>> {
-  thing: 'declaration';
-}
+/**
+ * Serialized representation of a ts.Declaration
+ */
+export interface SerializedDeclaration extends SerializedNode<'declaration'> {}
 
+/**
+ * Serialized representation of a ts.HeritageClause
+ */
 export interface SerializedHeritageClause {
+  // TODO: constrain to a string literal type
   clauseType: string;
 }
 
-export interface SerializedCustomType
-  extends Pick<SerializedBuiltInType, Exclude<keyof SerializedBuiltInType, 'typeKind'>> {
-  symbol?: SymbolRef;
-  typeKind: 'custom';
+/**
+ * Serialized representation of an "atomic" type that has no declaration file.
+ * Examples include `string`, `number`, primitive literal types, etc...
+ */
+export interface SerializedAtomicType extends SerializedEntity<'type'> {
+  typeKind: 'core';
+  aliasTypeArguments?: TypeRef[];
+  aliasSymbol?: SymbolRef;
+  defaultType?: TypeRef;
+  constraint?: TypeRef;
+  properties?: SymbolRef[];
+  typeString: string;
+  objectFlags?: Flags;
 }
 
-export interface SerializedBuiltInType
-  extends Pick<SerializedCoreType, Exclude<keyof SerializedCoreType, 'typeKind'>> {
+/**
+ * Serialized representation of a "built-in" type that comes with TypeScript
+ * by way of an included "lib" declaration file. Examples include `Promise<T>`, `Array<T>`,
+ * `Function`, `Object`, etc...
+ */
+export interface SerializedLibType
+  extends Pick<SerializedAtomicType, Exclude<keyof SerializedAtomicType, 'typeKind'>> {
+  typeKind: 'built-in';
   numberIndexType?: TypeRef;
   stringIndexType?: TypeRef;
-  typeKind: 'built-in';
   default?: TypeRef;
   libName?: string;
   baseTypes?: TypeRef[];
   moduleName?: string;
 }
 
-export interface SerializedCoreType extends SerializedEntity<'type'> {
-  aliasTypeArguments?: TypeRef[];
-  aliasSymbol?: SymbolRef;
-  defaultType?: TypeRef;
-  constraint?: TypeRef;
-  typeKind: 'core';
-  properties?: SymbolRef[];
-  typeString: string;
-  objectFlags?: Flags;
+/**
+ * Serialized representation of a "custom" type that's provided either by the codebase
+ * itself or a dependency. These can come from either `.ts` source files, or `.d.ts` declaration files
+ */
+export interface SerializedCustomType
+  extends Pick<SerializedLibType, Exclude<keyof SerializedLibType, 'typeKind'>> {
+  typeKind: 'custom';
+  symbol?: SymbolRef;
 }
 
-export interface SerializedEntity<THING extends string> {
-  entity: THING;
+/**
+ * Serialized representation of a ts.Type
+ */
+export type SerializedType = SerializedLibType | SerializedCustomType | SerializedAtomicType;
+
+/**
+ * Serialized code entity
+ *
+ * @template EntityName name of the entity type. Should be a string literal type
+ */
+export interface SerializedEntity<EntityName extends string> {
+  entity: EntityName;
   id: string;
   flags?: Flags;
   text?: string;
   name?: string;
 }
 
-export type CodePoisition = [string, number, number];
-export type CodeRange = [string, number, number, number, number];
+/**
+ * Serialized representation of a position within a file.
+ *
+ * convention: [<source file>, <line number>, <character number>]
+ */
+export type CodePoisition = [SourceFileRef, number, number];
 
-export type SerializedType = SerializedBuiltInType | SerializedCustomType | SerializedCoreType;
-
-export interface SerializedSourceFile extends SerializedEntity<'sourceFile'>, HasDocumentation {
-  originalFileName?: string;
-  moduleName: string;
-  extension: string | null;
-  pathInPackage: string;
-
-  isDeclarationFile: boolean;
-  symbol?: SymbolRef;
-  amdDependencies?: SerializedAmdDependency[];
-  referencedFiles?: SerializedFileReference[];
-  typeReferenceDirectives?: SerializedFileReference[];
-  libReferenceDirectives?: SerializedFileReference[];
-}
+/**
+ * Serialized representation of a range of text within a file.
+ *
+ * convention: [<source file>,
+ *              <start line number>,
+ *              <start character number>,
+ *              <end line number>,
+ *              <end character number>]
+ */
+export type CodeRange = [SourceFileRef, number, number, number, number];

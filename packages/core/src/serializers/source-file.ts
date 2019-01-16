@@ -1,18 +1,19 @@
 import { parseCommentString } from '@code-to-json/comments';
 import { refId } from '@code-to-json/utils';
 import * as ts from 'typescript';
-import Collector from '../collector';
 import { SourceFileRef } from '../types/ref';
 import { SerializedSourceFile } from '../types/serialized-entities';
+import { Collector } from '../types/walker';
 import serializeAmdDependency from './amd-dependency';
 import serializeFileReference from './file-reference';
 
 /**
- * Serialize a SourceFile to a POJO
+ * Serialize a SourceFile to a JSON object
+ *
  * @param sourceFile SourceFile to serialize
  * @param checker A type-checker
  * @param ref Refernece to the SourceFile being serialized
- * @param _queue Processing queue
+ * @param c walker collector
  */
 export default function serializeSourceFile(
   sourceFile: ts.SourceFile,
@@ -69,7 +70,7 @@ export default function serializeSourceFile(
    */
   const sym = checker.getSymbolAtLocation(sourceFile);
   if (sym) {
-    basicInfo.symbol = c.queue.queue(sym, 'symbol', checker);
+    basicInfo.symbol = c.queue.queue(sym, 'symbol');
   }
 
   return basicInfo;

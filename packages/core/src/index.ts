@@ -6,8 +6,8 @@ export {
   SerializedSymbol,
   SerializedType,
   SerializedAmdDependency,
-  SerializedBuiltInType,
-  SerializedCoreType,
+  SerializedLibType as SerializedBuiltInType,
+  SerializedAtomicType as SerializedCoreType,
   SerializedCustomType,
   SerializedFileReference,
 } from './types/serialized-entities';
@@ -19,5 +19,6 @@ export {
   SymbolRef,
   TypeRef,
 } from './types/ref';
-export { WalkerOutput, WalkerOutputData, WalkerOutputMetadata, walkProgram } from './walker';
+export { WalkerOutput, WalkerOutputData, WalkerOutputMetadata } from './types/walker';
+export { walkProgram } from './walker';
 export { WalkerOptions } from './walker/options';

@@ -64,8 +64,8 @@ console.log(x);`,
       symbol: ['symbol', '01m4wlshjs98'],
     });
 
-    const { symbols } = collector.queue.drain({
-      handleSymbol(_ref: SymbolRef, sym: ts.Symbol) {
+    const { symbols } = collector.queue.process({
+      mapSymbol(_ref: SymbolRef, sym: ts.Symbol) {
         return sym;
       },
     });
@@ -82,7 +82,7 @@ console.log(x);`,
       flags: ['ValueModule'],
       id: '01m4wlshjs98',
       exports: [['symbol', '01m4wm55tsjg']],
-      location: ['module.ts', 1, 1, 1, 67],
+      location: [['sourceFile', '01m4wlwidurl'], 1, 1, 1, 67],
       name: '"module"',
       sourceFile: ['sourceFile', '01m4wlwidurl'],
     });
