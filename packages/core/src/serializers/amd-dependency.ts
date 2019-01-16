@@ -1,5 +1,5 @@
 import { AmdDependency } from 'typescript';
-import { SerializedAmdDependency } from '../types';
+import { SerializedAmdDependency } from '../types/serialized-entities';
 
 /**
  * Serialize a AmdDependency to a POJO

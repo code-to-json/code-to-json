@@ -1,85 +1,6 @@
 import { CommentData } from '@code-to-json/comments';
-import { Ref } from '@code-to-json/utils';
-import * as ts from 'typescript';
-import { Flags } from './flags';
-
-export interface EntityMap {
-  declaration: ts.Declaration;
-  symbol: ts.Symbol;
-  type: ts.Type;
-  node: ts.Node;
-  sourceFile: ts.SourceFile;
-}
-
-export interface SerializedEntity<THING extends string> {
-  entity: THING;
-  id: string;
-  flags?: Flags;
-  text?: string;
-  name?: string;
-}
-
-export type CodePoisition = [string, number, number];
-export type CodeRange = [string, number, number, number, number];
-
-export interface HasPosition {
-  sourceFile?: SourceFileRef;
-  location: CodeRange;
-}
-
-export interface HasDocumentation {
-  documentation?: CommentData;
-  comment?: string;
-}
-
-export interface SerializedSignature {
-  parameters?: SymbolRef[];
-  typeParameters?: TypeRef[];
-  declaration?: DeclarationRef;
-  returnType?: TypeRef;
-  comment?: string;
-}
-
-export type SymbolRef = Ref<'symbol'>;
-export type DeclarationRef = Ref<'declaration'>;
-export type NodeRef = Ref<'node'>;
-export type TypeRef = Ref<'type'>;
-export type SourceFileRef = Ref<'sourceFile'>;
-
-export interface RefRegistry {
-  symbol: SymbolRef;
-  node: NodeRef;
-  declaration: DeclarationRef;
-  type: TypeRef;
-  sourceFile: SourceFileRef;
-}
-export interface SerializedAmdDependency {
-  name?: string;
-  path: string;
-}
-
-export interface SerializedNode<TYP extends string = 'node'>
-  extends SerializedEntity<TYP>,
-    HasPosition {
-  text: string;
-  kind: string;
-  decorators?: string[];
-  modifiers?: string[];
-  isExposed: boolean;
-  isExported: boolean;
-  // parent?: NodeRef;
-  // children?: NodeRef[];
-  // type?: TypeRef;
-}
-
-export interface SerializedDeclaration
-  extends Pick<SerializedNode, Exclude<keyof SerializedNode, 'thing'>> {
-  thing: 'declaration';
-}
-
-export interface SerializedHeritageClause {
-  clauseType: string;
-}
+import { Flags } from '@code-to-json/utils-ts';
+import { DeclarationRef, SourceFileRef, SymbolRef, TypeRef } from './ref';
 
 export interface SerializedSymbol
   extends SerializedEntity<'symbol'>,
@@ -106,6 +27,52 @@ export interface SerializedSymbol
 export interface SerializedFileReference {
   name?: string;
   location?: CodeRange;
+}
+
+export interface HasPosition {
+  sourceFile?: SourceFileRef;
+  location: CodeRange;
+}
+
+export interface HasDocumentation {
+  documentation?: CommentData;
+  comment?: string;
+}
+
+export interface SerializedSignature {
+  parameters?: SymbolRef[];
+  typeParameters?: TypeRef[];
+  declaration?: DeclarationRef;
+  returnType?: TypeRef;
+  comment?: string;
+}
+
+export interface SerializedAmdDependency {
+  name?: string;
+  path: string;
+}
+
+export interface SerializedNode<TYP extends string = 'node'>
+  extends SerializedEntity<TYP>,
+    HasPosition {
+  text: string;
+  kind: string;
+  decorators?: string[];
+  modifiers?: string[];
+  isExposed: boolean;
+  isExported: boolean;
+  // parent?: NodeRef;
+  // children?: NodeRef[];
+  // type?: TypeRef;
+}
+
+export interface SerializedDeclaration
+  extends Pick<SerializedNode, Exclude<keyof SerializedNode, 'thing'>> {
+  thing: 'declaration';
+}
+
+export interface SerializedHeritageClause {
+  clauseType: string;
 }
 
 export interface SerializedCustomType
@@ -136,6 +103,17 @@ export interface SerializedCoreType extends SerializedEntity<'type'> {
   objectFlags?: Flags;
 }
 
+export interface SerializedEntity<THING extends string> {
+  entity: THING;
+  id: string;
+  flags?: Flags;
+  text?: string;
+  name?: string;
+}
+
+export type CodePoisition = [string, number, number];
+export type CodeRange = [string, number, number, number, number];
+
 export type SerializedType = SerializedBuiltInType | SerializedCustomType | SerializedCoreType;
 
 export interface SerializedSourceFile extends SerializedEntity<'sourceFile'>, HasDocumentation {
@@ -145,7 +123,6 @@ export interface SerializedSourceFile extends SerializedEntity<'sourceFile'>, Ha
   pathInPackage: string;
 
   isDeclarationFile: boolean;
-  statements?: NodeRef[];
   symbol?: SymbolRef;
   amdDependencies?: SerializedAmdDependency[];
   referencedFiles?: SerializedFileReference[];

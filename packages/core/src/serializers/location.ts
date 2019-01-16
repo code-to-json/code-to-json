@@ -1,5 +1,5 @@
 import { getLineAndCharacterOfPosition, SourceFile } from 'typescript';
-import { CodeRange } from '../types';
+import { CodeRange } from '../types/serialized-entities';
 
 export default function serializeLocation(
   sourceFile: SourceFile,

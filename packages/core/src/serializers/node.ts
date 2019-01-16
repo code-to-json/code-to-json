@@ -1,11 +1,21 @@
 import { refId } from '@code-to-json/utils';
-import { isDeclaration, isDeclarationExported, isNamedDeclaration } from '@code-to-json/utils-ts';
+import {
+  flagsToString,
+  isDeclaration,
+  isDeclarationExported,
+  isNamedDeclaration,
+} from '@code-to-json/utils-ts';
 import { isVariableStatement, Node, SyntaxKind, TypeChecker } from 'typescript';
 import Collector from '../collector';
-import { flagsToString } from '../flags';
-import { DeclarationRef, NodeRef, SerializedNode, SourceFileRef } from '../types';
+import { DeclarationRef, NodeRef, SourceFileRef } from '../types/ref';
+import { SerializedNode } from '../types/serialized-entities';
 import serializeLocation from './location';
 
+/**
+ * Obtain the name of a node
+ * @param n Node whose name is desired
+ * @param checker type-checker
+ */
 function nameForNode(n: Node, checker: TypeChecker): string {
   const name = isNamedDeclaration(n) && n.name;
   const sym = checker.getSymbolAtLocation(name || n);
@@ -22,7 +32,6 @@ function nameForNode(n: Node, checker: TypeChecker): string {
  * Serialize a Node to a POJO
  * @param n Node to serialize
  */
-// tslint:disable-next-line:cognitive-complexity
 export default function serializeNode(
   n: Node,
   checker: TypeChecker,

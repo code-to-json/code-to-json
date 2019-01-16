@@ -1,21 +1,20 @@
 import { isRef, isTruthy, refId } from '@code-to-json/utils';
+import { flagsToString, getObjectFlags, getTsLibFilename } from '@code-to-json/utils-ts';
 import * as ts from 'typescript';
 import Collector from '../collector';
-import { flagsToString, getObjectFlags } from '../flags';
 import { ProcessingQueue } from '../processing-queue';
+import { TypeRef } from '../types/ref';
 import {
   SerializedBuiltInType,
   SerializedCoreType,
   SerializedCustomType,
   SerializedType,
-  TypeRef,
-} from '../types';
+} from '../types/serialized-entities';
 
-function getTsLibFilename(fileName: string): string | undefined {
-  const [, libName] = fileName.split(/\/node_modules\/typescript\/lib\//);
-  return typeof libName !== 'undefined' && libName.endsWith('.d.ts') ? libName : undefined;
-}
-
+/**
+ * Find the relevant declaration for a ts.Symbol
+ * @param sym Symbol whose declaration is desired
+ */
 function relevantDeclarationForSymbol(sym: ts.Symbol): ts.Declaration | undefined {
   const { valueDeclaration } = sym;
   if (valueDeclaration) {

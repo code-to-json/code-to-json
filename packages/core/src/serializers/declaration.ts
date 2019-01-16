@@ -1,6 +1,7 @@
 import { Declaration, TypeChecker } from 'typescript';
 import Collector from '../collector';
-import { DeclarationRef, SerializedDeclaration, SourceFileRef } from '../types';
+import { DeclarationRef, SourceFileRef } from '../types/ref';
+import { SerializedDeclaration } from '../types/serialized-entities';
 import serializeNode from './node';
 
 /**

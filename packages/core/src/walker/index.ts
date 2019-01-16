@@ -8,18 +8,14 @@ import serializeNode from '../serializers/node';
 import serializeSourceFile from '../serializers/source-file';
 import serializeSymbol from '../serializers/symbol';
 import serializeType from '../serializers/type';
+import { DeclarationRef, NodeRef, SourceFileRef, SymbolRef, TypeRef } from '../types/ref';
 import {
-  DeclarationRef,
-  NodeRef,
   SerializedDeclaration,
   SerializedNode,
   SerializedSourceFile,
   SerializedSymbol,
   SerializedType,
-  SourceFileRef,
-  SymbolRef,
-  TypeRef,
-} from '../types';
+} from '../types/serialized-entities';
 import { createWalkerConfig, populateWalkerOptions, WalkerOptions } from './options';
 
 export interface WalkerOutputData {

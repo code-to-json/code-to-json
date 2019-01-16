@@ -9,9 +9,11 @@ import {
   isVariableDeclaration,
   NamedDeclaration,
   Node,
+  ObjectType,
   Symbol as Sym,
   SyntaxKind,
   Type,
+  TypeFlags,
 } from 'typescript';
 
 const DECLARATION_KINDS = [
@@ -109,4 +111,13 @@ export function isSymbol(thing?: Sym | Type | Node): thing is Sym {
  */
 export function isNode(thing?: Sym | Type | Node): thing is Node {
   return !!thing && typeof (thing as Node).getChildAt === 'function';
+}
+
+/**
+ * Check whether a Type is an ObjectType
+ * @param type ts.Type
+ */
+export function isObjectType(type: Type): type is ObjectType {
+  // tslint:disable-next-line:no-bitwise
+  return !!(type.flags & TypeFlags.Object);
 }

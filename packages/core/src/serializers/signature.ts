@@ -1,7 +1,7 @@
 import { isRef } from '@code-to-json/utils';
 import { displayPartsToString, Signature, TypeChecker } from 'typescript';
 import Collector from '../collector';
-import { DeclarationRef, SymbolRef, TypeRef } from '../types';
+import { DeclarationRef, SymbolRef, TypeRef } from '../types/ref';
 
 export interface SerializedSignature {
   parameters?: SymbolRef[];

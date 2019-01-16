@@ -1,5 +1,5 @@
 import { FileReference } from 'typescript';
-import { CodeRange, SerializedFileReference } from '../types';
+import { SerializedFileReference } from '../types/serialized-entities';
 
 /**
  * Serialize a FileReference to a POJO

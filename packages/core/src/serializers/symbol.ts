@@ -1,11 +1,11 @@
 import { parseCommentString } from '@code-to-json/comments';
 import { conditionallyMergeTransformed, isRef, refId } from '@code-to-json/utils';
-import { mapUem } from '@code-to-json/utils-ts';
+import { flagsToString, mapUem } from '@code-to-json/utils-ts';
 import * as ts from 'typescript';
 import Collector from '../collector';
-import { flagsToString } from '../flags';
 import { ProcessingQueue } from '../processing-queue';
-import { SerializedSymbol, SymbolRef } from '../types';
+import { SymbolRef } from '../types/ref';
+import { SerializedSymbol } from '../types/serialized-entities';
 import serializeLocation from './location';
 import serializeSignature from './signature';
 

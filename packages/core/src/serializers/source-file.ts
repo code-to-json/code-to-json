@@ -2,7 +2,8 @@ import { parseCommentString } from '@code-to-json/comments';
 import { refId } from '@code-to-json/utils';
 import * as ts from 'typescript';
 import Collector from '../collector';
-import { SerializedSourceFile, SourceFileRef } from '../types';
+import { SourceFileRef } from '../types/ref';
+import { SerializedSourceFile } from '../types/serialized-entities';
 import serializeAmdDependency from './amd-dependency';
 import serializeFileReference from './file-reference';
 
