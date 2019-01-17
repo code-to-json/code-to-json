@@ -22,6 +22,9 @@ module.exports = {
     'no-plusplus': 'off',
     'no-useless-constructor': 'off',
     'import/prefer-default-export': 'off',
+    'no-use-before-define': 'off',
+    'no-bitwise': 'off',
+    'no-restricted-syntax': 'off',
   },
   overrides: [
     {
