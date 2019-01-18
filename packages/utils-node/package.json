@@ -29,7 +29,7 @@
     "@types/rimraf": "2.0.2",
     "@types/tmp": "0.0.33",
     "chai": "4.2.0",
-    "eslint": "5.12.0",
+    "eslint": "5.12.1",
     "eslint-config-airbnb-base": "13.1.0",
     "eslint-config-prettier": "3.5.0",
     "eslint-plugin-import": "2.14.0",
