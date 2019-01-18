@@ -48,7 +48,7 @@
     "tslint-config-prettier": "1.17.0",
     "tslint-sonarts": "1.8.0",
     "typescript": "3.2.2",
-    "typescript-eslint-parser": "21.0.2"
+    "typescript-eslint-parser": "22.0.0"
   },
   "dependencies": {
     "@code-to-json/core": "^0.16.2",
