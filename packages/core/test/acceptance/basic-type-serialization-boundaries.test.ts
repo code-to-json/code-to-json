@@ -130,4 +130,24 @@ class TypeSerialiationBoundaryTests {
     });
     cleanup();
   }
+
+  @test
+  public async "const x: Pick<Promise<number>, 'then'>"(): Promise<void> {
+    const { exports, cleanup } = await singleExportModuleExports(
+      `export const x: Pick<Promise<number>, 'then'> = Promise.resolve(4).then;`,
+    );
+    expect(exports).to.deep.eq({
+      x: {
+        name: 'x',
+        type: {
+          flags: ['Object'],
+          libName: 'lib.es5.d.ts',
+          objectFlags: ['Mapped', 'Instantiated'],
+          typeKind: 'lib',
+          typeString: 'Pick<Promise<number>, "then">',
+        },
+      },
+    });
+    cleanup();
+  }
 }

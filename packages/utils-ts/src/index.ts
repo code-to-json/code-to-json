@@ -19,3 +19,4 @@ export { generateId, generateHash } from './generate-id';
 export { flagsToString, getObjectFlags, Flags } from './flags';
 export { getTsLibFilename } from './ts-libs';
 export { relevantTypeForSymbol, relevantDeclarationForSymbol } from './symbol';
+export { getFirstIdentifier } from './ts-internal';

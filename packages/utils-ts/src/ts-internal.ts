@@ -1,5 +1,5 @@
-/* eslint-disable prefer-rest-params */
-
+import { UnreachableError } from '@code-to-json/utils';
+import { Dict } from '@mike-north/types';
 import * as ts from 'typescript';
 
 const tsany = ts as any;
@@ -8,6 +8,7 @@ const tsany = ts as any;
 export function getDirectoryPath(path: ts.Path): ts.Path;
 export function getDirectoryPath(path: string): string;
 export function getDirectoryPath(this: any): string | ts.Path {
+  // eslint-disable-next-line prefer-rest-params
   return tsany.getDirectoryPath.apply(this, arguments);
 }
 
@@ -19,4 +20,30 @@ export function combinePaths(path1: string, path2: string): string {
 // https://github.com/Microsoft/TypeScript/blob/v2.2.1/src/compiler/core.ts#L1418
 export function normalizePath(path: string): string {
   return tsany.normalizePath(path);
+}
+
+/**
+ * @private
+ * @see https://raw.githubusercontent.com/Microsoft/TypeScript/9bd23652ef8c4e6a614a2f27c467b1a68ce3340e/src/compiler/checker.ts
+ */
+export function getFirstIdentifier(node: ts.EntityNameOrEntityNameExpression): ts.Identifier {
+  const { kind } = node;
+  switch (kind) {
+    case ts.SyntaxKind.Identifier:
+      return node as ts.Identifier;
+    case ts.SyntaxKind.QualifiedName:
+      do {
+        // eslint-disable-next-line no-param-reassign
+        node = (node as ts.QualifiedName).left;
+      } while (node.kind !== ts.SyntaxKind.Identifier);
+      return node as ts.Identifier;
+    case ts.SyntaxKind.PropertyAccessExpression:
+      do {
+        // eslint-disable-next-line no-param-reassign
+        node = (node as ts.PropertyAccessExpression).expression as any;
+      } while (node.kind !== ts.SyntaxKind.Identifier);
+      return node as ts.Identifier;
+    default:
+      throw new UnreachableError(kind);
+  }
 }
