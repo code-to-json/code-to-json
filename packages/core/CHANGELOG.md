@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.17.0](https://github.com/mike-north/code-to-json/compare/@code-to-json/core@0.16.2...@code-to-json/core@0.17.0) (2019-01-19)
+
+
+### Features
+
+* document and refactor core module ([771f5b4](https://github.com/mike-north/code-to-json/commit/771f5b4))
+* move more utilities to utils-ts ([7c84ca6](https://github.com/mike-north/code-to-json/commit/7c84ca6))
+
+
+
+
+
 ## [0.16.2](https://github.com/mike-north/code-to-json/compare/@code-to-json/core@0.16.1...@code-to-json/core@0.16.2) (2019-01-15)
 
 

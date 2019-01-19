@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.10.0](https://github.com/mike-north/code-to-json/compare/@code-to-json/cli@0.9.15...@code-to-json/cli@0.10.0) (2019-01-19)
+
+
+### Features
+
+* refactor & documentation for cli module ([584133d](https://github.com/mike-north/code-to-json/commit/584133d))
+
+
+
+
+
 ## [0.9.15](https://github.com/mike-north/code-to-json/compare/@code-to-json/cli@0.9.14...@code-to-json/cli@0.9.15) (2019-01-15)
 
 **Note:** Version bump only for package @code-to-json/cli
