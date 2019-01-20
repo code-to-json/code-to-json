@@ -86,6 +86,7 @@ class SymbolFormatterTests {
       id: '1234',
       name: 'foo',
       entity: 'symbol',
+      exports: {},
     };
     const wo: WalkerOutputData = {
       symbols: {
@@ -135,7 +136,9 @@ class SymbolFormatterTests {
   public async 'with bad member reference'() {
     const sym: SerializedSymbol = {
       id: '1234',
-      // members: [['symbol', '3'] as any],
+      members: {
+        someMember: ['symbol', '3'] as any,
+      },
       name: 'foo',
       entity: 'symbol',
     };
@@ -148,7 +151,7 @@ class SymbolFormatterTests {
       declarations: {},
       sourceFiles: {},
     };
-    expect(formatSymbol(wo, sym, createDataCollector())).to.deep.eq({
+    expect(formatSymbol(wo, sym, createDataCollector())).to.deep.include({
       name: 'foo',
     });
   }
@@ -159,6 +162,7 @@ class SymbolFormatterTests {
       id: '1234',
       name: 'foo',
       entity: 'symbol',
+      members: {},
     };
     const wo: WalkerOutputData = {
       symbols: {
@@ -178,7 +182,9 @@ class SymbolFormatterTests {
   public async 'with bad export reference'() {
     const sym: SerializedSymbol = {
       id: '1234',
-      // exports: [['symbol', '3'] as any],
+      exports: {
+        foo: ['symbol', '3'] as any,
+      },
       name: 'foo',
       entity: 'symbol',
     };
@@ -191,28 +197,7 @@ class SymbolFormatterTests {
       declarations: {},
       sourceFiles: {},
     };
-    expect(formatSymbol(wo, sym, createDataCollector())).to.deep.eq({
-      name: 'foo',
-    });
-  }
-
-  @test
-  public async 'with call and constructor signatures'() {
-    const sym: SerializedSymbol = {
-      id: '1234',
-      name: 'foo',
-      entity: 'symbol',
-    };
-    const wo: WalkerOutputData = {
-      symbols: {
-        '1234': sym,
-      },
-      types: {},
-      nodes: {},
-      declarations: {},
-      sourceFiles: {},
-    };
-    expect(formatSymbol(wo, sym, createDataCollector())).to.deep.eq({
+    expect(formatSymbol(wo, sym, createDataCollector())).to.deep.include({
       name: 'foo',
     });
   }

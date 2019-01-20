@@ -14,7 +14,7 @@ async function makeWorkspace(): Promise<TestCaseFolder> {
       },
     }),
     src: {
-      'index.ts': "export const x: string = 'foo';",
+      'index.ts': "const x: string = 'foo';",
       'other.ts': "const y: string = 'bar';",
       'more.js': "const z = 'baz';",
     },

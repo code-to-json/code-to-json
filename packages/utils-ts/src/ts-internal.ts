@@ -36,13 +36,13 @@ export function getFirstIdentifier(node: ts.EntityNameOrEntityNameExpression): t
         // eslint-disable-next-line no-param-reassign
         node = (node as ts.QualifiedName).left;
       } while (node.kind !== ts.SyntaxKind.Identifier);
-      return node as ts.Identifier;
+      return node;
     case ts.SyntaxKind.PropertyAccessExpression:
       do {
         // eslint-disable-next-line no-param-reassign
         node = (node as ts.PropertyAccessExpression).expression as any;
       } while (node.kind !== ts.SyntaxKind.Identifier);
-      return node as ts.Identifier;
+      return node;
     default:
       throw new UnreachableError(kind);
   }

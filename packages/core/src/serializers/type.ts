@@ -39,7 +39,7 @@ function serializeMappedType(
   c: Collector,
 ): Partial<SerializedType> {
   const { queue: q } = c;
-  const { typeParameter, constraintType, templateType, modifiersType, symbol } = type;
+  const { typeParameter, constraintType, templateType, modifiersType } = type;
   const out: Partial<SerializedType> = {
     typeParameters: [q.queue(typeParameter, 'type')].filter(isRef),
     constraint: q.queue(constraintType, 'type'),
