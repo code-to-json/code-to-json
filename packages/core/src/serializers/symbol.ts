@@ -1,3 +1,4 @@
+import { parseCommentString } from '@code-to-json/comments';
 import { forEach, refId } from '@code-to-json/utils';
 import {
   flagsToString,
@@ -28,6 +29,7 @@ export default function serializeSymbol(
 ): SerializedSymbol {
   const { queue: q } = c;
   const { flags, name, exports: exportedSymbols } = symbol;
+
   // starting point w/ minimal (and mandatory) information
   const serialized: SerializedSymbol = {
     id: refId(ref),
@@ -36,14 +38,27 @@ export default function serializeSymbol(
     flags: flagsToString(flags, 'symbol'),
     type: q.queue(relevantTypeForSymbol(checker, symbol), 'type'),
   };
+
   if (!c.cfg.shouldSerializeSymbolDetails(symbol)) {
     return serialized;
   }
+
   if (exportedSymbols) {
     serialized.exports = mapDict(exportedSymbols, exp => q.queue(exp, 'symbol'));
   }
   const decl = relevantDeclarationForSymbol(symbol);
   if (decl) {
+    if (symbol.getJsDocTags().length > 0 || symbol.getDocumentationComment(checker).length > 0) {
+      let relevantNode: ts.Node = decl;
+      while (!(relevantNode as any).jsDoc || (relevantNode as any).jsDoc.length === 0) {
+        relevantNode = relevantNode.parent;
+      }
+      const { jsDoc }: { jsDoc?: ts.Node[] } = relevantNode as any;
+      if (jsDoc && jsDoc.length > 0) {
+        const commentText: string = jsDoc[0].getText();
+        serialized.documentation = parseCommentString(commentText);
+      }
+    }
     const { pos, end } = decl;
     const sourceFile = decl.getSourceFile();
     serialized.sourceFile = q.queue(sourceFile, 'sourceFile');

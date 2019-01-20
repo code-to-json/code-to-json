@@ -130,7 +130,7 @@ export interface SerializedHeritageClause {
 /**
  * Serialized representation of a type
  */
-export interface SerializedType extends SerializedEntity<'type'> {
+export interface SerializedType extends SerializedEntity<'type'>, HasDocumentation {
   aliasTypeArguments?: TypeRef[];
   typeArguments?: TypeRef[];
   typeParameters?: TypeRef[];

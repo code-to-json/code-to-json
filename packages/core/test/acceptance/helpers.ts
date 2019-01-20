@@ -1,3 +1,4 @@
+import { CommentData } from '@code-to-json/comments';
 import { setupTestCase } from '@code-to-json/test-helpers';
 import { refId, refType, UnreachableError } from '@code-to-json/utils';
 import { nodeHost } from '@code-to-json/utils-node';
@@ -16,6 +17,7 @@ interface TypeSummary {
 interface ExportSummary {
   name: string;
   type?: TypeSummary;
+  documentation?: CommentData;
 }
 
 interface ExportSummaries {
@@ -23,8 +25,9 @@ interface ExportSummaries {
 }
 
 function summarizeType(typ: SerializedType): TypeSummary {
-  const { flags, objectFlags, libName, typeString } = typ;
+  const { flags, objectFlags, libName, typeString, documentation } = typ;
   const out: TypeSummary = { flags, typeString };
+
   if (libName) {
     out.libName = libName;
   }
@@ -100,8 +103,11 @@ export async function singleExportModuleExports(
   const exports = reduceDict(
     mapDict(exportList, exp => symbols[refId(exp)]),
     (summaries, exp) => {
-      const { name, type: expTypeRef } = exp;
+      const { name, type: expTypeRef, documentation } = exp;
       const summary: ExportSummary = { name };
+      if (documentation) {
+        summary.documentation = documentation;
+      }
       if (expTypeRef) {
         const typ = types[refId(expTypeRef)];
         if (!typ) {

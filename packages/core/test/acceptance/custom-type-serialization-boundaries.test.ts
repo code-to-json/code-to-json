@@ -23,4 +23,36 @@ export const x: Foo = { num: 4 };`);
     });
     cleanup();
   }
+
+  @test
+  public async 'with comments'(): Promise<void> {
+    const { exports, cleanup } = await singleExportModuleExports(`interface Foo { num: number; }
+
+/**
+ * A thing
+ * @see Mike
+ */
+export const x: Foo = { num: 4 };`);
+    expect(exports).to.deep.eq({
+      x: {
+        name: 'x',
+        type: {
+          flags: ['Object'],
+          objectFlags: ['Interface'],
+          typeString: 'Foo',
+        },
+        documentation: {
+          customTags: [
+            {
+              content: ['Mike'],
+              kind: 'blockTag',
+              tagName: 'see',
+            },
+          ],
+          summary: ['A thing'],
+        },
+      },
+    });
+    cleanup();
+  }
 }
