@@ -51,19 +51,15 @@ class TypeSerialiationBoundaryTests {
 
   @test
   public async 'export let x: string | number = 33;'(): Promise<void> {
-    const { exports, cleanup } = await singleExportModuleExports(
+    const { exports: allExports, cleanup } = await singleExportModuleExports(
       'export let x: string | number = 33;',
     );
-    expect(exports).to.deep.eq({
-      x: {
-        name: 'x',
-        type: {
-          flags: ['Union'],
-
-          typeString: 'string | number',
-        },
-      },
-    });
+    const { x } = allExports;
+    expect(!!x).to.eq(true);
+    expect(x.name).to.eq('x');
+    expect(x.type).to.be.a('object');
+    expect(x.type!.typeString).to.eql('string | number');
+    expect(x.type!.flags).to.include('Union');
     cleanup();
   }
 
