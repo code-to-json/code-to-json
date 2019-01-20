@@ -37,7 +37,7 @@ export interface QueueProcessors<S, T, N, D, SF> {
  */
 export interface Queue {
   queue<K extends keyof EntityMap, E extends EntityMap[K]>(
-    thing: E,
+    thing: E | undefined,
     refType: K,
   ): RefFor<RefRegistry, K> | undefined;
   process<S, T, N, D, SF>(
@@ -84,9 +84,12 @@ export function create(checker: ts.TypeChecker): Queue {
 
   return {
     queue<K extends keyof EntityMap>(
-      thing: EntityMap[K],
+      thing: EntityMap[K] | undefined,
       typ: K,
     ): RefFor<RefRegistry, K> | undefined {
+      if (!thing) {
+        return undefined;
+      }
       const refType: keyof EntityMap = typ;
       switch (refType) {
         case 'declaration':

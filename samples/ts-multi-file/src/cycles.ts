@@ -3,7 +3,7 @@ import Vehicle from './vehicle';
 /**
  * A bike is a 2-wheeled vehicle
  */
-export class Bike extends Vehicle {
+export class Bike extends Vehicle<2> {
   constructor() {
     super(2);
   }
@@ -12,7 +12,7 @@ export class Bike extends Vehicle {
 /**
  * A Unicycle is a 1-wheeled vehicle
  */
-export class Unicycle extends Vehicle {
+export class Unicycle extends Vehicle<1> {
   constructor() {
     super(1);
   }

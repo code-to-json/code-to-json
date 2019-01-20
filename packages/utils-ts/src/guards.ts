@@ -1,5 +1,6 @@
 import {
   Declaration,
+  InterfaceType,
   isClassLike,
   isFunctionLike,
   isObjectLiteralElement,
@@ -9,12 +10,16 @@ import {
   isVariableDeclaration,
   NamedDeclaration,
   Node,
+  ObjectFlags,
   ObjectType,
   Symbol as Sym,
   SyntaxKind,
+  TupleType,
   Type,
   TypeFlags,
+  TypeReference,
 } from 'typescript';
+import { AnonymousType, MappedType } from './ts-internal';
 
 const DECLARATION_KINDS = [
   SyntaxKind.SourceFile,
@@ -115,9 +120,40 @@ export function isNode(thing?: Sym | Type | Node): thing is Node {
 
 /**
  * Check whether a Type is an ObjectType
- * @param type ts.Type
+ * @param type Type
  */
 export function isObjectType(type: Type): type is ObjectType {
-  // tslint:disable-next-line:no-bitwise
   return !!(type.flags & TypeFlags.Object);
+}
+
+export function isObjectReferenceType(type: ObjectType): type is TypeReference {
+  return !!(type.objectFlags & ObjectFlags.Reference);
+}
+
+export function isTupleType(type: ObjectType): type is TupleType {
+  return !!(type.objectFlags & ObjectFlags.Tuple);
+}
+
+export function isAnonymousType(type: ObjectType): type is AnonymousType {
+  return !!(type.objectFlags & ObjectFlags.Anonymous);
+}
+
+export function isMappedType(type: ObjectType): type is MappedType {
+  return !!(type.objectFlags & ObjectFlags.Mapped);
+}
+
+export function isClassOrInterfaceType(type: ObjectType): type is InterfaceType {
+  return !!(type.objectFlags & (ObjectFlags.Class | ObjectFlags.Interface));
+}
+
+const PRIMITIVE_TYPES =
+  TypeFlags.Number |
+  TypeFlags.String |
+  TypeFlags.Boolean |
+  TypeFlags.ESSymbol |
+  TypeFlags.Void |
+  TypeFlags.Undefined |
+  TypeFlags.Null;
+export function isPrimitiveType(type: Type): boolean {
+  return !!(type.flags & PRIMITIVE_TYPES);
 }

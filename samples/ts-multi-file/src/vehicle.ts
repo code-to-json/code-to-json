@@ -1,12 +1,12 @@
 /**
  * A vehicle is a thing that goes places
  */
-export default class Vehicle {
+export default class Vehicle<N extends number> {
   /**
    * Create a new vehicle
-   * @param {number} numWheels Number of wheels
+   * @param numWheels Number of wheels
    */
-  constructor(protected numWheels: number) {}
+  constructor(protected numWheels: N) {}
   /**
    * Drive the vehicle
    * @returns {string}

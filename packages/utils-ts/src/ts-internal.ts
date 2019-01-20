@@ -47,3 +47,30 @@ export function getFirstIdentifier(node: ts.EntityNameOrEntityNameExpression): t
       throw new UnreachableError(kind);
   }
 }
+
+/**
+ * @private
+ */
+export type TypeMapper = (t: ts.TypeParameter) => ts.Type;
+
+/**
+ * An instantiated anonymous type has a target and a mapper
+ * @private
+ */
+export interface AnonymousType extends ts.ObjectType {
+  target?: AnonymousType; // Instantiation target
+  mapper?: TypeMapper; // Instantiation mapper
+}
+
+/**
+ * @private
+ */
+export interface MappedType extends AnonymousType {
+  declaration: ts.MappedTypeNode;
+  typeParameter?: ts.TypeParameter;
+  constraintType?: ts.Type;
+  templateType?: ts.Type;
+  modifiersType?: ts.Type;
+  resolvedApparentType?: ts.Type;
+  instantiating?: boolean;
+}

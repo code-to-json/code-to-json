@@ -3,7 +3,7 @@ import { expect } from 'chai';
 import { suite, test } from 'mocha-typescript';
 import * as ts from 'typescript';
 import { generateId } from '../src/generate-id';
-import { createProgramFromCodeString, mapUem } from '../src/index';
+import { createProgramFromCodeString, mapDict } from '../src/index';
 
 @suite
 class GenerateIdTests {
@@ -110,8 +110,9 @@ export const x: string = 'foo';
     if (!members) {
       throw new Error('No members in class');
     }
-    const memberSyms = mapUem(members, s => s);
-    const [memberSym] = memberSyms;
+    const memberSyms = mapDict(members, s => s);
+    const memberSym = memberSyms[Object.keys(memberSyms)[0]];
+    if (!memberSym) { throw new Error('Expected to find at least one member symbol'); }
     const [memberDecl] = memberSym.declarations;
     expect(memberDecl.getText()).to.eql('public wheels: number = 4;');
     expect(generateId(memberDecl))

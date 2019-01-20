@@ -1,10 +1,10 @@
 import { SerializedType, TypeRef, WalkerOutputData } from '@code-to-json/core';
-import { isRef, isTruthy } from '@code-to-json/utils';
+import { isDefined, isRef } from '@code-to-json/utils';
 import { DataCollector } from './data-collector';
 import formatFlags from './flags';
 import resolveReference from './resolve-reference';
 import { FormattedType, FormattedTypeRef } from './types';
-import { symbolRefListToFormattedSymbolMap } from './utils';
+import { formatSymbolRefMap } from './utils';
 
 function resolveAndFormatType(
   wo: WalkerOutputData,
@@ -37,6 +37,11 @@ export default function formatType(
     aliasTypeArguments: aliasTypeArgumentRefs,
     defaultType: defaultTypeRef,
     constraint: constraintRef,
+    properties,
+    libName,
+    numberIndexType,
+    stringIndexType,
+    baseTypes,
   } = type;
 
   const typeInfo: FormattedType = {
@@ -50,7 +55,7 @@ export default function formatType(
   if (aliasTypeArgumentRefs) {
     typeInfo.aliasTypeArguments = aliasTypeArgumentRefs
       .map(r => collector.queue(resolveReference(wo, r), 't'))
-      .filter(isTruthy);
+      .filter(isDefined);
   }
   if (constraintRef) {
     typeInfo.constraint = collector.queue(resolveReference(wo, constraintRef), 't');
@@ -58,34 +63,28 @@ export default function formatType(
   if (defaultTypeRef) {
     typeInfo.defaultType = collector.queue(resolveReference(wo, defaultTypeRef), 't');
   }
-  if (type.typeKind === 'custom' || type.typeKind === 'lib') {
-    const { libName, numberIndexType, stringIndexType, baseTypes } = type;
-    if (libName) {
-      typeInfo.libName = libName;
-    }
-    if (baseTypes && baseTypes.length > 0) {
-      typeInfo.baseTypes = baseTypes
-        .map(bt => collector.queue(resolveReference(wo, bt), 't'))
-        .filter(isRef);
-    }
-    const numberIndexTypeArr = resolveAndFormatType(wo, collector, numberIndexType);
-    const stringIndexTypeArr = resolveAndFormatType(wo, collector, stringIndexType);
-    if (numberIndexTypeArr && numberIndexTypeArr.length > 0) {
-      typeInfo.numberIndexType = numberIndexTypeArr;
-    }
-    if (stringIndexTypeArr && stringIndexTypeArr.length > 0) {
-      typeInfo.stringIndexType = stringIndexTypeArr;
-    }
+  if (libName) {
+    typeInfo.libName = libName;
   }
-  if (type.typeKind === 'custom') {
-    const { properties } = type;
-    if (properties && properties.length > 0) {
-      typeInfo.properties = symbolRefListToFormattedSymbolMap(properties, wo, collector);
-    }
-    if (constraintRef) {
-      const constraint = resolveReference(wo, constraintRef);
-      typeInfo.constraint = collector.queue(constraint, 't');
-    }
+  if (baseTypes && baseTypes.length > 0) {
+    typeInfo.baseTypes = baseTypes
+      .map(bt => collector.queue(resolveReference(wo, bt), 't'))
+      .filter(isRef);
+  }
+  const numberIndexTypeArr = resolveAndFormatType(wo, collector, numberIndexType);
+  const stringIndexTypeArr = resolveAndFormatType(wo, collector, stringIndexType);
+  if (numberIndexTypeArr && numberIndexTypeArr.length > 0) {
+    typeInfo.numberIndexType = numberIndexTypeArr;
+  }
+  if (stringIndexTypeArr && stringIndexTypeArr.length > 0) {
+    typeInfo.stringIndexType = stringIndexTypeArr;
+  }
+  if (properties && Object.keys(properties).length > 0) {
+    typeInfo.properties = formatSymbolRefMap(properties, wo, collector);
+  }
+  if (constraintRef) {
+    const constraint = resolveReference(wo, constraintRef);
+    typeInfo.constraint = collector.queue(constraint, 't');
   }
 
   return typeInfo;

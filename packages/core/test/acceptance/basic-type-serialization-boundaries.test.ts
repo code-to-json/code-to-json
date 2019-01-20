@@ -14,7 +14,6 @@ class TypeSerialiationBoundaryTests {
         name: 'x',
         type: {
           flags: ['Number'],
-          typeKind: 'atomic',
           typeString: 'number',
         },
       },
@@ -29,7 +28,6 @@ class TypeSerialiationBoundaryTests {
       name: 'x',
     });
     expect(exports.x.type).to.include({
-      typeKind: 'atomic',
       typeString: '1',
     });
     expect(exports.x.type!.flags).to.contain('NumberLiteral');
@@ -45,7 +43,6 @@ class TypeSerialiationBoundaryTests {
         type: {
           flags: ['Number'],
           typeString: 'number',
-          typeKind: 'atomic',
         },
       },
     });
@@ -62,7 +59,7 @@ class TypeSerialiationBoundaryTests {
         name: 'x',
         type: {
           flags: ['Union'],
-          typeKind: 'atomic',
+
           typeString: 'string | number',
         },
       },
@@ -80,7 +77,6 @@ class TypeSerialiationBoundaryTests {
         name: 'x',
         type: {
           flags: ['Object'],
-          typeKind: 'lib',
           objectFlags: ['Reference'],
           libName: 'lib.es5.d.ts',
           typeString: 'string[]',
@@ -102,7 +98,7 @@ class TypeSerialiationBoundaryTests {
           flags: ['Object'],
           libName: 'lib.es5.d.ts',
           objectFlags: ['Reference'],
-          typeKind: 'lib',
+
           typeString: 'Promise<number>',
         },
       },
@@ -123,7 +119,7 @@ class TypeSerialiationBoundaryTests {
         type: {
           flags: ['Object'],
           objectFlags: ['Anonymous'],
-          typeKind: 'custom',
+
           typeString: '{ p: Promise<number[]>; }',
         },
       },
@@ -143,7 +139,7 @@ class TypeSerialiationBoundaryTests {
           flags: ['Object'],
           libName: 'lib.es5.d.ts',
           objectFlags: ['Mapped', 'Instantiated'],
-          typeKind: 'lib',
+
           typeString: 'Pick<Promise<number>, "then">',
         },
       },

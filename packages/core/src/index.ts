@@ -6,9 +6,6 @@ export {
   SerializedSymbol,
   SerializedType,
   SerializedAmdDependency,
-  SerializedLibType as SerializedBuiltInType,
-  SerializedAtomicType as SerializedCoreType,
-  SerializedCustomType,
   SerializedFileReference,
 } from './types/serialized-entities';
 export {

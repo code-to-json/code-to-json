@@ -1,112 +1,202 @@
-import { isRef, isTruthy, refId } from '@code-to-json/utils';
+import { isDefined, isRef, refId } from '@code-to-json/utils';
 import {
   flagsToString,
-  getObjectFlags,
   getTsLibFilename,
+  isAnonymousType,
+  isClassOrInterfaceType,
+  isMappedType,
+  isObjectReferenceType,
+  isObjectType,
+  isTupleType,
+  MappedType,
   relevantDeclarationForSymbol,
 } from '@code-to-json/utils-ts';
+import { isPrimitiveType } from '@code-to-json/utils-ts/lib/src/guards';
+import { Dict } from '@mike-north/types';
 import * as ts from 'typescript';
-import { Queue } from '../processing-queue';
-import { TypeRef } from '../types/ref';
-import {
-  SerializedAtomicType,
-  SerializedCustomType,
-  SerializedLibType,
-  SerializedType,
-} from '../types/serialized-entities';
+import { SymbolRef, TypeRef } from '../types/ref';
+import { SerializedType } from '../types/serialized-entities';
 import { Collector } from '../types/walker';
+import serializeSignature from './signature';
 
-function serializeCoreType(
-  typ: ts.Type,
-  ref: TypeRef,
+function serializeTypeReference(
+  type: ts.TypeReference,
   checker: ts.TypeChecker,
-  q: Queue,
-): SerializedAtomicType {
-  const { flags: rawFlags, aliasSymbol, aliasTypeArguments } = typ;
-  const id = refId(ref);
-  const flags = flagsToString(rawFlags, 'type');
-  const typeString = checker.typeToString(typ);
-  const objFlags = getObjectFlags(typ);
-  const objectFlags = objFlags ? flagsToString(objFlags, 'object') : undefined;
-
-  const defaultType = typ.getDefault();
-  const typeData: SerializedAtomicType = {
-    id,
-    entity: 'type',
-    typeKind: 'atomic',
-    typeString,
-    flags,
-    objectFlags,
-    aliasTypeArguments:
-      aliasTypeArguments && aliasTypeArguments.map(ata => q.queue(ata, 'type')).filter(isRef),
-    aliasSymbol: aliasSymbol && q.queue(aliasSymbol, 'symbol'),
-  };
-  if (defaultType) {
-    typeData.defaultType = q.queue(defaultType, 'type');
+  c: Collector,
+): Partial<SerializedType> {
+  const { queue: q } = c;
+  const { target, typeArguments } = type;
+  const out: Partial<SerializedType> = { target: q.queue(target, 'type') };
+  if (typeArguments) {
+    out.typeArguments = typeArguments.map(ta => q.queue(ta, 'type')).filter(isRef);
   }
+  return out;
+}
+
+function serializeMappedType(
+  type: MappedType,
+  checker: ts.TypeChecker,
+  c: Collector,
+): Partial<SerializedType> {
+  const { queue: q } = c;
+  const { typeParameter, constraintType, templateType, modifiersType, symbol } = type;
+  const out: Partial<SerializedType> = {
+    typeParameters: [q.queue(typeParameter, 'type')].filter(isRef),
+    constraint: q.queue(constraintType, 'type'),
+    templateType: q.queue(templateType, 'type'),
+    modifiersType: q.queue(modifiersType, 'type'),
+  };
+  return out;
+}
+
+function serializeInterfaceType(
+  type: ts.InterfaceType,
+  checker: ts.TypeChecker,
+  c: Collector,
+): Partial<SerializedType> {
+  const { typeParameters, thisType } = type;
+  const baseTypes = type.getBaseTypes();
+  const out: Partial<SerializedType> = {
+    ...serializeObjectType(type, checker, c),
+  };
+  if (typeParameters && typeParameters.length > 0) {
+    out.typeParameters = typeParameters.map(tp => c.queue.queue(tp, 'type')).filter(isRef);
+  }
+  if (baseTypes && baseTypes.length > 0) {
+    out.baseTypes = baseTypes.map(bt => c.queue.queue(bt, 'type')).filter(isRef);
+  }
+  if (thisType) {
+    out.thisType = c.queue.queue(thisType, 'type');
+  }
+
+  return out;
+}
+
+function serializeObjectType(
+  type: ts.ObjectType,
+  checker: ts.TypeChecker,
+  c: Collector,
+): Partial<SerializedType> {
+  const { objectFlags } = type;
+  const out: Partial<SerializedType> = {
+    objectFlags: flagsToString(objectFlags, 'object'),
+  };
+  const { queue: q } = c;
+  const stringIndexType = checker.getIndexTypeOfType(type, ts.IndexKind.String);
+  if (stringIndexType) {
+    out.stringIndexType = q.queue(stringIndexType, 'type');
+  }
+  const numberIndexType = checker.getIndexTypeOfType(type, ts.IndexKind.Number);
+  if (numberIndexType) {
+    out.numberIndexType = q.queue(numberIndexType, 'type');
+  }
+  const callSignatures = type.getCallSignatures();
+  if (callSignatures && callSignatures.length > 0) {
+    out.callSignatures = callSignatures.map(cs => serializeSignature(cs, checker, c));
+  }
+  const constructSignatures = type.getConstructSignatures();
+  if (constructSignatures && constructSignatures.length > 0) {
+    out.constructorSignatures = constructSignatures.map(cs => serializeSignature(cs, checker, c));
+  }
+  const properties: ts.Symbol[] = type.getProperties();
+  if (properties && properties.length > 0) {
+    out.properties = properties.reduce(
+      (props, prop) => {
+        const k = prop.name;
+        // eslint-disable-next-line no-param-reassign
+        props[k] = q.queue(prop, 'symbol');
+        return props;
+      },
+      {} as Dict<SymbolRef>,
+    );
+  }
+  return out;
+}
+
+function serializeRelatedTypes(
+  type: ts.ObjectType,
+  checker: ts.TypeChecker,
+  c: Collector,
+): Partial<SerializedType> {
+  const out: Partial<SerializedType> = {};
+  if (type.objectFlags) {
+    out.objectFlags = flagsToString(type.objectFlags, 'object');
+  }
+  if (isObjectReferenceType(type)) {
+    Object.assign(out, serializeTypeReference(type, checker, c));
+  }
+  if (isMappedType(type)) {
+    Object.assign(out, serializeMappedType(type, checker, c));
+  }
+  if (isClassOrInterfaceType(type)) {
+    Object.assign(out, serializeInterfaceType(type, checker, c));
+  }
+  if (isTupleType(type) || isAnonymousType(type)) {
+    Object.assign(out, serializeObjectType(type, checker, c));
+  }
+  return out;
+}
+
+function isIndexType(type: ts.Type): type is ts.IndexType {
+  return !!(type.flags & ts.TypeFlags.Index);
+}
+
+function isIndexedAccessType(type: ts.Type): type is ts.IndexedAccessType {
+  return !!(type.flags & ts.TypeFlags.IndexedAccess);
+}
+
+function serializeTypeParameterType(
+  typ: ts.TypeParameter,
+  _checker: ts.TypeChecker,
+  c: Collector,
+): Partial<SerializedType> {
+  const out: Partial<SerializedType> = {};
   const constraint = typ.getConstraint();
   if (constraint) {
-    typeData.constraint = q.queue(constraint, 'type');
+    out.constraint = c.queue.queue(typ, 'type');
   }
-  return typeData;
+  return out;
 }
-
-function serializeBuiltInType(
-  typ: ts.Type,
-  ref: TypeRef,
-  checker: ts.TypeChecker,
-  decl: ts.Declaration,
-  q: Queue,
-): SerializedLibType {
-  const { fileName, moduleName } = decl.getSourceFile();
-  const libName = getTsLibFilename(fileName);
-  const t: SerializedLibType = {
-    ...serializeCoreType(typ, ref, checker, q),
-    typeKind: 'lib',
-    libName,
-    moduleName,
+function serializeUnionOrIntersectionType(
+  typ: ts.UnionOrIntersectionType,
+  _checker: ts.TypeChecker,
+  c: Collector,
+): Partial<SerializedType> {
+  const out: Partial<SerializedType> = {
+    types: typ.types.map(t => c.queue.queue(t, 'type')).filter(isDefined),
   };
-
-  const defaultType = typ.getDefault();
-  if (defaultType) {
-    t.default = q.queue(defaultType, 'type');
-  }
-  const numberIdxType = typ.getNumberIndexType();
-  if (numberIdxType) {
-    t.numberIndexType = q.queue(numberIdxType, 'type');
-  }
-  const stringIdxType = typ.getStringIndexType();
-  if (stringIdxType) {
-    t.stringIndexType = q.queue(stringIdxType, 'type');
-  }
-  const baseTypes = typ.getBaseTypes();
-  if (baseTypes) {
-    t.baseTypes =
-      baseTypes.length > 0 ? baseTypes.map(bt => q.queue(bt, 'type')).filter(isRef) : undefined;
-  }
-  return t;
+  return out;
 }
-
-function serializeCustomType(
-  typ: ts.Type,
-  ref: TypeRef,
-  checker: ts.TypeChecker,
-  decl: ts.Declaration,
-  q: Queue,
-): SerializedCustomType {
-  const { symbol } = typ;
-
-  const typeData: SerializedCustomType = {
-    ...serializeBuiltInType(typ, ref, checker, decl, q),
-    typeKind: 'custom',
+function serializeIndexType(
+  typ: ts.IndexType,
+  _checker: ts.TypeChecker,
+  c: Collector,
+): Partial<SerializedType> {
+  const out: Partial<SerializedType> = {
+    types: [c.queue.queue(typ.type, 'type')].filter(isDefined),
   };
-
-  const properties = typ.getProperties();
-  if (properties && properties.length > 0) {
-    typeData.properties = properties.map(sym => q.queue(sym, 'symbol')).filter(isRef);
+  return out;
+}
+function serializeIndexAccessType(
+  typ: ts.IndexedAccessType,
+  checker: ts.TypeChecker,
+  c: Collector,
+): Partial<SerializedType> {
+  const { objectType, indexType, constraint, simplified } = typ;
+  const out: Partial<SerializedType> = {};
+  if (constraint) {
+    out.constraint = c.queue.queue(constraint, 'type');
   }
-  typeData.symbol = q.queue(symbol, 'symbol');
-  return typeData;
+  if (simplified) {
+    out.simplified = c.queue.queue(simplified, 'type');
+  }
+  if (indexType) {
+    out.indexType = c.queue.queue(indexType, 'type');
+  }
+  if (objectType) {
+    out.objectType = c.queue.queue(objectType, 'type');
+  }
+  return out;
 }
 
 /**
@@ -122,33 +212,47 @@ export default function serializeType(
   ref: TypeRef,
   c: Collector,
 ): SerializedType {
-  const { symbol } = typ;
-  let serializedType: SerializedType;
-  if (!symbol) {
-    // core types
-    serializedType = serializeCoreType(typ, ref, checker, c.queue);
-  } else {
-    const decl = relevantDeclarationForSymbol(symbol);
+  const { symbol } = typ as { symbol?: ts.Symbol };
+  const serializedType: SerializedType = {
+    typeString: checker.typeToString(typ),
+    entity: 'type',
+    id: refId(ref),
+    flags: flagsToString(typ.flags, 'type'),
+    symbol: c.queue.queue(typ.symbol, 'symbol'),
+  };
 
-    if (decl) {
-      const { fileName } = decl.getSourceFile();
-      const libName = getTsLibFilename(fileName);
-      if (libName) {
-        serializedType = serializeBuiltInType(typ, ref, checker, decl, c.queue);
-      } else {
-        serializedType = serializeCustomType(typ, ref, checker, decl, c.queue);
-      }
+  const decl = relevantDeclarationForSymbol(symbol);
+  if (decl) {
+    const sourceFile = decl.getSourceFile();
+    const libName = getTsLibFilename(sourceFile.fileName);
+    if (libName) {
+      serializedType.libName = libName;
     } else {
-      throw new Error(`No symbol or declaration for type: ${checker.typeToString(typ)}`);
+      serializedType.sourceFile = c.queue.queue(sourceFile, 'sourceFile');
     }
   }
-  if (typ.isClassOrInterface()) {
-    const { typeParameters } = typ;
-    if (typeParameters) {
-      serializedType.aliasTypeArguments = typeParameters
-        .map(tp => c.queue.queue(tp, 'type'))
-        .filter(isTruthy);
-    }
+  if (isPrimitiveType(typ)) {
+    serializedType.primitive = true;
   }
+
+  if (!c.cfg.shouldSerializeSymbolDetails(typ.symbol)) {
+    return serializedType;
+  }
+  if (isObjectType(typ)) {
+    Object.assign(serializedType, { ...serializeRelatedTypes(typ, checker, c) });
+  }
+  if (typ.isTypeParameter()) {
+    Object.assign(serializedType, { ...serializeTypeParameterType(typ, checker, c) });
+  }
+  if (typ.isUnionOrIntersection()) {
+    Object.assign(serializedType, { ...serializeUnionOrIntersectionType(typ, checker, c) });
+  }
+  if (isIndexType(typ)) {
+    Object.assign(serializedType, { ...serializeIndexType(typ, checker, c) });
+  }
+  if (isIndexedAccessType(typ)) {
+    Object.assign(serializedType, { ...serializeIndexAccessType(typ, checker, c) });
+  }
+
   return serializedType;
 }

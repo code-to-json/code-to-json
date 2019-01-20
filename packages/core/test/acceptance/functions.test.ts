@@ -15,7 +15,6 @@ class FunctionAnalysisTests {
         type: {
           flags: ['Object'],
           objectFlags: ['Anonymous'],
-          typeKind: 'custom',
           typeString: '() => string',
         },
       },
@@ -34,7 +33,6 @@ class FunctionAnalysisTests {
         type: {
           flags: ['Object'],
           objectFlags: ['Anonymous'],
-          typeKind: 'custom',
           typeString: '(str: string) => string',
         },
       },
@@ -59,7 +57,6 @@ export function adder(a: number|string, b: number|string): number|string {
         type: {
           flags: ['Object'],
           objectFlags: ['Anonymous'],
-          typeKind: 'custom',
           typeString: '{ (a: string, b: string): string; (a: number, b: number): number; }',
         },
       },

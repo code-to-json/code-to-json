@@ -1,21 +1,16 @@
 import { setupTestCase } from '@code-to-json/test-helpers';
 import { refId, refType, UnreachableError } from '@code-to-json/utils';
 import { nodeHost } from '@code-to-json/utils-node';
+import { filterDict, mapDict, reduceDict } from '@code-to-json/utils-ts';
 import { expect } from 'chai';
 import { walkProgram } from '../../src';
-import {
-  SerializedAtomicType,
-  SerializedCustomType,
-  SerializedLibType,
-  SerializedType,
-} from '../../src/types/serialized-entities';
+import { SerializedType } from '../../src/types/serialized-entities';
 
 interface TypeSummary {
   typeString: string;
   flags?: string[];
   objectFlags?: string[];
   libName?: string;
-  typeKind: string;
 }
 
 interface ExportSummary {
@@ -27,44 +22,16 @@ interface ExportSummaries {
   [k: string]: ExportSummary;
 }
 
-function summarizeAtomicType(typ: SerializedAtomicType): TypeSummary {
-  const { flags, typeString, objectFlags, typeKind } = typ;
-  const toReturn: TypeSummary = { typeString, flags, typeKind };
-  if (objectFlags) {
-    toReturn.objectFlags = objectFlags;
-  }
-  return toReturn;
-}
-function summarizeLibType(typ: SerializedLibType): TypeSummary {
-  const { flags, typeString, libName, objectFlags, typeKind } = typ;
-  const toReturn: TypeSummary = { typeString, flags, libName, typeKind };
-  if (objectFlags) {
-    toReturn.objectFlags = objectFlags;
-  }
-  return toReturn;
-}
-
-// tslint:disable-next-line:no-identical-functions
-function summarizeCustomType(typ: SerializedCustomType): TypeSummary {
-  const { flags, typeString, objectFlags, typeKind } = typ;
-  const toReturn: TypeSummary = { typeString, flags, typeKind };
-  if (objectFlags) {
-    toReturn.objectFlags = objectFlags;
-  }
-  return toReturn;
-}
-
 function summarizeType(typ: SerializedType): TypeSummary {
-  switch (typ.typeKind) {
-    case 'atomic':
-      return summarizeAtomicType(typ);
-    case 'lib':
-      return summarizeLibType(typ);
-    case 'custom':
-      return summarizeCustomType(typ);
-    default:
-      throw new UnreachableError(typ);
+  const { flags, objectFlags, libName, typeString } = typ;
+  const out: TypeSummary = { flags, typeString };
+  if (libName) {
+    out.libName = libName;
   }
+  if (objectFlags) {
+    out.objectFlags = objectFlags;
+  }
+  return out;
 }
 
 export async function singleExportModuleExports(
@@ -95,12 +62,22 @@ export async function singleExportModuleExports(
     data: { symbols, sourceFiles, types },
   } = walkerOutput;
 
-  const sourceFileKeys = Object.keys(sourceFiles);
-  expect(sourceFileKeys).to.have.lengthOf(1, 'one sourceFile should be found in walker output');
+  const nonDeclarationFiles = filterDict(sourceFiles, f => !f.isDeclarationFile);
+  const sourceFileKeys = Object.keys(nonDeclarationFiles);
+  const sourceFileList = sourceFileKeys
+    .map(sf => `"${nonDeclarationFiles[sf]!.originalFileName}"`)
+    .join(', ');
+  expect(sourceFileKeys).to.have.lengthOf(
+    1,
+    `one sourceFile should be found in walker output. Found: ${sourceFileList}`,
+  );
   const [sourceFileKey] = sourceFileKeys;
-  expect(sourceFileKey).to.be.a('string', 'sourceFiles keys should be strings');
+  expect(sourceFileKey).to.be.a('string', 'nonDeclarationFiles keys should be strings');
 
-  const sourceFile = sourceFiles[sourceFileKey];
+  const sourceFile = nonDeclarationFiles[sourceFileKey];
+  if (!sourceFile) {
+    throw new Error('undefined sourceFile');
+  }
   const { symbol: symbolRef } = sourceFile;
   if (!symbolRef) {
     throw new Error(`Expected SourceFile to have a symbol`);
@@ -112,27 +89,32 @@ export async function singleExportModuleExports(
     .to.have.length.greaterThan(5);
 
   const fileSymbol = symbols[fileSymbolId];
-
+  if (!fileSymbol) {
+    throw new Error(`Expected fileSymbol to be defined`);
+  }
   const { exports: exportList } = fileSymbol;
-  if (!exportList || exportList.length === 0) {
+  if (!exportList || Object.keys(exportList).length === 0) {
     throw new Error('Expected file to have exports');
   }
 
-  const exports = exportList
-    .map(exp => symbols[refId(exp)])
-    .reduce(
-      (summaries, exp) => {
-        const { name, type: expTypeRef } = exp;
-        const summary: ExportSummary = { name };
-        if (expTypeRef) {
-          const typ = types[refId(expTypeRef)];
-          summary.type = summarizeType(typ);
+  const exports = reduceDict(
+    mapDict(exportList, exp => symbols[refId(exp)]),
+    (summaries, exp) => {
+      const { name, type: expTypeRef } = exp;
+      const summary: ExportSummary = { name };
+      if (expTypeRef) {
+        const typ = types[refId(expTypeRef)];
+        if (!typ) {
+          throw new Error(`Expected typ to be defined`);
         }
-        // eslint-disable-next-line no-param-reassign
-        summaries[name] = summary;
-        return summaries;
-      },
-      {} as ExportSummaries,
-    );
+        summary.type = summarizeType(typ);
+      }
+      // eslint-disable-next-line no-param-reassign
+      summaries[name] = summary;
+      return summaries;
+    },
+    {} as ExportSummaries,
+  );
+
   return { exports, cleanup };
 }

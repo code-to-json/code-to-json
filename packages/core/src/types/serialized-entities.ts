@@ -1,5 +1,6 @@
 import { CommentData } from '@code-to-json/comments';
 import { Flags } from '@code-to-json/utils-ts';
+import { Dict } from '@mike-north/types';
 import { DeclarationRef, SourceFileRef, SymbolRef, TypeRef } from './ref';
 
 /**
@@ -29,14 +30,11 @@ export interface SerializedSymbol
   name: string;
   external?: boolean;
   type?: TypeRef;
-  members?: SymbolRef[];
-  exports?: SymbolRef[];
+  members?: Dict<SymbolRef>;
+  exports?: Dict<SymbolRef>;
   decorators?: string[];
   modifiers?: string[];
-  globalExports?: SymbolRef[];
-  // declarations?: DeclarationRef[];
-  constructorSignatures?: SerializedSignature[];
-  callSignatures?: SerializedSignature[];
+  globalExports?: Dict<SymbolRef>;
   heritageClauses?: SerializedHeritageClause[];
   jsDocTags?: Array<{
     name: string;
@@ -50,6 +48,7 @@ export interface SerializedSymbol
 export interface SerializedSignature {
   parameters?: SymbolRef[];
   typeParameters?: TypeRef[];
+  typePredicate?: TypeRef;
   declaration?: DeclarationRef;
   returnType?: TypeRef;
   comment?: string;
@@ -129,51 +128,38 @@ export interface SerializedHeritageClause {
 }
 
 /**
- * Serialized representation of an "atomic" type that has no declaration file.
- * Examples include `string`, `number`, primitive literal types, etc...
+ * Serialized representation of a type
  */
-export interface SerializedAtomicType extends SerializedEntity<'type'> {
-  typeKind: 'atomic';
+export interface SerializedType extends SerializedEntity<'type'> {
   aliasTypeArguments?: TypeRef[];
+  typeArguments?: TypeRef[];
+  typeParameters?: TypeRef[];
+  constraint?: TypeRef;
+  templateType?: TypeRef;
+  thisType?: TypeRef;
+  modifiersType?: TypeRef;
   aliasSymbol?: SymbolRef;
   defaultType?: TypeRef;
-  constraint?: TypeRef;
-  properties?: SymbolRef[];
+  simplified?: TypeRef;
+  indexType?: TypeRef;
+  objectType?: TypeRef;
+  properties?: Dict<SymbolRef>;
   typeString: string;
+  primitive?: boolean;
   objectFlags?: Flags;
-}
-
-/**
- * Serialized representation of a "built-in" type that comes with TypeScript
- * by way of an included "lib" declaration file. Examples include `Promise<T>`, `Array<T>`,
- * `Function`, `Object`, etc...
- */
-export interface SerializedLibType
-  extends Pick<SerializedAtomicType, Exclude<keyof SerializedAtomicType, 'typeKind'>> {
-  typeKind: 'lib';
   numberIndexType?: TypeRef;
   stringIndexType?: TypeRef;
   default?: TypeRef;
   libName?: string;
+  types?: TypeRef[];
   baseTypes?: TypeRef[];
   moduleName?: string;
-}
-
-/**
- * Serialized representation of a "custom" type that's provided either by the codebase
- * itself or a dependency. These can come from either `.ts` source files, or `.d.ts` declaration files
- */
-export interface SerializedCustomType
-  extends Pick<SerializedLibType, Exclude<keyof SerializedLibType, 'typeKind'>> {
-  typeKind: 'custom';
   symbol?: SymbolRef;
+  target?: TypeRef;
+  sourceFile?: SourceFileRef;
+  constructorSignatures?: SerializedSignature[];
+  callSignatures?: SerializedSignature[];
 }
-
-/**
- * Serialized representation of a ts.Type
- */
-export type SerializedType = SerializedLibType | SerializedCustomType | SerializedAtomicType;
-
 /**
  * Serialized code entity
  *

@@ -32,6 +32,7 @@
     "lint:js": "eslint . --ext js,ts",
     "lint:md": "remark .",
     "test": "mocha",
+    "test:debug": "mocha --inspect-brk",
     "test:coverage": "nyc npm test",
     "codacy:transmit-coverage": "cat coverage/lcov.info | codacy-coverage",
     "clean": "rm -rf ./lib",

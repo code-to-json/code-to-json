@@ -16,7 +16,6 @@ export const x: Foo = { num: 4 };`);
         name: 'x',
         type: {
           flags: ['Object'],
-          typeKind: 'custom',
           objectFlags: ['Interface'],
           typeString: 'Foo',
         },

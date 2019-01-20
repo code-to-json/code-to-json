@@ -1,4 +1,4 @@
-import { isTruthy } from '@code-to-json/utils';
+import { isDefined } from '@code-to-json/utils';
 import parser from '../parser';
 import { CommentBlockTag, CommentData, CommentParam } from '../types';
 import parseDocBlock from './block';
@@ -29,7 +29,7 @@ export function parseCommentString(str: string): CommentData {
   const returns = parseReturnsBlock(returnsBlock);
   const remarks = parseDocBlock(remarksBlock);
   const deprecated = parseDocBlock(deprecatedBlock);
-  const customTags = customBlocks.map(b => parseDocBlock(b)).filter(isTruthy);
+  const customTags = customBlocks.map(b => parseDocBlock(b)).filter(isDefined);
   if (parsedParams.length > 0) {
     data.params = parsedParams;
   }

@@ -9,6 +9,7 @@ import { SerializedSourceFile, SourceFileRef, SymbolRef } from '../src';
 import { create as createQueue, ProcessResult, Queue } from '../src/processing-queue';
 import serializeSourceFile from '../src/serializers/source-file';
 import { Collector } from '../src/types/walker';
+import WalkerConfig from '../src/walker/config';
 
 @suite
 class SimpleSnapshotSmokeTests {
@@ -35,11 +36,10 @@ class SimpleSnapshotSmokeTests {
     const collector: Collector = {
       queue,
       host: nodeHost,
-      pathNormalizer: PASSTHROUGH_MODULE_PATH_NORMALIZER,
-      opts: {
+      cfg: new WalkerConfig({
         pathNormalizer: PASSTHROUGH_MODULE_PATH_NORMALIZER,
         includeDeclarations: 'none',
-      },
+      }),
     };
 
     this.sourceFiles = program.getSourceFiles();

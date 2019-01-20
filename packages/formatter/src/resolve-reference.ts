@@ -40,6 +40,6 @@ export default function resolveReference(wo: WalkerOutputData, ref: AnyRef<RefRe
     case 'symbol':
       return wo.symbols[id];
     default:
-      throw new UnreachableError(refTyp);
+      throw new UnreachableError(refTyp, `reference type: ${refTyp}`);
   }
 }
