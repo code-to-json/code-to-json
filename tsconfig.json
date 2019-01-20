@@ -15,7 +15,6 @@
     "downlevelIteration": true,
     "experimentalDecorators": true,
     "inlineSourceMap": true,
-    "strictBindCallApply": true,
     "strict": true,
     "noEmit": true,
     "composite": true,
