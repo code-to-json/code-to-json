@@ -60,5 +60,5 @@ export function forEach<T>(
   if (!array) {
     return;
   }
-  array.forEach(callback);
+  (array.forEach as any)(callback);
 }

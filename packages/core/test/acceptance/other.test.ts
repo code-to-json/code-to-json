@@ -8,20 +8,20 @@ import { singleExportModuleExports } from './helpers';
 class OtherAcceptanceTests {
   @test
   public async 'type queries'(): Promise<void> {
-    const { exports, cleanup } = await singleExportModuleExports(
+    const { exports: allExports, cleanup } = await singleExportModuleExports(
       `let rectangle1 = { width: 100, height: 200 };
 export let x: typeof rectangle1;`,
     );
-    expect(exports).to.deep.eq({
-      x: {
-        name: 'x',
-        type: {
-          flags: ['Object', 'ContainsObjectLiteral'],
-          objectFlags: ['Anonymous', 'ObjectLiteral', 'FreshLiteral'],
-          typeString: '{ width: number; height: number; }',
-        },
-      },
-    });
+    const { x } = allExports;
+    expect(!!x).to.eql(true);
+    expect(x.name).to.eql('x');
+    expect(x.type).to.be.a('object');
+    expect(x.type!.typeString).to.eql('{ width: number; height: number; }');
+    expect(x.type!.flags).includes('Object');
+    expect(x.type!.flags).includes('ContainsObjectLiteral');
+    expect(x.type!.objectFlags).includes('Anonymous');
+    expect(x.type!.objectFlags).includes('ObjectLiteral');
+
     cleanup();
   }
 }
