@@ -1,12 +1,12 @@
 import { expect } from 'chai';
 import { suite, test } from 'mocha-typescript';
-import { singleExportModuleExports } from './helpers';
+import { exportedModuleSymbols } from './helpers';
 
 @suite
 class FunctionAnalysisTests {
   @test
   public async 'zero-argument function'(): Promise<void> {
-    const { exports, cleanup } = await singleExportModuleExports(
+    const { exports, cleanup } = await exportedModuleSymbols(
       `export function foo() { return 'bar'; }`,
     );
     expect(exports).to.deep.eq({
@@ -24,7 +24,7 @@ class FunctionAnalysisTests {
 
   @test
   public async 'unary function'(): Promise<void> {
-    const { exports, cleanup } = await singleExportModuleExports(
+    const { exports, cleanup } = await exportedModuleSymbols(
       `export function foo(str: string) { return str.toUpperCase(); }`,
     );
     expect(exports).to.deep.eq({
@@ -42,7 +42,7 @@ class FunctionAnalysisTests {
 
   @test
   public async 'function with multiple signatures'(): Promise<void> {
-    const { exports, cleanup } = await singleExportModuleExports(
+    const { exports, cleanup } = await exportedModuleSymbols(
       `
 export function adder(a: string, b: string): string;
 export function adder(a: number, b: number): number;

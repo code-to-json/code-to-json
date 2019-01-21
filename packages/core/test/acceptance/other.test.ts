@@ -2,13 +2,13 @@
 
 import { expect } from 'chai';
 import { suite, test } from 'mocha-typescript';
-import { singleExportModuleExports } from './helpers';
+import { exportedModuleSymbols } from './helpers';
 
 @suite
 class OtherAcceptanceTests {
   @test
   public async 'type queries'(): Promise<void> {
-    const { exports: allExports, cleanup } = await singleExportModuleExports(
+    const { exports: allExports, cleanup } = await exportedModuleSymbols(
       `let rectangle1 = { width: 100, height: 200 };
 export let x: typeof rectangle1;`,
     );

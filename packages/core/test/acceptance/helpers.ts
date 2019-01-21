@@ -1,6 +1,6 @@
 import { CommentData } from '@code-to-json/comments';
 import { setupTestCase } from '@code-to-json/test-helpers';
-import { refId, refType, UnreachableError } from '@code-to-json/utils';
+import { refId, refType } from '@code-to-json/utils';
 import { nodeHost } from '@code-to-json/utils-node';
 import { filterDict, mapDict, reduceDict } from '@code-to-json/utils-ts';
 import { expect } from 'chai';
@@ -12,6 +12,7 @@ interface TypeSummary {
   flags?: string[];
   objectFlags?: string[];
   libName?: string;
+  documentation?: CommentData;
 }
 
 interface ExportSummary {
@@ -27,7 +28,9 @@ interface ExportSummaries {
 function summarizeType(typ: SerializedType): TypeSummary {
   const { flags, objectFlags, libName, typeString, documentation } = typ;
   const out: TypeSummary = { flags, typeString };
-
+  if (documentation) {
+    out.documentation = documentation;
+  }
   if (libName) {
     out.libName = libName;
   }
@@ -37,7 +40,7 @@ function summarizeType(typ: SerializedType): TypeSummary {
   return out;
 }
 
-export async function singleExportModuleExports(
+export async function exportedModuleSymbols(
   codeString: string,
 ): Promise<{ exports: ExportSummaries; cleanup: () => void }> {
   const { program, cleanup } = await setupTestCase(

@@ -5,46 +5,58 @@ export type CommentParagraphContent = Array<
   | CommentLinkTag
   | CommentFencedCode
   | CommentInlineCode
+  | CommentHTMLStartTag
+  | CommentHTMLEndTag
   | string
 >;
 
-export interface CommentInlineTag<C = string[]> {
-  kind: 'inlineTag';
+export interface CommentParagraphContentBase<K> {
+  kind: K;
+}
+
+export interface CommentInlineTag<C = string[]> extends CommentParagraphContentBase<'inlineTag'> {
   tagName: string;
   content?: C;
   raw?: string;
 }
 
 export interface CommentLinkTag
-  extends Pick<CommentInlineTag, Exclude<keyof CommentInlineTag, 'kind'>> {
-  kind: 'linkTag';
+  extends CommentParagraphContentBase<'linkTag'>,
+    Pick<CommentInlineTag, Exclude<keyof CommentInlineTag, 'kind'>> {
   url?: string;
 }
 
 export interface CommentBlockTag
-  extends Pick<
-    CommentInlineTag<CommentParagraphContent>,
-    Exclude<keyof CommentInlineTag<CommentParagraphContent>, 'kind'>
-  > {
-  kind: 'blockTag';
-}
+  extends CommentParagraphContentBase<'blockTag'>,
+    Pick<
+      CommentInlineTag<CommentParagraphContent>,
+      Exclude<keyof CommentInlineTag<CommentParagraphContent>, 'kind'>
+    > {}
 
 export interface CommentParam
-  extends Pick<CommentBlockTag, Exclude<keyof CommentBlockTag, 'kind'>> {
-  kind: 'param';
+  extends CommentParagraphContentBase<'param'>,
+    Pick<CommentBlockTag, Exclude<keyof CommentBlockTag, 'kind'>> {
   name?: string;
   type?: string;
 }
 
-export interface CommentFencedCode {
-  kind: 'fencedCode';
+export interface CommentFencedCode extends CommentParagraphContentBase<'fencedCode'> {
   language: string;
   code: string;
 }
 
-export interface CommentInlineCode {
-  kind: 'inlineCode';
+export interface CommentInlineCode extends CommentParagraphContentBase<'inlineCode'> {
   code: string;
+}
+
+export interface CommentHTMLEndTag extends CommentParagraphContentBase<'htmlEndTag'> {
+  name: string;
+}
+
+export interface CommentHTMLStartTag extends CommentParagraphContentBase<'htmlStartTag'> {
+  name: string;
+  isSelfClosingTag: boolean;
+  attributes?: Array<{ name: string; value: string }>;
 }
 
 export interface CommentData {

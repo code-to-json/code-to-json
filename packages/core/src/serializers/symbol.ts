@@ -13,6 +13,31 @@ import { SerializedSymbol } from '../types/serialized-entities';
 import { Collector } from '../types/walker';
 import serializeLocation from './location';
 
+function walkToNodeWithJSDoc(node: ts.Node): (ts.Node & { jsDoc?: ts.Node[] }) | undefined {
+  let relevantNode: (ts.Node & { jsDoc?: ts.Node[] }) | undefined = node;
+  while (relevantNode) {
+    const { jsDoc } = relevantNode;
+    if (jsDoc && jsDoc instanceof Array && jsDoc.length > 0) {
+      return relevantNode;
+    }
+    relevantNode = relevantNode.parent;
+  }
+  return relevantNode;
+}
+
+function extractDocumentationText(decl: ts.Declaration): string | undefined {
+  const n = walkToNodeWithJSDoc(decl);
+  if (!n) {
+    return undefined;
+  }
+  const { jsDoc }: { jsDoc?: ts.Node[] } = n;
+  if (jsDoc && jsDoc.length > 0) {
+    const commentText: string = jsDoc[0].getText();
+    return commentText;
+  }
+  return undefined;
+}
+
 /**
  * Serialize a ts.Symbol to JSON
  *
@@ -49,14 +74,9 @@ export default function serializeSymbol(
   const decl = relevantDeclarationForSymbol(symbol);
   if (decl) {
     if (symbol.getJsDocTags().length > 0 || symbol.getDocumentationComment(checker).length > 0) {
-      let relevantNode: ts.Node = decl;
-      while (!(relevantNode as any).jsDoc || (relevantNode as any).jsDoc.length === 0) {
-        relevantNode = relevantNode.parent;
-      }
-      const { jsDoc }: { jsDoc?: ts.Node[] } = relevantNode as any;
-      if (jsDoc && jsDoc.length > 0) {
-        const commentText: string = jsDoc[0].getText();
-        serialized.documentation = parseCommentString(commentText);
+      const txt = extractDocumentationText(decl);
+      if (typeof txt === 'string') {
+        serialized.documentation = parseCommentString(txt);
       }
     }
     const { pos, end } = decl;
