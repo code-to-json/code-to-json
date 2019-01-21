@@ -1,7 +1,7 @@
 /* eslint-disable no-return-assign */
 
 import { createQueue, RefFor, refId, UnreachableError } from '@code-to-json/utils';
-import { generateId } from '@code-to-json/utils-ts';
+import { generateId, isErroredType } from '@code-to-json/utils-ts';
 import * as debug from 'debug';
 import * as ts from 'typescript';
 import {
@@ -96,8 +96,14 @@ export function create(checker: ts.TypeChecker): Queue {
           return toProcess.declarations.queue(thing as ts.Declaration);
         case 'symbol':
           return toProcess.symbols.queue(thing as ts.Symbol);
-        case 'type':
-          return toProcess.types.queue(thing as ts.Type);
+        case 'type': {
+          const typeToQueue = thing as ts.Type;
+          if (isErroredType(typeToQueue)) {
+            throw new Error('Refusing to queue errored type');
+          } else {
+            return toProcess.types.queue(typeToQueue);
+          }
+        }
         case 'node':
           return toProcess.nodes.queue(thing as ts.Node);
         case 'sourceFile':

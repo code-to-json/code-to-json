@@ -11,7 +11,6 @@ export interface SerializedSourceFile extends SerializedEntity<'sourceFile'>, Ha
   moduleName: string;
   extension: string | null;
   pathInPackage: string;
-
   isDeclarationFile: boolean;
   symbol?: SymbolRef;
   amdDependencies?: SerializedAmdDependency[];
@@ -30,8 +29,8 @@ export interface SerializedSymbol
   name: string;
   external?: boolean;
   type?: TypeRef;
-  members?: Dict<SymbolRef>;
   exports?: Dict<SymbolRef>;
+  members?: Dict<SymbolRef>;
   decorators?: string[];
   modifiers?: string[];
   globalExports?: Dict<SymbolRef>;
@@ -82,12 +81,11 @@ export interface HasDocumentation {
 /**
  * Serialized representation of a ts.Signature
  */
-export interface SerializedSignature {
+export interface SerializedSignature extends HasDocumentation {
   parameters?: SymbolRef[];
   typeParameters?: TypeRef[];
   declaration?: DeclarationRef;
   returnType?: TypeRef;
-  comment?: string;
 }
 
 /**
@@ -131,8 +129,6 @@ export interface SerializedHeritageClause {
  * Serialized representation of a type
  */
 export interface SerializedType extends SerializedEntity<'type'>, HasDocumentation {
-  aliasTypeArguments?: TypeRef[];
-  typeArguments?: TypeRef[];
   typeParameters?: TypeRef[];
   constraint?: TypeRef;
   templateType?: TypeRef;
@@ -144,6 +140,7 @@ export interface SerializedType extends SerializedEntity<'type'>, HasDocumentati
   indexType?: TypeRef;
   objectType?: TypeRef;
   properties?: Dict<SymbolRef>;
+  isThisType?: boolean;
   typeString: string;
   primitive?: boolean;
   objectFlags?: Flags;

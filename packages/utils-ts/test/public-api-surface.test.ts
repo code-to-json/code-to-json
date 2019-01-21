@@ -26,6 +26,7 @@ const {
   getTsLibFilename,
   isClassOrInterfaceType,
   isMappedType,
+  isErroredType,
   isObjectReferenceType,
   isObjectType,
   isTupleType,
@@ -74,6 +75,7 @@ export class PublicApiSurface {
     );
     expect(reduceDict).to.be.a('function', 'reduceDict is a function');
     expect(relevantTypeForSymbol).to.be.a('function', 'relevantTypeForSymbol is a function');
+    expect(isErroredType).to.be.a('function', 'isErroredType is a function');
     expect(isTupleType).to.be.a('function', 'isTupleType is a function');
     expect(isMappedType).to.be.a('function', 'isMappedType is a function');
     expect(mapChildren).to.be.a('function', 'mapChildren is a function');
@@ -110,6 +112,7 @@ export class PublicApiSurface {
       'isClassOrInterfaceType',
       'isDeclaration',
       'isDeclarationExported',
+      'isErroredType',
       'isMappedType',
       'isNamedDeclaration',
       'isNode',

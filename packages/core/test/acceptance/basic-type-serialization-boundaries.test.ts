@@ -70,6 +70,7 @@ export class TypeSerialiationBoundaryTests {
         type: {
           flags: ['Object'],
           libName: 'lib.es5.d.ts',
+          objectFlags: ['Reference'],
           typeString: 'string[]',
         },
       },
@@ -88,6 +89,7 @@ export class TypeSerialiationBoundaryTests {
         type: {
           flags: ['Object'],
           libName: 'lib.es5.d.ts',
+          objectFlags: ['Reference'],
           typeString: 'Promise<number>',
         },
       },
@@ -107,6 +109,7 @@ export class TypeSerialiationBoundaryTests {
         name: 'x',
         type: {
           flags: ['Object'],
+          objectFlags: ['Anonymous'],
           typeString: '{ p: Promise<number[]>; }',
         },
       },
@@ -125,6 +128,7 @@ export class TypeSerialiationBoundaryTests {
         type: {
           flags: ['Object'],
           libName: 'lib.es5.d.ts',
+          objectFlags: ['Mapped', 'Instantiated'],
           typeString: 'Pick<Promise<number>, "then">',
         },
       },

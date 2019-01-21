@@ -18,7 +18,6 @@ export let x: typeof rectangle1;`,
     expect(x.type).to.be.a('object');
     expect(x.type!.typeString).to.eql('{ width: number; height: number; }');
     expect(x.type!.flags).includes('Object');
-    expect(x.type!.flags).includes('ContainsObjectLiteral');
 
     cleanup();
   }
