@@ -229,9 +229,10 @@ export default function serializeType(
     entity: 'type',
     id: refId(ref),
     flags: flagsToString(typ.flags, 'type'),
-    symbol: c.queue.queue(symbol, 'symbol'),
+    // symbol: c.queue.queue(symbol, 'symbol'),
     isThisType,
   };
+  if (!symbol) { return serializedType; }
   const decl = relevantDeclarationForSymbol(symbol);
   if (decl) {
     const sourceFile = decl.getSourceFile();

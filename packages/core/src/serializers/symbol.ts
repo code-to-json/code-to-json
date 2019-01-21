@@ -108,6 +108,9 @@ export default function serializeSymbol(
   };
 
   const decl = relevantDeclarationForSymbol(symbol);
+  if (decl && decl.getSourceFile().isDeclarationFile) {
+    return serialized;
+  }
   if (!c.cfg.shouldSerializeSymbolDetails(checker, symbol, decl)) {
     return serialized;
   }
