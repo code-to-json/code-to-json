@@ -1,5 +1,4 @@
 import { isRef } from '@code-to-json/utils';
-import { TypeMapper } from '@code-to-json/utils-ts';
 import * as ts from 'typescript';
 import { SerializedSignature } from '../types/serialized-entities';
 import { Collector } from '../types/walker';
@@ -34,6 +33,7 @@ export default function serializeSignature(
   }
   // tslint:disable-next-line:no-commented-code
   // visitType(getRestTypeOfSignature(signature));
+  // TODO: ...rest type signature??
 
   return out;
 }

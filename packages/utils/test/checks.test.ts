@@ -3,7 +3,7 @@ import { suite, test } from 'mocha-typescript';
 import { isBlank, isEmpty, isNone, isPresent } from '../src/checks';
 
 @suite('Simple predicates')
-class SimpleChecks {
+export class SimpleChecks {
   @test
   public 'isEmpty tests'(): void {
     expect(isEmpty(0)).to.eql(false);

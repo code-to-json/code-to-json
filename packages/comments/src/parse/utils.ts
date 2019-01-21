@@ -1,4 +1,4 @@
-import { CommentInlineTag, CommentParagraphContent, CommentParam } from 'types';
+import { CommentParagraphContent, CommentParam } from 'types';
 
 const JSDOC_PARAM_CONTENT_REGEX = /^([\S^{])?\s*\{(.*)\}\s*([\s\S]*)$/m;
 const TS_PARAM_CONTENT_REGEX = /^\s*([\w_.]+)\s+(.*)\s*$/m;

@@ -37,7 +37,7 @@ const {
 } = Exported;
 
 @suite
-class PublicApiSurface {
+export class PublicApiSurface {
   @test
   public 'public API surface is as expected'(): void {
     expect(isDeclaration).to.be.a('function', 'isDeclaration is a function');

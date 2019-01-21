@@ -4,7 +4,7 @@ import * as ts from 'typescript';
 import { createProgramFromCodeString, isDeclarationExported, mapDict } from '../src/index';
 
 @suite('Checks tests')
-class ChecksTests {
+export class ChecksTests {
   private sf!: ts.SourceFile;
 
   private sfSym!: ts.Symbol;

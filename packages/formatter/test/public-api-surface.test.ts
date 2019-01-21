@@ -5,7 +5,7 @@ import * as Exports from '../src/index';
 const { formatWalkerOutput } = Exports;
 
 @suite
-class PublicApiSurface {
+export class PublicApiSurface {
   @test
   public 'formatWalkerOutput exists'(): void {
     expect(formatWalkerOutput).to.be.a('function');

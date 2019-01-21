@@ -3,7 +3,7 @@ import { suite, test } from 'mocha-typescript';
 import { timeout } from '../src/index';
 
 @suite
-class PromiseTests {
+export class PromiseTests {
   @test
   public async 'timeout tests'(): Promise<void> {
     let resolved = false;

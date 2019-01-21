@@ -4,7 +4,7 @@ import { generateModulePathNormalizer } from '../src/index';
 import { nodeHost } from './helpers';
 
 @suite
-class ModulePathNormalizerTests {
+export class ModulePathNormalizerTests {
   @test
   public async 'no project folder or main'() {
     const mn = generateModulePathNormalizer(nodeHost);

@@ -1,4 +1,4 @@
-import { isDefined, isPresent, isRef } from '@code-to-json/utils';
+import { isDefined } from '@code-to-json/utils';
 import { expect } from 'chai';
 import { suite, test } from 'mocha-typescript';
 import * as ts from 'typescript';
@@ -13,7 +13,7 @@ import {
 } from '../src/index';
 
 @suite('Guard tests')
-class GuardTests {
+export class GuardTests {
   private sf!: ts.SourceFile;
 
   private sfSym!: ts.Symbol;

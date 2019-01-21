@@ -2,6 +2,8 @@
   "extends": "./tslint.packages.json",
   "rules": {
     "typedef": false,
-    "no-duplicate-string": false
+    "no-duplicate-string": false,
+    "max-classes-per-file": false,
+    "no-identical-functions": false
   }
 }

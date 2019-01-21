@@ -5,7 +5,7 @@ import { suite, test } from 'mocha-typescript';
 import { exportedModuleSymbols } from './helpers';
 
 @suite
-class CustomTypeSerialiationBoundaryTests {
+export class CustomTypeSerialiationBoundaryTests {
   @test
   public async 'basic comments'(): Promise<void> {
     const { exports, cleanup } = await exportedModuleSymbols(`interface Foo { num: number; }

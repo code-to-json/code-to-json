@@ -25,7 +25,7 @@ export interface SerializedSourceFile extends SerializedEntity<'sourceFile'>, Ha
  */
 export interface SerializedSymbol
   extends SerializedEntity<'symbol'>,
-    Partial<HasPosition>,
+    HasPosition<SourceFileRef>,
     HasDocumentation {
   name: string;
   external?: boolean;
@@ -66,9 +66,9 @@ export interface SerializedFileReference {
  * Serialized representation of a code location
  * within a ts.SourceFile
  */
-export interface HasPosition {
-  sourceFile?: SourceFileRef;
-  location: CodeRange;
+export interface HasPosition<FileRef = SourceFileRef> {
+  sourceFile?: FileRef;
+  location?: CodeRange;
 }
 
 /**
@@ -105,7 +105,7 @@ export interface SerializedAmdDependency {
  */
 export interface SerializedNode<Type extends string = 'node'>
   extends SerializedEntity<Type>,
-    HasPosition {
+    HasPosition<SourceFileRef> {
   text: string;
   kind: string;
   decorators?: string[];
@@ -169,7 +169,6 @@ export interface SerializedEntity<EntityName extends string> {
   entity: EntityName;
   id: string;
   flags?: Flags;
-  text?: string;
   name?: string;
 }
 

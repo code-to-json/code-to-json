@@ -1,11 +1,9 @@
-// tslint:disable no-identical-functions
-
 import { expect } from 'chai';
 import { suite, test } from 'mocha-typescript';
 import { exportedModuleSymbols } from './helpers';
 
 @suite
-class TypeSerialiationBoundaryTests {
+export class TypeSerialiationBoundaryTests {
   @test
   public async 'export const x: number = 1;'(): Promise<void> {
     const { exports, cleanup } = await exportedModuleSymbols('export const x: number = 1;');
@@ -71,7 +69,6 @@ class TypeSerialiationBoundaryTests {
         name: 'x',
         type: {
           flags: ['Object'],
-          objectFlags: ['Reference'],
           libName: 'lib.es5.d.ts',
           typeString: 'string[]',
         },
@@ -91,8 +88,6 @@ class TypeSerialiationBoundaryTests {
         type: {
           flags: ['Object'],
           libName: 'lib.es5.d.ts',
-          objectFlags: ['Reference'],
-
           typeString: 'Promise<number>',
         },
       },
@@ -112,8 +107,6 @@ class TypeSerialiationBoundaryTests {
         name: 'x',
         type: {
           flags: ['Object'],
-          objectFlags: ['Anonymous'],
-
           typeString: '{ p: Promise<number[]>; }',
         },
       },
@@ -132,8 +125,6 @@ class TypeSerialiationBoundaryTests {
         type: {
           flags: ['Object'],
           libName: 'lib.es5.d.ts',
-          objectFlags: ['Mapped', 'Instantiated'],
-
           typeString: 'Pick<Promise<number>, "then">',
         },
       },

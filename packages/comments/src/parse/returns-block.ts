@@ -1,4 +1,4 @@
-import { DocBlock, DocErrorText, DocNodeKind, DocParagraph, DocPlainText } from '@microsoft/tsdoc';
+import { DocBlock, DocNodeKind, DocParagraph } from '@microsoft/tsdoc';
 import { CommentParam } from '../types';
 import parseParagraph from './paragraph';
 import { extractParamDescription, trimParagraphContent } from './utils';

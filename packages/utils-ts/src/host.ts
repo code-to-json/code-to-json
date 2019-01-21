@@ -1,7 +1,4 @@
-/* eslint-disable no-undef */
-import * as ts from 'typescript';
-
-interface SysHost {
+export default interface SysHost {
   readFileSync(filePath: string, encoding?: string): string | undefined;
 
   writeFileSync(filePath: string, contents: string): void;
@@ -27,5 +24,3 @@ interface SysHost {
 
   fileOrFolderExists(path: string): boolean;
 }
-
-export default SysHost;

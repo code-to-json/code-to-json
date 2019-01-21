@@ -2,7 +2,6 @@ import {
   DocBlockTag,
   DocCodeSpan,
   DocErrorText,
-  DocHtmlAttribute,
   DocHtmlEndTag,
   DocHtmlStartTag,
   DocInlineTag,
@@ -12,14 +11,11 @@ import {
   DocParagraph,
   DocPlainText,
 } from '@microsoft/tsdoc';
-import * as debug from 'debug';
 import { CommentHTMLEndTag, CommentHTMLStartTag, CommentParagraphContent } from '../types';
 import parseBlockTag from './block-tag';
 import parseCodeSpan from './code-span';
 import parseInlineTag from './inline-tag';
 import parseLinkTag from './link-tag';
-
-const log = debug('code-to-json:comments:paragraph');
 
 function handleHTMLStartTag(node: DocHtmlStartTag): CommentHTMLStartTag {
   const { name, htmlAttributes, selfClosingTag } = node;

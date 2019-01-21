@@ -51,13 +51,13 @@ export function formatWalkerOutput(
 
   const data = collector.drain({
     handleType(ref: FormattedTypeRef, item: SerializedType): FormattedType {
-      return formatType(wo.data, item, collector);
+      return formatType(wo.data, item, ref, collector);
     },
     handleSourceFile(ref: FormattedSourceFileRef, item: SerializedSourceFile): FormattedSourceFile {
-      return formatSourceFile(wo.data, item, collector);
+      return formatSourceFile(wo.data, item, ref, collector);
     },
     handleSymbol(ref: FormattedSymbolRef, item: SerializedSymbol): FormattedSymbol {
-      return formatSymbol(wo.data, item, collector);
+      return formatSymbol(wo.data, item, ref, collector);
     },
   });
   return {

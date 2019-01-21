@@ -3,7 +3,7 @@ import { suite, test } from 'mocha-typescript';
 import { exportedModuleSymbols } from './helpers';
 
 @suite
-class FunctionAnalysisTests {
+export class FunctionAnalysisTests {
   @test
   public async 'zero-argument function'(): Promise<void> {
     const { exports, cleanup } = await exportedModuleSymbols(

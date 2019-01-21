@@ -3,7 +3,7 @@ import { suite, test } from 'mocha-typescript';
 import { all, isArray, isHomogenousArray, some } from '../src/array';
 
 @suite
-class ArrayUtilsTests {
+export class ArrayUtilsTests {
   @test
   public 'isArray tests'(): void {
     expect(isArray(0 as any)).to.eql(false, 'number');
@@ -13,9 +13,7 @@ class ArrayUtilsTests {
     expect(isArray({})).to.eql(false, 'pojo');
     expect(isArray([])).to.eql(true, 'array');
     expect(isArray(() => '')).to.eql(false, 'function');
-    // tslint:disable-next-line:max-classes-per-file
     expect(isArray(class {})).to.eql(false, 'class');
-    // tslint:disable-next-line:max-classes-per-file
     expect(isArray(new class {}() as any)).to.eql(false, 'instance');
   }
 

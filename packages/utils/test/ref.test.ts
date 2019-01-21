@@ -4,7 +4,7 @@ import { createRef } from '../src/deferred-processing/ref';
 import { isRef } from '../src/index';
 
 @suite
-class RefTests {
+export class RefTests {
   @test
   public 'isRef tests'(): void {
     expect(isRef([] as any)).to.eql(false);

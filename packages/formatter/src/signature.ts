@@ -2,8 +2,7 @@ import { SerializedSignature, WalkerOutputData } from '@code-to-json/core';
 import { isDefined } from '@code-to-json/utils';
 import { DataCollector } from './data-collector';
 import resolveReference from './resolve-reference';
-import formatType from './type';
-import { FormattedSignature, SideloadedDataCollector } from './types';
+import { FormattedSignature } from './types';
 
 export default function formatSignature(
   wo: WalkerOutputData,

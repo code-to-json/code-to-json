@@ -1,4 +1,4 @@
-import { DocBlockTag, DocExcerpt, DocNode, DocNodeKind, ModifierTagSet } from '@microsoft/tsdoc';
+import { DocBlockTag, DocNode, DocNodeKind, ModifierTagSet } from '@microsoft/tsdoc';
 import { CommentInlineTag } from 'types';
 
 function parseDocBlockTag(blockTag: DocBlockTag): CommentInlineTag {

@@ -1,6 +1,6 @@
 import { isDefined } from '@code-to-json/utils';
 import parser from '../parser';
-import { CommentBlockTag, CommentData, CommentParam } from '../types';
+import { CommentBlockTag, CommentData } from '../types';
 import parseDocBlock from './block';
 import parseModifierTagSet from './modifier-tag-set';
 import parseParams from './params';

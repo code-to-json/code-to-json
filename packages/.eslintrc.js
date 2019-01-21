@@ -26,6 +26,7 @@ module.exports = {
     'no-use-before-define': 'off',
     'no-bitwise': 'off',
     'no-restricted-syntax': 'off',
+    'no-console': 'off',
   },
   overrides: {
     files: ['**/test/**/*.ts'],

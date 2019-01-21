@@ -1,6 +1,6 @@
 import { createRef, Ref, RefTypes } from './ref';
 
-interface EntityInfo<K, T extends object> {
+interface EntityInfo<K> {
   ref: Ref<K>;
   processed: boolean;
 }
@@ -16,7 +16,7 @@ export function createQueue<RefRegistry, K extends RefTypes<RefRegistry>, T exte
   k: K,
   idGenerator: (t: T) => string,
 ): Queue<K, T> {
-  const itemToRef = new Map<T, EntityInfo<K, T>>();
+  const itemToRef = new Map<T, EntityInfo<K>>();
   return {
     queue(item: T): Ref<K> {
       const existingInfo = itemToRef.get(item);

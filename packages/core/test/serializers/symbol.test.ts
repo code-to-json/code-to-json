@@ -8,7 +8,7 @@ import serializeSourceFile from '../../src/serializers/source-file';
 import { setupScenario } from './helpers';
 
 @suite
-class SymbolSerializtionTests {
+export class SymbolSerializtionTests {
   @test
   public async 'Function signature'(): Promise<void> {
     const { checker, sf, collector } = setupScenario(

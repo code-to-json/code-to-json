@@ -1,7 +1,6 @@
 import * as debug from 'debug';
 import * as fs from 'fs';
 import * as path from 'path';
-import { TreeObject } from 'treeify';
 import * as ts from 'typescript';
 import { createTempFixtureFolder } from './file-fixtures';
 import { FixtureFolder, TestCase } from './types';

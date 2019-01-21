@@ -5,7 +5,7 @@ import * as ts from 'typescript';
 import { flagsToString } from '../src/flags';
 
 @suite
-class FlagsTests {
+export class FlagsTests {
   @test
   public async flagsToStringTests() {
     expect(flagsToString(ts.ObjectFlags.Class, 'object')).to.deep.eq(['Class'], 'single flag');

@@ -4,8 +4,6 @@ import { suite, test } from 'mocha-typescript';
 import * as path from 'path';
 import * as tmp from 'tmp';
 import { asString } from '../src/dir-tree';
-import { createTempFixtureFolder } from '../src/file-fixtures';
-import { setupTestCase } from '../src/index';
 
 @suite
 export class DirTreeTests {

@@ -1,11 +1,9 @@
-// tslint:disable no-duplicate-string
-
 import { expect } from 'chai';
 import { suite, test } from 'mocha-typescript';
 import { parseCommentString } from '../src/index';
 
 @suite
-class JSDocTagsTests {
+export class JSDocTagsTests {
   @test
   public '@returns tag'(): void {
     expect(

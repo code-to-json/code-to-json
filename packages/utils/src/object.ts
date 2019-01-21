@@ -6,8 +6,7 @@ export function conditionallyMergeTransformed<H extends {}, B, A extends H[K], K
   condition?: (prop: B) => boolean,
 ): void {
   if (property && (condition ? condition(property) : true)) {
-    const x: Partial<Pick<H, K>> = {};
-    /* eslint-disable no-param-reassign */
+    // eslint-disable-next-line no-param-reassign
     host[propertyName] = transform(property);
   }
 }
