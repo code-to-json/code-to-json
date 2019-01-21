@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.4.0](https://github.com/mike-north/code-to-json/compare/@code-to-json/test-helpers@0.3.15...@code-to-json/test-helpers@0.4.0) (2019-01-21)
+
+
+### Features
+
+* formatter entity ids ([86cbd1c](https://github.com/mike-north/code-to-json/commit/86cbd1c))
+
+
+
+
+
 ## [0.3.15](https://github.com/mike-north/code-to-json/compare/@code-to-json/test-helpers@0.3.14...@code-to-json/test-helpers@0.3.15) (2019-01-21)
 
 **Note:** Version bump only for package @code-to-json/test-helpers

@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.3.25](https://github.com/code-to-json/code-to-json/compare/code-to-json@0.3.24...code-to-json@0.3.25) (2019-01-21)
+
+**Note:** Version bump only for package code-to-json
+
+
+
+
+
 ## [0.3.24](https://github.com/code-to-json/code-to-json/compare/code-to-json@0.3.23...code-to-json@0.3.24) (2019-01-21)
 
 **Note:** Version bump only for package code-to-json

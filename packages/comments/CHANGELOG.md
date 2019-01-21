@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.6.0](https://github.com/mike-north/code-to-json/compare/@code-to-json/comments@0.5.1...@code-to-json/comments@0.6.0) (2019-01-21)
+
+
+### Features
+
+* formatter entity ids ([86cbd1c](https://github.com/mike-north/code-to-json/commit/86cbd1c))
+
+
+
+
+
 ## [0.5.1](https://github.com/mike-north/code-to-json/compare/@code-to-json/comments@0.5.0...@code-to-json/comments@0.5.1) (2019-01-21)
 
 **Note:** Version bump only for package @code-to-json/comments
