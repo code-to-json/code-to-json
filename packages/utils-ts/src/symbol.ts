@@ -43,6 +43,10 @@ export function relevantTypeForSymbol(
       ts.SymbolFlags.Enum |
       ts.SymbolFlags.ValueModule)
   ) {
+    if (valueDeclaration) {
+      // ensure class is handled as `typeof Foo` instead of `Foo`
+      return checker.getTypeOfSymbolAtLocation(symbol, valueDeclaration);
+    }
     return checker.getTypeAtLocation(valueDeclaration);
   }
   if (symbol.flags & ts.SymbolFlags.EnumMember) {

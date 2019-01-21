@@ -3,6 +3,7 @@ import { forEach, refId } from '@code-to-json/utils';
 import {
   flagsToString,
   getFirstIdentifier,
+  isErroredType,
   mapDict,
   relevantDeclarationForSymbol,
   relevantTypeForSymbol,
@@ -93,14 +94,17 @@ export default function serializeSymbol(
 ): SerializedSymbol {
   const { queue: q } = c;
   const { flags, name, exports: exportedSymbols } = symbol;
-
   // starting point w/ minimal (and mandatory) information
+  const symbolType = relevantTypeForSymbol(checker, symbol);
+  if (symbolType && isErroredType(symbolType)) {
+    throw new Error(`Unable to determine type for symbol ${checker.symbolToString(symbol)}`);
+  }
   const serialized: SerializedSymbol = {
     id: refId(ref),
     entity: 'symbol',
     name,
     flags: flagsToString(flags, 'symbol'),
-    type: q.queue(relevantTypeForSymbol(checker, symbol), 'type'),
+    type: q.queue(symbolType, 'type'),
   };
 
   const decl = relevantDeclarationForSymbol(symbol);
@@ -108,9 +112,10 @@ export default function serializeSymbol(
     return serialized;
   }
 
-  if (exportedSymbols) {
+  if (exportedSymbols && !!(flags & ts.SymbolFlags.ValueModule)) {
     serialized.exports = mapDict(exportedSymbols, exp => q.queue(exp, 'symbol'));
   }
+
   if (decl) {
     Object.assign(serialized, serializeSymbolDeclarationData(symbol, decl, c, checker));
   }

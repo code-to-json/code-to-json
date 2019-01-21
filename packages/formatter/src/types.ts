@@ -32,11 +32,16 @@ export interface FormattedType extends FormattedEntity {
   objectFlags?: string[];
   properties?: Dict<FormattedSymbolRef>;
   baseTypes?: FormattedTypeRef[];
+  isThisType?: boolean;
+  thisType?: FormattedTypeRef;
   numberIndexType?: FormattedTypeRef;
   stringIndexType?: FormattedTypeRef;
-  aliasSymbol?: FormattedSymbolRef;
-  aliasTypeArguments?: FormattedTypeRef[];
+  // aliasSymbol?: FormattedSymbolRef;
+  // aliasTypeArguments?: FormattedTypeRef[];
   defaultType?: FormattedTypeRef;
+  callSignatures?: FormattedSignature[];
+  constructorSignatures?: FormattedSignature[];
+  typeParameters?: FormattedTypeRef[];
   libName?: string;
 }
 
@@ -54,9 +59,8 @@ export interface FormattedSymbol
   exports?: Dict<FormattedSymbolRef>;
   globalExports?: Dict<FormattedSymbolRef>;
   members?: Dict<FormattedSymbolRef>;
+  properties?: Dict<FormattedSymbolRef>;
   jsDocTags?: Array<{ name: string; text?: string }>;
-  callSignatures?: FormattedSignature[];
-  constructorSignatures?: FormattedSignature[];
   type?: FormattedTypeRef;
 }
 

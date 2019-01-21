@@ -3,6 +3,7 @@ import { isDefined, isRef, refId } from '@code-to-json/utils';
 import { DataCollector } from './data-collector';
 import formatFlags from './flags';
 import resolveReference from './resolve-reference';
+import formatSignature from './signature';
 import { FormattedType, FormattedTypeRef } from './types';
 import { formatSymbolRefMap } from './utils';
 
@@ -34,15 +35,17 @@ export default function formatType(
     typeString,
     flags,
     objectFlags,
-    aliasSymbol: aliasSymbolRef,
-    aliasTypeArguments: aliasTypeArgumentRefs,
     defaultType: defaultTypeRef,
     constraint: constraintRef,
+    constructorSignatures,
+    callSignatures,
     properties,
     libName,
+    typeParameters,
     numberIndexType,
     stringIndexType,
     baseTypes,
+    isThisType,
   } = type;
 
   const typeInfo: FormattedType = {
@@ -50,17 +53,36 @@ export default function formatType(
     text: typeString,
     flags: formatFlags(flags),
     objectFlags: formatFlags(objectFlags),
+    isThisType,
   };
-  if (aliasSymbolRef) {
-    typeInfo.aliasSymbol = collector.queue(resolveReference(wo, aliasSymbolRef), 's');
-  }
-  if (aliasTypeArgumentRefs) {
-    typeInfo.aliasTypeArguments = aliasTypeArgumentRefs
-      .map(r => collector.queue(resolveReference(wo, r), 't'))
-      .filter(isDefined);
-  }
   if (constraintRef) {
     typeInfo.constraint = collector.queue(resolveReference(wo, constraintRef), 't');
+  }
+  if (typeParameters) {
+    const typeParameterRefs = typeParameters
+      .map(tp => {
+        if (!tp) {
+          return undefined;
+        }
+
+        const typ = resolveReference(wo, tp);
+
+        if (!typ) {
+          return undefined;
+        }
+        return typ;
+      })
+      .filter(isDefined);
+    const thisType: SerializedType | undefined = typeParameterRefs.filter(t => t.isThisType)[0];
+    const otherTypeParams: SerializedType[] = typeParameterRefs.filter(t => !t.isThisType);
+    if (otherTypeParams.length > 0) {
+      typeInfo.typeParameters = otherTypeParams
+        .map(tp => collector.queue(tp, 't'))
+        .filter(isDefined);
+    }
+    if (thisType) {
+      typeInfo.thisType = collector.queue(thisType, 't');
+    }
   }
   if (defaultTypeRef) {
     typeInfo.defaultType = collector.queue(resolveReference(wo, defaultTypeRef), 't');
@@ -88,6 +110,13 @@ export default function formatType(
     const constraint = resolveReference(wo, constraintRef);
     typeInfo.constraint = collector.queue(constraint, 't');
   }
-
+  if (constructorSignatures) {
+    typeInfo.constructorSignatures = constructorSignatures.map(cs =>
+      formatSignature(wo, cs, collector),
+    );
+  }
+  if (callSignatures) {
+    typeInfo.callSignatures = callSignatures.map(cs => formatSignature(wo, cs, collector));
+  }
   return typeInfo;
 }

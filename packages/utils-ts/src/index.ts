@@ -32,3 +32,4 @@ export { flagsToString, getObjectFlags, Flags } from './flags';
 export { getTsLibFilename } from './ts-libs';
 export { relevantTypeForSymbol, relevantDeclarationForSymbol } from './symbol';
 export { getFirstIdentifier, MappedType, AnonymousType, TypeMapper } from './ts-internal';
+export { isErroredType } from './type';

@@ -27,7 +27,7 @@ export default class WalkerConfig {
       return true;
     }
     if (includeDeclarations === 'none') {
-      return !sf.isDeclarationFile;
+      return !sf.isDeclarationFile && sf.fileName.indexOf('node_modules') < 0;
     }
     throw new UnreachableError(includeDeclarations);
   }

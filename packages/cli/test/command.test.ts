@@ -41,7 +41,7 @@ export class CommandTests {
     workspace.cleanup();
   }
 
-  @test
+  @test.skip
   public async 'run command: entries'(): Promise<void> {
     const workspace = await makeWorkspace();
     await generateJSONCommand({ out: path.join(workspace.rootPath, 'out') }, ['src/index.ts']);
