@@ -1,10 +1,9 @@
-import { SymbolRef, TypeRef, WalkerOutputData } from '@code-to-json/core';
-import { isRef } from '@code-to-json/utils';
-import { filterDict, mapDict, reduceDict } from '@code-to-json/utils-ts';
+import { SymbolRef, WalkerOutputData } from '@code-to-json/core';
+import { reduceDict } from '@code-to-json/utils-ts';
 import { Dict } from '@mike-north/types';
 import { DataCollector } from './data-collector';
 import resolveReference from './resolve-reference';
-import { FormattedSymbolRef, FormattedTypeRef } from './types';
+import { FormattedSymbolRef } from './types';
 
 export function formatSymbolRefMap(
   symbols: Dict<SymbolRef>,

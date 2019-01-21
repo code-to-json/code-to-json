@@ -4,7 +4,7 @@ import { suite, test } from 'mocha-typescript';
 import resolveReference from '../src/resolve-reference';
 
 @suite
-class ResolveReferenceTests {
+export class ResolveReferenceTests {
   @test
   public type(): void {
     const typeRef: Ref<'type'> = (createRef as any)('type', '12345');

@@ -1,22 +1,18 @@
-import { SerializedSymbol, SymbolRef, WalkerOutputData } from '@code-to-json/core';
-import { conditionallyMergeTransformed, isRef } from '@code-to-json/utils';
+import { SerializedSymbol, WalkerOutputData } from '@code-to-json/core';
+import { conditionallyMergeTransformed, refId } from '@code-to-json/utils';
 import { isString } from 'util';
 import { DataCollector } from './data-collector';
 import { mapDecorator } from './decorator';
 import formatFlags from './flags';
 import { mapModifier } from './modifiers';
 import resolveReference from './resolve-reference';
-import formatSignature from './signature';
-import { FormattedSymbol, FormattedSymbolRef, SideloadedDataCollector } from './types';
+import { FormattedSymbol, FormattedSymbolRef } from './types';
 import { formatSymbolRefMap } from './utils';
-
-function isObject<T extends object>(v?: T): v is T {
-  return typeof v !== 'undefined' && typeof v === 'object';
-}
 
 export default function formatSymbol(
   wo: WalkerOutputData,
   symbol: Readonly<SerializedSymbol>,
+  ref: FormattedSymbolRef,
   collector: DataCollector,
 ): FormattedSymbol {
   const {
@@ -24,18 +20,37 @@ export default function formatSymbol(
     flags: _rawFlags,
     exports,
     members,
-    // jsDocTags,
     type,
     modifiers,
     decorators,
     heritageClauses,
-    // location,
+    location,
+    comment,
+    sourceFile,
+    jsDocTags,
+    globalExports,
+    external,
     documentation,
   } = symbol;
   const info: FormattedSymbol = {
+    id: refId(ref),
     name: name || '(anonymous)',
-    // jsDocTags
   };
+  if (comment) {
+    info.comment = comment;
+  }
+  if (location) {
+    info.location = location;
+  }
+  if (external) {
+    info.external = external;
+  }
+  if (jsDocTags) {
+    info.jsDocTags = jsDocTags;
+  }
+  if (sourceFile) {
+    info.sourceFile = collector.queue(resolveReference(wo, sourceFile), 'f');
+  }
   if (type) {
     info.type = collector.queue(resolveReference(wo, type), 't');
   }
@@ -61,6 +76,13 @@ export default function formatSymbol(
     info,
     exports,
     'exports',
+    ex => formatSymbolRefMap(ex, wo, collector),
+    ex => !!(ex && Object.keys(ex).length > 0),
+  );
+  conditionallyMergeTransformed(
+    info,
+    globalExports,
+    'globalExports',
     ex => formatSymbolRefMap(ex, wo, collector),
     ex => !!(ex && Object.keys(ex).length > 0),
   );

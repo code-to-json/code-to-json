@@ -23,7 +23,7 @@ async function makeWorkspace(): Promise<TestCaseFolder> {
 }
 
 @suite
-class CommandTests {
+export class CommandTests {
   @test
   public async 'run command: --project'(): Promise<void> {
     const workspace = await makeWorkspace();

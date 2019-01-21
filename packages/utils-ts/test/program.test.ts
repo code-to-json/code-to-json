@@ -51,7 +51,7 @@ async function makeWorkspace(): Promise<TestCaseFolder> {
 }
 
 @suite('String to TypeScript program tests')
-class TranspileProgramTest {
+export class TranspileProgramTest {
   @test
   public 'simple valid ts program'(): void {
     const code = `export let x: number = 4;

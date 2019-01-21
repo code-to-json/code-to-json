@@ -8,6 +8,7 @@ import { setupTestCase } from '../src/index';
 
 export const TEST_CASES_FOLDER_PATH = path.join(__dirname, '..', 'test-cases');
 const SIMPLE_VARIABLES_TEST_CASE_NAME = 'simple-variables';
+
 @suite
 export class TestCaseCreation {
   @test

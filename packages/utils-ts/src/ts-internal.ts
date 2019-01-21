@@ -1,5 +1,4 @@
 import { UnreachableError } from '@code-to-json/utils';
-import { Dict } from '@mike-north/types';
 import * as ts from 'typescript';
 
 const tsany = ts as any;

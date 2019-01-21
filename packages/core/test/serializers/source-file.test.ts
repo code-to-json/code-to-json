@@ -9,7 +9,7 @@ import serializeSymbol from '../../src/serializers/symbol';
 import { setupScenario } from './helpers';
 
 @suite
-class SourceFileSerializtionTests {
+export class SourceFileSerializtionTests {
   @test
   public async 'single-function, no exports'(): Promise<void> {
     const { checker, sf, collector } = setupScenario(

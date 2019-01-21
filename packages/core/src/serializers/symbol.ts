@@ -38,6 +38,45 @@ function extractDocumentationText(decl: ts.Declaration): string | undefined {
   return undefined;
 }
 
+type SYMBOL_DECLARATION_PROPS =
+  | 'modifiers'
+  | 'decorators'
+  | 'jsDocTags'
+  | 'documentation'
+  | 'sourceFile'
+  | 'location';
+
+function serializeSymbolDeclarationData(
+  symbol: ts.Symbol,
+  decl: ts.Declaration,
+  c: Collector,
+  checker: ts.TypeChecker,
+): Pick<SerializedSymbol, SYMBOL_DECLARATION_PROPS> {
+  const { queue: q } = c;
+  const serialized: Pick<SerializedSymbol, SYMBOL_DECLARATION_PROPS> = {};
+  const { modifiers, decorators } = decl;
+  if (modifiers) {
+    serialized.modifiers = modifiers.map(m => m.kind.toString());
+  }
+  if (decorators) {
+    serialized.decorators = decorators.map(m => m.kind.toString());
+  }
+  if (symbol.getJsDocTags().length > 0 || symbol.getDocumentationComment(checker).length > 0) {
+    const txt = extractDocumentationText(decl);
+    serialized.jsDocTags = symbol.getJsDocTags().map(t => ({ name: t.name, text: t.text }));
+    if (typeof txt === 'string') {
+      serialized.documentation = parseCommentString(txt);
+    }
+  }
+  const { pos, end } = decl;
+  const sourceFile = decl.getSourceFile();
+  if (c.cfg.shouldSerializeSourceFile(sourceFile)) {
+    serialized.sourceFile = q.queue(sourceFile, 'sourceFile');
+    serialized.location = serializeLocation(sourceFile, pos, end, q);
+  }
+  return serialized;
+}
+
 /**
  * Serialize a ts.Symbol to JSON
  *
@@ -64,25 +103,16 @@ export default function serializeSymbol(
     type: q.queue(relevantTypeForSymbol(checker, symbol), 'type'),
   };
 
-  if (!c.cfg.shouldSerializeSymbolDetails(symbol)) {
+  const decl = relevantDeclarationForSymbol(symbol);
+  if (!c.cfg.shouldSerializeSymbolDetails(checker, symbol, decl)) {
     return serialized;
   }
 
   if (exportedSymbols) {
     serialized.exports = mapDict(exportedSymbols, exp => q.queue(exp, 'symbol'));
   }
-  const decl = relevantDeclarationForSymbol(symbol);
   if (decl) {
-    if (symbol.getJsDocTags().length > 0 || symbol.getDocumentationComment(checker).length > 0) {
-      const txt = extractDocumentationText(decl);
-      if (typeof txt === 'string') {
-        serialized.documentation = parseCommentString(txt);
-      }
-    }
-    const { pos, end } = decl;
-    const sourceFile = decl.getSourceFile();
-    serialized.sourceFile = q.queue(sourceFile, 'sourceFile');
-    serialized.location = serializeLocation(sourceFile, pos, end, q);
+    Object.assign(serialized, serializeSymbolDeclarationData(symbol, decl, c, checker));
   }
 
   forEach(symbol.declarations, d => {

@@ -5,7 +5,7 @@ import * as Exported from '../src/index';
 const { parseCommentString, parser } = Exported;
 
 @suite
-class PublicApiSurface {
+export class PublicApiSurface {
   @test
   public 'public API surface is as expected'(): void {
     expect(parseCommentString).to.be.a('function', 'parseCommentString is a function');

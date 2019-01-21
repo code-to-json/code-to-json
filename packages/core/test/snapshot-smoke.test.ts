@@ -6,13 +6,13 @@ import { suite, test } from 'mocha-typescript';
 import * as path from 'path';
 import * as ts from 'typescript';
 import { SerializedSourceFile, SourceFileRef, SymbolRef } from '../src';
-import { create as createQueue, ProcessResult, Queue } from '../src/processing-queue';
+import { create as createQueue, ProcessResult } from '../src/processing-queue';
 import serializeSourceFile from '../src/serializers/source-file';
 import { Collector } from '../src/types/walker';
 import WalkerConfig from '../src/walker/config';
 
 @suite
-class SimpleSnapshotSmokeTests {
+export class SimpleSnapshotSmokeTests {
   protected program!: ts.Program;
 
   protected checker!: ts.TypeChecker;

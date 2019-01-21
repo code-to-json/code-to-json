@@ -20,7 +20,7 @@ function digitSum(x: number): number {
 }
 
 @suite
-class PipeTests {
+export class PipeTests {
   @test public 'basic use'() {
     expect(pipe()(3)).to.eql(3);
     expect(pipe(square)(3)).to.eql(9);

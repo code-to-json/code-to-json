@@ -1,5 +1,5 @@
 import { SerializedType, TypeRef, WalkerOutputData } from '@code-to-json/core';
-import { isDefined, isRef } from '@code-to-json/utils';
+import { isDefined, isRef, refId } from '@code-to-json/utils';
 import { DataCollector } from './data-collector';
 import formatFlags from './flags';
 import resolveReference from './resolve-reference';
@@ -27,6 +27,7 @@ function resolveAndFormatType(
 export default function formatType(
   wo: WalkerOutputData,
   type: Readonly<SerializedType>,
+  ref: FormattedTypeRef,
   collector: DataCollector,
 ): FormattedType {
   const {
@@ -45,6 +46,7 @@ export default function formatType(
   } = type;
 
   const typeInfo: FormattedType = {
+    id: refId(ref),
     text: typeString,
     flags: formatFlags(flags),
     objectFlags: formatFlags(objectFlags),

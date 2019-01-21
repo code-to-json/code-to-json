@@ -3,7 +3,7 @@ import { suite, test } from 'mocha-typescript';
 import * as Exported from '../src/index';
 
 @suite
-class PublicApiSurfaceTests {
+export class PublicApiSurfaceTests {
   @test
   public 'nodeHost object exists'(): void {
     expect(Exported.nodeHost).to.be.a('object');

@@ -1,5 +1,11 @@
 import { CommentData } from '@code-to-json/comments';
-import { SerializedSourceFile, SerializedSymbol, SerializedType } from '@code-to-json/core';
+import {
+  HasDocumentation,
+  HasPosition,
+  SerializedSourceFile,
+  SerializedSymbol,
+  SerializedType,
+} from '@code-to-json/core';
 import { Queue, Ref } from '@code-to-json/utils';
 import { Dict } from '@mike-north/types';
 
@@ -19,7 +25,7 @@ export interface SideloadedDataCollector {
   sourceFiles: Queue<'f', SerializedSourceFile>;
 }
 
-export interface FormattedType {
+export interface FormattedType extends FormattedEntity {
   text: string;
   flags?: string[];
   constraint?: FormattedTypeRef;
@@ -34,14 +40,19 @@ export interface FormattedType {
   libName?: string;
 }
 
-export interface FormattedSymbol {
+export interface FormattedSymbol
+  extends FormattedEntity,
+    HasDocumentation,
+    HasPosition<FormattedSourceFileRef> {
   name: string;
   documentation?: CommentData;
   flags?: string[];
+  external?: boolean;
   modifiers?: string[];
   decorators?: string[];
   heritageClauses?: string[];
   exports?: Dict<FormattedSymbolRef>;
+  globalExports?: Dict<FormattedSymbolRef>;
   members?: Dict<FormattedSymbolRef>;
   jsDocTags?: Array<{ name: string; text?: string }>;
   callSignatures?: FormattedSignature[];
@@ -55,10 +66,16 @@ export interface FormattedSignature {
   returnType?: FormattedTypeRef;
 }
 
-export interface FormattedSourceFile extends Partial<FormattedSymbol> {
+export interface FormattedSourceFile
+  extends FormattedEntity,
+    Pick<FormattedSymbol, 'documentation' | 'exports'> {
   pathInPackage: string;
   moduleName: string;
   extension: string | null;
   isDeclarationFile: boolean;
   referencedFiles?: string[];
+}
+
+export interface FormattedEntity {
+  id: string;
 }

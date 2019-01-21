@@ -7,6 +7,8 @@ export {
   SerializedType,
   SerializedAmdDependency,
   SerializedFileReference,
+  HasDocumentation,
+  HasPosition,
 } from './types/serialized-entities';
 export {
   DeclarationRef,

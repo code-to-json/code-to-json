@@ -3,7 +3,7 @@ import { suite, test } from 'mocha-typescript';
 import { trimParagraphContent } from '../src/parse/utils';
 
 @suite
-class CommentUtilTest {
+export class CommentUtilTest {
   @test
   public async 'content array trimming'() {
     expect(trimParagraphContent(['\n', '\n', 'foo', '\n', 'bar'])).to.deep.eq(['foo', '\n', 'bar']);

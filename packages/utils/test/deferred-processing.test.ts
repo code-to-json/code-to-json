@@ -3,7 +3,7 @@ import { suite, test } from 'mocha-typescript';
 import { createQueue, Queue } from '../src/index';
 
 @suite
-class DeferredProcessingTests {
+export class DeferredProcessingTests {
   public q!: Queue<'foo', { idd: string }>;
 
   public before() {
@@ -36,8 +36,7 @@ class DeferredProcessingTests {
   @test
   public '.drain returns the processed object count'(): void {
     this.q.queue({ idd: 'asdklh' });
-    // tslint:disable-next-line:no-identical-functions
-    const { processedCount } = this.q.drain((ref, item) => '');
+    const { processedCount } = this.q.drain((_ref, _item) => '');
     expect(processedCount).to.eq(1);
   }
 
@@ -45,7 +44,6 @@ class DeferredProcessingTests {
   public '.drainUntilEmpty completely drains everything'(): void {
     this.q.queue({ idd: '23456' });
     let iterationCount = 0;
-    // tslint:disable-next-line:no-identical-functions
     this.q.drainUntilEmpty((ref, item) => {
       expect(ref).to.deep.eq(['foo', '~~23456~~']);
       expect(item).to.deep.eq({
@@ -62,7 +60,6 @@ class DeferredProcessingTests {
     this.q.queue(obj);
     this.q.queue(obj);
     let iterationCount = 0;
-    // tslint:disable-next-line:no-identical-functions
     this.q.drain((ref, item) => {
       expect(ref).to.deep.eq(['foo', '~~34567~~']);
       expect(item).to.deep.eq({

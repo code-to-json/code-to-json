@@ -1,11 +1,13 @@
 import { WalkerOutputData } from '@code-to-json/core';
+import { createRef } from '@code-to-json/utils';
 import { expect } from 'chai';
 import { suite, test } from 'mocha-typescript';
+import { FormatterRefRegistry } from '../../src';
 import { create } from '../../src/data-collector';
 import formatSourceFile from '../../src/source-file';
 
 @suite
-class SourceFileFormatterTests {
+export class SourceFileFormatterTests {
   @test
   public async 'file without exports'() {
     const wo: WalkerOutputData = {
@@ -34,9 +36,11 @@ class SourceFileFormatterTests {
         extension: 'ts',
         pathInPackage: 'module',
       },
+      createRef<FormatterRefRegistry, 'f'>('f', 'module.ts'),
       create(),
     );
     expect(fsf).to.deep.eq({
+      id: 'module.ts',
       moduleName: 'module',
       extension: 'ts',
       pathInPackage: 'module',
@@ -80,9 +84,11 @@ class SourceFileFormatterTests {
         extension: 'ts',
         symbol: ['symbol', '12345'] as any,
       },
+      createRef<FormatterRefRegistry, 'f'>('f', 'module.ts'),
       create(),
     );
     expect(fsf).to.deep.eq({
+      id: 'module.ts',
       pathInPackage: 'module',
       extension: 'ts',
       moduleName: 'module',

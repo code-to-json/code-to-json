@@ -21,7 +21,7 @@ import serializeSignature from './signature';
 
 function serializeTypeReference(
   type: ts.TypeReference,
-  checker: ts.TypeChecker,
+  _checker: ts.TypeChecker,
   c: Collector,
 ): Partial<SerializedType> {
   const { queue: q } = c;
@@ -35,7 +35,7 @@ function serializeTypeReference(
 
 function serializeMappedType(
   type: MappedType,
-  checker: ts.TypeChecker,
+  _checker: ts.TypeChecker,
   c: Collector,
 ): Partial<SerializedType> {
   const { queue: q } = c;
@@ -179,7 +179,7 @@ function serializeIndexType(
 }
 function serializeIndexAccessType(
   typ: ts.IndexedAccessType,
-  checker: ts.TypeChecker,
+  _checker: ts.TypeChecker,
   c: Collector,
 ): Partial<SerializedType> {
   const { objectType, indexType, constraint, simplified } = typ;
@@ -222,36 +222,37 @@ export default function serializeType(
   };
 
   const decl = relevantDeclarationForSymbol(symbol);
+  const shouldSerializeDetails = c.cfg.shouldSerializeSymbolDetails(checker, typ.symbol, decl);
   if (decl) {
     const sourceFile = decl.getSourceFile();
     const libName = getTsLibFilename(sourceFile.fileName);
     if (libName) {
       serializedType.libName = libName;
-    } else {
+    } else if (shouldSerializeDetails && c.cfg.shouldSerializeSourceFile(sourceFile)) {
       serializedType.sourceFile = c.queue.queue(sourceFile, 'sourceFile');
     }
   }
   if (isPrimitiveType(typ)) {
     serializedType.primitive = true;
   }
-
-  if (!c.cfg.shouldSerializeSymbolDetails(typ.symbol)) {
+  if (!shouldSerializeDetails) {
     return serializedType;
   }
+
   if (isObjectType(typ)) {
-    Object.assign(serializedType, { ...serializeRelatedTypes(typ, checker, c) });
+    Object.assign(serializedType, serializeRelatedTypes(typ, checker, c));
   }
   if (typ.isTypeParameter()) {
-    Object.assign(serializedType, { ...serializeTypeParameterType(typ, checker, c) });
+    Object.assign(serializedType, serializeTypeParameterType(typ, checker, c));
   }
   if (typ.isUnionOrIntersection()) {
-    Object.assign(serializedType, { ...serializeUnionOrIntersectionType(typ, checker, c) });
+    Object.assign(serializedType, serializeUnionOrIntersectionType(typ, checker, c));
   }
   if (isIndexType(typ)) {
-    Object.assign(serializedType, { ...serializeIndexType(typ, checker, c) });
+    Object.assign(serializedType, serializeIndexType(typ, checker, c));
   }
   if (isIndexedAccessType(typ)) {
-    Object.assign(serializedType, { ...serializeIndexAccessType(typ, checker, c) });
+    Object.assign(serializedType, serializeIndexAccessType(typ, checker, c));
   }
 
   return serializedType;

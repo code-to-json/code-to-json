@@ -27,7 +27,7 @@ async function makeWorkspace(): Promise<TestCaseFolder> {
 }
 
 @suite
-class CommandUtilsTests {
+export class CommandUtilsTests {
   @test
   public async 'globToPathsTest - positive cases'(): Promise<void> {
     const workspace = await makeWorkspace();

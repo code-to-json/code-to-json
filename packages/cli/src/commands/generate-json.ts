@@ -4,7 +4,6 @@ import { InvalidArgumentsError } from '@code-to-json/utils';
 import { nodeHost, pathNormalizerForPackageJson } from '@code-to-json/utils-node';
 import {
   createProgramFromTsConfig,
-  ModulePathNormalizer,
   PASSTHROUGH_MODULE_PATH_NORMALIZER,
 } from '@code-to-json/utils-ts';
 import * as fs from 'fs';

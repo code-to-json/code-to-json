@@ -8,6 +8,8 @@ import { Collector } from '../types/walker';
 import serializeAmdDependency from './amd-dependency';
 import serializeFileReference from './file-reference';
 
+type FILE_REF_PROPERTIES = 'referencedFiles' | 'typeReferenceDirectives' | 'libReferenceDirectives';
+
 /**
  * Extract and serialize any ts.FileReferences that may be present on a ts.SourceFile
  *
@@ -15,19 +17,13 @@ import serializeFileReference from './file-reference';
  */
 function serializeFileReferences(
   fileReferences: Dict<ReadonlyArray<ts.FileReference>>,
-): Pick<
-  SerializedSourceFile,
-  'referencedFiles' | 'typeReferenceDirectives' | 'libReferenceDirectives'
-> {
+): Pick<SerializedSourceFile, FILE_REF_PROPERTIES> {
   const {
     referencedFileRefs,
     typeReferenceDirectiveRefs,
     libReferenceDirectiveRefs,
   } = fileReferences;
-  const out: Pick<
-    SerializedSourceFile,
-    'referencedFiles' | 'typeReferenceDirectives' | 'libReferenceDirectives'
-  > = {};
+  const out: Pick<SerializedSourceFile, FILE_REF_PROPERTIES> = {};
 
   if (referencedFileRefs && referencedFileRefs.length > 0) {
     out.referencedFiles = referencedFileRefs.map(serializeFileReference);

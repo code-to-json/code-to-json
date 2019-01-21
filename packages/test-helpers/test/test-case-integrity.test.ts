@@ -11,7 +11,7 @@ const TEST_CASE_FOLDERS = fs
   .map(f => path.join(TEST_CASES_FOLDER_PATH, f)); // and transformed into absolute paths
 
 @suite
-class TestCaseIntegrity {
+export class TestCaseIntegrity {
   @test
   public async 'every test case has a tsconfig.json file'(): Promise<void> {
     // each test case

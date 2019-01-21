@@ -3,7 +3,7 @@ import { suite, test } from 'mocha-typescript';
 import formatFlags from '../../src/flags';
 
 @suite
-class FlagFormatterTests {
+export class FlagFormatterTests {
   @test
   public async 'pass-through (capitalization only) flags'(): Promise<void> {
     [

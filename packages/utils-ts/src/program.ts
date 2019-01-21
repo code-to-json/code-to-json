@@ -1,4 +1,3 @@
-import { setupTestCase } from '@code-to-json/test-helpers';
 import { InvalidArgumentsError, UnreachableError } from '@code-to-json/utils';
 import * as debug from 'debug';
 import {
@@ -100,7 +99,13 @@ function transpileModule(
   scriptKind: ScriptKind,
   options: CompilerOptions,
 ): TranspileOuptut {
-  const sourceFile = createSourceFile(inputFileName, input, options.target || ScriptTarget.ES5);
+  const sourceFile = createSourceFile(
+    inputFileName,
+    input,
+    options.target || ScriptTarget.ES5,
+    undefined,
+    scriptKind,
+  );
   return new TranspileOuptutData(inputFileName, sourceFile, options);
 }
 

@@ -6,7 +6,7 @@ import * as path from 'path';
 import { getDeclarationFiles } from './test-helpers';
 
 @suite
-class TypeScriptFixturePrograms {
+export class TypeScriptFixturePrograms {
   @test
   public async 'creation of a simple JS program from fixture files'(): Promise<void> {
     const { program } = await setupTestCase(

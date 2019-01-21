@@ -1,19 +1,10 @@
 // tslint:disable no-small-switch
-import {
-  DocBlockTag,
-  DocCodeSpan,
-  DocErrorText,
-  DocNodeKind,
-  DocParagraph,
-  DocParamCollection,
-  DocPlainText,
-  DocSection,
-} from '@microsoft/tsdoc';
+import { DocNodeKind, DocParagraph, DocParamCollection, DocSection } from '@microsoft/tsdoc';
 import { CommentParagraphContent, CommentParam } from '../types';
 import parseParagraph from './paragraph';
 import { extractParamDescription, trimParagraphContent } from './utils';
 
-function parseTagSection(tagName: string, node: DocSection): CommentParagraphContent {
+function parseTagSection(_tagName: string, node: DocSection): CommentParagraphContent {
   const parts: CommentParagraphContent = [];
   node.getChildNodes().forEach(ch => {
     const { kind: k } = ch;

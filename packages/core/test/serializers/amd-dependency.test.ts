@@ -3,7 +3,7 @@ import { suite, test } from 'mocha-typescript';
 import serializeAmdDependency from '../../src/serializers/amd-dependency';
 
 @suite
-class AMDDependencySerializationTests {
+export class AMDDependencySerializationTests {
   @test
   public async 'basic tests'(): Promise<void> {
     const serialized = serializeAmdDependency({ name: 'foo', path: 'bar' });

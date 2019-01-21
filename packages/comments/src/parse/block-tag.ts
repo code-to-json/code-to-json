@@ -1,4 +1,4 @@
-import { DocBlockTag, DocExcerpt, DocNode, DocNodeKind } from '@microsoft/tsdoc';
+import { DocBlockTag, DocNode, DocNodeKind } from '@microsoft/tsdoc';
 import { CommentBlockTag } from 'types';
 
 export default function parseBlockTag(tag: DocBlockTag): CommentBlockTag {

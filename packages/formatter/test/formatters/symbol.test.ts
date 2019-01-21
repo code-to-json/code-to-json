@@ -1,11 +1,13 @@
 import { SerializedSymbol, WalkerOutputData } from '@code-to-json/core';
+import { createRef } from '@code-to-json/utils';
 import { expect } from 'chai';
 import { suite, test } from 'mocha-typescript';
+import { FormatterRefRegistry } from '../../src';
 import { create as createDataCollector } from '../../src/data-collector';
 import formatSymbol from '../../src/symbol';
 
 @suite
-class SymbolFormatterTests {
+export class SymbolFormatterTests {
   @test
   public async basic() {
     const sym: SerializedSymbol = {
@@ -22,9 +24,14 @@ class SymbolFormatterTests {
       declarations: {},
       sourceFiles: {},
     };
-    expect(formatSymbol(wo, sym, createDataCollector())).to.deep.eq({
-      name: 'foo',
-    });
+    expect(
+      formatSymbol(
+        wo,
+        sym,
+        createRef<FormatterRefRegistry, 's'>('s', '1234'),
+        createDataCollector(),
+      ),
+    ).to.deep.eq({ id: '1234', name: 'foo' });
   }
 
   @test
@@ -44,10 +51,14 @@ class SymbolFormatterTests {
       declarations: {},
       sourceFiles: {},
     };
-    expect(formatSymbol(wo, sym, createDataCollector())).to.deep.eq({
-      name: 'foo',
-      flags: ['interface'],
-    });
+    expect(
+      formatSymbol(
+        wo,
+        sym,
+        createRef<FormatterRefRegistry, 's'>('s', '1234'),
+        createDataCollector(),
+      ),
+    ).to.deep.eq({ id: '1234', name: 'foo', flags: ['interface'] });
   }
 
   @test
@@ -74,10 +85,14 @@ class SymbolFormatterTests {
       declarations: {},
       sourceFiles: {},
     };
-    expect(formatSymbol(wo, sym, createDataCollector())).to.deep.eq({
-      name: 'foo',
-      exports: { somethingExported: ['s', '3456'] },
-    });
+    expect(
+      formatSymbol(
+        wo,
+        sym,
+        createRef<FormatterRefRegistry, 's'>('s', '1234'),
+        createDataCollector(),
+      ),
+    ).to.deep.eq({ id: '1234', name: 'foo', exports: { somethingExported: ['s', '3456'] } });
   }
 
   @test
@@ -97,9 +112,14 @@ class SymbolFormatterTests {
       declarations: {},
       sourceFiles: {},
     };
-    expect(formatSymbol(wo, sym, createDataCollector())).to.deep.eq({
-      name: 'foo',
-    });
+    expect(
+      formatSymbol(
+        wo,
+        sym,
+        createRef<FormatterRefRegistry, 's'>('s', '1234'),
+        createDataCollector(),
+      ),
+    ).to.deep.eq({ id: '1234', name: 'foo' });
   }
 
   @test
@@ -126,10 +146,14 @@ class SymbolFormatterTests {
       declarations: {},
       sourceFiles: {},
     };
-    expect(formatSymbol(wo, sym, createDataCollector())).to.deep.eq({
-      name: 'foo',
-      members: { someMember: ['s', '3456'] },
-    });
+    expect(
+      formatSymbol(
+        wo,
+        sym,
+        createRef<FormatterRefRegistry, 's'>('s', '1234'),
+        createDataCollector(),
+      ),
+    ).to.deep.eq({ id: '1234', name: 'foo', members: { someMember: ['s', '3456'] } });
   }
 
   @test
@@ -151,9 +175,14 @@ class SymbolFormatterTests {
       declarations: {},
       sourceFiles: {},
     };
-    expect(formatSymbol(wo, sym, createDataCollector())).to.deep.include({
-      name: 'foo',
-    });
+    expect(
+      formatSymbol(
+        wo,
+        sym,
+        createRef<FormatterRefRegistry, 's'>('s', '1234'),
+        createDataCollector(),
+      ),
+    ).to.deep.include({ id: '1234', name: 'foo' });
   }
 
   @test
@@ -173,9 +202,14 @@ class SymbolFormatterTests {
       declarations: {},
       sourceFiles: {},
     };
-    expect(formatSymbol(wo, sym, createDataCollector())).to.deep.eq({
-      name: 'foo',
-    });
+    expect(
+      formatSymbol(
+        wo,
+        sym,
+        createRef<FormatterRefRegistry, 's'>('s', '1234'),
+        createDataCollector(),
+      ),
+    ).to.deep.eq({ id: '1234', name: 'foo' });
   }
 
   @test
@@ -197,7 +231,15 @@ class SymbolFormatterTests {
       declarations: {},
       sourceFiles: {},
     };
-    expect(formatSymbol(wo, sym, createDataCollector())).to.deep.include({
+    expect(
+      formatSymbol(
+        wo,
+        sym,
+        createRef<FormatterRefRegistry, 's'>('s', '1234'),
+        createDataCollector(),
+      ),
+    ).to.deep.include({
+      id: '1234',
       name: 'foo',
     });
   }

@@ -1,12 +1,10 @@
-// tslint:disable:no-duplicate-string
-
 import { expect } from 'chai';
 import * as commander from 'commander';
 import { suite, test } from 'mocha-typescript';
 import { buildProgram, runAction, timeString } from '../src/cli';
 
 @suite
-class CliUtilTests {
+export class CliUtilTests {
   @test
   public async 'program builds without error'(): Promise<void> {
     let helpStr: string = '';

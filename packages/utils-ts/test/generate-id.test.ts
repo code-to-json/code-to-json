@@ -6,7 +6,7 @@ import { generateId } from '../src/generate-id';
 import { createProgramFromCodeString, mapDict } from '../src/index';
 
 @suite
-class GenerateIdTests {
+export class GenerateIdTests {
   private sourceFile!: ts.SourceFile;
 
   private classDeclaration!: ts.Declaration;
@@ -112,7 +112,9 @@ export const x: string = 'foo';
     }
     const memberSyms = mapDict(members, s => s);
     const memberSym = memberSyms[Object.keys(memberSyms)[0]];
-    if (!memberSym) { throw new Error('Expected to find at least one member symbol'); }
+    if (!memberSym) {
+      throw new Error('Expected to find at least one member symbol');
+    }
     const [memberDecl] = memberSym.declarations;
     expect(memberDecl.getText()).to.eql('public wheels: number = 4;');
     expect(generateId(memberDecl))

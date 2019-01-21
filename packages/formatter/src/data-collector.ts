@@ -65,7 +65,7 @@ export function create(): DataCollector {
           throw new UnreachableError(refType);
       }
     },
-    drain<S, T, N, D, SF>(sink: Partial<QueueSink<S, T, SF>>): DrainOutput<S, T, SF> {
+    drain<S, T, SF>(sink: Partial<QueueSink<S, T, SF>>): DrainOutput<S, T, SF> {
       const out: DrainOutput<S, T, SF> = {
         symbols: {},
         types: {},

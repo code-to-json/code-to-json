@@ -3,7 +3,7 @@ import { suite, test } from 'mocha-typescript';
 import { UnreachableError } from '../src/index';
 
 @suite
-class ErrorTests {
+export class ErrorTests {
   @test
   public 'UnreachableError tests'(): void {
     expect(() => {

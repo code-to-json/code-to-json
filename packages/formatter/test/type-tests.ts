@@ -12,3 +12,5 @@ let xAsObject = x as object;
 const {
   data: { sourceFiles },
 } = x;
+
+console.log(yAsObject, xAsObject, sourceFiles);
