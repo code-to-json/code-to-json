@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.16.0](https://github.com/mike-north/code-to-json/compare/@code-to-json/formatter@0.15.1...@code-to-json/formatter@0.16.0) (2019-01-21)
+
+
+### Features
+
+* new walking strategy ([c66dce1](https://github.com/mike-north/code-to-json/commit/c66dce1))
+
+
+
+
+
 ## [0.15.1](https://github.com/mike-north/code-to-json/compare/@code-to-json/formatter@0.15.0...@code-to-json/formatter@0.15.1) (2019-01-19)
 
 **Note:** Version bump only for package @code-to-json/formatter

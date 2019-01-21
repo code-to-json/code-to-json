@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.8.0](https://github.com/mike-north/code-to-json/compare/@code-to-json/utils-ts@0.7.1...@code-to-json/utils-ts@0.8.0) (2019-01-21)
+
+
+### Features
+
+* **utils:** forEach utility ([38df5ea](https://github.com/mike-north/code-to-json/commit/38df5ea))
+* **utils-ts:** getFirstIdentifier ([33b44f1](https://github.com/mike-north/code-to-json/commit/33b44f1))
+* new walking strategy ([c66dce1](https://github.com/mike-north/code-to-json/commit/c66dce1))
+
+
+
+
+
 ## [0.7.1](https://github.com/mike-north/code-to-json/compare/@code-to-json/utils-ts@0.7.0...@code-to-json/utils-ts@0.7.1) (2019-01-19)
 
 **Note:** Version bump only for package @code-to-json/utils-ts

@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.7.0](https://github.com/mike-north/code-to-json/compare/@code-to-json/utils@0.6.8...@code-to-json/utils@0.7.0) (2019-01-21)
+
+
+### Features
+
+* new walking strategy ([c66dce1](https://github.com/mike-north/code-to-json/commit/c66dce1))
+* **util:** pipe function ([63f6f88](https://github.com/mike-north/code-to-json/commit/63f6f88))
+* **utils:** forEach utility ([38df5ea](https://github.com/mike-north/code-to-json/commit/38df5ea))
+
+
+
+
+
 ## [0.6.8](https://github.com/mike-north/code-to-json/compare/@code-to-json/utils@0.6.7...@code-to-json/utils@0.6.8) (2019-01-19)
 
 **Note:** Version bump only for package @code-to-json/utils

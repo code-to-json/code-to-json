@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.5.0](https://github.com/mike-north/code-to-json/compare/@code-to-json/comments@0.4.4...@code-to-json/comments@0.5.0) (2019-01-21)
+
+
+### Features
+
+* new walking strategy ([c66dce1](https://github.com/mike-north/code-to-json/commit/c66dce1))
+
+
+
+
+
 ## [0.4.4](https://github.com/mike-north/code-to-json/compare/@code-to-json/comments@0.4.3...@code-to-json/comments@0.4.4) (2019-01-19)
 
 **Note:** Version bump only for package @code-to-json/comments

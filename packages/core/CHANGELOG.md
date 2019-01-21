@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.18.0](https://github.com/mike-north/code-to-json/compare/@code-to-json/core@0.17.1...@code-to-json/core@0.18.0) (2019-01-21)
+
+
+### Bug Fixes
+
+* **chore:** restore block comment serialization ([788f7d4](https://github.com/mike-north/code-to-json/commit/788f7d4))
+
+
+### Features
+
+* **utils:** forEach utility ([38df5ea](https://github.com/mike-north/code-to-json/commit/38df5ea))
+* **utils-ts:** getFirstIdentifier ([33b44f1](https://github.com/mike-north/code-to-json/commit/33b44f1))
+* new walking strategy ([c66dce1](https://github.com/mike-north/code-to-json/commit/c66dce1))
+
+
+
+
+
 ## [0.17.1](https://github.com/mike-north/code-to-json/compare/@code-to-json/core@0.17.0...@code-to-json/core@0.17.1) (2019-01-19)
 
 **Note:** Version bump only for package @code-to-json/core
