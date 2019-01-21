@@ -28,7 +28,7 @@ class SymbolSerializtionTests {
       extension: 'ts',
       id: '01m4wlwidurl',
       isDeclarationFile: false,
-      moduleName: 'module',
+      moduleName: 'temp-project/module',
       originalFileName: 'module.ts',
       pathInPackage: 'module',
     });

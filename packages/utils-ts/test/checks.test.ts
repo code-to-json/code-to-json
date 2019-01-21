@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import { suite, test } from 'mocha-typescript';
 import * as ts from 'typescript';
-import { createProgramFromCodeString, isDeclarationExported, mapUem } from '../src/index';
+import { createProgramFromCodeString, isDeclarationExported, mapDict } from '../src/index';
 
 @suite('Checks tests')
 class ChecksTests {
@@ -43,13 +43,17 @@ function addToX(y: number): number { return x + y; }`;
     if (!exports) {
       throw new Error('SourceFile has no exports');
     }
-    const exportArr = mapUem(exports, sym => sym.declarations[0]);
-    expect(exportArr.length).to.eql(1);
+    const allExports = mapDict(exports, sym => sym.declarations[0]);
+    expect(Object.keys(allExports).length).to.eql(1);
 
     expect(this.sf.statements.length).to.eql(4);
     expect(this.sf.statements[3].getText()).to.eql(
       'function addToX(y: number): number { return x + y; }',
     );
-    expect(isDeclarationExported(exportArr[0])).to.eq(true);
+    const firstExport = allExports[Object.keys(allExports)[0]];
+    if (!firstExport) {
+      throw new Error('Expected to find an export');
+    }
+    expect(isDeclarationExported(firstExport)).to.eq(true);
   }
 }

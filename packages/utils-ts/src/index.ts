@@ -1,7 +1,19 @@
 export { mapChildren, nameForNode } from './node';
-export { isDeclaration, isNamedDeclaration, isNode, isSymbol, isType } from './guards';
+export {
+  isDeclaration,
+  isNamedDeclaration,
+  isNode,
+  isSymbol,
+  isType,
+  isObjectReferenceType,
+  isObjectType,
+  isTupleType,
+  isMappedType,
+  isClassOrInterfaceType,
+  isAnonymousType,
+} from './guards';
 export { isDeclarationExported } from './checks';
-export { mapUem } from './underscore-escaped-map';
+export { mapDict, filterDict, reduceDict, forEachDict } from './dict';
 export {
   createProgramFromCodeString,
   createProgramFromEntries,
@@ -19,3 +31,4 @@ export { generateId, generateHash } from './generate-id';
 export { flagsToString, getObjectFlags, Flags } from './flags';
 export { getTsLibFilename } from './ts-libs';
 export { relevantTypeForSymbol, relevantDeclarationForSymbol } from './symbol';
+export { getFirstIdentifier, MappedType, AnonymousType, TypeMapper } from './ts-internal';

@@ -2,6 +2,9 @@ import {
   DocBlockTag,
   DocCodeSpan,
   DocErrorText,
+  DocHtmlAttribute,
+  DocHtmlEndTag,
+  DocHtmlStartTag,
   DocInlineTag,
   DocLinkTag,
   DocNode,
@@ -10,13 +13,52 @@ import {
   DocPlainText,
 } from '@microsoft/tsdoc';
 import * as debug from 'debug';
-import { CommentParagraphContent } from 'types';
+import { CommentHTMLEndTag, CommentHTMLStartTag, CommentParagraphContent } from '../types';
 import parseBlockTag from './block-tag';
 import parseCodeSpan from './code-span';
 import parseInlineTag from './inline-tag';
 import parseLinkTag from './link-tag';
 
 const log = debug('code-to-json:comments:paragraph');
+
+function handleHTMLStartTag(node: DocHtmlStartTag): CommentHTMLStartTag {
+  const { name, htmlAttributes, selfClosingTag } = node;
+  const out: CommentHTMLStartTag = {
+    kind: 'htmlStartTag',
+    isSelfClosingTag: selfClosingTag,
+    attributes: htmlAttributes.map(attr => ({ name: attr.name, value: attr.value })),
+    name,
+  };
+  return out;
+}
+
+function handleHTMLEndTag(node: DocHtmlEndTag): CommentHTMLEndTag {
+  const { name } = node;
+  const out: CommentHTMLEndTag = {
+    kind: 'htmlEndTag',
+    name,
+  };
+  return out;
+}
+
+function handleErrortext(node: DocErrorText, parts: CommentParagraphContent): void {
+  const lastIdx = parts.length - 1;
+  const lastP = parts[lastIdx] as string;
+  switch (node.text) {
+    case '{':
+      // eslint-disable-next-line no-param-reassign
+      parts[lastIdx] = `${lastP} {`;
+      break;
+    case '}':
+      // eslint-disable-next-line no-param-reassign
+      parts[lastIdx] = `${lastP}} `;
+      break;
+    default:
+      // eslint-disable-next-line no-param-reassign
+      parts[lastIdx] = `${lastP}${node.text}`;
+      break;
+  }
+}
 
 export default function parseParagraph(p: DocParagraph): CommentParagraphContent {
   const parts: CommentParagraphContent = [];
@@ -31,33 +73,11 @@ export default function parseParagraph(p: DocParagraph): CommentParagraphContent
       case DocNodeKind.PlainText:
         parts.push((node as DocPlainText).text.trim());
         break;
-      case DocNodeKind.Excerpt:
-        break;
       case DocNodeKind.LinkTag:
         parts.push(parseLinkTag(node as DocLinkTag));
         break;
-      case DocNodeKind.DeclarationReference:
-      case DocNodeKind.MemberReference:
-      case DocNodeKind.MemberIdentifier:
-      case DocNodeKind.HtmlStartTag:
-        // TODO
-        break;
       case DocNodeKind.ErrorText:
-        {
-          const lastIdx = parts.length - 1;
-          const lastP = parts[lastIdx] as string;
-          switch ((node as DocErrorText).text) {
-            case '{':
-              parts[lastIdx] = `${lastP} {`;
-              break;
-            case '}':
-              parts[lastIdx] = `${lastP}} `;
-              break;
-            default:
-              parts[lastIdx] = `${lastP}${(node as DocErrorText).text}`;
-              break;
-          }
-        }
+        handleErrortext(node as DocErrorText, parts);
         break;
       case DocNodeKind.BlockTag:
         parts.push(parseBlockTag(node as DocBlockTag));
@@ -67,6 +87,18 @@ export default function parseParagraph(p: DocParagraph): CommentParagraphContent
         break;
       case DocNodeKind.CodeSpan:
         parts.push(parseCodeSpan(node as DocCodeSpan));
+        break;
+      case DocNodeKind.HtmlStartTag:
+        parts.push(handleHTMLStartTag(node as DocHtmlStartTag));
+        break;
+      case DocNodeKind.HtmlEndTag:
+        parts.push(handleHTMLEndTag(node as DocHtmlEndTag));
+        break;
+      case DocNodeKind.Excerpt:
+      case DocNodeKind.HtmlAttribute:
+      case DocNodeKind.DeclarationReference:
+      case DocNodeKind.MemberReference:
+      case DocNodeKind.MemberIdentifier:
         break;
       default:
         throw new Error(`Didn't expect to find a node of kind ${node.kind} in a DocParagraph`);

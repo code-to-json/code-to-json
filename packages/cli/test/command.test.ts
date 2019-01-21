@@ -9,8 +9,6 @@ async function makeWorkspace(): Promise<TestCaseFolder> {
   const workspace = await createTempFixtureFolder({
     'tsconfig.json': JSON.stringify({
       compilerOptions: {
-        allowJs: true,
-        checkJs: true,
         target: 'ES2017',
         noEmit: true,
       },

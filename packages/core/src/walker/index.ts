@@ -7,7 +7,8 @@ import serializeSourceFile from '../serializers/source-file';
 import serializeSymbol from '../serializers/symbol';
 import serializeType from '../serializers/type';
 import { Collector, WalkerOutput } from '../types/walker';
-import { createWalkerConfig, populateWalkerOptions, WalkerOptions } from './options';
+import WalkerConfig from './config';
+import { WalkerOptions } from './options';
 
 /**
  * Walk a typescript program, using specified entry points, returning JSON information describing the code
@@ -21,13 +22,13 @@ export function walkProgram(
   host: SysHost,
   options: Partial<WalkerOptions> = {},
 ): WalkerOutput {
-  const opts = populateWalkerOptions(options);
-  const cfg = createWalkerConfig(opts);
+  const cfg = new WalkerConfig(options);
+
   // Create the type-checker
   const checker = program.getTypeChecker();
 
   // Get all non-declaration source files
-  const sourceFiles = program.getSourceFiles().filter(cfg.shouldIncludeSourceFile);
+  const sourceFiles = program.getSourceFiles().filter(sf => cfg.shouldIncludeSourceFile(sf));
 
   // Initialize the work-processing queue
   const queue = createQueue(checker);
@@ -35,8 +36,7 @@ export function walkProgram(
   const collector: Collector = {
     queue,
     host,
-    opts,
-    pathNormalizer: opts.pathNormalizer,
+    cfg,
   };
 
   /**

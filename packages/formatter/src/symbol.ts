@@ -8,7 +8,7 @@ import { mapModifier } from './modifiers';
 import resolveReference from './resolve-reference';
 import formatSignature from './signature';
 import { FormattedSymbol, FormattedSymbolRef, SideloadedDataCollector } from './types';
-import { symbolRefListToFormattedSymbolMap } from './utils';
+import { formatSymbolRefMap } from './utils';
 
 function isObject<T extends object>(v?: T): v is T {
   return typeof v !== 'undefined' && typeof v === 'object';
@@ -25,13 +25,11 @@ export default function formatSymbol(
     exports,
     members,
     // jsDocTags,
-    callSignatures,
     type,
     modifiers,
     decorators,
     heritageClauses,
     // location,
-    constructorSignatures,
     documentation,
   } = symbol;
   const info: FormattedSymbol = {
@@ -63,29 +61,15 @@ export default function formatSymbol(
     info,
     exports,
     'exports',
-    ex => symbolRefListToFormattedSymbolMap(ex, wo, collector),
-    ex => !!(ex && ex.length > 0),
+    ex => formatSymbolRefMap(ex, wo, collector),
+    ex => !!(ex && Object.keys(ex).length > 0),
   );
   conditionallyMergeTransformed(
     info,
     members,
     'members',
-    mem => symbolRefListToFormattedSymbolMap(mem, wo, collector),
-    mem => !!(mem && mem.length > 0),
-  );
-  conditionallyMergeTransformed(
-    info,
-    callSignatures,
-    'callSignatures',
-    cs => cs.map(s => formatSignature(wo, s, collector)),
-    cs => cs && cs.length > 0,
-  );
-  conditionallyMergeTransformed(
-    info,
-    constructorSignatures,
-    'constructorSignatures',
-    cs => cs.map(s => formatSignature(wo, s, collector)),
-    cs => cs && cs.length > 0,
+    mem => formatSymbolRefMap(mem, wo, collector),
+    mem => !!(mem && Object.keys(mem).length > 0),
   );
 
   return info;

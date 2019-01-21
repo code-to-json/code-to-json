@@ -1,5 +1,5 @@
 import { SerializedSignature, WalkerOutputData } from '@code-to-json/core';
-import { isTruthy } from '@code-to-json/utils';
+import { isDefined } from '@code-to-json/utils';
 import { DataCollector } from './data-collector';
 import resolveReference from './resolve-reference';
 import formatType from './type';
@@ -34,7 +34,7 @@ export default function formatSignature(
         const typ = resolveReference(wo, tp);
         return collector.queue(typ, 't');
       })
-      .filter(isTruthy);
+      .filter(isDefined);
   }
   return signatureInfo;
 }

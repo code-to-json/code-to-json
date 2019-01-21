@@ -1,7 +1,16 @@
+import { isDefined, isPresent, isRef } from '@code-to-json/utils';
 import { expect } from 'chai';
 import { suite, test } from 'mocha-typescript';
 import * as ts from 'typescript';
-import { createProgramFromCodeString, isDeclaration, isNamedDeclaration, isNode, isSymbol, isType, mapUem } from '../src/index';
+import {
+  createProgramFromCodeString,
+  isDeclaration,
+  isNamedDeclaration,
+  isNode,
+  isSymbol,
+  isType,
+  mapDict,
+} from '../src/index';
 
 @suite('Guard tests')
 class GuardTests {
@@ -42,9 +51,11 @@ export function addToX(y: number): number { return x + y; }`;
     if (!exports) {
       throw new Error('SourceFile has no exports');
     }
-    const exportArr = mapUem(exports, sym => sym.declarations[0]);
-    expect(exportArr.length).to.eql(2);
-    const [firstExport, secondExport] = exportArr;
+    const allExports = mapDict(exports, sym => sym.declarations[0]);
+    expect(Object.keys(allExports).length).to.eql(2);
+    const [firstExport, secondExport] = Object.keys(allExports)
+      .map(e => allExports[e])
+      .filter(isDefined);
 
     expect(firstExport.getText()).to.eql(
       'export function addToX(y: number): number { return x + y; }',

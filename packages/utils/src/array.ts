@@ -52,3 +52,13 @@ export function isHomogenousArray<T>(value: any[], validator: (v: any) => boolea
   }
   return true;
 }
+
+export function forEach<T>(
+  array: T[] | ReadonlyArray<T> | undefined,
+  callback: (item: T, idx: number) => void,
+): void {
+  if (!array) {
+    return;
+  }
+  (array.forEach as any)(callback);
+}

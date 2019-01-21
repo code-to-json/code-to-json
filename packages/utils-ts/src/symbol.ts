@@ -1,28 +1,16 @@
+import * as debug from 'debug';
 import * as ts from 'typescript';
 
-export function relevantTypeForSymbol(checker: ts.TypeChecker, symbol: ts.Symbol): ts.Type {
-  const { valueDeclaration: _valDecl, flags } = symbol;
-  const valueDeclaration = _valDecl as ts.Declaration | undefined;
-  if (valueDeclaration) {
-    return checker.getTypeOfSymbolAtLocation(symbol, valueDeclaration);
-  }
-  const declarations = symbol.getDeclarations();
-  if (declarations && declarations.length > 0) {
-    return checker.getTypeAtLocation(declarations[0]);
-  }
-  // eslint-disable-next-line no-bitwise
-  if (flags & ts.SymbolFlags.Prototype) {
-    return checker.getDeclaredTypeOfSymbol(symbol);
-  }
-  throw new Error(`Could not determine type of symbol ${symbol.name}`);
-}
-
+const log = debug('code-to-json:utils-ts');
 /**
  * Find the relevant declaration for a ts.Symbol
  * @param sym Symbol whose declaration is desired
  */
-export function relevantDeclarationForSymbol(sym: ts.Symbol): ts.Declaration | undefined {
-  const { valueDeclaration } = sym;
+export function relevantDeclarationForSymbol(sym?: ts.Symbol): ts.Declaration | undefined {
+  if (!sym) {
+    return undefined;
+  }
+  const { valueDeclaration } = sym as { valueDeclaration?: ts.Declaration };
   if (valueDeclaration) {
     return valueDeclaration;
   }
@@ -32,4 +20,54 @@ export function relevantDeclarationForSymbol(sym: ts.Symbol): ts.Declaration | u
     return allDeclarations[0];
   }
   return undefined;
+}
+
+export function relevantTypeForSymbol(
+  checker: ts.TypeChecker,
+  symbol: ts.Symbol,
+): ts.Type | undefined {
+  const { valueDeclaration: _valDecl } = symbol;
+  const valueDeclaration: ts.Declaration | undefined = _valDecl;
+
+  if (symbol.flags & (ts.SymbolFlags.Variable | ts.SymbolFlags.Property)) {
+    return checker.getTypeOfSymbolAtLocation(symbol, valueDeclaration);
+  }
+  if (valueDeclaration && ts.isSourceFile(valueDeclaration)) {
+    return checker.getTypeOfSymbolAtLocation(symbol, valueDeclaration);
+  }
+  if (
+    symbol.flags &
+    (ts.SymbolFlags.Function |
+      ts.SymbolFlags.Method |
+      ts.SymbolFlags.Class |
+      ts.SymbolFlags.Enum |
+      ts.SymbolFlags.ValueModule)
+  ) {
+    return checker.getTypeAtLocation(valueDeclaration);
+  }
+  if (symbol.flags & ts.SymbolFlags.EnumMember) {
+    return checker.getTypeAtLocation(valueDeclaration);
+  }
+  if (symbol.flags & ts.SymbolFlags.Accessor) {
+    return checker.getTypeOfSymbolAtLocation(symbol, valueDeclaration);
+  }
+  if (symbol.flags & ts.SymbolFlags.Alias) {
+    return checker.getDeclaredTypeOfSymbol(symbol);
+  }
+  if (symbol.flags & ts.SymbolFlags.TypeParameter) {
+    return checker.getDeclaredTypeOfSymbol(symbol);
+  }
+  if (
+    symbol.flags &&
+    ts.SymbolFlags.TypeLiteral &&
+    symbol.declarations &&
+    symbol.declarations.length > 0
+  ) {
+    // TODO: handle >1 case
+    return checker.getTypeAtLocation(symbol.declarations[0]);
+  }
+  const lastResort = checker.getDeclaredTypeOfSymbol(symbol);
+
+  log(`LAST RESORT: ${checker.symbolToString(symbol)} --> ${checker.typeToString(lastResort)}`);
+  return lastResort;
 }

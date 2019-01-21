@@ -62,3 +62,13 @@ export const SECRET_STRING = 'shhhhh!';
 
 export { default as Car } from './car';
 export { Unicycle, Bike } from './cycles';
+
+export enum Suit {
+  Heart = 10,
+  Spade,
+  Club,
+  Diamond,
+}
+
+export const foo: { thing: typeof SECRET_STRING } = { thing: 'shhhhh!' };
+export const bar: { abc: typeof foo } = { abc: foo };

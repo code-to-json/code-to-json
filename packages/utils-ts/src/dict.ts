@@ -1,0 +1,89 @@
+/* eslint-disable import/prefer-default-export */
+import { Dict } from '@mike-north/types';
+import { __String, UnderscoreEscapedMap } from 'typescript';
+
+function isUem<T>(dict: UnderscoreEscapedMap<T> | Dict<T>): dict is UnderscoreEscapedMap<T> {
+  return typeof dict.clear === 'function';
+}
+
+/**
+ * Invoke a callback for each key-value pair in a dictionary
+ * @param dict dictionary to iterate over
+ * @param callback mapping function to apply to each key-value pair
+ */
+export function forEachDict<T>(
+  dict: UnderscoreEscapedMap<T> | Dict<T>,
+  cb: (t: T, key: __String | string) => void,
+): void {
+  if (isUem(dict)) {
+    dict.forEach(cb);
+  } else {
+    Object.keys(dict).forEach(key => {
+      const item = dict[key] as T;
+      cb(item, key);
+    });
+  }
+}
+
+/**
+ * Map over a dictionary
+ * @param dict dictionary to iterate over
+ * @param callback mapping function to apply to each key-value pair
+ */
+export function mapDict<T, S>(
+  dict: UnderscoreEscapedMap<T> | Dict<T>,
+  callback: ((t: T, key: __String | string) => S | undefined),
+): Dict<S> {
+  return reduceDict(
+    dict,
+    (d, item, key) => {
+      const transformed = callback(item, key);
+      if (typeof transformed !== 'undefined') {
+        // eslint-disable-next-line no-param-reassign
+        d[key.toString()] = transformed;
+      }
+      return d;
+    },
+    {} as Dict<S>,
+  );
+}
+
+/**
+ * Filter a dictionary
+ * @param dict dictionary to iterate over
+ * @param callback mapping function to apply to each key-value pair
+ */
+export function filterDict<T>(
+  dict: UnderscoreEscapedMap<T> | Dict<T>,
+  filterFn: ((t: T, key: __String | string) => boolean),
+): Dict<T> {
+  return reduceDict(
+    dict,
+    (d, item, key) => {
+      if (filterFn(item, key)) {
+        // eslint-disable-next-line no-param-reassign
+        d[typeof key === 'string' ? key : key.toString()] = item;
+      }
+
+      return d;
+    },
+    {} as Dict<T>,
+  );
+}
+
+/**
+ * Reduce a dictionary
+ * @param dict dictionary to iterate over
+ * @param callback mapping function to apply to each key-value pair
+ */
+export function reduceDict<T, R>(
+  dict: UnderscoreEscapedMap<T> | Dict<T>,
+  callback: ((reduced: R, t: T, key: __String | string) => R),
+  initial: R,
+): R {
+  let reducedVal: R = initial;
+  forEachDict(dict, (val, key) => {
+    reducedVal = callback(reducedVal, val, key);
+  });
+  return reducedVal;
+}

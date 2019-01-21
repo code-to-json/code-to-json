@@ -85,7 +85,7 @@ export default function serializeSourceFile(
     moduleName,
     extension,
     relativePath: pathInPackage,
-  } = c.pathNormalizer.filePathToModuleInfo(originalFileName);
+  } = c.cfg.pathNormalizer.filePathToModuleInfo(originalFileName);
 
   const basicInfo: SerializedSourceFile = {
     id: refId(ref),

@@ -1,23 +1,27 @@
 import { SymbolRef, TypeRef, WalkerOutputData } from '@code-to-json/core';
 import { isRef } from '@code-to-json/utils';
+import { filterDict, mapDict, reduceDict } from '@code-to-json/utils-ts';
+import { Dict } from '@mike-north/types';
 import { DataCollector } from './data-collector';
 import resolveReference from './resolve-reference';
 import { FormattedSymbolRef, FormattedTypeRef } from './types';
 
-export function symbolRefListToFormattedSymbolMap(
-  list: SymbolRef[],
+export function formatSymbolRefMap(
+  symbols: Dict<SymbolRef>,
   wo: WalkerOutputData,
   collector: DataCollector,
-): { [k: string]: FormattedSymbolRef | undefined } {
-  return list.filter(isRef).reduce(
-    (syms, s) => {
-      const exp = resolveReference(wo, s);
-      if (!exp) { return syms; }
-      const { name: expName } = exp;
+): Dict<FormattedSymbolRef> {
+  return reduceDict(
+    symbols,
+    (all, sRef) => {
+      const exp = resolveReference(wo, sRef);
+      if (!exp) {
+        return all;
+      }
       // eslint-disable-next-line no-param-reassign
-      syms[expName] = collector.queue(exp, 's');
-      return syms;
+      all[exp.name] = collector.queue(exp, 's');
+      return all;
     },
-    {} as { [k: string]: FormattedSymbolRef | undefined },
+    {} as Dict<FormattedSymbolRef>,
   );
 }
