@@ -39,5 +39,6 @@ steps:
       lerna run build
     displayName: 'Build project'
   - script: |
+      export DISABLE_SNAPSHOT_TESTS=true
       lerna run test
     displayName: 'Run tests'

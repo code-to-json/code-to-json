@@ -3,8 +3,8 @@ import { suite, test } from 'mocha-typescript';
 import * as snapshot from 'snap-shot-it';
 import { fullWalkerOutput } from './helpers';
 
-const enableIf: (predicate: boolean) => ClassDecorator = predicate => target => {
-  if (!predicate) {
+const disableIf: (predicate: boolean) => ClassDecorator = predicate => target => {
+  if (predicate) {
     Object.getOwnPropertyNames(target.prototype).forEach(methodName => {
       if (methodName === 'constructor') {
         return;
@@ -18,7 +18,7 @@ const enableIf: (predicate: boolean) => ClassDecorator = predicate => target => 
 };
 
 @suite
-@enableIf(!process.env.AZURE_PIPELINES)
+@disableIf(!!process.env.DISABLE_SNAPSHOT_TESTS)
 export class SerializationSnapshotTests {
   @test public async 'const x = "foo"'() {
     const {
