@@ -40,6 +40,7 @@ function generateTypeId(thing: Type, checker: TypeChecker): string {
 const idCount = {
   symbol: 0,
   sourcefile: 0,
+  type: 0,
 };
 
 /**
@@ -53,7 +54,7 @@ export function generateId(thing: Sym | Node | Type, checker?: TypeChecker): str
     throw new Error('Cannot generate an ID for empty values');
   }
   if (isType(thing)) {
-    return generateHash(generateTypeId(thing, checker!));
+    return generateHash(idCount.type++ + generateTypeId(thing, checker!));
   }
   if (isSymbol(thing)) {
     const seed = idCount.symbol++;
@@ -67,7 +68,9 @@ export function generateId(thing: Sym | Node | Type, checker?: TypeChecker): str
   }
   if (isSourceFile(thing)) {
     const { fileName } = thing;
-    return generateHash(idCount.sourcefile++ + fileName.substr(fileName.length - 6));
+    return generateHash(
+      idCount.sourcefile++ + fileName.substr(fileName.length - 6).replace(/[\\/:]+/g, ''),
+    );
   }
   if (isDeclaration(thing)) {
     return generateHash(thing.getText());

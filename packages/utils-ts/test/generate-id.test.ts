@@ -145,7 +145,7 @@ export const x: string = 'foo';
   @test
   public 'stable hashing'(): void {
     expect(generateId(this.varSym)).to.eql('01m4wn2iso43');
-    expect(generateId(this.typ, this.checker)).to.eql('01m4wlvrcu38');
+    expect(generateId(this.typ, this.checker)).to.eql('01m4wnun13rg');
     expect(generateId(this.sourceFile)).to.eql('01m4wml9qsxm');
     expect(generateId(this.varDeclaration)).to.eql('01m4wlurlp4f');
     expect(generateId(this.classDeclaration)).to.eql('01m4wm4wrlxj');
