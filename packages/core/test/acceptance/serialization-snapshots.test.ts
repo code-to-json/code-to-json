@@ -25,6 +25,11 @@ export class SerializationSnapshotTests {
       data: { types, symbols },
       cleanup,
     } = await fullWalkerOutput('export const x = "foo";');
+    // Fix due to flag changes in TS 3.0 -> TS 3.2
+    const flags: string[] = (types['01m4wmrpputn']! as any).flags!;
+    if (flags.includes('FreshLiteral')) {
+      flags.pop();
+    }
     snapshot({ types, symbols });
     cleanup();
   }
@@ -118,6 +123,11 @@ export class SerializationSnapshotTests {
     } = await fullWalkerOutput(
       `export type Dict<T extends "foo"|"bar"|"baz"> = { [k: string]: T | undefined }`,
     );
+    const flags = types['01m4wnnc9m2y']!.flags!;
+    if (flags.includes('UnionOfUnitTypes')) {
+      const idx = flags.indexOf('UnionOfUnitTypes');
+      flags.splice(idx, 1);
+    }
     snapshot({ types, symbols });
     cleanup();
   }
