@@ -4,8 +4,12 @@ import { refId, refType } from '@code-to-json/utils';
 import { nodeHost } from '@code-to-json/utils-node';
 import { filterDict, mapDict, reduceDict } from '@code-to-json/utils-ts';
 import { expect } from 'chai';
-import { walkProgram } from '../../src';
-import { SerializedType } from '../../src/types/serialized-entities';
+import { WalkerOutputData, walkProgram } from '../../src';
+import {
+  SerializedSourceFile,
+  SerializedSymbol,
+  SerializedType,
+} from '../../src/types/serialized-entities';
 
 interface TypeSummary {
   typeString: string;
@@ -40,10 +44,10 @@ function summarizeType(typ: SerializedType): TypeSummary {
   return out;
 }
 
-export async function exportedModuleSymbols(
+export async function fullWalkerOutput(
   codeString: string,
-): Promise<{ exports: ExportSummaries; cleanup: () => void }> {
-  const { program, cleanup } = await setupTestCase(
+): Promise<{ data: WalkerOutputData; cleanup: () => void; rootPath: string }> {
+  const { program, cleanup, rootPath } = await setupTestCase(
     {
       // tslint:disable-next-line:no-duplicate-string
       src: { 'index.ts': codeString },
@@ -63,10 +67,41 @@ export async function exportedModuleSymbols(
     ['src/index.ts'],
   );
   const walkerOutput = walkProgram(program, nodeHost);
+  const { types, symbols, sourceFiles } = walkerOutput.data;
 
-  const {
-    data: { symbols, sourceFiles, types },
-  } = walkerOutput;
+  Object.keys(types).forEach(k => {
+    const t: SerializedType = types[k]!;
+    if (t.typeString.includes(rootPath)) {
+      t.typeString = t.typeString.replace(rootPath, '');
+    }
+  });
+  Object.keys(symbols).forEach(k => {
+    const s: SerializedSymbol = symbols[k]!;
+    if (s.name.includes(rootPath)) {
+      s.name = s.name.replace(rootPath, '');
+    }
+  });
+  Object.keys(sourceFiles).forEach(k => {
+    const s: SerializedSourceFile = sourceFiles[k]!;
+    if (s.originalFileName && s.originalFileName.includes(rootPath)) {
+      s.originalFileName = s.originalFileName.replace(rootPath, '');
+    }
+    if (s.moduleName && s.moduleName.includes(rootPath)) {
+      s.moduleName = s.moduleName.replace(rootPath, '');
+    }
+    if (s.pathInPackage && s.pathInPackage.includes(rootPath)) {
+      s.pathInPackage = s.pathInPackage.replace(rootPath, '');
+    }
+  });
+
+  return { data: walkerOutput.data, cleanup, rootPath };
+}
+export async function exportedModuleSymbols(
+  codeString: string,
+): Promise<{ exports: ExportSummaries; cleanup: () => void }> {
+  const { data, cleanup } = await fullWalkerOutput(codeString);
+
+  const { symbols, sourceFiles, types } = data;
 
   const nonDeclarationFiles = filterDict(sourceFiles, f => !f.isDeclarationFile);
   const sourceFileKeys = Object.keys(nonDeclarationFiles);

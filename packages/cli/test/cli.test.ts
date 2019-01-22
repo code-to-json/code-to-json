@@ -51,7 +51,7 @@ const enableIf: (predicate: boolean) => ClassDecorator = predicate => target => 
 
 @suite
 @slow(2000)
-@enableIf(!!process.env.TRAVIS_CI)
+@enableIf(!process.env.AZURE_PIPELINES)
 export class CliTests {
   @test
   public async '--help prints out usage information'(): Promise<void> {
@@ -70,7 +70,7 @@ export class CliTests {
       runCli()
         .stderr.toString()
         .trim(),
-    ).contains('[ERROR] - Either --project <path> or entries glob(s) must be defined');
+    ).contains('Either --project <path> or entries glob(s) must be defined');
   }
 
   @test

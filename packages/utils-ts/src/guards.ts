@@ -1,5 +1,7 @@
 import {
   Declaration,
+  IndexedAccessType,
+  IndexType,
   InterfaceType,
   isClassLike,
   isFunctionLike,
@@ -154,6 +156,15 @@ const PRIMITIVE_TYPES =
   TypeFlags.Void |
   TypeFlags.Undefined |
   TypeFlags.Null;
+
 export function isPrimitiveType(type: Type): boolean {
   return !!(type.flags & PRIMITIVE_TYPES);
+}
+
+export function isIndexType(type: Type): type is IndexType {
+  return !!(type.flags & TypeFlags.Index);
+}
+
+export function isIndexedAccessType(type: Type): type is IndexedAccessType {
+  return !!(type.flags & TypeFlags.IndexedAccess);
 }

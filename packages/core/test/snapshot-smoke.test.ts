@@ -1,6 +1,6 @@
 import { setupTestCase } from '@code-to-json/test-helpers';
 import { nodeHost } from '@code-to-json/utils-node';
-import { generateId, PASSTHROUGH_MODULE_PATH_NORMALIZER } from '@code-to-json/utils-ts';
+import { PASSTHROUGH_MODULE_PATH_NORMALIZER } from '@code-to-json/utils-ts';
 import { expect } from 'chai';
 import { suite, test } from 'mocha-typescript';
 import * as path from 'path';
@@ -61,8 +61,9 @@ export class SimpleSnapshotSmokeTests {
       .to.contain('index.js');
     const { sourceFiles } = this.data;
 
-    const indexFileId = generateId(indexFile);
-    const indexFileData = sourceFiles[indexFileId];
+    const [indexFileData] = Object.keys(sourceFiles)
+      .filter(sf => !sourceFiles[sf].isDeclarationFile)
+      .map(sf => sourceFiles[sf]);
     expect(Object.keys(indexFileData))
       .contains('id')
       .contains('entity')

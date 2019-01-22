@@ -1,7 +1,8 @@
 import { isArray, UnreachableError } from '@code-to-json/utils';
 import { Flags } from '@code-to-json/utils-ts';
+import { Dict } from '@mike-north/types';
 
-const FLAGS_TRANSLATION_MAP: { [k: string]: string } = {
+const FLAGS_TRANSLATION_MAP: Dict<string> = {
   Class: 'class',
   Function: 'function',
   BlockScopedVariable: 'variable',

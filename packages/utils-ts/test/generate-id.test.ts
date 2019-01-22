@@ -71,7 +71,7 @@ export const x: string = 'foo';
   @test
   public async 'generateId for sourceFile'(): Promise<void> {
     expect(generateId(this.sourceFile)).to.eql(
-      '01m4wlwidurl',
+      '01m4wm4dc15l',
       'SourceFile ids are hashed on their module name',
     );
   }
@@ -140,5 +140,15 @@ export const x: string = 'foo';
   @test
   public async 'generateId for 8'(): Promise<void> {
     expect(() => generateId(8 as any)).to.throw('Cannot generate an id for this object');
+  }
+
+  @test
+  public 'stable hashing'(): void {
+    expect(generateId(this.varSym)).to.eql('01m4wn2iso43');
+    expect(generateId(this.typ, this.checker)).to.eql('01m4wlvrcu38');
+    expect(generateId(this.sourceFile)).to.eql('01m4wml9qsxm');
+    expect(generateId(this.varDeclaration)).to.eql('01m4wlurlp4f');
+    expect(generateId(this.classDeclaration)).to.eql('01m4wm4wrlxj');
+    expect(generateId(this.classSym)).to.eql('01m4wnmlf5th');
   }
 }

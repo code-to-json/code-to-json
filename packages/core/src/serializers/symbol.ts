@@ -1,10 +1,12 @@
 import { parseCommentString } from '@code-to-json/comments';
 import { forEach, refId } from '@code-to-json/utils';
 import {
+  decoratorsToStrings,
   flagsToString,
   getFirstIdentifier,
   isErroredType,
   mapDict,
+  modifiersToStrings,
   relevantDeclarationForSymbol,
   relevantTypeForSymbol,
 } from '@code-to-json/utils-ts';
@@ -57,10 +59,10 @@ function serializeSymbolDeclarationData(
   const serialized: Pick<SerializedSymbol, SYMBOL_DECLARATION_PROPS> = {};
   const { modifiers, decorators } = decl;
   if (modifiers) {
-    serialized.modifiers = modifiers.map(m => m.kind.toString());
+    serialized.modifiers = modifiersToStrings(modifiers);
   }
   if (decorators) {
-    serialized.decorators = decorators.map(m => m.kind.toString());
+    serialized.decorators = decoratorsToStrings(decorators);
   }
   if (symbol.getJsDocTags().length > 0 || symbol.getDocumentationComment(checker).length > 0) {
     const txt = extractDocumentationText(decl);
@@ -95,8 +97,8 @@ export default function serializeSymbol(
   const { queue: q } = c;
   const { flags, name, exports: exportedSymbols } = symbol;
   // starting point w/ minimal (and mandatory) information
-  const symbolType = relevantTypeForSymbol(checker, symbol);
-  if (symbolType && isErroredType(symbolType)) {
+  const type = relevantTypeForSymbol(checker, symbol);
+  if (type && isErroredType(type)) {
     throw new Error(`Unable to determine type for symbol ${checker.symbolToString(symbol)}`);
   }
   const serialized: SerializedSymbol = {
@@ -104,7 +106,7 @@ export default function serializeSymbol(
     entity: 'symbol',
     name,
     flags: flagsToString(flags, 'symbol'),
-    type: q.queue(symbolType, 'type'),
+    type: q.queue(type, 'type'),
   };
 
   const decl = relevantDeclarationForSymbol(symbol);

@@ -11,6 +11,9 @@ export {
   isMappedType,
   isClassOrInterfaceType,
   isAnonymousType,
+  isIndexType,
+  isIndexedAccessType,
+  isPrimitiveType,
 } from './guards';
 export { isDeclarationExported } from './checks';
 export { mapDict, filterDict, reduceDict, forEachDict } from './dict';
@@ -33,3 +36,5 @@ export { getTsLibFilename } from './ts-libs';
 export { relevantTypeForSymbol, relevantDeclarationForSymbol } from './symbol';
 export { getFirstIdentifier, MappedType, AnonymousType, TypeMapper } from './ts-internal';
 export { isErroredType } from './type';
+export { modifiersToStrings } from './modifiers';
+export { decoratorsToStrings } from './decorators';

@@ -2,7 +2,7 @@
 // tslint:disable:no-bitwise
 import { UnreachableError } from '@code-to-json/utils';
 import * as debug from 'debug';
-import { isSourceFile, Node, Symbol as Sym, Type, TypeChecker } from 'typescript';
+import { Declaration, isSourceFile, Node, Symbol as Sym, Type, TypeChecker } from 'typescript';
 import { isDeclaration, isNode, isSymbol, isType } from './guards';
 
 const log = debug('code-to-json:generate-id');
@@ -28,6 +28,20 @@ export function generateHash(str: string): string {
   return hex.slice(-12);
 }
 
+function generateTypeId(thing: Type, checker: TypeChecker): string {
+  const { symbol } = thing;
+  const valueDeclaration: Declaration | null = symbol ? symbol.valueDeclaration : null;
+  if (symbol && valueDeclaration) {
+    return valueDeclaration.getText();
+  }
+  return checker.typeToString(thing);
+}
+
+const idCount = {
+  symbol: 0,
+  sourcefile: 0,
+};
+
 /**
  * Generate an id for an entity
  * @param thing Entity to generate an Id for
@@ -39,11 +53,11 @@ export function generateId(thing: Sym | Node | Type, checker?: TypeChecker): str
     throw new Error('Cannot generate an ID for empty values');
   }
   if (isType(thing)) {
-    const ch = checker as TypeChecker;
-    return generateHash(ch.typeToString(thing));
+    return generateHash(generateTypeId(thing, checker!));
   }
   if (isSymbol(thing)) {
-    const parts: Array<string | number> = [thing.name, thing.flags];
+    const seed = idCount.symbol++;
+    const parts: Array<string | number> = [parseInt(`${seed * seed * seed}`, 30), thing.flags];
     const { valueDeclaration } = thing;
     if (valueDeclaration) {
       parts.push(valueDeclaration.pos);
@@ -51,14 +65,15 @@ export function generateId(thing: Sym | Node | Type, checker?: TypeChecker): str
     }
     return generateHash(parts.filter(Boolean).join('-'));
   }
-  if (thing && isSourceFile(thing)) {
-    return generateHash(thing.fileName);
+  if (isSourceFile(thing)) {
+    const { fileName } = thing;
+    return generateHash(idCount.sourcefile++ + fileName.substr(fileName.length - 6));
   }
   if (isDeclaration(thing)) {
-    return generateHash(thing.getFullText());
+    return generateHash(thing.getText());
   }
   if (isNode(thing)) {
-    return generateHash(thing.getFullText());
+    return generateHash(thing.getText());
   }
   log(thing);
   throw new UnreachableError(thing, 'Cannot generate an id for this object');
