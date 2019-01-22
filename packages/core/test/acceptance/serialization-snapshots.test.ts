@@ -26,7 +26,7 @@ export class SerializationSnapshotTests {
       cleanup,
     } = await fullWalkerOutput('export const x = "foo";');
     // Fix due to flag changes in TS 3.0 -> TS 3.2
-    const flags: string[] = (types['01m4wmrpputn']! as any).flags!;
+    const { flags }: { flags: string[] } = types['01m4wmrpputn']! as any;
     if (flags.includes('FreshLiteral')) {
       flags.pop();
     }
