@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.18.0](https://github.com/mike-north/code-to-json/compare/@code-to-json/formatter@0.17.1...@code-to-json/formatter@0.18.0) (2019-01-22)
+
+
+### Features
+
+* consistency improvements uncovered by snap-doc test suite ([c2e0e4b](https://github.com/mike-north/code-to-json/commit/c2e0e4b))
+
+
+
+
+
 ## [0.17.1](https://github.com/mike-north/code-to-json/compare/@code-to-json/formatter@0.17.0...@code-to-json/formatter@0.17.1) (2019-01-21)
 
 **Note:** Version bump only for package @code-to-json/formatter

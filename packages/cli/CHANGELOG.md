@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.13.0](https://github.com/mike-north/code-to-json/compare/@code-to-json/cli@0.12.1...@code-to-json/cli@0.13.0) (2019-01-22)
+
+
+### Features
+
+* consistency improvements uncovered by snap-doc test suite ([c2e0e4b](https://github.com/mike-north/code-to-json/commit/c2e0e4b))
+
+
+
+
+
 ## [0.12.1](https://github.com/mike-north/code-to-json/compare/@code-to-json/cli@0.12.0...@code-to-json/cli@0.12.1) (2019-01-21)
 
 **Note:** Version bump only for package @code-to-json/cli
