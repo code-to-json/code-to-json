@@ -1,24 +1,9 @@
-import { expect } from 'chai';
 import { suite, test } from 'mocha-typescript';
 import * as snapshot from 'snap-shot-it';
-import { fullWalkerOutput } from './helpers';
-
-const disableIf: (predicate: boolean) => ClassDecorator = predicate => target => {
-  if (predicate) {
-    Object.getOwnPropertyNames(target.prototype).forEach(methodName => {
-      if (methodName === 'constructor') {
-        return;
-      }
-      // eslint-disable-next-line no-param-reassign
-      target.prototype[methodName] = () => {
-        expect(true).to.eq(true);
-      };
-    });
-  }
-};
+import { disableIf, fullWalkerOutput } from './helpers';
 
 @suite
-@disableIf(!!process.env.DISABLE_SNAPSHOT_TESTS)
+@disableIf(!!process.env.AZURE_HTTP_USER_AGENT)
 export class SerializationSnapshotTests {
   @test public async 'const x = "foo"'() {
     const {
@@ -26,7 +11,7 @@ export class SerializationSnapshotTests {
       cleanup,
     } = await fullWalkerOutput('export const x = "foo";');
     // Fix due to flag changes in TS 3.0 -> TS 3.2
-    const { flags }: { flags: string[] } = types['01m4wm7ji2sc']! as any;
+    const { flags }: { flags: string[] } = types['01m4wn51jlh2']! as any;
     if (flags.includes('FreshLiteral')) {
       flags.pop();
     }
@@ -124,7 +109,7 @@ export class SerializationSnapshotTests {
       `export type Dict<T extends "foo"|"bar"|"baz"> = { [k: string]: T | undefined }`,
     );
     // Fix due to flag changes in TS 3.0 -> TS 3.2
-    const flags = types['01m4wnv6yypk']!.flags!;
+    const flags = types['01m4wnuoob96']!.flags!;
     if (flags.includes('UnionOfUnitTypes')) {
       const idx = flags.indexOf('UnionOfUnitTypes');
       flags.splice(idx, 1);

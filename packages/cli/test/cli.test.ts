@@ -35,8 +35,8 @@ const constWithExplicitType: string = 'foo';
   },
 };
 
-const enableIf: (predicate: boolean) => ClassDecorator = predicate => target => {
-  if (!predicate) {
+const disableIf: (predicate: boolean) => ClassDecorator = predicate => target => {
+  if (predicate) {
     Object.getOwnPropertyNames(target.prototype).forEach(methodName => {
       if (methodName === 'constructor') {
         return;
@@ -51,7 +51,7 @@ const enableIf: (predicate: boolean) => ClassDecorator = predicate => target => 
 
 @suite
 @slow(2000)
-@enableIf(!process.env.AZURE_PIPELINES)
+@disableIf(!!process.env.AZURE_HTTP_USER_AGENT)
 export class CliTests {
   @test
   public async '--help prints out usage information'(): Promise<void> {

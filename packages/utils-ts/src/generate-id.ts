@@ -32,16 +32,17 @@ function generateTypeId(thing: Type, checker: TypeChecker): string {
   const { symbol } = thing;
   const valueDeclaration: Declaration | null = symbol ? symbol.valueDeclaration : null;
   if (symbol && valueDeclaration) {
-    return valueDeclaration.getText();
+    return generateHash(valueDeclaration.getText());
   }
-  return checker.typeToString(thing);
+  return generateHash(checker.typeToString(thing));
 }
 
-const idCount = {
-  symbol: 0,
-  sourcefile: 0,
-  type: 0,
-};
+/** @internal */
+export function generateIdForSourceFileName(fileName: string): string {
+  return generateHash(
+    fileName.substr(Math.max(0, fileName.length - 10)).replace(/[\\/:"'`.-\s]+/g, ''),
+  );
+}
 
 /**
  * Generate an id for an entity
@@ -54,23 +55,19 @@ export function generateId(thing: Sym | Node | Type, checker?: TypeChecker): str
     throw new Error('Cannot generate an ID for empty values');
   }
   if (isType(thing)) {
-    return generateHash(idCount.type++ + generateTypeId(thing, checker!));
+    return generateTypeId(thing, checker!);
   }
   if (isSymbol(thing)) {
-    const seed = idCount.symbol++;
-    const parts: Array<string | number> = [parseInt(`${seed * seed * seed}`, 30), thing.flags];
     const { valueDeclaration } = thing;
+    const parts: Array<string | number> = [thing.flags, thing.name];
     if (valueDeclaration) {
-      parts.push(valueDeclaration.pos);
-      parts.push(valueDeclaration.end);
+      return generateHash(valueDeclaration.getText());
     }
     return generateHash(parts.filter(Boolean).join('-'));
   }
   if (isSourceFile(thing)) {
-    const { fileName } = thing;
-    return generateHash(
-      idCount.sourcefile++ + fileName.substr(fileName.length - 6).replace(/[\\/:]+/g, ''),
-    );
+    const { fileName, end, pos, flags } = thing;
+    return generateIdForSourceFileName(fileName + pos + end + flags);
   }
   if (isDeclaration(thing)) {
     return generateHash(thing.getText());

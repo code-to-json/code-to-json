@@ -224,10 +224,12 @@ export default function serializeType(
     id: refId(ref),
     flags: flagsToString(type.flags, 'type'),
     // symbol: c.queue.queue(symbol, 'symbol'),
-    isThisType,
   };
   if (isPrimitiveType(type)) {
     serialized.primitive = true;
+  }
+  if (isThisType) {
+    serialized.isThisType = true;
   }
   if (!symbol) {
     return serialized;

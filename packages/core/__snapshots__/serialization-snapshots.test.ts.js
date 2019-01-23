@@ -1,89 +1,9 @@
 exports['SerializationSnapshotTests abstract class Vehicle { numWheels: number = 4; abstract drive(): string; } 1'] = {
   "types": {
-    "01m4wmheitlu": {
-      "typeString": "typeof import(\"/src/index\")",
-      "entity": "type",
-      "id": "01m4wmheitlu",
-      "flags": [
-        "Object"
-      ],
-      "objectFlags": [
-        "Anonymous"
-      ],
-      "properties": {
-        "Vehicle": [
-          "symbol",
-          "01m4wlmgevew"
-        ]
-      }
-    },
-    "01m4wlymjmp3": {
-      "typeString": "typeof Vehicle",
-      "entity": "type",
-      "id": "01m4wlymjmp3",
-      "flags": [
-        "Object"
-      ],
-      "objectFlags": [
-        "Anonymous"
-      ],
-      "properties": {},
-      "constructorSignatures": [
-        {
-          "returnType": [
-            "type",
-            "01m4wnsmoljm"
-          ]
-        }
-      ]
-    },
-    "01m4wnsmoljm": {
+    "01m4wnvnws6q": {
       "typeString": "Vehicle",
       "entity": "type",
-      "id": "01m4wnsmoljm",
-      "flags": [
-        "Object"
-      ],
-      "objectFlags": [
-        "Class",
-        "Reference"
-      ],
-      "target": [
-        "type",
-        "01m4wnsmoljm"
-      ],
-      "properties": {
-        "numWheels": [
-          "symbol",
-          "01m4wllweok0"
-        ],
-        "drive": [
-          "symbol",
-          "01m4wn1uvmv5"
-        ]
-      },
-      "thisType": [
-        "type",
-        "01m4wnaupemu"
-      ]
-    },
-    "01m4wnaupemu": {
-      "typeString": "this",
-      "entity": "type",
-      "id": "01m4wnaupemu",
-      "flags": [
-        "TypeParameter"
-      ],
-      "isThisType": true,
-      "constraint": [
-        "type",
-        "01m4wms3q7q3"
-      ]
-    },
-    "01m4wms3q7q3": {
-      "typeString": "Vehicle",
-      "entity": "type",
-      "id": "01m4wms3q7q3",
+      "id": "01m4wnvnws6q",
       "flags": [
         "Object"
       ],
@@ -92,28 +12,28 @@ exports['SerializationSnapshotTests abstract class Vehicle { numWheels: number =
       ],
       "target": [
         "type",
-        "01m4wnsmoljm"
+        "01m4wnvnws6q"
       ],
       "typeParameters": [
         [
           "type",
-          "01m4wnaupemu"
+          "01m4wnvnws6q"
         ]
       ]
     },
-    "01m4wlxcgwnq": {
+    "01m4wm7dey3t": {
       "typeString": "number",
       "entity": "type",
-      "id": "01m4wlxcgwnq",
+      "id": "01m4wm7dey3t",
       "flags": [
         "Number"
       ],
       "primitive": true
     },
-    "01m4wnikc78f": {
+    "01m4wn65vbmx": {
       "typeString": "() => string",
       "entity": "type",
-      "id": "01m4wnikc78f",
+      "id": "01m4wn65vbmx",
       "flags": [
         "Object"
       ],
@@ -124,15 +44,16 @@ exports['SerializationSnapshotTests abstract class Vehicle { numWheels: number =
         {
           "returnType": [
             "type",
-            "01m4wnrllb69"
-          ]
+            "01m4wma3aq6x"
+          ],
+          "typeString": "(): string"
         }
       ]
     },
-    "01m4wnrllb69": {
+    "01m4wma3aq6x": {
       "typeString": "string",
       "entity": "type",
-      "id": "01m4wnrllb69",
+      "id": "01m4wma3aq6x",
       "flags": [
         "String"
       ],
@@ -140,40 +61,8 @@ exports['SerializationSnapshotTests abstract class Vehicle { numWheels: number =
     }
   },
   "symbols": {
-    "01m4wmcxn17q": {
-      "id": "01m4wmcxn17q",
-      "entity": "symbol",
-      "name": "\"/src/index\"",
-      "flags": [
-        "ValueModule"
-      ],
-      "type": [
-        "type",
-        "01m4wmheitlu"
-      ],
-      "exports": {
-        "Vehicle": [
-          "symbol",
-          "01m4wlmgevew"
-        ]
-      },
-      "sourceFile": [
-        "sourceFile",
-        "01m4wmlc6cdk"
-      ],
-      "location": [
-        [
-          "sourceFile",
-          "01m4wmlc6cdk"
-        ],
-        1,
-        1,
-        5,
-        1
-      ]
-    },
-    "01m4wlmgevew": {
-      "id": "01m4wlmgevew",
+    "01m4wnvnws6q": {
+      "id": "01m4wnvnws6q",
       "entity": "symbol",
       "name": "Vehicle",
       "flags": [
@@ -181,7 +70,7 @@ exports['SerializationSnapshotTests abstract class Vehicle { numWheels: number =
       ],
       "type": [
         "type",
-        "01m4wlymjmp3"
+        "01m4wnvnws6q"
       ],
       "modifiers": [
         "export",
@@ -189,12 +78,12 @@ exports['SerializationSnapshotTests abstract class Vehicle { numWheels: number =
       ],
       "sourceFile": [
         "sourceFile",
-        "01m4wmlc6cdk"
+        "01m4wmlw3n80"
       ],
       "location": [
         [
           "sourceFile",
-          "01m4wmlc6cdk"
+          "01m4wmlw3n80"
         ],
         1,
         1,
@@ -202,8 +91,8 @@ exports['SerializationSnapshotTests abstract class Vehicle { numWheels: number =
         1
       ]
     },
-    "01m4wllweok0": {
-      "id": "01m4wllweok0",
+    "01m4wmy7awye": {
+      "id": "01m4wmy7awye",
       "entity": "symbol",
       "name": "numWheels",
       "flags": [
@@ -211,19 +100,19 @@ exports['SerializationSnapshotTests abstract class Vehicle { numWheels: number =
       ],
       "type": [
         "type",
-        "01m4wlxcgwnq"
+        "01m4wm7dey3t"
       ],
       "modifiers": [
         "public"
       ],
       "sourceFile": [
         "sourceFile",
-        "01m4wmlc6cdk"
+        "01m4wmlw3n80"
       ],
       "location": [
         [
           "sourceFile",
-          "01m4wmlc6cdk"
+          "01m4wmlw3n80"
         ],
         2,
         0,
@@ -231,8 +120,8 @@ exports['SerializationSnapshotTests abstract class Vehicle { numWheels: number =
         31
       ]
     },
-    "01m4wn1uvmv5": {
-      "id": "01m4wn1uvmv5",
+    "01m4wn65vbmx": {
+      "id": "01m4wn65vbmx",
       "entity": "symbol",
       "name": "drive",
       "flags": [
@@ -240,7 +129,7 @@ exports['SerializationSnapshotTests abstract class Vehicle { numWheels: number =
       ],
       "type": [
         "type",
-        "01m4wnikc78f"
+        "01m4wn65vbmx"
       ],
       "modifiers": [
         "public",
@@ -248,12 +137,12 @@ exports['SerializationSnapshotTests abstract class Vehicle { numWheels: number =
       ],
       "sourceFile": [
         "sourceFile",
-        "01m4wmlc6cdk"
+        "01m4wmlw3n80"
       ],
       "location": [
         [
           "sourceFile",
-          "01m4wmlc6cdk"
+          "01m4wmlw3n80"
         ],
         3,
         0,
@@ -266,90 +155,10 @@ exports['SerializationSnapshotTests abstract class Vehicle { numWheels: number =
 
 exports['SerializationSnapshotTests class Vehicle { numWheels: number = 4; drive() { return "vroom";} } 1'] = {
   "types": {
-    "01m4wlooylnx": {
-      "typeString": "typeof import(\"/src/index\")",
-      "entity": "type",
-      "id": "01m4wlooylnx",
-      "flags": [
-        "Object"
-      ],
-      "objectFlags": [
-        "Anonymous"
-      ],
-      "properties": {
-        "Vehicle": [
-          "symbol",
-          "01m4wnn852sp"
-        ]
-      }
-    },
-    "01m4wmi5i21r": {
-      "typeString": "typeof Vehicle",
-      "entity": "type",
-      "id": "01m4wmi5i21r",
-      "flags": [
-        "Object"
-      ],
-      "objectFlags": [
-        "Anonymous"
-      ],
-      "properties": {},
-      "constructorSignatures": [
-        {
-          "returnType": [
-            "type",
-            "01m4wnbl1hel"
-          ]
-        }
-      ]
-    },
-    "01m4wnbl1hel": {
+    "01m4wme8n5iv": {
       "typeString": "Vehicle",
       "entity": "type",
-      "id": "01m4wnbl1hel",
-      "flags": [
-        "Object"
-      ],
-      "objectFlags": [
-        "Class",
-        "Reference"
-      ],
-      "target": [
-        "type",
-        "01m4wnbl1hel"
-      ],
-      "properties": {
-        "numWheels": [
-          "symbol",
-          "01m4wn8aengr"
-        ],
-        "drive": [
-          "symbol",
-          "01m4wn3ouh2c"
-        ]
-      },
-      "thisType": [
-        "type",
-        "01m4wls9fr14"
-      ]
-    },
-    "01m4wls9fr14": {
-      "typeString": "this",
-      "entity": "type",
-      "id": "01m4wls9fr14",
-      "flags": [
-        "TypeParameter"
-      ],
-      "isThisType": true,
-      "constraint": [
-        "type",
-        "01m4wmloy7dx"
-      ]
-    },
-    "01m4wmloy7dx": {
-      "typeString": "Vehicle",
-      "entity": "type",
-      "id": "01m4wmloy7dx",
+      "id": "01m4wme8n5iv",
       "flags": [
         "Object"
       ],
@@ -358,28 +167,28 @@ exports['SerializationSnapshotTests class Vehicle { numWheels: number = 4; drive
       ],
       "target": [
         "type",
-        "01m4wnbl1hel"
+        "01m4wme8n5iv"
       ],
       "typeParameters": [
         [
           "type",
-          "01m4wls9fr14"
+          "01m4wme8n5iv"
         ]
       ]
     },
-    "01m4wmqpbvr5": {
+    "01m4wm7dey3t": {
       "typeString": "number",
       "entity": "type",
-      "id": "01m4wmqpbvr5",
+      "id": "01m4wm7dey3t",
       "flags": [
         "Number"
       ],
       "primitive": true
     },
-    "01m4wllcyar8": {
+    "01m4wmqsd6mg": {
       "typeString": "() => string",
       "entity": "type",
-      "id": "01m4wllcyar8",
+      "id": "01m4wmqsd6mg",
       "flags": [
         "Object"
       ],
@@ -391,15 +200,16 @@ exports['SerializationSnapshotTests class Vehicle { numWheels: number = 4; drive
         {
           "returnType": [
             "type",
-            "01m4wns829gb"
-          ]
+            "01m4wma3aq6x"
+          ],
+          "typeString": "(): string"
         }
       ]
     },
-    "01m4wns829gb": {
+    "01m4wma3aq6x": {
       "typeString": "string",
       "entity": "type",
-      "id": "01m4wns829gb",
+      "id": "01m4wma3aq6x",
       "flags": [
         "String"
       ],
@@ -407,40 +217,8 @@ exports['SerializationSnapshotTests class Vehicle { numWheels: number = 4; drive
     }
   },
   "symbols": {
-    "01m4wnwa04qg": {
-      "id": "01m4wnwa04qg",
-      "entity": "symbol",
-      "name": "\"/src/index\"",
-      "flags": [
-        "ValueModule"
-      ],
-      "type": [
-        "type",
-        "01m4wlooylnx"
-      ],
-      "exports": {
-        "Vehicle": [
-          "symbol",
-          "01m4wnn852sp"
-        ]
-      },
-      "sourceFile": [
-        "sourceFile",
-        "01m4wm4fqjkj"
-      ],
-      "location": [
-        [
-          "sourceFile",
-          "01m4wm4fqjkj"
-        ],
-        1,
-        1,
-        7,
-        1
-      ]
-    },
-    "01m4wnn852sp": {
-      "id": "01m4wnn852sp",
+    "01m4wme8n5iv": {
+      "id": "01m4wme8n5iv",
       "entity": "symbol",
       "name": "Vehicle",
       "flags": [
@@ -448,19 +226,19 @@ exports['SerializationSnapshotTests class Vehicle { numWheels: number = 4; drive
       ],
       "type": [
         "type",
-        "01m4wmi5i21r"
+        "01m4wme8n5iv"
       ],
       "modifiers": [
         "export"
       ],
       "sourceFile": [
         "sourceFile",
-        "01m4wm4fqjkj"
+        "01m4wmlw3n74"
       ],
       "location": [
         [
           "sourceFile",
-          "01m4wm4fqjkj"
+          "01m4wmlw3n74"
         ],
         1,
         1,
@@ -468,8 +246,8 @@ exports['SerializationSnapshotTests class Vehicle { numWheels: number = 4; drive
         1
       ]
     },
-    "01m4wn8aengr": {
-      "id": "01m4wn8aengr",
+    "01m4wmy7awye": {
+      "id": "01m4wmy7awye",
       "entity": "symbol",
       "name": "numWheels",
       "flags": [
@@ -477,19 +255,19 @@ exports['SerializationSnapshotTests class Vehicle { numWheels: number = 4; drive
       ],
       "type": [
         "type",
-        "01m4wmqpbvr5"
+        "01m4wm7dey3t"
       ],
       "modifiers": [
         "public"
       ],
       "sourceFile": [
         "sourceFile",
-        "01m4wm4fqjkj"
+        "01m4wmlw3n74"
       ],
       "location": [
         [
           "sourceFile",
-          "01m4wm4fqjkj"
+          "01m4wmlw3n74"
         ],
         2,
         0,
@@ -497,8 +275,8 @@ exports['SerializationSnapshotTests class Vehicle { numWheels: number = 4; drive
         31
       ]
     },
-    "01m4wn3ouh2c": {
-      "id": "01m4wn3ouh2c",
+    "01m4wmqsd6mg": {
+      "id": "01m4wmqsd6mg",
       "entity": "symbol",
       "name": "drive",
       "flags": [
@@ -507,19 +285,19 @@ exports['SerializationSnapshotTests class Vehicle { numWheels: number = 4; drive
       ],
       "type": [
         "type",
-        "01m4wllcyar8"
+        "01m4wmqsd6mg"
       ],
       "modifiers": [
         "public"
       ],
       "sourceFile": [
         "sourceFile",
-        "01m4wm4fqjkj"
+        "01m4wmlw3n74"
       ],
       "location": [
         [
           "sourceFile",
-          "01m4wm4fqjkj"
+          "01m4wmlw3n74"
         ],
         3,
         0,
@@ -532,10 +310,10 @@ exports['SerializationSnapshotTests class Vehicle { numWheels: number = 4; drive
 
 exports['SerializationSnapshotTests const p: Promise<number> = Promise.resolve(4); 1'] = {
   "types": {
-    "01m4wm1ao940": {
+    "01m4wnhud7e4": {
       "typeString": "typeof import(\"/src/index\")",
       "entity": "type",
-      "id": "01m4wm1ao940",
+      "id": "01m4wnhud7e4",
       "flags": [
         "Object"
       ],
@@ -545,14 +323,14 @@ exports['SerializationSnapshotTests const p: Promise<number> = Promise.resolve(4
       "properties": {
         "p": [
           "symbol",
-          "01m4wm86vtul"
+          "01m4wmvgiaix"
         ]
       }
     },
-    "01m4wmeox9tw": {
+    "01m4wloeo6nv": {
       "typeString": "Promise<number>",
       "entity": "type",
-      "id": "01m4wmeox9tw",
+      "id": "01m4wloeo6nv",
       "flags": [
         "Object"
       ],
@@ -560,8 +338,8 @@ exports['SerializationSnapshotTests const p: Promise<number> = Promise.resolve(4
     }
   },
   "symbols": {
-    "01m4wlp90jbs": {
-      "id": "01m4wlp90jbs",
+    "01m4wnhud7e4": {
+      "id": "01m4wnhud7e4",
       "entity": "symbol",
       "name": "\"/src/index\"",
       "flags": [
@@ -569,22 +347,22 @@ exports['SerializationSnapshotTests const p: Promise<number> = Promise.resolve(4
       ],
       "type": [
         "type",
-        "01m4wm1ao940"
+        "01m4wnhud7e4"
       ],
       "exports": {
         "p": [
           "symbol",
-          "01m4wm86vtul"
+          "01m4wmvgiaix"
         ]
       },
       "sourceFile": [
         "sourceFile",
-        "01m4wnhf14ps"
+        "01m4wnwkyk33"
       ],
       "location": [
         [
           "sourceFile",
-          "01m4wnhf14ps"
+          "01m4wnwkyk33"
         ],
         1,
         1,
@@ -592,8 +370,8 @@ exports['SerializationSnapshotTests const p: Promise<number> = Promise.resolve(4
         53
       ]
     },
-    "01m4wm86vtul": {
-      "id": "01m4wm86vtul",
+    "01m4wmvgiaix": {
+      "id": "01m4wmvgiaix",
       "entity": "symbol",
       "name": "p",
       "flags": [
@@ -601,16 +379,16 @@ exports['SerializationSnapshotTests const p: Promise<number> = Promise.resolve(4
       ],
       "type": [
         "type",
-        "01m4wmeox9tw"
+        "01m4wloeo6nv"
       ],
       "sourceFile": [
         "sourceFile",
-        "01m4wnhf14ps"
+        "01m4wnwkyk33"
       ],
       "location": [
         [
           "sourceFile",
-          "01m4wnhf14ps"
+          "01m4wnwkyk33"
         ],
         1,
         13,
@@ -623,10 +401,10 @@ exports['SerializationSnapshotTests const p: Promise<number> = Promise.resolve(4
 
 exports['SerializationSnapshotTests const x = "foo" 1'] = {
   "types": {
-    "01m4wm7ji2sc": {
+    "01m4wn51jlh2": {
       "typeString": "typeof import(\"/src/index\")",
       "entity": "type",
-      "id": "01m4wm7ji2sc",
+      "id": "01m4wn51jlh2",
       "flags": [
         "Object"
       ],
@@ -636,22 +414,22 @@ exports['SerializationSnapshotTests const x = "foo" 1'] = {
       "properties": {
         "x": [
           "symbol",
-          "01m4wmqp9jl5"
+          "01m4wnhjbocq"
         ]
       }
     },
-    "01m4wng1pwru": {
+    "01m4wmrpputn": {
       "typeString": "\"foo\"",
       "entity": "type",
-      "id": "01m4wng1pwru",
+      "id": "01m4wmrpputn",
       "flags": [
         "StringLiteral"
       ]
     }
   },
   "symbols": {
-    "01m4wls7ufaj": {
-      "id": "01m4wls7ufaj",
+    "01m4wn51jlh2": {
+      "id": "01m4wn51jlh2",
       "entity": "symbol",
       "name": "\"/src/index\"",
       "flags": [
@@ -659,22 +437,22 @@ exports['SerializationSnapshotTests const x = "foo" 1'] = {
       ],
       "type": [
         "type",
-        "01m4wm7ji2sc"
+        "01m4wn51jlh2"
       ],
       "exports": {
         "x": [
           "symbol",
-          "01m4wmqp9jl5"
+          "01m4wnhjbocq"
         ]
       },
       "sourceFile": [
         "sourceFile",
-        "01m4wnkqgv9o"
+        "01m4wnwkyhpp"
       ],
       "location": [
         [
           "sourceFile",
-          "01m4wnkqgv9o"
+          "01m4wnwkyhpp"
         ],
         1,
         1,
@@ -682,8 +460,8 @@ exports['SerializationSnapshotTests const x = "foo" 1'] = {
         23
       ]
     },
-    "01m4wmqp9jl5": {
-      "id": "01m4wmqp9jl5",
+    "01m4wnhjbocq": {
+      "id": "01m4wnhjbocq",
       "entity": "symbol",
       "name": "x",
       "flags": [
@@ -691,16 +469,16 @@ exports['SerializationSnapshotTests const x = "foo" 1'] = {
       ],
       "type": [
         "type",
-        "01m4wng1pwru"
+        "01m4wmrpputn"
       ],
       "sourceFile": [
         "sourceFile",
-        "01m4wnkqgv9o"
+        "01m4wnwkyhpp"
       ],
       "location": [
         [
           "sourceFile",
-          "01m4wnkqgv9o"
+          "01m4wnwkyhpp"
         ],
         1,
         13,
@@ -713,27 +491,10 @@ exports['SerializationSnapshotTests const x = "foo" 1'] = {
 
 exports['SerializationSnapshotTests function add(a: number, b: string) { return a + b; } 1'] = {
   "types": {
-    "01m4wnbql4ce": {
-      "typeString": "typeof import(\"/src/index\")",
-      "entity": "type",
-      "id": "01m4wnbql4ce",
-      "flags": [
-        "Object"
-      ],
-      "objectFlags": [
-        "Anonymous"
-      ],
-      "properties": {
-        "add": [
-          "symbol",
-          "01m4wmmcimkm"
-        ]
-      }
-    },
-    "01m4wndntqgg": {
+    "01m4wno630t2": {
       "typeString": "(a: number, b: string) => string",
       "entity": "type",
-      "id": "01m4wndntqgg",
+      "id": "01m4wno630t2",
       "flags": [
         "Object"
       ],
@@ -744,34 +505,35 @@ exports['SerializationSnapshotTests function add(a: number, b: string) { return 
         {
           "returnType": [
             "type",
-            "01m4wlyk9s35"
+            "01m4wma3aq6x"
           ],
           "parameters": [
             [
               "symbol",
-              "01m4wmv9217l"
+              "01m4wmy4h27v"
             ],
             [
               "symbol",
-              "01m4wmcigv2f"
+              "01m4wm2evg9w"
             ]
-          ]
+          ],
+          "typeString": "(a: number, b: string): string"
         }
       ]
     },
-    "01m4wlyk9s35": {
+    "01m4wma3aq6x": {
       "typeString": "string",
       "entity": "type",
-      "id": "01m4wlyk9s35",
+      "id": "01m4wma3aq6x",
       "flags": [
         "String"
       ],
       "primitive": true
     },
-    "01m4wmdqsss2": {
+    "01m4wm7dey3t": {
       "typeString": "number",
       "entity": "type",
-      "id": "01m4wmdqsss2",
+      "id": "01m4wm7dey3t",
       "flags": [
         "Number"
       ],
@@ -779,40 +541,8 @@ exports['SerializationSnapshotTests function add(a: number, b: string) { return 
     }
   },
   "symbols": {
-    "01m4wm2e2592": {
-      "id": "01m4wm2e2592",
-      "entity": "symbol",
-      "name": "\"/src/index\"",
-      "flags": [
-        "ValueModule"
-      ],
-      "type": [
-        "type",
-        "01m4wnbql4ce"
-      ],
-      "exports": {
-        "add": [
-          "symbol",
-          "01m4wmmcimkm"
-        ]
-      },
-      "sourceFile": [
-        "sourceFile",
-        "01m4wn0ilbwr"
-      ],
-      "location": [
-        [
-          "sourceFile",
-          "01m4wn0ilbwr"
-        ],
-        1,
-        1,
-        1,
-        59
-      ]
-    },
-    "01m4wmmcimkm": {
-      "id": "01m4wmmcimkm",
+    "01m4wno630t2": {
+      "id": "01m4wno630t2",
       "entity": "symbol",
       "name": "add",
       "flags": [
@@ -820,19 +550,19 @@ exports['SerializationSnapshotTests function add(a: number, b: string) { return 
       ],
       "type": [
         "type",
-        "01m4wndntqgg"
+        "01m4wno630t2"
       ],
       "modifiers": [
         "export"
       ],
       "sourceFile": [
         "sourceFile",
-        "01m4wn0ilbwr"
+        "01m4wnwkyk8e"
       ],
       "location": [
         [
           "sourceFile",
-          "01m4wn0ilbwr"
+          "01m4wnwkyk8e"
         ],
         1,
         1,
@@ -840,8 +570,8 @@ exports['SerializationSnapshotTests function add(a: number, b: string) { return 
         59
       ]
     },
-    "01m4wmv9217l": {
-      "id": "01m4wmv9217l",
+    "01m4wmy4h27v": {
+      "id": "01m4wmy4h27v",
       "entity": "symbol",
       "name": "a",
       "flags": [
@@ -849,16 +579,16 @@ exports['SerializationSnapshotTests function add(a: number, b: string) { return 
       ],
       "type": [
         "type",
-        "01m4wmdqsss2"
+        "01m4wm7dey3t"
       ],
       "sourceFile": [
         "sourceFile",
-        "01m4wn0ilbwr"
+        "01m4wnwkyk8e"
       ],
       "location": [
         [
           "sourceFile",
-          "01m4wn0ilbwr"
+          "01m4wnwkyk8e"
         ],
         1,
         21,
@@ -866,8 +596,8 @@ exports['SerializationSnapshotTests function add(a: number, b: string) { return 
         29
       ]
     },
-    "01m4wmcigv2f": {
-      "id": "01m4wmcigv2f",
+    "01m4wm2evg9w": {
+      "id": "01m4wm2evg9w",
       "entity": "symbol",
       "name": "b",
       "flags": [
@@ -875,16 +605,16 @@ exports['SerializationSnapshotTests function add(a: number, b: string) { return 
       ],
       "type": [
         "type",
-        "01m4wlyk9s35"
+        "01m4wma3aq6x"
       ],
       "sourceFile": [
         "sourceFile",
-        "01m4wn0ilbwr"
+        "01m4wnwkyk8e"
       ],
       "location": [
         [
           "sourceFile",
-          "01m4wn0ilbwr"
+          "01m4wnwkyk8e"
         ],
         1,
         31,
@@ -897,10 +627,10 @@ exports['SerializationSnapshotTests function add(a: number, b: string) { return 
 
 exports['SerializationSnapshotTests interface Foo {bar: number; readonly baz: Promise<string>} 1'] = {
   "types": {
-    "01m4wm92to3v": {
+    "01m4wmc5l1j5": {
       "typeString": "typeof import(\"/src/index\")",
       "entity": "type",
-      "id": "01m4wm92to3v",
+      "id": "01m4wmc5l1j5",
       "flags": [
         "Object"
       ],
@@ -908,10 +638,10 @@ exports['SerializationSnapshotTests interface Foo {bar: number; readonly baz: Pr
         "Anonymous"
       ]
     },
-    "01m4wms1ym1h": {
+    "01m4wmr2qpqx": {
       "typeString": "Foo",
       "entity": "type",
-      "id": "01m4wms1ym1h",
+      "id": "01m4wmr2qpqx",
       "flags": [
         "Object"
       ],
@@ -921,27 +651,27 @@ exports['SerializationSnapshotTests interface Foo {bar: number; readonly baz: Pr
       "properties": {
         "bar": [
           "symbol",
-          "01m4wnqvuupo"
+          "01m4wnd33o3f"
         ],
         "baz": [
           "symbol",
-          "01m4wmnybfor"
+          "01m4wna3xjgk"
         ]
       }
     },
-    "01m4wn987mu8": {
+    "01m4wm7dey3t": {
       "typeString": "number",
       "entity": "type",
-      "id": "01m4wn987mu8",
+      "id": "01m4wm7dey3t",
       "flags": [
         "Number"
       ],
       "primitive": true
     },
-    "01m4wnouc98d": {
+    "01m4wlqnt0o4": {
       "typeString": "Promise<string>",
       "entity": "type",
-      "id": "01m4wnouc98d",
+      "id": "01m4wlqnt0o4",
       "flags": [
         "Object"
       ],
@@ -949,8 +679,8 @@ exports['SerializationSnapshotTests interface Foo {bar: number; readonly baz: Pr
     }
   },
   "symbols": {
-    "01m4wmorx4pq": {
-      "id": "01m4wmorx4pq",
+    "01m4wmc5l1j5": {
+      "id": "01m4wmc5l1j5",
       "entity": "symbol",
       "name": "\"/src/index\"",
       "flags": [
@@ -958,22 +688,22 @@ exports['SerializationSnapshotTests interface Foo {bar: number; readonly baz: Pr
       ],
       "type": [
         "type",
-        "01m4wm92to3v"
+        "01m4wmc5l1j5"
       ],
       "exports": {
         "default": [
           "symbol",
-          "01m4wmek013u"
+          "01m4wndsiw9g"
         ]
       },
       "sourceFile": [
         "sourceFile",
-        "01m4wlmjbqri"
+        "01m4wnwkyln0"
       ],
       "location": [
         [
           "sourceFile",
-          "01m4wlmjbqri"
+          "01m4wnwkyln0"
         ],
         1,
         1,
@@ -981,8 +711,8 @@ exports['SerializationSnapshotTests interface Foo {bar: number; readonly baz: Pr
         73
       ]
     },
-    "01m4wmek013u": {
-      "id": "01m4wmek013u",
+    "01m4wndsiw9g": {
+      "id": "01m4wndsiw9g",
       "entity": "symbol",
       "name": "default",
       "flags": [
@@ -990,11 +720,11 @@ exports['SerializationSnapshotTests interface Foo {bar: number; readonly baz: Pr
       ],
       "type": [
         "type",
-        "01m4wms1ym1h"
+        "01m4wmr2qpqx"
       ]
     },
-    "01m4wnqvuupo": {
-      "id": "01m4wnqvuupo",
+    "01m4wnd33o3f": {
+      "id": "01m4wnd33o3f",
       "entity": "symbol",
       "name": "bar",
       "flags": [
@@ -1002,16 +732,16 @@ exports['SerializationSnapshotTests interface Foo {bar: number; readonly baz: Pr
       ],
       "type": [
         "type",
-        "01m4wn987mu8"
+        "01m4wm7dey3t"
       ],
       "sourceFile": [
         "sourceFile",
-        "01m4wlmjbqri"
+        "01m4wnwkyln0"
       ],
       "location": [
         [
           "sourceFile",
-          "01m4wlmjbqri"
+          "01m4wnwkyln0"
         ],
         1,
         31,
@@ -1019,8 +749,8 @@ exports['SerializationSnapshotTests interface Foo {bar: number; readonly baz: Pr
         42
       ]
     },
-    "01m4wmnybfor": {
-      "id": "01m4wmnybfor",
+    "01m4wna3xjgk": {
+      "id": "01m4wna3xjgk",
       "entity": "symbol",
       "name": "baz",
       "flags": [
@@ -1028,19 +758,19 @@ exports['SerializationSnapshotTests interface Foo {bar: number; readonly baz: Pr
       ],
       "type": [
         "type",
-        "01m4wnouc98d"
+        "01m4wlqnt0o4"
       ],
       "modifiers": [
         "readonly"
       ],
       "sourceFile": [
         "sourceFile",
-        "01m4wlmjbqri"
+        "01m4wnwkyln0"
       ],
       "location": [
         [
           "sourceFile",
-          "01m4wlmjbqri"
+          "01m4wnwkyln0"
         ],
         1,
         43,
@@ -1053,10 +783,10 @@ exports['SerializationSnapshotTests interface Foo {bar: number; readonly baz: Pr
 
 exports['SerializationSnapshotTests let x = "foo" 1'] = {
   "types": {
-    "01m4wnqrpb35": {
+    "01m4wndpc3e2": {
       "typeString": "typeof import(\"/src/index\")",
       "entity": "type",
-      "id": "01m4wnqrpb35",
+      "id": "01m4wndpc3e2",
       "flags": [
         "Object"
       ],
@@ -1066,14 +796,14 @@ exports['SerializationSnapshotTests let x = "foo" 1'] = {
       "properties": {
         "x": [
           "symbol",
-          "01m4wly6qn37"
+          "01m4wnhjbocq"
         ]
       }
     },
-    "01m4wmun4kfd": {
+    "01m4wma3aq6x": {
       "typeString": "string",
       "entity": "type",
-      "id": "01m4wmun4kfd",
+      "id": "01m4wma3aq6x",
       "flags": [
         "String"
       ],
@@ -1081,8 +811,8 @@ exports['SerializationSnapshotTests let x = "foo" 1'] = {
     }
   },
   "symbols": {
-    "01m4wnorwon0": {
-      "id": "01m4wnorwon0",
+    "01m4wndpc3e2": {
+      "id": "01m4wndpc3e2",
       "entity": "symbol",
       "name": "\"/src/index\"",
       "flags": [
@@ -1090,22 +820,22 @@ exports['SerializationSnapshotTests let x = "foo" 1'] = {
       ],
       "type": [
         "type",
-        "01m4wnqrpb35"
+        "01m4wndpc3e2"
       ],
       "exports": {
         "x": [
           "symbol",
-          "01m4wly6qn37"
+          "01m4wnhjbocq"
         ]
       },
       "sourceFile": [
         "sourceFile",
-        "01m4wmim6j4q"
+        "01m4wnwkyhnx"
       ],
       "location": [
         [
           "sourceFile",
-          "01m4wmim6j4q"
+          "01m4wnwkyhnx"
         ],
         1,
         1,
@@ -1113,8 +843,8 @@ exports['SerializationSnapshotTests let x = "foo" 1'] = {
         21
       ]
     },
-    "01m4wly6qn37": {
-      "id": "01m4wly6qn37",
+    "01m4wnhjbocq": {
+      "id": "01m4wnhjbocq",
       "entity": "symbol",
       "name": "x",
       "flags": [
@@ -1122,16 +852,16 @@ exports['SerializationSnapshotTests let x = "foo" 1'] = {
       ],
       "type": [
         "type",
-        "01m4wmun4kfd"
+        "01m4wma3aq6x"
       ],
       "sourceFile": [
         "sourceFile",
-        "01m4wmim6j4q"
+        "01m4wnwkyhnx"
       ],
       "location": [
         [
           "sourceFile",
-          "01m4wmim6j4q"
+          "01m4wnwkyhnx"
         ],
         1,
         11,
@@ -1144,10 +874,10 @@ exports['SerializationSnapshotTests let x = "foo" 1'] = {
 
 exports['SerializationSnapshotTests type Dict<T extends "foo"|"bar"|"baz"> = { [k: string]: T | undefined } 1'] = {
   "types": {
-    "01m4wnv6yypk": {
+    "01m4wnuoob96": {
       "typeString": "typeof import(\"/src/index\")",
       "entity": "type",
-      "id": "01m4wnv6yypk",
+      "id": "01m4wnuoob96",
       "flags": [
         "Object"
       ],
@@ -1155,10 +885,10 @@ exports['SerializationSnapshotTests type Dict<T extends "foo"|"bar"|"baz"> = { [
         "Anonymous"
       ]
     },
-    "01m4wm3ltjm4": {
+    "01m4wm8j5a7a": {
       "typeString": "Dict<T>",
       "entity": "type",
-      "id": "01m4wm3ltjm4",
+      "id": "01m4wm8j5a7a",
       "flags": [
         "Object"
       ],
@@ -1168,38 +898,38 @@ exports['SerializationSnapshotTests type Dict<T extends "foo"|"bar"|"baz"> = { [
       "typeParameters": [
         [
           "type",
-          "01m4wmr2qdba"
+          "01m4wmr2p30u"
         ]
       ],
       "stringIndexType": [
         "type",
-        "01m4wmr2qdba"
+        "01m4wmr2p30u"
       ]
     },
-    "01m4wmr2qdba": {
+    "01m4wmr2p30u": {
       "typeString": "T",
       "entity": "type",
-      "id": "01m4wmr2qdba",
+      "id": "01m4wmr2p30u",
       "flags": [
         "TypeParameter"
       ],
       "constraint": [
         "type",
-        "01m4wlmakovo"
+        "01m4wnnc9m2y"
       ]
     },
-    "01m4wlmakovo": {
+    "01m4wnnc9m2y": {
       "typeString": "\"foo\" | \"bar\" | \"baz\"",
       "entity": "type",
-      "id": "01m4wlmakovo",
+      "id": "01m4wnnc9m2y",
       "flags": [
         "Union"
       ]
     }
   },
   "symbols": {
-    "01m4wmlabbci": {
-      "id": "01m4wmlabbci",
+    "01m4wnuoob96": {
+      "id": "01m4wnuoob96",
       "entity": "symbol",
       "name": "\"/src/index\"",
       "flags": [
@@ -1207,22 +937,22 @@ exports['SerializationSnapshotTests type Dict<T extends "foo"|"bar"|"baz"> = { [
       ],
       "type": [
         "type",
-        "01m4wnv6yypk"
+        "01m4wnuoob96"
       ],
       "exports": {
         "Dict": [
           "symbol",
-          "01m4wluha77m"
+          "01m4wmis4xim"
         ]
       },
       "sourceFile": [
         "sourceFile",
-        "01m4wnk50wym"
+        "01m4wnwkylrf"
       ],
       "location": [
         [
           "sourceFile",
-          "01m4wnk50wym"
+          "01m4wnwkylrf"
         ],
         1,
         1,
@@ -1230,8 +960,8 @@ exports['SerializationSnapshotTests type Dict<T extends "foo"|"bar"|"baz"> = { [
         78
       ]
     },
-    "01m4wluha77m": {
-      "id": "01m4wluha77m",
+    "01m4wmis4xim": {
+      "id": "01m4wmis4xim",
       "entity": "symbol",
       "name": "Dict",
       "flags": [
@@ -1239,19 +969,19 @@ exports['SerializationSnapshotTests type Dict<T extends "foo"|"bar"|"baz"> = { [
       ],
       "type": [
         "type",
-        "01m4wm3ltjm4"
+        "01m4wm8j5a7a"
       ],
       "modifiers": [
         "export"
       ],
       "sourceFile": [
         "sourceFile",
-        "01m4wnk50wym"
+        "01m4wnwkylrf"
       ],
       "location": [
         [
           "sourceFile",
-          "01m4wnk50wym"
+          "01m4wnwkylrf"
         ],
         1,
         1,
@@ -1264,10 +994,10 @@ exports['SerializationSnapshotTests type Dict<T extends "foo"|"bar"|"baz"> = { [
 
 exports['SerializationSnapshotTests type Dict<T> = { [k: string]: T | undefined } 1'] = {
   "types": {
-    "01m4wmevoqma": {
+    "01m4wn0vskgu": {
       "typeString": "typeof import(\"/src/index\")",
       "entity": "type",
-      "id": "01m4wmevoqma",
+      "id": "01m4wn0vskgu",
       "flags": [
         "Object"
       ],
@@ -1275,10 +1005,10 @@ exports['SerializationSnapshotTests type Dict<T> = { [k: string]: T | undefined 
         "Anonymous"
       ]
     },
-    "01m4wnwlvy6q": {
+    "01m4wm8j5a7a": {
       "typeString": "Dict<T>",
       "entity": "type",
-      "id": "01m4wnwlvy6q",
+      "id": "01m4wm8j5a7a",
       "flags": [
         "Object"
       ],
@@ -1288,26 +1018,26 @@ exports['SerializationSnapshotTests type Dict<T> = { [k: string]: T | undefined 
       "typeParameters": [
         [
           "type",
-          "01m4wmr2qd8m"
+          "01m4wmr2p30u"
         ]
       ],
       "stringIndexType": [
         "type",
-        "01m4wmr2qd8m"
+        "01m4wmr2p30u"
       ]
     },
-    "01m4wmr2qd8m": {
+    "01m4wmr2p30u": {
       "typeString": "T",
       "entity": "type",
-      "id": "01m4wmr2qd8m",
+      "id": "01m4wmr2p30u",
       "flags": [
         "TypeParameter"
       ]
     }
   },
   "symbols": {
-    "01m4wmoea31q": {
-      "id": "01m4wmoea31q",
+    "01m4wn0vskgu": {
+      "id": "01m4wn0vskgu",
       "entity": "symbol",
       "name": "\"/src/index\"",
       "flags": [
@@ -1315,22 +1045,22 @@ exports['SerializationSnapshotTests type Dict<T> = { [k: string]: T | undefined 
       ],
       "type": [
         "type",
-        "01m4wmevoqma"
+        "01m4wn0vskgu"
       ],
       "exports": {
         "Dict": [
           "symbol",
-          "01m4wnlak0wg"
+          "01m4wmis4xim"
         ]
       },
       "sourceFile": [
         "sourceFile",
-        "01m4wn38l56l"
+        "01m4wnwkyk27"
       ],
       "location": [
         [
           "sourceFile",
-          "01m4wn38l56l"
+          "01m4wnwkyk27"
         ],
         1,
         1,
@@ -1338,8 +1068,8 @@ exports['SerializationSnapshotTests type Dict<T> = { [k: string]: T | undefined 
         52
       ]
     },
-    "01m4wnlak0wg": {
-      "id": "01m4wnlak0wg",
+    "01m4wmis4xim": {
+      "id": "01m4wmis4xim",
       "entity": "symbol",
       "name": "Dict",
       "flags": [
@@ -1347,19 +1077,19 @@ exports['SerializationSnapshotTests type Dict<T> = { [k: string]: T | undefined 
       ],
       "type": [
         "type",
-        "01m4wnwlvy6q"
+        "01m4wm8j5a7a"
       ],
       "modifiers": [
         "export"
       ],
       "sourceFile": [
         "sourceFile",
-        "01m4wn38l56l"
+        "01m4wnwkyk27"
       ],
       "location": [
         [
           "sourceFile",
-          "01m4wn38l56l"
+          "01m4wnwkyk27"
         ],
         1,
         1,

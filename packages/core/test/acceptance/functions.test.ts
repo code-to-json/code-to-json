@@ -1,48 +1,29 @@
-import { expect } from 'chai';
 import { suite, test } from 'mocha-typescript';
-import { exportedModuleSymbols } from './helpers';
+import * as snapshot from 'snap-shot-it';
+import { disableIf, fullWalkerOutput } from './helpers';
 
 @suite
+@disableIf(!!process.env.AZURE_HTTP_USER_AGENT)
 export class FunctionAnalysisTests {
   @test
   public async 'zero-argument function'(): Promise<void> {
-    const { exports, cleanup } = await exportedModuleSymbols(
-      `export function foo() { return 'bar'; }`,
-    );
-    expect(exports).to.deep.eq({
-      foo: {
-        name: 'foo',
-        type: {
-          flags: ['Object'],
-          objectFlags: ['Anonymous'],
-          typeString: '() => string',
-        },
-      },
-    });
+    const { data, cleanup } = await fullWalkerOutput(`export function foo() { return 'bar'; }`);
+    snapshot(data);
     cleanup();
   }
 
   @test
   public async 'unary function'(): Promise<void> {
-    const { exports, cleanup } = await exportedModuleSymbols(
+    const { data, cleanup } = await fullWalkerOutput(
       `export function foo(str: string) { return str.toUpperCase(); }`,
     );
-    expect(exports).to.deep.eq({
-      foo: {
-        name: 'foo',
-        type: {
-          flags: ['Object'],
-          objectFlags: ['Anonymous'],
-          typeString: '(str: string) => string',
-        },
-      },
-    });
+    snapshot(data);
     cleanup();
   }
 
   @test
   public async 'function with multiple signatures'(): Promise<void> {
-    const { exports, cleanup } = await exportedModuleSymbols(
+    const { data, cleanup } = await fullWalkerOutput(
       `
 export function adder(a: string, b: string): string;
 export function adder(a: number, b: number): number;
@@ -51,16 +32,7 @@ export function adder(a: number|string, b: number|string): number|string {
 }
 `,
     );
-    expect(exports).to.deep.eq({
-      adder: {
-        name: 'adder',
-        type: {
-          flags: ['Object'],
-          objectFlags: ['Anonymous'],
-          typeString: '{ (a: string, b: string): string; (a: number, b: number): number; }',
-        },
-      },
-    });
+    snapshot(data);
     cleanup();
   }
 }

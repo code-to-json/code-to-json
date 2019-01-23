@@ -2,7 +2,7 @@ import { getDeclarationFiles } from '@code-to-json/test-helpers';
 import { expect } from 'chai';
 import { suite, test } from 'mocha-typescript';
 import * as ts from 'typescript';
-import { generateId } from '../src/generate-id';
+import { generateId, generateIdForSourceFileName } from '../src/generate-id';
 import { createProgramFromCodeString, mapDict } from '../src/index';
 
 @suite
@@ -71,7 +71,7 @@ export const x: string = 'foo';
   @test
   public async 'generateId for sourceFile'(): Promise<void> {
     expect(generateId(this.sourceFile)).to.eql(
-      '01m4wm4dc15l',
+      '01m4wnf2ptes',
       'SourceFile ids are hashed on their module name',
     );
   }
@@ -128,6 +128,23 @@ export const x: string = 'foo';
   }
 
   @test
+  public 'sourceFile IDs are insulated from path differences betwen POSIX and Windows'() {
+    expect(
+      generateIdForSourceFileName(
+        'C:/Users/VSSADM~1/AppData/Local/Temp/tmp-8S4881UXySQ6x/src/index',
+      ),
+    ).to.eql('01m4wmj9uhye', 'Windows-style filenames');
+    expect(
+      generateIdForSourceFileName(
+        'C:/Users/VSSADM~1/AppData/Local/Temp/tmp-8S4881UXySQ6x/src/index"',
+      ),
+    ).to.eql('01m4wmj9uhye', 'Windows-style filenames with quotes');
+    expect(
+      generateIdForSourceFileName('/Users/VSSADM~1/AppData/Local/Temp/tmp-8S4881UXySQ6x/src/index'),
+    ).to.eql('01m4wmj9uhye', 'POSIX-style filenames');
+  }
+
+  @test
   public async 'generateId for null'(): Promise<void> {
     expect(() => generateId(null as any)).to.throw('Cannot generate an ID for empty values');
   }
@@ -144,11 +161,11 @@ export const x: string = 'foo';
 
   @test
   public 'stable hashing'(): void {
-    expect(generateId(this.varSym)).to.eql('01m4wn2iso43');
-    expect(generateId(this.typ, this.checker)).to.eql('01m4wnun13rg');
-    expect(generateId(this.sourceFile)).to.eql('01m4wml9qsxm');
-    expect(generateId(this.varDeclaration)).to.eql('01m4wlurlp4f');
-    expect(generateId(this.classDeclaration)).to.eql('01m4wm4wrlxj');
-    expect(generateId(this.classSym)).to.eql('01m4wnmlf5th');
+    expect(generateId(this.classDeclaration)).to.eql('01m4wm4wrlxj', 'class declaration');
+    expect(generateId(this.classSym)).to.eql('01m4wm4wrlxj', 'class symbol');
+    expect(generateId(this.varSym)).to.eql('01m4wlurlp4f', 'variable symbol');
+    expect(generateId(this.varDeclaration)).to.eql('01m4wlurlp4f', 'variable declaration');
+    expect(generateId(this.typ, this.checker)).to.eql('01m4wlvrcu38', 'type');
+    expect(generateId(this.sourceFile)).to.eql('01m4wnf2ptes', 'source file');
   }
 }

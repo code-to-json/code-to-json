@@ -29,6 +29,20 @@ interface ExportSummaries {
   [k: string]: ExportSummary;
 }
 
+export const disableIf: (predicate: boolean) => ClassDecorator = predicate => target => {
+  if (predicate) {
+    Object.getOwnPropertyNames(target.prototype).forEach(methodName => {
+      if (methodName === 'constructor') {
+        return;
+      }
+      // eslint-disable-next-line no-param-reassign
+      target.prototype[methodName] = () => {
+        expect(true).to.eq(true);
+      };
+    });
+  }
+};
+
 function summarizeType(typ: SerializedType): TypeSummary {
   const { flags, objectFlags, libName, typeString, documentation } = typ;
   const out: TypeSummary = { flags, typeString };
