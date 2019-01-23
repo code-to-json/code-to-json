@@ -1,6 +1,6 @@
 {
   "name": "@code-to-json/test-helpers",
-  "version": "0.4.2",
+  "version": "0.4.3",
   "description": "",
   "main": "lib/src/index.js",
   "typings": "lib/src/index.d.ts",
@@ -24,7 +24,7 @@
   },
   "keywords": [],
   "dependencies": {
-    "@code-to-json/utils": "^0.8.2",
+    "@code-to-json/utils": "^0.8.3",
     "@mike-north/types": "^1.0.7",
     "directory-tree": "^2.2.1",
     "fs-extra": "^7.0.0",

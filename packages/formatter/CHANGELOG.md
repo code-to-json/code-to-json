@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.18.2](https://github.com/mike-north/code-to-json/compare/@code-to-json/formatter@0.18.1...@code-to-json/formatter@0.18.2) (2019-01-23)
+
+
+### Bug Fixes
+
+* restore stable and unique hashing ([0133af0](https://github.com/mike-north/code-to-json/commit/0133af0))
+
+
+
+
+
 ## [0.18.1](https://github.com/mike-north/code-to-json/compare/@code-to-json/formatter@0.18.0...@code-to-json/formatter@0.18.1) (2019-01-22)
 
 **Note:** Version bump only for package @code-to-json/formatter
