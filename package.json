@@ -38,7 +38,7 @@
     "rebuild": "scripty",
     "watch": "scripty",
     "watch:debug": "scripty",
-    "test": "lerna run test",
+    "test": "lerna run test --parallel",
     "test:watch": "scripty",
     "lint": "lerna run lint --parallel",
     "lint:watch": "scripty"

@@ -32,6 +32,11 @@ const {
   isTupleType,
   nameForNode,
   reduceDict,
+  decoratorsToStrings,
+  isIndexType,
+  isIndexedAccessType,
+  isPrimitiveType,
+  modifiersToStrings,
   relevantDeclarationForSymbol,
   relevantTypeForSymbol,
   PASSTHROUGH_MODULE_PATH_NORMALIZER,
@@ -68,6 +73,11 @@ export class PublicApiSurface {
     expect(isClassOrInterfaceType).to.be.a('function', 'isClassOrInterfaceType is a function');
     expect(isObjectReferenceType).to.be.a('function', 'isObjectReferenceType is a function');
     expect(isObjectType).to.be.a('function', 'isObjectType is a function');
+    expect(isIndexType).to.be.a('function', 'isIndexType is a function');
+    expect(isPrimitiveType).to.be.a('function', 'isPrimitiveType is a function');
+    expect(isIndexedAccessType).to.be.a('function', 'isIndexedAccessType is a function');
+    expect(decoratorsToStrings).to.be.a('function', 'decoratorsToStrings is a function');
+    expect(modifiersToStrings).to.be.a('function', 'modifiersToStrings is a function');
     expect(nameForNode).to.be.a('function', 'nameForNode is a function');
     expect(relevantDeclarationForSymbol).to.be.a(
       'function',
@@ -99,6 +109,7 @@ export class PublicApiSurface {
       'createProgramFromCodeString',
       'createProgramFromEntries',
       'createProgramFromTsConfig',
+      'decoratorsToStrings',
       'filterDict',
       'flagsToString',
       'forEachDict',
@@ -113,16 +124,20 @@ export class PublicApiSurface {
       'isDeclaration',
       'isDeclarationExported',
       'isErroredType',
+      'isIndexType',
+      'isIndexedAccessType',
       'isMappedType',
       'isNamedDeclaration',
       'isNode',
       'isObjectReferenceType',
       'isObjectType',
+      'isPrimitiveType',
       'isSymbol',
       'isTupleType',
       'isType',
       'mapChildren',
       'mapDict',
+      'modifiersToStrings',
       'nameForNode',
       'reduceDict',
       'relevantDeclarationForSymbol',

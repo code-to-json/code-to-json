@@ -26,7 +26,7 @@ export class SymbolSerializtionTests {
     expect(serialized).to.deep.eq({
       entity: 'sourceFile',
       extension: 'ts',
-      id: '01m4wlwidurl',
+      id: '01m4wncynx9e',
       isDeclarationFile: false,
       moduleName: 'temp-project/module',
       originalFileName: 'module.ts',

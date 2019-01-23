@@ -51,6 +51,7 @@ export interface SerializedSignature {
   declaration?: DeclarationRef;
   returnType?: TypeRef;
   comment?: string;
+  typeString?: string;
 }
 
 /**

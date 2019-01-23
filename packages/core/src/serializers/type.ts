@@ -4,14 +4,16 @@ import {
   getTsLibFilename,
   isAnonymousType,
   isClassOrInterfaceType,
+  isIndexedAccessType,
+  isIndexType,
   isMappedType,
   isObjectReferenceType,
   isObjectType,
+  isPrimitiveType,
   isTupleType,
   MappedType,
   relevantDeclarationForSymbol,
 } from '@code-to-json/utils-ts';
-import { isPrimitiveType } from '@code-to-json/utils-ts/lib/src/guards';
 import { Dict } from '@mike-north/types';
 import * as ts from 'typescript';
 import { SymbolRef, TypeRef } from '../types/ref';
@@ -148,14 +150,6 @@ function serializeRelatedTypes(
   return out;
 }
 
-function isIndexType(type: ts.Type): type is ts.IndexType {
-  return !!(type.flags & ts.TypeFlags.Index);
-}
-
-function isIndexedAccessType(type: ts.Type): type is ts.IndexedAccessType {
-  return !!(type.flags & ts.TypeFlags.IndexedAccess);
-}
-
 function serializeTypeParameterType(
   typ: ts.TypeParameter,
   _checker: ts.TypeChecker,
@@ -212,56 +206,59 @@ function serializeIndexAccessType(
 
 /**
  * Serialize a Type to a POJO
- * @param typ Type to serialize
+ * @param type Type to serialize
  * @param checker A type-checker
  * @param ref Reference to the type being serialized
  * @param queue Processing queue
  */
 export default function serializeType(
-  typ: ts.Type,
+  type: ts.Type,
   checker: ts.TypeChecker,
   ref: TypeRef,
   c: Collector,
 ): SerializedType {
-  const { symbol, isThisType } = typ as { symbol?: ts.Symbol; isThisType?: boolean };
-  const serializedType: SerializedType = {
-    typeString: checker.typeToString(typ),
+  const { symbol, isThisType } = type as { symbol?: ts.Symbol; isThisType?: boolean };
+  const serialized: SerializedType = {
+    typeString: checker.typeToString(type),
     entity: 'type',
     id: refId(ref),
-    flags: flagsToString(typ.flags, 'type'),
+    flags: flagsToString(type.flags, 'type'),
     // symbol: c.queue.queue(symbol, 'symbol'),
-    isThisType,
   };
-  if (!symbol) { return serializedType; }
+  if (isPrimitiveType(type)) {
+    serialized.primitive = true;
+  }
+  if (isThisType) {
+    serialized.isThisType = true;
+  }
+  if (!symbol) {
+    return serialized;
+  }
   const decl = relevantDeclarationForSymbol(symbol);
   if (decl) {
     const sourceFile = decl.getSourceFile();
     const libName = getTsLibFilename(sourceFile.fileName);
     if (libName) {
-      serializedType.libName = libName;
-    } else {
-      serializedType.sourceFile = c.queue.queue(sourceFile, 'sourceFile');
+      serialized.libName = libName;
+      return serialized;
     }
   }
-  if (isPrimitiveType(typ)) {
-    serializedType.primitive = true;
+
+  if (isObjectType(type)) {
+    Object.assign(serialized, serializeRelatedTypes(type, checker, c));
+  }
+  if (type.isTypeParameter()) {
+    Object.assign(serialized, serializeTypeParameterType(type, checker, c));
+  }
+  if (type.isUnionOrIntersection()) {
+    Object.assign(serialized, serializeUnionOrIntersectionType(type, checker, c));
+  }
+  if (isIndexType(type)) {
+    Object.assign(serialized, serializeIndexType(type, checker, c));
+  }
+  if (isIndexedAccessType(type)) {
+    Object.assign(serialized, serializeIndexAccessType(type, checker, c));
   }
 
-  if (isObjectType(typ)) {
-    Object.assign(serializedType, serializeRelatedTypes(typ, checker, c));
-  }
-  if (typ.isTypeParameter()) {
-    Object.assign(serializedType, serializeTypeParameterType(typ, checker, c));
-  }
-  if (typ.isUnionOrIntersection()) {
-    Object.assign(serializedType, serializeUnionOrIntersectionType(typ, checker, c));
-  }
-  if (isIndexType(typ)) {
-    Object.assign(serializedType, serializeIndexType(typ, checker, c));
-  }
-  if (isIndexedAccessType(typ)) {
-    Object.assign(serializedType, serializeIndexAccessType(typ, checker, c));
-  }
-
-  return serializedType;
+  return serialized;
 }
