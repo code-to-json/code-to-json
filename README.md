@@ -8,10 +8,6 @@
 [![Coverage Status](https://coveralls.io/repos/github/code-to-json/code-to-json/badge.svg)](https://coveralls.io/github/code-to-json/code-to-json)
 [![Total alerts](https://img.shields.io/lgtm/alerts/g/code-to-json/code-to-json.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/code-to-json/code-to-json/alerts/)
 
-> These libraries are unstable and under very active development, and will change radically from day-to-day. Please don't use them yet. No support will be provided until a 1.0 release is cut
-
----
-
 ## Getting Started
 
 ```sh
