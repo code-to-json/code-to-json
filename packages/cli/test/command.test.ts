@@ -27,10 +27,13 @@ export class CommandTests {
   @test
   public async 'run command: --project'(): Promise<void> {
     const workspace = await makeWorkspace();
-    await generateJSONCommand({ project: workspace.rootPath, out: workspace.rootPath });
+    await generateJSONCommand({
+      project: workspace.rootPath,
+      out: workspace.rootPath,
+      format: 'formatted',
+    });
     expect(workspace.toString()).to.eql(
       `├─ formatted.json
-├─ raw.json
 ├─ src
 │  ├─ index.ts
 │  ├─ more.js
@@ -47,8 +50,7 @@ export class CommandTests {
     await generateJSONCommand({ out: path.join(workspace.rootPath, 'out') }, ['src/index.ts']);
     expect(workspace.toString()).to.eql(
       `├─ out
-│  ├─ formatted.json
-│  └─ raw.json
+│  └─ formatted.json
 ├─ src
 │  ├─ index.ts
 │  ├─ more.js

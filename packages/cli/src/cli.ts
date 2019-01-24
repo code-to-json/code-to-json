@@ -36,7 +36,8 @@ export function buildProgram(): commander.Command {
     .arguments('[entries...]')
     .description('a thing')
     .option('-p,--project [path]', 'path to tsconfig.json')
-    .option('-o,--out <path>', 'output path');
+    .option('-o,--out <path>', 'output path')
+    .option('--format [fmt]', 'data format', 'formatted');
 }
 
 /**

@@ -29,7 +29,11 @@ export default async function generateJSON(
   options: { [k: string]: any },
   rawEntries?: string[],
 ): Promise<void> {
-  const { project, out = 'out' } = options;
+  const { project, out = 'out', format } = options as {
+    format: 'raw' | 'both' | 'formatted';
+    out: string;
+    project: string;
+  };
   let program!: ts.Program;
   let pathNormalizer = PASSTHROUGH_MODULE_PATH_NORMALIZER;
 
@@ -43,23 +47,30 @@ export default async function generateJSON(
   } else {
     throw new InvalidArgumentsError('Either --project <path> or entries glob(s) must be defined');
   }
+  if (['raw', 'both', 'formatted'].indexOf(format) < 0) {
+    throw new Error(`Invalid --format option: ${format}`);
+  }
   // get the raw result
   const walkResult = walkProgram(program, nodeHost, {
     pathNormalizer,
   });
 
-  // get the formatted result
-  const formattedResult = formatWalkerOutput(walkResult);
-  // determine the appropriate place(s) to write output files
   const outputPath = path.isAbsolute(out) ? out : path.join(process.cwd(), out);
-  const rawOutputPath = path.join(outputPath, 'raw.json');
-  const formattedOutputPath = path.join(outputPath, 'formatted.json');
-  // create the output folder if it doesn't currently exist
   if (!fs.existsSync(outputPath)) {
     fs.mkdirSync(outputPath, { recursive: true });
   }
-  // write the raw output file
-  fs.writeFileSync(rawOutputPath, JSON.stringify(walkResult, null, '  '));
-  // write the formatted output file
-  fs.writeFileSync(formattedOutputPath, JSON.stringify(formattedResult, null, '  '));
+  if (format === 'raw' || format === 'both') {
+    const rawOutputPath = path.join(outputPath, 'raw.json');
+    // write the raw output file
+    fs.writeFileSync(rawOutputPath, JSON.stringify(walkResult, null, '  '));
+  }
+  if (format === 'formatted' || format === 'both') {
+    // get the formatted result
+    const formattedResult = formatWalkerOutput(walkResult);
+    // determine the appropriate place(s) to write output files
+    const formattedOutputPath = path.join(outputPath, 'formatted.json');
+    // create the output folder if it doesn't currently exist
+    // write the formatted output file
+    fs.writeFileSync(formattedOutputPath, JSON.stringify(formattedResult, null, '  '));
+  }
 }

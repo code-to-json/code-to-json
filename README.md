@@ -23,6 +23,31 @@ code-to-json \
   --out ./docs \ # folder where output is written to
 ```
 
+## CLI Options
+
+### `--format`
+
+This tool can generate two different formats of JSON. You may select one using the `--format` option`
+
+| `--format=...` | Notes                                                                                                                    |
+| -------------- | ------------------------------------------------------------------------------------------------------------------------ |
+| `raw`          | Granular low-level data, including many details that relate to the filesystem the tool was run on (i.e,. absolute paths) |
+| `formatted`    | Higher-level data, intended for use in documentation tools                                                               |
+| `both`         | Both `raw` and `formatted` data formats as individual files                                                              |
+
+### `--out`
+
+The path to a folder that will be used (or created, with all intermediate folders) to contain all of `code-to-json`'s output
+
+### `--program`
+
+Path to the root of a JavaScript or TypeScript project, which should contain both a valid `package.json` and a `tsconfig.json`
+
+```sh
+# using the --raw flag to emit granular data
+code-to-json --program ./my-lib --out ./docs --raw
+```
+
 ## Packages
 
 - [@code-to-json/utils](https://github.com/code-to-json/code-to-json/tree/master/packages/utils) [![Version](https://img.shields.io/npm/v/@code-to-json/utils.svg)](https://www.npmjs.com/package/@code-to-json/utils) - Low level utilities, with no dependencies
