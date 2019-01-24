@@ -22,6 +22,7 @@ a thing
 Options:
   -p,--project [path]  path to tsconfig.json
   -o,--out <path>      output path
+  --format [fmt]       data format (default: "formatted")
   -h, --help           output usage information
 `);
   }

@@ -83,11 +83,8 @@ export class CliTests {
       true,
       'output subdirectory exists',
     );
-    const rawStat = fs.statSync(path.join(rootPath, 'out', 'raw.json'));
     const formattedStat = fs.statSync(path.join(rootPath, 'out', 'formatted.json'));
-    expect(rawStat.isFile()).to.eq(true, 'raw JSON exists');
     expect(formattedStat.isFile()).to.eq(true, 'formatted JSON exists');
-    expect(rawStat.size).to.be.gt(100, 'raw JSON is not empty');
     expect(formattedStat.size).to.be.gt(100, 'formatted JSON is not empty');
 
     cleanup();
@@ -103,12 +100,25 @@ export class CliTests {
       true,
       'output subdirectory exists',
     );
-    const rawStat = fs.statSync(path.join(rootPath, 'out', 'raw.json'));
     const formattedStat = fs.statSync(path.join(rootPath, 'out', 'formatted.json'));
-    expect(rawStat.isFile()).to.eq(true, 'raw JSON exists');
     expect(formattedStat.isFile()).to.eq(true, 'formatted JSON exists');
-    expect(rawStat.size).to.be.gt(100, 'raw JSON is not empty');
     expect(formattedStat.size).to.be.gt(100, 'formatted JSON is not empty');
+    cleanup();
+  }
+
+  @test
+  public async '--format=raw emits raw data instead of formatted data'(): Promise<void> {
+    const testCase = await setupTestCase(SAMPLE_PROJECT_CODE, ['src/index.ts']);
+    const { rootPath, cleanup } = testCase;
+    expect(rootPath).to.have.length.greaterThan(5);
+    runCli(['--format', 'raw', '--out', path.join(rootPath, 'out'), path.join(rootPath, 'src/*')]);
+    expect(fs.statSync(path.join(rootPath, 'out')).isDirectory()).to.eq(
+      true,
+      'output subdirectory exists',
+    );
+    const rawStat = fs.statSync(path.join(rootPath, 'out', 'raw.json'));
+    expect(rawStat.isFile()).to.eq(true, 'raw JSON exists');
+    expect(rawStat.size).to.be.gt(100, 'raw JSON is not empty');
     cleanup();
   }
 }
