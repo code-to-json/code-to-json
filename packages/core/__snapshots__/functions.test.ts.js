@@ -1,8 +1,8 @@
 exports['FunctionAnalysisTests function with multiple signatures 1'] = {
   "declarations": {},
   "symbols": {
-    "01m4wm12rc17": {
-      "id": "01m4wm12rc17",
+    "S01m4wmbp5uex": {
+      "id": "S01m4wmbp5uex",
       "entity": "symbol",
       "name": "\"/src/index\"",
       "flags": [
@@ -10,22 +10,22 @@ exports['FunctionAnalysisTests function with multiple signatures 1'] = {
       ],
       "type": [
         "type",
-        "01m4wm12rc17"
+        "T01m4wlsbev3t"
       ],
       "exports": {
         "adder": [
           "symbol",
-          "01m4wmo80kqn"
+          "S01m4wmhl7gmd"
         ]
       },
       "sourceFile": [
         "sourceFile",
-        "01m4wmlw4cia"
+        "F01m4wmlw4cia"
       ],
       "location": [
         [
           "sourceFile",
-          "01m4wmlw4cia"
+          "F01m4wmlw4cia"
         ],
         2,
         0,
@@ -33,8 +33,8 @@ exports['FunctionAnalysisTests function with multiple signatures 1'] = {
         0
       ]
     },
-    "01m4wmo80kqn": {
-      "id": "01m4wmo80kqn",
+    "S01m4wmhl7gmd": {
+      "id": "S01m4wmhl7gmd",
       "entity": "symbol",
       "name": "adder",
       "flags": [
@@ -42,19 +42,19 @@ exports['FunctionAnalysisTests function with multiple signatures 1'] = {
       ],
       "type": [
         "type",
-        "01m4wmo80kqn"
+        "T01m4wmdoe783"
       ],
       "modifiers": [
         "export"
       ],
       "sourceFile": [
         "sourceFile",
-        "01m4wmlw4cia"
+        "F01m4wmlw4cia"
       ],
       "location": [
         [
           "sourceFile",
-          "01m4wmlw4cia"
+          "F01m4wmlw4cia"
         ],
         2,
         0,
@@ -62,8 +62,8 @@ exports['FunctionAnalysisTests function with multiple signatures 1'] = {
         52
       ]
     },
-    "01m4wn1tctb0": {
-      "id": "01m4wn1tctb0",
+    "S01m4wn1g47sh": {
+      "id": "S01m4wn1g47sh",
       "entity": "symbol",
       "name": "a",
       "flags": [
@@ -71,16 +71,16 @@ exports['FunctionAnalysisTests function with multiple signatures 1'] = {
       ],
       "type": [
         "type",
-        "01m4wma3aq6x"
+        "T01m4wmr2p2yx"
       ],
       "sourceFile": [
         "sourceFile",
-        "01m4wmlw4cia"
+        "F01m4wmlw4cia"
       ],
       "location": [
         [
           "sourceFile",
-          "01m4wmlw4cia"
+          "F01m4wmlw4cia"
         ],
         2,
         23,
@@ -88,8 +88,8 @@ exports['FunctionAnalysisTests function with multiple signatures 1'] = {
         31
       ]
     },
-    "01m4wm2evg9w": {
-      "id": "01m4wm2evg9w",
+    "S01m4wm96284k": {
+      "id": "S01m4wm96284k",
       "entity": "symbol",
       "name": "b",
       "flags": [
@@ -97,16 +97,16 @@ exports['FunctionAnalysisTests function with multiple signatures 1'] = {
       ],
       "type": [
         "type",
-        "01m4wma3aq6x"
+        "T01m4wmr2p2yx"
       ],
       "sourceFile": [
         "sourceFile",
-        "01m4wmlw4cia"
+        "F01m4wmlw4cia"
       ],
       "location": [
         [
           "sourceFile",
-          "01m4wmlw4cia"
+          "F01m4wmlw4cia"
         ],
         2,
         33,
@@ -114,8 +114,8 @@ exports['FunctionAnalysisTests function with multiple signatures 1'] = {
         42
       ]
     },
-    "01m4wmy4h27v": {
-      "id": "01m4wmy4h27v",
+    "S01m4wnk3qofp": {
+      "id": "S01m4wnk3qofp",
       "entity": "symbol",
       "name": "a",
       "flags": [
@@ -123,16 +123,16 @@ exports['FunctionAnalysisTests function with multiple signatures 1'] = {
       ],
       "type": [
         "type",
-        "01m4wm7dey3t"
+        "T01m4wmr2p302"
       ],
       "sourceFile": [
         "sourceFile",
-        "01m4wmlw4cia"
+        "F01m4wmlw4cia"
       ],
       "location": [
         [
           "sourceFile",
-          "01m4wmlw4cia"
+          "F01m4wmlw4cia"
         ],
         3,
         23,
@@ -140,8 +140,8 @@ exports['FunctionAnalysisTests function with multiple signatures 1'] = {
         31
       ]
     },
-    "01m4wlyp0o6s": {
-      "id": "01m4wlyp0o6s",
+    "S01m4wmrsooqs": {
+      "id": "S01m4wmrsooqs",
       "entity": "symbol",
       "name": "b",
       "flags": [
@@ -149,16 +149,16 @@ exports['FunctionAnalysisTests function with multiple signatures 1'] = {
       ],
       "type": [
         "type",
-        "01m4wm7dey3t"
+        "T01m4wmr2p302"
       ],
       "sourceFile": [
         "sourceFile",
-        "01m4wmlw4cia"
+        "F01m4wmlw4cia"
       ],
       "location": [
         [
           "sourceFile",
-          "01m4wmlw4cia"
+          "F01m4wmlw4cia"
         ],
         3,
         33,
@@ -168,10 +168,10 @@ exports['FunctionAnalysisTests function with multiple signatures 1'] = {
     }
   },
   "types": {
-    "01m4wm12rc17": {
+    "T01m4wlsbev3t": {
       "typeString": "typeof import(\"/src/index\")",
       "entity": "type",
-      "id": "01m4wm12rc17",
+      "id": "T01m4wlsbev3t",
       "flags": [
         "Object"
       ],
@@ -181,14 +181,14 @@ exports['FunctionAnalysisTests function with multiple signatures 1'] = {
       "properties": {
         "adder": [
           "symbol",
-          "01m4wmo80kqn"
+          "S01m4wmhl7gmd"
         ]
       }
     },
-    "01m4wmo80kqn": {
+    "T01m4wmdoe783": {
       "typeString": "{ (a: string, b: string): string; (a: number, b: number): number; }",
       "entity": "type",
-      "id": "01m4wmo80kqn",
+      "id": "T01m4wmdoe783",
       "flags": [
         "Object"
       ],
@@ -199,16 +199,16 @@ exports['FunctionAnalysisTests function with multiple signatures 1'] = {
         {
           "returnType": [
             "type",
-            "01m4wma3aq6x"
+            "T01m4wmr2p2yx"
           ],
           "parameters": [
             [
               "symbol",
-              "01m4wn1tctb0"
+              "S01m4wn1g47sh"
             ],
             [
               "symbol",
-              "01m4wm2evg9w"
+              "S01m4wm96284k"
             ]
           ],
           "typeString": "(a: string, b: string): string"
@@ -216,35 +216,35 @@ exports['FunctionAnalysisTests function with multiple signatures 1'] = {
         {
           "returnType": [
             "type",
-            "01m4wm7dey3t"
+            "T01m4wmr2p302"
           ],
           "parameters": [
             [
               "symbol",
-              "01m4wmy4h27v"
+              "S01m4wnk3qofp"
             ],
             [
               "symbol",
-              "01m4wlyp0o6s"
+              "S01m4wmrsooqs"
             ]
           ],
           "typeString": "(a: number, b: number): number"
         }
       ]
     },
-    "01m4wma3aq6x": {
+    "T01m4wmr2p2yx": {
       "typeString": "string",
       "entity": "type",
-      "id": "01m4wma3aq6x",
+      "id": "T01m4wmr2p2yx",
       "flags": [
         "String"
       ],
       "primitive": true
     },
-    "01m4wm7dey3t": {
+    "T01m4wmr2p302": {
       "typeString": "number",
       "entity": "type",
-      "id": "01m4wm7dey3t",
+      "id": "T01m4wmr2p302",
       "flags": [
         "Number"
       ],
@@ -253,8 +253,8 @@ exports['FunctionAnalysisTests function with multiple signatures 1'] = {
   },
   "nodes": {},
   "sourceFiles": {
-    "01m4wmlw4cia": {
-      "id": "01m4wmlw4cia",
+    "F01m4wmlw4cia": {
+      "id": "F01m4wmlw4cia",
       "entity": "sourceFile",
       "originalFileName": "/src/index.ts",
       "isDeclarationFile": false,
@@ -263,7 +263,7 @@ exports['FunctionAnalysisTests function with multiple signatures 1'] = {
       "pathInPackage": "/src/index",
       "symbol": [
         "symbol",
-        "01m4wm12rc17"
+        "S01m4wmbp5uex"
       ]
     }
   }
@@ -272,28 +272,31 @@ exports['FunctionAnalysisTests function with multiple signatures 1'] = {
 exports['FunctionAnalysisTests unary function 1'] = {
   "declarations": {},
   "symbols": {
-    "01m4wmumncgp": {
-      "id": "01m4wmumncgp",
+    "S01m4wmnellk3": {
+      "id": "S01m4wmnellk3",
       "entity": "symbol",
-      "name": "foo",
+      "name": "\"/src/index\"",
       "flags": [
-        "Function"
+        "ValueModule"
       ],
       "type": [
         "type",
-        "01m4wmumncgp"
+        "T01m4wmbyn5qs"
       ],
-      "modifiers": [
-        "export"
-      ],
+      "exports": {
+        "foo": [
+          "symbol",
+          "S01m4wmca6m9w"
+        ]
+      },
       "sourceFile": [
         "sourceFile",
-        "01m4wnwkyktn"
+        "F01m4wnwkyktn"
       ],
       "location": [
         [
           "sourceFile",
-          "01m4wnwkyktn"
+          "F01m4wnwkyktn"
         ],
         1,
         1,
@@ -301,8 +304,37 @@ exports['FunctionAnalysisTests unary function 1'] = {
         62
       ]
     },
-    "01m4wlopx484": {
-      "id": "01m4wlopx484",
+    "S01m4wmca6m9w": {
+      "id": "S01m4wmca6m9w",
+      "entity": "symbol",
+      "name": "foo",
+      "flags": [
+        "Function"
+      ],
+      "type": [
+        "type",
+        "T01m4wlq2na1n"
+      ],
+      "modifiers": [
+        "export"
+      ],
+      "sourceFile": [
+        "sourceFile",
+        "F01m4wnwkyktn"
+      ],
+      "location": [
+        [
+          "sourceFile",
+          "F01m4wnwkyktn"
+        ],
+        1,
+        1,
+        1,
+        62
+      ]
+    },
+    "S01m4wnbju447": {
+      "id": "S01m4wnbju447",
       "entity": "symbol",
       "name": "str",
       "flags": [
@@ -310,16 +342,16 @@ exports['FunctionAnalysisTests unary function 1'] = {
       ],
       "type": [
         "type",
-        "01m4wma3aq6x"
+        "T01m4wmr2p2yx"
       ],
       "sourceFile": [
         "sourceFile",
-        "01m4wnwkyktn"
+        "F01m4wnwkyktn"
       ],
       "location": [
         [
           "sourceFile",
-          "01m4wnwkyktn"
+          "F01m4wnwkyktn"
         ],
         1,
         21,
@@ -329,10 +361,27 @@ exports['FunctionAnalysisTests unary function 1'] = {
     }
   },
   "types": {
-    "01m4wmumncgp": {
+    "T01m4wmbyn5qs": {
+      "typeString": "typeof import(\"/src/index\")",
+      "entity": "type",
+      "id": "T01m4wmbyn5qs",
+      "flags": [
+        "Object"
+      ],
+      "objectFlags": [
+        "Anonymous"
+      ],
+      "properties": {
+        "foo": [
+          "symbol",
+          "S01m4wmca6m9w"
+        ]
+      }
+    },
+    "T01m4wlq2na1n": {
       "typeString": "(str: string) => string",
       "entity": "type",
-      "id": "01m4wmumncgp",
+      "id": "T01m4wlq2na1n",
       "flags": [
         "Object"
       ],
@@ -343,22 +392,22 @@ exports['FunctionAnalysisTests unary function 1'] = {
         {
           "returnType": [
             "type",
-            "01m4wma3aq6x"
+            "T01m4wmr2p2yx"
           ],
           "parameters": [
             [
               "symbol",
-              "01m4wlopx484"
+              "S01m4wnbju447"
             ]
           ],
           "typeString": "(str: string): string"
         }
       ]
     },
-    "01m4wma3aq6x": {
+    "T01m4wmr2p2yx": {
       "typeString": "string",
       "entity": "type",
-      "id": "01m4wma3aq6x",
+      "id": "T01m4wmr2p2yx",
       "flags": [
         "String"
       ],
@@ -367,8 +416,8 @@ exports['FunctionAnalysisTests unary function 1'] = {
   },
   "nodes": {},
   "sourceFiles": {
-    "01m4wnwkyktn": {
-      "id": "01m4wnwkyktn",
+    "F01m4wnwkyktn": {
+      "id": "F01m4wnwkyktn",
       "entity": "sourceFile",
       "originalFileName": "/src/index.ts",
       "isDeclarationFile": false,
@@ -377,7 +426,7 @@ exports['FunctionAnalysisTests unary function 1'] = {
       "pathInPackage": "/src/index",
       "symbol": [
         "symbol",
-        "01m4wmumncgp"
+        "S01m4wmnellk3"
       ]
     }
   }
@@ -386,8 +435,40 @@ exports['FunctionAnalysisTests unary function 1'] = {
 exports['FunctionAnalysisTests zero-argument function 1'] = {
   "declarations": {},
   "symbols": {
-    "01m4wnc0q8ra": {
-      "id": "01m4wnc0q8ra",
+    "S01m4wn1vt837": {
+      "id": "S01m4wn1vt837",
+      "entity": "symbol",
+      "name": "\"/src/index\"",
+      "flags": [
+        "ValueModule"
+      ],
+      "type": [
+        "type",
+        "T01m4wm1n9xbg"
+      ],
+      "exports": {
+        "foo": [
+          "symbol",
+          "S01m4wmuyncsu"
+        ]
+      },
+      "sourceFile": [
+        "sourceFile",
+        "F01m4wnwkyinh"
+      ],
+      "location": [
+        [
+          "sourceFile",
+          "F01m4wnwkyinh"
+        ],
+        1,
+        1,
+        1,
+        39
+      ]
+    },
+    "S01m4wmuyncsu": {
+      "id": "S01m4wmuyncsu",
       "entity": "symbol",
       "name": "foo",
       "flags": [
@@ -395,19 +476,19 @@ exports['FunctionAnalysisTests zero-argument function 1'] = {
       ],
       "type": [
         "type",
-        "01m4wnc0q8ra"
+        "T01m4wmoy0n5u"
       ],
       "modifiers": [
         "export"
       ],
       "sourceFile": [
         "sourceFile",
-        "01m4wnwkyinh"
+        "F01m4wnwkyinh"
       ],
       "location": [
         [
           "sourceFile",
-          "01m4wnwkyinh"
+          "F01m4wnwkyinh"
         ],
         1,
         1,
@@ -417,10 +498,27 @@ exports['FunctionAnalysisTests zero-argument function 1'] = {
     }
   },
   "types": {
-    "01m4wnc0q8ra": {
+    "T01m4wm1n9xbg": {
+      "typeString": "typeof import(\"/src/index\")",
+      "entity": "type",
+      "id": "T01m4wm1n9xbg",
+      "flags": [
+        "Object"
+      ],
+      "objectFlags": [
+        "Anonymous"
+      ],
+      "properties": {
+        "foo": [
+          "symbol",
+          "S01m4wmuyncsu"
+        ]
+      }
+    },
+    "T01m4wmoy0n5u": {
       "typeString": "() => string",
       "entity": "type",
-      "id": "01m4wnc0q8ra",
+      "id": "T01m4wmoy0n5u",
       "flags": [
         "Object"
       ],
@@ -431,16 +529,16 @@ exports['FunctionAnalysisTests zero-argument function 1'] = {
         {
           "returnType": [
             "type",
-            "01m4wma3aq6x"
+            "T01m4wmr2p2yx"
           ],
           "typeString": "(): string"
         }
       ]
     },
-    "01m4wma3aq6x": {
+    "T01m4wmr2p2yx": {
       "typeString": "string",
       "entity": "type",
-      "id": "01m4wma3aq6x",
+      "id": "T01m4wmr2p2yx",
       "flags": [
         "String"
       ],
@@ -449,8 +547,8 @@ exports['FunctionAnalysisTests zero-argument function 1'] = {
   },
   "nodes": {},
   "sourceFiles": {
-    "01m4wnwkyinh": {
-      "id": "01m4wnwkyinh",
+    "F01m4wnwkyinh": {
+      "id": "F01m4wnwkyinh",
       "entity": "sourceFile",
       "originalFileName": "/src/index.ts",
       "isDeclarationFile": false,
@@ -459,7 +557,7 @@ exports['FunctionAnalysisTests zero-argument function 1'] = {
       "pathInPackage": "/src/index",
       "symbol": [
         "symbol",
-        "01m4wnc0q8ra"
+        "S01m4wn1vt837"
       ]
     }
   }

@@ -32,7 +32,7 @@ export class SimpleSnapshotSmokeTests {
     this.rootPath = rootPath;
     const checker = program.getTypeChecker();
     this.checker = checker;
-    const queue = createQueue(checker);
+    const queue = createQueue();
     const collector: Collector = {
       queue,
       host: nodeHost,

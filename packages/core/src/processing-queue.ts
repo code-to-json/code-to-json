@@ -66,7 +66,7 @@ const log = debug('code-to-json:processor');
  *
  * @internal
  */
-export function create(checker: ts.TypeChecker): Queue {
+export function create(): Queue {
   /**
    * the state that makes the closure from create() useful
    * queues for each entity type we care about doing work on
@@ -74,7 +74,7 @@ export function create(checker: ts.TypeChecker): Queue {
   const toProcess = {
     nodes: createQueue<RefRegistry, 'node', ts.Node>('node', generateId),
     symbols: createQueue<RefRegistry, 'symbol', ts.Symbol>('symbol', generateId),
-    types: createQueue<RefRegistry, 'type', ts.Type>('type', typ => generateId(typ, checker)),
+    types: createQueue<RefRegistry, 'type', ts.Type>('type', generateId),
     sourceFiles: createQueue<RefRegistry, 'sourceFile', ts.SourceFile>('sourceFile', generateId),
     declarations: createQueue<RefRegistry, 'declaration', ts.Declaration>(
       'declaration',
