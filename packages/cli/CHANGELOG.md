@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-rc.0](https://github.com/mike-north/code-to-json/compare/@code-to-json/cli@0.13.4...@code-to-json/cli@1.0.0-rc.0) (2019-01-24)
+
+
+### Features
+
+* **cli:** option to select output format ([345cdf3](https://github.com/mike-north/code-to-json/commit/345cdf3))
+
+
+
+
+
 ## [0.13.4](https://github.com/mike-north/code-to-json/compare/@code-to-json/cli@0.13.3...@code-to-json/cli@0.13.4) (2019-01-24)
 
 **Note:** Version bump only for package @code-to-json/cli
