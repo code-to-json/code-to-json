@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.20.3](https://github.com/mike-north/code-to-json/compare/@code-to-json/core@0.20.2...@code-to-json/core@0.20.3) (2019-01-24)
+
+
+### Bug Fixes
+
+* detect duplicate ID generation ([d0ddee7](https://github.com/mike-north/code-to-json/commit/d0ddee7))
+
+
+
+
+
 ## [0.20.2](https://github.com/mike-north/code-to-json/compare/@code-to-json/core@0.20.1...@code-to-json/core@0.20.2) (2019-01-23)
 
 
