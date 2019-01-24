@@ -8,4 +8,4 @@
 
 ---
 
-© LinkedIn
+© 2018 LinkedIn

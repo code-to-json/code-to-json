@@ -25,11 +25,11 @@ code-to-json \
 
 This tool can generate two different formats of JSON. You may select one using the `--format` option`
 
-| `--format=...` | Notes                                                                                                                    |
-| -------------- | ------------------------------------------------------------------------------------------------------------------------ |
-| `raw`          | Granular low-level data, including many details that relate to the filesystem the tool was run on (i.e,. absolute paths) |
-| `formatted`    | Higher-level data, intended for use in documentation tools                                                               |
-| `both`         | Both `raw` and `formatted` data formats as individual files                                                              |
+| `--format`  | Notes                                                                                                                    |
+| ----------- | ------------------------------------------------------------------------------------------------------------------------ |
+| `raw`       | Granular low-level data, including many details that relate to the filesystem the tool was run on (i.e,. absolute paths) |
+| `formatted` | Higher-level data, intended for use in documentation tools                                                               |
+| `both`      | Both `raw` and `formatted` data formats as individual files                                                              |
 
 ```sh
 # using the --format flag to emit granular data
@@ -53,6 +53,8 @@ Path to the root of a JavaScript or TypeScript project, which should contain bot
 - [@code-to-json/utils-node](https://github.com/code-to-json/code-to-json/tree/master/packages/utils-node) [![Version](https://img.shields.io/npm/v/@code-to-json/utils-node.svg)](https://www.npmjs.com/package/@code-to-json/utils-node) - <b>[NODE]</b> Node.js utilities
 
 - [@code-to-json/core](https://github.com/code-to-json/code-to-json/tree/master/packages/core) [![Version](https://img.shields.io/npm/v/@code-to-json/core.svg)](https://www.npmjs.com/package/@code-to-json/core) - Code analysis functionality
+
+- [@code-to-json/formatter](https://github.com/code-to-json/code-to-json/tree/master/packages/formatter) [![Version](https://img.shields.io/npm/v/@code-to-json/formatter.svg)](https://www.npmjs.com/package/@code-to-json/formatter) - Data formatter
 
 - [@code-to-json/comments](https://github.com/code-to-json/code-to-json/tree/master/packages/comments) [![Version](https://img.shields.io/npm/v/@code-to-json/comments.svg)](https://www.npmjs.com/package/@code-to-json/comments) - Comment-parsing functionality
 

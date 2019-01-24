@@ -86,4 +86,4 @@ This library has a very strong commitment to [semantic versioning](https://semve
 
 ---
 
-© LinkedIn
+© 2018 LinkedIn

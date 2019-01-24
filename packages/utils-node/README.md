@@ -8,4 +8,4 @@
 
 ---
 
-© code-to-json
+© 2018 LinkedIn

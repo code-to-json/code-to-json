@@ -32,4 +32,4 @@ lerna bootstrap
 yarn build
 
 echo "lerna publish"
-lerna publish --yes
+lerna publish prerelease --yes
