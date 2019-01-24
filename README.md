@@ -35,6 +35,11 @@ This tool can generate two different formats of JSON. You may select one using t
 | `formatted`    | Higher-level data, intended for use in documentation tools                                                               |
 | `both`         | Both `raw` and `formatted` data formats as individual files                                                              |
 
+```sh
+# using the --format flag to emit granular data
+code-to-json --program ./my-lib --out ./docs --format raw
+```
+
 ### `--out`
 
 The path to a folder that will be used (or created, with all intermediate folders) to contain all of `code-to-json`'s output
@@ -42,11 +47,6 @@ The path to a folder that will be used (or created, with all intermediate folder
 ### `--program`
 
 Path to the root of a JavaScript or TypeScript project, which should contain both a valid `package.json` and a `tsconfig.json`
-
-```sh
-# using the --raw flag to emit granular data
-code-to-json --program ./my-lib --out ./docs --raw
-```
 
 ## Packages
 
