@@ -42,7 +42,7 @@ exports['FunctionAnalysisTests function with multiple signatures 1'] = {
       ],
       "type": [
         "type",
-        "T01m4wmdoe783"
+        "T01m4wlwbo9w4"
       ],
       "modifiers": [
         "export"
@@ -185,10 +185,10 @@ exports['FunctionAnalysisTests function with multiple signatures 1'] = {
         ]
       }
     },
-    "T01m4wmdoe783": {
+    "T01m4wlwbo9w4": {
       "typeString": "{ (a: string, b: string): string; (a: number, b: number): number; }",
       "entity": "type",
-      "id": "T01m4wmdoe783",
+      "id": "T01m4wlwbo9w4",
       "flags": [
         "Object"
       ],
@@ -313,7 +313,7 @@ exports['FunctionAnalysisTests unary function 1'] = {
       ],
       "type": [
         "type",
-        "T01m4wlq2na1n"
+        "T01m4wngke8ae"
       ],
       "modifiers": [
         "export"
@@ -378,10 +378,10 @@ exports['FunctionAnalysisTests unary function 1'] = {
         ]
       }
     },
-    "T01m4wlq2na1n": {
+    "T01m4wngke8ae": {
       "typeString": "(str: string) => string",
       "entity": "type",
-      "id": "T01m4wlq2na1n",
+      "id": "T01m4wngke8ae",
       "flags": [
         "Object"
       ],
@@ -476,7 +476,7 @@ exports['FunctionAnalysisTests zero-argument function 1'] = {
       ],
       "type": [
         "type",
-        "T01m4wmoy0n5u"
+        "T01m4wmn9vqoi"
       ],
       "modifiers": [
         "export"
@@ -515,10 +515,10 @@ exports['FunctionAnalysisTests zero-argument function 1'] = {
         ]
       }
     },
-    "T01m4wmoy0n5u": {
+    "T01m4wmn9vqoi": {
       "typeString": "() => string",
       "entity": "type",
-      "id": "T01m4wmoy0n5u",
+      "id": "T01m4wmn9vqoi",
       "flags": [
         "Object"
       ],

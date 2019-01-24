@@ -2,7 +2,8 @@ import { getDeclarationFiles } from '@code-to-json/test-helpers';
 import { expect } from 'chai';
 import { suite, test } from 'mocha-typescript';
 import * as ts from 'typescript';
-import { generateId, generateIdForSourceFileName } from '../src/generate-id';
+import { generateIdForSourceFileName } from '../lib/src/generate-id';
+import { createIdGenerator } from '../src/generate-id';
 import { createProgramFromCodeString, mapDict } from '../src/index';
 
 @suite
@@ -20,6 +21,8 @@ export class GenerateIdTests {
   private classSym!: ts.Symbol;
 
   private varSym!: ts.Symbol;
+
+  private checker!: ts.TypeChecker;
 
   public before() {
     const { program } = createProgramFromCodeString(
@@ -63,15 +66,18 @@ export const x: string = 'foo';
 
     expect(this.varSym.declarations.length).to.eql(1);
     [this.varDeclaration] = this.varSym.declarations;
+    this.checker = checker;
   }
 
   @test
   public async 'generateId for sourceFile'(): Promise<void> {
+    const generateId = createIdGenerator(this.checker);
     expect(generateId(this.sourceFile)).to.eql('F01m4wnf2ptes');
   }
 
   @test
   public async 'generateId for symbol'(): Promise<void> {
+    const generateId = createIdGenerator(this.checker);
     expect(generateId(this.sourceFileSym))
       .to.be.a('string')
       .and.to.have.lengthOf(13);
@@ -79,6 +85,7 @@ export const x: string = 'foo';
 
   @test
   public async 'generateId for type'(): Promise<void> {
+    const generateId = createIdGenerator(this.checker);
     expect(generateId(this.typ))
       .to.be.a('string')
       .and.to.have.length.greaterThan(0);
@@ -86,6 +93,7 @@ export const x: string = 'foo';
 
   @test
   public async 'generateId for class declaration'(): Promise<void> {
+    const generateId = createIdGenerator(this.checker);
     expect(generateId(this.classDeclaration))
       .to.be.a('string')
       .and.to.have.lengthOf(13);
@@ -93,6 +101,7 @@ export const x: string = 'foo';
 
   @test
   public async 'generateId for variable declaration'(): Promise<void> {
+    const generateId = createIdGenerator(this.checker);
     expect(generateId(this.varDeclaration))
       .to.be.a('string')
       .and.to.have.lengthOf(13);
@@ -100,6 +109,8 @@ export const x: string = 'foo';
 
   @test
   public async 'generateId for class members and their children'(): Promise<void> {
+    const generateId = createIdGenerator(this.checker);
+
     const { members } = this.classSym;
     if (!members) {
       throw new Error('No members in class');
@@ -140,21 +151,29 @@ export const x: string = 'foo';
 
   @test
   public async 'generateId for null'(): Promise<void> {
+    const generateId = createIdGenerator(this.checker);
+
     expect(() => generateId(null as any)).to.throw('Cannot generate an ID for empty values');
   }
 
   @test
   public async 'generateId for undefined'(): Promise<void> {
+    const generateId = createIdGenerator(this.checker);
+
     expect(() => generateId(undefined as any)).to.throw('Cannot generate an ID for empty values');
   }
 
   @test
   public async 'generateId for 8'(): Promise<void> {
+    const generateId = createIdGenerator(this.checker);
+
     expect(() => generateId(8 as any)).to.throw('Cannot generate an id for this object');
   }
 
   @test
   public 'stable hashing'(): void {
+    const generateId = createIdGenerator(this.checker);
+
     expect(generateId(this.classDeclaration)).to.eql('D01m4wm4wrlxj', 'class declaration');
     expect(generateId(this.classSym)).to.eql('S01m4wnl8dld8', 'class symbol');
     expect(generateId(this.varSym)).to.eql('S01m4wmemklaa', 'variable symbol');

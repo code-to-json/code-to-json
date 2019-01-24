@@ -1,7 +1,7 @@
 /* eslint-disable no-return-assign */
 
 import { createQueue, RefFor, refId, UnreachableError } from '@code-to-json/utils';
-import { generateId, isErroredType } from '@code-to-json/utils-ts';
+import { createIdGenerator, isErroredType } from '@code-to-json/utils-ts';
 import * as debug from 'debug';
 import * as ts from 'typescript';
 import {
@@ -66,7 +66,9 @@ const log = debug('code-to-json:processor');
  *
  * @internal
  */
-export function create(): Queue {
+export function create(checker: ts.TypeChecker): Queue {
+  const generateId = createIdGenerator(checker);
+
   /**
    * the state that makes the closure from create() useful
    * queues for each entity type we care about doing work on

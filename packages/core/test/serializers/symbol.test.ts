@@ -1,5 +1,5 @@
 import { createRef } from '@code-to-json/utils';
-import { generateId } from '@code-to-json/utils-ts';
+import { createIdGenerator } from '@code-to-json/utils-ts';
 import { expect } from 'chai';
 import { suite, test } from 'mocha-typescript';
 import * as ts from 'typescript';
@@ -20,7 +20,7 @@ export class SymbolSerializtionTests {
     }
     const [fnDecl] = fnSym.declarations;
     expect(fnDecl.getText()).to.eql('function add(a: number, b: number): number { return a + b; }');
-
+    const generateId = createIdGenerator(checker);
     const sfRef: SourceFileRef = createRef<RefRegistry, 'sourceFile'>('sourceFile', generateId(sf));
     const serialized = serializeSourceFile(sf, checker, sfRef, collector);
     expect(serialized).to.deep.eq({
