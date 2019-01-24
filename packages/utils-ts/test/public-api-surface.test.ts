@@ -14,8 +14,8 @@ const {
   createProgramFromCodeString,
   createProgramFromTsConfig,
   createProgramFromEntries,
+  createIdGenerator,
   generateHash,
-  generateId,
   generateModulePathNormalizer,
   forEachDict,
   flagsToString,
@@ -90,7 +90,7 @@ export class PublicApiSurface {
     expect(isMappedType).to.be.a('function', 'isMappedType is a function');
     expect(mapChildren).to.be.a('function', 'mapChildren is a function');
     expect(generateHash).to.be.a('function', 'generateHash is a function');
-    expect(generateId).to.be.a('function', 'generateId is a function');
+    expect(createIdGenerator).to.be.a('function', 'generateId is a function');
     expect(generateModulePathNormalizer).to.be.a(
       'function',
       'generateModulePathNormalizer is a function',
@@ -106,6 +106,7 @@ export class PublicApiSurface {
   public 'no extra exports'(): void {
     expect(Object.keys(Exported).sort()).to.eql([
       'PASSTHROUGH_MODULE_PATH_NORMALIZER',
+      'createIdGenerator',
       'createProgramFromCodeString',
       'createProgramFromEntries',
       'createProgramFromTsConfig',
@@ -114,7 +115,6 @@ export class PublicApiSurface {
       'flagsToString',
       'forEachDict',
       'generateHash',
-      'generateId',
       'generateModulePathNormalizer',
       'getFirstIdentifier',
       'getObjectFlags',

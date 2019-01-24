@@ -30,7 +30,7 @@ export {
   ModulePathNormalizer,
   PASSTHROUGH_MODULE_PATH_NORMALIZER,
 } from './module-path-normalizer';
-export { generateId, generateHash } from './generate-id';
+export { createIdGenerator, generateHash } from './generate-id';
 export { flagsToString, getObjectFlags, Flags } from './flags';
 export { getTsLibFilename } from './ts-libs';
 export { relevantTypeForSymbol, relevantDeclarationForSymbol } from './symbol';

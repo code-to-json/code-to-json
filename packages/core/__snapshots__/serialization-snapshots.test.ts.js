@@ -17,10 +17,74 @@ exports['SerializationSnapshotTests abstract class Vehicle { numWheels: number =
         ]
       }
     },
-    "T01m4wnm0th7b": {
+    "T01m4wmu9c278": {
+      "typeString": "typeof Vehicle",
+      "entity": "type",
+      "id": "T01m4wmu9c278",
+      "flags": [
+        "Object"
+      ],
+      "objectFlags": [
+        "Anonymous"
+      ],
+      "properties": {},
+      "constructorSignatures": [
+        {
+          "returnType": [
+            "type",
+            "T01m4wmb5vf23"
+          ],
+          "typeString": "(): Vehicle"
+        }
+      ]
+    },
+    "T01m4wmb5vf23": {
       "typeString": "Vehicle",
       "entity": "type",
-      "id": "T01m4wnm0th7b",
+      "id": "T01m4wmb5vf23",
+      "flags": [
+        "Object"
+      ],
+      "objectFlags": [
+        "Class",
+        "Reference"
+      ],
+      "target": [
+        "type",
+        "T01m4wmb5vf23"
+      ],
+      "properties": {
+        "numWheels": [
+          "symbol",
+          "S01m4wmgdtvcw"
+        ],
+        "drive": [
+          "symbol",
+          "S01m4wn33a75s"
+        ]
+      },
+      "thisType": [
+        "type",
+        "T01m4wlvl7ayn"
+      ]
+    },
+    "T01m4wlvl7ayn": {
+      "typeString": "this",
+      "entity": "type",
+      "id": "T01m4wlvl7ayn",
+      "flags": [
+        "TypeParameter"
+      ],
+      "isThisType": true,
+      "constraint": [
+        "type",
+        "T01m4wmb5vf231"
+      ]
+    },
+    "T01m4wmb5vf231": {
+      "typeString": "Vehicle",
+      "entity": "type",
+      "id": "T01m4wmb5vf231",
       "flags": [
         "Object"
       ],
@@ -29,26 +93,13 @@ exports['SerializationSnapshotTests abstract class Vehicle { numWheels: number =
       ],
       "target": [
         "type",
-        "T01m4wnm0th7b"
+        "T01m4wmb5vf23"
       ],
       "typeParameters": [
         [
           "type",
-          "T01m4wndevwfr"
+          "T01m4wlvl7ayn"
         ]
-      ]
-    },
-    "T01m4wndevwfr": {
-      "typeString": "this",
-      "entity": "type",
-      "id": "T01m4wndevwfr",
-      "flags": [
-        "TypeParameter"
-      ],
-      "isThisType": true,
-      "constraint": [
-        "type",
-        "T01m4wnm0th7b"
       ]
     },
     "T01m4wmr2p302": {
@@ -60,10 +111,10 @@ exports['SerializationSnapshotTests abstract class Vehicle { numWheels: number =
       ],
       "primitive": true
     },
-    "T01m4wllfo8ow": {
+    "T01m4wnhrlf5a": {
       "typeString": "() => string",
       "entity": "type",
-      "id": "T01m4wllfo8ow",
+      "id": "T01m4wnhrlf5a",
       "flags": [
         "Object"
       ],
@@ -132,7 +183,7 @@ exports['SerializationSnapshotTests abstract class Vehicle { numWheels: number =
       ],
       "type": [
         "type",
-        "T01m4wnm0th7b"
+        "T01m4wmu9c278"
       ],
       "modifiers": [
         "export",
@@ -191,7 +242,7 @@ exports['SerializationSnapshotTests abstract class Vehicle { numWheels: number =
       ],
       "type": [
         "type",
-        "T01m4wllfo8ow"
+        "T01m4wnhrlf5a"
       ],
       "modifiers": [
         "public",
@@ -234,10 +285,74 @@ exports['SerializationSnapshotTests class Vehicle { numWheels: number = 4; drive
         ]
       }
     },
-    "T01m4wlw40xqk": {
+    "T01m4wnwgm39y": {
+      "typeString": "typeof Vehicle",
+      "entity": "type",
+      "id": "T01m4wnwgm39y",
+      "flags": [
+        "Object"
+      ],
+      "objectFlags": [
+        "Anonymous"
+      ],
+      "properties": {},
+      "constructorSignatures": [
+        {
+          "returnType": [
+            "type",
+            "T01m4wlum8wjm"
+          ],
+          "typeString": "(): Vehicle"
+        }
+      ]
+    },
+    "T01m4wlum8wjm": {
       "typeString": "Vehicle",
       "entity": "type",
-      "id": "T01m4wlw40xqk",
+      "id": "T01m4wlum8wjm",
+      "flags": [
+        "Object"
+      ],
+      "objectFlags": [
+        "Class",
+        "Reference"
+      ],
+      "target": [
+        "type",
+        "T01m4wlum8wjm"
+      ],
+      "properties": {
+        "numWheels": [
+          "symbol",
+          "S01m4wmgd91qw"
+        ],
+        "drive": [
+          "symbol",
+          "S01m4wnqvk3ho"
+        ]
+      },
+      "thisType": [
+        "type",
+        "T01m4wnfjndq3"
+      ]
+    },
+    "T01m4wnfjndq3": {
+      "typeString": "this",
+      "entity": "type",
+      "id": "T01m4wnfjndq3",
+      "flags": [
+        "TypeParameter"
+      ],
+      "isThisType": true,
+      "constraint": [
+        "type",
+        "T01m4wlum8wjm1"
+      ]
+    },
+    "T01m4wlum8wjm1": {
+      "typeString": "Vehicle",
+      "entity": "type",
+      "id": "T01m4wlum8wjm1",
       "flags": [
         "Object"
       ],
@@ -246,26 +361,13 @@ exports['SerializationSnapshotTests class Vehicle { numWheels: number = 4; drive
       ],
       "target": [
         "type",
-        "T01m4wlw40xqk"
+        "T01m4wlum8wjm"
       ],
       "typeParameters": [
         [
           "type",
-          "T01m4wm23y1us"
+          "T01m4wnfjndq3"
         ]
-      ]
-    },
-    "T01m4wm23y1us": {
-      "typeString": "this",
-      "entity": "type",
-      "id": "T01m4wm23y1us",
-      "flags": [
-        "TypeParameter"
-      ],
-      "isThisType": true,
-      "constraint": [
-        "type",
-        "T01m4wlw40xqk"
       ]
     },
     "T01m4wmr2p302": {
@@ -277,10 +379,10 @@ exports['SerializationSnapshotTests class Vehicle { numWheels: number = 4; drive
       ],
       "primitive": true
     },
-    "T01m4wntfnt3q": {
+    "T01m4wmrd30df": {
       "typeString": "() => string",
       "entity": "type",
-      "id": "T01m4wntfnt3q",
+      "id": "T01m4wmrd30df",
       "flags": [
         "Object"
       ],
@@ -350,7 +452,7 @@ exports['SerializationSnapshotTests class Vehicle { numWheels: number = 4; drive
       ],
       "type": [
         "type",
-        "T01m4wlw40xqk"
+        "T01m4wnwgm39y"
       ],
       "modifiers": [
         "export"
@@ -409,7 +511,7 @@ exports['SerializationSnapshotTests class Vehicle { numWheels: number = 4; drive
       ],
       "type": [
         "type",
-        "T01m4wntfnt3q"
+        "T01m4wmrd30df"
       ],
       "modifiers": [
         "public"
@@ -451,10 +553,10 @@ exports['SerializationSnapshotTests const p: Promise<number> = Promise.resolve(4
         ]
       }
     },
-    "T01m4wn83nqro": {
+    "T01m4wm50lj61": {
       "typeString": "Promise<number>",
       "entity": "type",
-      "id": "T01m4wn83nqro",
+      "id": "T01m4wm50lj61",
       "flags": [
         "Object"
       ],
@@ -503,7 +605,7 @@ exports['SerializationSnapshotTests const p: Promise<number> = Promise.resolve(4
       ],
       "type": [
         "type",
-        "T01m4wn83nqro"
+        "T01m4wm50lj61"
       ],
       "sourceFile": [
         "sourceFile",
@@ -632,10 +734,10 @@ exports['SerializationSnapshotTests function add(a: number, b: string) { return 
         ]
       }
     },
-    "T01m4wmbr0b7t": {
+    "T01m4wmqo0i12": {
       "typeString": "(a: number, b: string) => string",
       "entity": "type",
-      "id": "T01m4wmbr0b7t",
+      "id": "T01m4wmqo0i12",
       "flags": [
         "Object"
       ],
@@ -723,7 +825,7 @@ exports['SerializationSnapshotTests function add(a: number, b: string) { return 
       ],
       "type": [
         "type",
-        "T01m4wmbr0b7t"
+        "T01m4wmqo0i12"
       ],
       "modifiers": [
         "export"
@@ -811,14 +913,26 @@ exports['SerializationSnapshotTests interface Foo {bar: number; readonly baz: Pr
         "Anonymous"
       ]
     },
-    "T01m4wn83nqro": {
-      "typeString": "Promise<string>",
+    "T01m4wmp9klrl": {
+      "typeString": "Foo",
       "entity": "type",
-      "id": "T01m4wn83nqro",
+      "id": "T01m4wmp9klrl",
       "flags": [
         "Object"
       ],
-      "libName": "lib.es5.d.ts"
+      "objectFlags": [
+        "Interface"
+      ],
+      "properties": {
+        "bar": [
+          "symbol",
+          "S01m4wn7l12a9"
+        ],
+        "baz": [
+          "symbol",
+          "S01m4wma48v2g"
+        ]
+      }
     },
     "T01m4wmr2p302": {
       "typeString": "number",
@@ -828,6 +942,15 @@ exports['SerializationSnapshotTests interface Foo {bar: number; readonly baz: Pr
         "Number"
       ],
       "primitive": true
+    },
+    "T01m4wlxcvbvh": {
+      "typeString": "Promise<string>",
+      "entity": "type",
+      "id": "T01m4wlxcvbvh",
+      "flags": [
+        "Object"
+      ],
+      "libName": "lib.es5.d.ts"
     }
   },
   "symbols": {
@@ -872,7 +995,7 @@ exports['SerializationSnapshotTests interface Foo {bar: number; readonly baz: Pr
       ],
       "type": [
         "type",
-        "T01m4wn83nqro"
+        "T01m4wmp9klrl"
       ]
     },
     "S01m4wn7l12a9": {
@@ -910,7 +1033,7 @@ exports['SerializationSnapshotTests interface Foo {bar: number; readonly baz: Pr
       ],
       "type": [
         "type",
-        "T01m4wn83nqro"
+        "T01m4wlxcvbvh"
       ],
       "modifiers": [
         "readonly"
@@ -1037,10 +1160,10 @@ exports['SerializationSnapshotTests type Dict<T extends "foo"|"bar"|"baz"> = { [
         "Anonymous"
       ]
     },
-    "T01m4wnkt1s36": {
+    "T01m4wlmpiil5": {
       "typeString": "Dict<T>",
       "entity": "type",
-      "id": "T01m4wnkt1s36",
+      "id": "T01m4wlmpiil5",
       "flags": [
         "Object"
       ],
@@ -1050,18 +1173,18 @@ exports['SerializationSnapshotTests type Dict<T extends "foo"|"bar"|"baz"> = { [
       "typeParameters": [
         [
           "type",
-          "T01m4wn7sjul9"
+          "T01m4wlxxxspc"
         ]
       ],
       "stringIndexType": [
         "type",
-        "T01m4wn7sjul9"
+        "T01m4wlxxxspc"
       ]
     },
-    "T01m4wn7sjul9": {
+    "T01m4wlxxxspc": {
       "typeString": "T",
       "entity": "type",
-      "id": "T01m4wn7sjul9",
+      "id": "T01m4wlxxxspc",
       "flags": [
         "TypeParameter"
       ],
@@ -1121,7 +1244,7 @@ exports['SerializationSnapshotTests type Dict<T extends "foo"|"bar"|"baz"> = { [
       ],
       "type": [
         "type",
-        "T01m4wnkt1s36"
+        "T01m4wlmpiil5"
       ],
       "modifiers": [
         "export"
@@ -1157,10 +1280,10 @@ exports['SerializationSnapshotTests type Dict<T> = { [k: string]: T | undefined 
         "Anonymous"
       ]
     },
-    "T01m4wnkt1s36": {
+    "T01m4wlmpiil5": {
       "typeString": "Dict<T>",
       "entity": "type",
-      "id": "T01m4wnkt1s36",
+      "id": "T01m4wlmpiil5",
       "flags": [
         "Object"
       ],
@@ -1170,18 +1293,18 @@ exports['SerializationSnapshotTests type Dict<T> = { [k: string]: T | undefined 
       "typeParameters": [
         [
           "type",
-          "T01m4wn7sjul9"
+          "T01m4wlxxxspc"
         ]
       ],
       "stringIndexType": [
         "type",
-        "T01m4wn7sjul9"
+        "T01m4wlxxxspc"
       ]
     },
-    "T01m4wn7sjul9": {
+    "T01m4wlxxxspc": {
       "typeString": "T",
       "entity": "type",
-      "id": "T01m4wn7sjul9",
+      "id": "T01m4wlxxxspc",
       "flags": [
         "TypeParameter"
       ]
@@ -1229,7 +1352,7 @@ exports['SerializationSnapshotTests type Dict<T> = { [k: string]: T | undefined 
       ],
       "type": [
         "type",
-        "T01m4wnkt1s36"
+        "T01m4wlmpiil5"
       ],
       "modifiers": [
         "export"
