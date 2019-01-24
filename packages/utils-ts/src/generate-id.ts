@@ -2,7 +2,16 @@
 // tslint:disable:no-bitwise
 import { UnreachableError } from '@code-to-json/utils';
 import * as debug from 'debug';
-import { Declaration, isSourceFile, Node, Symbol as Sym, Type, TypeChecker } from 'typescript';
+import {
+  Declaration,
+  isSourceFile,
+  Iterator,
+  Node,
+  Symbol as Sym,
+  SymbolFlags,
+  Type,
+} from 'typescript';
+import { flagsToString } from './flags';
 import { isDeclaration, isNode, isSymbol, isType } from './guards';
 
 const log = debug('code-to-json:generate-id');
@@ -28,13 +37,23 @@ export function generateHash(str: string): string {
   return hex.slice(-12);
 }
 
-function generateTypeId(thing: Type, checker: TypeChecker): string {
+function generateTypeId(thing: Type): string {
   const { symbol } = thing;
   const valueDeclaration: Declaration | null = symbol ? symbol.valueDeclaration : null;
-  if (symbol && valueDeclaration) {
-    return generateHash(valueDeclaration.getText());
+  const parts: Array<string | number> = [];
+  if (thing.flags) {
+    parts.push(thing.flags);
   }
-  return generateHash(checker.typeToString(thing));
+  if (symbol && symbol.flags) {
+    parts.push(symbol.flags);
+  }
+  if (valueDeclaration) {
+    parts.push(valueDeclaration.kind);
+    parts.push(valueDeclaration.getText());
+    parts.push(valueDeclaration.pos);
+    parts.push(valueDeclaration.end);
+  }
+  return generateHash(parts.join(''));
 }
 
 /** @internal */
@@ -43,38 +62,71 @@ export function generateIdForSourceFileName(fileName: string): string {
     fileName.substr(Math.max(0, fileName.length - 10)).replace(/[\\/:"'`.-\s]+/g, ''),
   );
 }
+/** @internal */
+export function generateIdForSymbol(thing: Sym): string {
+  const parts: Array<string | number> = [
+    (flagsToString(thing.flags, 'symbol') || []).join(''),
+    iteratorValues(thing.exports ? thing.exports.keys() : undefined, s => s.toString()),
+    iteratorValues(thing.members ? thing.members.keys() : undefined, s => s.toString()),
+  ];
+  const { valueDeclaration } = thing;
+  if (!(thing.flags & SymbolFlags.ValueModule)) {
+    parts.push(thing.name);
+  }
+  if (valueDeclaration) {
+    parts.push(valueDeclaration.getText());
+    parts.push(valueDeclaration.pos);
+    parts.push(valueDeclaration.end);
+  }
+  return generateHash(parts.filter(Boolean).join('-'));
+}
+
+const USED_IDS: { [k: string]: any } = {};
+
+function iteratorValues<T>(it: Iterator<T> | undefined, converter: (t: T) => string): string {
+  if (!it) {
+    return '';
+  }
+  const parts: string[] = [];
+  let v = it.next();
+  while (!v.done) {
+    parts.push(converter(v.value));
+    v = it.next();
+  }
+  return parts.join(', ');
+}
 
 /**
  * Generate an id for an entity
  * @param thing Entity to generate an Id for
  */
-export function generateId(thing: Type, checker: TypeChecker): string;
-export function generateId(thing: Sym | Node): string;
-export function generateId(thing: Sym | Node | Type, checker?: TypeChecker): string {
+export function generateId(thing: Sym | Node | Type): string {
+  let id: string;
   if (typeof thing === 'undefined' || thing === null) {
     throw new Error('Cannot generate an ID for empty values');
   }
   if (isType(thing)) {
-    return generateTypeId(thing, checker!);
-  }
-  if (isSymbol(thing)) {
-    const { valueDeclaration } = thing;
-    const parts: Array<string | number> = [thing.flags, thing.name];
-    if (valueDeclaration) {
-      return generateHash(valueDeclaration.getText());
-    }
-    return generateHash(parts.filter(Boolean).join('-'));
-  }
-  if (isSourceFile(thing)) {
+    id = `T${generateTypeId(thing)}`;
+  } else if (isSymbol(thing)) {
+    id = `S${generateIdForSymbol(thing)}`;
+  } else if (isSourceFile(thing)) {
     const { fileName, end, pos, flags } = thing;
-    return generateIdForSourceFileName(fileName + pos + end + flags);
+    id = `F${generateIdForSourceFileName(fileName + pos + end + flags)}`;
+  } else if (isDeclaration(thing)) {
+    id = `D${generateHash(thing.getText())}`;
+  } else if (isNode(thing)) {
+    id = `N${generateHash(thing.getText())}`;
+  } else {
+    log(thing);
+    throw new UnreachableError(thing, 'Cannot generate an id for this object');
   }
-  if (isDeclaration(thing)) {
-    return generateHash(thing.getText());
+  const existingEntity = USED_IDS[id];
+  if (existingEntity) {
+    log(`Duplicate ID detected!`, {
+      existing: existingEntity,
+      thing,
+    });
   }
-  if (isNode(thing)) {
-    return generateHash(thing.getText());
-  }
-  log(thing);
-  throw new UnreachableError(thing, 'Cannot generate an id for this object');
+  USED_IDS[id] = thing;
+  return id;
 }

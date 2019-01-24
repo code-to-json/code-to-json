@@ -14,7 +14,7 @@ export function setupScenario(code: string) {
 
   const checker = program.getTypeChecker();
 
-  const queue = createQueue(checker);
+  const queue = createQueue();
   const collector: Collector = {
     queue,
     host: nodeHost,
