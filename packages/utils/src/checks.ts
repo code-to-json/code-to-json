@@ -36,7 +36,6 @@ export function isNone(obj: any): obj is null | undefined {
  * If the value is an object with a size property of type number, it is used to check emptiness.
  * @param obj
  */
-// tslint:disable-next-line:max-union-size
 export function isEmpty(obj: any): obj is null | undefined | 0 | { size: 0 } | [] | '' {
   const none = obj === null || obj === undefined;
   if (none) {
