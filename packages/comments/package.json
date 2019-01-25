@@ -1,6 +1,6 @@
 {
   "name": "@code-to-json/comments",
-  "version": "0.6.4",
+  "version": "1.0.0-rc",
   "description": "Comment-parsing utilities for code-to-json",
   "main": "lib/src/index.js",
   "typings": "lib/src/index.d.ts",

@@ -1,6 +1,6 @@
 {
   "name": "@code-to-json/utils",
-  "version": "0.8.4",
+  "version": "1.0.0-rc",
   "description": "",
   "main": "lib/src/index.js",
   "typings": "lib/src/index.d.ts",

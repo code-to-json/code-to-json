@@ -93,7 +93,7 @@ export interface IdGenerator {
    * Generate an id for an entity
    * @param thing Entity to generate an Id for
    */
-  // tslint:disable-next-line:callable-types max-union-size
+  // tslint:disable-next-line callable-types
   (thing: Sym | Node | Type | Declaration | SourceFile): string;
 }
 

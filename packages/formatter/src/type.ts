@@ -28,12 +28,10 @@ function formatTypeParametersAndConstraints(
   wo: WalkerOutputData,
   type: Readonly<SerializedType>,
   collector: DataCollector,
-  // tslint:disable-next-line:max-union-size
 ): Pick<FormattedType, 'typeParameters' | 'constraint' | 'thisType' | 'defaultType'> {
   const { typeParameters, constraint: constraintRef, defaultType: defaultTypeRef } = type;
   const typeInfo: Pick<
     FormattedType,
-    // tslint:disable-next-line:max-union-size
     'typeParameters' | 'constraint' | 'thisType' | 'defaultType'
   > = {};
   if (constraintRef) {

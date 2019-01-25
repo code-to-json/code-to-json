@@ -22,7 +22,14 @@
     "typedef": [true, "call-signature"],
     "prefer-immediate-return": false,
     "no-bitwise": false,
-    "no-console": false
+    "no-console": false,
+    "max-union-size": [true, 9],
+    "mccabe-complexity": [true, 20],
+    "bool-param-default": true,
+    "no-small-switch": false,
+    "parameters-max-number": [true, 5],
+    "prefer-type-guard": true,
+    "use-primitive-type": true
   },
   "rulesDirectory": []
 }
