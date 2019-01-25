@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-rc.0](https://github.com/mike-north/code-to-json/compare/@code-to-json/test-helpers@0.4.4...@code-to-json/test-helpers@1.0.0-rc.0) (2019-01-25)
+
+
+### Bug Fixes
+
+* serialize symbols to string ([9df8e7f](https://github.com/mike-north/code-to-json/commit/9df8e7f))
+
+
+
+
+
 ## [0.4.4](https://github.com/mike-north/code-to-json/compare/@code-to-json/test-helpers@0.4.3...@code-to-json/test-helpers@0.4.4) (2019-01-24)
 
 **Note:** Version bump only for package @code-to-json/test-helpers

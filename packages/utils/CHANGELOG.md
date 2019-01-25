@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-rc.0](https://github.com/mike-north/code-to-json/compare/@code-to-json/utils@0.8.4...@code-to-json/utils@1.0.0-rc.0) (2019-01-25)
+
+
+### Features
+
+* prepare for 1.0 release candidate ([5acc5dc](https://github.com/mike-north/code-to-json/commit/5acc5dc))
+
+
+### BREAKING CHANGES
+
+* prepare for 1.0 release candidate
+
+
+
+
+
 ## [0.8.4](https://github.com/mike-north/code-to-json/compare/@code-to-json/utils@0.8.3...@code-to-json/utils@0.8.4) (2019-01-24)
 
 **Note:** Version bump only for package @code-to-json/utils
