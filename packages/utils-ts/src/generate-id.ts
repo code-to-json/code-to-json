@@ -77,10 +77,12 @@ function entityToString(thing: any, checker: TypeChecker): string {
   return `${thing}`;
 }
 
+export type IDableEntity = Sym | Node | Type | Declaration | SourceFile;
+
 function generateDuplicateIdErrorMessage(
   id: string,
-  existing: Array<Sym | Node | Type | Declaration | SourceFile>,
-  thing: Sym | Node | Type | Declaration | SourceFile,
+  existing: IDableEntity[],
+  thing: IDableEntity,
   checker: TypeChecker,
 ): string {
   return `Duplicate ID detected: ${id}
@@ -104,7 +106,7 @@ export interface IdGenerator {
    * @param thing Entity to generate an Id for
    */
   // tslint:disable-next-line callable-types
-  (thing: Sym | Node | Type | Declaration | SourceFile): GenerateIdResult;
+  (thing: IDableEntity): GenerateIdResult;
 }
 
 export function generateIdForSourceFileName(fileName: string): string {
@@ -159,7 +161,7 @@ export function createIdGenerator(checker: TypeChecker): IdGenerator {
     return generateHash(parts.filter(Boolean).join('-'));
   }
 
-  function generateIdImpl(thing: Sym | Node | Type | Declaration | SourceFile): string {
+  function generateIdImpl(thing: IDableEntity): string {
     if (isType(thing)) {
       return `T${generateIdForType(thing)}`;
     }
@@ -181,11 +183,9 @@ export function createIdGenerator(checker: TypeChecker): IdGenerator {
   }
 
   const USED_IDS: {
-    [k: string]: Array<[string, Sym | Node | Type | Declaration | SourceFile]> | undefined;
+    [k: string]: Array<[string, IDableEntity]> | undefined;
   } = {};
-  return function generateId<T extends Sym | Node | Type | Declaration | SourceFile>(
-    thing: T,
-  ): GenerateIdResult {
+  return function generateId<T extends IDableEntity>(thing: T): GenerateIdResult {
     if (typeof thing === 'undefined' || thing === null) {
       throw new Error('Cannot generate an ID for empty values');
     }
