@@ -1,5 +1,4 @@
 export type CommentParagraphContent = Array<
-  // tslint:disable-next-line:max-union-size
   | CommentBlockTag
   | CommentInlineTag
   | CommentLinkTag

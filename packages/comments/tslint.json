@@ -1,6 +1,3 @@
 {
-  "extends": "../tslint.packages.json",
-  "rules": {
-    "no-small-switch": false
-  }
+  "extends": "../tslint.packages.json"
 }

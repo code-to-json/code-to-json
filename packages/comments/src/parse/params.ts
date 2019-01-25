@@ -1,4 +1,3 @@
-// tslint:disable no-small-switch
 import { DocNodeKind, DocParagraph, DocParamCollection, DocSection } from '@microsoft/tsdoc';
 import { CommentParagraphContent, CommentParam } from '../types';
 import parseParagraph from './paragraph';
