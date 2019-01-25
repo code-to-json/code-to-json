@@ -108,6 +108,14 @@ export default function serializeSymbol(
     flags: flagsToString(flags, 'symbol'),
     type: q.queue(type, 'type'),
   };
+  const symbolString = checker.symbolToString(symbol);
+  const typeString = type ? checker.typeToString(type) : undefined;
+  if (symbolString) {
+    serialized.symbolString = symbolString;
+  }
+  if (typeString) {
+    serialized.typeString = typeString;
+  }
 
   const decl = relevantDeclarationForSymbol(symbol);
   if (decl && decl.getSourceFile().isDeclarationFile) {

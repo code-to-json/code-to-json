@@ -79,7 +79,7 @@ export class Bike extends Vehicle {
 /**
  * A Unicycle is a 1-wheeled vehicle
  */
-export class Unicycle extends Vehicle {
+export default class Unicycle extends Vehicle {
   constructor() {
     super(1);
   }

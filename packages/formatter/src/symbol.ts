@@ -31,11 +31,15 @@ export default function formatSymbol(
     globalExports,
     external,
     documentation,
+    symbolString,
   } = symbol;
   const info: FormattedSymbol = {
     id: refId(ref),
     name: name || '(anonymous)',
   };
+  if (symbolString) {
+    info.text = symbolString;
+  }
   if (comment) {
     info.comment = comment;
   }

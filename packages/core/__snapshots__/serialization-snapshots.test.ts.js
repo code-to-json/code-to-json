@@ -153,6 +153,8 @@ exports['SerializationSnapshotTests abstract class Vehicle { numWheels: number =
         "type",
         "T01m4wm3y7xwt"
       ],
+      "symbolString": "\"--ROOT PATH--/src/index\"",
+      "typeString": "typeof import(\"--ROOT PATH--/src/index\")",
       "exports": {
         "Vehicle": [
           "symbol",
@@ -185,6 +187,8 @@ exports['SerializationSnapshotTests abstract class Vehicle { numWheels: number =
         "type",
         "T01m4wmu9c278"
       ],
+      "symbolString": "Vehicle",
+      "typeString": "typeof Vehicle",
       "modifiers": [
         "export",
         "FirstContextualKeyword"
@@ -215,6 +219,8 @@ exports['SerializationSnapshotTests abstract class Vehicle { numWheels: number =
         "type",
         "T01m4wmr2p302"
       ],
+      "symbolString": "numWheels",
+      "typeString": "number",
       "modifiers": [
         "public"
       ],
@@ -244,6 +250,8 @@ exports['SerializationSnapshotTests abstract class Vehicle { numWheels: number =
         "type",
         "T01m4wnhrlf5a"
       ],
+      "symbolString": "drive",
+      "typeString": "() => string",
       "modifiers": [
         "public",
         "FirstContextualKeyword"
@@ -422,6 +430,8 @@ exports['SerializationSnapshotTests class Vehicle { numWheels: number = 4; drive
         "type",
         "T01m4wn7v0f21"
       ],
+      "symbolString": "\"--ROOT PATH--/src/index\"",
+      "typeString": "typeof import(\"--ROOT PATH--/src/index\")",
       "exports": {
         "Vehicle": [
           "symbol",
@@ -454,6 +464,8 @@ exports['SerializationSnapshotTests class Vehicle { numWheels: number = 4; drive
         "type",
         "T01m4wnwgm39y"
       ],
+      "symbolString": "Vehicle",
+      "typeString": "typeof Vehicle",
       "modifiers": [
         "export"
       ],
@@ -483,6 +495,8 @@ exports['SerializationSnapshotTests class Vehicle { numWheels: number = 4; drive
         "type",
         "T01m4wmr2p302"
       ],
+      "symbolString": "numWheels",
+      "typeString": "number",
       "modifiers": [
         "public"
       ],
@@ -513,6 +527,8 @@ exports['SerializationSnapshotTests class Vehicle { numWheels: number = 4; drive
         "type",
         "T01m4wmrd30df"
       ],
+      "symbolString": "drive",
+      "typeString": "() => string",
       "modifiers": [
         "public"
       ],
@@ -575,6 +591,8 @@ exports['SerializationSnapshotTests const p: Promise<number> = Promise.resolve(4
         "type",
         "T01m4wmqijhej"
       ],
+      "symbolString": "\"--ROOT PATH--/src/index\"",
+      "typeString": "typeof import(\"--ROOT PATH--/src/index\")",
       "exports": {
         "p": [
           "symbol",
@@ -607,6 +625,8 @@ exports['SerializationSnapshotTests const p: Promise<number> = Promise.resolve(4
         "type",
         "T01m4wm50lj61"
       ],
+      "symbolString": "p",
+      "typeString": "Promise<number>",
       "sourceFile": [
         "sourceFile",
         "F01m4wnwkyk33"
@@ -665,6 +685,8 @@ exports['SerializationSnapshotTests const x = "foo" 1'] = {
         "type",
         "T01m4wnq6yv31"
       ],
+      "symbolString": "\"--ROOT PATH--/src/index\"",
+      "typeString": "typeof import(\"--ROOT PATH--/src/index\")",
       "exports": {
         "x": [
           "symbol",
@@ -697,6 +719,8 @@ exports['SerializationSnapshotTests const x = "foo" 1'] = {
         "type",
         "T01m4wmr2q7oq"
       ],
+      "symbolString": "x",
+      "typeString": "\"foo\"",
       "sourceFile": [
         "sourceFile",
         "F01m4wnwkyhpp"
@@ -795,6 +819,8 @@ exports['SerializationSnapshotTests function add(a: number, b: string) { return 
         "type",
         "T01m4wms4srob"
       ],
+      "symbolString": "\"--ROOT PATH--/src/index\"",
+      "typeString": "typeof import(\"--ROOT PATH--/src/index\")",
       "exports": {
         "add": [
           "symbol",
@@ -827,6 +853,8 @@ exports['SerializationSnapshotTests function add(a: number, b: string) { return 
         "type",
         "T01m4wmqo0i12"
       ],
+      "symbolString": "add",
+      "typeString": "(a: number, b: string) => string",
       "modifiers": [
         "export"
       ],
@@ -856,6 +884,8 @@ exports['SerializationSnapshotTests function add(a: number, b: string) { return 
         "type",
         "T01m4wmr2p302"
       ],
+      "symbolString": "a",
+      "typeString": "number",
       "sourceFile": [
         "sourceFile",
         "F01m4wnwkyk8e"
@@ -882,6 +912,8 @@ exports['SerializationSnapshotTests function add(a: number, b: string) { return 
         "type",
         "T01m4wmr2p2yx"
       ],
+      "symbolString": "b",
+      "typeString": "string",
       "sourceFile": [
         "sourceFile",
         "F01m4wnwkyk8e"
@@ -965,6 +997,8 @@ exports['SerializationSnapshotTests interface Foo {bar: number; readonly baz: Pr
         "type",
         "T01m4wm96bh7s"
       ],
+      "symbolString": "\"--ROOT PATH--/src/index\"",
+      "typeString": "typeof import(\"--ROOT PATH--/src/index\")",
       "exports": {
         "default": [
           "symbol",
@@ -996,7 +1030,9 @@ exports['SerializationSnapshotTests interface Foo {bar: number; readonly baz: Pr
       "type": [
         "type",
         "T01m4wmp9klrl"
-      ]
+      ],
+      "symbolString": "Foo",
+      "typeString": "Foo"
     },
     "S01m4wn7l12a9": {
       "id": "S01m4wn7l12a9",
@@ -1009,6 +1045,8 @@ exports['SerializationSnapshotTests interface Foo {bar: number; readonly baz: Pr
         "type",
         "T01m4wmr2p302"
       ],
+      "symbolString": "bar",
+      "typeString": "number",
       "sourceFile": [
         "sourceFile",
         "F01m4wnwkyln0"
@@ -1035,6 +1073,8 @@ exports['SerializationSnapshotTests interface Foo {bar: number; readonly baz: Pr
         "type",
         "T01m4wlxcvbvh"
       ],
+      "symbolString": "baz",
+      "typeString": "Promise<string>",
       "modifiers": [
         "readonly"
       ],
@@ -1097,6 +1137,8 @@ exports['SerializationSnapshotTests let x = "foo" 1'] = {
         "type",
         "T01m4wlqrgfql"
       ],
+      "symbolString": "\"--ROOT PATH--/src/index\"",
+      "typeString": "typeof import(\"--ROOT PATH--/src/index\")",
       "exports": {
         "x": [
           "symbol",
@@ -1129,6 +1171,8 @@ exports['SerializationSnapshotTests let x = "foo" 1'] = {
         "type",
         "T01m4wmr2p2yx"
       ],
+      "symbolString": "x",
+      "typeString": "string",
       "sourceFile": [
         "sourceFile",
         "F01m4wnwkyhnx"
@@ -1214,6 +1258,8 @@ exports['SerializationSnapshotTests type Dict<T extends "foo"|"bar"|"baz"> = { [
         "type",
         "T01m4wmqcfkr3"
       ],
+      "symbolString": "\"--ROOT PATH--/src/index\"",
+      "typeString": "typeof import(\"--ROOT PATH--/src/index\")",
       "exports": {
         "Dict": [
           "symbol",
@@ -1246,6 +1292,8 @@ exports['SerializationSnapshotTests type Dict<T extends "foo"|"bar"|"baz"> = { [
         "type",
         "T01m4wlmpiil5"
       ],
+      "symbolString": "Dict",
+      "typeString": "Dict<T>",
       "modifiers": [
         "export"
       ],
@@ -1322,6 +1370,8 @@ exports['SerializationSnapshotTests type Dict<T> = { [k: string]: T | undefined 
         "type",
         "T01m4wlwowu0v"
       ],
+      "symbolString": "\"--ROOT PATH--/src/index\"",
+      "typeString": "typeof import(\"--ROOT PATH--/src/index\")",
       "exports": {
         "Dict": [
           "symbol",
@@ -1354,6 +1404,8 @@ exports['SerializationSnapshotTests type Dict<T> = { [k: string]: T | undefined 
         "type",
         "T01m4wlmpiil5"
       ],
+      "symbolString": "Dict",
+      "typeString": "Dict<T>",
       "modifiers": [
         "export"
       ],

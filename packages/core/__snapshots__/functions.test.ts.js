@@ -12,6 +12,8 @@ exports['FunctionAnalysisTests function with multiple signatures 1'] = {
         "type",
         "T01m4wlsbev3t"
       ],
+      "symbolString": "\"--ROOT PATH--/src/index\"",
+      "typeString": "typeof import(\"--ROOT PATH--/src/index\")",
       "exports": {
         "adder": [
           "symbol",
@@ -44,6 +46,8 @@ exports['FunctionAnalysisTests function with multiple signatures 1'] = {
         "type",
         "T01m4wlwbo9w4"
       ],
+      "symbolString": "adder",
+      "typeString": "{ (a: string, b: string): string; (a: number, b: number): number; }",
       "modifiers": [
         "export"
       ],
@@ -73,6 +77,8 @@ exports['FunctionAnalysisTests function with multiple signatures 1'] = {
         "type",
         "T01m4wmr2p2yx"
       ],
+      "symbolString": "a",
+      "typeString": "string",
       "sourceFile": [
         "sourceFile",
         "F01m4wmlw4cia"
@@ -99,6 +105,8 @@ exports['FunctionAnalysisTests function with multiple signatures 1'] = {
         "type",
         "T01m4wmr2p2yx"
       ],
+      "symbolString": "b",
+      "typeString": "string",
       "sourceFile": [
         "sourceFile",
         "F01m4wmlw4cia"
@@ -125,6 +133,8 @@ exports['FunctionAnalysisTests function with multiple signatures 1'] = {
         "type",
         "T01m4wmr2p302"
       ],
+      "symbolString": "a",
+      "typeString": "number",
       "sourceFile": [
         "sourceFile",
         "F01m4wmlw4cia"
@@ -151,6 +161,8 @@ exports['FunctionAnalysisTests function with multiple signatures 1'] = {
         "type",
         "T01m4wmr2p302"
       ],
+      "symbolString": "b",
+      "typeString": "number",
       "sourceFile": [
         "sourceFile",
         "F01m4wmlw4cia"
@@ -283,6 +295,8 @@ exports['FunctionAnalysisTests unary function 1'] = {
         "type",
         "T01m4wmbyn5qs"
       ],
+      "symbolString": "\"--ROOT PATH--/src/index\"",
+      "typeString": "typeof import(\"--ROOT PATH--/src/index\")",
       "exports": {
         "foo": [
           "symbol",
@@ -315,6 +329,8 @@ exports['FunctionAnalysisTests unary function 1'] = {
         "type",
         "T01m4wngke8ae"
       ],
+      "symbolString": "foo",
+      "typeString": "(str: string) => string",
       "modifiers": [
         "export"
       ],
@@ -344,6 +360,8 @@ exports['FunctionAnalysisTests unary function 1'] = {
         "type",
         "T01m4wmr2p2yx"
       ],
+      "symbolString": "str",
+      "typeString": "string",
       "sourceFile": [
         "sourceFile",
         "F01m4wnwkyktn"
@@ -446,6 +464,8 @@ exports['FunctionAnalysisTests zero-argument function 1'] = {
         "type",
         "T01m4wm1n9xbg"
       ],
+      "symbolString": "\"--ROOT PATH--/src/index\"",
+      "typeString": "typeof import(\"--ROOT PATH--/src/index\")",
       "exports": {
         "foo": [
           "symbol",
@@ -478,6 +498,8 @@ exports['FunctionAnalysisTests zero-argument function 1'] = {
         "type",
         "T01m4wmn9vqoi"
       ],
+      "symbolString": "foo",
+      "typeString": "() => string",
       "modifiers": [
         "export"
       ],
