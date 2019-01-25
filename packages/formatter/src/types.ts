@@ -36,8 +36,6 @@ export interface FormattedType extends FormattedEntity {
   thisType?: FormattedTypeRef;
   numberIndexType?: FormattedTypeRef;
   stringIndexType?: FormattedTypeRef;
-  // aliasSymbol?: FormattedSymbolRef;
-  // aliasTypeArguments?: FormattedTypeRef[];
   defaultType?: FormattedTypeRef;
   callSignatures?: FormattedSignature[];
   constructorSignatures?: FormattedSignature[];
@@ -50,6 +48,7 @@ export interface FormattedSymbol
     HasDocumentation,
     HasPosition<FormattedSourceFileRef> {
   name: string;
+  text?: string;
   documentation?: CommentData;
   flags?: string[];
   external?: boolean;

@@ -34,6 +34,8 @@ export interface SerializedSymbol
   decorators?: string[];
   modifiers?: string[];
   globalExports?: Dict<SymbolRef>;
+  typeString?: string;
+  symbolString?: string;
   heritageClauses?: SerializedHeritageClause[];
   jsDocTags?: Array<{
     name: string;

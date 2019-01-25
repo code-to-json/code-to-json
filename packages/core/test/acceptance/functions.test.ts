@@ -1,5 +1,5 @@
+import { sanitizedWalkerOutputSnapshot } from '@code-to-json/test-helpers';
 import { suite, test } from 'mocha-typescript';
-import * as snapshot from 'snap-shot-it';
 import { disableIf, fullWalkerOutput } from './helpers';
 
 @suite
@@ -7,23 +7,25 @@ import { disableIf, fullWalkerOutput } from './helpers';
 export class FunctionAnalysisTests {
   @test
   public async 'zero-argument function'(): Promise<void> {
-    const { data, cleanup } = await fullWalkerOutput(`export function foo() { return 'bar'; }`);
-    snapshot(data);
+    const { data, cleanup, rootPath } = await fullWalkerOutput(
+      `export function foo() { return 'bar'; }`,
+    );
+    sanitizedWalkerOutputSnapshot(data, { replace: [[rootPath, '--ROOT PATH--']] });
     cleanup();
   }
 
   @test
   public async 'unary function'(): Promise<void> {
-    const { data, cleanup } = await fullWalkerOutput(
+    const { data, rootPath, cleanup } = await fullWalkerOutput(
       `export function foo(str: string) { return str.toUpperCase(); }`,
     );
-    snapshot(data);
+    sanitizedWalkerOutputSnapshot(data, { replace: [[rootPath, '--ROOT PATH--']] });
     cleanup();
   }
 
   @test
   public async 'function with multiple signatures'(): Promise<void> {
-    const { data, cleanup } = await fullWalkerOutput(
+    const { data, rootPath, cleanup } = await fullWalkerOutput(
       `
 export function adder(a: string, b: string): string;
 export function adder(a: number, b: number): number;
@@ -32,7 +34,7 @@ export function adder(a: number|string, b: number|string): number|string {
 }
 `,
     );
-    snapshot(data);
+    sanitizedWalkerOutputSnapshot(data, { replace: [[rootPath, '--ROOT PATH--']] });
     cleanup();
   }
 }
