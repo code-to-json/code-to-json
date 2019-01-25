@@ -24,13 +24,14 @@
   },
   "keywords": [],
   "dependencies": {
-    "@code-to-json/utils": "^0.8.4",
+    "@code-to-json/utils": "^1.0.0-rc.0",
     "@mike-north/types": "^1.0.7",
     "directory-tree": "^2.2.1",
     "fs-extra": "^7.0.0",
     "node-cleanup": "^2.1.2",
     "snap-shot-it": "^6.2.8",
     "treeify": "^1.1.0",
+    "debug": "^4.1.0",
     "typescript": "^3.1.0"
   },
   "devDependencies": {

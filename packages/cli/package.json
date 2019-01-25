@@ -15,7 +15,7 @@
   "dependencies": {
     "@code-to-json/core": "^1.0.0-rc.1",
     "@code-to-json/formatter": "^1.0.0-rc.1",
-    "@code-to-json/utils": "^0.8.4",
+    "@code-to-json/utils": "^1.0.0-rc.0",
     "@code-to-json/utils-node": "^1.0.0-rc.1",
     "@mike-north/types": "^1.0.7",
     "chalk": "^2.4.1",
@@ -42,7 +42,7 @@
   },
   "keywords": [],
   "devDependencies": {
-    "@code-to-json/test-helpers": "^0.4.4",
+    "@code-to-json/test-helpers": "^1.0.0-rc.0",
     "@types/chai": "4.1.7",
     "@types/glob": "7.1.1",
     "chai": "4.2.0",
