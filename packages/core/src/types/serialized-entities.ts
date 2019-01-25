@@ -37,6 +37,7 @@ export interface SerializedSymbol
   typeString?: string;
   symbolString?: string;
   heritageClauses?: SerializedHeritageClause[];
+  relatedSymbols?: SymbolRef[];
   jsDocTags?: Array<{
     name: string;
     text?: string;
@@ -156,6 +157,7 @@ export interface SerializedType extends SerializedEntity<'type'>, HasDocumentati
   moduleName?: string;
   symbol?: SymbolRef;
   target?: TypeRef;
+  relatedTypes?: TypeRef[];
   sourceFile?: SourceFileRef;
   constructorSignatures?: SerializedSignature[];
   callSignatures?: SerializedSignature[];

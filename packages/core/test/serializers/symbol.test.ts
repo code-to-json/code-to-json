@@ -21,7 +21,10 @@ export class SymbolSerializtionTests {
     const [fnDecl] = fnSym.declarations;
     expect(fnDecl.getText()).to.eql('function add(a: number, b: number): number { return a + b; }');
     const generateId = createIdGenerator(checker);
-    const sfRef: SourceFileRef = createRef<RefRegistry, 'sourceFile'>('sourceFile', generateId(sf));
+    const sfRef: SourceFileRef = createRef<RefRegistry, 'sourceFile'>(
+      'sourceFile',
+      generateId(sf)[1],
+    );
     const serialized = serializeSourceFile(sf, checker, sfRef, collector);
     expect(serialized).to.deep.eq({
       entity: 'sourceFile',

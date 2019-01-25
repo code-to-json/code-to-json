@@ -1,5 +1,5 @@
 import { parseCommentString } from '@code-to-json/comments';
-import { forEach, refId } from '@code-to-json/utils';
+import { createRef, forEach, refId } from '@code-to-json/utils';
 import {
   decoratorsToStrings,
   filterDict,
@@ -13,7 +13,7 @@ import {
 } from '@code-to-json/utils-ts';
 import * as ts from 'typescript';
 import { Queue } from '../processing-queue';
-import { SymbolRef } from '../types/ref';
+import { RefRegistry, SymbolRef } from '../types/ref';
 import { SerializedSymbol } from '../types/serialized-entities';
 import { Collector } from '../types/walker';
 import serializeLocation from './location';
@@ -127,6 +127,7 @@ export default function serializeSymbol(
   symbol: ts.Symbol,
   checker: ts.TypeChecker,
   ref: SymbolRef,
+  relatedEntities: string[] | undefined,
   c: Collector,
 ): SerializedSymbol {
   const { queue: q } = c;
@@ -143,6 +144,11 @@ export default function serializeSymbol(
     flags: flagsToString(flags, 'symbol'),
     type: q.queue(type, 'type'),
   };
+  if (relatedEntities) {
+    serialized.relatedSymbols = relatedEntities.map(id =>
+      createRef<RefRegistry, 'symbol'>('symbol', id),
+    );
+  }
   const symbolString = checker.symbolToString(symbol);
   const typeString = type ? checker.typeToString(type) : undefined;
   if (symbolString) {

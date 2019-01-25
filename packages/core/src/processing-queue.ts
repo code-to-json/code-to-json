@@ -2,6 +2,7 @@
 
 import { createQueue, RefFor, refId, UnreachableError } from '@code-to-json/utils';
 import { createIdGenerator, isErroredType } from '@code-to-json/utils-ts';
+import { GenerateIdResult } from '@code-to-json/utils-ts/lib/src/generate-id';
 import * as debug from 'debug';
 import * as ts from 'typescript';
 import {
@@ -22,11 +23,11 @@ import {
  * @internal
  */
 export interface QueueProcessors<S, T, N, D, SF> {
-  mapNode(ref: NodeRef, item: ts.Node): N;
-  mapType(ref: TypeRef, item: ts.Type): T;
-  mapDeclaration(ref: DeclarationRef, item: ts.Declaration): D;
-  mapSymbol(ref: SymbolRef, item: ts.Symbol): S;
-  mapSourceFile(ref: SourceFileRef, item: ts.SourceFile): SF;
+  mapNode(ref: NodeRef, item: ts.Node, relatedInfo?: string[]): N;
+  mapType(ref: TypeRef, item: ts.Type, relatedInfo?: string[]): T;
+  mapDeclaration(ref: DeclarationRef, item: ts.Declaration, relatedInfo?: string[]): D;
+  mapSymbol(ref: SymbolRef, item: ts.Symbol, relatedInfo?: string[]): S;
+  mapSourceFile(ref: SourceFileRef, item: ts.SourceFile, relatedInfo?: string[]): SF;
 }
 
 /**
@@ -68,20 +69,40 @@ const log = debug('code-to-json:processor');
  */
 export function create(checker: ts.TypeChecker): Queue {
   const generateId = createIdGenerator(checker);
+  const idExtractor = (x: GenerateIdResult) => ({ id: x[1], otherInfo: x[2] });
 
   /**
    * the state that makes the closure from create() useful
    * queues for each entity type we care about doing work on
    */
   const toProcess = {
-    nodes: createQueue<RefRegistry, 'node', ts.Node>('node', generateId),
-    symbols: createQueue<RefRegistry, 'symbol', ts.Symbol>('symbol', generateId),
-    types: createQueue<RefRegistry, 'type', ts.Type>('type', generateId),
-    sourceFiles: createQueue<RefRegistry, 'sourceFile', ts.SourceFile>('sourceFile', generateId),
-    declarations: createQueue<RefRegistry, 'declaration', ts.Declaration>(
-      'declaration',
+    nodes: createQueue<RefRegistry, 'node', ts.Node, GenerateIdResult, string[]>(
+      'node',
       generateId,
+      idExtractor,
     ),
+    symbols: createQueue<RefRegistry, 'symbol', ts.Symbol, GenerateIdResult, string[]>(
+      'symbol',
+      generateId,
+      idExtractor,
+    ),
+    types: createQueue<RefRegistry, 'type', ts.Type, GenerateIdResult, string[]>(
+      'type',
+      generateId,
+      idExtractor,
+    ),
+    sourceFiles: createQueue<RefRegistry, 'sourceFile', ts.SourceFile, GenerateIdResult, string[]>(
+      'sourceFile',
+      generateId,
+      idExtractor,
+    ),
+    declarations: createQueue<
+      RefRegistry,
+      'declaration',
+      ts.Declaration,
+      GenerateIdResult,
+      string[]
+    >('declaration', generateId, idExtractor),
   };
 
   return {

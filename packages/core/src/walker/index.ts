@@ -44,11 +44,11 @@ export function walkProgram(
    * we reach the iteration limit or no more work remains
    */
   const data = queue.process({
-    mapNode: (ref, item) => serializeNode(item, checker, ref, collector),
-    mapType: (ref, item) => serializeType(item, checker, ref, collector),
-    mapSourceFile: (ref, item) => serializeSourceFile(item, checker, ref, collector),
-    mapSymbol: (ref, item) => serializeSymbol(item, checker, ref, collector),
-    mapDeclaration: (ref, item) => serializeDeclaration(item, checker, ref, collector),
+    mapNode: (ref, item, _related) => serializeNode(item, checker, ref, collector),
+    mapType: (ref, item, related) => serializeType(item, checker, ref, related, collector),
+    mapSourceFile: (ref, item, _related) => serializeSourceFile(item, checker, ref, collector),
+    mapSymbol: (ref, item, related) => serializeSymbol(item, checker, ref, related, collector),
+    mapDeclaration: (ref, item, _related) => serializeDeclaration(item, checker, ref, collector),
   });
 
   return {
