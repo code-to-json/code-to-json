@@ -128,12 +128,68 @@ export class SerializationSnapshotTests {
     cleanup();
   }
 
-  @test.skip public async 'type Resolve = typeof Promise.resolve'() {
+  @test.skip public async 'type All = typeof Promise.all'() {
     const {
       rootPath,
       data: { types, symbols },
       cleanup,
-    } = await fullWalkerOutput('export type Resolve = typeof Promise.resolve;');
+    } = await fullWalkerOutput('export type All = typeof Promise.all;');
+    sanitizedWalkerOutputSnapshot({ types, symbols }, { replace: [[rootPath, '--ROOT PATH--']] });
+    cleanup();
+  }
+
+  @test public async 'Class with implied constructor'() {
+    const {
+      rootPath,
+      data: { types, symbols },
+      cleanup,
+    } = await fullWalkerOutput(`export class SimpleClass { }`);
+    sanitizedWalkerOutputSnapshot({ types, symbols }, { replace: [[rootPath, '--ROOT PATH--']] });
+    cleanup();
+  }
+
+  @test public async 'Class with properties and methods'() {
+    const {
+      rootPath,
+      data: { types, symbols },
+      cleanup,
+    } = await fullWalkerOutput(`export class SimpleClass {
+  constructor(bar: string) { console.log(bar); }
+  public foo: string = 'bar';
+  baz(x: number[]): number { x[0] * return Math.random(); }
+}`);
+    sanitizedWalkerOutputSnapshot({ types, symbols }, { replace: [[rootPath, '--ROOT PATH--']] });
+    cleanup();
+  }
+
+  @test public async 'Class with properties, methods and static functions'() {
+    const {
+      rootPath,
+      data: { types, symbols },
+      cleanup,
+    } = await fullWalkerOutput(`export class SimpleClass {
+  constructor(bar: string) { console.log(bar); }
+  public foo: string = 'bar';
+  static hello(): string { return 'world'; }
+}`);
+    sanitizedWalkerOutputSnapshot({ types, symbols }, { replace: [[rootPath, '--ROOT PATH--']] });
+    cleanup();
+  }
+
+  @test
+  public async 'Class with properties, methods and static functions using a variety of access modifier keywords'() {
+    const {
+      rootPath,
+      data: { types, symbols },
+      cleanup,
+    } = await fullWalkerOutput(`export abstract class SimpleClass {
+
+  protected static hello(): string { return 'world'; }
+  
+  protected readonly foo: string = 'bar';
+
+  private constructor(bar: string) { console.log(bar); }
+}`);
     sanitizedWalkerOutputSnapshot({ types, symbols }, { replace: [[rootPath, '--ROOT PATH--']] });
     cleanup();
   }
