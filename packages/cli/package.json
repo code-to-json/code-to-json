@@ -1,7 +1,7 @@
 {
   "name": "@code-to-json/cli",
   "version": "1.0.0-rc.0",
-  "description": "",
+  "description": "CLI for code-to-json",
   "main": "lib/src/index.js",
   "doc:main": "src/index.ts",
   "typings": "lib/src/index.d.ts",

@@ -1,7 +1,7 @@
 {
   "name": "@code-to-json/utils-ts",
   "version": "1.0.0-rc.0",
-  "description": "",
+  "description": "TypeScript utilities for code-to-json",
   "main": "lib/src/index.js",
   "typings": "lib/src/index.d.ts",
   "license": "BSD-2-Clause",

@@ -1,7 +1,7 @@
 {
   "name": "@code-to-json/test-helpers",
   "version": "1.0.0-rc",
-  "description": "",
+  "description": "Test helpers for code-to-json",
   "main": "lib/src/index.js",
   "typings": "lib/src/index.d.ts",
   "license": "BSD-2-Clause",
