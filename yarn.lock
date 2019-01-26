@@ -2893,6 +2893,11 @@ folktale@2.3.1:
   resolved "https://registry.yarnpkg.com/folktale/-/folktale-2.3.1.tgz#c71a4b6594995717cd5e976ef3510e468d342629"
   integrity sha512-x16IvpoFrLxOYbAC4G/ban4eWOGoREcrfaVSiTsDknrRYHMe+W4XUekCYA6w4YyjQpcL8nsNt4A5EUUKjFSpRg==
 
+folktale@2.3.2:
+  version "2.3.2"
+  resolved "https://registry.yarnpkg.com/folktale/-/folktale-2.3.2.tgz#38231b039e5ef36989920cbf805bf6b227bf4fd4"
+  integrity sha512-+8GbtQBwEqutP0v3uajDDoN64K2ehmHd0cjlghhxh0WpcfPzAIjPA03e1VvHlxL02FVGR0A6lwXsNQKn3H1RNQ==
+
 for-in@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/for-in/-/for-in-1.0.2.tgz#81068d295a8142ec0ac726c6e2200c30fb6d5e80"
@@ -7084,7 +7089,38 @@ snap-shot-core@7.1.11:
     pluralize "7.0.0"
     ramda "0.26.1"
 
-snap-shot-it@6.2.8, snap-shot-it@^6.2.8:
+snap-shot-core@7.1.12:
+  version "7.1.12"
+  resolved "https://registry.yarnpkg.com/snap-shot-core/-/snap-shot-core-7.1.12.tgz#568d5701e478a437119f82d62579f2401f562f89"
+  integrity sha512-bRZfGP2MgPCpzRi/Zou9om7VoAMp3cwFj5Xp19NSRuRzOiLJpuoa62msyY7jcy/zr69Shg1OgHCDSoaH7B59wA==
+  dependencies:
+    check-more-types "2.24.0"
+    common-tags "1.8.0"
+    debug "3.2.6"
+    escape-quotes "1.0.2"
+    folktale "2.3.2"
+    is-ci "1.2.1"
+    jsesc "2.5.2"
+    lazy-ass "1.6.0"
+    mkdirp "0.5.1"
+    pluralize "7.0.0"
+    ramda "0.26.1"
+
+snap-shot-it@6.2.9:
+  version "6.2.9"
+  resolved "https://registry.yarnpkg.com/snap-shot-it/-/snap-shot-it-6.2.9.tgz#9356ecfe20dbe3722e49f35bbffca3d04da82de2"
+  integrity sha512-bN51yrg6a14bqwjCzCUD2czyOu47J2ndYxc4fiSlYz3jT0HBCJL8rP5M6nDbaftH7DQYIkew3Vx7lShpzpJZjg==
+  dependencies:
+    "@bahmutov/data-driven" "1.0.0"
+    check-more-types "2.24.0"
+    debug "4.1.1"
+    has-only "1.1.1"
+    pluralize "7.0.0"
+    ramda "0.26.1"
+    snap-shot-compare "2.7.1"
+    snap-shot-core "7.1.12"
+
+snap-shot-it@^6.2.8:
   version "6.2.8"
   resolved "https://registry.yarnpkg.com/snap-shot-it/-/snap-shot-it-6.2.8.tgz#10366b5a26afd167e8e2c54b893ef5abbf638978"
   integrity sha512-VJkubD1CiX7/M63zyD0cBj7EzdtM2/pMeV2t8pKfGtc8Nxm+fxYPPul0BXDrp+fLG8/7igpGe9Cnd0cs67FTgw==
