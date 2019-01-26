@@ -26,6 +26,7 @@
   "devDependencies": {
     "@code-to-json/comments": "^1.0.0-rc.1",
     "@code-to-json/test-helpers": "^1.0.0-rc.1",
+    "@code-to-json/utils-node": "^1.0.0-rc.2",
     "@types/chai": "4.1.7",
     "chai": "4.2.0",
     "eslint": "5.12.1",
