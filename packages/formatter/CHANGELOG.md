@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-rc.2](https://github.com/mike-north/code-to-json/compare/@code-to-json/formatter@1.0.0-rc.1...@code-to-json/formatter@1.0.0-rc.2) (2019-01-26)
+
+
+### Bug Fixes
+
+* updates to accomodate new ProcessingQueue api ([9d9e23d](https://github.com/mike-north/code-to-json/commit/9d9e23d))
+
+
+
+
+
 # [1.0.0-rc.1](https://github.com/mike-north/code-to-json/compare/@code-to-json/formatter@1.0.0-rc.0...@code-to-json/formatter@1.0.0-rc.1) (2019-01-25)
 
 

@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-rc.1](https://github.com/mike-north/code-to-json/compare/@code-to-json/utils@1.0.0-rc.0...@code-to-json/utils@1.0.0-rc.1) (2019-01-26)
+
+
+### Features
+
+* id generation can create pass along addittional information ([376b783](https://github.com/mike-north/code-to-json/commit/376b783))
+
+
+
+
+
 # [1.0.0-rc.0](https://github.com/mike-north/code-to-json/compare/@code-to-json/utils@0.8.4...@code-to-json/utils@1.0.0-rc.0) (2019-01-25)
 
 
