@@ -1,5 +1,5 @@
 import { parseCommentString } from '@code-to-json/comments';
-import { createRef, forEach, refId } from '@code-to-json/utils';
+import { forEach, isRef, refId } from '@code-to-json/utils';
 import {
   decoratorsToStrings,
   filterDict,
@@ -13,7 +13,7 @@ import {
 } from '@code-to-json/utils-ts';
 import * as ts from 'typescript';
 import { Queue } from '../processing-queue';
-import { RefRegistry, SymbolRef } from '../types/ref';
+import { SymbolRef } from '../types/ref';
 import { SerializedSymbol } from '../types/serialized-entities';
 import { Collector } from '../types/walker';
 import serializeLocation from './location';
@@ -115,6 +115,22 @@ function serializeMemberSymbols(
   return { members: mapDict(filteredMembers, exp => q.queue(exp, 'symbol')) };
 }
 
+function handleRelatedEntities(
+  _symbol: ts.Symbol,
+  _ref: SymbolRef,
+  relatedEntities: ts.Symbol[] | undefined,
+  q: Queue,
+): Pick<SerializedSymbol, 'relatedSymbols'> | undefined {
+  if (!relatedEntities) {
+    return undefined;
+  }
+  const relatedSymbols = relatedEntities
+    .map(relatedSym => q.queue(relatedSym, 'symbol'))
+    .filter(isRef);
+
+  return { relatedSymbols };
+}
+
 /**
  * Serialize a ts.Symbol to JSON
  *
@@ -127,7 +143,7 @@ export default function serializeSymbol(
   symbol: ts.Symbol,
   checker: ts.TypeChecker,
   ref: SymbolRef,
-  relatedEntities: string[] | undefined,
+  relatedEntities: ts.Symbol[] | undefined,
   c: Collector,
 ): SerializedSymbol {
   const { queue: q } = c;
@@ -137,18 +153,16 @@ export default function serializeSymbol(
   if (type && isErroredType(type)) {
     throw new Error(`Unable to determine type for symbol ${checker.symbolToString(symbol)}`);
   }
+  const id = refId(ref);
   const serialized: SerializedSymbol = {
-    id: refId(ref),
+    id,
     entity: 'symbol',
     name,
-    flags: flagsToString(flags, 'symbol'),
+    flags: flagsToString(flags, 'symbol') || [],
     type: q.queue(type, 'type'),
+    ...handleRelatedEntities(symbol, ref, relatedEntities, q),
   };
-  if (relatedEntities) {
-    serialized.relatedSymbols = relatedEntities.map(id =>
-      createRef<RefRegistry, 'symbol'>('symbol', id),
-    );
-  }
+
   const symbolString = checker.symbolToString(symbol);
   const typeString = type ? checker.typeToString(type) : undefined;
   if (symbolString) {

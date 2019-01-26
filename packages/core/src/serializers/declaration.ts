@@ -1,4 +1,4 @@
-import { Declaration, TypeChecker } from 'typescript';
+import * as ts from 'typescript';
 import { DeclarationRef, SourceFileRef } from '../types/ref';
 import { SerializedDeclaration } from '../types/serialized-entities';
 import { Collector } from '../types/walker';
@@ -12,13 +12,14 @@ import serializeNode from './node';
  * @param c walker collector
  */
 export default function serializeDeclaration(
-  decl: Declaration,
-  checker: TypeChecker,
+  decl: ts.Declaration,
+  checker: ts.TypeChecker,
   ref: DeclarationRef | SourceFileRef,
+  related: undefined | ts.Declaration[],
   c: Collector,
 ): SerializedDeclaration {
   const basicInfo: SerializedDeclaration = {
-    ...serializeNode(decl, checker, ref, c),
+    ...serializeNode(decl, checker, ref, related, c),
     entity: 'declaration',
   };
   return basicInfo;

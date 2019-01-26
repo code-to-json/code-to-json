@@ -13,7 +13,7 @@ exports['SerializationSnapshotTests Class with implied constructor 1'] = {
       "properties": {
         "SimpleClass": [
           "symbol",
-          "S01m4wmw2cgh4"
+          "S01m4wn665eqo"
         ]
       }
     },
@@ -94,8 +94,8 @@ exports['SerializationSnapshotTests Class with implied constructor 1'] = {
     }
   },
   "symbols": {
-    "S01m4wltmf47b": {
-      "id": "S01m4wltmf47b",
+    "S01m4wnncslv4": {
+      "id": "S01m4wnncslv4",
       "entity": "symbol",
       "name": "\"/src/index\"",
       "flags": [
@@ -110,7 +110,7 @@ exports['SerializationSnapshotTests Class with implied constructor 1'] = {
       "exports": {
         "SimpleClass": [
           "symbol",
-          "S01m4wmw2cgh4"
+          "S01m4wn665eqo"
         ]
       },
       "sourceFile": [
@@ -128,8 +128,8 @@ exports['SerializationSnapshotTests Class with implied constructor 1'] = {
         28
       ]
     },
-    "S01m4wmw2cgh4": {
-      "id": "S01m4wmw2cgh4",
+    "S01m4wn665eqo": {
+      "id": "S01m4wn665eqo",
       "entity": "symbol",
       "name": "SimpleClass",
       "flags": [
@@ -177,7 +177,7 @@ exports['SerializationSnapshotTests Class with properties and methods 1'] = {
       "properties": {
         "SimpleClass": [
           "symbol",
-          "S01m4wnb81i6j"
+          "S01m4wmy6qxnn"
         ]
       }
     },
@@ -201,7 +201,7 @@ exports['SerializationSnapshotTests Class with properties and methods 1'] = {
           "parameters": [
             [
               "symbol",
-              "S01m4wn1a9gr8"
+              "S01m4wlnrhn38"
             ]
           ],
           "typeString": "(bar: string): SimpleClass"
@@ -236,7 +236,7 @@ exports['SerializationSnapshotTests Class with properties and methods 1'] = {
           "parameters": [
             [
               "symbol",
-              "S01m4wn4xnnag"
+              "S01m4wmgai7ni"
             ]
           ],
           "typeString": "(x: number[]): number"
@@ -261,11 +261,11 @@ exports['SerializationSnapshotTests Class with properties and methods 1'] = {
       "properties": {
         "foo": [
           "symbol",
-          "S01m4wnlhu0mc"
+          "S01m4wm5niuah"
         ],
         "baz": [
           "symbol",
-          "S01m4wnlboakp"
+          "S01m4wmy01yu1"
         ]
       },
       "thisType": [
@@ -327,8 +327,8 @@ exports['SerializationSnapshotTests Class with properties and methods 1'] = {
     }
   },
   "symbols": {
-    "S01m4wmqv6kah": {
-      "id": "S01m4wmqv6kah",
+    "S01m4wmbiopcd": {
+      "id": "S01m4wmbiopcd",
       "entity": "symbol",
       "name": "\"/src/index\"",
       "flags": [
@@ -343,7 +343,7 @@ exports['SerializationSnapshotTests Class with properties and methods 1'] = {
       "exports": {
         "SimpleClass": [
           "symbol",
-          "S01m4wnb81i6j"
+          "S01m4wmy6qxnn"
         ]
       },
       "sourceFile": [
@@ -361,8 +361,8 @@ exports['SerializationSnapshotTests Class with properties and methods 1'] = {
         1
       ]
     },
-    "S01m4wnb81i6j": {
-      "id": "S01m4wnb81i6j",
+    "S01m4wmy6qxnn": {
+      "id": "S01m4wmy6qxnn",
       "entity": "symbol",
       "name": "SimpleClass",
       "flags": [
@@ -377,11 +377,11 @@ exports['SerializationSnapshotTests Class with properties and methods 1'] = {
       "members": {
         "foo": [
           "symbol",
-          "S01m4wnlhu0mc"
+          "S01m4wm5niuah"
         ],
         "baz": [
           "symbol",
-          "S01m4wnlboakp"
+          "S01m4wmy01yu1"
         ]
       },
       "modifiers": [
@@ -402,8 +402,8 @@ exports['SerializationSnapshotTests Class with properties and methods 1'] = {
         1
       ]
     },
-    "S01m4wnlhu0mc": {
-      "id": "S01m4wnlhu0mc",
+    "S01m4wm5niuah": {
+      "id": "S01m4wm5niuah",
       "entity": "symbol",
       "name": "foo",
       "flags": [
@@ -433,8 +433,8 @@ exports['SerializationSnapshotTests Class with properties and methods 1'] = {
         29
       ]
     },
-    "S01m4wnlboakp": {
-      "id": "S01m4wnlboakp",
+    "S01m4wmy01yu1": {
+      "id": "S01m4wmy01yu1",
       "entity": "symbol",
       "name": "baz",
       "flags": [
@@ -461,8 +461,8 @@ exports['SerializationSnapshotTests Class with properties and methods 1'] = {
         59
       ]
     },
-    "S01m4wn1a9gr8": {
-      "id": "S01m4wn1a9gr8",
+    "S01m4wlnrhn38": {
+      "id": "S01m4wlnrhn38",
       "entity": "symbol",
       "name": "bar",
       "flags": [
@@ -489,8 +489,8 @@ exports['SerializationSnapshotTests Class with properties and methods 1'] = {
         25
       ]
     },
-    "S01m4wn4xnnag": {
-      "id": "S01m4wn4xnnag",
+    "S01m4wmgai7ni": {
+      "id": "S01m4wmgai7ni",
       "entity": "symbol",
       "name": "x",
       "flags": [
@@ -535,7 +535,7 @@ exports['SerializationSnapshotTests Class with properties, methods and static fu
       "properties": {
         "SimpleClass": [
           "symbol",
-          "S01m4wmvxgfko"
+          "S01m4wmyrv9k5"
         ]
       }
     },
@@ -552,7 +552,7 @@ exports['SerializationSnapshotTests Class with properties, methods and static fu
       "properties": {
         "hello": [
           "symbol",
-          "S01m4wmelrlq6"
+          "S01m4wne65t4g"
         ]
       },
       "constructorSignatures": [
@@ -564,7 +564,7 @@ exports['SerializationSnapshotTests Class with properties, methods and static fu
           "parameters": [
             [
               "symbol",
-              "S01m4wn1a9gr8"
+              "S01m4wlnrhn38"
             ]
           ],
           "typeString": "(bar: string): SimpleClass"
@@ -618,7 +618,7 @@ exports['SerializationSnapshotTests Class with properties, methods and static fu
       "properties": {
         "foo": [
           "symbol",
-          "S01m4wnlhu0mc"
+          "S01m4wm5niuah"
         ]
       },
       "thisType": [
@@ -662,8 +662,8 @@ exports['SerializationSnapshotTests Class with properties, methods and static fu
     }
   },
   "symbols": {
-    "S01m4wlqdaft2": {
-      "id": "S01m4wlqdaft2",
+    "S01m4wnmuklwd": {
+      "id": "S01m4wnmuklwd",
       "entity": "symbol",
       "name": "\"/src/index\"",
       "flags": [
@@ -678,7 +678,7 @@ exports['SerializationSnapshotTests Class with properties, methods and static fu
       "exports": {
         "SimpleClass": [
           "symbol",
-          "S01m4wmvxgfko"
+          "S01m4wmyrv9k5"
         ]
       },
       "sourceFile": [
@@ -696,8 +696,8 @@ exports['SerializationSnapshotTests Class with properties, methods and static fu
         1
       ]
     },
-    "S01m4wmvxgfko": {
-      "id": "S01m4wmvxgfko",
+    "S01m4wmyrv9k5": {
+      "id": "S01m4wmyrv9k5",
       "entity": "symbol",
       "name": "SimpleClass",
       "flags": [
@@ -712,13 +712,13 @@ exports['SerializationSnapshotTests Class with properties, methods and static fu
       "exports": {
         "hello": [
           "symbol",
-          "S01m4wmelrlq6"
+          "S01m4wne65t4g"
         ]
       },
       "members": {
         "foo": [
           "symbol",
-          "S01m4wnlhu0mc"
+          "S01m4wm5niuah"
         ]
       },
       "modifiers": [
@@ -739,8 +739,8 @@ exports['SerializationSnapshotTests Class with properties, methods and static fu
         1
       ]
     },
-    "S01m4wmelrlq6": {
-      "id": "S01m4wmelrlq6",
+    "S01m4wne65t4g": {
+      "id": "S01m4wne65t4g",
       "entity": "symbol",
       "name": "hello",
       "flags": [
@@ -770,8 +770,8 @@ exports['SerializationSnapshotTests Class with properties, methods and static fu
         44
       ]
     },
-    "S01m4wnlhu0mc": {
-      "id": "S01m4wnlhu0mc",
+    "S01m4wm5niuah": {
+      "id": "S01m4wm5niuah",
       "entity": "symbol",
       "name": "foo",
       "flags": [
@@ -801,8 +801,8 @@ exports['SerializationSnapshotTests Class with properties, methods and static fu
         29
       ]
     },
-    "S01m4wn1a9gr8": {
-      "id": "S01m4wn1a9gr8",
+    "S01m4wlnrhn38": {
+      "id": "S01m4wlnrhn38",
       "entity": "symbol",
       "name": "bar",
       "flags": [
@@ -847,7 +847,7 @@ exports['SerializationSnapshotTests Class with properties, methods and static fu
       "properties": {
         "SimpleClass": [
           "symbol",
-          "S01m4wnvit6mu"
+          "S01m4wmmum1qj"
         ]
       }
     },
@@ -864,7 +864,7 @@ exports['SerializationSnapshotTests Class with properties, methods and static fu
       "properties": {
         "hello": [
           "symbol",
-          "S01m4wnsyjhqy"
+          "S01m4wn1m5fsv"
         ]
       },
       "constructorSignatures": [
@@ -876,7 +876,7 @@ exports['SerializationSnapshotTests Class with properties, methods and static fu
           "parameters": [
             [
               "symbol",
-              "S01m4wm3v77rp"
+              "S01m4wlnrhn38"
             ]
           ],
           "typeString": "(bar: string): SimpleClass"
@@ -930,7 +930,7 @@ exports['SerializationSnapshotTests Class with properties, methods and static fu
       "properties": {
         "foo": [
           "symbol",
-          "S01m4wmv1sanj"
+          "S01m4wlv23iyf"
         ]
       },
       "thisType": [
@@ -974,8 +974,8 @@ exports['SerializationSnapshotTests Class with properties, methods and static fu
     }
   },
   "symbols": {
-    "S01m4wm17la1u": {
-      "id": "S01m4wm17la1u",
+    "S01m4wnh3krqf": {
+      "id": "S01m4wnh3krqf",
       "entity": "symbol",
       "name": "\"/src/index\"",
       "flags": [
@@ -990,7 +990,7 @@ exports['SerializationSnapshotTests Class with properties, methods and static fu
       "exports": {
         "SimpleClass": [
           "symbol",
-          "S01m4wnvit6mu"
+          "S01m4wmmum1qj"
         ]
       },
       "sourceFile": [
@@ -1008,8 +1008,8 @@ exports['SerializationSnapshotTests Class with properties, methods and static fu
         1
       ]
     },
-    "S01m4wnvit6mu": {
-      "id": "S01m4wnvit6mu",
+    "S01m4wmmum1qj": {
+      "id": "S01m4wmmum1qj",
       "entity": "symbol",
       "name": "SimpleClass",
       "flags": [
@@ -1024,13 +1024,13 @@ exports['SerializationSnapshotTests Class with properties, methods and static fu
       "exports": {
         "hello": [
           "symbol",
-          "S01m4wnsyjhqy"
+          "S01m4wn1m5fsv"
         ]
       },
       "members": {
         "foo": [
           "symbol",
-          "S01m4wmv1sanj"
+          "S01m4wlv23iyf"
         ]
       },
       "modifiers": [
@@ -1052,8 +1052,8 @@ exports['SerializationSnapshotTests Class with properties, methods and static fu
         1
       ]
     },
-    "S01m4wnsyjhqy": {
-      "id": "S01m4wnsyjhqy",
+    "S01m4wn1m5fsv": {
+      "id": "S01m4wn1m5fsv",
       "entity": "symbol",
       "name": "hello",
       "flags": [
@@ -1084,8 +1084,8 @@ exports['SerializationSnapshotTests Class with properties, methods and static fu
         54
       ]
     },
-    "S01m4wmv1sanj": {
-      "id": "S01m4wmv1sanj",
+    "S01m4wlv23iyf": {
+      "id": "S01m4wlv23iyf",
       "entity": "symbol",
       "name": "foo",
       "flags": [
@@ -1116,8 +1116,8 @@ exports['SerializationSnapshotTests Class with properties, methods and static fu
         41
       ]
     },
-    "S01m4wm3v77rp": {
-      "id": "S01m4wm3v77rp",
+    "S01m4wlnrhn38": {
+      "id": "S01m4wlnrhn38",
       "entity": "symbol",
       "name": "bar",
       "flags": [
@@ -1162,7 +1162,7 @@ exports['SerializationSnapshotTests abstract class Vehicle { numWheels: number =
       "properties": {
         "Vehicle": [
           "symbol",
-          "S01m4wn9k069r"
+          "S01m4wmxv41eu"
         ]
       }
     },
@@ -1234,11 +1234,11 @@ exports['SerializationSnapshotTests abstract class Vehicle { numWheels: number =
       "properties": {
         "numWheels": [
           "symbol",
-          "S01m4wmgdtvcw"
+          "S01m4wmhyivq8"
         ],
         "drive": [
           "symbol",
-          "S01m4wn33a75s"
+          "S01m4wmisaglb"
         ]
       },
       "thisType": [
@@ -1291,8 +1291,8 @@ exports['SerializationSnapshotTests abstract class Vehicle { numWheels: number =
     }
   },
   "symbols": {
-    "S01m4wnpu3s0a": {
-      "id": "S01m4wnpu3s0a",
+    "S01m4wnatn4ip": {
+      "id": "S01m4wnatn4ip",
       "entity": "symbol",
       "name": "\"/src/index\"",
       "flags": [
@@ -1307,7 +1307,7 @@ exports['SerializationSnapshotTests abstract class Vehicle { numWheels: number =
       "exports": {
         "Vehicle": [
           "symbol",
-          "S01m4wn9k069r"
+          "S01m4wmxv41eu"
         ]
       },
       "sourceFile": [
@@ -1325,8 +1325,8 @@ exports['SerializationSnapshotTests abstract class Vehicle { numWheels: number =
         1
       ]
     },
-    "S01m4wn9k069r": {
-      "id": "S01m4wn9k069r",
+    "S01m4wmxv41eu": {
+      "id": "S01m4wmxv41eu",
       "entity": "symbol",
       "name": "Vehicle",
       "flags": [
@@ -1341,11 +1341,11 @@ exports['SerializationSnapshotTests abstract class Vehicle { numWheels: number =
       "members": {
         "numWheels": [
           "symbol",
-          "S01m4wmgdtvcw"
+          "S01m4wmhyivq8"
         ],
         "drive": [
           "symbol",
-          "S01m4wn33a75s"
+          "S01m4wmisaglb"
         ]
       },
       "modifiers": [
@@ -1367,8 +1367,8 @@ exports['SerializationSnapshotTests abstract class Vehicle { numWheels: number =
         1
       ]
     },
-    "S01m4wmgdtvcw": {
-      "id": "S01m4wmgdtvcw",
+    "S01m4wmhyivq8": {
+      "id": "S01m4wmhyivq8",
       "entity": "symbol",
       "name": "numWheels",
       "flags": [
@@ -1398,8 +1398,8 @@ exports['SerializationSnapshotTests abstract class Vehicle { numWheels: number =
         31
       ]
     },
-    "S01m4wn33a75s": {
-      "id": "S01m4wn33a75s",
+    "S01m4wmisaglb": {
+      "id": "S01m4wmisaglb",
       "entity": "symbol",
       "name": "drive",
       "flags": [
@@ -1448,7 +1448,7 @@ exports['SerializationSnapshotTests class Vehicle { numWheels: number = 4; drive
       "properties": {
         "Vehicle": [
           "symbol",
-          "S01m4wmhsi9fo"
+          "S01m4wnux5pba"
         ]
       }
     },
@@ -1520,11 +1520,11 @@ exports['SerializationSnapshotTests class Vehicle { numWheels: number = 4; drive
       "properties": {
         "numWheels": [
           "symbol",
-          "S01m4wmgd91qw"
+          "S01m4wmhyivq8"
         ],
         "drive": [
           "symbol",
-          "S01m4wnqvk3ho"
+          "S01m4wmlmuayh1"
         ]
       },
       "thisType": [
@@ -1598,8 +1598,8 @@ exports['SerializationSnapshotTests class Vehicle { numWheels: number = 4; drive
     }
   },
   "symbols": {
-    "S01m4wnpj4pis": {
-      "id": "S01m4wnpj4pis",
+    "S01m4wnvbn9lk": {
+      "id": "S01m4wnvbn9lk",
       "entity": "symbol",
       "name": "\"/src/index\"",
       "flags": [
@@ -1614,7 +1614,7 @@ exports['SerializationSnapshotTests class Vehicle { numWheels: number = 4; drive
       "exports": {
         "Vehicle": [
           "symbol",
-          "S01m4wmhsi9fo"
+          "S01m4wnux5pba"
         ]
       },
       "sourceFile": [
@@ -1632,8 +1632,8 @@ exports['SerializationSnapshotTests class Vehicle { numWheels: number = 4; drive
         1
       ]
     },
-    "S01m4wmhsi9fo": {
-      "id": "S01m4wmhsi9fo",
+    "S01m4wnux5pba": {
+      "id": "S01m4wnux5pba",
       "entity": "symbol",
       "name": "Vehicle",
       "flags": [
@@ -1648,11 +1648,11 @@ exports['SerializationSnapshotTests class Vehicle { numWheels: number = 4; drive
       "members": {
         "numWheels": [
           "symbol",
-          "S01m4wmgd91qw"
+          "S01m4wmhyivq8"
         ],
         "drive": [
           "symbol",
-          "S01m4wnn2sv3s"
+          "S01m4wmlmuayh"
         ]
       },
       "modifiers": [
@@ -1673,8 +1673,8 @@ exports['SerializationSnapshotTests class Vehicle { numWheels: number = 4; drive
         1
       ]
     },
-    "S01m4wmgd91qw": {
-      "id": "S01m4wmgd91qw",
+    "S01m4wmhyivq8": {
+      "id": "S01m4wmhyivq8",
       "entity": "symbol",
       "name": "numWheels",
       "flags": [
@@ -1704,8 +1704,8 @@ exports['SerializationSnapshotTests class Vehicle { numWheels: number = 4; drive
         31
       ]
     },
-    "S01m4wnn2sv3s": {
-      "id": "S01m4wnn2sv3s",
+    "S01m4wmlmuayh": {
+      "id": "S01m4wmlmuayh",
       "entity": "symbol",
       "name": "drive",
       "flags": [
@@ -1735,8 +1735,8 @@ exports['SerializationSnapshotTests class Vehicle { numWheels: number = 4; drive
         3
       ]
     },
-    "S01m4wnqvk3ho": {
-      "id": "S01m4wnqvk3ho",
+    "S01m4wmlmuayh1": {
+      "id": "S01m4wmlmuayh1",
       "entity": "symbol",
       "name": "drive",
       "flags": [
@@ -1785,7 +1785,7 @@ exports['SerializationSnapshotTests const p: Promise<number> = Promise.resolve(4
       "properties": {
         "p": [
           "symbol",
-          "S01m4wnkhr6h7"
+          "S01m4wnfaa62p"
         ]
       }
     },
@@ -1800,8 +1800,8 @@ exports['SerializationSnapshotTests const p: Promise<number> = Promise.resolve(4
     }
   },
   "symbols": {
-    "S01m4wm47bq6w": {
-      "id": "S01m4wm47bq6w",
+    "S01m4wluapsp4": {
+      "id": "S01m4wluapsp4",
       "entity": "symbol",
       "name": "\"/src/index\"",
       "flags": [
@@ -1816,7 +1816,7 @@ exports['SerializationSnapshotTests const p: Promise<number> = Promise.resolve(4
       "exports": {
         "p": [
           "symbol",
-          "S01m4wnkhr6h7"
+          "S01m4wnfaa62p"
         ]
       },
       "sourceFile": [
@@ -1834,8 +1834,8 @@ exports['SerializationSnapshotTests const p: Promise<number> = Promise.resolve(4
         53
       ]
     },
-    "S01m4wnkhr6h7": {
-      "id": "S01m4wnkhr6h7",
+    "S01m4wnfaa62p": {
+      "id": "S01m4wnfaa62p",
       "entity": "symbol",
       "name": "p",
       "flags": [
@@ -1880,7 +1880,7 @@ exports['SerializationSnapshotTests const x = "foo" 1'] = {
       "properties": {
         "x": [
           "symbol",
-          "S01m4wmirtbv4"
+          "S01m4wn2qbwhw"
         ]
       }
     },
@@ -1894,8 +1894,8 @@ exports['SerializationSnapshotTests const x = "foo" 1'] = {
     }
   },
   "symbols": {
-    "S01m4wnph853a": {
-      "id": "S01m4wnph853a",
+    "S01m4wm6iq0tu": {
+      "id": "S01m4wm6iq0tu",
       "entity": "symbol",
       "name": "\"/src/index\"",
       "flags": [
@@ -1910,7 +1910,7 @@ exports['SerializationSnapshotTests const x = "foo" 1'] = {
       "exports": {
         "x": [
           "symbol",
-          "S01m4wmirtbv4"
+          "S01m4wn2qbwhw"
         ]
       },
       "sourceFile": [
@@ -1928,8 +1928,8 @@ exports['SerializationSnapshotTests const x = "foo" 1'] = {
         23
       ]
     },
-    "S01m4wmirtbv4": {
-      "id": "S01m4wmirtbv4",
+    "S01m4wn2qbwhw": {
+      "id": "S01m4wn2qbwhw",
       "entity": "symbol",
       "name": "x",
       "flags": [
@@ -1974,7 +1974,7 @@ exports['SerializationSnapshotTests function add(a: number, b: string) { return 
       "properties": {
         "add": [
           "symbol",
-          "S01m4wllagwsj"
+          "S01m4wnmioev0"
         ]
       }
     },
@@ -1997,11 +1997,11 @@ exports['SerializationSnapshotTests function add(a: number, b: string) { return 
           "parameters": [
             [
               "symbol",
-              "S01m4wnk0jsvw"
+              "S01m4wmpm9hn4"
             ],
             [
               "symbol",
-              "S01m4wm96055y"
+              "S01m4wn6hbne2"
             ]
           ],
           "typeString": "(a: number, b: string): string"
@@ -2028,8 +2028,8 @@ exports['SerializationSnapshotTests function add(a: number, b: string) { return 
     }
   },
   "symbols": {
-    "S01m4wlmcgydk": {
-      "id": "S01m4wlmcgydk",
+    "S01m4wmoyq991": {
+      "id": "S01m4wmoyq991",
       "entity": "symbol",
       "name": "\"/src/index\"",
       "flags": [
@@ -2044,7 +2044,7 @@ exports['SerializationSnapshotTests function add(a: number, b: string) { return 
       "exports": {
         "add": [
           "symbol",
-          "S01m4wllagwsj"
+          "S01m4wnmioev0"
         ]
       },
       "sourceFile": [
@@ -2062,8 +2062,8 @@ exports['SerializationSnapshotTests function add(a: number, b: string) { return 
         59
       ]
     },
-    "S01m4wllagwsj": {
-      "id": "S01m4wllagwsj",
+    "S01m4wnmioev0": {
+      "id": "S01m4wnmioev0",
       "entity": "symbol",
       "name": "add",
       "flags": [
@@ -2093,8 +2093,8 @@ exports['SerializationSnapshotTests function add(a: number, b: string) { return 
         59
       ]
     },
-    "S01m4wnk0jsvw": {
-      "id": "S01m4wnk0jsvw",
+    "S01m4wmpm9hn4": {
+      "id": "S01m4wmpm9hn4",
       "entity": "symbol",
       "name": "a",
       "flags": [
@@ -2121,8 +2121,8 @@ exports['SerializationSnapshotTests function add(a: number, b: string) { return 
         29
       ]
     },
-    "S01m4wm96055y": {
-      "id": "S01m4wm96055y",
+    "S01m4wn6hbne2": {
+      "id": "S01m4wn6hbne2",
       "entity": "symbol",
       "name": "b",
       "flags": [
@@ -2178,11 +2178,11 @@ exports['SerializationSnapshotTests interface Foo {bar: number; readonly baz: Pr
       "properties": {
         "bar": [
           "symbol",
-          "S01m4wn7l12a9"
+          "S01m4wn1knui5"
         ],
         "baz": [
           "symbol",
-          "S01m4wma48v2g"
+          "S01m4wmje5qmw"
         ]
       }
     },
@@ -2206,8 +2206,8 @@ exports['SerializationSnapshotTests interface Foo {bar: number; readonly baz: Pr
     }
   },
   "symbols": {
-    "S01m4wntycam2": {
-      "id": "S01m4wntycam2",
+    "S01m4wmxaqaka": {
+      "id": "S01m4wmxaqaka",
       "entity": "symbol",
       "name": "\"/src/index\"",
       "flags": [
@@ -2247,16 +2247,25 @@ exports['SerializationSnapshotTests interface Foo {bar: number; readonly baz: Pr
       "flags": [
         "Interface"
       ],
-      "members": {"bar":["symbol","S01m4wn7l12a9"],"baz":["symbol","S01m4wma48v2g"]},
       "type": [
         "type",
         "T01m4wmp9klrl"
       ],
       "symbolString": "Foo",
-      "typeString": "Foo"
+      "typeString": "Foo",
+      "members": {
+        "bar": [
+          "symbol",
+          "S01m4wn1knui5"
+        ],
+        "baz": [
+          "symbol",
+          "S01m4wmje5qmw"
+        ]
+      }
     },
-    "S01m4wn7l12a9": {
-      "id": "S01m4wn7l12a9",
+    "S01m4wn1knui5": {
+      "id": "S01m4wn1knui5",
       "entity": "symbol",
       "name": "bar",
       "flags": [
@@ -2283,8 +2292,8 @@ exports['SerializationSnapshotTests interface Foo {bar: number; readonly baz: Pr
         42
       ]
     },
-    "S01m4wma48v2g": {
-      "id": "S01m4wma48v2g",
+    "S01m4wmje5qmw": {
+      "id": "S01m4wmje5qmw",
       "entity": "symbol",
       "name": "baz",
       "flags": [
@@ -2332,7 +2341,7 @@ exports['SerializationSnapshotTests let x = "foo" 1'] = {
       "properties": {
         "x": [
           "symbol",
-          "S01m4wmirrx8p"
+          "S01m4wn2qbwhw"
         ]
       }
     },
@@ -2347,8 +2356,8 @@ exports['SerializationSnapshotTests let x = "foo" 1'] = {
     }
   },
   "symbols": {
-    "S01m4wnc6adxq": {
-      "id": "S01m4wnc6adxq",
+    "S01m4wlsp5n6j": {
+      "id": "S01m4wlsp5n6j",
       "entity": "symbol",
       "name": "\"/src/index\"",
       "flags": [
@@ -2363,7 +2372,7 @@ exports['SerializationSnapshotTests let x = "foo" 1'] = {
       "exports": {
         "x": [
           "symbol",
-          "S01m4wmirrx8p"
+          "S01m4wn2qbwhw"
         ]
       },
       "sourceFile": [
@@ -2381,8 +2390,8 @@ exports['SerializationSnapshotTests let x = "foo" 1'] = {
         21
       ]
     },
-    "S01m4wmirrx8p": {
-      "id": "S01m4wmirrx8p",
+    "S01m4wn2qbwhw": {
+      "id": "S01m4wn2qbwhw",
       "entity": "symbol",
       "name": "x",
       "flags": [
@@ -2468,8 +2477,8 @@ exports['SerializationSnapshotTests type Dict<T extends "foo"|"bar"|"baz"> = { [
     }
   },
   "symbols": {
-    "S01m4wlp33qpb": {
-      "id": "S01m4wlp33qpb",
+    "S01m4wmxl83ne": {
+      "id": "S01m4wmxl83ne",
       "entity": "symbol",
       "name": "\"/src/index\"",
       "flags": [
@@ -2580,8 +2589,8 @@ exports['SerializationSnapshotTests type Dict<T> = { [k: string]: T | undefined 
     }
   },
   "symbols": {
-    "S01m4wly6rqhi": {
-      "id": "S01m4wly6rqhi",
+    "S01m4wn2ca0ld": {
+      "id": "S01m4wn2ca0ld",
       "entity": "symbol",
       "name": "\"/src/index\"",
       "flags": [

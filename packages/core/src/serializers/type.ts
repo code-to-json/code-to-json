@@ -1,4 +1,4 @@
-import { createRef, isDefined, isRef, refId } from '@code-to-json/utils';
+import { isDefined, isRef, refId } from '@code-to-json/utils';
 import {
   flagsToString,
   getTsLibFilename,
@@ -16,7 +16,7 @@ import {
 } from '@code-to-json/utils-ts';
 import { Dict } from '@mike-north/types';
 import * as ts from 'typescript';
-import { RefRegistry, SymbolRef, TypeRef } from '../types/ref';
+import { SymbolRef, TypeRef } from '../types/ref';
 import { SerializedType } from '../types/serialized-entities';
 import { Collector } from '../types/walker';
 import serializeSignature from './signature';
@@ -215,7 +215,7 @@ export default function serializeType(
   type: ts.Type,
   checker: ts.TypeChecker,
   ref: TypeRef,
-  relatedEntities: string[] | undefined,
+  relatedEntities: ts.Type[] | undefined,
   c: Collector,
 ): SerializedType {
   const { symbol, isThisType } = type as { symbol?: ts.Symbol; isThisType?: boolean };
@@ -227,7 +227,7 @@ export default function serializeType(
     // symbol: c.queue.queue(symbol, 'symbol'),
   };
   if (relatedEntities) {
-    serialized.relatedTypes = relatedEntities.map(id => createRef<RefRegistry, 'type'>('type', id));
+    serialized.relatedTypes = relatedEntities.map(t => c.queue.queue(t, 'type')).filter(isDefined);
   }
   if (isPrimitiveType(type)) {
     serialized.primitive = true;

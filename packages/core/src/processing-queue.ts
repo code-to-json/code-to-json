@@ -2,7 +2,7 @@
 
 import { createQueue, RefFor, refId, UnreachableError } from '@code-to-json/utils';
 import { createIdGenerator, isErroredType } from '@code-to-json/utils-ts';
-import { GenerateIdResult } from '@code-to-json/utils-ts/lib/src/generate-id';
+import { GenerateIdResult, IDableEntity } from '@code-to-json/utils-ts/lib/src/generate-id';
 import * as debug from 'debug';
 import * as ts from 'typescript';
 import {
@@ -23,11 +23,11 @@ import {
  * @internal
  */
 export interface QueueProcessors<S, T, N, D, SF> {
-  mapNode(ref: NodeRef, item: ts.Node, relatedInfo?: string[]): N;
-  mapType(ref: TypeRef, item: ts.Type, relatedInfo?: string[]): T;
-  mapDeclaration(ref: DeclarationRef, item: ts.Declaration, relatedInfo?: string[]): D;
-  mapSymbol(ref: SymbolRef, item: ts.Symbol, relatedInfo?: string[]): S;
-  mapSourceFile(ref: SourceFileRef, item: ts.SourceFile, relatedInfo?: string[]): SF;
+  mapNode(ref: NodeRef, item: ts.Node, relatedInfo?: ts.Node[]): N;
+  mapType(ref: TypeRef, item: ts.Type, relatedInfo?: ts.Type[]): T;
+  mapDeclaration(ref: DeclarationRef, item: ts.Declaration, relatedInfo?: ts.Declaration[]): D;
+  mapSymbol(ref: SymbolRef, item: ts.Symbol, relatedInfo?: ts.Symbol[]): S;
+  mapSourceFile(ref: SourceFileRef, item: ts.SourceFile, relatedInfo?: ts.SourceFile[]): SF;
 }
 
 /**
@@ -76,32 +76,34 @@ export function create(checker: ts.TypeChecker): Queue {
    * queues for each entity type we care about doing work on
    */
   const toProcess = {
-    nodes: createQueue<RefRegistry, 'node', ts.Node, GenerateIdResult, string[]>(
+    nodes: createQueue<RefRegistry, 'node', ts.Node, GenerateIdResult, IDableEntity[]>(
       'node',
       generateId,
       idExtractor,
     ),
-    symbols: createQueue<RefRegistry, 'symbol', ts.Symbol, GenerateIdResult, string[]>(
+    symbols: createQueue<RefRegistry, 'symbol', ts.Symbol, GenerateIdResult, IDableEntity[]>(
       'symbol',
       generateId,
       idExtractor,
     ),
-    types: createQueue<RefRegistry, 'type', ts.Type, GenerateIdResult, string[]>(
+    types: createQueue<RefRegistry, 'type', ts.Type, GenerateIdResult, IDableEntity[]>(
       'type',
       generateId,
       idExtractor,
     ),
-    sourceFiles: createQueue<RefRegistry, 'sourceFile', ts.SourceFile, GenerateIdResult, string[]>(
+    sourceFiles: createQueue<
+      RefRegistry,
       'sourceFile',
-      generateId,
-      idExtractor,
-    ),
+      ts.SourceFile,
+      GenerateIdResult,
+      IDableEntity[]
+    >('sourceFile', generateId, idExtractor),
     declarations: createQueue<
       RefRegistry,
       'declaration',
       ts.Declaration,
       GenerateIdResult,
-      string[]
+      IDableEntity[]
     >('declaration', generateId, idExtractor),
   };
 

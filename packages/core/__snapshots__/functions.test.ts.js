@@ -1,8 +1,8 @@
 exports['FunctionAnalysisTests function with multiple signatures 1'] = {
   "declarations": {},
   "symbols": {
-    "S01m4wmbp5uex": {
-      "id": "S01m4wmbp5uex",
+    "S01m4wmbco9j6": {
+      "id": "S01m4wmbco9j6",
       "entity": "symbol",
       "name": "\"/src/index\"",
       "flags": [
@@ -17,7 +17,7 @@ exports['FunctionAnalysisTests function with multiple signatures 1'] = {
       "exports": {
         "adder": [
           "symbol",
-          "S01m4wmhl7gmd"
+          "S01m4wm3962wn"
         ]
       },
       "sourceFile": [
@@ -35,8 +35,8 @@ exports['FunctionAnalysisTests function with multiple signatures 1'] = {
         0
       ]
     },
-    "S01m4wmhl7gmd": {
-      "id": "S01m4wmhl7gmd",
+    "S01m4wm3962wn": {
+      "id": "S01m4wm3962wn",
       "entity": "symbol",
       "name": "adder",
       "flags": [
@@ -66,8 +66,8 @@ exports['FunctionAnalysisTests function with multiple signatures 1'] = {
         52
       ]
     },
-    "S01m4wn1g47sh": {
-      "id": "S01m4wn1g47sh",
+    "S01m4wmsc59q8": {
+      "id": "S01m4wmsc59q8",
       "entity": "symbol",
       "name": "a",
       "flags": [
@@ -94,8 +94,8 @@ exports['FunctionAnalysisTests function with multiple signatures 1'] = {
         31
       ]
     },
-    "S01m4wm96284k": {
-      "id": "S01m4wm96284k",
+    "S01m4wn6hbne2": {
+      "id": "S01m4wn6hbne2",
       "entity": "symbol",
       "name": "b",
       "flags": [
@@ -122,8 +122,8 @@ exports['FunctionAnalysisTests function with multiple signatures 1'] = {
         42
       ]
     },
-    "S01m4wnk3qofp": {
-      "id": "S01m4wnk3qofp",
+    "S01m4wmpm9hn4": {
+      "id": "S01m4wmpm9hn4",
       "entity": "symbol",
       "name": "a",
       "flags": [
@@ -150,8 +150,8 @@ exports['FunctionAnalysisTests function with multiple signatures 1'] = {
         31
       ]
     },
-    "S01m4wmrsooqs": {
-      "id": "S01m4wmrsooqs",
+    "S01m4wn3rfvax": {
+      "id": "S01m4wn3rfvax",
       "entity": "symbol",
       "name": "b",
       "flags": [
@@ -193,7 +193,7 @@ exports['FunctionAnalysisTests function with multiple signatures 1'] = {
       "properties": {
         "adder": [
           "symbol",
-          "S01m4wmhl7gmd"
+          "S01m4wm3962wn"
         ]
       }
     },
@@ -216,11 +216,11 @@ exports['FunctionAnalysisTests function with multiple signatures 1'] = {
           "parameters": [
             [
               "symbol",
-              "S01m4wn1g47sh"
+              "S01m4wmsc59q8"
             ],
             [
               "symbol",
-              "S01m4wm96284k"
+              "S01m4wn6hbne2"
             ]
           ],
           "typeString": "(a: string, b: string): string"
@@ -233,11 +233,11 @@ exports['FunctionAnalysisTests function with multiple signatures 1'] = {
           "parameters": [
             [
               "symbol",
-              "S01m4wnk3qofp"
+              "S01m4wmpm9hn4"
             ],
             [
               "symbol",
-              "S01m4wmrsooqs"
+              "S01m4wn3rfvax"
             ]
           ],
           "typeString": "(a: number, b: number): number"
@@ -275,7 +275,7 @@ exports['FunctionAnalysisTests function with multiple signatures 1'] = {
       "pathInPackage": "/src/index",
       "symbol": [
         "symbol",
-        "S01m4wmbp5uex"
+        "S01m4wmbco9j6"
       ]
     }
   }
@@ -284,8 +284,8 @@ exports['FunctionAnalysisTests function with multiple signatures 1'] = {
 exports['FunctionAnalysisTests unary function 1'] = {
   "declarations": {},
   "symbols": {
-    "S01m4wmnellk3": {
-      "id": "S01m4wmnellk3",
+    "S01m4wlq4irix": {
+      "id": "S01m4wlq4irix",
       "entity": "symbol",
       "name": "\"/src/index\"",
       "flags": [
@@ -300,7 +300,7 @@ exports['FunctionAnalysisTests unary function 1'] = {
       "exports": {
         "foo": [
           "symbol",
-          "S01m4wmca6m9w"
+          "S01m4wlp2ipxw"
         ]
       },
       "sourceFile": [
@@ -318,8 +318,8 @@ exports['FunctionAnalysisTests unary function 1'] = {
         62
       ]
     },
-    "S01m4wmca6m9w": {
-      "id": "S01m4wmca6m9w",
+    "S01m4wlp2ipxw": {
+      "id": "S01m4wlp2ipxw",
       "entity": "symbol",
       "name": "foo",
       "flags": [
@@ -349,8 +349,8 @@ exports['FunctionAnalysisTests unary function 1'] = {
         62
       ]
     },
-    "S01m4wnbju447": {
-      "id": "S01m4wnbju447",
+    "S01m4wnf0drsi": {
+      "id": "S01m4wnf0drsi",
       "entity": "symbol",
       "name": "str",
       "flags": [
@@ -392,7 +392,7 @@ exports['FunctionAnalysisTests unary function 1'] = {
       "properties": {
         "foo": [
           "symbol",
-          "S01m4wmca6m9w"
+          "S01m4wlp2ipxw"
         ]
       }
     },
@@ -415,7 +415,7 @@ exports['FunctionAnalysisTests unary function 1'] = {
           "parameters": [
             [
               "symbol",
-              "S01m4wnbju447"
+              "S01m4wnf0drsi"
             ]
           ],
           "typeString": "(str: string): string"
@@ -444,7 +444,7 @@ exports['FunctionAnalysisTests unary function 1'] = {
       "pathInPackage": "/src/index",
       "symbol": [
         "symbol",
-        "S01m4wmnellk3"
+        "S01m4wlq4irix"
       ]
     }
   }
@@ -453,8 +453,8 @@ exports['FunctionAnalysisTests unary function 1'] = {
 exports['FunctionAnalysisTests zero-argument function 1'] = {
   "declarations": {},
   "symbols": {
-    "S01m4wn1vt837": {
-      "id": "S01m4wn1vt837",
+    "S01m4wnh67ran": {
+      "id": "S01m4wnh67ran",
       "entity": "symbol",
       "name": "\"/src/index\"",
       "flags": [
@@ -469,7 +469,7 @@ exports['FunctionAnalysisTests zero-argument function 1'] = {
       "exports": {
         "foo": [
           "symbol",
-          "S01m4wmuyncsu"
+          "S01m4wlwsnnds"
         ]
       },
       "sourceFile": [
@@ -487,8 +487,8 @@ exports['FunctionAnalysisTests zero-argument function 1'] = {
         39
       ]
     },
-    "S01m4wmuyncsu": {
-      "id": "S01m4wmuyncsu",
+    "S01m4wlwsnnds": {
+      "id": "S01m4wlwsnnds",
       "entity": "symbol",
       "name": "foo",
       "flags": [
@@ -533,7 +533,7 @@ exports['FunctionAnalysisTests zero-argument function 1'] = {
       "properties": {
         "foo": [
           "symbol",
-          "S01m4wmuyncsu"
+          "S01m4wlwsnnds"
         ]
       }
     },
@@ -579,7 +579,7 @@ exports['FunctionAnalysisTests zero-argument function 1'] = {
       "pathInPackage": "/src/index",
       "symbol": [
         "symbol",
-        "S01m4wn1vt837"
+        "S01m4wnh67ran"
       ]
     }
   }

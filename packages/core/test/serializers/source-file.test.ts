@@ -26,7 +26,7 @@ console.log(x);`,
     const generateId = createIdGenerator(checker);
 
     const sfRef = createRef<RefRegistry, 'sourceFile'>('sourceFile', generateId(sf)[1]);
-    const serialized = serializeSourceFile(sf, checker, sfRef, collector);
+    const serialized = serializeSourceFile(sf, checker, sfRef, undefined, collector);
     expect(serialized).to.deep.eq({
       entity: 'sourceFile',
       extension: 'ts',
@@ -54,7 +54,7 @@ console.log(x);`,
     const generateId = createIdGenerator(checker);
 
     const sfRef = createRef<RefRegistry, 'sourceFile'>('sourceFile', generateId(sf)[1]);
-    const serialized = serializeSourceFile(sf, checker, sfRef, collector);
+    const serialized = serializeSourceFile(sf, checker, sfRef, undefined, collector);
     expect(serialized).to.deep.eq({
       entity: 'sourceFile',
       extension: 'ts',
@@ -63,7 +63,7 @@ console.log(x);`,
       moduleName: 'temp-project/module',
       originalFileName: 'module.ts',
       pathInPackage: 'module',
-      symbol: ['symbol', 'S01m4wm725rtw'],
+      symbol: ['symbol', 'S01m4wmi9af08'],
     });
 
     const { symbols } = collector.queue.process({
@@ -71,7 +71,7 @@ console.log(x);`,
         return sym;
       },
     });
-    const { S01m4wm725rtw: fileSymbol } = symbols;
+    const { S01m4wmi9af08: fileSymbol } = symbols;
     expect(!!fileSymbol).to.eq(true);
 
     const serializedFileSymbol = serializeSymbol(
@@ -85,8 +85,8 @@ console.log(x);`,
     expect(serializedFileSymbol).to.deep.include({
       entity: 'symbol',
       flags: ['ValueModule'],
-      id: 'S01m4wm725rtw',
-      exports: { add: ['symbol', 'S01m4wlu6go0e'] },
+      id: 'S01m4wmi9af08',
+      exports: { add: ['symbol', 'S01m4wn36kf7n'] },
       location: [['sourceFile', 'F01m4wncynxfl'], 1, 1, 1, 67],
       name: '"module"',
       sourceFile: ['sourceFile', 'F01m4wncynxfl'],

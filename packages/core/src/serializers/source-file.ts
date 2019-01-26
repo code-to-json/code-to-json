@@ -67,6 +67,7 @@ export default function serializeSourceFile(
   sourceFile: ts.SourceFile,
   checker: ts.TypeChecker,
   ref: SourceFileRef,
+  _related: undefined | ts.SourceFile[],
   c: Collector,
 ): SerializedSourceFile {
   const {

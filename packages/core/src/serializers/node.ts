@@ -23,6 +23,7 @@ export default function serializeNode(
   n: ts.Node,
   checker: ts.TypeChecker,
   ref: NodeRef | DeclarationRef | SourceFileRef,
+  _related: undefined | ts.Node[],
   c: Collector,
 ): SerializedNode {
   const { flags, kind, decorators, modifiers, pos, end } = n;

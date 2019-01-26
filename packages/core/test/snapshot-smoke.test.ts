@@ -48,7 +48,7 @@ export class SimpleSnapshotSmokeTests {
       mapType: (_ref, item) => checker.typeToString(item),
       mapSymbol: (_ref: SymbolRef, item: ts.Symbol) => item.getName(),
       mapSourceFile: (ref: SourceFileRef, item: ts.SourceFile) =>
-        serializeSourceFile(item, checker, ref, collector),
+        serializeSourceFile(item, checker, ref, undefined, collector),
     });
     this.data = data;
   }
