@@ -78,6 +78,12 @@ exports['SerializationSnapshotTests Class with implied constructor 1'] = {
       "flags": [
         "Object"
       ],
+      "relatedTypes": [
+        [
+          "type",
+          "T01m4wmsic0ho"
+        ]
+      ],
       "objectFlags": [
         "Reference"
       ],
@@ -301,6 +307,12 @@ exports['SerializationSnapshotTests Class with properties and methods 1'] = {
       "id": "T01m4wnosh4qq1",
       "flags": [
         "Object"
+      ],
+      "relatedTypes": [
+        [
+          "type",
+          "T01m4wnosh4qq"
+        ]
       ],
       "objectFlags": [
         "Reference"
@@ -646,6 +658,12 @@ exports['SerializationSnapshotTests Class with properties, methods and static fu
       "flags": [
         "Object"
       ],
+      "relatedTypes": [
+        [
+          "type",
+          "T01m4wmqoo48u"
+        ]
+      ],
       "objectFlags": [
         "Reference"
       ],
@@ -957,6 +975,12 @@ exports['SerializationSnapshotTests Class with properties, methods and static fu
       "id": "T01m4wnm7v6h41",
       "flags": [
         "Object"
+      ],
+      "relatedTypes": [
+        [
+          "type",
+          "T01m4wnm7v6h4"
+        ]
       ],
       "objectFlags": [
         "Reference"
@@ -1275,6 +1299,12 @@ exports['SerializationSnapshotTests abstract class Vehicle { numWheels: number =
       "flags": [
         "Object"
       ],
+      "relatedTypes": [
+        [
+          "type",
+          "T01m4wmb5vf23"
+        ]
+      ],
       "objectFlags": [
         "Reference"
       ],
@@ -1561,6 +1591,12 @@ exports['SerializationSnapshotTests class Vehicle { numWheels: number = 4; drive
       "flags": [
         "Object"
       ],
+      "relatedTypes": [
+        [
+          "type",
+          "T01m4wlum8wjm"
+        ]
+      ],
       "objectFlags": [
         "Reference"
       ],
@@ -1581,6 +1617,12 @@ exports['SerializationSnapshotTests class Vehicle { numWheels: number = 4; drive
       "id": "T01m4wmrd30df1",
       "flags": [
         "Object"
+      ],
+      "relatedTypes": [
+        [
+          "type",
+          "T01m4wmrd30df"
+        ]
       ],
       "objectFlags": [
         "Anonymous",
@@ -1746,6 +1788,12 @@ exports['SerializationSnapshotTests class Vehicle { numWheels: number = 4; drive
       "type": [
         "type",
         "T01m4wmrd30df1"
+      ],
+      "relatedSymbols": [
+        [
+          "symbol",
+          "S01m4wmlmuayh"
+        ]
       ],
       "symbolString": "drive",
       "typeString": "() => string",

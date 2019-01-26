@@ -175,27 +175,36 @@ export function create(checker: ts.TypeChecker): Queue {
          */
         if (handleSourceFile) {
           outputInfo.processed.sourceFile += toProcess.sourceFiles.drain(
-            (ref, item) => (out.sourceFiles[refId(ref)] = handleSourceFile(ref, item)),
+            (ref, item, other) =>
+              (out.sourceFiles[refId(ref)] = handleSourceFile(ref, item, other as
+                | ts.SourceFile[]
+                | undefined)),
           ).processedCount;
         }
         if (handleDeclaration) {
           outputInfo.processed.declaration += toProcess.declarations.drain(
-            (ref, item) => (out.declarations[refId(ref)] = handleDeclaration(ref, item)),
+            (ref, item, other) =>
+              (out.declarations[refId(ref)] = handleDeclaration(ref, item, other as
+                | ts.Declaration[]
+                | undefined)),
           ).processedCount;
         }
         if (handleSymbol) {
           outputInfo.processed.symbol += toProcess.symbols.drain(
-            (ref, item) => (out.symbols[refId(ref)] = handleSymbol(ref, item)),
+            (ref, item, other) =>
+              (out.symbols[refId(ref)] = handleSymbol(ref, item, other as ts.Symbol[] | undefined)),
           ).processedCount;
         }
         if (handleNode) {
           outputInfo.processed.node += toProcess.nodes.drain(
-            (ref, item) => (out.nodes[refId(ref)] = handleNode(ref, item)),
+            (ref, item, other) =>
+              (out.nodes[refId(ref)] = handleNode(ref, item, other as ts.Node[] | undefined)),
           ).processedCount;
         }
         if (handleType) {
           outputInfo.processed.type += toProcess.types.drain(
-            (ref, item) => (out.types[refId(ref)] = handleType(ref, item)),
+            (ref, item, other) =>
+              (out.types[refId(ref)] = handleType(ref, item, other as ts.Type[] | undefined)),
           ).processedCount;
         }
 
