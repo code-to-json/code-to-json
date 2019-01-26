@@ -1,6 +1,5 @@
-import { sanitizedWalkerOutputSnapshot } from '@code-to-json/test-helpers';
 import { suite, test } from 'mocha-typescript';
-import { disableIf, fullWalkerOutput } from './helpers';
+import { disableIf, fullWalkerOutput, sanitizedSnapshot } from './helpers';
 
 @suite
 @disableIf(!!process.env.AZURE_HTTP_USER_AGENT)
@@ -10,7 +9,7 @@ export class FunctionAnalysisTests {
     const { data, cleanup, rootPath } = await fullWalkerOutput(
       `export function foo() { return 'bar'; }`,
     );
-    sanitizedWalkerOutputSnapshot(data, { replace: [[rootPath, '--ROOT PATH--']] });
+    sanitizedSnapshot(data, { replace: [[rootPath, '--ROOT PATH--']] });
     cleanup();
   }
 
@@ -19,7 +18,7 @@ export class FunctionAnalysisTests {
     const { data, rootPath, cleanup } = await fullWalkerOutput(
       `export function foo(str: string) { return str.toUpperCase(); }`,
     );
-    sanitizedWalkerOutputSnapshot(data, { replace: [[rootPath, '--ROOT PATH--']] });
+    sanitizedSnapshot(data, { replace: [[rootPath, '--ROOT PATH--']] });
     cleanup();
   }
 
@@ -34,7 +33,7 @@ export function adder(a: number|string, b: number|string): number|string {
 }
 `,
     );
-    sanitizedWalkerOutputSnapshot(data, { replace: [[rootPath, '--ROOT PATH--']] });
+    sanitizedSnapshot(data, { replace: [[rootPath, '--ROOT PATH--']] });
     cleanup();
   }
 }

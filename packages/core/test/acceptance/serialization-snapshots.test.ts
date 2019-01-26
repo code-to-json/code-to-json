@@ -1,6 +1,5 @@
-import { sanitizedWalkerOutputSnapshot } from '@code-to-json/test-helpers';
 import { suite, test } from 'mocha-typescript';
-import { disableIf, fullWalkerOutput } from './helpers';
+import { disableIf, fullWalkerOutput, sanitizedSnapshot } from './helpers';
 
 @suite
 @disableIf(!!process.env.AZURE_HTTP_USER_AGENT)
@@ -16,7 +15,7 @@ export class SerializationSnapshotTests {
     if (flags.includes('FreshLiteral')) {
       flags.pop();
     }
-    sanitizedWalkerOutputSnapshot({ types, symbols }, { replace: [[rootPath, '--ROOT PATH--']] });
+    sanitizedSnapshot({ types, symbols }, { replace: [[rootPath, '--ROOT PATH--']] });
     cleanup();
   }
 
@@ -27,7 +26,7 @@ export class SerializationSnapshotTests {
       cleanup,
     } = await fullWalkerOutput('export let x = "foo";');
     // project://packages/core/__snapshots__/serialization-snapshots.test.ts.js
-    sanitizedWalkerOutputSnapshot({ types, symbols }, { replace: [[rootPath, '--ROOT PATH--']] });
+    sanitizedSnapshot({ types, symbols }, { replace: [[rootPath, '--ROOT PATH--']] });
     cleanup();
   }
 
@@ -37,7 +36,7 @@ export class SerializationSnapshotTests {
       data: { types, symbols },
       cleanup,
     } = await fullWalkerOutput('export function add(a: number, b: string) { return a + b; }');
-    sanitizedWalkerOutputSnapshot({ types, symbols }, { replace: [[rootPath, '--ROOT PATH--']] });
+    sanitizedSnapshot({ types, symbols }, { replace: [[rootPath, '--ROOT PATH--']] });
     cleanup();
   }
 
@@ -47,7 +46,7 @@ export class SerializationSnapshotTests {
       data: { types, symbols },
       cleanup,
     } = await fullWalkerOutput('export const p: Promise<number> = Promise.resolve(4);');
-    sanitizedWalkerOutputSnapshot({ types, symbols }, { replace: [[rootPath, '--ROOT PATH--']] });
+    sanitizedSnapshot({ types, symbols }, { replace: [[rootPath, '--ROOT PATH--']] });
     cleanup();
   }
 
@@ -59,7 +58,7 @@ export class SerializationSnapshotTests {
     } = await fullWalkerOutput(
       'export default interface Foo {bar: number; readonly baz: Promise<string>}',
     );
-    sanitizedWalkerOutputSnapshot({ types, symbols }, { replace: [[rootPath, '--ROOT PATH--']] });
+    sanitizedSnapshot({ types, symbols }, { replace: [[rootPath, '--ROOT PATH--']] });
     cleanup();
   }
 
@@ -77,7 +76,7 @@ export class SerializationSnapshotTests {
   }
 }`,
     );
-    sanitizedWalkerOutputSnapshot({ types, symbols }, { replace: [[rootPath, '--ROOT PATH--']] });
+    sanitizedSnapshot({ types, symbols }, { replace: [[rootPath, '--ROOT PATH--']] });
     cleanup();
   }
 
@@ -94,7 +93,7 @@ export class SerializationSnapshotTests {
   public abstract drive(): string;
 }`,
     );
-    sanitizedWalkerOutputSnapshot({ types, symbols }, { replace: [[rootPath, '--ROOT PATH--']] });
+    sanitizedSnapshot({ types, symbols }, { replace: [[rootPath, '--ROOT PATH--']] });
     cleanup();
   }
 
@@ -105,7 +104,7 @@ export class SerializationSnapshotTests {
       data: { types, symbols },
       cleanup,
     } = await fullWalkerOutput(`export type Dict<T> = { [k: string]: T | undefined }`);
-    sanitizedWalkerOutputSnapshot({ types, symbols }, { replace: [[rootPath, '--ROOT PATH--']] });
+    sanitizedSnapshot({ types, symbols }, { replace: [[rootPath, '--ROOT PATH--']] });
     cleanup();
   }
 
@@ -124,7 +123,7 @@ export class SerializationSnapshotTests {
       const idx = flags.indexOf('UnionOfUnitTypes');
       flags.splice(idx, 1);
     }
-    sanitizedWalkerOutputSnapshot({ types, symbols }, { replace: [[rootPath, '--ROOT PATH--']] });
+    sanitizedSnapshot({ types, symbols }, { replace: [[rootPath, '--ROOT PATH--']] });
     cleanup();
   }
 
@@ -134,7 +133,7 @@ export class SerializationSnapshotTests {
       data: { types, symbols },
       cleanup,
     } = await fullWalkerOutput('export type All = typeof Promise.all;');
-    sanitizedWalkerOutputSnapshot({ types, symbols }, { replace: [[rootPath, '--ROOT PATH--']] });
+    sanitizedSnapshot({ types, symbols }, { replace: [[rootPath, '--ROOT PATH--']] });
     cleanup();
   }
 
@@ -144,7 +143,7 @@ export class SerializationSnapshotTests {
       data: { types, symbols },
       cleanup,
     } = await fullWalkerOutput(`export class SimpleClass { }`);
-    sanitizedWalkerOutputSnapshot({ types, symbols }, { replace: [[rootPath, '--ROOT PATH--']] });
+    sanitizedSnapshot({ types, symbols }, { replace: [[rootPath, '--ROOT PATH--']] });
     cleanup();
   }
 
@@ -158,7 +157,7 @@ export class SerializationSnapshotTests {
   public foo: string = 'bar';
   baz(x: number[]): number { x[0] * return Math.random(); }
 }`);
-    sanitizedWalkerOutputSnapshot({ types, symbols }, { replace: [[rootPath, '--ROOT PATH--']] });
+    sanitizedSnapshot({ types, symbols }, { replace: [[rootPath, '--ROOT PATH--']] });
     cleanup();
   }
 
@@ -172,7 +171,7 @@ export class SerializationSnapshotTests {
   public foo: string = 'bar';
   static hello(): string { return 'world'; }
 }`);
-    sanitizedWalkerOutputSnapshot({ types, symbols }, { replace: [[rootPath, '--ROOT PATH--']] });
+    sanitizedSnapshot({ types, symbols }, { replace: [[rootPath, '--ROOT PATH--']] });
     cleanup();
   }
 
@@ -190,7 +189,7 @@ export class SerializationSnapshotTests {
 
   private constructor(bar: string) { console.log(bar); }
 }`);
-    sanitizedWalkerOutputSnapshot({ types, symbols }, { replace: [[rootPath, '--ROOT PATH--']] });
+    sanitizedSnapshot({ types, symbols }, { replace: [[rootPath, '--ROOT PATH--']] });
     cleanup();
   }
 }

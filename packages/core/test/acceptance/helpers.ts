@@ -1,9 +1,12 @@
+/* eslint-disable no-param-reassign */
+
 import { CommentData } from '@code-to-json/comments';
 import { setupTestCase } from '@code-to-json/test-helpers';
 import { refId, refType } from '@code-to-json/utils';
 import { nodeHost } from '@code-to-json/utils-node';
 import { filterDict, mapDict, reduceDict } from '@code-to-json/utils-ts';
 import { expect } from 'chai';
+import * as snapshot from 'snap-shot-it';
 import { WalkerOutputData, walkProgram } from '../../src';
 import {
   SerializedSourceFile,
@@ -175,4 +178,74 @@ export async function exportedModuleSymbols(
   );
 
   return { exports, cleanup };
+}
+
+function sanitizeType(
+  type: SerializedType | undefined,
+  options: { replace: Array<[string | RegExp, string]> },
+): void {
+  const { replace } = options;
+  if (!type) {
+    return;
+  }
+  replace.forEach(rep => {
+    type.typeString = type.typeString.replace(rep[0], rep[1]);
+  });
+}
+
+function sanitizeSourceFile(
+  sourceFile: SerializedSourceFile | undefined,
+  options: { replace: Array<[string | RegExp, string]> },
+): void {
+  const { replace } = options;
+  if (!sourceFile) {
+    return;
+  }
+  replace.forEach(rep => {
+    if (sourceFile.name) {
+      sourceFile.name = sourceFile.name.replace(rep[0], rep[1]);
+    }
+  });
+}
+
+function sanitizeSymbol(
+  symbol: SerializedSymbol | undefined,
+  options: { replace: Array<[string | RegExp, string]> },
+): void {
+  const { replace } = options;
+  if (!symbol) {
+    return;
+  }
+  replace.forEach(rep => {
+    symbol.name = symbol.name.replace(rep[0], rep[1]);
+    if (symbol.symbolString) {
+      symbol.symbolString = symbol.symbolString.replace(rep[0], rep[1]);
+    }
+    if (symbol.typeString) {
+      symbol.typeString = symbol.typeString.replace(rep[0], rep[1]);
+    }
+  });
+}
+
+export function sanitizedSnapshot(
+  wo: Partial<WalkerOutputData>,
+  options: { replace: Array<[string | RegExp, string]> },
+): void {
+  const { symbols = {}, types = {}, sourceFiles = {} } = wo;
+  for (const s in symbols) {
+    if (symbols[s]) {
+      sanitizeSymbol(symbols[s], options);
+    }
+  }
+  for (const t in types) {
+    if (types[t]) {
+      sanitizeType(types[t], options);
+    }
+  }
+  for (const sf in sourceFiles) {
+    if (sourceFiles[sf]) {
+      sanitizeSourceFile(sourceFiles[sf], options);
+    }
+  }
+  snapshot(wo);
 }
