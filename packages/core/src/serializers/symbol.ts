@@ -1,7 +1,8 @@
 import { parseCommentString } from '@code-to-json/comments';
-import { forEach, refId } from '@code-to-json/utils';
+import { createRef, forEach, refId } from '@code-to-json/utils';
 import {
   decoratorsToStrings,
+  filterDict,
   flagsToString,
   getFirstIdentifier,
   isErroredType,
@@ -11,7 +12,8 @@ import {
   relevantTypeForSymbol,
 } from '@code-to-json/utils-ts';
 import * as ts from 'typescript';
-import { SymbolRef } from '../types/ref';
+import { Queue } from '../processing-queue';
+import { RefRegistry, SymbolRef } from '../types/ref';
 import { SerializedSymbol } from '../types/serialized-entities';
 import { Collector } from '../types/walker';
 import serializeLocation from './location';
@@ -51,10 +53,13 @@ type SYMBOL_DECLARATION_PROPS =
 
 function serializeSymbolDeclarationData(
   symbol: ts.Symbol,
-  decl: ts.Declaration,
+  decl: ts.Declaration | undefined,
   c: Collector,
   checker: ts.TypeChecker,
 ): Pick<SerializedSymbol, SYMBOL_DECLARATION_PROPS> {
+  if (!decl) {
+    return {};
+  }
   const { queue: q } = c;
   const serialized: Pick<SerializedSymbol, SYMBOL_DECLARATION_PROPS> = {};
   const { modifiers, decorators } = decl;
@@ -80,6 +85,36 @@ function serializeSymbolDeclarationData(
   return serialized;
 }
 
+function serializeExportedSymbols(
+  syms: ts.UnderscoreEscapedMap<ts.Symbol> | undefined,
+  q: Queue,
+): Pick<SerializedSymbol, 'exports'> {
+  if (!syms) {
+    return {};
+  }
+  const filteredExports = filterDict(syms, e => !(e.flags & ts.SymbolFlags.Prototype));
+  if (Object.keys(filteredExports).length === 0) {
+    return {};
+  }
+
+  return { exports: mapDict(filteredExports, exp => q.queue(exp, 'symbol')) };
+}
+
+function serializeMemberSymbols(
+  syms: ts.UnderscoreEscapedMap<ts.Symbol> | undefined,
+  q: Queue,
+): Pick<SerializedSymbol, 'members'> {
+  if (!syms) {
+    return {};
+  }
+
+  const filteredMembers = filterDict(syms, e => !(e.flags & ts.SymbolFlags.Constructor));
+  if (Object.keys(filteredMembers).length === 0) {
+    return {};
+  }
+  return { members: mapDict(filteredMembers, exp => q.queue(exp, 'symbol')) };
+}
+
 /**
  * Serialize a ts.Symbol to JSON
  *
@@ -92,10 +127,11 @@ export default function serializeSymbol(
   symbol: ts.Symbol,
   checker: ts.TypeChecker,
   ref: SymbolRef,
+  relatedEntities: string[] | undefined,
   c: Collector,
 ): SerializedSymbol {
   const { queue: q } = c;
-  const { flags, name, exports: exportedSymbols } = symbol;
+  const { flags, name, exports: exportedSymbols, members: memberSymbols } = symbol;
   // starting point w/ minimal (and mandatory) information
   const type = relevantTypeForSymbol(checker, symbol);
   if (type && isErroredType(type)) {
@@ -108,6 +144,11 @@ export default function serializeSymbol(
     flags: flagsToString(flags, 'symbol'),
     type: q.queue(type, 'type'),
   };
+  if (relatedEntities) {
+    serialized.relatedSymbols = relatedEntities.map(id =>
+      createRef<RefRegistry, 'symbol'>('symbol', id),
+    );
+  }
   const symbolString = checker.symbolToString(symbol);
   const typeString = type ? checker.typeToString(type) : undefined;
   if (symbolString) {
@@ -117,6 +158,12 @@ export default function serializeSymbol(
     serialized.typeString = typeString;
   }
 
+  Object.assign(
+    serialized,
+    serializeExportedSymbols(exportedSymbols, q),
+    serializeMemberSymbols(memberSymbols, q),
+  );
+
   const decl = relevantDeclarationForSymbol(symbol);
   if (decl && decl.getSourceFile().isDeclarationFile) {
     return serialized;
@@ -125,13 +172,7 @@ export default function serializeSymbol(
     return serialized;
   }
 
-  if (exportedSymbols && !!(flags & ts.SymbolFlags.ValueModule)) {
-    serialized.exports = mapDict(exportedSymbols, exp => q.queue(exp, 'symbol'));
-  }
-
-  if (decl) {
-    Object.assign(serialized, serializeSymbolDeclarationData(symbol, decl, c, checker));
-  }
+  Object.assign(serialized, serializeSymbolDeclarationData(symbol, decl, c, checker));
 
   forEach(symbol.declarations, d => {
     // Type queries are too far resolved when we just visit the symbol's type

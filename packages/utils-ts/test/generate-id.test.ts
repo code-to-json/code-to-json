@@ -72,13 +72,13 @@ export const x: string = 'foo';
   @test
   public async 'generateId for sourceFile'(): Promise<void> {
     const generateId = createIdGenerator(this.checker);
-    expect(generateId(this.sourceFile)).to.eql('F01m4wnf2ptes');
+    expect(generateId(this.sourceFile)).to.eql(['ok', 'F01m4wnf2ptes']);
   }
 
   @test
   public async 'generateId for symbol'(): Promise<void> {
     const generateId = createIdGenerator(this.checker);
-    expect(generateId(this.sourceFileSym))
+    expect(generateId(this.sourceFileSym)[1])
       .to.be.a('string')
       .and.to.have.lengthOf(13);
   }
@@ -86,7 +86,7 @@ export const x: string = 'foo';
   @test
   public async 'generateId for type'(): Promise<void> {
     const generateId = createIdGenerator(this.checker);
-    expect(generateId(this.typ))
+    expect(generateId(this.typ)[1])
       .to.be.a('string')
       .and.to.have.length.greaterThan(0);
   }
@@ -94,7 +94,7 @@ export const x: string = 'foo';
   @test
   public async 'generateId for class declaration'(): Promise<void> {
     const generateId = createIdGenerator(this.checker);
-    expect(generateId(this.classDeclaration))
+    expect(generateId(this.classDeclaration)[1])
       .to.be.a('string')
       .and.to.have.lengthOf(13);
   }
@@ -102,7 +102,7 @@ export const x: string = 'foo';
   @test
   public async 'generateId for variable declaration'(): Promise<void> {
     const generateId = createIdGenerator(this.checker);
-    expect(generateId(this.varDeclaration))
+    expect(generateId(this.varDeclaration)[1])
       .to.be.a('string')
       .and.to.have.lengthOf(13);
   }
@@ -122,11 +122,11 @@ export const x: string = 'foo';
     }
     const [memberDecl] = memberSym.declarations;
     expect(memberDecl.getText()).to.eql('public wheels: number = 4;');
-    expect(generateId(memberDecl))
+    expect(generateId(memberDecl)[1])
       .to.be.a('string')
       .and.to.have.lengthOf(13);
     ts.forEachChild(memberDecl, ch => {
-      expect(generateId(ch))
+      expect(generateId(ch)[1])
         .to.be.a('string')
         .and.to.have.lengthOf(13);
     });
@@ -174,11 +174,11 @@ export const x: string = 'foo';
   public 'stable hashing'(): void {
     const generateId = createIdGenerator(this.checker);
 
-    expect(generateId(this.classDeclaration)).to.eql('D01m4wm4wrlxj', 'class declaration');
-    expect(generateId(this.classSym)).to.eql('S01m4wnl8dld8', 'class symbol');
-    expect(generateId(this.varSym)).to.eql('S01m4wmemklaa', 'variable symbol');
-    expect(generateId(this.varDeclaration)).to.eql('D01m4wlurlp4f', 'variable declaration');
-    expect(generateId(this.typ)).to.eql('T01m4wmnuc0f2', 'type');
-    expect(generateId(this.sourceFile)).to.eql('F01m4wnf2ptes', 'source file');
+    expect(generateId(this.classDeclaration)).to.eql(['ok', 'D01m4wm4wrlxj'], 'class declaration');
+    expect(generateId(this.classSym)).to.eql(['ok', 'S01m4wnl8dld8'], 'class symbol');
+    expect(generateId(this.varSym)).to.eql(['ok', 'S01m4wmemklaa'], 'variable symbol');
+    expect(generateId(this.varDeclaration)).to.eql(['ok', 'D01m4wlurlp4f'], 'variable declaration');
+    expect(generateId(this.typ)).to.eql(['ok', 'T01m4wmnuc0f2'], 'type');
+    expect(generateId(this.sourceFile)).to.eql(['ok', 'F01m4wnf2ptes'], 'source file');
   }
 }

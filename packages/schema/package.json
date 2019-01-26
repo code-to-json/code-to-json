@@ -24,7 +24,7 @@
   "homepage": "https://github.com/mike-north/code-to-json/tree/master/packages/schema",
   "keywords": [],
   "devDependencies": {
-    "@code-to-json/test-helpers": "^0.4.4",
+    "@code-to-json/test-helpers": "^1.0.0-rc.0",
     "@types/chai": "4.1.7",
     "@types/strip-json-comments": "0.0.30",
     "chai": "4.2.0",

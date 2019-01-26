@@ -95,7 +95,7 @@
     ]
   },
   "dependencies": {
-    "@code-to-json/utils": "^0.8.4",
+    "@code-to-json/utils": "^1.0.0-rc.0",
     "@code-to-json/utils-ts": "^1.0.0-rc.1",
     "@mike-north/types": "^1.0.7",
     "pkg-up": "^2.0.0",

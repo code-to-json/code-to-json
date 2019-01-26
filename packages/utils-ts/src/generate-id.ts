@@ -77,16 +77,28 @@ function entityToString(thing: any, checker: TypeChecker): string {
   return `${thing}`;
 }
 
+export type IDableEntity = Sym | Node | Type | Declaration | SourceFile;
+
 function generateDuplicateIdErrorMessage(
   id: string,
-  existing: any,
-  thing: any,
+  existing: IDableEntity[],
+  thing: IDableEntity,
   checker: TypeChecker,
 ): string {
   return `Duplicate ID detected: ${id}
-    first: ${entityToString(existing, checker)}
+    existing: ${existing
+      .map(e => entityToString(e, checker))
+      // tslint:disable-next-line no-nested-template-literals
+      .map(s => `   ${s}`)
+      .join('\n')
+      .trim()}
     second: ${entityToString(thing, checker)}`;
 }
+
+export type NewEntityGenerateIdResult = ['ok', string];
+export type NewEntityWithRelatedGenerateIdResult = ['ok-related', string, string[]];
+
+export type GenerateIdResult = NewEntityGenerateIdResult | NewEntityWithRelatedGenerateIdResult;
 
 export interface IdGenerator {
   /**
@@ -94,7 +106,7 @@ export interface IdGenerator {
    * @param thing Entity to generate an Id for
    */
   // tslint:disable-next-line callable-types
-  (thing: Sym | Node | Type | Declaration | SourceFile): string;
+  (thing: IDableEntity): GenerateIdResult;
 }
 
 export function generateIdForSourceFileName(fileName: string): string {
@@ -104,7 +116,7 @@ export function generateIdForSourceFileName(fileName: string): string {
 }
 
 export function createIdGenerator(checker: TypeChecker): IdGenerator {
-  function generatIdForType(thing: Type): string {
+  function generateIdForType(thing: Type): string {
     const { symbol } = thing;
     const valueDeclaration: Declaration | null = symbol ? symbol.valueDeclaration : null;
     const parts: Array<string | number> = [];
@@ -149,33 +161,49 @@ export function createIdGenerator(checker: TypeChecker): IdGenerator {
     return generateHash(parts.filter(Boolean).join('-'));
   }
 
-  const USED_IDS: { [k: string]: any } = {};
-  return function generateId(thing: Sym | Node | Type): string {
-    let id: string;
+  function generateIdImpl(thing: IDableEntity): string {
+    if (isType(thing)) {
+      return `T${generateIdForType(thing)}`;
+    }
+    if (isSymbol(thing)) {
+      return `S${generateIdForSymbol(thing)}`;
+    }
+    if (isSourceFile(thing)) {
+      const { fileName, end, pos, flags } = thing;
+      return `F${generateIdForSourceFileName(fileName + pos + end + flags)}`;
+    }
+    if (isDeclaration(thing)) {
+      return `D${generateHash(thing.getText())}`;
+    }
+    if (isNode(thing)) {
+      return `N${generateHash(thing.getText())}`;
+    }
+    log(thing);
+    throw new UnreachableError(thing, 'Cannot generate an id for this object');
+  }
+
+  const USED_IDS: {
+    [k: string]: Array<[string, IDableEntity]> | undefined;
+  } = {};
+  return function generateId<T extends IDableEntity>(thing: T): GenerateIdResult {
     if (typeof thing === 'undefined' || thing === null) {
       throw new Error('Cannot generate an ID for empty values');
     }
-    if (isType(thing)) {
-      id = `T${generatIdForType(thing)}`;
-    } else if (isSymbol(thing)) {
-      id = `S${generateIdForSymbol(thing)}`;
-    } else if (isSourceFile(thing)) {
-      const { fileName, end, pos, flags } = thing;
-      id = `F${generateIdForSourceFileName(fileName + pos + end + flags)}`;
-    } else if (isDeclaration(thing)) {
-      id = `D${generateHash(thing.getText())}`;
-    } else if (isNode(thing)) {
-      id = `N${generateHash(thing.getText())}`;
-    } else {
-      log(thing);
-      throw new UnreachableError(thing, 'Cannot generate an id for this object');
+    let id: string = generateIdImpl(thing);
+
+    const existingEntities = USED_IDS[id];
+    if (!existingEntities) {
+      // first time we've seen this ID
+      USED_IDS[id] = [[id, thing]];
+      return ['ok', id];
     }
-    const existingEntity = USED_IDS[id];
-    if (existingEntity) {
-      log(generateDuplicateIdErrorMessage(id, existingEntity, thing, checker));
+
+    if (existingEntities.length > 0) {
+      // not the first time
+      log(generateDuplicateIdErrorMessage(id, existingEntities.map(e => e[1]), thing, checker));
       id = `${id}1`;
+      return ['ok-related', id, [...existingEntities.map(e => e[0])]];
     }
-    USED_IDS[id] = thing;
-    return id;
+    throw new Error('Empty array detected in ID map');
   };
 }

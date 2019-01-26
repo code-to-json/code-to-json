@@ -43,9 +43,21 @@ export interface DataCollector {
 
 export function create(): DataCollector {
   const registries = {
-    symbols: createQueue<FormatterRefRegistry, 's', SerializedSymbol>('s', s => s.id),
-    types: createQueue<FormatterRefRegistry, 't', SerializedType>('t', t => t.id),
-    files: createQueue<FormatterRefRegistry, 'f', SerializedSourceFile>('f', f => f.id),
+    symbols: createQueue<FormatterRefRegistry, 's', SerializedSymbol, string, undefined>(
+      's',
+      s => s.id,
+      id => ({ id }),
+    ),
+    types: createQueue<FormatterRefRegistry, 't', SerializedType, string, undefined>(
+      't',
+      t => t.id,
+      id => ({ id }),
+    ),
+    files: createQueue<FormatterRefRegistry, 'f', SerializedSourceFile, string, undefined>(
+      'f',
+      f => f.id,
+      id => ({ id }),
+    ),
   };
 
   return {
