@@ -6,10 +6,10 @@ interface EntityInfo<K, O> {
   processed: boolean;
 }
 
-export interface Queue<K, T extends object> {
+export interface Queue<K, T extends object, OtherInfo> {
   queue(item: T): Ref<K>;
   numUnprocessed(): number;
-  drain(cb: (ref: Ref<K>, item: T) => void): { processedCount: number };
+  drain(cb: (ref: Ref<K>, item: T, ohterInfo?: OtherInfo) => void): { processedCount: number };
   drainUntilEmpty(cb: (ref: Ref<K>, item: T) => void): { processedCount: number };
 }
 
@@ -23,7 +23,7 @@ export function createQueue<
   k: K,
   getIdInfo: (t: T) => IDInfo,
   extractId: (info: IDInfo) => { id: string; otherInfo?: OtherInfo } = id => ({ id: id as any }),
-): Queue<K, T> {
+): Queue<K, T, OtherInfo> {
   const itemToRef = new Map<T, EntityInfo<K, OtherInfo>>();
   return {
     queue(item: T): Ref<K> {
