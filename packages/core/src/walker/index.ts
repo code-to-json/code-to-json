@@ -16,11 +16,16 @@ import { WalkerOptions } from './options';
 function postProcessSymbol({ symbols }: WalkerOutputData, sym: SerializedSymbol): void {
   if (sym.relatedSymbols) {
     sym.relatedSymbols.forEach(relatedRef => {
-      const related = symbols[refId(relatedRef)];
-      if (related && related.relatedSymbols) {
-        const tracked = related.relatedSymbols.map(ref => refId(ref)).includes(sym.id);
-        if (!tracked) {
-          related.relatedSymbols.push(createRef<RefRegistry, 'symbol'>('symbol', sym.id));
+      const related: SerializedSymbol | undefined = symbols[refId(relatedRef)];
+      if (related) {
+        const selfRef = createRef<RefRegistry, 'symbol'>('symbol', sym.id);
+        if (!related.relatedSymbols) {
+          related.relatedSymbols = [selfRef];
+        } else {
+          const tracked = related.relatedSymbols.map(ref => refId(ref)).includes(sym.id);
+          if (!tracked) {
+            related.relatedSymbols.push();
+          }
         }
       }
     });
@@ -30,11 +35,16 @@ function postProcessSymbol({ symbols }: WalkerOutputData, sym: SerializedSymbol)
 function postProcessType({ types }: WalkerOutputData, type: SerializedType): void {
   if (type.relatedTypes) {
     type.relatedTypes.forEach(relatedRef => {
-      const related = types[refId(relatedRef)];
-      if (related && related.relatedTypes) {
-        const tracked = related.relatedTypes.map(ref => refId(ref)).includes(type.id);
-        if (!tracked) {
-          related.relatedTypes.push(createRef<RefRegistry, 'type'>('type', type.id));
+      const related: SerializedType | undefined = types[refId(relatedRef)];
+      if (related) {
+        const selfRef = createRef<RefRegistry, 'type'>('type', type.id);
+        if (!related.relatedTypes) {
+          related.relatedTypes = [selfRef];
+        } else {
+          const tracked = related.relatedTypes.map(ref => refId(ref)).includes(type.id);
+          if (!tracked) {
+            related.relatedTypes.push();
+          }
         }
       }
     });
