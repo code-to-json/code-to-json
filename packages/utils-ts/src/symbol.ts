@@ -67,8 +67,25 @@ export function relevantTypeForSymbol(
   if (symbol.flags & ts.SymbolFlags.Accessor) {
     return checker.getTypeOfSymbolAtLocation(symbol, valueDeclaration);
   }
-  if (symbol.flags & ts.SymbolFlags.Alias) {
-    return checker.getDeclaredTypeOfSymbol(symbol);
+  if (symbol.flags & ts.SymbolFlags.TypeAlias) {
+    const declarations = symbol.getDeclarations();
+    const firstDeclaration = declarations && declarations.length > 0 ? declarations[0] : undefined;
+    if (!firstDeclaration) {
+      throw new Error('Type alias had no declarations');
+    }
+    if (!ts.isTypeAliasDeclaration(firstDeclaration)) {
+      throw new Error('First type alias declaration was not a TypeAliasDeclaration');
+    }
+    const { type: typeNode } = firstDeclaration;
+    if (typeNode.kind & ts.SyntaxKind.TypeAliasDeclaration) {
+      const locType = checker.getTypeAtLocation(firstDeclaration);
+      if (!isErroredType(locType)) {
+        return locType;
+      }
+      // TODO: replace this with something more meaningful
+      return (checker as any).getAnyType();
+    }
+    return checker.getTypeFromTypeNode(typeNode);
   }
   if (symbol.flags & ts.SymbolFlags.TypeParameter) {
     return checker.getDeclaredTypeOfSymbol(symbol);
