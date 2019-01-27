@@ -52,6 +52,16 @@ export default class WalkerConfig {
   }
 
   // eslint-disable-next-line class-methods-use-this
+  public shouldSerializeType(_checker: ts.TypeChecker, _type: ts.Type, symbol: ts.Symbol): boolean {
+    const { valueDeclaration } = symbol;
+    if (!valueDeclaration) {
+      return true;
+    }
+    const sf = symbol.valueDeclaration.getSourceFile();
+    return sf.fileName.replace(/[/\\//]+/g, '').indexOf('typescriptlib') < 0;
+  }
+
+  // eslint-disable-next-line class-methods-use-this
   public shouldSerializeSourceFile(sf: ts.SourceFile): boolean {
     return !sf.isDeclarationFile;
   }

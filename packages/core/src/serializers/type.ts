@@ -238,11 +238,11 @@ export default function serializeType(
   if (type.isUnionOrIntersection()) {
     Object.assign(serialized, serializeUnionOrIntersectionType(type, checker, c));
   }
+  if (!symbol || !c.cfg.shouldSerializeType(checker, type, symbol)) {
+    return serialized;
+  }
   if (type.isTypeParameter()) {
     Object.assign(serialized, serializeTypeParameterType(type, checker, c));
-  }
-  if (!symbol) {
-    return serialized;
   }
   if (isIndexType(type)) {
     Object.assign(serialized, serializeIndexType(type, checker, c));

@@ -192,6 +192,11 @@ function sanitizeSourceFile(
     if (sourceFile.name) {
       sourceFile.name = sourceFile.name.replace(rep[0], rep[1]);
     }
+    if (sourceFile.originalFileName) {
+      sourceFile.originalFileName = sourceFile.originalFileName.replace(rep[0], rep[1]);
+    }
+    sourceFile.moduleName = sourceFile.moduleName.replace(rep[0], rep[1]);
+    sourceFile.pathInPackage = sourceFile.pathInPackage.replace(rep[0], rep[1]);
   });
 }
 
