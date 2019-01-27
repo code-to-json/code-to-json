@@ -1,13 +1,15 @@
-import { suite, test } from 'mocha-typescript';
-import { disableIf, fullWalkerOutput, sanitizedSnapshot } from './helpers';
+import { slow, suite, test, timeout } from 'mocha-typescript';
+import * as snapshot from 'snap-shot-it';
+import { disableIf, fullWalkerOutput } from './helpers';
 
 @suite
+@slow(800)
+@timeout(1200)
 @disableIf(!!process.env.AZURE_HTTP_USER_AGENT)
 export class SerializationSnapshotTests {
   @test public async 'const x = "foo"'() {
     const {
       data: { types, symbols },
-      rootPath,
       cleanup,
     } = await fullWalkerOutput('export const x = "foo";');
     // Fix due to flag changes in TS 3.0 -> TS 3.2
@@ -15,56 +17,51 @@ export class SerializationSnapshotTests {
     if (flags.includes('FreshLiteral')) {
       flags.pop();
     }
-    sanitizedSnapshot({ types, symbols }, { replace: [[rootPath, '--ROOT PATH--']] });
+    snapshot({ types, symbols });
     cleanup();
   }
 
   @test public async 'let x = "foo"'() {
     const {
-      rootPath,
       data: { types, symbols },
       cleanup,
     } = await fullWalkerOutput('export let x = "foo";');
     // project://packages/core/__snapshots__/serialization-snapshots.test.ts.js
-    sanitizedSnapshot({ types, symbols }, { replace: [[rootPath, '--ROOT PATH--']] });
+    snapshot({ types, symbols });
     cleanup();
   }
 
   @test public async 'function add(a: number, b: string) { return a + b; }'() {
     const {
-      rootPath,
       data: { types, symbols },
       cleanup,
     } = await fullWalkerOutput('export function add(a: number, b: string) { return a + b; }');
-    sanitizedSnapshot({ types, symbols }, { replace: [[rootPath, '--ROOT PATH--']] });
+    snapshot({ types, symbols });
     cleanup();
   }
 
   @test public async 'const p: Promise<number> = Promise.resolve(4);'() {
     const {
-      rootPath,
       data: { types, symbols },
       cleanup,
     } = await fullWalkerOutput('export const p: Promise<number> = Promise.resolve(4);');
-    sanitizedSnapshot({ types, symbols }, { replace: [[rootPath, '--ROOT PATH--']] });
+    snapshot({ types, symbols });
     cleanup();
   }
 
   @test public async 'interface Foo {bar: number; readonly baz: Promise<string>}'() {
     const {
-      rootPath,
       data: { types, symbols },
       cleanup,
     } = await fullWalkerOutput(
       'export default interface Foo {bar: number; readonly baz: Promise<string>}',
     );
-    sanitizedSnapshot({ types, symbols }, { replace: [[rootPath, '--ROOT PATH--']] });
+    snapshot({ types, symbols });
     cleanup();
   }
 
   @test public async 'class Vehicle { numWheels: number = 4; drive() { return "vroom";} }'() {
     const {
-      rootPath,
       data: { types, symbols },
       cleanup,
     } = await fullWalkerOutput(
@@ -76,14 +73,13 @@ export class SerializationSnapshotTests {
   }
 }`,
     );
-    sanitizedSnapshot({ types, symbols }, { replace: [[rootPath, '--ROOT PATH--']] });
+    snapshot({ types, symbols });
     cleanup();
   }
 
   @test
   public async 'abstract class Vehicle { numWheels: number = 4; abstract drive(): string; }'() {
     const {
-      rootPath,
       data: { types, symbols },
       cleanup,
     } = await fullWalkerOutput(
@@ -93,25 +89,23 @@ export class SerializationSnapshotTests {
   public abstract drive(): string;
 }`,
     );
-    sanitizedSnapshot({ types, symbols }, { replace: [[rootPath, '--ROOT PATH--']] });
+    snapshot({ types, symbols });
     cleanup();
   }
 
   @test
   public async 'type Dict<T> = { [k: string]: T | undefined }'() {
     const {
-      rootPath,
       data: { types, symbols },
       cleanup,
     } = await fullWalkerOutput(`export type Dict<T> = { [k: string]: T | undefined }`);
-    sanitizedSnapshot({ types, symbols }, { replace: [[rootPath, '--ROOT PATH--']] });
+    snapshot({ types, symbols });
     cleanup();
   }
 
   @test
   public async 'type Dict<T extends "foo"|"bar"|"baz"> = { [k: string]: T | undefined }'() {
     const {
-      rootPath,
       data: { types, symbols },
       cleanup,
     } = await fullWalkerOutput(
@@ -123,33 +117,40 @@ export class SerializationSnapshotTests {
       const idx = flags.indexOf('UnionOfUnitTypes');
       flags.splice(idx, 1);
     }
-    sanitizedSnapshot({ types, symbols }, { replace: [[rootPath, '--ROOT PATH--']] });
+    snapshot({ types, symbols });
     cleanup();
   }
 
-  @test.skip public async 'type All = typeof Promise.all'() {
+  @test public async 'type StringOrNumber = string | number'() {
     const {
-      rootPath,
       data: { types, symbols },
       cleanup,
-    } = await fullWalkerOutput('export type All = typeof Promise.all;');
-    sanitizedSnapshot({ types, symbols }, { replace: [[rootPath, '--ROOT PATH--']] });
+    } = await fullWalkerOutput('export type StringOrNumber = string | number;');
+    snapshot({ types, symbols });
+    cleanup();
+  }
+
+  @test.skip public async 'type Split = typeof String.split'() {
+    const {
+      data: { types, symbols },
+      cleanup,
+    } = await fullWalkerOutput('export type Split = typeof String.split;');
+    snapshot({ types, symbols });
+
     cleanup();
   }
 
   @test public async 'Class with implied constructor'() {
     const {
-      rootPath,
       data: { types, symbols },
       cleanup,
     } = await fullWalkerOutput(`export class SimpleClass { }`);
-    sanitizedSnapshot({ types, symbols }, { replace: [[rootPath, '--ROOT PATH--']] });
+    snapshot({ types, symbols });
     cleanup();
   }
 
   @test public async 'Class with properties and methods'() {
     const {
-      rootPath,
       data: { types, symbols },
       cleanup,
     } = await fullWalkerOutput(`export class SimpleClass {
@@ -157,13 +158,12 @@ export class SerializationSnapshotTests {
   public foo: string = 'bar';
   baz(x: number[]): number { x[0] * return Math.random(); }
 }`);
-    sanitizedSnapshot({ types, symbols }, { replace: [[rootPath, '--ROOT PATH--']] });
+    snapshot({ types, symbols });
     cleanup();
   }
 
   @test public async 'Class with properties, methods and static functions'() {
     const {
-      rootPath,
       data: { types, symbols },
       cleanup,
     } = await fullWalkerOutput(`export class SimpleClass {
@@ -171,14 +171,13 @@ export class SerializationSnapshotTests {
   public foo: string = 'bar';
   static hello(): string { return 'world'; }
 }`);
-    sanitizedSnapshot({ types, symbols }, { replace: [[rootPath, '--ROOT PATH--']] });
+    snapshot({ types, symbols });
     cleanup();
   }
 
   @test
   public async 'Class with properties, methods and static functions using a variety of access modifier keywords'() {
     const {
-      rootPath,
       data: { types, symbols },
       cleanup,
     } = await fullWalkerOutput(`export abstract class SimpleClass {
@@ -189,7 +188,7 @@ export class SerializationSnapshotTests {
 
   private constructor(bar: string) { console.log(bar); }
 }`);
-    sanitizedSnapshot({ types, symbols }, { replace: [[rootPath, '--ROOT PATH--']] });
+    snapshot({ types, symbols });
     cleanup();
   }
 }

@@ -1,9 +1,11 @@
 import { expect } from 'chai';
-import { suite, test } from 'mocha-typescript';
+import { slow, suite, test, timeout } from 'mocha-typescript';
 import { exportedModuleSymbols } from './helpers';
 
 @suite
-export class TypeSerialiationBoundaryTests {
+@slow(800)
+@timeout(1200)
+export class VariableSerializationTests {
   @test
   public async 'export const x: number = 1;'(): Promise<void> {
     const { exports, cleanup } = await exportedModuleSymbols('export const x: number = 1;');
@@ -130,24 +132,6 @@ export class TypeSerialiationBoundaryTests {
           libName: 'lib.es5.d.ts',
           typeString: 'Pick<Promise<number>, "then">',
           objectFlags: ['Mapped', 'Instantiated'],
-        },
-      },
-    });
-    cleanup();
-  }
-
-  @test
-  public async 'non-exported interface'(): Promise<void> {
-    const { exports, cleanup } = await exportedModuleSymbols(`interface Foo { num: number; }
-
-export const x: Foo = { num: 4 };`);
-    expect(exports).to.deep.eq({
-      x: {
-        name: 'x',
-        type: {
-          flags: ['Object'],
-          objectFlags: ['Interface'],
-          typeString: 'Foo',
         },
       },
     });

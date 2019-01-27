@@ -1,11 +1,13 @@
 // tslint:disable no-identical-functions
 
 import { expect } from 'chai';
-import { suite, test } from 'mocha-typescript';
+import { slow, suite, test, timeout } from 'mocha-typescript';
 import { exportedModuleSymbols } from './helpers';
 
 @suite
-export class OtherAcceptanceTests {
+@slow(800)
+@timeout(1200)
+export class TypeSerializationTests {
   @test
   public async 'type queries'(): Promise<void> {
     const { exports: allExports, cleanup } = await exportedModuleSymbols(
@@ -19,6 +21,24 @@ export let x: typeof rectangle1;`,
     expect(x.type!.typeString).to.eql('{ width: number; height: number; }');
     expect(x.type!.flags).includes('Object');
 
+    cleanup();
+  }
+
+  @test
+  public async 'non-exported interface'(): Promise<void> {
+    const { exports, cleanup } = await exportedModuleSymbols(`interface Foo { num: number; }
+
+export const x: Foo = { num: 4 };`);
+    expect(exports).to.deep.eq({
+      x: {
+        name: 'x',
+        type: {
+          flags: ['Object'],
+          objectFlags: ['Interface'],
+          typeString: 'Foo',
+        },
+      },
+    });
     cleanup();
   }
 }

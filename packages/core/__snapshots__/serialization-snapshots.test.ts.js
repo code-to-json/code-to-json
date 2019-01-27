@@ -1,7 +1,7 @@
 exports['SerializationSnapshotTests Class with implied constructor 1'] = {
   "types": {
     "T01m4wn8d6tuf": {
-      "typeString": "typeof import(\"/src/index\")",
+      "typeString": "typeof import(\"--ROOT PATH--/src/index\")",
       "entity": "type",
       "id": "T01m4wn8d6tuf",
       "flags": [
@@ -109,7 +109,7 @@ exports['SerializationSnapshotTests Class with implied constructor 1'] = {
     "S01m4wnncslv4": {
       "id": "S01m4wnncslv4",
       "entity": "symbol",
-      "name": "\"/src/index\"",
+      "name": "\"--ROOT PATH--/src/index\"",
       "flags": [
         "ValueModule"
       ],
@@ -177,7 +177,7 @@ exports['SerializationSnapshotTests Class with implied constructor 1'] = {
 exports['SerializationSnapshotTests Class with properties and methods 1'] = {
   "types": {
     "T01m4wnvl28mi": {
-      "typeString": "typeof import(\"/src/index\")",
+      "typeString": "typeof import(\"--ROOT PATH--/src/index\")",
       "entity": "type",
       "id": "T01m4wnvl28mi",
       "flags": [
@@ -2123,7 +2123,7 @@ exports['SerializationSnapshotTests Class with properties and methods 1'] = {
     "S01m4wmbiopcd": {
       "id": "S01m4wmbiopcd",
       "entity": "symbol",
-      "name": "\"/src/index\"",
+      "name": "\"--ROOT PATH--/src/index\"",
       "flags": [
         "ValueModule"
       ],
@@ -3720,7 +3720,7 @@ exports['SerializationSnapshotTests Class with properties and methods 1'] = {
 exports['SerializationSnapshotTests Class with properties, methods and static functions 1'] = {
   "types": {
     "T01m4wn9ycwlm": {
-      "typeString": "typeof import(\"/src/index\")",
+      "typeString": "typeof import(\"--ROOT PATH--/src/index\")",
       "entity": "type",
       "id": "T01m4wn9ycwlm",
       "flags": [
@@ -3874,7 +3874,7 @@ exports['SerializationSnapshotTests Class with properties, methods and static fu
     "S01m4wnmuklwd": {
       "id": "S01m4wnmuklwd",
       "entity": "symbol",
-      "name": "\"/src/index\"",
+      "name": "\"--ROOT PATH--/src/index\"",
       "flags": [
         "ValueModule"
       ],
@@ -4044,7 +4044,7 @@ exports['SerializationSnapshotTests Class with properties, methods and static fu
 exports['SerializationSnapshotTests Class with properties, methods and static functions using a variety of access modifier keywords 1'] = {
   "types": {
     "T01m4wmks8qk5": {
-      "typeString": "typeof import(\"/src/index\")",
+      "typeString": "typeof import(\"--ROOT PATH--/src/index\")",
       "entity": "type",
       "id": "T01m4wmks8qk5",
       "flags": [
@@ -4198,7 +4198,7 @@ exports['SerializationSnapshotTests Class with properties, methods and static fu
     "S01m4wnh3krqf": {
       "id": "S01m4wnh3krqf",
       "entity": "symbol",
-      "name": "\"/src/index\"",
+      "name": "\"--ROOT PATH--/src/index\"",
       "flags": [
         "ValueModule"
       ],
@@ -4371,7 +4371,7 @@ exports['SerializationSnapshotTests Class with properties, methods and static fu
 exports['SerializationSnapshotTests abstract class Vehicle { numWheels: number = 4; abstract drive(): string; } 1'] = {
   "types": {
     "T01m4wm3y7xwt": {
-      "typeString": "typeof import(\"/src/index\")",
+      "typeString": "typeof import(\"--ROOT PATH--/src/index\")",
       "entity": "type",
       "id": "T01m4wm3y7xwt",
       "flags": [
@@ -4527,7 +4527,7 @@ exports['SerializationSnapshotTests abstract class Vehicle { numWheels: number =
     "S01m4wnatn4ip": {
       "id": "S01m4wnatn4ip",
       "entity": "symbol",
-      "name": "\"/src/index\"",
+      "name": "\"--ROOT PATH--/src/index\"",
       "flags": [
         "ValueModule"
       ],
@@ -4669,7 +4669,7 @@ exports['SerializationSnapshotTests abstract class Vehicle { numWheels: number =
 exports['SerializationSnapshotTests class Vehicle { numWheels: number = 4; drive() { return "vroom";} } 1'] = {
   "types": {
     "T01m4wn7v0f21": {
-      "typeString": "typeof import(\"/src/index\")",
+      "typeString": "typeof import(\"--ROOT PATH--/src/index\")",
       "entity": "type",
       "id": "T01m4wn7v0f21",
       "flags": [
@@ -4858,7 +4858,7 @@ exports['SerializationSnapshotTests class Vehicle { numWheels: number = 4; drive
     "S01m4wnvbn9lk": {
       "id": "S01m4wnvbn9lk",
       "entity": "symbol",
-      "name": "\"/src/index\"",
+      "name": "\"--ROOT PATH--/src/index\"",
       "flags": [
         "ValueModule"
       ],
@@ -5042,7 +5042,7 @@ exports['SerializationSnapshotTests class Vehicle { numWheels: number = 4; drive
 exports['SerializationSnapshotTests const p: Promise<number> = Promise.resolve(4); 1'] = {
   "types": {
     "T01m4wmqijhej": {
-      "typeString": "typeof import(\"/src/index\")",
+      "typeString": "typeof import(\"--ROOT PATH--/src/index\")",
       "entity": "type",
       "id": "T01m4wmqijhej",
       "flags": [
@@ -5905,7 +5905,7 @@ exports['SerializationSnapshotTests const p: Promise<number> = Promise.resolve(4
     "S01m4wluapsp4": {
       "id": "S01m4wluapsp4",
       "entity": "symbol",
-      "name": "\"/src/index\"",
+      "name": "\"--ROOT PATH--/src/index\"",
       "flags": [
         "ValueModule"
       ],
@@ -6198,7 +6198,7 @@ exports['SerializationSnapshotTests const p: Promise<number> = Promise.resolve(4
 exports['SerializationSnapshotTests const x = "foo" 1'] = {
   "types": {
     "T01m4wnq6yv31": {
-      "typeString": "typeof import(\"/src/index\")",
+      "typeString": "typeof import(\"--ROOT PATH--/src/index\")",
       "entity": "type",
       "id": "T01m4wnq6yv31",
       "flags": [
@@ -6227,7 +6227,7 @@ exports['SerializationSnapshotTests const x = "foo" 1'] = {
     "S01m4wm6iq0tu": {
       "id": "S01m4wm6iq0tu",
       "entity": "symbol",
-      "name": "\"/src/index\"",
+      "name": "\"--ROOT PATH--/src/index\"",
       "flags": [
         "ValueModule"
       ],
@@ -6292,7 +6292,7 @@ exports['SerializationSnapshotTests const x = "foo" 1'] = {
 exports['SerializationSnapshotTests function add(a: number, b: string) { return a + b; } 1'] = {
   "types": {
     "T01m4wms4srob": {
-      "typeString": "typeof import(\"/src/index\")",
+      "typeString": "typeof import(\"--ROOT PATH--/src/index\")",
       "entity": "type",
       "id": "T01m4wms4srob",
       "flags": [
@@ -6361,7 +6361,7 @@ exports['SerializationSnapshotTests function add(a: number, b: string) { return 
     "S01m4wmoyq991": {
       "id": "S01m4wmoyq991",
       "entity": "symbol",
-      "name": "\"/src/index\"",
+      "name": "\"--ROOT PATH--/src/index\"",
       "flags": [
         "ValueModule"
       ],
@@ -6485,7 +6485,7 @@ exports['SerializationSnapshotTests function add(a: number, b: string) { return 
 exports['SerializationSnapshotTests interface Foo {bar: number; readonly baz: Promise<string>} 1'] = {
   "types": {
     "T01m4wm96bh7s": {
-      "typeString": "typeof import(\"/src/index\")",
+      "typeString": "typeof import(\"--ROOT PATH--/src/index\")",
       "entity": "type",
       "id": "T01m4wm96bh7s",
       "flags": [
@@ -7372,7 +7372,7 @@ exports['SerializationSnapshotTests interface Foo {bar: number; readonly baz: Pr
     "S01m4wmxaqaka": {
       "id": "S01m4wmxaqaka",
       "entity": "symbol",
-      "name": "\"/src/index\"",
+      "name": "\"--ROOT PATH--/src/index\"",
       "flags": [
         "ValueModule"
       ],
@@ -7720,7 +7720,7 @@ exports['SerializationSnapshotTests interface Foo {bar: number; readonly baz: Pr
 exports['SerializationSnapshotTests let x = "foo" 1'] = {
   "types": {
     "T01m4wlqrgfql": {
-      "typeString": "typeof import(\"/src/index\")",
+      "typeString": "typeof import(\"--ROOT PATH--/src/index\")",
       "entity": "type",
       "id": "T01m4wlqrgfql",
       "flags": [
@@ -7750,7 +7750,7 @@ exports['SerializationSnapshotTests let x = "foo" 1'] = {
     "S01m4wlsp5n6j": {
       "id": "S01m4wlsp5n6j",
       "entity": "symbol",
-      "name": "\"/src/index\"",
+      "name": "\"--ROOT PATH--/src/index\"",
       "flags": [
         "ValueModule"
       ],
@@ -7815,7 +7815,7 @@ exports['SerializationSnapshotTests let x = "foo" 1'] = {
 exports['SerializationSnapshotTests type Dict<T extends "foo"|"bar"|"baz"> = { [k: string]: T | undefined } 1'] = {
   "types": {
     "T01m4wmqcfkr3": {
-      "typeString": "typeof import(\"/src/index\")",
+      "typeString": "typeof import(\"--ROOT PATH--/src/index\")",
       "entity": "type",
       "id": "T01m4wmqcfkr3",
       "flags": [
@@ -7913,7 +7913,7 @@ exports['SerializationSnapshotTests type Dict<T extends "foo"|"bar"|"baz"> = { [
     "S01m4wmxl83ne": {
       "id": "S01m4wmxl83ne",
       "entity": "symbol",
-      "name": "\"/src/index\"",
+      "name": "\"--ROOT PATH--/src/index\"",
       "flags": [
         "ValueModule"
       ],
@@ -7981,7 +7981,7 @@ exports['SerializationSnapshotTests type Dict<T extends "foo"|"bar"|"baz"> = { [
 exports['SerializationSnapshotTests type Dict<T> = { [k: string]: T | undefined } 1'] = {
   "types": {
     "T01m4wlwowu0v": {
-      "typeString": "typeof import(\"/src/index\")",
+      "typeString": "typeof import(\"--ROOT PATH--/src/index\")",
       "entity": "type",
       "id": "T01m4wlwowu0v",
       "flags": [
@@ -8025,7 +8025,7 @@ exports['SerializationSnapshotTests type Dict<T> = { [k: string]: T | undefined 
     "S01m4wn2ca0ld": {
       "id": "S01m4wn2ca0ld",
       "entity": "symbol",
-      "name": "\"/src/index\"",
+      "name": "\"--ROOT PATH--/src/index\"",
       "flags": [
         "ValueModule"
       ],
@@ -8085,6 +8085,125 @@ exports['SerializationSnapshotTests type Dict<T> = { [k: string]: T | undefined 
         1,
         1,
         52
+      ]
+    }
+  }
+}
+
+exports['SerializationSnapshotTests type StringOrNumber = string | number 1'] = {
+  "types": {
+    "T01m4wmdr7sto": {
+      "typeString": "typeof import(\"--ROOT PATH--/src/index\")",
+      "entity": "type",
+      "id": "T01m4wmdr7sto",
+      "flags": [
+        "Object"
+      ],
+      "objectFlags": [
+        "Anonymous"
+      ]
+    },
+    "T01m4wntf4uds": {
+      "typeString": "StringOrNumber",
+      "entity": "type",
+      "id": "T01m4wntf4uds",
+      "flags": [
+        "Union"
+      ],
+      "types": [
+        [
+          "type",
+          "T01m4wmr2p2yx"
+        ],
+        [
+          "type",
+          "T01m4wmr2p302"
+        ]
+      ]
+    },
+    "T01m4wmr2p2yx": {
+      "typeString": "string",
+      "entity": "type",
+      "id": "T01m4wmr2p2yx",
+      "flags": [
+        "String"
+      ],
+      "primitive": true
+    },
+    "T01m4wmr2p302": {
+      "typeString": "number",
+      "entity": "type",
+      "id": "T01m4wmr2p302",
+      "flags": [
+        "Number"
+      ],
+      "primitive": true
+    }
+  },
+  "symbols": {
+    "S01m4wme087lm": {
+      "id": "S01m4wme087lm",
+      "entity": "symbol",
+      "name": "\"--ROOT PATH--/src/index\"",
+      "flags": [
+        "ValueModule"
+      ],
+      "type": [
+        "type",
+        "T01m4wmdr7sto"
+      ],
+      "symbolString": "\"--ROOT PATH--/src/index\"",
+      "typeString": "typeof import(\"--ROOT PATH--/src/index\")",
+      "exports": {
+        "StringOrNumber": [
+          "symbol",
+          "S01m4wmvkf0sl"
+        ]
+      },
+      "sourceFile": [
+        "sourceFile",
+        "F01m4wnwkyjce"
+      ],
+      "location": [
+        [
+          "sourceFile",
+          "F01m4wnwkyjce"
+        ],
+        1,
+        1,
+        1,
+        45
+      ]
+    },
+    "S01m4wmvkf0sl": {
+      "id": "S01m4wmvkf0sl",
+      "entity": "symbol",
+      "name": "StringOrNumber",
+      "flags": [
+        "TypeAlias"
+      ],
+      "type": [
+        "type",
+        "T01m4wntf4uds"
+      ],
+      "symbolString": "StringOrNumber",
+      "typeString": "StringOrNumber",
+      "modifiers": [
+        "export"
+      ],
+      "sourceFile": [
+        "sourceFile",
+        "F01m4wnwkyjce"
+      ],
+      "location": [
+        [
+          "sourceFile",
+          "F01m4wnwkyjce"
+        ],
+        1,
+        1,
+        1,
+        45
       ]
     }
   }

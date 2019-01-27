@@ -4,7 +4,7 @@ exports['FunctionAnalysisTests function with multiple signatures 1'] = {
     "S01m4wmbco9j6": {
       "id": "S01m4wmbco9j6",
       "entity": "symbol",
-      "name": "\"/src/index\"",
+      "name": "\"--ROOT PATH--/src/index\"",
       "flags": [
         "ValueModule"
       ],
@@ -181,7 +181,7 @@ exports['FunctionAnalysisTests function with multiple signatures 1'] = {
   },
   "types": {
     "T01m4wlsbev3t": {
-      "typeString": "typeof import(\"/src/index\")",
+      "typeString": "typeof import(\"--ROOT PATH--/src/index\")",
       "entity": "type",
       "id": "T01m4wlsbev3t",
       "flags": [
@@ -268,14 +268,260 @@ exports['FunctionAnalysisTests function with multiple signatures 1'] = {
     "F01m4wmlw4cia": {
       "id": "F01m4wmlw4cia",
       "entity": "sourceFile",
-      "originalFileName": "/src/index.ts",
+      "originalFileName": "/var/folders/7s/84ppds111l51yqv0rv35lgk80000gn/T/tmp-727683ql879gzHVTD/src/index.ts",
       "isDeclarationFile": false,
-      "moduleName": "/src/index",
+      "moduleName": "/var/folders/7s/84ppds111l51yqv0rv35lgk80000gn/T/tmp-727683ql879gzHVTD/src/index",
       "extension": "ts",
-      "pathInPackage": "/src/index",
+      "pathInPackage": "/var/folders/7s/84ppds111l51yqv0rv35lgk80000gn/T/tmp-727683ql879gzHVTD/src/index",
       "symbol": [
         "symbol",
         "S01m4wmbco9j6"
+      ]
+    }
+  }
+}
+
+exports['FunctionAnalysisTests function with type parameters 1'] = {
+  "declarations": {},
+  "symbols": {
+    "S01m4wltnlq5r": {
+      "id": "S01m4wltnlq5r",
+      "entity": "symbol",
+      "name": "\"--ROOT PATH--/src/index\"",
+      "flags": [
+        "ValueModule"
+      ],
+      "type": [
+        "type",
+        "T01m4wn2dvwh3"
+      ],
+      "symbolString": "\"--ROOT PATH--/src/index\"",
+      "typeString": "typeof import(\"--ROOT PATH--/src/index\")",
+      "exports": {
+        "adder": [
+          "symbol",
+          "S01m4wlxxjjxx"
+        ]
+      },
+      "sourceFile": [
+        "sourceFile",
+        "F01m4wnwkymfg"
+      ],
+      "location": [
+        [
+          "sourceFile",
+          "F01m4wnwkymfg"
+        ],
+        2,
+        0,
+        5,
+        0
+      ]
+    },
+    "S01m4wlxxjjxx": {
+      "id": "S01m4wlxxjjxx",
+      "entity": "symbol",
+      "name": "adder",
+      "flags": [
+        "Function"
+      ],
+      "type": [
+        "type",
+        "T01m4wn8rorj9"
+      ],
+      "symbolString": "adder",
+      "typeString": "<T extends string | number>(a: T, b: T) => T",
+      "modifiers": [
+        "export"
+      ],
+      "sourceFile": [
+        "sourceFile",
+        "F01m4wnwkymfg"
+      ],
+      "location": [
+        [
+          "sourceFile",
+          "F01m4wnwkymfg"
+        ],
+        2,
+        0,
+        4,
+        1
+      ]
+    },
+    "S01m4wndon82a": {
+      "id": "S01m4wndon82a",
+      "entity": "symbol",
+      "name": "a",
+      "flags": [
+        "FunctionScopedVariable"
+      ],
+      "type": [
+        "type",
+        "T01m4wlxxxspc"
+      ],
+      "symbolString": "a",
+      "typeString": "T",
+      "sourceFile": [
+        "sourceFile",
+        "F01m4wnwkymfg"
+      ],
+      "location": [
+        [
+          "sourceFile",
+          "F01m4wnwkymfg"
+        ],
+        2,
+        48,
+        2,
+        51
+      ]
+    },
+    "S01m4wne8qn47": {
+      "id": "S01m4wne8qn47",
+      "entity": "symbol",
+      "name": "b",
+      "flags": [
+        "FunctionScopedVariable"
+      ],
+      "type": [
+        "type",
+        "T01m4wlxxxspc"
+      ],
+      "symbolString": "b",
+      "typeString": "T",
+      "sourceFile": [
+        "sourceFile",
+        "F01m4wnwkymfg"
+      ],
+      "location": [
+        [
+          "sourceFile",
+          "F01m4wnwkymfg"
+        ],
+        2,
+        53,
+        2,
+        57
+      ]
+    }
+  },
+  "types": {
+    "T01m4wn2dvwh3": {
+      "typeString": "typeof import(\"--ROOT PATH--/src/index\")",
+      "entity": "type",
+      "id": "T01m4wn2dvwh3",
+      "flags": [
+        "Object"
+      ],
+      "objectFlags": [
+        "Anonymous"
+      ],
+      "properties": {
+        "adder": [
+          "symbol",
+          "S01m4wlxxjjxx"
+        ]
+      }
+    },
+    "T01m4wn8rorj9": {
+      "typeString": "<T extends string | number>(a: T, b: T) => T",
+      "entity": "type",
+      "id": "T01m4wn8rorj9",
+      "flags": [
+        "Object"
+      ],
+      "objectFlags": [
+        "Anonymous"
+      ],
+      "callSignatures": [
+        {
+          "returnType": [
+            "type",
+            "T01m4wlxxxspc"
+          ],
+          "typeParameters": [
+            [
+              "type",
+              "T01m4wlxxxspc"
+            ]
+          ],
+          "parameters": [
+            [
+              "symbol",
+              "S01m4wndon82a"
+            ],
+            [
+              "symbol",
+              "S01m4wne8qn47"
+            ]
+          ],
+          "typeString": "<T extends string | number>(a: T, b: T): T"
+        }
+      ]
+    },
+    "T01m4wlxxxspc": {
+      "typeString": "T",
+      "entity": "type",
+      "id": "T01m4wlxxxspc",
+      "flags": [
+        "TypeParameter"
+      ],
+      "constraint": [
+        "type",
+        "T01m4wntf4uds"
+      ]
+    },
+    "T01m4wntf4uds": {
+      "typeString": "string | number",
+      "entity": "type",
+      "id": "T01m4wntf4uds",
+      "flags": [
+        "Union"
+      ],
+      "types": [
+        [
+          "type",
+          "T01m4wmr2p2yx"
+        ],
+        [
+          "type",
+          "T01m4wmr2p302"
+        ]
+      ]
+    },
+    "T01m4wmr2p2yx": {
+      "typeString": "string",
+      "entity": "type",
+      "id": "T01m4wmr2p2yx",
+      "flags": [
+        "String"
+      ],
+      "primitive": true
+    },
+    "T01m4wmr2p302": {
+      "typeString": "number",
+      "entity": "type",
+      "id": "T01m4wmr2p302",
+      "flags": [
+        "Number"
+      ],
+      "primitive": true
+    }
+  },
+  "nodes": {},
+  "sourceFiles": {
+    "F01m4wnwkymfg": {
+      "id": "F01m4wnwkymfg",
+      "entity": "sourceFile",
+      "originalFileName": "/var/folders/7s/84ppds111l51yqv0rv35lgk80000gn/T/tmp-72768yeh8gzTMdj6P/src/index.ts",
+      "isDeclarationFile": false,
+      "moduleName": "/var/folders/7s/84ppds111l51yqv0rv35lgk80000gn/T/tmp-72768yeh8gzTMdj6P/src/index",
+      "extension": "ts",
+      "pathInPackage": "/var/folders/7s/84ppds111l51yqv0rv35lgk80000gn/T/tmp-72768yeh8gzTMdj6P/src/index",
+      "symbol": [
+        "symbol",
+        "S01m4wltnlq5r"
       ]
     }
   }
@@ -287,7 +533,7 @@ exports['FunctionAnalysisTests unary function 1'] = {
     "S01m4wlq4irix": {
       "id": "S01m4wlq4irix",
       "entity": "symbol",
-      "name": "\"/src/index\"",
+      "name": "\"--ROOT PATH--/src/index\"",
       "flags": [
         "ValueModule"
       ],
@@ -380,7 +626,7 @@ exports['FunctionAnalysisTests unary function 1'] = {
   },
   "types": {
     "T01m4wmbyn5qs": {
-      "typeString": "typeof import(\"/src/index\")",
+      "typeString": "typeof import(\"--ROOT PATH--/src/index\")",
       "entity": "type",
       "id": "T01m4wmbyn5qs",
       "flags": [
@@ -437,11 +683,11 @@ exports['FunctionAnalysisTests unary function 1'] = {
     "F01m4wnwkyktn": {
       "id": "F01m4wnwkyktn",
       "entity": "sourceFile",
-      "originalFileName": "/src/index.ts",
+      "originalFileName": "/var/folders/7s/84ppds111l51yqv0rv35lgk80000gn/T/tmp-72768gQemjK2h784L/src/index.ts",
       "isDeclarationFile": false,
-      "moduleName": "/src/index",
+      "moduleName": "/var/folders/7s/84ppds111l51yqv0rv35lgk80000gn/T/tmp-72768gQemjK2h784L/src/index",
       "extension": "ts",
-      "pathInPackage": "/src/index",
+      "pathInPackage": "/var/folders/7s/84ppds111l51yqv0rv35lgk80000gn/T/tmp-72768gQemjK2h784L/src/index",
       "symbol": [
         "symbol",
         "S01m4wlq4irix"
@@ -456,7 +702,7 @@ exports['FunctionAnalysisTests zero-argument function 1'] = {
     "S01m4wnh67ran": {
       "id": "S01m4wnh67ran",
       "entity": "symbol",
-      "name": "\"/src/index\"",
+      "name": "\"--ROOT PATH--/src/index\"",
       "flags": [
         "ValueModule"
       ],
@@ -521,7 +767,7 @@ exports['FunctionAnalysisTests zero-argument function 1'] = {
   },
   "types": {
     "T01m4wm1n9xbg": {
-      "typeString": "typeof import(\"/src/index\")",
+      "typeString": "typeof import(\"--ROOT PATH--/src/index\")",
       "entity": "type",
       "id": "T01m4wm1n9xbg",
       "flags": [
@@ -572,11 +818,11 @@ exports['FunctionAnalysisTests zero-argument function 1'] = {
     "F01m4wnwkyinh": {
       "id": "F01m4wnwkyinh",
       "entity": "sourceFile",
-      "originalFileName": "/src/index.ts",
+      "originalFileName": "/var/folders/7s/84ppds111l51yqv0rv35lgk80000gn/T/tmp-72768nFJWqkt4o6Iu/src/index.ts",
       "isDeclarationFile": false,
-      "moduleName": "/src/index",
+      "moduleName": "/var/folders/7s/84ppds111l51yqv0rv35lgk80000gn/T/tmp-72768nFJWqkt4o6Iu/src/index",
       "extension": "ts",
-      "pathInPackage": "/src/index",
+      "pathInPackage": "/var/folders/7s/84ppds111l51yqv0rv35lgk80000gn/T/tmp-72768nFJWqkt4o6Iu/src/index",
       "symbol": [
         "symbol",
         "S01m4wnh67ran"

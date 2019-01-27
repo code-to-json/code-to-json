@@ -1,11 +1,13 @@
 // tslint:disable no-identical-functions
 
 import { expect } from 'chai';
-import { suite, test } from 'mocha-typescript';
+import { slow, suite, test, timeout } from 'mocha-typescript';
 import { exportedModuleSymbols } from './helpers';
 
 @suite
-export class CustomTypeSerialiationBoundaryTests {
+@slow(800)
+@timeout(1200)
+export class CommentSerializationTests {
   @test
   public async 'basic comments'(): Promise<void> {
     const { exports, cleanup } = await exportedModuleSymbols(`interface Foo { num: number; }
