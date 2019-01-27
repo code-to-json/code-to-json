@@ -107,8 +107,10 @@ function serializeMemberSymbols(
   if (!syms) {
     return {};
   }
-
-  const filteredMembers = filterDict(syms, e => !(e.flags & ts.SymbolFlags.Constructor));
+  const filteredMembers = filterDict(
+    syms,
+    e => !(e.flags & (ts.SymbolFlags.Constructor | ts.SymbolFlags.Signature)),
+  );
   if (Object.keys(filteredMembers).length === 0) {
     return {};
   }

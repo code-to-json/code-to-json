@@ -235,8 +235,23 @@ export default function serializeType(
   if (isThisType) {
     serialized.isThisType = true;
   }
+  if (type.isUnionOrIntersection()) {
+    Object.assign(serialized, serializeUnionOrIntersectionType(type, checker, c));
+  }
+  if (type.isTypeParameter()) {
+    Object.assign(serialized, serializeTypeParameterType(type, checker, c));
+  }
   if (!symbol) {
     return serialized;
+  }
+  if (isIndexType(type)) {
+    Object.assign(serialized, serializeIndexType(type, checker, c));
+  }
+  if (isIndexedAccessType(type)) {
+    Object.assign(serialized, serializeIndexAccessType(type, checker, c));
+  }
+  if (isObjectType(type)) {
+    Object.assign(serialized, serializeRelatedTypes(type, checker, c));
   }
   const decl = relevantDeclarationForSymbol(symbol);
   if (decl) {
@@ -246,22 +261,6 @@ export default function serializeType(
       serialized.libName = libName;
       return serialized;
     }
-  }
-
-  if (isObjectType(type)) {
-    Object.assign(serialized, serializeRelatedTypes(type, checker, c));
-  }
-  if (type.isTypeParameter()) {
-    Object.assign(serialized, serializeTypeParameterType(type, checker, c));
-  }
-  if (type.isUnionOrIntersection()) {
-    Object.assign(serialized, serializeUnionOrIntersectionType(type, checker, c));
-  }
-  if (isIndexType(type)) {
-    Object.assign(serialized, serializeIndexType(type, checker, c));
-  }
-  if (isIndexedAccessType(type)) {
-    Object.assign(serialized, serializeIndexAccessType(type, checker, c));
   }
 
   return serialized;
