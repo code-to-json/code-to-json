@@ -20,6 +20,53 @@ export function relevantDeclarationForSymbol(sym: ts.Symbol): ts.Declaration | u
   return undefined;
 }
 
+function relevantTypeForTypeAliasSymbol(
+  checker: ts.TypeChecker,
+  symbol: ts.Symbol,
+): ts.Type | undefined {
+  const declarations = symbol.getDeclarations();
+  const firstDeclaration = declarations && declarations.length > 0 ? declarations[0] : undefined;
+  if (!firstDeclaration) {
+    throw new Error('Type alias had no declarations');
+  }
+  if (!ts.isTypeAliasDeclaration(firstDeclaration)) {
+    throw new Error('First type alias declaration was not a TypeAliasDeclaration');
+  }
+  const { type: typeNode } = firstDeclaration;
+  if (typeNode.kind & ts.SyntaxKind.TypeAliasDeclaration) {
+    const locType = checker.getTypeAtLocation(firstDeclaration);
+    if (!isErroredType(locType)) {
+      return locType;
+    }
+    // TODO: replace this with something more meaningful
+    return (checker as any).getAnyType();
+  }
+  return checker.getTypeFromTypeNode(typeNode);
+}
+
+function relevantTypeForVariableOrPropertySymbol(
+  checker: ts.TypeChecker,
+  symbol: ts.Symbol,
+): ts.Type | undefined {
+  const { valueDeclaration: _valDecl } = symbol;
+  const valueDeclaration: ts.Declaration | undefined = _valDecl;
+
+  const s = checker.getTypeOfSymbolAtLocation(symbol, valueDeclaration);
+  if (!isErroredType(s)) {
+    return s;
+  }
+  if ((symbol as any).target) {
+    const tar: ts.Symbol = (symbol as any).target;
+    return relevantTypeForSymbol(checker, tar);
+  }
+  if ((symbol as any).type) {
+    return (symbol as any).type;
+  }
+  throw new Error(
+    `Could not identify appropriate type for symbol ${checker.symbolToString(symbol)}`,
+  );
+}
+
 // tslint:disable-next-line:cognitive-complexity
 export function relevantTypeForSymbol(
   checker: ts.TypeChecker,
@@ -29,31 +76,18 @@ export function relevantTypeForSymbol(
   const valueDeclaration: ts.Declaration | undefined = _valDecl;
 
   if (symbol.flags & (ts.SymbolFlags.Variable | ts.SymbolFlags.Property)) {
-    const s = checker.getTypeOfSymbolAtLocation(symbol, valueDeclaration);
-    if (!isErroredType(s)) {
-      return s;
-    }
-    if ((symbol as any).target) {
-      const tar: ts.Symbol = (symbol as any).target;
-      return relevantTypeForSymbol(checker, tar);
-    }
-    if ((symbol as any).type) {
-      return (symbol as any).type;
-    }
-    throw new Error(
-      `Could not identify appropriate type for symbol ${checker.symbolToString(symbol)}`,
-    );
+    return relevantTypeForVariableOrPropertySymbol(checker, symbol);
   }
-  if (valueDeclaration && ts.isSourceFile(valueDeclaration)) {
-    return checker.getTypeOfSymbolAtLocation(symbol, valueDeclaration);
-  }
+
   if (
+    (valueDeclaration && ts.isSourceFile(valueDeclaration)) ||
     symbol.flags &
-    (ts.SymbolFlags.Function |
-      ts.SymbolFlags.Method |
-      ts.SymbolFlags.Class |
-      ts.SymbolFlags.Enum |
-      ts.SymbolFlags.ValueModule)
+      (ts.SymbolFlags.Function |
+        ts.SymbolFlags.Method |
+        ts.SymbolFlags.Class |
+        ts.SymbolFlags.Enum |
+        ts.SymbolFlags.Accessor |
+        ts.SymbolFlags.ValueModule)
   ) {
     if (valueDeclaration) {
       // ensure class is handled as `typeof Foo` instead of `Foo`
@@ -64,28 +98,8 @@ export function relevantTypeForSymbol(
   if (symbol.flags & ts.SymbolFlags.EnumMember) {
     return checker.getTypeAtLocation(valueDeclaration);
   }
-  if (symbol.flags & ts.SymbolFlags.Accessor) {
-    return checker.getTypeOfSymbolAtLocation(symbol, valueDeclaration);
-  }
   if (symbol.flags & ts.SymbolFlags.TypeAlias) {
-    const declarations = symbol.getDeclarations();
-    const firstDeclaration = declarations && declarations.length > 0 ? declarations[0] : undefined;
-    if (!firstDeclaration) {
-      throw new Error('Type alias had no declarations');
-    }
-    if (!ts.isTypeAliasDeclaration(firstDeclaration)) {
-      throw new Error('First type alias declaration was not a TypeAliasDeclaration');
-    }
-    const { type: typeNode } = firstDeclaration;
-    if (typeNode.kind & ts.SyntaxKind.TypeAliasDeclaration) {
-      const locType = checker.getTypeAtLocation(firstDeclaration);
-      if (!isErroredType(locType)) {
-        return locType;
-      }
-      // TODO: replace this with something more meaningful
-      return (checker as any).getAnyType();
-    }
-    return checker.getTypeFromTypeNode(typeNode);
+    return relevantTypeForTypeAliasSymbol(checker, symbol);
   }
   if (symbol.flags & ts.SymbolFlags.TypeParameter) {
     return checker.getDeclaredTypeOfSymbol(symbol);
