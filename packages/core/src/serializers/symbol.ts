@@ -185,7 +185,6 @@ export default function serializeSymbol(
     return serialized;
   }
   if (!c.cfg.shouldSerializeSymbolDetails(checker, symbol, decl)) {
-    debugger;
     return serialized;
   }
 
