@@ -1,7 +1,6 @@
 import { parseCommentString } from '@code-to-json/comments';
-import { forEach, isRef, refId } from '@code-to-json/utils';
+import { forEach, isDefined, isRef, refId } from '@code-to-json/utils';
 import {
-  decoratorsToStrings,
   filterDict,
   flagsToString,
   getFirstIdentifier,
@@ -67,7 +66,9 @@ function serializeSymbolDeclarationData(
     serialized.modifiers = modifiersToStrings(modifiers);
   }
   if (decorators) {
-    serialized.decorators = decoratorsToStrings(decorators);
+    serialized.decorators = decorators
+      .map(d => q.queue(checker.getSymbolAtLocation(d.expression), 'symbol'))
+      .filter(isDefined);
   }
   if (symbol.getJsDocTags().length > 0 || symbol.getDocumentationComment(checker).length > 0) {
     const txt = extractDocumentationText(decl);

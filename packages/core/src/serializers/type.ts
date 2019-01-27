@@ -80,9 +80,11 @@ function serializeObjectType(
   c: Collector,
 ): Partial<SerializedType> {
   const { objectFlags, aliasTypeArguments } = type;
-  const out: Partial<SerializedType> = {
-    objectFlags: flagsToString(objectFlags, 'object'),
-  };
+  const out: Partial<SerializedType> = {};
+  if (objectFlags) {
+    out.objectFlags = flagsToString(objectFlags, 'object');
+  }
+
   const { queue: q } = c;
 
   if (aliasTypeArguments && aliasTypeArguments.length > 0) {
@@ -223,7 +225,7 @@ export default function serializeType(
     typeString: checker.typeToString(type),
     entity: 'type',
     id: refId(ref),
-    flags: flagsToString(type.flags, 'type'),
+    flags: flagsToString(type.flags, 'type') || [],
     // symbol: c.queue.queue(symbol, 'symbol'),
   };
   if (relatedEntities) {

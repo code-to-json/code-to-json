@@ -32,7 +32,7 @@ export interface SerializedSymbol
   flags: Flags;
   exports?: Dict<SymbolRef>;
   members?: Dict<SymbolRef>;
-  decorators?: string[];
+  decorators?: SymbolRef[];
   modifiers?: string[];
   globalExports?: Dict<SymbolRef>;
   typeString?: string;
@@ -152,6 +152,7 @@ export interface SerializedType extends SerializedEntity<'type'>, HasDocumentati
   numberIndexType?: TypeRef;
   stringIndexType?: TypeRef;
   default?: TypeRef;
+  flags: Flags;
   libName?: string;
   types?: TypeRef[];
   baseTypes?: TypeRef[];
