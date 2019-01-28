@@ -62,15 +62,7 @@ function serializeSymbolDeclarationData(
   }
   const { queue: q } = c;
   const serialized: Pick<SerializedSymbol, SYMBOL_DECLARATION_PROPS> = {};
-  const { modifiers, decorators } = decl;
-  if (modifiers) {
-    serialized.modifiers = modifiersToStrings(modifiers);
-  }
-  if (decorators) {
-    serialized.decorators = decorators
-      .map(d => q.queue(checker.getSymbolAtLocation(d.expression), 'symbol'))
-      .filter(isDefined);
-  }
+
   if (symbol.getJsDocTags().length > 0 || symbol.getDocumentationComment(checker).length > 0) {
     const txt = extractDocumentationText(decl);
     serialized.jsDocTags = symbol.getJsDocTags().map(t => ({ name: t.name, text: t.text }));
@@ -180,6 +172,17 @@ export default function serializeSymbol(
   const decl = relevantDeclarationForSymbol(symbol);
   if (decl && isAbstractDeclaration(decl)) {
     serialized.isAbstract = true;
+  }
+  if (decl) {
+    const { modifiers, decorators } = decl;
+    if (modifiers) {
+      serialized.modifiers = modifiersToStrings(modifiers);
+    }
+    if (decorators) {
+      serialized.decorators = decorators
+        .map(d => q.queue(checker.getSymbolAtLocation(d.expression), 'symbol'))
+        .filter(isDefined);
+    }
   }
   if (!c.cfg.shouldSerializeSymbolDetails(checker, symbol, type, decl)) {
     return serialized;

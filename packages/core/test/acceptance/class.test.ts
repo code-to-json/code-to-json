@@ -248,6 +248,8 @@ export class Car extends Vehicle {}`;
   protected static hello(): string { return 'world'; }
 
   protected readonly foo: string = 'bar';
+  public myBar: string = 'bar';
+  private myBaz: string[] = ['baz'];
 
   private constructor(bar: string) { console.log(bar); }
 }`;
@@ -279,9 +281,9 @@ export class Car extends Vehicle {}`;
     const instanceType = t.resolveReference(constructorSig.returnType);
     expect(instanceType.typeString).to.eq('SimpleClass');
     const instancePropNames = Object.keys(instanceType.properties!);
-    expect(instancePropNames).to.deep.eq(['foo']);
+    expect(instancePropNames).to.deep.eq(['foo', 'myBar', 'myBaz']);
     const props = instancePropNames.map(p => t.resolveReference(instanceType.properties![p]));
-    const [fooSym] = props;
+    const [fooSym, myBarSym, myBazSym] = props;
     expect(fooSym.flags).to.deep.eq(['Property']);
     expect(fooSym.symbolString).to.eq('foo');
     const [fooType] = props.map(s => t.resolveReference(s.type));
@@ -289,6 +291,8 @@ export class Car extends Vehicle {}`;
     expect(fooType.typeString).to.eql('string');
     expect(fooType.flags).to.deep.eq(['String']);
 
+    expect(myBarSym.modifiers).to.deep.eq(['public']);
+    expect(myBazSym.modifiers).to.deep.eq(['private']);
     t.cleanup();
   }
 }
