@@ -1,13 +1,14 @@
 import { SerializedType, TypeRef, WalkerOutputData } from '@code-to-json/core';
+import { SerializedTypeConditionInfo } from '@code-to-json/core/lib/src/types/serialized-entities';
 import { isDefined, isRef, refId } from '@code-to-json/utils';
 import { DataCollector } from './data-collector';
-import formatFlags from './flags';
 import resolveReference from './resolve-reference';
 import formatSignature from './signature';
 import {
   FormattedEnumLiteralType,
   FormattedObjectTypeKind,
   FormattedType,
+  FormattedTypeConditionInfo,
   FormattedTypeKind,
   FormattedTypeRef,
 } from './types';
@@ -77,6 +78,8 @@ const TYPE_KIND_MAP: { [k: string]: FormattedTypeKind } = {
 
   /* Other stuff */
   TypeParameter: FormattedTypeKind.typeParameter,
+  Conditional: FormattedTypeKind.conditional,
+  Substitution: FormattedTypeKind.substitution,
 };
 const OBJECT_TYPE_KIND_MAP: { [k: string]: FormattedObjectTypeKind } = {
   Anonymous: FormattedObjectTypeKind.anonymous,
@@ -251,6 +254,29 @@ function formatCallAndConstructSignatures(
   return typeInfo;
 }
 
+function formatConditionInfo(
+  wo: WalkerOutputData,
+  cond: SerializedTypeConditionInfo | undefined,
+  collector: DataCollector,
+): Pick<FormattedType, 'conditionalInfo'> | undefined {
+  if (!cond) {
+    return undefined;
+  }
+  const conditionalInfo: FormattedTypeConditionInfo = {
+    extendsType: collector.queue(resolveReference(wo, cond.extendsType), 't')!,
+    checkType: collector.queue(resolveReference(wo, cond.checkType), 't')!,
+  };
+  if (cond.trueType) {
+    conditionalInfo.trueType = collector.queue(resolveReference(wo, cond.trueType), 't')!;
+  }
+  if (cond.falseType) {
+    conditionalInfo.falseType = collector.queue(resolveReference(wo, cond.falseType), 't')!;
+  }
+  return {
+    conditionalInfo,
+  };
+}
+
 // tslint:disable-next-line:cognitive-complexity
 export default function formatType(
   wo: WalkerOutputData,
@@ -260,7 +286,6 @@ export default function formatType(
 ): FormattedType {
   const {
     typeString,
-    flags,
     objectFlags,
     properties,
     libName,
@@ -268,13 +293,13 @@ export default function formatType(
     isThisType,
     symbol,
     types,
+    conditionalInfo,
   } = type;
   const { kind, other: otherKindData } = determineTypeKind(type);
   const typeInfo: FormattedType = {
     id: refId(ref),
     text: typeString,
     kind,
-    flags: formatFlags(flags),
     isThisType,
   };
   Object.assign(typeInfo, otherKindData);
@@ -310,6 +335,7 @@ export default function formatType(
     formatCallAndConstructSignatures(wo, type, collector),
     formatTypeParametersAndConstraints(wo, type, collector),
     formatIndexSignatures(wo, type, collector),
+    formatConditionInfo(wo, conditionalInfo, collector),
   );
   return typeInfo;
 }

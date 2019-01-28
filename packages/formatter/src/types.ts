@@ -87,11 +87,20 @@ export enum FormattedTypeKind {
 
   union = 'union',
   intersection = 'intersection',
+
+  conditional = 'conditional',
+  substitution = 'substitution',
 }
 export enum FormattedObjectTypeKind {
   anonymous = 'anonymous',
   class = 'class',
   interface = 'interface',
+}
+export interface FormattedTypeConditionInfo {
+  extendsType: FormattedTypeRef;
+  checkType: FormattedTypeRef;
+  falseType?: FormattedTypeRef;
+  trueType?: FormattedTypeRef;
 }
 
 export interface FormattedType<
@@ -99,12 +108,10 @@ export interface FormattedType<
   OK extends FormattedObjectTypeKind = FormattedObjectTypeKind
 > extends FormattedEntity {
   text: string;
-  flags?: string[];
   kind: K;
   objectKind?: OK;
   symbol?: FormattedSymbolRef;
   constraint?: FormattedTypeRef;
-  objectFlags?: string[];
   properties?: Dict<FormattedSymbolRef>;
   baseTypes?: FormattedTypeRef[];
   isThisType?: boolean;
@@ -118,6 +125,7 @@ export interface FormattedType<
   typeParameters?: FormattedTypeRef[];
   types?: FormattedTypeRef[];
   libName?: string;
+  conditionalInfo?: FormattedTypeConditionInfo;
 }
 
 export interface FormattedEnumLiteralType extends FormattedType<FormattedTypeKind.enumLiteral> {
@@ -132,7 +140,6 @@ export interface FormattedSymbol<K extends FormattedSymbolKind = FormattedSymbol
   text?: string;
   isAbstract?: boolean;
   documentation?: CommentData;
-  flags?: string[];
   external?: boolean;
   isTransient?: boolean;
   isConst?: boolean;
