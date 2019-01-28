@@ -4,6 +4,7 @@ import {
   filterDict,
   flagsToString,
   getFirstIdentifier,
+  isAbstractDeclaration,
   isErroredType,
   mapDict,
   modifiersToStrings,
@@ -165,7 +166,6 @@ export default function serializeSymbol(
     type: q.queue(type, 'type'),
     ...handleRelatedEntities(symbol, ref, relatedEntities, q),
   };
-
   const symbolString = checker.symbolToString(symbol);
   const typeString = type ? checker.typeToString(type) : undefined;
   if (symbolString) {
@@ -182,6 +182,9 @@ export default function serializeSymbol(
   );
 
   const decl = relevantDeclarationForSymbol(symbol);
+  if (decl && isAbstractDeclaration(decl)) {
+    serialized.isAbstract = true;
+  }
   if (decl && decl.getSourceFile().isDeclarationFile) {
     return serialized;
   }

@@ -39,6 +39,7 @@ export interface SerializedSymbol
   symbolString?: string;
   heritageClauses?: SerializedHeritageClause[];
   relatedSymbols?: SymbolRef[];
+  isAbstract?: boolean;
   jsDocTags?: Array<{
     name: string;
     text?: string;
@@ -49,10 +50,12 @@ export interface SerializedSymbol
  * Serialized representation of a ts.Signature
  */
 export interface SerializedSignature {
+  hasRestParameter: boolean;
   parameters?: SymbolRef[];
   typeParameters?: TypeRef[];
   typePredicate?: TypeRef;
   declaration?: DeclarationRef;
+  modifiers?: string[];
   returnType?: TypeRef;
   comment?: string;
   typeString?: string;
@@ -130,6 +133,13 @@ export interface SerializedHeritageClause {
   clauseType: string;
 }
 
+export interface SerializedTypeConditionInfo {
+  extendsType: TypeRef;
+  checkType: TypeRef;
+  falseType?: TypeRef;
+  trueType?: TypeRef;
+}
+
 /**
  * Serialized representation of a type
  */
@@ -152,6 +162,7 @@ export interface SerializedType extends SerializedEntity<'type'>, HasDocumentati
   numberIndexType?: TypeRef;
   stringIndexType?: TypeRef;
   default?: TypeRef;
+  conditionalInfo?: SerializedTypeConditionInfo;
   flags: Flags;
   libName?: string;
   types?: TypeRef[];

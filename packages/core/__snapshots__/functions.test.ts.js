@@ -268,11 +268,11 @@ exports['FunctionAnalysisTests function with multiple signatures 1'] = {
     "F01m4wmlw4cia": {
       "id": "F01m4wmlw4cia",
       "entity": "sourceFile",
-      "originalFileName": "/var/folders/7s/84ppds111l51yqv0rv35lgk80000gn/T/tmp-727683ql879gzHVTD/src/index.ts",
+      "originalFileName": "--ROOT PATH--/src/index.ts",
       "isDeclarationFile": false,
-      "moduleName": "/var/folders/7s/84ppds111l51yqv0rv35lgk80000gn/T/tmp-727683ql879gzHVTD/src/index",
+      "moduleName": "--ROOT PATH--/src/index",
       "extension": "ts",
-      "pathInPackage": "/var/folders/7s/84ppds111l51yqv0rv35lgk80000gn/T/tmp-727683ql879gzHVTD/src/index",
+      "pathInPackage": "--ROOT PATH--/src/index",
       "symbol": [
         "symbol",
         "S01m4wmbco9j6"
@@ -514,11 +514,11 @@ exports['FunctionAnalysisTests function with type parameters 1'] = {
     "F01m4wnwkymfg": {
       "id": "F01m4wnwkymfg",
       "entity": "sourceFile",
-      "originalFileName": "/var/folders/7s/84ppds111l51yqv0rv35lgk80000gn/T/tmp-72768yeh8gzTMdj6P/src/index.ts",
+      "originalFileName": "--ROOT PATH--/src/index.ts",
       "isDeclarationFile": false,
-      "moduleName": "/var/folders/7s/84ppds111l51yqv0rv35lgk80000gn/T/tmp-72768yeh8gzTMdj6P/src/index",
+      "moduleName": "--ROOT PATH--/src/index",
       "extension": "ts",
-      "pathInPackage": "/var/folders/7s/84ppds111l51yqv0rv35lgk80000gn/T/tmp-72768yeh8gzTMdj6P/src/index",
+      "pathInPackage": "--ROOT PATH--/src/index",
       "symbol": [
         "symbol",
         "S01m4wltnlq5r"
@@ -683,11 +683,11 @@ exports['FunctionAnalysisTests unary function 1'] = {
     "F01m4wnwkyktn": {
       "id": "F01m4wnwkyktn",
       "entity": "sourceFile",
-      "originalFileName": "/var/folders/7s/84ppds111l51yqv0rv35lgk80000gn/T/tmp-72768gQemjK2h784L/src/index.ts",
+      "originalFileName": "--ROOT PATH--/src/index.ts",
       "isDeclarationFile": false,
-      "moduleName": "/var/folders/7s/84ppds111l51yqv0rv35lgk80000gn/T/tmp-72768gQemjK2h784L/src/index",
+      "moduleName": "--ROOT PATH--/src/index",
       "extension": "ts",
-      "pathInPackage": "/var/folders/7s/84ppds111l51yqv0rv35lgk80000gn/T/tmp-72768gQemjK2h784L/src/index",
+      "pathInPackage": "--ROOT PATH--/src/index",
       "symbol": [
         "symbol",
         "S01m4wlq4irix"
@@ -818,11 +818,11 @@ exports['FunctionAnalysisTests zero-argument function 1'] = {
     "F01m4wnwkyinh": {
       "id": "F01m4wnwkyinh",
       "entity": "sourceFile",
-      "originalFileName": "/var/folders/7s/84ppds111l51yqv0rv35lgk80000gn/T/tmp-72768nFJWqkt4o6Iu/src/index.ts",
+      "originalFileName": "--ROOT PATH--/src/index.ts",
       "isDeclarationFile": false,
-      "moduleName": "/var/folders/7s/84ppds111l51yqv0rv35lgk80000gn/T/tmp-72768nFJWqkt4o6Iu/src/index",
+      "moduleName": "--ROOT PATH--/src/index",
       "extension": "ts",
-      "pathInPackage": "/var/folders/7s/84ppds111l51yqv0rv35lgk80000gn/T/tmp-72768nFJWqkt4o6Iu/src/index",
+      "pathInPackage": "--ROOT PATH--/src/index",
       "symbol": [
         "symbol",
         "S01m4wnh67ran"

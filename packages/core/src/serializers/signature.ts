@@ -16,10 +16,16 @@ export default function serializeSignature(
   c: Collector,
 ): SerializedSignature {
   const { queue: q } = c;
+  const { hasRestParameter }: { hasRestParameter: boolean } = signature as any;
   const out: SerializedSignature = {
     returnType: q.queue(signature.getReturnType(), 'type'),
+    hasRestParameter,
   };
-  const { parameters, typeParameters } = signature;
+  const { parameters, typeParameters, declaration } = signature;
+
+  if (declaration && declaration.modifiers) {
+    out.modifiers = declaration.modifiers.map(m => m.getText());
+  }
   const typePredicate: ts.TypePredicate = (checker as any).getTypePredicateOfSignature(signature);
   if (typePredicate) {
     q.queue(typePredicate.type, 'type');
