@@ -4,8 +4,149 @@ import { DataCollector } from './data-collector';
 import formatFlags from './flags';
 import resolveReference from './resolve-reference';
 import formatSignature from './signature';
-import { FormattedType, FormattedTypeRef } from './types';
+import {
+  FormattedEnumLiteralType,
+  FormattedObjectTypeKind,
+  FormattedType,
+  FormattedTypeKind,
+  FormattedTypeRef,
+} from './types';
 import { formatSymbolRefMap } from './utils';
+
+const IRRELEVANT_TYPE_KIND_FLAGS: string[] = ['TODO'];
+const IRRELEVANT_OBJECT_TYPE_KIND_FLAGS: string[] = ['Reference', 'Instantiated'];
+
+// BigInt = 64,
+// BigIntLiteral = 2048,
+// UniqueESSymbol = 8192,
+// Index = 4194304,
+// IndexedAccess = 8388608,
+// Conditional = 16777216,
+// Substitution = 33554432,
+// NonPrimitive = 67108864,
+// Literal = 2944,
+// Unit = 109440,
+// StringOrNumberLiteral = 384,
+// PossiblyFalsy = 117724,
+// StringLike = 132,
+// NumberLike = 296,
+// BigIntLike = 2112,
+// BooleanLike = 528,
+// EnumLike = 1056,
+// ESSymbolLike = 12288,
+// VoidLike = 49152,
+// UnionOrIntersection = 3145728,
+// StructuredType = 3670016,
+// TypeVariable = 8650752,
+// InstantiableNonPrimitive = 58982400,
+// InstantiablePrimitive = 4194304,
+// Instantiable = 63176704,
+// StructuredOrInstantiable = 66846720,
+// Narrowable = 133970943,
+// NotUnionOrUnit = 67637251
+
+// tslint:disable-next-line:mccabe-complexity
+
+const TYPE_KIND_MAP: { [k: string]: FormattedTypeKind } = {
+  /* JS core types */
+  String: FormattedTypeKind.string,
+  Number: FormattedTypeKind.number,
+  Boolean: FormattedTypeKind.boolean,
+  Null: FormattedTypeKind.null,
+  Undefined: FormattedTypeKind.undefined,
+  ESSymbol: FormattedTypeKind.essymbol,
+  Object: FormattedTypeKind.object,
+
+  /* TS core types */
+  Any: FormattedTypeKind.any,
+  Never: FormattedTypeKind.never,
+  Void: FormattedTypeKind.void,
+  Unknown: FormattedTypeKind.unknown,
+
+  /* TS enum types */
+  EnumLiteral: FormattedTypeKind.enumLiteral,
+
+  /* Primitive Literals */
+  StringLiteral: FormattedTypeKind.stringLiteral,
+  NumberLiteral: FormattedTypeKind.numberLiteral,
+  BooleanLiteral: FormattedTypeKind.booleanLiteral,
+
+  /* Logical Operators */
+  Union: FormattedTypeKind.union,
+  Intersection: FormattedTypeKind.intersection,
+
+  /* Other stuff */
+  TypeParameter: FormattedTypeKind.typeParameter,
+};
+const OBJECT_TYPE_KIND_MAP: { [k: string]: FormattedObjectTypeKind } = {
+  Anonymous: FormattedObjectTypeKind.anonymous,
+  Interface: FormattedObjectTypeKind.interface,
+  Class: FormattedObjectTypeKind.class,
+};
+
+function determineTypeKind(
+  type: SerializedType,
+): { kind: FormattedTypeKind; other?: Partial<FormattedEnumLiteralType> } {
+  const { flags } = type;
+  const filteredFlags = flags.filter(f => IRRELEVANT_TYPE_KIND_FLAGS.indexOf(f) < 0);
+  const kinds = filteredFlags.map(f => {
+    if (TYPE_KIND_MAP[f]) {
+      return TYPE_KIND_MAP[f];
+    }
+    throw new Error(`Could not determine type kind\n${JSON.stringify(type, null, '  ')}`);
+  });
+
+  switch (kinds.length) {
+    case 1:
+      return { kind: kinds[0] };
+    case 0:
+      throw new Error(`Empty type flags ${JSON.stringify(type, null, '  ')}`);
+    case 2:
+      if (kinds.includes(FormattedTypeKind.enumLiteral)) {
+        const [enumKind] = kinds.filter(k => k !== FormattedTypeKind.enumLiteral);
+        if (
+          enumKind !== FormattedTypeKind.numberLiteral &&
+          enumKind !== FormattedTypeKind.stringLiteral
+        ) {
+          throw new Error(`Unexpected enum kind: ${FormattedTypeKind[enumKind]}`);
+        }
+        return { kind: FormattedTypeKind.enumLiteral, other: { enumKind } };
+      }
+    // eslint-disable-next-line no-fallthrough
+    default:
+      throw new Error(
+        `Multiple kinds identified: ${kinds.join(', ')}\n ${JSON.stringify(type, null, '  ')}`,
+      );
+  }
+}
+function determineObjectTypeKind(type: SerializedType): FormattedObjectTypeKind | undefined {
+  const { objectFlags: flags = [] } = type;
+  const filteredFlags = flags.filter(f => IRRELEVANT_OBJECT_TYPE_KIND_FLAGS.indexOf(f) < 0);
+  if (filteredFlags.length === 0) {
+    return undefined;
+  }
+  const kinds = filteredFlags.map(f => {
+    if (OBJECT_TYPE_KIND_MAP[f]) {
+      return OBJECT_TYPE_KIND_MAP[f];
+    }
+    throw new Error(`Could not determine type kind\n${JSON.stringify(type, null, '  ')}`);
+  });
+
+  switch (kinds.length) {
+    case 1:
+      return kinds[0];
+    case 0:
+      throw new Error(`Empty object type flags ${JSON.stringify(type, null, '  ')}`);
+    default:
+      throw new Error(
+        `Multiple object type kinds identified: ${kinds.join(', ')}\n ${JSON.stringify(
+          type,
+          null,
+          '  ',
+        )}`,
+      );
+  }
+}
 
 function resolveAndFormatType(
   wo: WalkerOutputData,
@@ -117,16 +258,32 @@ export default function formatType(
   ref: FormattedTypeRef,
   collector: DataCollector,
 ): FormattedType {
-  const { typeString, flags, objectFlags, properties, libName, baseTypes, isThisType } = type;
-
+  const {
+    typeString,
+    flags,
+    objectFlags,
+    properties,
+    libName,
+    baseTypes,
+    isThisType,
+    symbol,
+    types,
+  } = type;
+  const { kind, other: otherKindData } = determineTypeKind(type);
   const typeInfo: FormattedType = {
     id: refId(ref),
     text: typeString,
+    kind,
     flags: formatFlags(flags),
-    objectFlags: formatFlags(objectFlags),
     isThisType,
   };
-
+  Object.assign(typeInfo, otherKindData);
+  if (objectFlags) {
+    if (objectFlags.indexOf('Reference')) {
+      typeInfo.isReferenceType = true;
+    }
+    typeInfo.objectKind = determineObjectTypeKind(type);
+  }
   if (libName) {
     typeInfo.libName = libName;
   }
@@ -139,6 +296,15 @@ export default function formatType(
   if (properties && Object.keys(properties).length > 0) {
     typeInfo.properties = formatSymbolRefMap(properties, wo, collector);
   }
+  if (symbol) {
+    typeInfo.symbol = collector.queue(resolveReference(wo, symbol), 's');
+  }
+  if (types) {
+    typeInfo.types = types
+      .map(t => collector.queue(resolveReference(wo, t), 't'))
+      .filter(isDefined);
+  }
+
   Object.assign(
     typeInfo,
     formatCallAndConstructSignatures(wo, type, collector),

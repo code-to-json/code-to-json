@@ -6,7 +6,7 @@ import { FormatterRefRegistry } from '../../src';
 import { create as createDataCollector } from '../../src/data-collector';
 import formatSymbol from '../../src/symbol';
 
-@suite
+@suite.skip
 export class SymbolFormatterTests {
   @test
   public async basic() {
@@ -14,6 +14,7 @@ export class SymbolFormatterTests {
       id: '1234',
       name: 'foo',
       entity: 'symbol',
+      flags: [],
     };
     const wo: WalkerOutputData = {
       symbols: {
@@ -70,6 +71,7 @@ export class SymbolFormatterTests {
       },
       name: 'foo',
       entity: 'symbol',
+      flags: ['module'],
     };
     const wo: WalkerOutputData = {
       symbols: {
@@ -78,6 +80,7 @@ export class SymbolFormatterTests {
           id: '3456',
           name: 'somethingExported',
           entity: 'symbol',
+          flags: ['variable'],
         },
       },
       types: {},
@@ -102,6 +105,7 @@ export class SymbolFormatterTests {
       name: 'foo',
       entity: 'symbol',
       exports: {},
+      flags: ['module'],
     };
     const wo: WalkerOutputData = {
       symbols: {
@@ -129,6 +133,7 @@ export class SymbolFormatterTests {
       members: {
         someMember: ['symbol', '3456'] as any,
       },
+      flags: ['interface'],
       name: 'foo',
       entity: 'symbol',
     };
@@ -139,6 +144,7 @@ export class SymbolFormatterTests {
           id: '3456',
           name: 'someMember',
           entity: 'symbol',
+          flags: ['variable'],
         },
       },
       types: {},
@@ -163,6 +169,7 @@ export class SymbolFormatterTests {
       members: {
         someMember: ['symbol', '3'] as any,
       },
+      flags: [],
       name: 'foo',
       entity: 'symbol',
     };
@@ -191,6 +198,7 @@ export class SymbolFormatterTests {
       id: '1234',
       name: 'foo',
       entity: 'symbol',
+      flags: [],
       members: {},
     };
     const wo: WalkerOutputData = {
@@ -220,6 +228,7 @@ export class SymbolFormatterTests {
         foo: ['symbol', '3'] as any,
       },
       name: 'foo',
+      flags: [],
       entity: 'symbol',
     };
     const wo: WalkerOutputData = {

@@ -27,6 +27,8 @@ module.exports = {
     'no-bitwise': 'off',
     'no-restricted-syntax': 'off',
     'no-console': 'off',
+    'lines-between-class-members': 'off',
+    'no-dupe-class-members': 'off',
     complexity: 'off',
   },
   overrides: [
