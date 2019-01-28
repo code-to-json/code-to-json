@@ -13,17 +13,17 @@ export class FunctionAnalysisTests {
     await t.run();
     const file = t.sourceFile();
     const fileSymbol = t.resolveReference(file.symbol);
-    const variableSymbol = t.resolveReference(fileSymbol.exports!.foo);
-    expect(variableSymbol.symbolString).to.eql('foo');
-    expect(variableSymbol.typeString).to.eql('() => string', 'has correct type');
-    expect(variableSymbol.flags).to.eql(['Function'], 'Regarded as a function');
+    const functionSymbol = t.resolveReference(fileSymbol.exports!.foo);
+    expect(functionSymbol.symbolString).to.eql('foo');
+    expect(functionSymbol.typeString).to.eql('() => string', 'has correct type');
+    expect(functionSymbol.flags).to.eql(['Function'], 'Regarded as a function');
 
-    const variableType = t.resolveReference(variableSymbol.type);
-    expect(variableType.typeString).to.eql('() => string');
-    expect(variableType.flags).to.deep.eq(['Object']);
+    const functionType = t.resolveReference(functionSymbol.type);
+    expect(functionType.typeString).to.eql('() => string');
+    expect(functionType.flags).to.deep.eq(['Object']);
 
-    expect(variableType.callSignatures!.length).to.eql(1);
-    const [callSig] = variableType.callSignatures!;
+    expect(functionType.callSignatures!.length).to.eql(1);
+    const [callSig] = functionType.callSignatures!;
     expect(callSig.typeString).to.eql('(): string');
     expect(callSig.parameters).to.eql(undefined);
     expect(callSig.hasRestParameter).to.eql(false);
@@ -40,17 +40,17 @@ export class FunctionAnalysisTests {
     await t.run();
     const file = t.sourceFile();
     const fileSymbol = t.resolveReference(file.symbol);
-    const variableSymbol = t.resolveReference(fileSymbol.exports!.foo);
-    expect(variableSymbol.symbolString).to.eql('foo');
-    expect(variableSymbol.typeString).to.eql('(...parts: string[]) => string', 'has correct type');
-    expect(variableSymbol.flags).to.eql(['Function'], 'Regarded as a function');
+    const functionSymbol = t.resolveReference(fileSymbol.exports!.foo);
+    expect(functionSymbol.symbolString).to.eql('foo');
+    expect(functionSymbol.typeString).to.eql('(...parts: string[]) => string', 'has correct type');
+    expect(functionSymbol.flags).to.eql(['Function'], 'Regarded as a function');
 
-    const variableType = t.resolveReference(variableSymbol.type);
-    expect(variableType.typeString).to.eql('(...parts: string[]) => string');
-    expect(variableType.flags).to.deep.eq(['Object']);
+    const functionType = t.resolveReference(functionSymbol.type);
+    expect(functionType.typeString).to.eql('(...parts: string[]) => string');
+    expect(functionType.flags).to.deep.eq(['Object']);
 
-    expect(variableType.callSignatures!.length).to.eql(1);
-    const [callSig] = variableType.callSignatures!;
+    expect(functionType.callSignatures!.length).to.eql(1);
+    const [callSig] = functionType.callSignatures!;
     expect(callSig.typeString).to.eql('(...parts: string[]): string');
     expect(callSig.parameters!.length).to.eql(1);
     expect(callSig.hasRestParameter).to.eql(true);
@@ -70,16 +70,16 @@ export class FunctionAnalysisTests {
     await t.run();
     const file = t.sourceFile();
     const fileSymbol = t.resolveReference(file.symbol);
-    const variableSymbol = t.resolveReference(fileSymbol.exports!.foo);
-    expect(variableSymbol.symbolString).to.eql('foo');
-    expect(variableSymbol.flags).to.eql(['Function'], 'Regarded as a function');
+    const functionSymbol = t.resolveReference(fileSymbol.exports!.foo);
+    expect(functionSymbol.symbolString).to.eql('foo');
+    expect(functionSymbol.flags).to.eql(['Function'], 'Regarded as a function');
 
-    const variableType = t.resolveReference(variableSymbol.type);
-    expect(variableType.typeString).to.eql('(str: string) => string');
-    expect(variableType.flags).to.deep.eq(['Object']);
+    const functionType = t.resolveReference(functionSymbol.type);
+    expect(functionType.typeString).to.eql('(str: string) => string');
+    expect(functionType.flags).to.deep.eq(['Object']);
 
-    expect(variableType.callSignatures!.length).to.eql(1);
-    const [callSig] = variableType.callSignatures!;
+    expect(functionType.callSignatures!.length).to.eql(1);
+    const [callSig] = functionType.callSignatures!;
     expect(callSig.typeString).to.eql('(str: string): string');
     expect(callSig.parameters!.length).to.eql(1);
     expect(callSig.hasRestParameter).to.eql(false);
@@ -105,19 +105,19 @@ export class FunctionAnalysisTests {
     await t.run();
     const file = t.sourceFile();
     const fileSymbol = t.resolveReference(file.symbol);
-    const variableSymbol = t.resolveReference(fileSymbol.exports!.adder);
-    expect(variableSymbol.symbolString).to.eql('adder');
-    expect(variableSymbol.flags).to.eql(['Function'], 'Regarded as a function');
+    const functionSymbol = t.resolveReference(fileSymbol.exports!.adder);
+    expect(functionSymbol.symbolString).to.eql('adder');
+    expect(functionSymbol.flags).to.eql(['Function'], 'Regarded as a function');
 
-    const variableType = t.resolveReference(variableSymbol.type);
-    expect(variableType.typeString).to.eql(
+    const functionType = t.resolveReference(functionSymbol.type);
+    expect(functionType.typeString).to.eql(
       '{ (a: string, b: string): string; (a: number, b: number): number; }',
     );
-    expect(variableType.flags).to.deep.eq(['Object']);
+    expect(functionType.flags).to.deep.eq(['Object']);
 
-    expect(variableType.callSignatures!.length).to.eql(2);
+    expect(functionType.callSignatures!.length).to.eql(2);
 
-    const [callSig1, callSig2] = variableType.callSignatures!;
+    const [callSig1, callSig2] = functionType.callSignatures!;
     expect(callSig1.typeString).to.eql('(a: string, b: string): string');
     expect(callSig1.parameters!.length).to.eql(2);
     const [sig1Param1, sig1Param2] = callSig1.parameters!.map(p => t.resolveReference(p));

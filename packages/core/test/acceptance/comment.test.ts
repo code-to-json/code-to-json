@@ -76,15 +76,15 @@ export class CommentSerializationTests {
     await t.run();
     const file = t.sourceFile();
     const fileSymbol = t.resolveReference(file.symbol);
-    const variableSymbol = t.resolveReference(fileSymbol.exports!.add);
-    expect(variableSymbol.symbolString).to.eql('add');
-    expect(variableSymbol.typeString).to.eql(
+    const functionSymbol = t.resolveReference(fileSymbol.exports!.add);
+    expect(functionSymbol.symbolString).to.eql('add');
+    expect(functionSymbol.typeString).to.eql(
       '(a: number, b: number) => number',
       'has correct type',
     );
-    expect(variableSymbol.flags).to.eql(['Function'], 'Regarded as a function');
+    expect(functionSymbol.flags).to.eql(['Function'], 'Regarded as a function');
 
-    expect(variableSymbol.documentation).to.deep.eq({
+    expect(functionSymbol.documentation).to.deep.eq({
       summary: ['Add two numbers'],
       params: [
         {
@@ -102,9 +102,9 @@ export class CommentSerializationTests {
       ],
     });
 
-    const variableType = t.resolveReference(variableSymbol.type);
-    expect(variableType.typeString).to.eql('(a: number, b: number) => number');
-    const [callSig1] = variableType.callSignatures!;
+    const functionType = t.resolveReference(functionSymbol.type);
+    expect(functionType.typeString).to.eql('(a: number, b: number) => number');
+    const [callSig1] = functionType.callSignatures!;
     expect(callSig1.parameters!.length).to.eql(2);
     const [sig1Param1, sig1Param2] = callSig1.parameters!.map(p => t.resolveReference(p));
     expect(sig1Param1.jsDocTags![0].name).to.eq('param');
@@ -131,9 +131,9 @@ export class CommentSerializationTests {
     await t.run();
     const file = t.sourceFile();
     const fileSymbol = t.resolveReference(file.symbol);
-    const variableSymbol = t.resolveReference(fileSymbol.exports!.add);
+    const functionSymbol = t.resolveReference(fileSymbol.exports!.add);
 
-    expect(variableSymbol.documentation).to.deep.eq({
+    expect(functionSymbol.documentation).to.deep.eq({
       summary: ['Add two numbers'],
       customTags: [
         {
@@ -166,9 +166,9 @@ export class CommentSerializationTests {
     await t.run();
     const file = t.sourceFile();
     const fileSymbol = t.resolveReference(file.symbol);
-    const variableSymbol = t.resolveReference(fileSymbol.exports!.add);
+    const functionSymbol = t.resolveReference(fileSymbol.exports!.add);
 
-    expect(variableSymbol.documentation).to.deep.eq({
+    expect(functionSymbol.documentation).to.deep.eq({
       summary: [
         'Add two numbers',
         '\n',
@@ -200,9 +200,9 @@ export class CommentSerializationTests {
     await t.run();
     const file = t.sourceFile();
     const fileSymbol = t.resolveReference(file.symbol);
-    const variableSymbol = t.resolveReference(fileSymbol.exports!.add);
+    const functionSymbol = t.resolveReference(fileSymbol.exports!.add);
 
-    expect(variableSymbol.documentation).to.deep.eq({
+    expect(functionSymbol.documentation).to.deep.eq({
       summary: [
         'Add two numbers',
         '\n',

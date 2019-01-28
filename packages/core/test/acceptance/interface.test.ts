@@ -39,19 +39,19 @@ export class InterfaceSerializationTests {
     await t.run();
     const file = t.sourceFile();
     const fileSymbol = t.resolveReference(file.symbol);
-    const variableSymbol = t.resolveReference(fileSymbol.exports!.Foo);
-    expect(variableSymbol.symbolString).to.eql('Foo');
-    expect(variableSymbol.typeString).to.eql('Foo', 'has correct type');
-    expect(variableSymbol.flags).to.eql(['Interface'], 'Regarded as an interface');
+    const interfaceSymbol = t.resolveReference(fileSymbol.exports!.Foo);
+    expect(interfaceSymbol.symbolString).to.eql('Foo');
+    expect(interfaceSymbol.typeString).to.eql('Foo', 'has correct type');
+    expect(interfaceSymbol.flags).to.eql(['Interface'], 'Regarded as an interface');
 
-    const variableType = t.resolveReference(variableSymbol.type);
-    expect(variableType.typeString).to.eql('Foo');
-    expect(variableType.flags).to.deep.eq(['Object']);
-    expect(variableType.objectFlags).to.deep.eq(['Interface']);
-    const typePropertyNames = Object.keys(variableType.properties!);
+    const interfaceType = t.resolveReference(interfaceSymbol.type);
+    expect(interfaceType.typeString).to.eql('Foo');
+    expect(interfaceType.flags).to.deep.eq(['Object']);
+    expect(interfaceType.objectFlags).to.deep.eq(['Interface']);
+    const typePropertyNames = Object.keys(interfaceType.properties!);
     expect(typePropertyNames).to.deep.eq(['bar', 'baz']);
-    const [bar, baz] = Object.keys(variableType.properties!).map(pName =>
-      t.resolveReference(variableType.properties![pName]),
+    const [bar, baz] = Object.keys(interfaceType.properties!).map(pName =>
+      t.resolveReference(interfaceType.properties![pName]),
     );
     expect(bar.name).to.eql('bar');
     expect(bar.typeString).to.eql('number');
