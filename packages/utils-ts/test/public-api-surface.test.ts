@@ -27,6 +27,8 @@ const {
   isClassOrInterfaceType,
   isMappedType,
   isErroredType,
+  isAbstractDeclaration,
+  isConditionalType,
   isObjectReferenceType,
   isObjectType,
   isTupleType,
@@ -73,6 +75,8 @@ export class PublicApiSurface {
     expect(isClassOrInterfaceType).to.be.a('function', 'isClassOrInterfaceType is a function');
     expect(isObjectReferenceType).to.be.a('function', 'isObjectReferenceType is a function');
     expect(isObjectType).to.be.a('function', 'isObjectType is a function');
+    expect(isAbstractDeclaration).to.be.a('function', 'isAbstractDeclaration is a function');
+    expect(isConditionalType).to.be.a('function', 'isObjectType is a function');
     expect(isIndexType).to.be.a('function', 'isIndexType is a function');
     expect(isPrimitiveType).to.be.a('function', 'isPrimitiveType is a function');
     expect(isIndexedAccessType).to.be.a('function', 'isIndexedAccessType is a function');
@@ -119,8 +123,10 @@ export class PublicApiSurface {
       'getFirstIdentifier',
       'getObjectFlags',
       'getTsLibFilename',
+      'isAbstractDeclaration',
       'isAnonymousType',
       'isClassOrInterfaceType',
+      'isConditionalType',
       'isDeclaration',
       'isDeclarationExported',
       'isErroredType',
