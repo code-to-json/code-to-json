@@ -175,24 +175,21 @@ export default function serializeSymbol(
     serialized.typeString = typeString;
   }
 
-  Object.assign(
-    serialized,
-    serializeExportedSymbols(exportedSymbols, q),
-    serializeMemberSymbols(memberSymbols, q),
-  );
+  Object.assign(serialized, serializeExportedSymbols(exportedSymbols, q));
 
   const decl = relevantDeclarationForSymbol(symbol);
   if (decl && isAbstractDeclaration(decl)) {
     serialized.isAbstract = true;
   }
-  if (decl && decl.getSourceFile().isDeclarationFile) {
-    return serialized;
-  }
-  if (!c.cfg.shouldSerializeSymbolDetails(checker, symbol, decl)) {
+  if (!c.cfg.shouldSerializeSymbolDetails(checker, symbol, type, decl)) {
     return serialized;
   }
 
-  Object.assign(serialized, serializeSymbolDeclarationData(symbol, decl, c, checker));
+  Object.assign(
+    serialized,
+    serializeSymbolDeclarationData(symbol, decl, c, checker),
+    serializeMemberSymbols(memberSymbols, q),
+  );
 
   forEach(symbol.declarations, d => {
     // Type queries are too far resolved when we just visit the symbol's type

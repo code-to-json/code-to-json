@@ -281,7 +281,7 @@ export default function serializeType(
     entity: 'type',
     id: refId(ref),
     flags: flagsToString(type.flags, 'type') || [],
-    // symbol: c.queue.queue(symbol, 'symbol'),
+    symbol: c.queue.queue(symbol, 'symbol'),
   };
   if (relatedEntities) {
     serialized.relatedTypes = relatedEntities.map(t => c.queue.queue(t, 'type')).filter(isDefined);
