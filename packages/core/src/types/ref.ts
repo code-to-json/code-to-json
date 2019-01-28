@@ -1,5 +1,12 @@
 import { Ref } from '@code-to-json/utils';
 import * as ts from 'typescript';
+import {
+  SerializedDeclaration,
+  SerializedNode,
+  SerializedSourceFile,
+  SerializedSymbol,
+  SerializedType,
+} from './serialized-entities';
 
 export interface EntityMap {
   declaration: ts.Declaration;
@@ -7,6 +14,14 @@ export interface EntityMap {
   type: ts.Type;
   node: ts.Node;
   sourceFile: ts.SourceFile;
+}
+
+export interface OutputMap {
+  declaration: SerializedDeclaration;
+  symbol: SerializedSymbol;
+  type: SerializedType;
+  node: SerializedNode;
+  sourceFile: SerializedSourceFile;
 }
 
 export type SymbolRef = Ref<'symbol'>;

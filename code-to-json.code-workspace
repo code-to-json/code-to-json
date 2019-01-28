@@ -56,7 +56,8 @@
       "dbaeumer.vscode-eslint",
       "timonwong.shellcheck",
       "eg2.tslint",
-      "esbenp.prettier-vscode"
+      "esbenp.prettier-vscode",
+      "plievone.vscode-template-literal-editor"
     ]
   }
 }

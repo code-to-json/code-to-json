@@ -1,9 +1,10 @@
-import { createRef, isDefined, isRef, refId } from '@code-to-json/utils';
+import { isDefined, isRef, refId } from '@code-to-json/utils';
 import {
   flagsToString,
   getTsLibFilename,
   isAnonymousType,
   isClassOrInterfaceType,
+  isConditionalType,
   isIndexedAccessType,
   isIndexType,
   isMappedType,
@@ -16,8 +17,8 @@ import {
 } from '@code-to-json/utils-ts';
 import { Dict } from '@mike-north/types';
 import * as ts from 'typescript';
-import { RefRegistry, SymbolRef, TypeRef } from '../types/ref';
-import { SerializedType } from '../types/serialized-entities';
+import { SymbolRef, TypeRef } from '../types/ref';
+import { SerializedType, SerializedTypeConditionInfo } from '../types/serialized-entities';
 import { Collector } from '../types/walker';
 import serializeSignature from './signature';
 
@@ -80,9 +81,11 @@ function serializeObjectType(
   c: Collector,
 ): Partial<SerializedType> {
   const { objectFlags, aliasTypeArguments } = type;
-  const out: Partial<SerializedType> = {
-    objectFlags: flagsToString(objectFlags, 'object'),
-  };
+  const out: Partial<SerializedType> = {};
+  if (objectFlags) {
+    out.objectFlags = flagsToString(objectFlags, 'object');
+  }
+
   const { queue: q } = c;
 
   if (aliasTypeArguments && aliasTypeArguments.length > 0) {
@@ -109,15 +112,14 @@ function serializeObjectType(
   return out;
 }
 
-function serializeRelatedTypes(
-  type: ts.ObjectType,
+function serializeExtendedRelatedTypes(
+  type: ts.Type,
   checker: ts.TypeChecker,
   c: Collector,
-): Partial<SerializedType> {
+): Partial<SerializedType> | undefined {
   const out: Partial<SerializedType> = {};
-  const { queue: q } = c;
-  if (type.objectFlags) {
-    out.objectFlags = flagsToString(type.objectFlags, 'object');
+  if (!isObjectType(type)) {
+    return undefined;
   }
   if (isObjectReferenceType(type)) {
     Object.assign(out, serializeTypeReference(type, checker, c));
@@ -128,17 +130,7 @@ function serializeRelatedTypes(
   if (isClassOrInterfaceType(type)) {
     Object.assign(out, serializeInterfaceType(type, checker, c));
   }
-  if (isTupleType(type) || isAnonymousType(type)) {
-    Object.assign(out, serializeObjectType(type, checker, c));
-  }
-  const stringIndexType = checker.getIndexTypeOfType(type, ts.IndexKind.String);
-  if (stringIndexType) {
-    out.stringIndexType = q.queue(stringIndexType, 'type');
-  }
-  const numberIndexType = checker.getIndexTypeOfType(type, ts.IndexKind.Number);
-  if (numberIndexType) {
-    out.numberIndexType = q.queue(numberIndexType, 'type');
-  }
+
   const callSignatures = type.getCallSignatures();
   if (callSignatures && callSignatures.length > 0) {
     out.callSignatures = callSignatures.map(cs => serializeSignature(cs, checker, c));
@@ -150,11 +142,44 @@ function serializeRelatedTypes(
   return out;
 }
 
+function serializeBasicRelatedTypes(
+  type: ts.Type,
+  checker: ts.TypeChecker,
+  c: Collector,
+): Partial<SerializedType> | undefined {
+  const out: Partial<SerializedType> = {};
+  const { queue: q } = c;
+  if (!isObjectType(type)) {
+    return undefined;
+  }
+  if (type.objectFlags) {
+    out.objectFlags = flagsToString(type.objectFlags, 'object');
+  }
+
+  if (isTupleType(type) || isAnonymousType(type)) {
+    Object.assign(out, serializeObjectType(type, checker, c));
+  }
+  const stringIndexType = checker.getIndexTypeOfType(type, ts.IndexKind.String);
+  if (stringIndexType) {
+    out.stringIndexType = q.queue(stringIndexType, 'type');
+  }
+  const numberIndexType = checker.getIndexTypeOfType(type, ts.IndexKind.Number);
+  if (numberIndexType) {
+    out.numberIndexType = q.queue(numberIndexType, 'type');
+  }
+
+  return out;
+}
+
 function serializeTypeParameterType(
   typ: ts.TypeParameter,
   _checker: ts.TypeChecker,
   c: Collector,
-): Partial<SerializedType> {
+): Partial<SerializedType> | undefined {
+  if (!typ.isTypeParameter()) {
+    return undefined;
+  }
+
   const out: Partial<SerializedType> = {};
   const constraint = typ.getConstraint();
   if (constraint) {
@@ -163,30 +188,40 @@ function serializeTypeParameterType(
   return out;
 }
 function serializeUnionOrIntersectionType(
-  typ: ts.UnionOrIntersectionType,
+  typ: ts.Type,
   _checker: ts.TypeChecker,
   c: Collector,
-): Partial<SerializedType> {
+): Partial<SerializedType> | undefined {
+  if (!typ.isUnionOrIntersection()) {
+    return undefined;
+  }
+
   const out: Partial<SerializedType> = {
     types: typ.types.map(t => c.queue.queue(t, 'type')).filter(isDefined),
   };
   return out;
 }
 function serializeIndexType(
-  typ: ts.IndexType,
+  typ: ts.Type,
   _checker: ts.TypeChecker,
   c: Collector,
-): Partial<SerializedType> {
+): Partial<SerializedType> | undefined {
+  if (!isIndexType(typ)) {
+    return undefined;
+  }
   const out: Partial<SerializedType> = {
     types: [c.queue.queue(typ.type, 'type')].filter(isDefined),
   };
   return out;
 }
 function serializeIndexAccessType(
-  typ: ts.IndexedAccessType,
+  typ: ts.Type,
   _checker: ts.TypeChecker,
   c: Collector,
-): Partial<SerializedType> {
+): Partial<SerializedType> | undefined {
+  if (!isIndexedAccessType(typ)) {
+    return undefined;
+  }
   const { objectType, indexType, constraint, simplified } = typ;
   const out: Partial<SerializedType> = {};
   if (constraint) {
@@ -204,6 +239,28 @@ function serializeIndexAccessType(
   return out;
 }
 
+function serializeConditionalTypeInfo(
+  type: ts.Type,
+  _checker: ts.TypeChecker,
+  c: Collector,
+): Pick<SerializedType, 'conditionalInfo'> | undefined {
+  if (!isConditionalType(type)) {
+    return undefined;
+  }
+  const {
+    extendsType,
+    checkType,
+    root: { trueType, falseType },
+  } = type;
+  const conditionalInfo: SerializedTypeConditionInfo = {
+    extendsType: c.queue.queue(extendsType, 'type')!,
+    checkType: c.queue.queue(checkType, 'type')!,
+    trueType: c.queue.queue(trueType, 'type'),
+    falseType: c.queue.queue(falseType, 'type'),
+  };
+  return { conditionalInfo };
+}
+
 /**
  * Serialize a Type to a POJO
  * @param type Type to serialize
@@ -215,7 +272,7 @@ export default function serializeType(
   type: ts.Type,
   checker: ts.TypeChecker,
   ref: TypeRef,
-  relatedEntities: string[] | undefined,
+  relatedEntities: ts.Type[] | undefined,
   c: Collector,
 ): SerializedType {
   const { symbol, isThisType } = type as { symbol?: ts.Symbol; isThisType?: boolean };
@@ -223,11 +280,11 @@ export default function serializeType(
     typeString: checker.typeToString(type),
     entity: 'type',
     id: refId(ref),
-    flags: flagsToString(type.flags, 'type'),
-    // symbol: c.queue.queue(symbol, 'symbol'),
+    flags: flagsToString(type.flags, 'type') || [],
+    symbol: c.queue.queue(symbol, 'symbol'),
   };
   if (relatedEntities) {
-    serialized.relatedTypes = relatedEntities.map(id => createRef<RefRegistry, 'type'>('type', id));
+    serialized.relatedTypes = relatedEntities.map(t => c.queue.queue(t, 'type')).filter(isDefined);
   }
   if (isPrimitiveType(type)) {
     serialized.primitive = true;
@@ -235,9 +292,24 @@ export default function serializeType(
   if (isThisType) {
     serialized.isThisType = true;
   }
-  if (!symbol) {
+  Object.assign(
+    serialized,
+    serializeUnionOrIntersectionType(type, checker, c),
+    serializeConditionalTypeInfo(type, checker, c),
+    serializeIndexType(type, checker, c),
+    serializeIndexAccessType(type, checker, c),
+    serializeBasicRelatedTypes(type, checker, c),
+  );
+  if (!symbol || !c.cfg.shouldSerializeType(checker, type, symbol)) {
     return serialized;
   }
+
+  Object.assign(
+    serialized,
+    serializeTypeParameterType(type, checker, c),
+    serializeExtendedRelatedTypes(type, checker, c),
+  );
+
   const decl = relevantDeclarationForSymbol(symbol);
   if (decl) {
     const sourceFile = decl.getSourceFile();
@@ -246,22 +318,6 @@ export default function serializeType(
       serialized.libName = libName;
       return serialized;
     }
-  }
-
-  if (isObjectType(type)) {
-    Object.assign(serialized, serializeRelatedTypes(type, checker, c));
-  }
-  if (type.isTypeParameter()) {
-    Object.assign(serialized, serializeTypeParameterType(type, checker, c));
-  }
-  if (type.isUnionOrIntersection()) {
-    Object.assign(serialized, serializeUnionOrIntersectionType(type, checker, c));
-  }
-  if (isIndexType(type)) {
-    Object.assign(serialized, serializeIndexType(type, checker, c));
-  }
-  if (isIndexedAccessType(type)) {
-    Object.assign(serialized, serializeIndexAccessType(type, checker, c));
   }
 
   return serialized;

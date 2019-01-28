@@ -25,7 +25,7 @@ export class SymbolSerializtionTests {
       'sourceFile',
       generateId(sf)[1],
     );
-    const serialized = serializeSourceFile(sf, checker, sfRef, collector);
+    const serialized = serializeSourceFile(sf, checker, sfRef, undefined, collector);
     expect(serialized).to.deep.eq({
       entity: 'sourceFile',
       extension: 'ts',

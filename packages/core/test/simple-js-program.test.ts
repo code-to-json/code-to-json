@@ -1,11 +1,12 @@
 import { setupTestCase } from '@code-to-json/test-helpers';
 import { createProgramFromCodeString } from '@code-to-json/utils-ts';
 import { expect } from 'chai';
-import { suite, test } from 'mocha-typescript';
+import { slow, suite, test } from 'mocha-typescript';
 import * as path from 'path';
 import { getDeclarationFiles } from './test-helpers';
 
 @suite
+@slow(800)
 export class TypeScriptFixturePrograms {
   @test
   public async 'creation of a simple JS program from fixture files'(): Promise<void> {

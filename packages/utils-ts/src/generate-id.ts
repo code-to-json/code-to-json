@@ -96,7 +96,7 @@ function generateDuplicateIdErrorMessage(
 }
 
 export type NewEntityGenerateIdResult = ['ok', string];
-export type NewEntityWithRelatedGenerateIdResult = ['ok-related', string, string[]];
+export type NewEntityWithRelatedGenerateIdResult = ['ok-related', string, IDableEntity[]];
 
 export type GenerateIdResult = NewEntityGenerateIdResult | NewEntityWithRelatedGenerateIdResult;
 
@@ -145,7 +145,7 @@ export function createIdGenerator(checker: TypeChecker): IdGenerator {
 
   function generateIdForSymbol(thing: Sym): string {
     const parts: Array<string | number> = [
-      (flagsToString(thing.flags, 'symbol') || []).join(''),
+      (flagsToString(thing.flags & ~SymbolFlags.Transient, 'symbol') || []).join(''),
       iteratorValues(thing.exports ? thing.exports.keys() : undefined, s => s.toString()),
       iteratorValues(thing.members ? thing.members.keys() : undefined, s => s.toString()),
     ];
@@ -155,8 +155,6 @@ export function createIdGenerator(checker: TypeChecker): IdGenerator {
     }
     if (valueDeclaration) {
       parts.push(valueDeclaration.getText());
-      parts.push(valueDeclaration.pos);
-      parts.push(valueDeclaration.end);
     }
     return generateHash(parts.filter(Boolean).join('-'));
   }
@@ -202,7 +200,7 @@ export function createIdGenerator(checker: TypeChecker): IdGenerator {
       // not the first time
       log(generateDuplicateIdErrorMessage(id, existingEntities.map(e => e[1]), thing, checker));
       id = `${id}1`;
-      return ['ok-related', id, [...existingEntities.map(e => e[0])]];
+      return ['ok-related', id, [...existingEntities.map(e => e[1])]];
     }
     throw new Error('Empty array detected in ID map');
   };

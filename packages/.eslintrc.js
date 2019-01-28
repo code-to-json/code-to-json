@@ -27,15 +27,25 @@ module.exports = {
     'no-bitwise': 'off',
     'no-restricted-syntax': 'off',
     'no-console': 'off',
-    'complexity': 'off'
+    'lines-between-class-members': 'off',
+    'no-dupe-class-members': 'off',
+    complexity: 'off',
   },
-  overrides: {
-    files: ['**/test/**/*.ts'],
-    env: {
-      node: true,
+  overrides: [
+    {
+      files: ['**/test/**/*.ts'],
+      env: {
+        node: true,
+      },
+      rules: {
+        'class-methods-use-this': 'off',
+      },
     },
-    rules: {
-      'class-methods-use-this': 'off',
+    {
+      files: ['**/__snapshots__/**/*'],
+      env: {
+        node: true,
+      },
     },
-  },
+  ],
 };

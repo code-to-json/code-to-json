@@ -1,10 +1,10 @@
 import { parseCommentString } from '@code-to-json/comments';
-import { createRef, forEach, refId } from '@code-to-json/utils';
+import { forEach, isDefined, isRef, refId } from '@code-to-json/utils';
 import {
-  decoratorsToStrings,
   filterDict,
   flagsToString,
   getFirstIdentifier,
+  isAbstractDeclaration,
   isErroredType,
   mapDict,
   modifiersToStrings,
@@ -13,7 +13,7 @@ import {
 } from '@code-to-json/utils-ts';
 import * as ts from 'typescript';
 import { Queue } from '../processing-queue';
-import { RefRegistry, SymbolRef } from '../types/ref';
+import { SymbolRef } from '../types/ref';
 import { SerializedSymbol } from '../types/serialized-entities';
 import { Collector } from '../types/walker';
 import serializeLocation from './location';
@@ -67,7 +67,9 @@ function serializeSymbolDeclarationData(
     serialized.modifiers = modifiersToStrings(modifiers);
   }
   if (decorators) {
-    serialized.decorators = decoratorsToStrings(decorators);
+    serialized.decorators = decorators
+      .map(d => q.queue(checker.getSymbolAtLocation(d.expression), 'symbol'))
+      .filter(isDefined);
   }
   if (symbol.getJsDocTags().length > 0 || symbol.getDocumentationComment(checker).length > 0) {
     const txt = extractDocumentationText(decl);
@@ -107,12 +109,30 @@ function serializeMemberSymbols(
   if (!syms) {
     return {};
   }
-
-  const filteredMembers = filterDict(syms, e => !(e.flags & ts.SymbolFlags.Constructor));
+  const filteredMembers = filterDict(
+    syms,
+    e => !(e.flags & (ts.SymbolFlags.Constructor | ts.SymbolFlags.Signature)),
+  );
   if (Object.keys(filteredMembers).length === 0) {
     return {};
   }
   return { members: mapDict(filteredMembers, exp => q.queue(exp, 'symbol')) };
+}
+
+function handleRelatedEntities(
+  _symbol: ts.Symbol,
+  _ref: SymbolRef,
+  relatedEntities: ts.Symbol[] | undefined,
+  q: Queue,
+): Pick<SerializedSymbol, 'relatedSymbols'> | undefined {
+  if (!relatedEntities) {
+    return undefined;
+  }
+  const relatedSymbols = relatedEntities
+    .map(relatedSym => q.queue(relatedSym, 'symbol'))
+    .filter(isRef);
+
+  return { relatedSymbols };
 }
 
 /**
@@ -127,7 +147,7 @@ export default function serializeSymbol(
   symbol: ts.Symbol,
   checker: ts.TypeChecker,
   ref: SymbolRef,
-  relatedEntities: string[] | undefined,
+  relatedEntities: ts.Symbol[] | undefined,
   c: Collector,
 ): SerializedSymbol {
   const { queue: q } = c;
@@ -137,18 +157,15 @@ export default function serializeSymbol(
   if (type && isErroredType(type)) {
     throw new Error(`Unable to determine type for symbol ${checker.symbolToString(symbol)}`);
   }
+  const id = refId(ref);
   const serialized: SerializedSymbol = {
-    id: refId(ref),
+    id,
     entity: 'symbol',
     name,
-    flags: flagsToString(flags, 'symbol'),
+    flags: flagsToString(flags, 'symbol') || [],
     type: q.queue(type, 'type'),
+    ...handleRelatedEntities(symbol, ref, relatedEntities, q),
   };
-  if (relatedEntities) {
-    serialized.relatedSymbols = relatedEntities.map(id =>
-      createRef<RefRegistry, 'symbol'>('symbol', id),
-    );
-  }
   const symbolString = checker.symbolToString(symbol);
   const typeString = type ? checker.typeToString(type) : undefined;
   if (symbolString) {
@@ -158,21 +175,21 @@ export default function serializeSymbol(
     serialized.typeString = typeString;
   }
 
-  Object.assign(
-    serialized,
-    serializeExportedSymbols(exportedSymbols, q),
-    serializeMemberSymbols(memberSymbols, q),
-  );
+  Object.assign(serialized, serializeExportedSymbols(exportedSymbols, q));
 
   const decl = relevantDeclarationForSymbol(symbol);
-  if (decl && decl.getSourceFile().isDeclarationFile) {
-    return serialized;
+  if (decl && isAbstractDeclaration(decl)) {
+    serialized.isAbstract = true;
   }
-  if (!c.cfg.shouldSerializeSymbolDetails(checker, symbol, decl)) {
+  if (!c.cfg.shouldSerializeSymbolDetails(checker, symbol, type, decl)) {
     return serialized;
   }
 
-  Object.assign(serialized, serializeSymbolDeclarationData(symbol, decl, c, checker));
+  Object.assign(
+    serialized,
+    serializeSymbolDeclarationData(symbol, decl, c, checker),
+    serializeMemberSymbols(memberSymbols, q),
+  );
 
   forEach(symbol.declarations, d => {
     // Type queries are too far resolved when we just visit the symbol's type

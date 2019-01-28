@@ -43,7 +43,7 @@ export class SourceFileFormatterTests {
       id: 'module.ts',
       moduleName: 'module',
       extension: 'ts',
-      pathInPackage: 'module',
+      path: 'module.ts',
       isDeclarationFile: false,
     });
   }
@@ -56,6 +56,7 @@ export class SourceFileFormatterTests {
           name: 'module.ts',
           entity: 'symbol',
           id: '12345',
+          flags: ['module'],
         },
       },
       types: {},
@@ -89,11 +90,11 @@ export class SourceFileFormatterTests {
     );
     expect(fsf).to.deep.eq({
       id: 'module.ts',
-      pathInPackage: 'module',
+      path: 'module.ts',
       extension: 'ts',
+      symbol: ['s', '12345'],
       moduleName: 'module',
       isDeclarationFile: false,
-      name: 'module',
     });
   }
 }

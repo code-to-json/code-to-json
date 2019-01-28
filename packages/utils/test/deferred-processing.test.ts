@@ -4,7 +4,7 @@ import { createQueue, Queue } from '../src/index';
 
 @suite
 export class DeferredProcessingTests {
-  public q!: Queue<'foo', { idd: string }>;
+  public q!: Queue<'foo', { idd: string }, any>;
 
   public before() {
     this.q = createQueue<{ foo: any }, 'foo', { idd: string }>(

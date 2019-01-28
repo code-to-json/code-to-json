@@ -24,20 +24,22 @@ export interface SerializedSourceFile extends SerializedEntity<'sourceFile'>, Ha
  */
 export interface SerializedSymbol
   extends SerializedEntity<'symbol'>,
-    HasPosition<SourceFileRef>,
+    HasPosition,
     HasDocumentation {
   name: string;
   external?: boolean;
   type?: TypeRef;
+  flags: Flags;
   exports?: Dict<SymbolRef>;
   members?: Dict<SymbolRef>;
-  decorators?: string[];
+  decorators?: SymbolRef[];
   modifiers?: string[];
   globalExports?: Dict<SymbolRef>;
   typeString?: string;
   symbolString?: string;
   heritageClauses?: SerializedHeritageClause[];
   relatedSymbols?: SymbolRef[];
+  isAbstract?: boolean;
   jsDocTags?: Array<{
     name: string;
     text?: string;
@@ -48,10 +50,12 @@ export interface SerializedSymbol
  * Serialized representation of a ts.Signature
  */
 export interface SerializedSignature {
+  hasRestParameter: boolean;
   parameters?: SymbolRef[];
   typeParameters?: TypeRef[];
   typePredicate?: TypeRef;
   declaration?: DeclarationRef;
+  modifiers?: string[];
   returnType?: TypeRef;
   comment?: string;
   typeString?: string;
@@ -69,8 +73,8 @@ export interface SerializedFileReference {
  * Serialized representation of a code location
  * within a ts.SourceFile
  */
-export interface HasPosition<FileRef = SourceFileRef> {
-  sourceFile?: FileRef;
+export interface HasPosition {
+  sourceFile?: SourceFileRef;
   location?: CodeRange;
 }
 
@@ -107,7 +111,7 @@ export interface SerializedAmdDependency {
  */
 export interface SerializedNode<Type extends string = 'node'>
   extends SerializedEntity<Type>,
-    HasPosition<SourceFileRef> {
+    HasPosition {
   text: string;
   kind: string;
   decorators?: string[];
@@ -127,6 +131,13 @@ export interface SerializedDeclaration extends SerializedNode<'declaration'> {}
 export interface SerializedHeritageClause {
   // TODO: constrain to a string literal type
   clauseType: string;
+}
+
+export interface SerializedTypeConditionInfo {
+  extendsType: TypeRef;
+  checkType: TypeRef;
+  falseType?: TypeRef;
+  trueType?: TypeRef;
 }
 
 /**
@@ -151,6 +162,8 @@ export interface SerializedType extends SerializedEntity<'type'>, HasDocumentati
   numberIndexType?: TypeRef;
   stringIndexType?: TypeRef;
   default?: TypeRef;
+  conditionalInfo?: SerializedTypeConditionInfo;
+  flags: Flags;
   libName?: string;
   types?: TypeRef[];
   baseTypes?: TypeRef[];

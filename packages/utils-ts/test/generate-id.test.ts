@@ -175,8 +175,8 @@ export const x: string = 'foo';
     const generateId = createIdGenerator(this.checker);
 
     expect(generateId(this.classDeclaration)).to.eql(['ok', 'D01m4wm4wrlxj'], 'class declaration');
-    expect(generateId(this.classSym)).to.eql(['ok', 'S01m4wnl8dld8'], 'class symbol');
-    expect(generateId(this.varSym)).to.eql(['ok', 'S01m4wmemklaa'], 'variable symbol');
+    expect(generateId(this.classSym)).to.eql(['ok', 'S01m4wntwmh9a'], 'class symbol');
+    expect(generateId(this.varSym)).to.eql(['ok', 'S01m4wmqaygbn'], 'variable symbol');
     expect(generateId(this.varDeclaration)).to.eql(['ok', 'D01m4wlurlp4f'], 'variable declaration');
     expect(generateId(this.typ)).to.eql(['ok', 'T01m4wmnuc0f2'], 'type');
     expect(generateId(this.sourceFile)).to.eql(['ok', 'F01m4wnf2ptes'], 'source file');

@@ -9,6 +9,7 @@ export {
   SerializedFileReference,
   HasDocumentation,
   HasPosition,
+  CodeRange as SerializedCodeRange
 } from './types/serialized-entities';
 export {
   DeclarationRef,
