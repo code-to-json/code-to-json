@@ -267,10 +267,10 @@ function formatConditionInfo(
     checkType: collector.queue(resolveReference(wo, cond.checkType), 't')!,
   };
   if (cond.trueType) {
-    conditionalInfo.trueType = collector.queue(resolveReference(wo, cond.trueType), 't')!;
+    conditionalInfo.trueType = collector.queue(resolveReference(wo, cond.trueType), 't');
   }
   if (cond.falseType) {
-    conditionalInfo.falseType = collector.queue(resolveReference(wo, cond.falseType), 't')!;
+    conditionalInfo.falseType = collector.queue(resolveReference(wo, cond.falseType), 't');
   }
   return {
     conditionalInfo,

@@ -19,14 +19,12 @@ export class InterfaceAcceptanceTests {
     expect(interfaceSymbol!.text).to.eq('Foo');
     expect(interfaceSymbol!.kind).to.deep.eq(FormattedSymbolKind.interface);
     const interfaceType = t.resolveReference(interfaceSymbol!.type);
-    expect(interfaceType!.text).to.eq('Foo');
-    expect(interfaceType!.kind).to.eq(FormattedTypeKind.object);
-    expect(interfaceType!.objectKind).to.eq(FormattedObjectTypeKind.interface);
+    expect(interfaceType.text).to.eq('Foo');
+    expect(interfaceType.kind).to.eq(FormattedTypeKind.object);
+    expect(interfaceType.objectKind).to.eq(FormattedObjectTypeKind.interface);
     expect(interfaceType.typeParameters).to.eq(undefined);
 
-    const interfacePropertySymbols = mapDict(interfaceType!.properties!, p =>
-      t.resolveReference(p),
-    );
+    const interfacePropertySymbols = mapDict(interfaceType.properties!, p => t.resolveReference(p));
     const interfacePropertyTypes = mapDict(interfacePropertySymbols, ps =>
       t.resolveReference(ps.type),
     );
@@ -53,18 +51,16 @@ export class InterfaceAcceptanceTests {
     expect(interfaceSymbol!.text).to.eq('Foo');
     expect(interfaceSymbol!.kind).to.deep.eq(FormattedSymbolKind.interface);
     const interfaceType = t.resolveReference(interfaceSymbol!.type);
-    expect(interfaceType!.text).to.eq('Foo<T>');
-    expect(interfaceType!.kind).to.eq(FormattedTypeKind.object);
-    expect(interfaceType!.objectKind).to.eq(FormattedObjectTypeKind.interface);
+    expect(interfaceType.text).to.eq('Foo<T>');
+    expect(interfaceType.kind).to.eq(FormattedTypeKind.object);
+    expect(interfaceType.objectKind).to.eq(FormattedObjectTypeKind.interface);
     expect(interfaceType.typeParameters!.length).to.eq(1);
 
     const [firstTypeParam] = interfaceType.typeParameters!.map(tp => t.resolveReference(tp));
     expect(firstTypeParam.text).to.eq('T');
     expect(firstTypeParam.constraint).to.eq(undefined);
 
-    const interfacePropertySymbols = mapDict(interfaceType!.properties!, p =>
-      t.resolveReference(p),
-    );
+    const interfacePropertySymbols = mapDict(interfaceType.properties!, p => t.resolveReference(p));
     const interfacePropertyTypes = mapDict(interfacePropertySymbols, ps =>
       t.resolveReference(ps.type),
     );
@@ -91,18 +87,16 @@ export class InterfaceAcceptanceTests {
     expect(interfaceSymbol!.text).to.eq('Foo');
     expect(interfaceSymbol!.kind).to.deep.eq(FormattedSymbolKind.interface);
     const interfaceType = t.resolveReference(interfaceSymbol!.type);
-    expect(interfaceType!.text).to.eq('Foo<T>');
-    expect(interfaceType!.kind).to.eq(FormattedTypeKind.object);
-    expect(interfaceType!.objectKind).to.eq(FormattedObjectTypeKind.interface);
+    expect(interfaceType.text).to.eq('Foo<T>');
+    expect(interfaceType.kind).to.eq(FormattedTypeKind.object);
+    expect(interfaceType.objectKind).to.eq(FormattedObjectTypeKind.interface);
     expect(interfaceType.typeParameters!.length).to.eq(1);
 
     const [firstTypeParam] = interfaceType.typeParameters!.map(tp => t.resolveReference(tp));
     expect(firstTypeParam.text).to.eq('T');
     expect(t.resolveReference(firstTypeParam.constraint).text).to.eq('number');
 
-    const interfacePropertySymbols = mapDict(interfaceType!.properties!, p =>
-      t.resolveReference(p),
-    );
+    const interfacePropertySymbols = mapDict(interfaceType.properties!, p => t.resolveReference(p));
     const interfacePropertyTypes = mapDict(interfacePropertySymbols, ps =>
       t.resolveReference(ps.type),
     );
@@ -129,11 +123,11 @@ export class InterfaceAcceptanceTests {
     expect(interfaceSymbol!.text).to.eq('Foo');
     expect(interfaceSymbol!.kind).to.deep.eq(FormattedSymbolKind.interface);
     const interfaceType = t.resolveReference(interfaceSymbol!.type);
-    expect(interfaceType!.text).to.eq('Foo<T>');
-    expect(interfaceType!.kind).to.eq(FormattedTypeKind.object);
-    expect(interfaceType!.objectKind).to.eq(FormattedObjectTypeKind.interface);
+    expect(interfaceType.text).to.eq('Foo<T>');
+    expect(interfaceType.kind).to.eq(FormattedTypeKind.object);
+    expect(interfaceType.objectKind).to.eq(FormattedObjectTypeKind.interface);
 
-    expect(t.resolveReference(interfaceType!.stringIndexType).text).to.eq('T');
+    expect(t.resolveReference(interfaceType.stringIndexType).text).to.eq('T');
 
     expect(interfaceType.properties).to.eq(undefined);
 
@@ -152,12 +146,12 @@ export class InterfaceAcceptanceTests {
     expect(interfaceSymbol!.text).to.eq('Foo');
     expect(interfaceSymbol!.kind).to.deep.eq(FormattedSymbolKind.interface);
     const interfaceType = t.resolveReference(interfaceSymbol!.type);
-    expect(interfaceType!.text).to.eq('Foo<T>');
-    expect(interfaceType!.kind).to.eq(FormattedTypeKind.object);
-    expect(interfaceType!.objectKind).to.eq(FormattedObjectTypeKind.interface);
+    expect(interfaceType.text).to.eq('Foo<T>');
+    expect(interfaceType.kind).to.eq(FormattedTypeKind.object);
+    expect(interfaceType.objectKind).to.eq(FormattedObjectTypeKind.interface);
 
-    expect(t.resolveReference(interfaceType!.stringIndexType).text).to.eq('T');
-    expect(t.resolveReference(interfaceType!.numberIndexType).text).to.eq('T[]');
+    expect(t.resolveReference(interfaceType.stringIndexType).text).to.eq('T');
+    expect(t.resolveReference(interfaceType.numberIndexType).text).to.eq('T[]');
 
     expect(interfaceType.properties).to.eq(undefined);
 
@@ -176,11 +170,11 @@ export class InterfaceAcceptanceTests {
     expect(interfaceSymbol!.text).to.eq('Foo');
     expect(interfaceSymbol!.kind).to.deep.eq(FormattedSymbolKind.interface);
     const interfaceType = t.resolveReference(interfaceSymbol!.type);
-    expect(interfaceType!.text).to.eq('Foo<T>');
-    expect(interfaceType!.kind).to.eq(FormattedTypeKind.object);
-    expect(interfaceType!.objectKind).to.eq(FormattedObjectTypeKind.interface);
+    expect(interfaceType.text).to.eq('Foo<T>');
+    expect(interfaceType.kind).to.eq(FormattedTypeKind.object);
+    expect(interfaceType.objectKind).to.eq(FormattedObjectTypeKind.interface);
 
-    const stringIndexType = t.resolveReference(interfaceType!.stringIndexType);
+    const stringIndexType = t.resolveReference(interfaceType.stringIndexType);
     expect(stringIndexType.text).to.eq('T | T[]');
 
     expect(stringIndexType.kind).to.eq(FormattedTypeKind.union);
@@ -206,11 +200,11 @@ export class InterfaceAcceptanceTests {
     expect(interfaceSymbol!.text).to.eq('Foo');
     expect(interfaceSymbol!.kind).to.deep.eq(FormattedSymbolKind.interface);
     const interfaceType = t.resolveReference(interfaceSymbol!.type);
-    expect(interfaceType!.text).to.eq('Foo<T>');
-    expect(interfaceType!.kind).to.eq(FormattedTypeKind.object);
-    expect(interfaceType!.objectKind).to.eq(FormattedObjectTypeKind.interface);
+    expect(interfaceType.text).to.eq('Foo<T>');
+    expect(interfaceType.kind).to.eq(FormattedTypeKind.object);
+    expect(interfaceType.objectKind).to.eq(FormattedObjectTypeKind.interface);
 
-    const stringIndexType = t.resolveReference(interfaceType!.stringIndexType);
+    const stringIndexType = t.resolveReference(interfaceType.stringIndexType);
     expect(stringIndexType.text).to.eq('(T & { foo: string; }) | (T[] & { foo: string; })');
 
     expect(stringIndexType.kind).to.eq(FormattedTypeKind.union);
