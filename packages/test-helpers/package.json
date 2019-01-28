@@ -1,6 +1,6 @@
 {
   "name": "@code-to-json/test-helpers",
-  "version": "1.0.0-rc.1",
+  "version": "1.0.0-rc.4",
   "description": "Test helpers for code-to-json",
   "main": "lib/src/index.js",
   "typings": "lib/src/index.d.ts",
@@ -24,7 +24,7 @@
   },
   "keywords": [],
   "dependencies": {
-    "@code-to-json/utils": "^1.0.0-rc.1",
+    "@code-to-json/utils": "^1.0.0-rc.4",
     "@mike-north/types": "^1.0.7",
     "debug": "^4.1.0",
     "directory-tree": "^2.2.1",
@@ -43,7 +43,7 @@
     "chai": "4.2.0",
     "eslint": "5.12.1",
     "eslint-config-airbnb-base": "13.1.0",
-    "eslint-config-prettier": "3.6.0",
+    "eslint-config-prettier": "4.0.0",
     "eslint-plugin-import": "2.15.0",
     "eslint-plugin-node": "8.0.1",
     "eslint-plugin-prettier": "3.0.1",

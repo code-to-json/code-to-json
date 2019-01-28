@@ -98,13 +98,13 @@
     check-more-types "2.24.0"
     lazy-ass "1.6.0"
 
-"@commitlint/cli@7.3.2", "@commitlint/cli@^7.3.2":
-  version "7.3.2"
-  resolved "https://registry.yarnpkg.com/@commitlint/cli/-/cli-7.3.2.tgz#61abf30b48861e4fbd521690e6d4a3e1258980bb"
-  integrity sha512-QoVayW3kr6/pkWObaCmI6k8O02l/rOJmQIgy5785f6AVbUeHbLOVnh661XMunzAvDX2Cdz4mN+LenhsrLGsaug==
+"@commitlint/cli@7.4.0", "@commitlint/cli@^7.4.0":
+  version "7.4.0"
+  resolved "https://registry.yarnpkg.com/@commitlint/cli/-/cli-7.4.0.tgz#18dd304d2e4c87edd5e575f3ae671da6c64b5d7d"
+  integrity sha512-wwjLX+8dkqgiQgIDcKpwSoYC+vWp/njw+Q0f+TPtSB3KCARmb9A4EWmDzFocYzK1goJT+j472ZG87GqUOHmChg==
   dependencies:
-    "@commitlint/format" "^7.3.1"
-    "@commitlint/lint" "^7.3.2"
+    "@commitlint/format" "^7.4.0"
+    "@commitlint/lint" "^7.4.0"
     "@commitlint/load" "^7.3.1"
     "@commitlint/read" "^7.3.1"
     babel-polyfill "6.26.0"
@@ -134,10 +134,10 @@
   dependencies:
     babel-runtime "6.26.0"
 
-"@commitlint/format@^7.3.1":
-  version "7.3.1"
-  resolved "https://registry.yarnpkg.com/@commitlint/format/-/format-7.3.1.tgz#a099eabe3bb6f3825831da465daab269ca76c0d5"
-  integrity sha512-DP0cAYAG4HJqZjJ+EHBD5XwW0LXmQ1TxV0qD0uScrQmxrPliBBTcE/2FbtuLqXvwr8PKJsnl7KtglAdKlhrsAQ==
+"@commitlint/format@^7.4.0":
+  version "7.4.0"
+  resolved "https://registry.yarnpkg.com/@commitlint/format/-/format-7.4.0.tgz#fc927fd99835f73d17076e065296159a41592ee0"
+  integrity sha512-+/ZCR2wWP4XXt7v/+4U6dfnLCh7l/N5IF+nKDJ6r+KsAgNbW85oTsAMpVWE/++fmTMU6CVIt1Rcbex6X06ggVA==
   dependencies:
     babel-runtime "^6.23.0"
     chalk "^2.0.1"
@@ -149,14 +149,14 @@
   dependencies:
     semver "5.6.0"
 
-"@commitlint/lint@^7.3.2":
-  version "7.3.2"
-  resolved "https://registry.yarnpkg.com/@commitlint/lint/-/lint-7.3.2.tgz#e5323ce5b65512e37089ca9e5dfd065849edbf80"
-  integrity sha512-NInm96JP89lMNR77R4zJRj/vaQWc4Ie5vR/5G5auFFiHuwyKmRWfXbGMA7zVYpAylPRgewGaELhuRzNTUW0Log==
+"@commitlint/lint@^7.4.0":
+  version "7.4.0"
+  resolved "https://registry.yarnpkg.com/@commitlint/lint/-/lint-7.4.0.tgz#69a690c37c3fb7f3b55bd7bad24cf018a0b9a19b"
+  integrity sha512-Lp94Mry4AColIW1mZfEZ9YXp7hUc9GewQFcUSEBxfn12l+pUem+6eSyBdNGZpPm3JCAanudkdEey889Hw7QrFA==
   dependencies:
     "@commitlint/is-ignored" "^7.3.1"
     "@commitlint/parse" "^7.3.1"
-    "@commitlint/rules" "^7.3.1"
+    "@commitlint/rules" "^7.4.0"
     babel-runtime "^6.23.0"
     lodash "4.17.11"
 
@@ -207,10 +207,10 @@
     resolve-from "^4.0.0"
     resolve-global "^0.1.0"
 
-"@commitlint/rules@^7.3.1":
-  version "7.3.1"
-  resolved "https://registry.yarnpkg.com/@commitlint/rules/-/rules-7.3.1.tgz#7aed328af4887bcf7e06e8a7605aeac17ae1f12a"
-  integrity sha512-tLabzCzD1bwjH11F7r7XbT6uOndiYFSTijvTK7EEaVFUrA0ejzmdIlVN7OYRCt0k63+8/KXv4AVXL0rts3MXtA==
+"@commitlint/rules@^7.4.0":
+  version "7.4.0"
+  resolved "https://registry.yarnpkg.com/@commitlint/rules/-/rules-7.4.0.tgz#282329528faca3a9c1bb608b01a42e02520ec3fd"
+  integrity sha512-ltTKuKhrVgqk4BgmoVWBRLO2LCFU4x3YmMTIMyZeJ6S+WvFLdSPJ2UIxbpoOI5FEsZzcPRRb04Od7SCRXLfwwA==
   dependencies:
     "@commitlint/ensure" "^7.3.1"
     "@commitlint/message" "^7.3.1"
@@ -229,12 +229,12 @@
   dependencies:
     find-up "^2.1.0"
 
-"@commitlint/travis-cli@7.3.2":
-  version "7.3.2"
-  resolved "https://registry.yarnpkg.com/@commitlint/travis-cli/-/travis-cli-7.3.2.tgz#fa086b4389830a03931a316616ca13eade4f1bb7"
-  integrity sha512-3hmeQ7NRulD/VB9ifBjBmiEJl85kOffmMXCJEB2578SH1JpfyDAMrjy0ZwX/WL/yAkkJX8/e+XnEvpu5lhivyg==
+"@commitlint/travis-cli@7.4.0":
+  version "7.4.0"
+  resolved "https://registry.yarnpkg.com/@commitlint/travis-cli/-/travis-cli-7.4.0.tgz#869bf4653d29aa7a01a30ebebe8126282d1bf1be"
+  integrity sha512-Q+XaNTYhPmazj8qkYoC7jJYQDNR4a/TIqz3ElhXoj7TFq+we0xeCAnVoeih+RpqulglJpP6IoBL3x1AGrxBJvQ==
   dependencies:
-    "@commitlint/cli" "^7.3.2"
+    "@commitlint/cli" "^7.4.0"
     babel-runtime "6.26.0"
     execa "0.9.0"
 
@@ -2468,10 +2468,10 @@ eslint-config-airbnb-base@13.1.0:
     object.assign "^4.1.0"
     object.entries "^1.0.4"
 
-eslint-config-prettier@3.6.0:
-  version "3.6.0"
-  resolved "https://registry.yarnpkg.com/eslint-config-prettier/-/eslint-config-prettier-3.6.0.tgz#8ca3ffac4bd6eeef623a0651f9d754900e3ec217"
-  integrity sha512-ixJ4U3uTLXwJts4rmSVW/lMXjlGwCijhBJHk8iVqKKSifeI0qgFEfWl8L63isfc8Od7EiBALF6BX3jKLluf/jQ==
+eslint-config-prettier@4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/eslint-config-prettier/-/eslint-config-prettier-4.0.0.tgz#16cedeea0a56e74de60dcbbe3be0ab2c645405b9"
+  integrity sha512-kWuiJxzV5NwOwZcpyozTzDT5KJhBw292bbYro9Is7BWnbNMg15Gmpluc1CTetiCatF8DRkNvgPAOaSyg+bYr3g==
   dependencies:
     get-stdin "^6.0.0"
 
@@ -2892,6 +2892,11 @@ folktale@2.3.1:
   version "2.3.1"
   resolved "https://registry.yarnpkg.com/folktale/-/folktale-2.3.1.tgz#c71a4b6594995717cd5e976ef3510e468d342629"
   integrity sha512-x16IvpoFrLxOYbAC4G/ban4eWOGoREcrfaVSiTsDknrRYHMe+W4XUekCYA6w4YyjQpcL8nsNt4A5EUUKjFSpRg==
+
+folktale@2.3.2:
+  version "2.3.2"
+  resolved "https://registry.yarnpkg.com/folktale/-/folktale-2.3.2.tgz#38231b039e5ef36989920cbf805bf6b227bf4fd4"
+  integrity sha512-+8GbtQBwEqutP0v3uajDDoN64K2ehmHd0cjlghhxh0WpcfPzAIjPA03e1VvHlxL02FVGR0A6lwXsNQKn3H1RNQ==
 
 for-in@^1.0.2:
   version "1.0.2"
@@ -7084,7 +7089,38 @@ snap-shot-core@7.1.11:
     pluralize "7.0.0"
     ramda "0.26.1"
 
-snap-shot-it@6.2.8, snap-shot-it@^6.2.8:
+snap-shot-core@7.1.12:
+  version "7.1.12"
+  resolved "https://registry.yarnpkg.com/snap-shot-core/-/snap-shot-core-7.1.12.tgz#568d5701e478a437119f82d62579f2401f562f89"
+  integrity sha512-bRZfGP2MgPCpzRi/Zou9om7VoAMp3cwFj5Xp19NSRuRzOiLJpuoa62msyY7jcy/zr69Shg1OgHCDSoaH7B59wA==
+  dependencies:
+    check-more-types "2.24.0"
+    common-tags "1.8.0"
+    debug "3.2.6"
+    escape-quotes "1.0.2"
+    folktale "2.3.2"
+    is-ci "1.2.1"
+    jsesc "2.5.2"
+    lazy-ass "1.6.0"
+    mkdirp "0.5.1"
+    pluralize "7.0.0"
+    ramda "0.26.1"
+
+snap-shot-it@6.2.9:
+  version "6.2.9"
+  resolved "https://registry.yarnpkg.com/snap-shot-it/-/snap-shot-it-6.2.9.tgz#9356ecfe20dbe3722e49f35bbffca3d04da82de2"
+  integrity sha512-bN51yrg6a14bqwjCzCUD2czyOu47J2ndYxc4fiSlYz3jT0HBCJL8rP5M6nDbaftH7DQYIkew3Vx7lShpzpJZjg==
+  dependencies:
+    "@bahmutov/data-driven" "1.0.0"
+    check-more-types "2.24.0"
+    debug "4.1.1"
+    has-only "1.1.1"
+    pluralize "7.0.0"
+    ramda "0.26.1"
+    snap-shot-compare "2.7.1"
+    snap-shot-core "7.1.12"
+
+snap-shot-it@^6.2.8:
   version "6.2.8"
   resolved "https://registry.yarnpkg.com/snap-shot-it/-/snap-shot-it-6.2.8.tgz#10366b5a26afd167e8e2c54b893ef5abbf638978"
   integrity sha512-VJkubD1CiX7/M63zyD0cBj7EzdtM2/pMeV2t8pKfGtc8Nxm+fxYPPul0BXDrp+fLG8/7igpGe9Cnd0cs67FTgw==
