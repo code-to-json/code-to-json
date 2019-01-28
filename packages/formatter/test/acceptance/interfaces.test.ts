@@ -1,7 +1,6 @@
-import { slow, suite, timeout } from 'mocha-typescript';
+import { slow, suite } from 'mocha-typescript';
 
 @suite
-@timeout(1200)
 @slow(800)
 export class InterfaceAcceptanceTests {
   // @test public async 'simple interface'() {

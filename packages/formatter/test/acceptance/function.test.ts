@@ -1,10 +1,9 @@
 import { mapDict } from '@code-to-json/utils-ts';
 import { expect } from 'chai';
-import { slow, suite, test, timeout } from 'mocha-typescript';
+import { slow, suite, test } from 'mocha-typescript';
 import SingleFileAcceptanceTestCase from './helpers/test-case';
 
 @suite
-@timeout(1200)
 @slow(800)
 export class FunctionAcceptanceTests {
   @test public async 'simple function declaration'() {

@@ -1,10 +1,9 @@
 import { expect } from 'chai';
-import { slow, suite, test, timeout } from 'mocha-typescript';
+import { slow, suite, test } from 'mocha-typescript';
 import SingleFileAcceptanceTestCase from './helpers/test-case';
 
 @suite
 @slow(800)
-@timeout(1200)
 export class ArraySerializationTests {
   @test
   public async 'export let x: string[] = ["33"];'(): Promise<void> {
