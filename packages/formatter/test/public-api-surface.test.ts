@@ -13,6 +13,11 @@ export class PublicApiSurface {
 
   @test
   public 'only intended exports'(): void {
-    expect(Object.keys(Exports).sort()).to.deep.eq(['formatWalkerOutput']);
+    expect(Object.keys(Exports).sort()).to.deep.eq([
+      'FormattedObjectTypeKind',
+      'FormattedSymbolKind',
+      'FormattedTypeKind',
+      'formatWalkerOutput',
+    ]);
   }
 }
