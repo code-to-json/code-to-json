@@ -12,6 +12,7 @@ export {
   isClassOrInterfaceType,
   isAnonymousType,
   isIndexType,
+  isConditionalType,
   isIndexedAccessType,
   isPrimitiveType,
 } from './guards';
@@ -22,6 +23,7 @@ export {
   createProgramFromEntries,
   createProgramFromTsConfig,
 } from './program';
+export { isAbstractDeclaration } from './declaration';
 export { default as SysHost } from './host';
 export {
   generateModulePathNormalizer,

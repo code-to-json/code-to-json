@@ -1,4 +1,5 @@
 import {
+  ConditionalType,
   Declaration,
   IndexedAccessType,
   IndexType,
@@ -163,6 +164,10 @@ export function isPrimitiveType(type: Type): boolean {
 
 export function isIndexType(type: Type): type is IndexType {
   return !!(type.flags & TypeFlags.Index);
+}
+
+export function isConditionalType(type: Type): type is ConditionalType {
+  return !!(type.flags & TypeFlags.Conditional);
 }
 
 export function isIndexedAccessType(type: Type): type is IndexedAccessType {
