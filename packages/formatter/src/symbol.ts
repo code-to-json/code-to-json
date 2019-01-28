@@ -105,7 +105,23 @@ function formatSymbolModifiers(modifiers?: string[]): Pick<FormattedSymbol, MODI
   return out;
 }
 
-// tslint:disable-next-line:cognitive-complexity
+function formatSymbolDocumentation(
+  symbol: SerializedSymbol | undefined,
+): Pick<FormattedSymbol, 'comment' | 'jsDocTags'> | undefined {
+  if (!symbol || (!symbol.comment && !symbol.jsDocTags)) {
+    return undefined;
+  }
+  const out: Pick<FormattedSymbol, 'comment' | 'jsDocTags'> = {};
+  const { comment, jsDocTags } = symbol;
+  if (comment) {
+    out.comment = comment;
+  }
+  if (jsDocTags) {
+    out.jsDocTags = jsDocTags;
+  }
+  return out;
+}
+
 export default function formatSymbol(
   wo: WalkerOutputData,
   symbol: Readonly<SerializedSymbol>,
@@ -121,10 +137,8 @@ export default function formatSymbol(
     decorators,
     // heritageClauses,
     location,
-    comment,
     members,
     sourceFile,
-    jsDocTags,
     globalExports,
     external,
     documentation,
@@ -142,6 +156,7 @@ export default function formatSymbol(
     info,
     formatSymbolModifiers(modifiers),
     formatSymbolDecorators(wo, collector, decorators),
+    formatSymbolDocumentation(symbol),
   );
   if (relatedSymbols) {
     info.related = relatedSymbols
@@ -157,17 +172,11 @@ export default function formatSymbol(
   if (symbolString) {
     info.text = symbolString;
   }
-  if (comment) {
-    info.comment = comment;
-  }
   if (location) {
     info.location = convertLocation(wo, collector, location);
   }
   if (external) {
     info.external = external;
-  }
-  if (jsDocTags) {
-    info.jsDocTags = jsDocTags;
   }
   if (sourceFile) {
     info.sourceFile = collector.queue(resolveReference(wo, sourceFile), 'f');
