@@ -1,6 +1,6 @@
 {
   "name": "@code-to-json/utils-ts",
-  "version": "1.0.0-rc.5",
+  "version": "1.0.0-rc.6",
   "description": "TypeScript utilities for code-to-json",
   "main": "lib/src/index.js",
   "typings": "lib/src/index.d.ts",
@@ -24,12 +24,12 @@
   },
   "keywords": [],
   "dependencies": {
-    "@code-to-json/utils": "^1.0.0-rc.4",
+    "@code-to-json/utils": "^1.0.0-rc.5",
     "@mike-north/types": "^1.0.7",
     "typescript": "^3.1.0"
   },
   "devDependencies": {
-    "@code-to-json/test-helpers": "^1.0.0-rc.4",
+    "@code-to-json/test-helpers": "^1.0.0-rc.5",
     "@types/chai": "4.1.7",
     "chai": "4.2.0",
     "eslint": "5.12.1",

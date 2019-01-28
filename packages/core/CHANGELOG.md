@@ -3,6 +3,31 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-rc.6](https://github.com/mike-north/code-to-json/compare/@code-to-json/core@1.0.0-rc.5...@code-to-json/core@1.0.0-rc.6) (2019-01-28)
+
+
+### Bug Fixes
+
+* adjustments to type serialization boundary ([2538634](https://github.com/mike-north/code-to-json/commit/2538634))
+* id generation metadata is passed all the way through to processors ([5e85260](https://github.com/mike-north/code-to-json/commit/5e85260))
+* improvements to type alias serialization ([6a4200e](https://github.com/mike-north/code-to-json/commit/6a4200e))
+* proper handling of union and intersection types ([49bdce4](https://github.com/mike-north/code-to-json/commit/49bdce4))
+* related types are bi-directionally serialized ([7e27623](https://github.com/mike-north/code-to-json/commit/7e27623))
+* remove duplicate character in regex character class ([0aea819](https://github.com/mike-north/code-to-json/commit/0aea819))
+* remove duplicate character in regex character class ([76f9168](https://github.com/mike-north/code-to-json/commit/76f9168))
+* restore type serialization boundary ([330f0ec](https://github.com/mike-north/code-to-json/commit/330f0ec))
+* walker post-processing handling of related types/symbols ([b520ae5](https://github.com/mike-north/code-to-json/commit/b520ae5))
+
+
+### Features
+
+* proper serialization of decorators ([3a65808](https://github.com/mike-north/code-to-json/commit/3a65808))
+* support for conditional types ([7ee0234](https://github.com/mike-north/code-to-json/commit/7ee0234))
+
+
+
+
+
 # [1.0.0-rc.5](https://github.com/mike-north/code-to-json/compare/@code-to-json/core@1.0.0-rc.4...@code-to-json/core@1.0.0-rc.5) (2019-01-26)
 
 **Note:** Version bump only for package @code-to-json/core

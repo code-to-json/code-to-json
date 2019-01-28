@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-rc.6](https://github.com/mike-north/code-to-json/compare/@code-to-json/utils-ts@1.0.0-rc.5...@code-to-json/utils-ts@1.0.0-rc.6) (2019-01-28)
+
+
+### Bug Fixes
+
+* more appropriate "type for symbol" last resort for type query case ([156cb09](https://github.com/mike-north/code-to-json/commit/156cb09))
+* reduce complexity of relevantTypeForSymbol ([21a9a3e](https://github.com/mike-north/code-to-json/commit/21a9a3e))
+* serialize type aliases, even though some subset still fail ([87dde92](https://github.com/mike-north/code-to-json/commit/87dde92))
+
+
+### Features
+
+* id generator - track related entities instead of just their ids ([2a21f70](https://github.com/mike-north/code-to-json/commit/2a21f70))
+* support for detecting conditional types and ambient declarations ([dafa9f1](https://github.com/mike-north/code-to-json/commit/dafa9f1))
+
+
+
+
+
 # [1.0.0-rc.5](https://github.com/mike-north/code-to-json/compare/@code-to-json/utils-ts@1.0.0-rc.4...@code-to-json/utils-ts@1.0.0-rc.5) (2019-01-26)
 
 **Note:** Version bump only for package @code-to-json/utils-ts

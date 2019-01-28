@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-rc.5](https://github.com/mike-north/code-to-json/compare/@code-to-json/utils@1.0.0-rc.4...@code-to-json/utils@1.0.0-rc.5) (2019-01-28)
+
+
+### Bug Fixes
+
+* **utils:** allow information to pass from id generator to processor ([9e6df50](https://github.com/mike-north/code-to-json/commit/9e6df50))
+
+
+
+
+
 # [1.0.0-rc.4](https://github.com/mike-north/code-to-json/compare/@code-to-json/utils@1.0.0-rc.3...@code-to-json/utils@1.0.0-rc.4) (2019-01-26)
 
 **Note:** Version bump only for package @code-to-json/utils

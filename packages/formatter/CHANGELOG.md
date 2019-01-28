@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-rc.6](https://github.com/mike-north/code-to-json/compare/@code-to-json/formatter@1.0.0-rc.5...@code-to-json/formatter@1.0.0-rc.6) (2019-01-28)
+
+
+### Features
+
+* get rid of test snapshots ([1e609b8](https://github.com/mike-north/code-to-json/commit/1e609b8))
+* location formatting ([9412f3b](https://github.com/mike-north/code-to-json/commit/9412f3b))
+* **formatter:** support for conditional types ([3ba0df0](https://github.com/mike-north/code-to-json/commit/3ba0df0))
+
+
+
+
+
 # [1.0.0-rc.5](https://github.com/mike-north/code-to-json/compare/@code-to-json/formatter@1.0.0-rc.4...@code-to-json/formatter@1.0.0-rc.5) (2019-01-26)
 
 **Note:** Version bump only for package @code-to-json/formatter
