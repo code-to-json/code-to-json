@@ -66,6 +66,13 @@ function relevantTypeForVariableOrPropertySymbol(
     `Could not identify appropriate type for symbol ${checker.symbolToString(symbol)}`,
   );
 }
+function lastResortTypeForSymbol(checker: ts.TypeChecker, symbol: ts.Symbol): ts.Type {
+  let typ = checker.getDeclaredTypeOfSymbol(symbol);
+  if (isErroredType(typ) && symbol.valueDeclaration) {
+    typ = checker.getTypeAtLocation(symbol.valueDeclaration);
+  }
+  return typ;
+}
 
 // tslint:disable-next-line:cognitive-complexity
 export function relevantTypeForSymbol(
@@ -113,7 +120,7 @@ export function relevantTypeForSymbol(
     return checker.getTypeAtLocation(symbol.declarations[0]);
   }
 
-  const lastResort = checker.getDeclaredTypeOfSymbol(symbol);
+  const lastResort = lastResortTypeForSymbol(checker, symbol);
 
   log(`LAST RESORT: ${checker.symbolToString(symbol)} --> ${checker.typeToString(lastResort)}`);
   return lastResort;
