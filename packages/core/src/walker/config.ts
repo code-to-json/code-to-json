@@ -67,7 +67,7 @@ export default class WalkerConfig {
       return true;
     }
     const sf = symbol.valueDeclaration.getSourceFile();
-    return sf.fileName.replace(/[/\\/]+/g, '').indexOf('typescriptlib') < 0;
+    return sf.fileName.replace(/[/\\]+/g, '').indexOf('typescriptlib') < 0;
   }
 
   // eslint-disable-next-line class-methods-use-this
