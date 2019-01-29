@@ -16,7 +16,6 @@ export class ClassSerializationTests {
     const fileSymbol = t.resolveReference(file.symbol);
     const classSymbol = t.resolveReference(fileSymbol.exports!.Vehicle);
     expect(classSymbol.symbolString).to.eql('Vehicle');
-    expect(classSymbol.typeString).to.eql('typeof Vehicle', 'has correct type');
     expect(classSymbol.flags).to.eql(['Class'], 'Regarded as a class');
     expect(classSymbol.modifiers).to.include('export');
 
@@ -62,7 +61,6 @@ export class ClassSerializationTests {
     const fileSymbol = t.resolveReference(file.symbol);
     const classSymbol = t.resolveReference(fileSymbol.exports!.Vehicle);
     expect(classSymbol.symbolString).to.eql('Vehicle');
-    expect(classSymbol.typeString).to.eql('typeof Vehicle', 'has correct type');
     expect(classSymbol.flags).to.eql(['Class'], 'Regarded as a class');
     expect(classSymbol.modifiers).to.include('export');
     expect(classSymbol.isAbstract).to.eql(true);
@@ -106,7 +104,6 @@ export class ClassSerializationTests {
     const fileSymbol = t.resolveReference(file.symbol);
     const classSymbol = t.resolveReference(fileSymbol.exports!.Vehicle);
     expect(classSymbol.symbolString).to.eql('Vehicle');
-    expect(classSymbol.typeString).to.eql('typeof Vehicle', 'has correct type');
     expect(classSymbol.flags).to.eql(['Class'], 'Regarded as a class');
     expect(classSymbol.modifiers).to.include('export');
 
@@ -136,7 +133,6 @@ export class Car extends Vehicle {}`;
     const fileSymbol = t.resolveReference(file.symbol);
     const classSymbol = t.resolveReference(fileSymbol.exports!.Car);
     expect(classSymbol.symbolString).to.eql('Car');
-    expect(classSymbol.typeString).to.eql('typeof Car', 'has correct type');
     expect(classSymbol.flags).to.eql(['Class'], 'Regarded as a class');
     expect(classSymbol.modifiers).to.include('export');
 
@@ -168,7 +164,6 @@ export class Car extends Vehicle {}`;
     const fileSymbol = t.resolveReference(file.symbol);
     const classSymbol = t.resolveReference(fileSymbol.exports!.Car);
     expect(classSymbol.symbolString).to.eql('Car');
-    expect(classSymbol.typeString).to.eql('typeof Car', 'has correct type');
     expect(classSymbol.flags).to.eql(['Class'], 'Regarded as a class');
     expect(classSymbol.modifiers).to.include('export');
 
@@ -200,7 +195,6 @@ export class Car extends Vehicle {}`;
     const fileSymbol = t.resolveReference(file.symbol);
     const classSymbol = t.resolveReference(fileSymbol.exports!.SimpleClass);
     expect(classSymbol.symbolString).to.eql('SimpleClass');
-    expect(classSymbol.typeString).to.eql('typeof SimpleClass', 'has correct type');
     expect(classSymbol.flags).to.eql(['Class'], 'Regarded as a class');
     expect(classSymbol.modifiers).to.include('export');
 
@@ -259,7 +253,6 @@ export class Car extends Vehicle {}`;
     const fileSymbol = t.resolveReference(file.symbol);
     const classSymbol = t.resolveReference(fileSymbol.exports!.SimpleClass);
     expect(classSymbol.symbolString).to.eql('SimpleClass');
-    expect(classSymbol.typeString).to.eql('typeof SimpleClass', 'has correct type');
     expect(classSymbol.flags).to.eql(['Class'], 'Regarded as a class');
     expect(classSymbol.modifiers).to.include('export');
 

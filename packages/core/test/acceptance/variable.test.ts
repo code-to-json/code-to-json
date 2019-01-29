@@ -16,7 +16,6 @@ export class VariableSerializationTests {
     expect(Object.keys(fileSymbol.exports!)).to.deep.eq(['x']);
     const variableSymbol = t.resolveReference(fileSymbol.exports!.x);
     expect(variableSymbol.symbolString).to.eql('x');
-    expect(variableSymbol.typeString).to.eql('number', 'has type of number');
     expect(variableSymbol.flags).to.eql(['BlockScopedVariable'], 'Regarded as a variable');
     expect(variableSymbol.modifiers).to.eql(undefined, 'No modifiers');
 
@@ -35,7 +34,6 @@ export class VariableSerializationTests {
     const fileSymbol = t.resolveReference(file.symbol);
     const variableSymbol = t.resolveReference(fileSymbol.exports!.x);
     expect(variableSymbol.symbolString).to.eql('x');
-    expect(variableSymbol.typeString).to.eql('1', 'has type of 1');
     expect(variableSymbol.flags).to.eql(['BlockScopedVariable'], 'Regarded as a variable');
     expect(variableSymbol.modifiers).to.eql(undefined, 'No modifiers');
 
@@ -54,7 +52,6 @@ export class VariableSerializationTests {
     const fileSymbol = t.resolveReference(file.symbol);
     const variableSymbol = t.resolveReference(fileSymbol.exports!.x);
     expect(variableSymbol.symbolString).to.eql('x');
-    expect(variableSymbol.typeString).to.eql('number', 'has type of number');
     expect(variableSymbol.flags).to.eql(['BlockScopedVariable'], 'Regarded as a variable');
 
     const variableType = t.resolveReference(variableSymbol.type);
@@ -72,7 +69,6 @@ export class VariableSerializationTests {
     const fileSymbol = t.resolveReference(file.symbol);
     const variableSymbol = t.resolveReference(fileSymbol.exports!.x);
     expect(variableSymbol.symbolString).to.eql('x');
-    expect(variableSymbol.typeString).to.eql('string | number', 'has correct type');
     expect(variableSymbol.flags).to.eql(['BlockScopedVariable'], 'Regarded as a variable');
 
     const variableType = t.resolveReference(variableSymbol.type);
@@ -90,7 +86,6 @@ export class VariableSerializationTests {
     const fileSymbol = t.resolveReference(file.symbol);
     const variableSymbol = t.resolveReference(fileSymbol.exports!.x);
     expect(variableSymbol.symbolString).to.eql('x');
-    expect(variableSymbol.typeString).to.eql('Promise<number>', 'has correct type');
     expect(variableSymbol.flags).to.eql(['BlockScopedVariable'], 'Regarded as a variable');
 
     const variableType = t.resolveReference(variableSymbol.type);

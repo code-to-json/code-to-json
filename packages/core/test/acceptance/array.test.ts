@@ -14,7 +14,6 @@ export class ArraySerializationTests {
     const fileSymbol = t.resolveReference(file.symbol);
     const variableSymbol = t.resolveReference(fileSymbol.exports!.x);
     expect(variableSymbol.symbolString).to.eql('x');
-    expect(variableSymbol.typeString).to.eql('string[]', 'has correct type');
     expect(variableSymbol.flags).to.eql(['BlockScopedVariable'], 'Regarded as a variable');
 
     const variableType = t.resolveReference(variableSymbol.type);
@@ -34,7 +33,6 @@ export class ArraySerializationTests {
     const fileSymbol = t.resolveReference(file.symbol);
     const variableSymbol = t.resolveReference(fileSymbol.exports!.x);
     expect(variableSymbol.symbolString).to.eql('x');
-    expect(variableSymbol.typeString).to.eql('[string, number, number]', 'has correct type');
     expect(variableSymbol.flags).to.eql(['BlockScopedVariable'], 'Regarded as a variable');
 
     const variableType = t.resolveReference(variableSymbol.type);

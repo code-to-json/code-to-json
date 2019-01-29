@@ -43,25 +43,19 @@ function extractDocumentationText(decl: ts.Declaration): string | undefined {
   return undefined;
 }
 
-type SYMBOL_DECLARATION_PROPS =
-  | 'modifiers'
-  | 'decorators'
-  | 'jsDocTags'
-  | 'documentation'
-  | 'sourceFile'
-  | 'location';
+type SYMBOL_EXTENDED_DECLARATION_PROPS = 'jsDocTags' | 'documentation' | 'sourceFile' | 'location';
 
-function serializeSymbolDeclarationData(
+function serializeExtendedSymbolDeclarationData(
   symbol: ts.Symbol,
   decl: ts.Declaration | undefined,
-  c: Collector,
   checker: ts.TypeChecker,
-): Pick<SerializedSymbol, SYMBOL_DECLARATION_PROPS> {
+  c: Collector,
+): Pick<SerializedSymbol, SYMBOL_EXTENDED_DECLARATION_PROPS> {
   if (!decl) {
     return {};
   }
   const { queue: q } = c;
-  const serialized: Pick<SerializedSymbol, SYMBOL_DECLARATION_PROPS> = {};
+  const serialized: Pick<SerializedSymbol, SYMBOL_EXTENDED_DECLARATION_PROPS> = {};
 
   if (symbol.getJsDocTags().length > 0 || symbol.getDocumentationComment(checker).length > 0) {
     const txt = extractDocumentationText(decl);
@@ -79,7 +73,7 @@ function serializeSymbolDeclarationData(
   return serialized;
 }
 
-function serializeExportedSymbols(
+function serializeExports(
   syms: ts.UnderscoreEscapedMap<ts.Symbol> | undefined,
   q: Queue,
 ): Pick<SerializedSymbol, 'exports'> {
@@ -94,7 +88,7 @@ function serializeExportedSymbols(
   return { exports: mapDict(filteredExports, exp => q.queue(exp, 'symbol')) };
 }
 
-function serializeMemberSymbols(
+function serializeMembers(
   syms: ts.UnderscoreEscapedMap<ts.Symbol> | undefined,
   q: Queue,
 ): Pick<SerializedSymbol, 'members'> {
@@ -127,20 +121,32 @@ function handleRelatedEntities(
   return { relatedSymbols };
 }
 
-function serializeTypeAndSymbolStrings(
-  symbol: ts.Symbol,
-  type: ts.Type | undefined,
+type SYMBOL_BASIC_DECLARATION_PROPS = 'modifiers' | 'decorators' | 'isAbstract';
+
+function serializeBasicSymbolDeclarationData(
+  _symbol: ts.Symbol,
+  decl: ts.Declaration | undefined,
   checker: ts.TypeChecker,
-): Pick<SerializedSymbol, 'symbolString' | 'typeString'> | undefined {
-  const symbolString = checker.symbolToString(symbol);
-  const typeString = type ? checker.typeToString(type) : undefined;
-  const out: Pick<SerializedSymbol, 'symbolString' | 'typeString'> = {};
-  if (symbolString) {
-    out.symbolString = symbolString;
+  c: Collector,
+): Pick<SerializedSymbol, SYMBOL_BASIC_DECLARATION_PROPS> | undefined {
+  if (!decl) {
+    return undefined;
   }
-  if (typeString) {
-    out.typeString = typeString;
+  const out: Pick<SerializedSymbol, SYMBOL_BASIC_DECLARATION_PROPS> = {};
+  const { modifiers, decorators } = decl;
+  if (modifiers) {
+    out.modifiers = modifiersToStrings(modifiers);
   }
+  if (decorators) {
+    out.decorators = decorators
+      .map(d => c.queue.queue(checker.getSymbolAtLocation(d.expression), 'symbol'))
+      .filter(isDefined);
+  }
+
+  if (isAbstractDeclaration(decl)) {
+    out.isAbstract = true;
+  }
+
   return out;
 }
 
@@ -171,39 +177,24 @@ export default function serializeSymbol(
     id,
     entity: 'symbol',
     name,
+    symbolString: checker.symbolToString(symbol),
     flags: flagsToString(flags, 'symbol') || [],
     type: q.queue(type, 'type'),
     ...handleRelatedEntities(symbol, ref, relatedEntities, q),
   };
-  Object.assign(
-    serialized,
-    serializeExportedSymbols(exportedSymbols, q),
-    serializeTypeAndSymbolStrings(symbol, type, checker),
-  );
-
   const decl = relevantDeclarationForSymbol(symbol);
-  if (decl && isAbstractDeclaration(decl)) {
-    serialized.isAbstract = true;
-  }
-  if (decl) {
-    const { modifiers, decorators } = decl;
-    if (modifiers) {
-      serialized.modifiers = modifiersToStrings(modifiers);
-    }
-    if (decorators) {
-      serialized.decorators = decorators
-        .map(d => q.queue(checker.getSymbolAtLocation(d.expression), 'symbol'))
-        .filter(isDefined);
-    }
-  }
+
+  Object.assign(serialized, serializeBasicSymbolDeclarationData(symbol, decl, checker, c));
+
   if (!c.cfg.shouldSerializeSymbolDetails(checker, symbol, type, decl)) {
     return serialized;
   }
 
   Object.assign(
     serialized,
-    serializeSymbolDeclarationData(symbol, decl, c, checker),
-    serializeMemberSymbols(memberSymbols, q),
+    serializeExports(exportedSymbols, q),
+    serializeExtendedSymbolDeclarationData(symbol, decl, checker, c),
+    serializeMembers(memberSymbols, q),
   );
 
   forEach(symbol.declarations, d => {

@@ -45,11 +45,6 @@ export function sanitizeSymbol(
   }
   replace.forEach(rep => {
     symbol.name = symbol.name.replace(rep[0], rep[1]);
-    if (symbol.symbolString) {
-      symbol.symbolString = symbol.symbolString.replace(rep[0], rep[1]);
-    }
-    if (symbol.typeString) {
-      symbol.typeString = symbol.typeString.replace(rep[0], rep[1]);
-    }
+    symbol.symbolString = symbol.symbolString.replace(rep[0], rep[1]);
   });
 }

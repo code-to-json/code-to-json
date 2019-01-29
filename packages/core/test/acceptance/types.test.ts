@@ -16,7 +16,6 @@ export class TypeSerializationTests {
     const fileSymbol = t.resolveReference(file.symbol);
     const typeSymbol = t.resolveReference(fileSymbol.exports!.x);
     expect(typeSymbol.symbolString).to.eql('x');
-    expect(typeSymbol.typeString).to.eql('{ width: number; height: number; }', 'has correct type');
     expect(typeSymbol.flags).to.eql(['BlockScopedVariable'], 'Regarded as a variable');
 
     const typeType = t.resolveReference(typeSymbol.type);
@@ -34,11 +33,10 @@ export class TypeSerializationTests {
     const fileSymbol = t.resolveReference(file.symbol);
     const typeSymbol = t.resolveReference(fileSymbol.exports!.Dict);
     expect(typeSymbol.symbolString).to.eql('Dict');
-    expect(typeSymbol.typeString).to.eql('Dict<T>', 'has correct type');
     expect(typeSymbol.flags).to.eql(['TypeAlias'], 'Regarded as a type alias');
 
     const typeType = t.resolveReference(typeSymbol.type);
-    expect(typeType.typeString).to.eql('Dict<T>');
+    expect(typeType.typeString).to.eql('Dict<T>', 'has correct type');
     expect(typeType.flags).to.deep.eq(['Object']);
     const [typeParam] = typeType.typeParameters!.map(tp => t.resolveReference(tp));
     expect(typeParam.typeString).to.eq('T');
@@ -58,7 +56,6 @@ export class TypeSerializationTests {
     const fileSymbol = t.resolveReference(file.symbol);
     const typeSymbol = t.resolveReference(fileSymbol.exports!.Dict);
     expect(typeSymbol.symbolString).to.eql('Dict');
-    expect(typeSymbol.typeString).to.eql('Dict<T>', 'has correct type');
     expect(typeSymbol.flags).to.eql(['TypeAlias'], 'Regarded as a type alias');
 
     const typeType = t.resolveReference(typeSymbol.type);
@@ -81,7 +78,6 @@ export class TypeSerializationTests {
     const fileSymbol = t.resolveReference(file.symbol);
     const typeSymbol = t.resolveReference(fileSymbol.exports!.StringNumberOrBoolean);
     expect(typeSymbol.symbolString).to.eql('StringNumberOrBoolean');
-    expect(typeSymbol.typeString).to.eql('StringNumberOrBoolean', 'has correct type');
     expect(typeSymbol.flags).to.eql(['TypeAlias'], 'Regarded as a type alias');
 
     const typeType = t.resolveReference(typeSymbol.type);
@@ -112,7 +108,6 @@ export class TypeSerializationTests {
     const fileSymbol = t.resolveReference(file.symbol);
     const typeSymbol = t.resolveReference(fileSymbol.exports!.Split);
     expect(typeSymbol.symbolString).to.eql('Split');
-    expect(typeSymbol.typeString).to.eql('Split', 'has correct type');
     expect(typeSymbol.flags).to.eql(['TypeAlias'], 'Regarded as a type alias');
 
     const typeType = t.resolveReference(typeSymbol.type);

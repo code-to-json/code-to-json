@@ -16,7 +16,6 @@ export class InterfaceSerializationTests {
     const fileSymbol = t.resolveReference(file.symbol);
     const variableSymbol = t.resolveReference(fileSymbol.exports!.x);
     expect(variableSymbol.symbolString).to.eql('x');
-    expect(variableSymbol.typeString).to.eql('Foo', 'has correct type');
     expect(variableSymbol.flags).to.eql(['BlockScopedVariable'], 'Regarded as a variable');
 
     const variableType = t.resolveReference(variableSymbol.type);
@@ -27,7 +26,8 @@ export class InterfaceSerializationTests {
     expect(typePropertyNames).to.deep.eq(['num']);
     const firstProp = t.resolveReference(variableType.properties!.num);
     expect(firstProp.name).to.eql('num');
-    expect(firstProp.typeString).to.eql('number');
+    const firstPropType = t.resolveReference(firstProp.type);
+    expect(firstPropType.typeString).to.eql('number');
     t.cleanup();
   }
 
@@ -40,10 +40,10 @@ export class InterfaceSerializationTests {
     const fileSymbol = t.resolveReference(file.symbol);
     const interfaceSymbol = t.resolveReference(fileSymbol.exports!.Foo);
     expect(interfaceSymbol.symbolString).to.eql('Foo');
-    expect(interfaceSymbol.typeString).to.eql('Foo', 'has correct type');
     expect(interfaceSymbol.flags).to.eql(['Interface'], 'Regarded as an interface');
 
     const interfaceType = t.resolveReference(interfaceSymbol.type);
+    expect(interfaceType.typeString).to.eql('Foo', 'has correct type');
     expect(interfaceType.typeString).to.eql('Foo');
     expect(interfaceType.flags).to.deep.eq(['Object']);
     expect(interfaceType.objectFlags).to.deep.eq(['Interface']);
@@ -52,11 +52,12 @@ export class InterfaceSerializationTests {
     const [bar, baz] = Object.keys(interfaceType.properties!).map(pName =>
       t.resolveReference(interfaceType.properties![pName]),
     );
+    const [barType, bazType] = [bar, baz].map(s => t.resolveReference(s.type));
     expect(bar.name).to.eql('bar');
-    expect(bar.typeString).to.eql('number');
+    expect(barType.typeString).to.eql('number');
     expect(bar.modifiers).to.deep.eq(undefined);
     expect(baz.name).to.eql('baz');
-    expect(baz.typeString).to.eql('Promise<string>');
+    expect(bazType.typeString).to.eql('Promise<string>');
     expect(baz.modifiers).to.deep.eq(['readonly']);
     t.cleanup();
   }

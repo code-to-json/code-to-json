@@ -35,8 +35,7 @@ export interface SerializedSymbol
   decorators?: SymbolRef[];
   modifiers?: string[];
   globalExports?: Dict<SymbolRef>;
-  typeString?: string;
-  symbolString?: string;
+  symbolString: string;
   heritageClauses?: SerializedHeritageClause[];
   relatedSymbols?: SymbolRef[];
   isAbstract?: boolean;

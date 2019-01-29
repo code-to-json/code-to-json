@@ -19,12 +19,14 @@ export class CommentSerializationTests {
     const fileSymbol = t.resolveReference(file.symbol);
     const variableSymbol = t.resolveReference(fileSymbol.exports!.x);
     expect(variableSymbol.symbolString).to.eql('x');
-    expect(variableSymbol.typeString).to.eql('Foo', 'has correct type');
     expect(variableSymbol.flags).to.eql(['BlockScopedVariable'], 'Regarded as a variable');
 
     expect(variableSymbol.documentation).to.deep.eq({
       summary: ['A thing'],
     });
+    const variableType = t.resolveReference(variableSymbol.type);
+    expect(variableType.typeString).to.eql('Foo', 'has correct type');
+
     t.cleanup();
   }
 
@@ -43,7 +45,6 @@ export class CommentSerializationTests {
     const fileSymbol = t.resolveReference(file.symbol);
     const variableSymbol = t.resolveReference(fileSymbol.exports!.x);
     expect(variableSymbol.symbolString).to.eql('x');
-    expect(variableSymbol.typeString).to.eql('Foo', 'has correct type');
     expect(variableSymbol.flags).to.eql(['BlockScopedVariable'], 'Regarded as a variable');
 
     expect(variableSymbol.documentation).to.deep.eq({
@@ -56,6 +57,10 @@ export class CommentSerializationTests {
         },
       ],
     });
+
+    const variableType = t.resolveReference(variableSymbol.type);
+    expect(variableType.typeString).to.eql('Foo', 'has correct type');
+
     t.cleanup();
   }
 
@@ -75,10 +80,6 @@ export class CommentSerializationTests {
     const fileSymbol = t.resolveReference(file.symbol);
     const functionSymbol = t.resolveReference(fileSymbol.exports!.add);
     expect(functionSymbol.symbolString).to.eql('add');
-    expect(functionSymbol.typeString).to.eql(
-      '(a: number, b: number) => number',
-      'has correct type',
-    );
     expect(functionSymbol.flags).to.eql(['Function'], 'Regarded as a function');
 
     expect(functionSymbol.documentation).to.deep.eq({
@@ -108,6 +109,7 @@ export class CommentSerializationTests {
     expect(sig1Param2.jsDocTags![0].name).to.eq('param');
     expect(sig1Param1.jsDocTags![0].text).contains('first number');
     expect(sig1Param2.jsDocTags![0].text).contains('second number');
+
     t.cleanup();
   }
 
