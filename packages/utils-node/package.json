@@ -1,6 +1,6 @@
 {
   "name": "@code-to-json/utils-node",
-  "version": "1.0.0-rc.7",
+  "version": "1.0.0-rc.8",
   "description": "Node.js utilities for code-to-json",
   "main": "lib/src/index.js",
   "typings": "lib/src/index.d.ts",
@@ -94,8 +94,8 @@
     ]
   },
   "dependencies": {
-    "@code-to-json/utils": "^1.0.0-rc.6",
-    "@code-to-json/utils-ts": "^1.0.0-rc.7",
+    "@code-to-json/utils": "^1.0.0-rc.7",
+    "@code-to-json/utils-ts": "^1.0.0-rc.8",
     "@mike-north/types": "^1.0.7",
     "pkg-up": "^2.0.0",
     "rimraf": "^2.6.3",
