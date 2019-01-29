@@ -127,6 +127,23 @@ function handleRelatedEntities(
   return { relatedSymbols };
 }
 
+function serializeTypeAndSymbolStrings(
+  symbol: ts.Symbol,
+  type: ts.Type | undefined,
+  checker: ts.TypeChecker,
+): Pick<SerializedSymbol, 'symbolString' | 'typeString'> | undefined {
+  const symbolString = checker.symbolToString(symbol);
+  const typeString = type ? checker.typeToString(type) : undefined;
+  const out: Pick<SerializedSymbol, 'symbolString' | 'typeString'> = {};
+  if (symbolString) {
+    out.symbolString = symbolString;
+  }
+  if (typeString) {
+    out.typeString = typeString;
+  }
+  return out;
+}
+
 /**
  * Serialize a ts.Symbol to JSON
  *
@@ -158,16 +175,11 @@ export default function serializeSymbol(
     type: q.queue(type, 'type'),
     ...handleRelatedEntities(symbol, ref, relatedEntities, q),
   };
-  const symbolString = checker.symbolToString(symbol);
-  const typeString = type ? checker.typeToString(type) : undefined;
-  if (symbolString) {
-    serialized.symbolString = symbolString;
-  }
-  if (typeString) {
-    serialized.typeString = typeString;
-  }
-
-  Object.assign(serialized, serializeExportedSymbols(exportedSymbols, q));
+  Object.assign(
+    serialized,
+    serializeExportedSymbols(exportedSymbols, q),
+    serializeTypeAndSymbolStrings(symbol, type, checker),
+  );
 
   const decl = relevantDeclarationForSymbol(symbol);
   if (decl && isAbstractDeclaration(decl)) {
