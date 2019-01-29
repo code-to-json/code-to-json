@@ -80,11 +80,14 @@ const TYPE_KIND_MAP: { [k: string]: FormattedTypeKind } = {
   TypeParameter: FormattedTypeKind.typeParameter,
   Conditional: FormattedTypeKind.conditional,
   Substitution: FormattedTypeKind.substitution,
+  IndexedAccess: FormattedTypeKind.indexedAccess,
+  Index: FormattedTypeKind.index,
 };
 const OBJECT_TYPE_KIND_MAP: { [k: string]: FormattedObjectTypeKind } = {
   Anonymous: FormattedObjectTypeKind.anonymous,
   Interface: FormattedObjectTypeKind.interface,
   Class: FormattedObjectTypeKind.class,
+  Mapped: FormattedObjectTypeKind.mapped,
 };
 
 function determineTypeKind(
@@ -96,7 +99,9 @@ function determineTypeKind(
     if (TYPE_KIND_MAP[f]) {
       return TYPE_KIND_MAP[f];
     }
-    throw new Error(`Could not determine type kind\n${JSON.stringify(type, null, '  ')}`);
+    throw new Error(
+      `Could not determine type kind from flag: "${f}"\n${JSON.stringify(type, null, '  ')}`,
+    );
   });
 
   switch (kinds.length) {
@@ -108,17 +113,28 @@ function determineTypeKind(
       if (kinds.includes(FormattedTypeKind.enumLiteral)) {
         const [enumKind] = kinds.filter(k => k !== FormattedTypeKind.enumLiteral);
         if (
-          enumKind !== FormattedTypeKind.numberLiteral &&
-          enumKind !== FormattedTypeKind.stringLiteral
+          ![
+            FormattedTypeKind.numberLiteral,
+            FormattedTypeKind.stringLiteral,
+            FormattedTypeKind.union,
+          ].includes(enumKind)
         ) {
           throw new Error(`Unexpected enum kind: ${FormattedTypeKind[enumKind]}`);
         }
         return { kind: FormattedTypeKind.enumLiteral, other: { enumKind } };
       }
+      if (
+        kinds.length === 2 &&
+        kinds.includes(FormattedTypeKind.boolean) &&
+        kinds.includes(FormattedTypeKind.union)
+      ) {
+        return { kind: FormattedTypeKind.union };
+      }
+
     // eslint-disable-next-line no-fallthrough
     default:
       throw new Error(
-        `Multiple kinds identified: ${kinds.join(', ')}\n ${JSON.stringify(type, null, '  ')}`,
+        `Multiple type kinds identified: ${kinds.join(', ')}\n ${JSON.stringify(type, null, '  ')}`,
       );
   }
 }
@@ -132,7 +148,9 @@ function determineObjectTypeKind(type: SerializedType): FormattedObjectTypeKind 
     if (OBJECT_TYPE_KIND_MAP[f]) {
       return OBJECT_TYPE_KIND_MAP[f];
     }
-    throw new Error(`Could not determine type kind\n${JSON.stringify(type, null, '  ')}`);
+    throw new Error(
+      `Could not determine object type kind from flag "${f}"\n${JSON.stringify(type, null, '  ')}`,
+    );
   });
 
   switch (kinds.length) {

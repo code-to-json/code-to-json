@@ -40,7 +40,7 @@ export default class WalkerConfig {
 
   // eslint-disable-next-line class-methods-use-this
   public shouldSerializeSymbolDetails(
-    checker: ts.TypeChecker,
+    _checker: ts.TypeChecker,
     sym?: ts.Symbol,
     type?: ts.Type,
     decl?: ts.Declaration,
@@ -48,21 +48,22 @@ export default class WalkerConfig {
     if (!sym || isInternalSymbol(sym)) {
       return false;
     }
-    if (!decl) {
-      if (sym.flags & ts.SymbolFlags.Prototype) {
-        return false;
-      }
-      throw new Error(`Found no declaration for symbol ${checker.symbolToString(sym)}`);
-    } else if (type && type.symbol && type.symbol.valueDeclaration) {
+    if (!decl && sym.flags & ts.SymbolFlags.Prototype) {
+      return false;
+    }
+    if (type && type.symbol && type.symbol.valueDeclaration) {
       return this.shouldSerializeSourceFile(type.symbol.valueDeclaration.getSourceFile());
-    } else {
+    }
+    if (decl) {
       return this.shouldSerializeSourceFile(decl.getSourceFile());
     }
+    return false;
   }
 
   // eslint-disable-next-line class-methods-use-this
   public shouldSerializeType(_checker: ts.TypeChecker, _type: ts.Type, symbol: ts.Symbol): boolean {
     const { valueDeclaration } = symbol;
+    if (isInternalSymbol(symbol)) { return false; }
     if (!valueDeclaration) {
       return true;
     }
