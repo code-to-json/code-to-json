@@ -69,7 +69,13 @@ function formatSymbolDecorators(
   return out;
 }
 
-type MODIFIER_PROPERTIES = 'isExported' | 'accessModifier' | 'isStatic' | 'isConst' | 'isAsync';
+type MODIFIER_PROPERTIES =
+  | 'isExported'
+  | 'accessModifier'
+  | 'isStatic'
+  | 'isConst'
+  | 'isAsync'
+  | 'isReadOnly';
 
 function formatSymbolModifiers(modifiers?: string[]): Pick<FormattedSymbol, MODIFIER_PROPERTIES> {
   if (!modifiers) {
@@ -89,6 +95,9 @@ function formatSymbolModifiers(modifiers?: string[]): Pick<FormattedSymbol, MODI
         break;
       case 'const':
         out.isConst = true;
+        break;
+      case 'readonly':
+        out.isReadOnly = true;
         break;
       case 'static':
         out.isStatic = true;
