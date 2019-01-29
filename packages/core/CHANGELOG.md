@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-rc.7](https://github.com/mike-north/code-to-json/compare/@code-to-json/core@1.0.0-rc.6...@code-to-json/core@1.0.0-rc.7) (2019-01-29)
+
+
+### Bug Fixes
+
+* ensure access modifiers are serialized ([d51e289](https://github.com/mike-north/code-to-json/commit/d51e289))
+
+
+### Features
+
+* remove typeString from SerializedSymbol ([7f09f12](https://github.com/mike-north/code-to-json/commit/7f09f12))
+* symbolString and typeString --> 'text' ([bc33ff9](https://github.com/mike-north/code-to-json/commit/bc33ff9))
+
+
+
+
+
 # [1.0.0-rc.6](https://github.com/mike-north/code-to-json/compare/@code-to-json/core@1.0.0-rc.5...@code-to-json/core@1.0.0-rc.6) (2019-01-28)
 
 
