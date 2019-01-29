@@ -11,7 +11,7 @@ export function sanitizeType(
     return;
   }
   replace.forEach(rep => {
-    type.typeString = type.typeString.replace(rep[0], rep[1]);
+    type.text = type.text.replace(rep[0], rep[1]);
   });
 }
 
@@ -45,6 +45,6 @@ export function sanitizeSymbol(
   }
   replace.forEach(rep => {
     symbol.name = symbol.name.replace(rep[0], rep[1]);
-    symbol.symbolString = symbol.symbolString.replace(rep[0], rep[1]);
+    symbol.text = symbol.text.replace(rep[0], rep[1]);
   });
 }

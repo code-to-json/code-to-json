@@ -35,7 +35,7 @@ export interface SerializedSymbol
   decorators?: SymbolRef[];
   modifiers?: string[];
   globalExports?: Dict<SymbolRef>;
-  symbolString: string;
+  text: string;
   heritageClauses?: SerializedHeritageClause[];
   relatedSymbols?: SymbolRef[];
   isAbstract?: boolean;
@@ -57,7 +57,7 @@ export interface SerializedSignature {
   modifiers?: string[];
   returnType?: TypeRef;
   comment?: string;
-  typeString?: string;
+  text?: string;
 }
 
 /**
@@ -155,7 +155,7 @@ export interface SerializedType extends SerializedEntity<'type'>, HasDocumentati
   objectType?: TypeRef;
   properties?: Dict<SymbolRef>;
   isThisType?: boolean;
-  typeString: string;
+  text: string;
   primitive?: boolean;
   objectFlags?: Flags;
   numberIndexType?: TypeRef;

@@ -152,13 +152,14 @@ export default function formatSymbol(
     external,
     documentation,
     isAbstract,
-    symbolString,
+    text,
     relatedSymbols,
   } = symbol;
   const id = refId(ref);
   const info: FormattedSymbol = {
     id,
     kind: determineSymbolKind(symbol),
+    text,
     name: name || '(anonymous)',
   };
   Object.assign(
@@ -177,9 +178,6 @@ export default function formatSymbol(
   }
   if (_rawFlags.indexOf('Transient') >= 0) {
     info.isTransient = true;
-  }
-  if (symbolString) {
-    info.text = symbolString;
   }
   if (location) {
     info.location = convertLocation(wo, collector, location);

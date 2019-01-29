@@ -37,7 +37,7 @@ export default function serializeSignature(
   if (parameters && parameters.length > 0) {
     out.parameters = parameters.map(p => q.queue(p, 'symbol')).filter(isRef);
   }
-  out.typeString = checker.signatureToString(signature);
+  out.text = checker.signatureToString(signature);
   // tslint:disable-next-line:no-commented-code
   // visitType(getRestTypeOfSignature(signature));
   // TODO: ...rest type signature??

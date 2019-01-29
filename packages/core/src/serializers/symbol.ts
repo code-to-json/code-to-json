@@ -177,7 +177,7 @@ export default function serializeSymbol(
     id,
     entity: 'symbol',
     name,
-    symbolString: checker.symbolToString(symbol),
+    text: checker.symbolToString(symbol),
     flags: flagsToString(flags, 'symbol') || [],
     type: q.queue(type, 'type'),
     ...handleRelatedEntities(symbol, ref, relatedEntities, q),
