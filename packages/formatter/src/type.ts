@@ -285,7 +285,7 @@ export default function formatType(
   collector: DataCollector,
 ): FormattedType {
   const {
-    typeString,
+    text,
     objectFlags,
     properties,
     libName,
@@ -298,7 +298,7 @@ export default function formatType(
   const { kind, other: otherKindData } = determineTypeKind(type);
   const typeInfo: FormattedType = {
     id: refId(ref),
-    text: typeString,
+    text,
     kind,
     isThisType,
   };

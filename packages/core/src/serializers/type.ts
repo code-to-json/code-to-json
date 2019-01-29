@@ -277,7 +277,7 @@ export default function serializeType(
 ): SerializedType {
   const { symbol, isThisType } = type as { symbol?: ts.Symbol; isThisType?: boolean };
   const serialized: SerializedType = {
-    typeString: checker.typeToString(type),
+    text: checker.typeToString(type),
     entity: 'type',
     id: refId(ref),
     flags: flagsToString(type.flags, 'type') || [],

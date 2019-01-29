@@ -56,6 +56,7 @@ export class SourceFileFormatterTests {
           name: 'module.ts',
           entity: 'symbol',
           id: '12345',
+          text: 'a stringified module',
           flags: ['module'],
         },
       },

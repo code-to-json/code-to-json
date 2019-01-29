@@ -147,6 +147,7 @@ export interface FormattedSymbol<K extends FormattedSymbolKind = FormattedSymbol
   accessModifier?: 'private' | 'public' | 'protected';
   isStatic?: boolean;
   isAsync?: boolean;
+  isReadOnly?: boolean;
   isAnonymous?: boolean;
   // modifiers?: string[];
   decorators?: FormattedSymbolRef[];

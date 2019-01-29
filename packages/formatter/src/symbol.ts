@@ -69,7 +69,13 @@ function formatSymbolDecorators(
   return out;
 }
 
-type MODIFIER_PROPERTIES = 'isExported' | 'accessModifier' | 'isStatic' | 'isConst' | 'isAsync';
+type MODIFIER_PROPERTIES =
+  | 'isExported'
+  | 'accessModifier'
+  | 'isStatic'
+  | 'isConst'
+  | 'isAsync'
+  | 'isReadOnly';
 
 function formatSymbolModifiers(modifiers?: string[]): Pick<FormattedSymbol, MODIFIER_PROPERTIES> {
   if (!modifiers) {
@@ -89,6 +95,9 @@ function formatSymbolModifiers(modifiers?: string[]): Pick<FormattedSymbol, MODI
         break;
       case 'const':
         out.isConst = true;
+        break;
+      case 'readonly':
+        out.isReadOnly = true;
         break;
       case 'static':
         out.isStatic = true;
@@ -143,13 +152,14 @@ export default function formatSymbol(
     external,
     documentation,
     isAbstract,
-    symbolString,
+    text,
     relatedSymbols,
   } = symbol;
   const id = refId(ref);
   const info: FormattedSymbol = {
     id,
     kind: determineSymbolKind(symbol),
+    text,
     name: name || '(anonymous)',
   };
   Object.assign(
@@ -168,9 +178,6 @@ export default function formatSymbol(
   }
   if (_rawFlags.indexOf('Transient') >= 0) {
     info.isTransient = true;
-  }
-  if (symbolString) {
-    info.text = symbolString;
   }
   if (location) {
     info.location = convertLocation(wo, collector, location);
