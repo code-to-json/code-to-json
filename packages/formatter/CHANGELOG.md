@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-rc.7](https://github.com/mike-north/code-to-json/compare/@code-to-json/formatter@1.0.0-rc.6...@code-to-json/formatter@1.0.0-rc.7) (2019-01-29)
+
+
+### Bug Fixes
+
+* export formatter type and symbol kind enums ([267a9fb](https://github.com/mike-north/code-to-json/commit/267a9fb))
+
+
+
+
+
 # [1.0.0-rc.6](https://github.com/mike-north/code-to-json/compare/@code-to-json/formatter@1.0.0-rc.5...@code-to-json/formatter@1.0.0-rc.6) (2019-01-28)
 
 
