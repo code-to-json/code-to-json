@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-rc.10](https://github.com/mike-north/code-to-json/compare/@code-to-json/core@1.0.0-rc.9...@code-to-json/core@1.0.0-rc.10) (2019-01-30)
+
+
+### Bug Fixes
+
+* replace isRef with isDefined for presence check ([e747db6](https://github.com/mike-north/code-to-json/commit/e747db6))
+
+
+### Features
+
+* new types for linked data ([657389d](https://github.com/mike-north/code-to-json/commit/657389d))
+
+
+
+
+
 # [1.0.0-rc.9](https://github.com/mike-north/code-to-json/compare/@code-to-json/core@1.0.0-rc.8...@code-to-json/core@1.0.0-rc.9) (2019-01-30)
 
 
