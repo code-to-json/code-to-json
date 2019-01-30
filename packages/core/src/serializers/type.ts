@@ -291,7 +291,7 @@ export default function serializeType(
     serialized.relatedTypes = relatedEntities.map(t => c.queue.queue(t, 'type')).filter(isDefined);
   }
   if (isPrimitiveType(type)) {
-    serialized.primitive = true;
+    serialized.isPrimitive = true;
   }
   if (isThisType) {
     serialized.isThisType = true;

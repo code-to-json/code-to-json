@@ -24,6 +24,8 @@ export interface OutputMap {
   sourceFile: SerializedSourceFile;
 }
 
+export type EntityOrRef<K extends keyof OutputMap & keyof EntityMap> = EntityMap[K] | OutputMap[K];
+
 export type SymbolRef = Ref<'symbol'>;
 export type DeclarationRef = Ref<'declaration'>;
 export type NodeRef = Ref<'node'>;

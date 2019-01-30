@@ -1,15 +1,19 @@
 export {
-  SerializedDeclaration,
   SerializedSignature,
   SerializedSourceFile,
   SerializedNode,
   SerializedSymbol,
   SerializedType,
-  SerializedAmdDependency,
+  SerializedDeclaration,
+  AmdDependency,
   SerializedFileReference,
   HasDocumentation,
-  HasPosition,
-  CodeRange as SerializedCodeRange
+  SerializedCodeRange,
+  LinkedSymbol,
+  LinkedType,
+  LinkedNode,
+  LinkedDeclaration,
+  LinkedSourceFile,
 } from './types/serialized-entities';
 export {
   DeclarationRef,
