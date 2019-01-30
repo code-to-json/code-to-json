@@ -54,7 +54,7 @@ Path to the root of a JavaScript or TypeScript project, which should contain bot
 
 - [@code-to-json/core](https://github.com/code-to-json/code-to-json/tree/master/packages/core) [![Version](https://img.shields.io/npm/v/@code-to-json/core.svg)](https://www.npmjs.com/package/@code-to-json/core) - Code analysis functionality
 
-- [@code-to-json/core](https://github.com/code-to-json/code-to-json/tree/master/packages/core-linker) [![Version](https://img.shields.io/npm/v/@code-to-json/core-linker.svg)](https://www.npmjs.com/package/@code-to-json/core-linker) - Data linker for "raw" data format
+- [@code-to-json/core-linker](https://github.com/code-to-json/code-to-json/tree/master/packages/core-linker) [![Version](https://img.shields.io/npm/v/@code-to-json/core-linker.svg)](https://www.npmjs.com/package/@code-to-json/core-linker) - Data linker for "raw" data format
 
 - [@code-to-json/formatter](https://github.com/code-to-json/code-to-json/tree/master/packages/formatter) [![Version](https://img.shields.io/npm/v/@code-to-json/formatter.svg)](https://www.npmjs.com/package/@code-to-json/formatter) - Data formatter
 
