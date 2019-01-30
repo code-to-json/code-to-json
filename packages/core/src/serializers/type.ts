@@ -29,7 +29,9 @@ function serializeTypeReference(
 ): Partial<SerializedType> {
   const { queue: q } = c;
   const { target, typeArguments } = type;
-  const out: Partial<SerializedType> = { target: q.queue(target, 'type') };
+  const out: Partial<SerializedType> = {
+    target: q.queue(target, 'type'),
+  };
   if (typeArguments) {
     out.typeParameters = typeArguments.map(ta => q.queue(ta, 'type')).filter(isRef);
   }
@@ -91,23 +93,25 @@ function serializeObjectType(
   if (aliasTypeArguments && aliasTypeArguments.length > 0) {
     out.typeParameters = aliasTypeArguments.map(tp => c.queue.queue(tp, 'type')).filter(isRef);
   }
-  const properties: ts.Symbol[] = type.getProperties();
-  if (properties && properties.length > 0) {
-    out.properties = properties
-      .filter(prop => {
-        if (prop.flags & ts.SymbolFlags.Prototype) {
-          return false;
-        }
-        return true;
-      })
-      .reduce(
-        (props, prop) => {
-          // eslint-disable-next-line no-param-reassign
-          props[prop.name] = q.queue(prop, 'symbol');
-          return props;
-        },
-        {} as Dict<SymbolRef>,
-      );
+  if (c.cfg.shouldSerializeTypeDetails(_checker, type)) {
+    const properties: ts.Symbol[] = type.getProperties();
+    if (properties && properties.length > 0) {
+      out.properties = properties
+        .filter(prop => {
+          if (prop.flags & ts.SymbolFlags.Prototype) {
+            return false;
+          }
+          return true;
+        })
+        .reduce(
+          (props, prop) => {
+            // eslint-disable-next-line no-param-reassign
+            props[prop.name] = q.queue(prop, 'symbol');
+            return props;
+          },
+          {} as Dict<SymbolRef>,
+        );
+    }
   }
   return out;
 }
@@ -187,7 +191,7 @@ function serializeTypeParameterType(
   }
   return out;
 }
-function serializeUnionOrIntersectionType(
+function serializeBasicUnionOrIntersectionTypeInfo(
   typ: ts.Type,
   _checker: ts.TypeChecker,
   c: Collector,
@@ -201,7 +205,7 @@ function serializeUnionOrIntersectionType(
   };
   return out;
 }
-function serializeIndexType(
+function serializeBasicIndexTypeInfo(
   typ: ts.Type,
   _checker: ts.TypeChecker,
   c: Collector,
@@ -214,7 +218,7 @@ function serializeIndexType(
   };
   return out;
 }
-function serializeIndexAccessType(
+function serializeBasicIndexAccessTypeInfo(
   typ: ts.Type,
   _checker: ts.TypeChecker,
   c: Collector,
@@ -239,7 +243,7 @@ function serializeIndexAccessType(
   return out;
 }
 
-function serializeConditionalTypeInfo(
+function serializeBasicConditionalTypeInfo(
   type: ts.Type,
   _checker: ts.TypeChecker,
   c: Collector,
@@ -294,14 +298,23 @@ export default function serializeType(
   }
   Object.assign(
     serialized,
-    serializeUnionOrIntersectionType(type, checker, c),
-    serializeConditionalTypeInfo(type, checker, c),
-    serializeIndexType(type, checker, c),
-    serializeIndexAccessType(type, checker, c),
+    serializeBasicUnionOrIntersectionTypeInfo(type, checker, c),
+    serializeBasicConditionalTypeInfo(type, checker, c),
+    serializeBasicIndexTypeInfo(type, checker, c),
+    serializeBasicIndexAccessTypeInfo(type, checker, c),
     serializeBasicRelatedTypes(type, checker, c),
   );
-  if (!symbol || !c.cfg.shouldSerializeType(checker, type, symbol)) {
-    return serialized;
+
+  if (symbol) {
+    const decl = relevantDeclarationForSymbol(symbol);
+    if (decl) {
+      const sourceFile = decl.getSourceFile();
+      const libName = getTsLibFilename(sourceFile.fileName);
+      if (libName) {
+        serialized.libName = libName;
+        // return serialized;
+      }
+    }
   }
 
   Object.assign(
@@ -309,16 +322,6 @@ export default function serializeType(
     serializeTypeParameterType(type, checker, c),
     serializeExtendedRelatedTypes(type, checker, c),
   );
-
-  const decl = relevantDeclarationForSymbol(symbol);
-  if (decl) {
-    const sourceFile = decl.getSourceFile();
-    const libName = getTsLibFilename(sourceFile.fileName);
-    if (libName) {
-      serialized.libName = libName;
-      return serialized;
-    }
-  }
 
   return serialized;
 }

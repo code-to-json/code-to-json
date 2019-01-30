@@ -61,6 +61,8 @@ export enum FormattedSymbolKind {
   constEnum = 'constEnum',
   enumMember = 'enumMember',
   typeLiteral = 'typeLiteral',
+  alias = 'alias',
+  getAccessor = 'getAccessor',
 }
 
 export enum FormattedTypeKind {
@@ -70,6 +72,8 @@ export enum FormattedTypeKind {
   null = 'null',
   undefined = 'undefined',
   essymbol = 'essymbol',
+  indexedAccess = 'indexedAccess',
+  index = 'index',
 
   never = 'never',
   any = 'any',
@@ -95,6 +99,7 @@ export enum FormattedObjectTypeKind {
   anonymous = 'anonymous',
   class = 'class',
   interface = 'interface',
+  mapped = 'mapped',
 }
 export interface FormattedTypeConditionInfo {
   extendsType: FormattedTypeRef;
@@ -116,6 +121,7 @@ export interface FormattedType<
   baseTypes?: FormattedTypeRef[];
   isThisType?: boolean;
   thisType?: FormattedTypeRef;
+  isOptional?: boolean;
   isReferenceType?: boolean;
   numberIndexType?: FormattedTypeRef;
   stringIndexType?: FormattedTypeRef;
@@ -129,7 +135,7 @@ export interface FormattedType<
 }
 
 export interface FormattedEnumLiteralType extends FormattedType<FormattedTypeKind.enumLiteral> {
-  enumKind: FormattedTypeKind.numberLiteral | FormattedTypeKind.stringLiteral;
+  enumKind: FormattedTypeKind;
 }
 export interface FormattedSymbol<K extends FormattedSymbolKind = FormattedSymbolKind>
   extends FormattedEntity,

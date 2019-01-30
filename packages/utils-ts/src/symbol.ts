@@ -48,12 +48,16 @@ function relevantTypeForVariableOrPropertySymbol(
   checker: ts.TypeChecker,
   symbol: ts.Symbol,
 ): ts.Type | undefined {
-  const { valueDeclaration: _valDecl } = symbol;
-  const valueDeclaration: ts.Declaration | undefined = _valDecl;
+  const declarations = symbol.getDeclarations();
+  const { valueDeclaration: decl = declarations ? declarations[0] : undefined } = symbol as {
+    valueDeclaration?: ts.Declaration;
+  };
 
-  const s = checker.getTypeOfSymbolAtLocation(symbol, valueDeclaration);
-  if (!isErroredType(s)) {
-    return s;
+  if (decl) {
+    const symbolType = checker.getTypeOfSymbolAtLocation(symbol, decl);
+    if (!isErroredType(symbolType)) {
+      return symbolType;
+    }
   }
   if ((symbol as any).target) {
     const tar: ts.Symbol = (symbol as any).target;
@@ -66,10 +70,17 @@ function relevantTypeForVariableOrPropertySymbol(
     `Could not identify appropriate type for symbol ${checker.symbolToString(symbol)}`,
   );
 }
-function lastResortTypeForSymbol(checker: ts.TypeChecker, symbol: ts.Symbol): ts.Type {
+function lastResortTypeForSymbol(
+  checker: ts.TypeChecker,
+  symbol: ts.Symbol,
+  decl?: ts.Declaration,
+): ts.Type {
   let typ = checker.getDeclaredTypeOfSymbol(symbol);
   if (isErroredType(typ) && symbol.valueDeclaration) {
     typ = checker.getTypeAtLocation(symbol.valueDeclaration);
+  }
+  if (isErroredType(typ) && decl) {
+    return checker.getTypeAtLocation(decl);
   }
   return typ;
 }
@@ -79,15 +90,14 @@ export function relevantTypeForSymbol(
   checker: ts.TypeChecker,
   symbol: ts.Symbol,
 ): ts.Type | undefined {
-  const { valueDeclaration: _valDecl } = symbol;
-  const valueDeclaration: ts.Declaration | undefined = _valDecl;
+  const decl = relevantDeclarationForSymbol(symbol);
 
   if (symbol.flags & (ts.SymbolFlags.Variable | ts.SymbolFlags.Property)) {
     return relevantTypeForVariableOrPropertySymbol(checker, symbol);
   }
 
   if (
-    (valueDeclaration && ts.isSourceFile(valueDeclaration)) ||
+    (decl && ts.isSourceFile(decl)) ||
     symbol.flags &
       (ts.SymbolFlags.Function |
         ts.SymbolFlags.Method |
@@ -96,14 +106,14 @@ export function relevantTypeForSymbol(
         ts.SymbolFlags.Accessor |
         ts.SymbolFlags.ValueModule)
   ) {
-    if (valueDeclaration) {
+    if (decl) {
       // ensure class is handled as `typeof Foo` instead of `Foo`
-      return checker.getTypeOfSymbolAtLocation(symbol, valueDeclaration);
+      return checker.getTypeOfSymbolAtLocation(symbol, decl);
     }
-    return checker.getTypeAtLocation(valueDeclaration);
+    return checker.getDeclaredTypeOfSymbol(symbol);
   }
-  if (symbol.flags & ts.SymbolFlags.EnumMember) {
-    return checker.getTypeAtLocation(valueDeclaration);
+  if (decl && symbol.flags & ts.SymbolFlags.EnumMember) {
+    return checker.getTypeAtLocation(decl);
   }
   if (symbol.flags & ts.SymbolFlags.TypeAlias) {
     return relevantTypeForTypeAliasSymbol(checker, symbol);
@@ -120,7 +130,7 @@ export function relevantTypeForSymbol(
     return checker.getTypeAtLocation(symbol.declarations[0]);
   }
 
-  const lastResort = lastResortTypeForSymbol(checker, symbol);
+  const lastResort = lastResortTypeForSymbol(checker, symbol, decl);
 
   log(`LAST RESORT: ${checker.symbolToString(symbol)} --> ${checker.typeToString(lastResort)}`);
   return lastResort;

@@ -6,7 +6,7 @@ import resolveReference from './resolve-reference';
 import { FormattedSymbol, FormattedSymbolKind, FormattedSymbolRef } from './types';
 import { formatSymbolRefMap } from './utils';
 
-const IRRELEVANT_SYMBOL_FLAGS: string[] = ['Transient'];
+const IRRELEVANT_SYMBOL_FLAGS: string[] = ['Transient', 'Optional'];
 
 const SYMBOL_KIND_MAP: { [k: string]: FormattedSymbolKind } = {
   ValueModule: FormattedSymbolKind.module,
@@ -22,6 +22,8 @@ const SYMBOL_KIND_MAP: { [k: string]: FormattedSymbolKind } = {
   ConstEnum: FormattedSymbolKind.constEnum,
   EnumMember: FormattedSymbolKind.enumMember,
   TypeLiteral: FormattedSymbolKind.typeLiteral,
+  Alias: FormattedSymbolKind.alias,
+  GetAccessor: FormattedSymbolKind.getAccessor,
 };
 
 function determineSymbolKind(symbol: SerializedSymbol): FormattedSymbolKind {
@@ -47,8 +49,13 @@ function determineSymbolKind(symbol: SerializedSymbol): FormattedSymbolKind {
       ) {
         return FormattedSymbolKind.interface;
       }
+
       throw new Error(
-        `Multiple kinds identified: ${kinds.join(', ')}\n ${JSON.stringify(symbol, null, '  ')}`,
+        `Multiple symbol kinds identified: ${kinds.join(', ')}\n ${JSON.stringify(
+          symbol,
+          null,
+          '  ',
+        )}`,
       );
   }
 }
