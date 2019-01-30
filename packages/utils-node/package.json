@@ -22,6 +22,7 @@
     "rebuild": "npm run clean & npm run build",
     "prepublishOnly": "tsc -b ."
   },
+  "doc:main": "src/index.ts",
   "keywords": [],
   "devDependencies": {
     "@types/chai": "4.1.7",

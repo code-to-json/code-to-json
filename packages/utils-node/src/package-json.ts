@@ -12,9 +12,6 @@ export async function findPkgJson(
   if (!pkg) {
     return undefined;
   }
-  if (typeof pkg !== 'string') {
-    throw new Error(`invalid package.json path: ${JSON.stringify(pkg)}`);
-  }
   const pkgJson = require(pkg);
   if ('doc:main' in pkgJson || 'main' in pkgJson) {
     return {
