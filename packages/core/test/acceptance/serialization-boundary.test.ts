@@ -18,7 +18,7 @@ export class SerializationBoundaryTests {
     expect(varSymbol.flags).to.eql(['BlockScopedVariable'], 'Regarded as a variable');
     const varType = t.resolveReference(varSymbol.type);
 
-    const allTypes = t.allTypes!;
+    const { allTypes, allSymbols } = t;
     const allSerializedTypeNames = Object.keys(allTypes).map(tid => allTypes[tid]!.text);
 
     expect(allSerializedTypeNames).to.contain.deep.members([
@@ -34,7 +34,6 @@ export class SerializationBoundaryTests {
     ]);
     expect(allSerializedTypeNames).to.not.contain.deep.members(['indexOf']);
 
-    const allSymbols = t.allSymbols!;
     const allSerializedSymbolNames = Object.keys(allSymbols).map(tid => allSymbols[tid]!.text);
 
     expect(allSerializedSymbolNames).to.contain.deep.members([
@@ -64,7 +63,7 @@ export class SerializationBoundaryTests {
 
     const varType = t.resolveReference(varSymbol.type);
 
-    const allTypes = t.allTypes!;
+    const { allTypes, allSymbols } = t;
     const allSerializedTypeNames = Object.keys(allTypes).map(tid => allTypes[tid]!.text);
 
     expect(allSerializedTypeNames).to.contain.deep.members([
@@ -73,7 +72,6 @@ export class SerializationBoundaryTests {
       'Promise<T>',
     ]);
 
-    const allSymbols = t.allSymbols!;
     const allSerializedSymbolNames = Object.keys(allSymbols).map(tid => allSymbols[tid]!.text);
 
     expect(allSerializedSymbolNames).to.deep.eq(['"--ROOT PATH--/src/index"', 'x', 'Promise', 'T']);
@@ -96,7 +94,7 @@ export class SerializationBoundaryTests {
 
     const varType = t.resolveReference(varSymbol.type);
 
-    const allTypes = t.allTypes!;
+    const { allTypes, allSymbols } = t;
     const allSerializedTypeNames = Object.keys(allTypes).map(tid => allTypes[tid]!.text);
 
     expect(allSerializedTypeNames).to.deep.eq([
@@ -105,7 +103,6 @@ export class SerializationBoundaryTests {
       'Promise<T>',
     ]);
 
-    const allSymbols = t.allSymbols!;
     const allSerializedSymbolNames = Object.keys(allSymbols).map(tid => allSymbols[tid]!.text);
 
     expect(allSerializedSymbolNames).to.deep.eq(['"--ROOT PATH--/src/index"', 'x', 'Promise']);
