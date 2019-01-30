@@ -1,5 +1,6 @@
 import { setupTestCase } from '@code-to-json/test-helpers';
 import { nodeHost } from '@code-to-json/utils-node';
+import { Dict } from '@mike-north/types';
 import { expect } from 'chai';
 import { Program } from 'typescript';
 import {
@@ -84,6 +85,14 @@ export default class SingleFileAcceptanceTestCase {
       throw new Error('No reference');
     }
     return resolveReference(this.data, ref as any);
+  }
+
+  public get allTypes(): Dict<SerializedType> {
+    return this.data ? this.data.types : {};
+  }
+
+  public get allSymbols(): Dict<SerializedSymbol> {
+    return this.data ? this.data.symbols : {};
   }
 
   public sourceFile(): Readonly<SerializedSourceFile> {

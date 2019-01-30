@@ -74,35 +74,45 @@ function serializeExtendedSymbolDeclarationData(
 }
 
 function serializeExports(
-  syms: ts.UnderscoreEscapedMap<ts.Symbol> | undefined,
-  q: Queue,
-): Pick<SerializedSymbol, 'exports'> {
-  if (!syms) {
+  sym: ts.Symbol,
+  checker: ts.TypeChecker,
+  c: Collector,
+): Pick<SerializedSymbol, 'exports'> | undefined {
+  if (!c.cfg.shouldSerializeSymbolDetails(checker, sym)) {
+    return undefined;
+  }
+  const { exports: exportSymbols } = sym;
+  if (!exportSymbols) {
     return {};
   }
-  const filteredExports = filterDict(syms, e => !(e.flags & ts.SymbolFlags.Prototype));
+  const filteredExports = filterDict(exportSymbols, e => !(e.flags & ts.SymbolFlags.Prototype));
   if (Object.keys(filteredExports).length === 0) {
     return {};
   }
 
-  return { exports: mapDict(filteredExports, exp => q.queue(exp, 'symbol')) };
+  return { exports: mapDict(filteredExports, exp => c.queue.queue(exp, 'symbol')) };
 }
 
 function serializeMembers(
-  syms: ts.UnderscoreEscapedMap<ts.Symbol> | undefined,
-  q: Queue,
-): Pick<SerializedSymbol, 'members'> {
-  if (!syms) {
+  sym: ts.Symbol,
+  checker: ts.TypeChecker,
+  c: Collector,
+): Pick<SerializedSymbol, 'members'> | undefined {
+  if (!c.cfg.shouldSerializeSymbolDetails(checker, sym)) {
+    return undefined;
+  }
+  const { members } = sym;
+  if (!members) {
     return {};
   }
   const filteredMembers = filterDict(
-    syms,
+    members,
     e => !(e.flags & (ts.SymbolFlags.Constructor | ts.SymbolFlags.Signature)),
   );
   if (Object.keys(filteredMembers).length === 0) {
     return {};
   }
-  return { members: mapDict(filteredMembers, exp => q.queue(exp, 'symbol')) };
+  return { members: mapDict(filteredMembers, exp => c.queue.queue(exp, 'symbol')) };
 }
 
 function handleRelatedEntities(
@@ -166,7 +176,7 @@ export default function serializeSymbol(
   c: Collector,
 ): SerializedSymbol {
   const { queue: q } = c;
-  const { flags, name, exports: exportedSymbols, members: memberSymbols } = symbol;
+  const { flags, name } = symbol;
   // starting point w/ minimal (and mandatory) information
   const type = relevantTypeForSymbol(checker, symbol);
   if (type && isErroredType(type)) {
@@ -186,15 +196,11 @@ export default function serializeSymbol(
 
   Object.assign(serialized, serializeBasicSymbolDeclarationData(symbol, decl, checker, c));
 
-  if (!c.cfg.shouldSerializeSymbolDetails(checker, symbol, type, decl)) {
-    return serialized;
-  }
-
   Object.assign(
     serialized,
-    serializeExports(exportedSymbols, q),
+    serializeExports(symbol, checker, c),
     serializeExtendedSymbolDeclarationData(symbol, decl, checker, c),
-    serializeMembers(memberSymbols, q),
+    serializeMembers(symbol, checker, c),
   );
 
   forEach(symbol.declarations, d => {

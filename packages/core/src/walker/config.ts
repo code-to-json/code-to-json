@@ -3,6 +3,8 @@ import {
   filterDict,
   ModulePathNormalizer,
   PASSTHROUGH_MODULE_PATH_NORMALIZER,
+  relevantDeclarationForSymbol,
+  relevantTypeForSymbol,
 } from '@code-to-json/utils-ts';
 import { Dict } from '@mike-north/types';
 import * as ts from 'typescript';
@@ -39,18 +41,15 @@ export default class WalkerConfig {
   }
 
   // eslint-disable-next-line class-methods-use-this
-  public shouldSerializeSymbolDetails(
-    _checker: ts.TypeChecker,
-    sym?: ts.Symbol,
-    type?: ts.Type,
-    decl?: ts.Declaration,
-  ): boolean {
+  public shouldSerializeSymbolDetails(checker: ts.TypeChecker, sym?: ts.Symbol): boolean {
     if (!sym || isInternalSymbol(sym)) {
       return false;
     }
+    const decl = relevantDeclarationForSymbol(sym);
     if (!decl && sym.flags & ts.SymbolFlags.Prototype) {
       return false;
     }
+    const type = relevantTypeForSymbol(checker, sym);
     if (type && type.symbol && type.symbol.valueDeclaration) {
       return this.shouldSerializeSourceFile(type.symbol.valueDeclaration.getSourceFile());
     }
@@ -61,13 +60,20 @@ export default class WalkerConfig {
   }
 
   // eslint-disable-next-line class-methods-use-this
-  public shouldSerializeType(_checker: ts.TypeChecker, _type: ts.Type, symbol: ts.Symbol): boolean {
-    const { valueDeclaration } = symbol;
-    if (isInternalSymbol(symbol)) { return false; }
-    if (!valueDeclaration) {
+  public shouldSerializeTypeDetails(
+    _checker: ts.TypeChecker,
+    type: ts.Type,
+    symbol: ts.Symbol | undefined = type.symbol as ts.Symbol | undefined,
+  ): boolean {
+    if (!symbol) {
+      return false;
+    }
+    const decl = relevantDeclarationForSymbol(symbol);
+
+    if (!decl) {
       return true;
     }
-    const sf = symbol.valueDeclaration.getSourceFile();
+    const sf = decl.getSourceFile();
     return sf.fileName.replace(/[/\\]+/g, '').indexOf('typescriptlib') < 0;
   }
 

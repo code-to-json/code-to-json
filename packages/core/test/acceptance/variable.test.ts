@@ -103,6 +103,7 @@ export class VariableSerializationTests {
     const code = 'export const x: { p: Promise<number[]> } = { p: Promise.resolve([1, 2, 3]) };';
     const t = new SingleFileAcceptanceTestCase(code);
     await t.run();
+
     const file = t.sourceFile();
     const fileSymbol = t.resolveReference(file.symbol);
     const variableSymbol = t.resolveReference(fileSymbol.exports!.x);
@@ -114,8 +115,10 @@ export class VariableSerializationTests {
     expect(variableType.flags).to.deep.eq(['Object']);
     expect(variableType.objectFlags).to.deep.eq(['Anonymous']);
     expect(Object.keys(variableType.properties!)).to.deep.eq(['p']);
+
     const pSym = t.resolveReference(variableType.properties!.p);
     expect(pSym.text).to.eq('p');
+
     const pTyp = t.resolveReference(pSym.type);
     expect(pTyp.text).to.eq('Promise<number[]>');
     expect(pTyp.libName).to.eq('lib.es5.d.ts');
@@ -137,12 +140,17 @@ export class VariableSerializationTests {
     expect(variableType.text).to.eql('Pick<Promise<number>, "then">');
     expect(variableType.flags).to.deep.eq(['Object']);
     expect(variableType.objectFlags).to.deep.eq(['Mapped', 'Instantiated']);
+
+    expect(!!variableType.typeParameters).to.eq(true);
     expect(variableType.typeParameters).to.have.lengthOf(1);
     expect(variableType.constraint).to.have.lengthOf(2);
+
     const constraint = t.resolveReference(variableType.constraint);
     expect(constraint.text).to.eq('"then"');
+
     const [typeParam] = variableType.typeParameters!.map(tp => t.resolveReference(tp));
     expect(typeParam.text).to.eql('P');
+
     const modType = t.resolveReference(variableType.modifiersType);
     expect(modType.text).to.eq('Promise<number>');
     t.cleanup();
