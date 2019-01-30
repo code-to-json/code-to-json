@@ -1,4 +1,4 @@
-import { isRef } from '@code-to-json/utils';
+import { isDefined } from '@code-to-json/utils';
 import * as ts from 'typescript';
 import { SerializedSignature } from '../types/serialized-entities';
 import { Collector } from '../types/walker';
@@ -32,10 +32,10 @@ export default function serializeSignature(
   }
 
   if (typeParameters && typeParameters.length > 0) {
-    out.typeParameters = typeParameters.map(tp => q.queue(tp, 'type')).filter(isRef);
+    out.typeParameters = typeParameters.map(tp => q.queue(tp, 'type')).filter(isDefined);
   }
   if (parameters && parameters.length > 0) {
-    out.parameters = parameters.map(p => q.queue(p, 'symbol')).filter(isRef);
+    out.parameters = parameters.map(p => q.queue(p, 'symbol')).filter(isDefined);
   }
   out.text = checker.signatureToString(signature);
   // tslint:disable-next-line:no-commented-code

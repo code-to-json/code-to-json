@@ -24,6 +24,8 @@ export type AnyRef<RefRegistry> = RefRegistry[RefTypes<RefRegistry>];
  * Check to see whether a value is a reference
  * @param thing value to check
  */
+export function isRef<R extends Ref<any>>(thing?: R): thing is R;
+export function isRef<K extends string>(thing: any, refType: K): thing is Ref<K>;
 export function isRef<R extends Ref<any>>(thing?: R): thing is R {
   return (
     !!thing &&
@@ -51,7 +53,7 @@ export function createRef<RefRegistry, K extends RefTypes<RefRegistry>>(
  * Get a reference's type name
  * @param ref the reference
  */
-export function refType<K extends string>(ref: Ref<K, any>): K {
+export function refType<K>(ref: Ref<K, any>): K {
   return ref[0] as any;
 }
 
@@ -62,3 +64,7 @@ export function refType<K extends string>(ref: Ref<K, any>): K {
 export function refId<S extends {}>(ref: Ref<any, S>): S {
   return ref[1] as any;
 }
+
+export type RefResolver<EntityMap> = <K extends keyof EntityMap>(
+  ref?: Ref<K>,
+) => EntityMap[K] | undefined;

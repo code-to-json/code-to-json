@@ -1,15 +1,19 @@
 export {
-  SerializedDeclaration,
   SerializedSignature,
   SerializedSourceFile,
   SerializedNode,
   SerializedSymbol,
   SerializedType,
-  SerializedAmdDependency,
+  SerializedDeclaration,
+  AmdDependency,
   SerializedFileReference,
   HasDocumentation,
-  HasPosition,
-  CodeRange as SerializedCodeRange
+  SerializedCodeRange,
+  SerializedTypeAttributes,
+  SerializedSymbolAttributes,
+  SerializedSourceFileAttributes,
+  SerializedEntity,
+  SerializedSignatureAttributes,
 } from './types/serialized-entities';
 export {
   DeclarationRef,
@@ -18,6 +22,7 @@ export {
   SourceFileRef,
   SymbolRef,
   TypeRef,
+  SerializedOutputMap,
 } from './types/ref';
 export { WalkerOutput, WalkerOutputData, WalkerOutputMetadata } from './types/walker';
 export { walkProgram } from './walker';

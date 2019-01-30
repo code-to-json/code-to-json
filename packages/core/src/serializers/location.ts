@@ -1,6 +1,6 @@
 import * as ts from 'typescript';
 import { Queue } from '../processing-queue';
-import { CodeRange } from '../types/serialized-entities';
+import { SerializedCodeRange } from '../types/serialized-entities';
 
 /**
  * Serialize a code range in a SourceFile
@@ -15,7 +15,7 @@ export default function serializeLocation(
   pos: number,
   end: number,
   q: Queue,
-): CodeRange {
+): SerializedCodeRange {
   const posStart = ts.getLineAndCharacterOfPosition(sourceFile, pos + 1);
   const posEnd = ts.getLineAndCharacterOfPosition(sourceFile, end);
   const sourceFileRef = q.queue(sourceFile, 'sourceFile');

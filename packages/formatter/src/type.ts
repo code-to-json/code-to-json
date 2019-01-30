@@ -1,6 +1,6 @@
 import { SerializedType, TypeRef, WalkerOutputData } from '@code-to-json/core';
 import { SerializedTypeConditionInfo } from '@code-to-json/core/lib/src/types/serialized-entities';
-import { isDefined, isRef, refId } from '@code-to-json/utils';
+import { isDefined, refId } from '@code-to-json/utils';
 import { DataCollector } from './data-collector';
 import resolveReference from './resolve-reference';
 import formatSignature from './signature';
@@ -333,7 +333,7 @@ export default function formatType(
   if (baseTypes && baseTypes.length > 0) {
     typeInfo.baseTypes = baseTypes
       .map(bt => collector.queue(resolveReference(wo, bt), 't'))
-      .filter(isRef);
+      .filter(isDefined);
   }
 
   if (properties && Object.keys(properties).length > 0) {

@@ -40,7 +40,6 @@ export default function serializeNode(
       modifiers.length &&
       modifiers.map(m => m.kind).indexOf(ts.SyntaxKind.ExportKeyword) >= 0
     ),
-    sourceFile: q.queue(n.getSourceFile(), 'sourceFile'),
     kind: ts.SyntaxKind[kind],
     flags: flagsToString(flags, 'node'),
   };

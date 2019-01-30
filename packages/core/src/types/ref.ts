@@ -16,7 +16,7 @@ export interface EntityMap {
   sourceFile: ts.SourceFile;
 }
 
-export interface OutputMap {
+export interface SerializedOutputMap {
   declaration: SerializedDeclaration;
   symbol: SerializedSymbol;
   type: SerializedType;
