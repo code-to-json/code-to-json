@@ -1,4 +1,4 @@
-import { isDefined, isRef, refId } from '@code-to-json/utils';
+import { isDefined, refId } from '@code-to-json/utils';
 import {
   flagsToString,
   getTsLibFilename,
@@ -33,7 +33,7 @@ function serializeTypeReference(
     target: q.queue(target, 'type'),
   };
   if (typeArguments) {
-    out.typeParameters = typeArguments.map(ta => q.queue(ta, 'type')).filter(isRef);
+    out.typeParameters = typeArguments.map(ta => q.queue(ta, 'type')).filter(isDefined);
   }
   return out;
 }
@@ -46,7 +46,7 @@ function serializeMappedType(
   const { queue: q } = c;
   const { typeParameter, constraintType, templateType, modifiersType } = type;
   const out: Partial<SerializedType> = {
-    typeParameters: [q.queue(typeParameter, 'type')].filter(isRef),
+    typeParameters: [q.queue(typeParameter, 'type')].filter(isDefined),
     constraint: q.queue(constraintType, 'type'),
     templateType: q.queue(templateType, 'type'),
     modifiersType: q.queue(modifiersType, 'type'),
@@ -65,10 +65,10 @@ function serializeInterfaceType(
     ...serializeObjectType(type, checker, c),
   };
   if (typeParameters && typeParameters.length > 0) {
-    out.typeParameters = typeParameters.map(tp => c.queue.queue(tp, 'type')).filter(isRef);
+    out.typeParameters = typeParameters.map(tp => c.queue.queue(tp, 'type')).filter(isDefined);
   }
   if (baseTypes && baseTypes.length > 0) {
-    out.baseTypes = baseTypes.map(bt => c.queue.queue(bt, 'type')).filter(isRef);
+    out.baseTypes = baseTypes.map(bt => c.queue.queue(bt, 'type')).filter(isDefined);
   }
   if (thisType) {
     out.thisType = c.queue.queue(thisType, 'type');
@@ -91,7 +91,7 @@ function serializeObjectType(
   const { queue: q } = c;
 
   if (aliasTypeArguments && aliasTypeArguments.length > 0) {
-    out.typeParameters = aliasTypeArguments.map(tp => c.queue.queue(tp, 'type')).filter(isRef);
+    out.typeParameters = aliasTypeArguments.map(tp => c.queue.queue(tp, 'type')).filter(isDefined);
   }
   if (c.cfg.shouldSerializeTypeDetails(_checker, type)) {
     const properties: ts.Symbol[] = type.getProperties();

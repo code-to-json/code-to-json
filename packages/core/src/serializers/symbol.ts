@@ -1,5 +1,5 @@
 import { parseCommentString } from '@code-to-json/comments';
-import { forEach, isDefined, isRef, refId } from '@code-to-json/utils';
+import { forEach, isDefined, refId } from '@code-to-json/utils';
 import {
   filterDict,
   flagsToString,
@@ -126,7 +126,7 @@ function handleRelatedEntities(
   }
   const relatedSymbols = relatedEntities
     .map(relatedSym => q.queue(relatedSym, 'symbol'))
-    .filter(isRef);
+    .filter(isDefined);
 
   return { relatedSymbols };
 }

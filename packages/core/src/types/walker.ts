@@ -4,11 +4,6 @@ import { Queue } from '../processing-queue';
 import WalkerConfig from '../walker/config';
 
 import {
-  LinkedDeclaration,
-  LinkedNode,
-  LinkedSourceFile,
-  LinkedSymbol,
-  LinkedType,
   SerializedDeclaration,
   SerializedNode,
   SerializedSourceFile,
@@ -22,14 +17,6 @@ export interface WalkerOutputData {
   nodes: Dict<Readonly<SerializedNode>>;
   declarations: Dict<Readonly<SerializedDeclaration>>;
   sourceFiles: Dict<Readonly<SerializedSourceFile>>;
-}
-
-export interface LinkedWalkerOutputData {
-  symbols: Dict<Readonly<LinkedSymbol>>;
-  types: Dict<Readonly<LinkedType>>;
-  nodes: Dict<Readonly<LinkedNode>>;
-  declarations: Dict<Readonly<LinkedDeclaration>>;
-  sourceFiles: Dict<Readonly<LinkedSourceFile>>;
 }
 
 export interface WalkerOutputMetadata {

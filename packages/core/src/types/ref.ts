@@ -16,15 +16,13 @@ export interface EntityMap {
   sourceFile: ts.SourceFile;
 }
 
-export interface OutputMap {
+export interface SerializedOutputMap {
   declaration: SerializedDeclaration;
   symbol: SerializedSymbol;
   type: SerializedType;
   node: SerializedNode;
   sourceFile: SerializedSourceFile;
 }
-
-export type EntityOrRef<K extends keyof OutputMap & keyof EntityMap> = EntityMap[K] | OutputMap[K];
 
 export type SymbolRef = Ref<'symbol'>;
 export type DeclarationRef = Ref<'declaration'>;
