@@ -1,6 +1,6 @@
 {
   "name": "@code-to-json/core",
-  "version": "1.0.0-rc.8",
+  "version": "1.0.0-rc.9",
   "description": "Core analysis tools for code-to-json",
   "main": "lib/src/index.js",
   "typings": "lib/src/index.d.ts",
@@ -26,14 +26,14 @@
   "dependencies": {
     "@code-to-json/comments": "^1.0.0-rc.7",
     "@code-to-json/utils": "^1.0.0-rc.7",
-    "@code-to-json/utils-ts": "^1.0.0-rc.8",
+    "@code-to-json/utils-ts": "^1.0.0-rc.9",
     "@mike-north/types": "^1.0.7",
     "debug": "^4.0.0",
     "typescript": "^3.2.4"
   },
   "devDependencies": {
     "@code-to-json/test-helpers": "^1.0.0-rc.7",
-    "@code-to-json/utils-node": "^1.0.0-rc.8",
+    "@code-to-json/utils-node": "^1.0.0-rc.9",
     "@types/chai": "4.1.7",
     "chai": "4.2.0",
     "eslint": "5.12.1",

@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-rc.9](https://github.com/mike-north/code-to-json/compare/@code-to-json/utils-ts@1.0.0-rc.8...@code-to-json/utils-ts@1.0.0-rc.9) (2019-01-30)
+
+
+### Features
+
+* more edge cases for symbol -> type resolution ([6f2feaa](https://github.com/mike-north/code-to-json/commit/6f2feaa))
+
+
+
+
+
 # [1.0.0-rc.8](https://github.com/mike-north/code-to-json/compare/@code-to-json/utils-ts@1.0.0-rc.7...@code-to-json/utils-ts@1.0.0-rc.8) (2019-01-29)
 
 **Note:** Version bump only for package @code-to-json/utils-ts

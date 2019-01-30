@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-rc.9](https://github.com/mike-north/code-to-json/compare/@code-to-json/core@1.0.0-rc.8...@code-to-json/core@1.0.0-rc.9) (2019-01-30)
+
+
+### Bug Fixes
+
+* only serialize symbols if they're within the serialization boundary ([504c334](https://github.com/mike-north/code-to-json/commit/504c334))
+
+
+### Features
+
+* improved symbol resolution ([2b3223c](https://github.com/mike-north/code-to-json/commit/2b3223c))
+* more edge cases for symbol -> type resolution ([6f2feaa](https://github.com/mike-north/code-to-json/commit/6f2feaa))
+
+
+
+
+
 # [1.0.0-rc.8](https://github.com/mike-north/code-to-json/compare/@code-to-json/core@1.0.0-rc.7...@code-to-json/core@1.0.0-rc.8) (2019-01-29)
 
 **Note:** Version bump only for package @code-to-json/core
