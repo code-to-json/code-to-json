@@ -52,7 +52,14 @@ function iteratorValues<T>(it: Iterator<T> | undefined, converter: (t: T) => str
   return parts.join(', ');
 }
 
-function entityToString(thing: any, checker: TypeChecker): string {
+/**
+ * Stringify an entity
+ *
+ * @param thing entity to stringify
+ * @param checker type-checker
+ * @internal
+ */
+export function entityToString(thing: any, checker: TypeChecker): string {
   if (typeof thing === 'undefined') {
     return 'undefined';
   }

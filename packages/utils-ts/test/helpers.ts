@@ -1,3 +1,4 @@
+import { setupTestCase, TestCase } from '@code-to-json/test-helpers';
 import { SysHost } from '@code-to-json/utils-ts';
 import * as fs from 'fs';
 import * as path from 'path';
@@ -62,3 +63,25 @@ export const nodeHost: SysHost = {
     };
   },
 };
+
+export async function setupSingleModuleProgram(code: string): Promise<TestCase> {
+  return setupTestCase(
+    {
+      // tslint:disable-next-line:no-duplicate-string
+      src: { 'index.ts': code },
+      'package.json': JSON.stringify({
+        name: 'pkg-ts-single-file',
+        'doc:main': 'src/index.ts',
+      }),
+      'tsconfig.json': JSON.stringify({
+        compilerOptions: {
+          target: 'es2017',
+          moduleResolution: 'node',
+          noEmit: true,
+        },
+        include: ['./src/**/*'],
+      }),
+    },
+    ['src/index.ts'],
+  );
+}

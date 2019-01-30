@@ -34,7 +34,6 @@ const {
   isTupleType,
   nameForNode,
   reduceDict,
-  decoratorsToStrings,
   isIndexType,
   isIndexedAccessType,
   isPrimitiveType,
@@ -80,7 +79,6 @@ export class PublicApiSurface {
     expect(isIndexType).to.be.a('function', 'isIndexType is a function');
     expect(isPrimitiveType).to.be.a('function', 'isPrimitiveType is a function');
     expect(isIndexedAccessType).to.be.a('function', 'isIndexedAccessType is a function');
-    expect(decoratorsToStrings).to.be.a('function', 'decoratorsToStrings is a function');
     expect(modifiersToStrings).to.be.a('function', 'modifiersToStrings is a function');
     expect(nameForNode).to.be.a('function', 'nameForNode is a function');
     expect(relevantDeclarationForSymbol).to.be.a(
@@ -114,7 +112,6 @@ export class PublicApiSurface {
       'createProgramFromCodeString',
       'createProgramFromEntries',
       'createProgramFromTsConfig',
-      'decoratorsToStrings',
       'filterDict',
       'flagsToString',
       'forEachDict',

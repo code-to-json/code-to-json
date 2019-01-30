@@ -52,7 +52,7 @@
   "extensions": {
     "recommendations": [
       "aaron-bond.better-comments",
-      "markis.code-coverage",
+      "ryanluker.vscode-coverage-gutters",
       "dbaeumer.vscode-eslint",
       "timonwong.shellcheck",
       "eg2.tslint",

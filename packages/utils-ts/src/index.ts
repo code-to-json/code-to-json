@@ -16,14 +16,13 @@ export {
   isIndexedAccessType,
   isPrimitiveType,
 } from './guards';
-export { isDeclarationExported } from './checks';
 export { mapDict, filterDict, reduceDict, forEachDict } from './dict';
 export {
   createProgramFromCodeString,
   createProgramFromEntries,
   createProgramFromTsConfig,
 } from './program';
-export { isAbstractDeclaration } from './declaration';
+export { isAbstractDeclaration, isDeclarationExported } from './declaration';
 export { default as SysHost } from './host';
 export {
   generateModulePathNormalizer,
@@ -39,4 +38,3 @@ export { relevantTypeForSymbol, relevantDeclarationForSymbol } from './symbol';
 export { getFirstIdentifier, MappedType, AnonymousType, TypeMapper } from './ts-internal';
 export { isErroredType } from './type';
 export { modifiersToStrings } from './modifiers';
-export { decoratorsToStrings } from './decorators';

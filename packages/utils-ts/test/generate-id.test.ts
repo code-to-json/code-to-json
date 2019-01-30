@@ -3,7 +3,7 @@ import { expect } from 'chai';
 import { suite, test } from 'mocha-typescript';
 import * as ts from 'typescript';
 import { generateIdForSourceFileName } from '../lib/src/generate-id';
-import { createIdGenerator } from '../src/generate-id';
+import { createIdGenerator, entityToString } from '../src/generate-id';
 import { createProgramFromCodeString, mapDict } from '../src/index';
 
 @suite
@@ -12,17 +12,21 @@ export class GenerateIdTests {
 
   private classDeclaration!: ts.Declaration;
 
-  private varDeclaration!: ts.Declaration;
-
-  private typ!: ts.Type;
+  private varDeclaration!: ts.VariableDeclaration;
 
   private sourceFileSym!: ts.Symbol;
 
+  private sourceFileType!: ts.Type;
+
   private classSym!: ts.Symbol;
+
+  private classType!: ts.Type;
 
   private varSym!: ts.Symbol;
 
   private checker!: ts.TypeChecker;
+
+  private node!: ts.Node;
 
   public before() {
     const { program } = createProgramFromCodeString(
@@ -46,7 +50,7 @@ export const x: string = 'foo';
       throw new Error('no symbol for SourceFile');
     }
     this.sourceFileSym = sym;
-    this.typ = checker.getTypeOfSymbolAtLocation(this.sourceFileSym, this.sourceFile);
+    this.sourceFileType = checker.getTypeOfSymbolAtLocation(this.sourceFileSym, this.sourceFile);
 
     const { exports: fileExports } = this.sourceFileSym;
     if (!fileExports) {
@@ -61,12 +65,14 @@ export const x: string = 'foo';
     }
     expect(exportedSymbols.length).to.eql(2);
     [this.classSym, this.varSym] = exportedSymbols;
+    this.classType = checker.getDeclaredTypeOfSymbol(this.classSym);
     expect(this.classSym.declarations.length).to.eql(1);
     [this.classDeclaration] = this.classSym.declarations;
 
     expect(this.varSym.declarations.length).to.eql(1);
-    [this.varDeclaration] = this.varSym.declarations;
+    [this.varDeclaration] = this.varSym.declarations as ts.VariableDeclaration[];
     this.checker = checker;
+    this.node = this.varDeclaration.initializer!.parent.getChildAt(4);
   }
 
   @test
@@ -86,7 +92,7 @@ export const x: string = 'foo';
   @test
   public async 'generateId for type'(): Promise<void> {
     const generateId = createIdGenerator(this.checker);
-    expect(generateId(this.typ)[1])
+    expect(generateId(this.classType)[1])
       .to.be.a('string')
       .and.to.have.length.greaterThan(0);
   }
@@ -176,9 +182,30 @@ export const x: string = 'foo';
 
     expect(generateId(this.classDeclaration)).to.eql(['ok', 'D01m4wm4wrlxj'], 'class declaration');
     expect(generateId(this.classSym)).to.eql(['ok', 'S01m4wntwmh9a'], 'class symbol');
+    expect(generateId(this.classType)).to.eql(['ok', 'T01m4wlnjqf0g'], 'class type');
+    expect(generateId(this.sourceFile)).to.eql(['ok', 'F01m4wnf2ptes'], 'source file');
+    expect(generateId(this.sourceFileSym)).to.eql(['ok', 'S01m4wnj0ln0d'], 'source file symbol');
+    expect(generateId(this.sourceFileType)).to.eql(['ok', 'T01m4wmnuc0f2'], 'source file type');
+
     expect(generateId(this.varSym)).to.eql(['ok', 'S01m4wmqaygbn'], 'variable symbol');
     expect(generateId(this.varDeclaration)).to.eql(['ok', 'D01m4wlurlp4f'], 'variable declaration');
-    expect(generateId(this.typ)).to.eql(['ok', 'T01m4wmnuc0f2'], 'type');
-    expect(generateId(this.sourceFile)).to.eql(['ok', 'F01m4wnf2ptes'], 'source file');
+  }
+
+  @test
+  public 'entity stringifying'(): void {
+    expect(entityToString(undefined, this.checker)).to.eq('undefined');
+    expect(entityToString('foo', this.checker)).to.eq('foo');
+    expect(entityToString(6, this.checker)).to.eq('6');
+    expect(entityToString(this.classSym, this.checker)).to.eq('Car');
+    expect(entityToString(this.classType, this.checker)).to.eq('Car');
+    expect(entityToString(this.sourceFile, this.checker)).to.eq('FILE: module.ts');
+    expect(entityToString(this.sourceFileType, this.checker)).to.eq('typeof import("module")');
+    expect(entityToString(this.node, this.checker)).to.eq("'foo'");
+    expect(entityToString(this.classDeclaration, this.checker)).to.eq(`export class Car {
+  public wheels: number = 4;
+  constructor() {
+    console.log('We are driving');
+  }
+}`);
   }
 }
