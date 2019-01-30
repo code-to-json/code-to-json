@@ -44,6 +44,7 @@
         "port": 9229,
         "restart": true,
         "stopOnEntry": false,
+        "smartStep": false,
         "timeout": 30000
       }
     ],
