@@ -71,42 +71,42 @@ export const favSuit = Suit.Heart;
 
   @test
   public 'relevantTypeForSymbol - simple variable'(): void {
-    expect(this.exports!.x!.typStr).to.eql('number');
+    expect(this.exports.x!.typStr).to.eql('number');
   }
 
   @test
   public 'relevantTypeForSymbol - class'(): void {
-    expect(this.exports!.Foo!.typStr).to.eql('typeof Foo');
+    expect(this.exports.Foo!.typStr).to.eql('typeof Foo');
   }
 
   @test
   public 'relevantTypeForSymbol - anonymous structured type'(): void {
-    expect(this.exports!.helloFn!.typStr).to.eql('{ foo: () => string; }');
+    expect(this.exports.helloFn!.typStr).to.eql('{ foo: () => string; }');
   }
 
   @test
   public 'relevantTypeForSymbol - interface'(): void {
-    expect(this.exports!.CondTyp!.typStr).to.eql('CondTyp<T>');
+    expect(this.exports.CondTyp!.typStr).to.eql('CondTyp<T>');
   }
 
   @test
   public 'relevantTypeForSymbol - function'(): void {
-    expect(this.exports!.addToX!.typStr).to.eql('(y: number) => number');
+    expect(this.exports.addToX!.typStr).to.eql('(y: number) => number');
   }
 
   @test
   public 'relevantTypeForSymbol - type query'(): void {
-    expect(this.exports!.myTypeQuery!.typStr).to.eql('{ fn: (y: number) => number; }');
+    expect(this.exports.myTypeQuery!.typStr).to.eql('{ fn: (y: number) => number; }');
   }
 
   @test
   public 'relevantTypeForSymbol - type alias'(): void {
-    expect(this.exports!.CondTyp!.typStr).to.eql('CondTyp<T>');
+    expect(this.exports.CondTyp!.typStr).to.eql('CondTyp<T>');
   }
 
   @test
   public 'relevantTypeForSymbol - type parameter'(): void {
-    const dictType = this.exports!.Dict!.typ as ts.InterfaceType;
+    const dictType = this.exports.Dict!.typ as ts.InterfaceType;
     const typeParam = dictType.typeParameters!.values().next().value;
     const typeParamSym = typeParam.symbol;
     expect(this.checker.typeToString(typeParam)).to.eql('T');
@@ -117,19 +117,19 @@ export const favSuit = Suit.Heart;
 
   @test
   public 'relevantTypeForSymbol - enum collection'(): void {
-    expect(this.exports!.Suit!.typStr).to.eql('typeof Suit');
+    expect(this.exports.Suit!.typStr).to.eql('typeof Suit');
   }
 
   @test
   public 'relevantTypeForSymbol - mapped type'(): void {
-    expect(this.exports!.MyMapped!.typStr).to.eql('MyMapped<K>');
+    expect(this.exports.MyMapped!.typStr).to.eql('MyMapped<K>');
   }
 
   @test
   public 'relevantTypeForSymbol - enum member'(): void {
-    const enumMemType = this.exports!.favSuit!.typ;
-    const enumMemSym = this.exports!.favSuit!.sym;
-    expect(this.exports!.favSuit!.typStr).to.eql('Suit.Heart');
+    const enumMemType = this.exports.favSuit!.typ;
+    const enumMemSym = this.exports.favSuit!.sym;
+    expect(this.exports.favSuit!.typStr).to.eql('Suit.Heart');
     expect(this.checker.typeToString(enumMemType)).to.eql('Suit.Heart');
     expect(this.checker.typeToString(relevantTypeForSymbol(this.checker, enumMemSym)!)).to.eql(
       'Suit.Heart',
