@@ -34,6 +34,7 @@ export const PASSTHROUGH_MODULE_PATH_NORMALIZER: ModulePathNormalizer = {
     };
   },
 };
+Object.assign(PASSTHROUGH_MODULE_PATH_NORMALIZER, { __passthroughNormalizer: true });
 
 export function generateModulePathNormalizer(
   host: SysHost,
