@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-rc.11](https://github.com/mike-north/code-to-json/compare/@code-to-json/formatter@1.0.0-rc.10...@code-to-json/formatter@1.0.0-rc.11) (2019-01-30)
+
+
+### Bug Fixes
+
+* replace isRef with isDefined for presence check ([e747db6](https://github.com/mike-north/code-to-json/commit/e747db6))
+
+
+
+
+
 # [1.0.0-rc.10](https://github.com/mike-north/code-to-json/compare/@code-to-json/formatter@1.0.0-rc.9...@code-to-json/formatter@1.0.0-rc.10) (2019-01-30)
 
 
