@@ -7,6 +7,7 @@
     { "path": "utils-node" },
     { "path": "comments" },
     { "path": "core" },
+    { "path": "core-linker" },
     { "path": "formatter" },
     { "path": "schema" },
     { "path": "cli" }
