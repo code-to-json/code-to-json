@@ -99,9 +99,9 @@ export class TypeSerializationTests {
     t.cleanup();
   }
 
-  @test.skip
+  @test
   public async 'type Split = typeof String.split'(): Promise<void> {
-    const code = `export type Split = typeof String.split`;
+    const code = `export type Split = typeof String.prototype.split`;
     const t = new SingleFileAcceptanceTestCase(code);
     await t.run();
     const file = t.sourceFile();
