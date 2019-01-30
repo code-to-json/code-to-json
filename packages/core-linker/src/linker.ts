@@ -2,7 +2,6 @@ import {
   SerializedSourceFile,
   SerializedSymbol,
   SerializedType,
-  SourceFileRef,
   WalkerOutputData,
 } from '@code-to-json/core';
 import {
@@ -13,7 +12,6 @@ import {
 } from '@code-to-json/core/lib/src/types/serialized-entities';
 import { isDefined, Ref, refId, refType } from '@code-to-json/utils';
 import { Dict } from '@mike-north/types';
-
 import { createLinkedRefResolver, resolveRefDict, resolveRefList } from './ref-resolver';
 import {
   LinkedFileReference,
@@ -65,7 +63,7 @@ function linkCodePositionOrRange(
     return;
   }
   // eslint-disable-next-line no-param-reassign
-  pos[0] = res(pos[0] as SourceFileRef) as any;
+  pos[0] = res(pos[0]) as any;
 }
 
 function linkType(res: LinkedRefResolver, type?: LinkedType & SerializedType): void {
