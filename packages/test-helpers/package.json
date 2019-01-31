@@ -1,6 +1,6 @@
 {
   "name": "@code-to-json/test-helpers",
-  "version": "1.0.0-rc.9",
+  "version": "1.0.0-rc.10",
   "description": "Test helpers for code-to-json",
   "main": "lib/src/index.js",
   "typings": "lib/src/index.d.ts",
@@ -24,7 +24,7 @@
   },
   "keywords": [],
   "dependencies": {
-    "@code-to-json/utils": "^1.0.0-rc.8",
+    "@code-to-json/utils": "^1.0.0-rc.9",
     "@mike-north/types": "^1.0.7",
     "debug": "^4.1.0",
     "directory-tree": "^2.2.1",
