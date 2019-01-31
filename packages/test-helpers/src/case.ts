@@ -49,6 +49,7 @@ ${tree}`);
     options: {
       allowJs: true,
       noEmit: true,
+      target: ts.ScriptTarget.ESNext,
       moduleResolution: ts.ModuleResolutionKind.NodeJs,
     },
   });

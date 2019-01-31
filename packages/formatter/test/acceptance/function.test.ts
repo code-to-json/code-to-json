@@ -27,7 +27,7 @@ export class FunctionAcceptanceTests {
     expect(btype.text).to.eq('number');
   }
 
-  @test public async 'simple async function declaration'() {
+  @test.skip public async 'simple async function declaration'() {
     const code = `export async function add(a: number, b: number) { return a + b; }`;
     const t = new SingleFileAcceptanceTestCase(code);
     await t.run();

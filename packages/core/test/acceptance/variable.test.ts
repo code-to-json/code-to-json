@@ -91,7 +91,7 @@ export class VariableSerializationTests {
     const variableType = t.resolveReference(variableSymbol.type);
     expect(variableType.text).to.eql('Promise<number>');
     expect(variableType.flags).to.deep.eq(['Object']);
-    expect(variableType.libName).to.eq('lib.es5.d.ts');
+    expect(variableType.libName).to.eq('lib.es2015.promise.d.ts');
     expect(variableType.objectFlags).to.deep.eq(['Reference']);
     t.cleanup();
   }
@@ -121,7 +121,7 @@ export class VariableSerializationTests {
 
     const pTyp = t.resolveReference(pSym.type);
     expect(pTyp.text).to.eq('Promise<number[]>');
-    expect(pTyp.libName).to.eq('lib.es5.d.ts');
+    expect(pTyp.libName).to.eq('lib.es2015.promise.d.ts');
     t.cleanup();
   }
 

@@ -99,9 +99,9 @@ export class TypeSerializationTests {
     t.cleanup();
   }
 
-  @test.skip
-  public async 'type Split = typeof String.split'(): Promise<void> {
-    const code = `export type Split = typeof String.split`;
+  @test
+  public async 'type Split = typeof String.prototype.split'(): Promise<void> {
+    const code = `export type Split = typeof String.prototype.split`;
     const t = new SingleFileAcceptanceTestCase(code);
     await t.run();
     const file = t.sourceFile();
@@ -111,7 +111,9 @@ export class TypeSerializationTests {
     expect(typeSymbol.flags).to.eql(['TypeAlias'], 'Regarded as a type alias');
 
     const typeType = t.resolveReference(typeSymbol.type);
-    expect(typeType.text).to.eql('Split');
+    expect(typeType.text).to.eql(
+      '{ (separator: string | RegExp, limit?: number): string[]; (splitter: { [Symbol.split](string: string, limit?: number): string[]; }, limit?: number): string[]; }',
+    );
     expect(!!typeType.typeParameters).to.eq(false);
 
     t.cleanup();

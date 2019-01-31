@@ -74,7 +74,22 @@ export class SerializationBoundaryTests {
 
     const allSerializedSymbolNames = Object.keys(allSymbols).map(tid => allSymbols[tid]!.text);
 
-    expect(allSerializedSymbolNames).to.deep.eq(['"--ROOT PATH--/src/index"', 'x', 'Promise', 'T']);
+    expect(allSerializedSymbolNames).to.deep.eq([
+      '"--ROOT PATH--/src/index"',
+      'x',
+      'Promise',
+      'T',
+      'PromiseConstructor',
+      'executor',
+      'T',
+      '__type',
+      'resolve',
+      'reject',
+      '__type',
+      'value',
+      'reason',
+      'PromiseLike',
+    ]);
 
     expect(varType.text).to.eql('Promise<number>');
     expect(varType.flags).to.deep.eq(['Object']);

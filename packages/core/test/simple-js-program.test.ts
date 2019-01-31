@@ -5,6 +5,43 @@ import { slow, suite, test } from 'mocha-typescript';
 import * as path from 'path';
 import { getDeclarationFiles } from './test-helpers';
 
+const STANDARD_LIBS = [
+  'lib.es5.d.ts',
+  'lib.es2015.d.ts',
+  'lib.es2016.d.ts',
+  'lib.es2017.d.ts',
+  'lib.es2018.d.ts',
+  'lib.esnext.d.ts',
+  'lib.dom.d.ts',
+  'lib.dom.iterable.d.ts',
+  'lib.webworker.importscripts.d.ts',
+  'lib.scripthost.d.ts',
+  'lib.es2015.core.d.ts',
+  'lib.es2015.collection.d.ts',
+  'lib.es2015.generator.d.ts',
+  'lib.es2015.iterable.d.ts',
+  'lib.es2015.promise.d.ts',
+  'lib.es2015.proxy.d.ts',
+  'lib.es2015.reflect.d.ts',
+  'lib.es2015.symbol.d.ts',
+  'lib.es2015.symbol.wellknown.d.ts',
+  'lib.es2016.array.include.d.ts',
+  'lib.es2017.object.d.ts',
+  'lib.es2017.sharedmemory.d.ts',
+  'lib.es2017.string.d.ts',
+  'lib.es2017.intl.d.ts',
+  'lib.es2017.typedarrays.d.ts',
+  'lib.es2018.intl.d.ts',
+  'lib.es2018.promise.d.ts',
+  'lib.es2018.regexp.d.ts',
+  'lib.esnext.array.d.ts',
+  'lib.esnext.symbol.d.ts',
+  'lib.esnext.asynciterable.d.ts',
+  'lib.esnext.intl.d.ts',
+  'lib.esnext.bigint.d.ts',
+  'lib.esnext.full.d.ts',
+];
+
 @suite
 @slow(800)
 export class TypeScriptFixturePrograms {
@@ -16,13 +53,7 @@ export class TypeScriptFixturePrograms {
     );
     const { tsLibNames, nonDeclarationFiles } = getDeclarationFiles(program.getSourceFiles());
 
-    expect(tsLibNames).to.deep.eq([
-      'lib.d.ts',
-      'lib.es5.d.ts',
-      'lib.dom.d.ts',
-      'lib.webworker.importscripts.d.ts',
-      'lib.scripthost.d.ts',
-    ]);
+    expect(tsLibNames).to.include.deep.members(STANDARD_LIBS);
 
     expect(nonDeclarationFiles).to.be.lengthOf(1);
 
@@ -118,13 +149,7 @@ export class Unicycle extends Vehicle {
     );
     const { tsLibNames, nonDeclarationFiles } = getDeclarationFiles(program.getSourceFiles());
 
-    expect(tsLibNames).to.deep.eq([
-      'lib.d.ts',
-      'lib.es5.d.ts',
-      'lib.dom.d.ts',
-      'lib.webworker.importscripts.d.ts',
-      'lib.scripthost.d.ts',
-    ]);
+    expect(tsLibNames).to.deep.include.members(STANDARD_LIBS);
 
     expect(nonDeclarationFiles).to.be.lengthOf(1);
 
