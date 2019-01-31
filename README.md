@@ -4,7 +4,6 @@
 [![Build Status](https://dev.azure.com/code-to-json/code-to-json/_apis/build/status/code-to-json.code-to-json)](https://dev.azure.com/code-to-json/code-to-json/_build/latest?definitionId=1)
 [![Version](https://img.shields.io/npm/v/code-to-json.svg)](https://www.npmjs.com/package/code-to-json)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/d5eb027316894c8c9099fc8ca62c16b1)](https://app.codacy.com/app/code-to-json/code-to-json?utm_source=github.com&utm_medium=referral&utm_content=code-to-json/code-to-json&utm_campaign=Badge_Grade_Dashboard)
-[![codecov](https://codecov.io/gh/code-to-json/code-to-json/branch/master/graph/badge.svg)](https://codecov.io/gh/code-to-json/code-to-json)
 [![Coverage Status](https://coveralls.io/repos/github/code-to-json/code-to-json/badge.svg)](https://coveralls.io/github/code-to-json/code-to-json)
 [![Total alerts](https://img.shields.io/lgtm/alerts/g/code-to-json/code-to-json.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/code-to-json/code-to-json/alerts/)
 
