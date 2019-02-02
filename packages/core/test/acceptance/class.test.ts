@@ -19,14 +19,22 @@ export class ClassSerializationTests {
     expect(classSymbol.flags).to.eql(['Class'], 'Regarded as a class');
     expect(classSymbol.modifiers).to.include('export');
 
-    const classType = t.resolveReference(classSymbol.type);
-    expect(classType.text).to.eql('typeof Vehicle');
-    expect(classType.flags).to.deep.eq(['Object']);
-    expect(classType.constructorSignatures!.length).to.eq(1, '1 constructor signature');
+    const classSymbolType = t.resolveReference(classSymbol.symbolType);
+    expect(classSymbolType.text).to.eql('Vehicle');
+    expect(classSymbolType.flags).to.deep.eq(['Object']);
+    expect(!!classSymbolType.constructorSignatures).to.eq(false, 'no constructor signatures');
 
-    const classPropNames = Object.keys(classType.properties!);
-    expect(classPropNames).to.deep.eq([]);
-    const [constructorSig] = classType.constructorSignatures!;
+    const classValueDeclarationType = t.resolveReference(classSymbol.valueDeclarationType);
+    expect(classValueDeclarationType.text).to.eql('typeof Vehicle');
+    expect(classValueDeclarationType.flags).to.deep.eq(['Object']);
+    expect(classValueDeclarationType.constructorSignatures!.length).to.eq(
+      1,
+      '1 constructor signature',
+    );
+
+    const classPropNames = Object.keys(classSymbolType.properties!);
+    expect(classPropNames).to.deep.eq(['numWheels', 'drive']);
+    const [constructorSig] = classValueDeclarationType.constructorSignatures!;
     expect(constructorSig.text).to.eq('(): Vehicle');
     const instanceType = t.resolveReference(constructorSig.returnType);
     expect(instanceType.text).to.eq('Vehicle');
@@ -38,8 +46,8 @@ export class ClassSerializationTests {
     expect(driveSym.flags).to.deep.eq(['Method', 'Transient']);
     expect(numWheelsSym.text).to.eq('numWheels');
     expect(driveSym.text).to.eq('drive');
-    const [numWheelsType, driveType] = props.map(s => t.resolveReference(s.type));
 
+    const [numWheelsType, driveType] = props.map(s => t.resolveReference(s.valueDeclarationType));
     expect(numWheelsType.text).to.eql('number');
     expect(driveType.text).to.eql('() => string');
     expect(numWheelsType.flags).to.deep.eq(['Number']);
@@ -65,33 +73,29 @@ export class ClassSerializationTests {
     expect(classSymbol.modifiers).to.include('export');
     expect(classSymbol.isAbstract).to.eql(true);
 
-    const classType = t.resolveReference(classSymbol.type);
-    expect(classType.text).to.eql('typeof Vehicle');
-    expect(classType.flags).to.deep.eq(['Object']);
-    expect(classType.constructorSignatures!.length).to.eq(1, '1 constructor signature');
+    const classSymbolType = t.resolveReference(classSymbol.symbolType);
+    expect(classSymbolType.text).to.eql('Vehicle');
+    expect(classSymbolType.flags).to.deep.eq(['Object']);
+    expect(!!classSymbolType.constructorSignatures).to.eq(false, 'no constructor signatures');
 
-    const classPropNames = Object.keys(classType.properties!);
-    expect(classPropNames).to.deep.eq([]);
-    const [constructorSig] = classType.constructorSignatures!;
-    expect(constructorSig.text).to.eq('(): Vehicle');
-    const instanceType = t.resolveReference(constructorSig.returnType);
-    expect(instanceType.text).to.eq('Vehicle');
-    const instancePropNames = Object.keys(instanceType.properties!);
+    const classValueDeclarationType = t.resolveReference(classSymbol.valueDeclarationType);
+    expect(classValueDeclarationType.text).to.eql('typeof Vehicle');
+    expect(classValueDeclarationType.flags).to.deep.eq(['Object']);
+    expect(classValueDeclarationType.constructorSignatures!.length).to.eq(
+      1,
+      '1 constructor signature',
+    );
+
+    const instancePropNames = Object.keys(classSymbolType.properties!);
     expect(instancePropNames).to.deep.eq(['numWheels', 'drive']);
-    const props = instancePropNames.map(p => t.resolveReference(instanceType.properties![p]));
+    const props = instancePropNames.map(p => t.resolveReference(classSymbolType.properties![p]));
     const [numWheelsSym, driveSym] = props;
     expect(numWheelsSym.flags).to.deep.eq(['Property']);
     expect(driveSym.flags).to.deep.eq(['Method']);
     expect(numWheelsSym.text).to.eq('numWheels');
     expect(driveSym.text).to.eq('drive');
     expect(driveSym.isAbstract).to.eq(true);
-    const [numWheelsType, driveType] = props.map(s => t.resolveReference(s.type));
 
-    expect(numWheelsType.text).to.eql('number');
-    expect(driveType.text).to.eql('() => string');
-    expect(numWheelsType.flags).to.deep.eq(['Number']);
-    expect(driveType.flags).to.deep.eq(['Object']);
-    expect(driveType.objectFlags).to.includes('Anonymous');
     t.cleanup();
   }
 
@@ -107,14 +111,21 @@ export class ClassSerializationTests {
     expect(classSymbol.flags).to.eql(['Class'], 'Regarded as a class');
     expect(classSymbol.modifiers).to.include('export');
 
-    const classType = t.resolveReference(classSymbol.type);
-    expect(classType.text).to.eql('typeof Vehicle');
-    expect(classType.flags).to.deep.eq(['Object']);
-    expect(classType.constructorSignatures!.length).to.eq(1, '1 constructor signature');
+    const classSymbolType = t.resolveReference(classSymbol.symbolType);
+    expect(classSymbolType.text).to.eql('Vehicle');
+    expect(classSymbolType.flags).to.deep.eq(['Object']);
+    expect(!!classSymbolType.constructorSignatures).to.eq(false, 'no constructor signatures');
 
-    const classPropNames = Object.keys(classType.properties!);
+    const classValueDeclarationType = t.resolveReference(classSymbol.valueDeclarationType);
+    expect(classValueDeclarationType.text).to.eql('typeof Vehicle');
+    expect(classValueDeclarationType.flags).to.deep.eq(['Object']);
+    expect(classValueDeclarationType.constructorSignatures!.length).to.eq(
+      1,
+      '1 constructor signature',
+    );
+    const classPropNames = Object.keys(classValueDeclarationType.properties!);
     expect(classPropNames).to.deep.eq([]);
-    const [constructorSig] = classType.constructorSignatures!;
+    const [constructorSig] = classValueDeclarationType.constructorSignatures!;
     expect(constructorSig.text).to.eq('(): Vehicle');
 
     t.cleanup();
@@ -123,6 +134,7 @@ export class ClassSerializationTests {
   @test
   public async 'inheriting a constructor from a base class'(): Promise<void> {
     const code = `class Vehicle {
+  public readonly abc = 'def'
   constructor(n: number) { setTimeout(() => console.log('hello'), n)}
 }
     
@@ -136,14 +148,25 @@ export class Car extends Vehicle {}`;
     expect(classSymbol.flags).to.eql(['Class'], 'Regarded as a class');
     expect(classSymbol.modifiers).to.include('export');
 
-    const classType = t.resolveReference(classSymbol.type);
-    expect(classType.text).to.eql('typeof Car');
-    expect(classType.flags).to.deep.eq(['Object']);
-    expect(classType.constructorSignatures!.length).to.eq(1, '1 constructor signature');
+    const classSymbolType = t.resolveReference(classSymbol.symbolType);
+    expect(classSymbolType.text).to.eql('Car');
+    expect(classSymbolType.flags).to.deep.eq(['Object']);
+    expect(!!classSymbolType.constructorSignatures).to.eq(false, 'no constructor signatures');
 
-    const classPropNames = Object.keys(classType.properties!);
-    expect(classPropNames).to.deep.eq([]);
-    const [constructorSig] = classType.constructorSignatures!;
+    const classValueDeclarationType = t.resolveReference(classSymbol.valueDeclarationType);
+    expect(classValueDeclarationType.text).to.eql('typeof Car');
+    expect(classValueDeclarationType.flags).to.deep.eq(['Object']);
+    expect(classValueDeclarationType.constructorSignatures!.length).to.eq(
+      1,
+      '1 constructor signature',
+    );
+
+    const instancePropNames = Object.keys(classSymbolType.properties!);
+    expect(instancePropNames).to.deep.eq(['abc']);
+
+    const staticPropNames = Object.keys(classValueDeclarationType.properties!);
+    expect(staticPropNames).to.deep.eq([]);
+    const [constructorSig] = classValueDeclarationType.constructorSignatures!;
     expect(constructorSig.text).to.eq('(n: number): Car');
 
     t.cleanup();
@@ -152,6 +175,8 @@ export class Car extends Vehicle {}`;
   @test
   public async 'inheriting multiple constructor signatures from a base class'(): Promise<void> {
     const code = `class Vehicle {
+  public readonly abc = 'def'
+
   constructor(n: number);
   constructor(n: number, coeff: number);
   constructor(n: number, coeff: number = 1) { setTimeout(() => console.log('hello'), n * coeff)}
@@ -167,14 +192,25 @@ export class Car extends Vehicle {}`;
     expect(classSymbol.flags).to.eql(['Class'], 'Regarded as a class');
     expect(classSymbol.modifiers).to.include('export');
 
-    const classType = t.resolveReference(classSymbol.type);
-    expect(classType.text).to.eql('typeof Car');
-    expect(classType.flags).to.deep.eq(['Object']);
-    expect(classType.constructorSignatures!.length).to.eq(2, '2 constructor signatures');
+    const classSymbolType = t.resolveReference(classSymbol.symbolType);
+    expect(classSymbolType.text).to.eql('Car');
+    expect(classSymbolType.flags).to.deep.eq(['Object']);
+    expect(!!classSymbolType.constructorSignatures).to.eq(false, 'no constructor signatures');
 
-    const classPropNames = Object.keys(classType.properties!);
+    const classValueDeclarationType = t.resolveReference(classSymbol.valueDeclarationType);
+    expect(classValueDeclarationType.text).to.eql('typeof Car');
+    expect(classValueDeclarationType.flags).to.deep.eq(['Object']);
+    expect(classValueDeclarationType.constructorSignatures!.length).to.eq(
+      2,
+      '2 constructor signatures',
+    );
+
+    const instancePropNames = Object.keys(classSymbolType.properties!);
+    expect(instancePropNames).to.deep.eq(['abc']);
+
+    const classPropNames = Object.keys(classValueDeclarationType.properties!);
     expect(classPropNames).to.deep.eq([]);
-    const [constructorSig1, constructorSig2] = classType.constructorSignatures!;
+    const [constructorSig1, constructorSig2] = classValueDeclarationType.constructorSignatures!;
     expect(constructorSig1.text).to.eq('(n: number): Car');
     expect(constructorSig2.text).to.eq('(n: number, coeff: number): Car');
 
@@ -198,15 +234,23 @@ export class Car extends Vehicle {}`;
     expect(classSymbol.flags).to.eql(['Class'], 'Regarded as a class');
     expect(classSymbol.modifiers).to.include('export');
 
-    const classType = t.resolveReference(classSymbol.type);
-    expect(classType.text).to.eql('typeof SimpleClass');
-    expect(classType.flags).to.deep.eq(['Object']);
-    expect(classType.constructorSignatures!.length).to.eq(1, '1 constructor signature');
+    const classSymbolType = t.resolveReference(classSymbol.symbolType);
+    expect(classSymbolType.text).to.eql('SimpleClass');
+    expect(classSymbolType.flags).to.deep.eq(['Object']);
+    expect(!!classSymbolType.constructorSignatures).to.eq(false, 'no constructor signatures');
 
-    const classPropNames = Object.keys(classType.properties!);
+    const classValueDeclarationType = t.resolveReference(classSymbol.valueDeclarationType);
+    expect(classValueDeclarationType.text).to.eql('typeof SimpleClass');
+    expect(classValueDeclarationType.flags).to.deep.eq(['Object']);
+    expect(classValueDeclarationType.constructorSignatures!.length).to.eq(
+      1,
+      '1 constructor signature',
+    );
+
+    const classPropNames = Object.keys(classValueDeclarationType.properties!);
     expect(classPropNames).to.deep.eq(['hello', 'planet']);
     const [helloSym, planetSym] = classPropNames.map(n =>
-      t.resolveReference(classType.properties![n]),
+      t.resolveReference(classValueDeclarationType.properties![n]),
     );
     expect(helloSym.text).to.eq('hello');
     expect(helloSym.modifiers).to.deep.eq(['static']);
@@ -215,7 +259,7 @@ export class Car extends Vehicle {}`;
     expect(planetSym.modifiers).to.deep.eq(['static']);
     expect(planetSym.flags).to.deep.eq(['Property']);
 
-    const [constructorSig] = classType.constructorSignatures!;
+    const [constructorSig] = classValueDeclarationType.constructorSignatures!;
     expect(constructorSig.text).to.eq('(bar: string): SimpleClass');
     const instanceType = t.resolveReference(constructorSig.returnType);
     expect(instanceType.text).to.eq('SimpleClass');
@@ -225,7 +269,7 @@ export class Car extends Vehicle {}`;
     const [fooSym] = props;
     expect(fooSym.flags).to.deep.eq(['Property']);
     expect(fooSym.text).to.eq('foo');
-    const [fooType] = props.map(s => t.resolveReference(s.type));
+    const [fooType] = props.map(s => t.resolveReference(s.valueDeclarationType));
 
     expect(fooType.text).to.eql('string');
     expect(fooType.flags).to.deep.eq(['String']);
@@ -256,19 +300,29 @@ export class Car extends Vehicle {}`;
     expect(classSymbol.flags).to.eql(['Class'], 'Regarded as a class');
     expect(classSymbol.modifiers).to.include('export');
 
-    const classType = t.resolveReference(classSymbol.type);
-    expect(classType.text).to.eql('typeof SimpleClass');
-    expect(classType.flags).to.deep.eq(['Object']);
-    expect(classType.constructorSignatures!.length).to.eq(1, '1 constructor signature');
+    const classSymbolType = t.resolveReference(classSymbol.symbolType);
+    expect(classSymbolType.text).to.eql('SimpleClass');
+    expect(classSymbolType.flags).to.deep.eq(['Object']);
+    expect(!!classSymbolType.constructorSignatures).to.eq(false, 'no constructor signatures');
 
-    const classPropNames = Object.keys(classType.properties!);
+    const classValueDeclarationType = t.resolveReference(classSymbol.valueDeclarationType);
+    expect(classValueDeclarationType.text).to.eql('typeof SimpleClass');
+    expect(classValueDeclarationType.flags).to.deep.eq(['Object']);
+    expect(classValueDeclarationType.constructorSignatures!.length).to.eq(
+      1,
+      '1 constructor signature',
+    );
+
+    const classPropNames = Object.keys(classValueDeclarationType.properties!);
     expect(classPropNames).to.deep.eq(['hello']);
-    const [helloSym] = classPropNames.map(n => t.resolveReference(classType.properties![n]));
+    const [helloSym] = classPropNames.map(n =>
+      t.resolveReference(classValueDeclarationType.properties![n]),
+    );
     expect(helloSym.text).to.eq('hello');
     expect(helloSym.modifiers).to.include('protected', 'static');
     expect(helloSym.flags).to.deep.eq(['Method']);
 
-    const [constructorSig] = classType.constructorSignatures!;
+    const [constructorSig] = classValueDeclarationType.constructorSignatures!;
     expect(constructorSig.text).to.eq('(bar: string): SimpleClass');
     expect(constructorSig.modifiers).to.deep.eq(['private']);
     const instanceType = t.resolveReference(constructorSig.returnType);
@@ -279,7 +333,7 @@ export class Car extends Vehicle {}`;
     const [fooSym, myBarSym, myBazSym] = props;
     expect(fooSym.flags).to.deep.eq(['Property']);
     expect(fooSym.text).to.eq('foo');
-    const [fooType] = props.map(s => t.resolveReference(s.type));
+    const [fooType] = props.map(s => t.resolveReference(s.valueDeclarationType));
 
     expect(fooType.text).to.eql('string');
     expect(fooType.flags).to.deep.eq(['String']);

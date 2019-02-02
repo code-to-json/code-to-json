@@ -4,16 +4,14 @@ import {
   filterDict,
   flagsToString,
   getFirstIdentifier,
+  getRelevantTypesForSymbol,
   isAbstractDeclaration,
-  isErroredType,
   mapDict,
   modifiersToStrings,
-  relevantDeclarationForSymbol,
-  relevantTypeForSymbol,
 } from '@code-to-json/utils-ts';
 import * as ts from 'typescript';
 import { Queue } from '../processing-queue';
-import { SymbolRef } from '../types/ref';
+import { DeclarationRef, SymbolRef, TypeRef } from '../types/ref';
 import { SerializedSymbol } from '../types/serialized-entities';
 import { Collector } from '../types/walker';
 import serializeLocation from './location';
@@ -75,10 +73,10 @@ function serializeExtendedSymbolDeclarationData(
 
 function serializeExports(
   sym: ts.Symbol,
-  checker: ts.TypeChecker,
+  _checker: ts.TypeChecker,
   c: Collector,
 ): Pick<SerializedSymbol, 'exports'> | undefined {
-  if (!c.cfg.shouldSerializeSymbolDetails(checker, sym)) {
+  if (!c.cfg.shouldSerializeSymbolDetails(sym)) {
     return undefined;
   }
   const { exports: exportSymbols } = sym;
@@ -95,10 +93,10 @@ function serializeExports(
 
 function serializeMembers(
   sym: ts.Symbol,
-  checker: ts.TypeChecker,
+  _checker: ts.TypeChecker,
   c: Collector,
 ): Pick<SerializedSymbol, 'members'> | undefined {
-  if (!c.cfg.shouldSerializeSymbolDetails(checker, sym)) {
+  if (!c.cfg.shouldSerializeSymbolDetails(sym)) {
     return undefined;
   }
   const { members } = sym;
@@ -160,6 +158,59 @@ function serializeBasicSymbolDeclarationData(
   return out;
 }
 
+function serializeSymbolTypes(
+  symbol: ts.Symbol,
+  checker: ts.TypeChecker,
+  c: Collector,
+): Pick<
+  SerializedSymbol,
+  | 'symbolType'
+  | 'valueDeclarationType'
+  | 'otherDeclarationTypes'
+  | 'declarations'
+  | 'valueDeclaration'
+> {
+  const out: Pick<
+    SerializedSymbol,
+    | 'symbolType'
+    | 'valueDeclarationType'
+    | 'otherDeclarationTypes'
+    | 'declarations'
+    | 'valueDeclaration'
+  > = {};
+  const { valueDeclaration, declarations } = symbol;
+  const types = getRelevantTypesForSymbol(checker, symbol);
+  if (!types) {
+    throw new Error(`Unable to determine type for symbol ${checker.symbolToString(symbol)}`);
+  }
+  const { valueDeclarationType, symbolType, otherDeclarationTypes } = types;
+  if (valueDeclaration) {
+    out.valueDeclaration = c.queue.queue(valueDeclaration, 'declaration');
+  }
+  if (declarations) {
+    out.declarations = declarations.map(d => c.queue.queue(d, 'declaration')).filter(isDefined);
+  }
+  if (valueDeclarationType) {
+    out.valueDeclarationType = c.queue.queue(valueDeclarationType, 'type');
+  }
+  if (symbolType) {
+    out.symbolType = c.queue.queue(symbolType, 'type');
+  }
+  if (otherDeclarationTypes) {
+    const declTypeArr: Array<{ declaration: DeclarationRef; type: TypeRef }> = [];
+    for (const [k, v] of otherDeclarationTypes) {
+      if (v) {
+        declTypeArr.push({
+          declaration: c.queue.queue(k, 'declaration')!,
+          type: c.queue.queue(v, 'type')!,
+        });
+      }
+    }
+    out.otherDeclarationTypes = declTypeArr;
+  }
+  return out;
+}
+
 /**
  * Serialize a ts.Symbol to JSON
  *
@@ -176,12 +227,9 @@ export default function serializeSymbol(
   c: Collector,
 ): SerializedSymbol {
   const { queue: q } = c;
-  const { flags, name } = symbol;
+  const { flags, name, valueDeclaration } = symbol;
   // starting point w/ minimal (and mandatory) information
-  const type = relevantTypeForSymbol(checker, symbol);
-  if (type && isErroredType(type)) {
-    throw new Error(`Unable to determine type for symbol ${checker.symbolToString(symbol)}`);
-  }
+
   const id = refId(ref);
   const serialized: SerializedSymbol = {
     id,
@@ -189,17 +237,19 @@ export default function serializeSymbol(
     name,
     text: checker.symbolToString(symbol),
     flags: flagsToString(flags, 'symbol') || [],
-    type: q.queue(type, 'type'),
     ...handleRelatedEntities(symbol, ref, relatedEntities, q),
   };
-  const decl = relevantDeclarationForSymbol(symbol);
 
-  Object.assign(serialized, serializeBasicSymbolDeclarationData(symbol, decl, checker, c));
+  Object.assign(
+    serialized,
+    serializeSymbolTypes(symbol, checker, c),
+    serializeBasicSymbolDeclarationData(symbol, valueDeclaration, checker, c),
+  );
 
   Object.assign(
     serialized,
     serializeExports(symbol, checker, c),
-    serializeExtendedSymbolDeclarationData(symbol, decl, checker, c),
+    serializeExtendedSymbolDeclarationData(symbol, valueDeclaration, checker, c),
     serializeMembers(symbol, checker, c),
   );
 

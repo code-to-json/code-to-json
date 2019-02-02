@@ -87,12 +87,12 @@ console.log(x);`,
       flags: ['ValueModule'],
       id: 'S01m4wmi9af08',
       exports: { add: ['symbol', 'S01m4wn36kf7n'] },
-      location: [['sourceFile', 'F01m4wncynxfl'], 1, 1, 1, 67],
+      location: [['sourceFile', 'F01m4wncynxfl1'], 1, 1, 1, 67],
       name: '"module"',
-      sourceFile: ['sourceFile', 'F01m4wncynxfl'],
+      sourceFile: ['sourceFile', 'F01m4wncynxfl1'],
     });
     expect(serializedFileSymbol)
-      .to.haveOwnProperty('type')
+      .to.haveOwnProperty('valueDeclarationType')
       .instanceOf(Array)
       .lengthOf(2);
   }

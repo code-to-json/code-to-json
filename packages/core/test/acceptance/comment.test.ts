@@ -24,7 +24,7 @@ export class CommentSerializationTests {
     expect(variableSymbol.documentation).to.deep.eq({
       summary: ['A thing'],
     });
-    const variableType = t.resolveReference(variableSymbol.type);
+    const variableType = t.resolveReference(variableSymbol.valueDeclarationType);
     expect(variableType.text).to.eql('Foo', 'has correct type');
 
     t.cleanup();
@@ -58,7 +58,7 @@ export class CommentSerializationTests {
       ],
     });
 
-    const variableType = t.resolveReference(variableSymbol.type);
+    const variableType = t.resolveReference(variableSymbol.valueDeclarationType);
     expect(variableType.text).to.eql('Foo', 'has correct type');
 
     t.cleanup();
@@ -100,7 +100,7 @@ export class CommentSerializationTests {
       ],
     });
 
-    const functionType = t.resolveReference(functionSymbol.type);
+    const functionType = t.resolveReference(functionSymbol.valueDeclarationType);
     expect(functionType.text).to.eql('(a: number, b: number) => number');
     const [callSig1] = functionType.callSignatures!;
     expect(callSig1.parameters!.length).to.eql(2);

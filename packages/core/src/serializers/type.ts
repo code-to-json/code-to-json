@@ -1,19 +1,18 @@
 import { isDefined, refId } from '@code-to-json/utils';
 import {
   flagsToString,
-  getTsLibFilename,
+  getTsLibName,
   isAnonymousType,
-  isClassOrInterfaceType,
   isConditionalType,
   isIndexedAccessType,
   isIndexType,
+  isInterfaceType,
   isMappedType,
   isObjectReferenceType,
   isObjectType,
   isPrimitiveType,
   isTupleType,
   MappedType,
-  relevantDeclarationForSymbol,
 } from '@code-to-json/utils-ts';
 import { Dict } from '@mike-north/types';
 import * as ts from 'typescript';
@@ -93,7 +92,7 @@ function serializeObjectType(
   if (aliasTypeArguments && aliasTypeArguments.length > 0) {
     out.typeParameters = aliasTypeArguments.map(tp => c.queue.queue(tp, 'type')).filter(isDefined);
   }
-  if (c.cfg.shouldSerializeTypeDetails(_checker, type)) {
+  if (c.cfg.shouldSerializeTypeDetails(type)) {
     const properties: ts.Symbol[] = type.getProperties();
     if (properties && properties.length > 0) {
       out.properties = properties
@@ -131,7 +130,7 @@ function serializeExtendedRelatedTypes(
   if (isMappedType(type)) {
     Object.assign(out, serializeMappedType(type, checker, c));
   }
-  if (isClassOrInterfaceType(type)) {
+  if (isInterfaceType(type)) {
     Object.assign(out, serializeInterfaceType(type, checker, c));
   }
 
@@ -306,15 +305,18 @@ export default function serializeType(
   );
 
   if (symbol) {
-    const decl = relevantDeclarationForSymbol(symbol);
+    const decl = symbol.valueDeclaration;
     if (decl) {
       const sourceFile = decl.getSourceFile();
-      const libName = getTsLibFilename(sourceFile.fileName);
+      const libName = getTsLibName(sourceFile.fileName);
       if (libName) {
         serialized.libName = libName;
-        // return serialized;
+        return serialized;
       }
     }
+  }
+  if (!c.cfg.shouldSerializeTypeDetails(type, symbol)) {
+    return serialized;
   }
 
   Object.assign(

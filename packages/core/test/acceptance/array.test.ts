@@ -16,7 +16,7 @@ export class ArraySerializationTests {
     expect(variableSymbol.text).to.eql('x');
     expect(variableSymbol.flags).to.eql(['BlockScopedVariable'], 'Regarded as a variable');
 
-    const variableType = t.resolveReference(variableSymbol.type);
+    const variableType = t.resolveReference(variableSymbol.valueDeclarationType);
     expect(variableType.text).to.eql('string[]');
     expect(variableType.flags).to.deep.eq(['Object']);
     const arrayType = t.resolveReference(variableType.numberIndexType);
@@ -35,7 +35,7 @@ export class ArraySerializationTests {
     expect(variableSymbol.text).to.eql('x');
     expect(variableSymbol.flags).to.eql(['BlockScopedVariable'], 'Regarded as a variable');
 
-    const variableType = t.resolveReference(variableSymbol.type);
+    const variableType = t.resolveReference(variableSymbol.valueDeclarationType);
     expect(variableType.text).to.eql('[string, number, number]');
     expect(variableType.flags).to.deep.eq(['Object']);
     const arrayType = t.resolveReference(variableType.numberIndexType);

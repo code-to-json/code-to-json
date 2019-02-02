@@ -1,10 +1,5 @@
 import { refId } from '@code-to-json/utils';
-import {
-  flagsToString,
-  isDeclaration,
-  isDeclarationExported,
-  nameForNode,
-} from '@code-to-json/utils-ts';
+import { flagsToString, nameForNode } from '@code-to-json/utils-ts';
 import * as ts from 'typescript';
 import { DeclarationRef, NodeRef, SourceFileRef } from '../types/ref';
 import { SerializedNode } from '../types/serialized-entities';
@@ -26,7 +21,7 @@ export default function serializeNode(
   _related: undefined | ts.Node[],
   c: Collector,
 ): SerializedNode {
-  const { flags, kind, decorators, modifiers, pos, end } = n;
+  const { flags, kind, pos, end } = n;
   const { queue: q } = c;
   const details: SerializedNode = {
     id: refId(ref),
@@ -34,22 +29,9 @@ export default function serializeNode(
     location: serializeLocation(n.getSourceFile(), pos, end, q),
     name: nameForNode(n, checker),
     text: n.getText(),
-    isExposed: isDeclaration(n) && isDeclarationExported(n),
-    isExported: !!(
-      modifiers &&
-      modifiers.length &&
-      modifiers.map(m => m.kind).indexOf(ts.SyntaxKind.ExportKeyword) >= 0
-    ),
     kind: ts.SyntaxKind[kind],
     flags: flagsToString(flags, 'node'),
   };
-
-  if (decorators && decorators.length) {
-    details.decorators = decorators.map(d => ts.SyntaxKind[d.kind]);
-  }
-  if (modifiers && modifiers.length) {
-    details.modifiers = modifiers.map(d => ts.SyntaxKind[d.kind]);
-  }
 
   return details;
 }

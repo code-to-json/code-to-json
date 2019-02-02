@@ -18,7 +18,7 @@ export class TypeSerializationTests {
     expect(typeSymbol.text).to.eql('x');
     expect(typeSymbol.flags).to.eql(['BlockScopedVariable'], 'Regarded as a variable');
 
-    const typeType = t.resolveReference(typeSymbol.type);
+    const typeType = t.resolveReference(typeSymbol.valueDeclarationType);
     expect(typeType.text).to.eql('{ width: number; height: number; }');
     expect(typeType.flags).to.deep.eq(['Object']);
     t.cleanup();
@@ -35,7 +35,7 @@ export class TypeSerializationTests {
     expect(typeSymbol.text).to.eql('Dict');
     expect(typeSymbol.flags).to.eql(['TypeAlias'], 'Regarded as a type alias');
 
-    const typeType = t.resolveReference(typeSymbol.type);
+    const typeType = t.resolveReference(typeSymbol.symbolType);
     expect(typeType.text).to.eql('Dict<T>', 'has correct type');
     expect(typeType.flags).to.deep.eq(['Object']);
     const [typeParam] = typeType.typeParameters!.map(tp => t.resolveReference(tp));
@@ -58,7 +58,7 @@ export class TypeSerializationTests {
     expect(typeSymbol.text).to.eql('Dict');
     expect(typeSymbol.flags).to.eql(['TypeAlias'], 'Regarded as a type alias');
 
-    const typeType = t.resolveReference(typeSymbol.type);
+    const typeType = t.resolveReference(typeSymbol.symbolType);
     expect(typeType.text).to.eql('Dict<T>');
     expect(typeType.flags).to.deep.eq(['Object']);
     const [typeParam] = typeType.typeParameters!.map(tp => t.resolveReference(tp));
@@ -80,7 +80,7 @@ export class TypeSerializationTests {
     expect(typeSymbol.text).to.eql('StringNumberOrBoolean');
     expect(typeSymbol.flags).to.eql(['TypeAlias'], 'Regarded as a type alias');
 
-    const typeType = t.resolveReference(typeSymbol.type);
+    const typeType = t.resolveReference(typeSymbol.symbolType);
     expect(typeType.text).to.eql('StringNumberOrBoolean');
     expect(typeType.flags).to.deep.eq(['Union']);
     expect(!!typeType.typeParameters).to.eq(false);
@@ -110,7 +110,7 @@ export class TypeSerializationTests {
     expect(typeSymbol.text).to.eql('Split');
     expect(typeSymbol.flags).to.eql(['TypeAlias'], 'Regarded as a type alias');
 
-    const typeType = t.resolveReference(typeSymbol.type);
+    const typeType = t.resolveReference(typeSymbol.symbolType);
     expect(typeType.text).to.eql(
       '{ (separator: string | RegExp, limit?: number): string[]; (splitter: { [Symbol.split](string: string, limit?: number): string[]; }, limit?: number): string[]; }',
     );

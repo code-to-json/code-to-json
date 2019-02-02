@@ -14,12 +14,13 @@ export class VariableSerializationTests {
     const fileSymbol = t.resolveReference(file.symbol);
     expect(fileSymbol.exports).to.be.an('object', "file symbol's exports is an object");
     expect(Object.keys(fileSymbol.exports!)).to.deep.eq(['x']);
+
     const variableSymbol = t.resolveReference(fileSymbol.exports!.x);
     expect(variableSymbol.text).to.eql('x');
     expect(variableSymbol.flags).to.eql(['BlockScopedVariable'], 'Regarded as a variable');
     expect(variableSymbol.modifiers).to.eql(undefined, 'No modifiers');
 
-    const variableType = t.resolveReference(variableSymbol.type);
+    const variableType = t.resolveReference(variableSymbol.valueDeclarationType);
     expect(variableType.text).to.eql('number');
     expect(variableType.flags).to.deep.eq(['Number']);
     t.cleanup();
@@ -37,7 +38,7 @@ export class VariableSerializationTests {
     expect(variableSymbol.flags).to.eql(['BlockScopedVariable'], 'Regarded as a variable');
     expect(variableSymbol.modifiers).to.eql(undefined, 'No modifiers');
 
-    const variableType = t.resolveReference(variableSymbol.type);
+    const variableType = t.resolveReference(variableSymbol.valueDeclarationType);
     expect(variableType.text).to.eql('1');
     expect(variableType.flags).to.deep.eq(['NumberLiteral']);
     t.cleanup();
@@ -54,7 +55,7 @@ export class VariableSerializationTests {
     expect(variableSymbol.text).to.eql('x');
     expect(variableSymbol.flags).to.eql(['BlockScopedVariable'], 'Regarded as a variable');
 
-    const variableType = t.resolveReference(variableSymbol.type);
+    const variableType = t.resolveReference(variableSymbol.valueDeclarationType);
     expect(variableType.text).to.eql('number');
     expect(variableType.flags).to.deep.eq(['Number']);
     t.cleanup();
@@ -71,7 +72,7 @@ export class VariableSerializationTests {
     expect(variableSymbol.text).to.eql('x');
     expect(variableSymbol.flags).to.eql(['BlockScopedVariable'], 'Regarded as a variable');
 
-    const variableType = t.resolveReference(variableSymbol.type);
+    const variableType = t.resolveReference(variableSymbol.valueDeclarationType);
     expect(variableType.text).to.eql('string | number');
     expect(variableType.flags).to.deep.eq(['Union']);
     t.cleanup();
@@ -88,7 +89,7 @@ export class VariableSerializationTests {
     expect(variableSymbol.text).to.eql('x');
     expect(variableSymbol.flags).to.eql(['BlockScopedVariable'], 'Regarded as a variable');
 
-    const variableType = t.resolveReference(variableSymbol.type);
+    const variableType = t.resolveReference(variableSymbol.valueDeclarationType);
     expect(variableType.text).to.eql('Promise<number>');
     expect(variableType.flags).to.deep.eq(['Object']);
     expect(variableType.libName).to.eq('lib.es2015.promise.d.ts');
@@ -110,16 +111,17 @@ export class VariableSerializationTests {
     expect(variableSymbol.text).to.eql('x');
     expect(variableSymbol.flags).to.eql(['BlockScopedVariable'], 'Regarded as a variable');
 
-    const variableType = t.resolveReference(variableSymbol.type);
+    const variableType = t.resolveReference(variableSymbol.valueDeclarationType);
     expect(variableType.text).to.eql('{ p: Promise<number[]>; }');
     expect(variableType.flags).to.deep.eq(['Object']);
     expect(variableType.objectFlags).to.deep.eq(['Anonymous']);
+
     expect(Object.keys(variableType.properties!)).to.deep.eq(['p']);
 
     const pSym = t.resolveReference(variableType.properties!.p);
     expect(pSym.text).to.eq('p');
 
-    const pTyp = t.resolveReference(pSym.type);
+    const pTyp = t.resolveReference(pSym.valueDeclarationType);
     expect(pTyp.text).to.eq('Promise<number[]>');
     expect(pTyp.libName).to.eq('lib.es2015.promise.d.ts');
     t.cleanup();
@@ -136,23 +138,11 @@ export class VariableSerializationTests {
     expect(variableSymbol.text).to.eql('x');
     expect(variableSymbol.flags).to.eql(['BlockScopedVariable'], 'Regarded as a variable');
 
-    const variableType = t.resolveReference(variableSymbol.type);
+    const variableType = t.resolveReference(variableSymbol.valueDeclarationType);
     expect(variableType.text).to.eql('Pick<Promise<number>, "then">');
     expect(variableType.flags).to.deep.eq(['Object']);
     expect(variableType.objectFlags).to.deep.eq(['Mapped', 'Instantiated']);
 
-    expect(!!variableType.typeParameters).to.eq(true);
-    expect(variableType.typeParameters).to.have.lengthOf(1);
-    expect(variableType.constraint).to.have.lengthOf(2);
-
-    const constraint = t.resolveReference(variableType.constraint);
-    expect(constraint.text).to.eq('"then"');
-
-    const [typeParam] = variableType.typeParameters!.map(tp => t.resolveReference(tp));
-    expect(typeParam.text).to.eql('P');
-
-    const modType = t.resolveReference(variableType.modifiersType);
-    expect(modType.text).to.eq('Promise<number>');
     t.cleanup();
   }
 }
