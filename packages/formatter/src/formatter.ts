@@ -1,4 +1,5 @@
 import {
+  SerializedDeclaration,
   SerializedSourceFile,
   SerializedSymbol,
   SerializedType,
@@ -6,10 +7,13 @@ import {
 } from '@code-to-json/core';
 import { isDefined } from '@code-to-json/utils';
 import { create as createDataCollector } from './data-collector';
+import formatDeclaration from './declaration';
 import formatSourceFile from './source-file';
 import formatSymbol from './symbol';
 import formatType from './type';
 import {
+  FormattedDeclaration,
+  FormattedDeclarationRef,
   FormattedSourceFile,
   FormattedSourceFileRef,
   FormattedSymbol,
@@ -29,6 +33,7 @@ export interface FormatterOutputData {
   sourceFiles: { [k: string]: FormattedSourceFile };
   types: { [k: string]: FormattedType };
   symbols: { [k: string]: FormattedSymbol };
+  declarations: { [k: string]: FormattedDeclaration };
 }
 
 export interface FormatterOutput {
@@ -61,6 +66,12 @@ export function formatWalkerOutput(
     },
     handleSymbol(ref: FormattedSymbolRef, item: SerializedSymbol): FormattedSymbol {
       return formatSymbol(wo.data, item, ref, collector);
+    },
+    handleDeclaration(
+      ref: FormattedDeclarationRef,
+      item: SerializedDeclaration,
+    ): FormattedDeclaration {
+      return formatDeclaration(wo.data, item, ref, collector);
     },
   });
   return {

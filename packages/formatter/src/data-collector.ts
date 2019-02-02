@@ -1,9 +1,15 @@
 /* eslint-disable no-return-assign */
 
-import { SerializedSourceFile, SerializedSymbol, SerializedType } from '@code-to-json/core';
+import {
+  SerializedDeclaration,
+  SerializedSourceFile,
+  SerializedSymbol,
+  SerializedType,
+} from '@code-to-json/core';
 import { createQueue, RefFor, refId, UnreachableError } from '@code-to-json/utils';
 import * as debug from 'debug';
 import {
+  FormattedDeclarationRef,
   FormattedSourceFileRef,
   FormattedSymbolRef,
   FormattedTypeRef,
@@ -12,22 +18,25 @@ import {
 
 const log = debug('code-to-json:formatter:data-collector');
 
-export interface QueueSink<S, T, SF> {
+export interface QueueSink<S, T, D, SF> {
   handleType(ref: FormattedTypeRef, item: SerializedType): T;
   handleSymbol(ref: FormattedSymbolRef, item: SerializedSymbol): S;
   handleSourceFile(ref: FormattedSourceFileRef, item: SerializedSourceFile): SF;
+  handleDeclaration(ref: FormattedDeclarationRef, item: SerializedDeclaration): D;
 }
 
-export interface DrainOutput<S, T, SF> {
+export interface DrainOutput<S, T, D, SF> {
   symbols: { [k: string]: S };
   types: { [k: string]: T };
   sourceFiles: { [k: string]: SF };
+  declarations: { [k: string]: D };
 }
 
 interface DataCollectorInputs {
   t: SerializedType;
   s: SerializedSymbol;
   f: SerializedSourceFile;
+  d: SerializedDeclaration;
 }
 
 export interface DataCollector {
@@ -38,7 +47,7 @@ export interface DataCollector {
     thing: E,
     refType: K,
   ): RefFor<FormatterRefRegistry, K> | undefined;
-  drain<S, T, SF>(sink: Partial<QueueSink<S, T, SF>>): DrainOutput<S, T, SF>;
+  drain<S, T, D, SF>(sink: Partial<QueueSink<S, T, D, SF>>): DrainOutput<S, T, D, SF>;
 }
 
 export function create(): DataCollector {
@@ -58,6 +67,11 @@ export function create(): DataCollector {
       f => f.id,
       id => ({ id }),
     ),
+    declarations: createQueue<FormatterRefRegistry, 'd', SerializedDeclaration, string, undefined>(
+      'd',
+      d => d.id,
+      id => ({ id }),
+    ),
   };
 
   return {
@@ -73,15 +87,18 @@ export function create(): DataCollector {
           return registries.types.queue(thing as SerializedType);
         case 'f':
           return registries.files.queue(thing as SerializedSourceFile);
+        case 'd':
+          return registries.declarations.queue(thing as SerializedDeclaration);
         default:
           throw new UnreachableError(refType);
       }
     },
-    drain<S, T, SF>(sink: Partial<QueueSink<S, T, SF>>): DrainOutput<S, T, SF> {
-      const out: DrainOutput<S, T, SF> = {
+    drain<S, T, D, SF>(sink: Partial<QueueSink<S, T, D, SF>>): DrainOutput<S, T, D, SF> {
+      const out: DrainOutput<S, T, D, SF> = {
         symbols: {},
         types: {},
         sourceFiles: {},
+        declarations: {},
       };
       /**
        * Flush any un-processed items from the processing queue to the drain output
@@ -94,6 +111,7 @@ export function create(): DataCollector {
             t: 0,
             f: 0,
             s: 0,
+            d: 0,
           },
         };
         const { handleSourceFile, handleType, handleSymbol } = sink;

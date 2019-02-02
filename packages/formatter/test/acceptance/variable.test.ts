@@ -168,7 +168,7 @@ export class VariableAcceptanceTests {
     t.cleanup();
   }
 
-  @test.skip public async 'const x = Symbol("abc");'() {
+  @test public async 'const x = Symbol("abc");'() {
     const code = `export const x = Symbol("abc");`;
     const t = new SingleFileAcceptanceTestCase(code);
     await t.run();
@@ -179,12 +179,12 @@ export class VariableAcceptanceTests {
     expect(varSymbol.text).to.eq('x');
     expect(varSymbol.kind).to.eq(FormattedSymbolKind.variable);
     const varType = t.resolveReference(varSymbol.type);
-    expect(varType.text).to.eq('true');
-    expect(varType.kind).to.eq(FormattedTypeKind.booleanLiteral);
+    expect(varType.text).to.eq('unique symbol');
+    expect(varType.kind).to.eq(FormattedTypeKind.uniqueEssymbol);
     t.cleanup();
   }
 
-  @test.skip public async 'let x = Symbol("abc");'() {
+  @test public async 'let x = Symbol("abc");'() {
     const code = `export let x = Symbol("abc");`;
     const t = new SingleFileAcceptanceTestCase(code);
     await t.run();
@@ -195,8 +195,8 @@ export class VariableAcceptanceTests {
     expect(varSymbol.text).to.eq('x');
     expect(varSymbol.kind).to.eq(FormattedSymbolKind.variable);
     const varType = t.resolveReference(varSymbol.type);
-    expect(varType.text).to.eq('true');
-    expect(varType.kind).to.eq(FormattedTypeKind.booleanLiteral);
+    expect(varType.text).to.eq('symbol');
+    expect(varType.kind).to.eq(FormattedTypeKind.essymbol);
     t.cleanup();
   }
 

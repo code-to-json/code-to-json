@@ -45,6 +45,8 @@ export default function resolveReference(
       return wo.sourceFiles[id];
     case 's':
       return wo.symbols[id];
+    case 'd':
+      return wo.declarations[id];
     default:
       throw new UnreachableError(refTyp, `reference type: ${refTyp}`);
   }
