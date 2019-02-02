@@ -22,7 +22,6 @@ export class SerializationBoundaryTests {
     const allSerializedTypeNames = Object.keys(allTypes).map(tid => allTypes[tid]!.text);
 
     expect(allSerializedTypeNames).to.include.deep.members([
-      'typeof import("--ROOT PATH--/src/index")',
       'string[]',
       'string',
       'ArrayConstructor',
@@ -34,7 +33,6 @@ export class SerializationBoundaryTests {
     const allSerializedSymbolNames = Object.keys(allSymbols).map(tid => allSymbols[tid]!.text);
 
     expect(allSerializedSymbolNames).to.include.deep.members([
-      '"--ROOT PATH--/src/index"',
       'x',
       'Array',
       'ArrayConstructor',
@@ -62,16 +60,11 @@ export class SerializationBoundaryTests {
     const { allTypes, allSymbols } = t;
     const allSerializedTypeNames = Object.keys(allTypes).map(tid => allTypes[tid]!.text);
 
-    expect(allSerializedTypeNames).to.contain.deep.members([
-      'typeof import("--ROOT PATH--/src/index")',
-      'Promise<number>',
-      'Promise<T>',
-    ]);
+    expect(allSerializedTypeNames).to.include.deep.members(['Promise<number>', 'Promise<T>']);
 
     const allSerializedSymbolNames = Object.keys(allSymbols).map(tid => allSymbols[tid]!.text);
 
-    expect(allSerializedSymbolNames).to.deep.eq([
-      '"--ROOT PATH--/src/index"',
+    expect(allSerializedSymbolNames).to.include.deep.members([
       'x',
       'Promise',
       'PromiseConstructor',
@@ -98,16 +91,11 @@ export class SerializationBoundaryTests {
     const { allTypes, allSymbols } = t;
     const allSerializedTypeNames = Object.keys(allTypes).map(tid => allTypes[tid]!.text);
 
-    expect(allSerializedTypeNames).to.contain.deep.members([
-      'typeof import("--ROOT PATH--/src/index")',
-      'Promise<number>',
-      'Promise<T>',
-    ]);
+    expect(allSerializedTypeNames).to.contain.deep.members(['Promise<number>', 'Promise<T>']);
 
     const allSerializedSymbolNames = Object.keys(allSymbols).map(tid => allSymbols[tid]!.text);
 
-    expect(allSerializedSymbolNames).to.deep.eq([
-      '"--ROOT PATH--/src/index"',
+    expect(allSerializedSymbolNames).to.include.deep.members([
       'x',
       'Promise',
       'PromiseConstructor',

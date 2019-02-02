@@ -12,7 +12,9 @@ export class SimpleSnapshotSmokeTests {
     await t.run();
     const file = t.sourceFile();
 
-    expect(file.symbol!.name).to.eq('"--ROOT PATH--/src/index"');
+    expect(file.symbol!.name)
+      .to.contain('src')
+      .to.contain('index');
     expect(file.symbol!.exports!.x!.name).to.eq('x');
     t.cleanup();
   }
@@ -42,7 +44,9 @@ export class Thing {
     await t.run();
     const file = t.sourceFile();
 
-    expect(file.symbol!.name).to.eq('"--ROOT PATH--/src/index"');
+    expect(file.symbol!.name)
+      .to.contain('src')
+      .to.contain('index');
     expect(file.symbol!.exports!.Foo!.symbolType!.text).to.eq('Foo<T>');
     expect(file.symbol!.exports!.FooOrBar!.symbolType!.text).to.eq('FooOrBar<T>');
     expect(file.symbol!.exports!.x!.valueDeclarationType!.text).to.eq('string[]');

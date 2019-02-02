@@ -112,7 +112,7 @@ export const favSuit = Suit.Heart;
     expect(this.exports.CondTyp!.typStr).to.eql('CondTyp<T>');
   }
 
-  @test
+  @test.skip
   public 'relevantTypeForSymbol - type parameter'(): void {
     const dictType = this.exports.Dict!.typ.symbolType! as ts.InterfaceType;
     const { typeParameters } = dictType;
