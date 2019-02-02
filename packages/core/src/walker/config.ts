@@ -1,10 +1,10 @@
-import { UnreachableError } from '@code-to-json/utils';
+import { memoize, UnreachableError } from '@code-to-json/utils';
 import {
   filterDict,
   ModulePathNormalizer,
   PASSTHROUGH_MODULE_PATH_NORMALIZER,
 } from '@code-to-json/utils-ts';
-import { Dict, ExtractPropertyNamesOfType } from '@mike-north/types';
+import { Dict } from '@mike-north/types';
 import * as ts from 'typescript';
 import { DEFAULT_WALKER_OPTIONS, WalkerOptions } from './options';
 
@@ -19,28 +19,6 @@ const values = Object.keys(banned).map(k => banned[k]);
  */
 export function isInternalSymbol(sym: ts.Symbol): boolean {
   return values.includes(sym.name);
-}
-
-function createMemoized<A extends object, R>(fn: (arg: A) => R): (arg: A) => R {
-  const cache = new WeakMap<A, R>();
-  return function memoizedFn(arg: A): R {
-    if (cache.has(arg)) {
-      return cache.get(arg)!;
-    }
-    const newVal = fn(arg);
-    cache.set(arg, newVal);
-    return newVal;
-  };
-}
-
-function memoize<T, O extends object, K extends ExtractPropertyNamesOfType<O, (arg: any) => any>>(
-  target: O,
-  propertyKey: K,
-  _descriptor: TypedPropertyDescriptor<T>,
-): TypedPropertyDescriptor<T> | void {
-  const original = target[propertyKey];
-  // eslint-disable-next-line no-param-reassign
-  target.constructor.prototype[propertyKey] = createMemoized(original as any) as any;
 }
 
 export default class WalkerConfig {
