@@ -5,11 +5,9 @@ import * as Exported from '../src/index';
 const {
   isDeclaration,
   isDeclarationExported,
-  isNamedDeclaration,
   isNode,
   isSymbol,
   isType,
-  mapChildren,
   mapDict,
   createProgramFromCodeString,
   createProgramFromTsConfig,
@@ -23,8 +21,8 @@ const {
   filterDict,
   getObjectFlags,
   isAnonymousType,
-  getTsLibFilename,
-  isClassOrInterfaceType,
+  getTsLibName,
+  isInterfaceType,
   isMappedType,
   isErroredType,
   isAbstractDeclaration,
@@ -32,14 +30,12 @@ const {
   isObjectReferenceType,
   isObjectType,
   isTupleType,
-  nameForNode,
   reduceDict,
   isIndexType,
+  getRelevantTypesForSymbol,
   isIndexedAccessType,
   isPrimitiveType,
   modifiersToStrings,
-  relevantDeclarationForSymbol,
-  relevantTypeForSymbol,
   PASSTHROUGH_MODULE_PATH_NORMALIZER,
 } = Exported;
 
@@ -49,7 +45,6 @@ export class PublicApiSurface {
   public 'public API surface is as expected'(): void {
     expect(isDeclaration).to.be.a('function', 'isDeclaration is a function');
     expect(isDeclarationExported).to.be.a('function', 'isDeclarationExported is a function');
-    expect(isNamedDeclaration).to.be.a('function', 'isNamedDeclaration is a function');
     expect(createProgramFromTsConfig).to.be.a(
       'function',
       'createProgramFromTsConfig is a function',
@@ -70,8 +65,8 @@ export class PublicApiSurface {
     expect(filterDict).to.be.a('function', 'filterDict is a function');
     expect(getObjectFlags).to.be.a('function', 'getObjectFlags is a function');
     expect(isAnonymousType).to.be.a('function', 'isAnonymousType is a function');
-    expect(getTsLibFilename).to.be.a('function', 'getTsLibFilename is a function');
-    expect(isClassOrInterfaceType).to.be.a('function', 'isClassOrInterfaceType is a function');
+    expect(getTsLibName).to.be.a('function', 'getTsLibName is a function');
+    expect(isInterfaceType).to.be.a('function', 'isInterfaceType is a function');
     expect(isObjectReferenceType).to.be.a('function', 'isObjectReferenceType is a function');
     expect(isObjectType).to.be.a('function', 'isObjectType is a function');
     expect(isAbstractDeclaration).to.be.a('function', 'isAbstractDeclaration is a function');
@@ -80,17 +75,15 @@ export class PublicApiSurface {
     expect(isPrimitiveType).to.be.a('function', 'isPrimitiveType is a function');
     expect(isIndexedAccessType).to.be.a('function', 'isIndexedAccessType is a function');
     expect(modifiersToStrings).to.be.a('function', 'modifiersToStrings is a function');
-    expect(nameForNode).to.be.a('function', 'nameForNode is a function');
-    expect(relevantDeclarationForSymbol).to.be.a(
-      'function',
-      'relevantDeclarationForSymbol is a function',
-    );
+
     expect(reduceDict).to.be.a('function', 'reduceDict is a function');
-    expect(relevantTypeForSymbol).to.be.a('function', 'relevantTypeForSymbol is a function');
+    expect(getRelevantTypesForSymbol).to.be.a(
+      'function',
+      'getRelevantTypesForSymbol is a function',
+    );
     expect(isErroredType).to.be.a('function', 'isErroredType is a function');
     expect(isTupleType).to.be.a('function', 'isTupleType is a function');
     expect(isMappedType).to.be.a('function', 'isMappedType is a function');
-    expect(mapChildren).to.be.a('function', 'mapChildren is a function');
     expect(generateHash).to.be.a('function', 'generateHash is a function');
     expect(createIdGenerator).to.be.a('function', 'generateId is a function');
     expect(generateModulePathNormalizer).to.be.a(
@@ -119,18 +112,19 @@ export class PublicApiSurface {
       'generateModulePathNormalizer',
       'getFirstIdentifier',
       'getObjectFlags',
-      'getTsLibFilename',
+      'getRelevantTypesForSymbol',
+      'getTsLibName',
+      'getTypeStringForRelevantTypes',
       'isAbstractDeclaration',
       'isAnonymousType',
-      'isClassOrInterfaceType',
       'isConditionalType',
       'isDeclaration',
       'isDeclarationExported',
       'isErroredType',
       'isIndexType',
       'isIndexedAccessType',
+      'isInterfaceType',
       'isMappedType',
-      'isNamedDeclaration',
       'isNode',
       'isObjectReferenceType',
       'isObjectType',
@@ -138,13 +132,9 @@ export class PublicApiSurface {
       'isSymbol',
       'isTupleType',
       'isType',
-      'mapChildren',
       'mapDict',
       'modifiersToStrings',
-      'nameForNode',
       'reduceDict',
-      'relevantDeclarationForSymbol',
-      'relevantTypeForSymbol',
     ]);
   }
 }

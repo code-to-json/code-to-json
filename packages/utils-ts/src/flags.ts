@@ -8,7 +8,7 @@ import {
   Type,
   TypeFlags,
 } from 'typescript';
-import { isObjectType } from './guards';
+import { isObjectType } from './typeguards';
 
 /**
  * Get the object flags from a type

@@ -4,7 +4,11 @@ import { suite, test } from 'mocha-typescript';
 import * as ts from 'typescript';
 import { mapDict } from '../src/dict';
 import { createProgramFromCodeString } from '../src/program';
-import { relevantTypeForSymbol } from '../src/symbol';
+import {
+  getRelevantTypesForSymbol,
+  getTypeStringForRelevantTypes,
+  SymbolRelevantTypes,
+} from '../src/symbol';
 
 @suite
 export class SymbolUtilityTests {
@@ -12,7 +16,7 @@ export class SymbolUtilityTests {
 
   private sfSym!: ts.Symbol;
 
-  private exports!: Dict<{ sym: ts.Symbol; typ: ts.Type; typStr: string }>;
+  private exports!: Dict<{ sym: ts.Symbol; typ: SymbolRelevantTypes; typStr: string }>;
 
   private checker!: ts.TypeChecker;
 
@@ -60,11 +64,11 @@ export const favSuit = Suit.Heart;
     this.sfSym = sfSym;
 
     this.exports = mapDict(this.sfSym.exports!, exp => {
-      const typ = relevantTypeForSymbol(this.checker, exp)!;
+      const typ = getRelevantTypesForSymbol(this.checker, exp)!;
       return {
         sym: exp,
         typ,
-        typStr: this.checker.typeToString(typ),
+        typStr: getTypeStringForRelevantTypes(this.checker, typ),
       };
     });
   }
@@ -76,7 +80,11 @@ export const favSuit = Suit.Heart;
 
   @test
   public 'relevantTypeForSymbol - class'(): void {
-    expect(this.exports.Foo!.typStr).to.eql('typeof Foo');
+    expect(this.checker.typeToString(this.exports.Foo!.typ.valueDeclarationType!)).to.eql(
+      'typeof Foo',
+    );
+    expect(this.checker.typeToString(this.exports.Foo!.typ.symbolType!)).to.eql('Foo');
+    expect(this.exports.Foo!.typStr).to.eql('Foo\ntypeof Foo');
   }
 
   @test
@@ -104,9 +112,9 @@ export const favSuit = Suit.Heart;
     expect(this.exports.CondTyp!.typStr).to.eql('CondTyp<T>');
   }
 
-  @test.skip
+  @test
   public 'relevantTypeForSymbol - type parameter'(): void {
-    const dictType = this.exports.Dict!.typ as ts.InterfaceType;
+    const dictType = this.exports.Dict!.typ.symbolType! as ts.InterfaceType;
     const { typeParameters } = dictType;
     if (!typeParameters) {
       throw new Error('undefined typeParameters');
@@ -114,14 +122,17 @@ export const favSuit = Suit.Heart;
     const typeParam = typeParameters.values().next().value;
     const typeParamSym = typeParam.symbol;
     expect(this.checker.typeToString(typeParam)).to.eql('T');
-    expect(this.checker.typeToString(relevantTypeForSymbol(this.checker, typeParamSym)!)).to.eql(
-      'T',
-    );
+    expect(
+      this.checker.typeToString(getRelevantTypesForSymbol(this.checker, typeParamSym)!.symbolType!),
+    ).to.eql('T');
   }
 
   @test
   public 'relevantTypeForSymbol - enum collection'(): void {
-    expect(this.exports.Suit!.typStr).to.eql('typeof Suit');
+    expect(this.checker.typeToString(this.exports.Suit!.typ.valueDeclarationType!)).to.eql(
+      'typeof Suit',
+    );
+    expect(this.checker.typeToString(this.exports.Suit!.typ.symbolType!)).to.eql('Suit');
   }
 
   @test
@@ -131,11 +142,10 @@ export const favSuit = Suit.Heart;
 
   @test
   public 'relevantTypeForSymbol - enum member'(): void {
-    const enumMemType = this.exports.favSuit!.typ;
-    const enumMemSym = this.exports.favSuit!.sym;
     expect(this.exports.favSuit!.typStr).to.eql('Suit.Heart');
-    expect(this.checker.typeToString(enumMemType)).to.eql('Suit.Heart');
-    expect(this.checker.typeToString(relevantTypeForSymbol(this.checker, enumMemSym)!)).to.eql(
+    expect(!!this.exports.favSuit!.typ.symbolType).to.eq(false);
+    expect(!!this.exports.favSuit!.typ.valueDeclarationType).to.eq(true);
+    expect(this.checker.typeToString(this.exports.favSuit!.typ.valueDeclarationType!)).to.eq(
       'Suit.Heart',
     );
   }

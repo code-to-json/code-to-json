@@ -1,7 +1,5 @@
-export { mapChildren, nameForNode } from './node';
 export {
   isDeclaration,
-  isNamedDeclaration,
   isNode,
   isSymbol,
   isType,
@@ -9,13 +7,13 @@ export {
   isObjectType,
   isTupleType,
   isMappedType,
-  isClassOrInterfaceType,
+  isInterfaceType,
   isAnonymousType,
   isIndexType,
   isConditionalType,
   isIndexedAccessType,
   isPrimitiveType,
-} from './guards';
+} from './typeguards';
 export { mapDict, filterDict, reduceDict, forEachDict } from './dict';
 export {
   createProgramFromCodeString,
@@ -33,8 +31,12 @@ export {
 } from './module-path-normalizer';
 export { createIdGenerator, generateHash, IDableEntity } from './generate-id';
 export { flagsToString, getObjectFlags, Flags } from './flags';
-export { getTsLibFilename } from './ts-libs';
-export { relevantTypeForSymbol, relevantDeclarationForSymbol } from './symbol';
+export { getTsLibName } from './ts-lib';
 export { getFirstIdentifier, MappedType, AnonymousType, TypeMapper } from './ts-internal';
+export {
+  getTypeStringForRelevantTypes,
+  getRelevantTypesForSymbol,
+  SymbolRelevantTypes,
+} from './symbol';
 export { isErroredType } from './type';
 export { modifiersToStrings } from './modifiers';

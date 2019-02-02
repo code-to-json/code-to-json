@@ -6,11 +6,11 @@
  *
  * @example
  * ```ts
- * getTsLibFilename('/Users/mike/foo/bar/node_modules/typescript/lib/lib.es5.d.ts'); // 'lib.es5.d.ts'
- * getTsLibFilename('/Users/mike/foo/bar/index.ts'); // undefined
+ * getTsLibName('/Users/mike/foo/bar/node_modules/typescript/lib/lib.es5.d.ts'); // 'lib.es5.d.ts'
+ * getTsLibName('/Users/mike/foo/bar/index.ts'); // undefined
  * ```
  */
-export function getTsLibFilename(fileName: string): string | undefined {
+export function getTsLibName(fileName: string): string | undefined {
   const [, libName] = fileName.split(/\/node_modules\/typescript\/lib\//);
   return typeof libName !== 'undefined' && libName.endsWith('.d.ts') ? libName : undefined;
 }

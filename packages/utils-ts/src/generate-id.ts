@@ -14,7 +14,7 @@ import {
   TypeChecker,
 } from 'typescript';
 import { flagsToString } from './flags';
-import { isDeclaration, isNode, isSymbol, isType } from './guards';
+import { isDeclaration, isNode, isSymbol, isType } from './typeguards';
 
 const log = debug('code-to-json:generate-id');
 /**

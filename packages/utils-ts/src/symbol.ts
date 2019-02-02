@@ -1,137 +1,83 @@
-import * as debug from 'debug';
 import * as ts from 'typescript';
 import { isErroredType } from './type';
 
-const log = debug('code-to-json:utils-ts');
-/**
- * Find the relevant declaration for a ts.Symbol
- * @param sym Symbol whose declaration is desired
- */
-export function relevantDeclarationForSymbol(sym: ts.Symbol): ts.Declaration | undefined {
-  const { valueDeclaration } = sym as { valueDeclaration?: ts.Declaration };
-  if (valueDeclaration) {
-    return valueDeclaration;
+export interface SymbolRelevantTypes {
+  symbolType?: ts.Type;
+  valueDeclarationType?: ts.Type;
+  otherDeclarationTypes?: Map<ts.Declaration, ts.Type | undefined>;
+}
+
+export function getTypeStringForRelevantTypes(
+  checker: ts.TypeChecker,
+  t: SymbolRelevantTypes,
+): string {
+  const parts: string[] = [];
+  const { symbolType, valueDeclarationType } = t;
+  if (symbolType) {
+    parts.push(checker.typeToString(symbolType));
   }
-  const allDeclarations = sym.getDeclarations();
-  if (allDeclarations && allDeclarations.length > 0) {
-    // TODO: properly handle >1 declaration case
-    return allDeclarations[0];
+  if (valueDeclarationType) {
+    parts.push(checker.typeToString(valueDeclarationType));
+  }
+  if (parts.length === 0) {
+    const { otherDeclarationTypes } = t;
+    if (otherDeclarationTypes) {
+      for (const [, v] of otherDeclarationTypes) {
+        if (v) {
+          parts.push(checker.typeToString(v));
+        }
+      }
+    }
+  }
+  return parts.join('\n');
+}
+
+/**
+ * Obtain the relevant types associated with a symbol
+ *
+ * @param checker type-checker
+ * @param symbol symbol whose types are desired
+ */
+export function getRelevantTypesForSymbol(
+  checker: ts.TypeChecker,
+  symbol: ts.Symbol,
+): SymbolRelevantTypes | undefined {
+  const st: SymbolRelevantTypes = {};
+
+  const symbolType = checker.getDeclaredTypeOfSymbol(symbol);
+  if (!isErroredType(symbolType)) {
+    st.symbolType = symbolType;
+  }
+
+  const { valueDeclaration, declarations } = symbol;
+
+  if (valueDeclaration) {
+    const valueDeclarationType = checker.getTypeOfSymbolAtLocation(symbol, valueDeclaration);
+    if (!isErroredType(valueDeclarationType)) {
+      st.valueDeclarationType = valueDeclarationType;
+    }
+  }
+
+  if (declarations && declarations.length > 0) {
+    const m = new Map<ts.Declaration, ts.Type | undefined>(
+      declarations.map(
+        (d): [ts.Declaration, ts.Type | undefined] => {
+          const dtype = checker.getTypeOfSymbolAtLocation(symbol, d);
+
+          if (!isErroredType(dtype)) {
+            return [d, dtype];
+          }
+          return [d, undefined];
+        },
+      ),
+    );
+    if (m.size > 0) {
+      st.otherDeclarationTypes = m;
+    }
+  }
+
+  if (Object.keys(st).length >= 0) {
+    return st;
   }
   return undefined;
-}
-
-function relevantTypeForTypeAliasSymbol(
-  checker: ts.TypeChecker,
-  symbol: ts.Symbol,
-): ts.Type | undefined {
-  const declarations = symbol.getDeclarations();
-  const firstDeclaration = declarations && declarations.length > 0 ? declarations[0] : undefined;
-  if (!firstDeclaration) {
-    throw new Error('Type alias had no declarations');
-  }
-  if (!ts.isTypeAliasDeclaration(firstDeclaration)) {
-    throw new Error('First type alias declaration was not a TypeAliasDeclaration');
-  }
-  const { type: typeNode } = firstDeclaration;
-  if (typeNode.kind & ts.SyntaxKind.TypeAliasDeclaration) {
-    const locType = checker.getTypeAtLocation(firstDeclaration);
-    if (!isErroredType(locType)) {
-      return locType;
-    }
-    // TODO: replace this with something more meaningful
-    return (checker as any).getAnyType();
-  }
-  return checker.getTypeFromTypeNode(typeNode);
-}
-
-function relevantTypeForVariableOrPropertySymbol(
-  checker: ts.TypeChecker,
-  symbol: ts.Symbol,
-): ts.Type | undefined {
-  const declarations = symbol.getDeclarations();
-  const { valueDeclaration: decl = declarations ? declarations[0] : undefined } = symbol as {
-    valueDeclaration?: ts.Declaration;
-  };
-
-  if (decl) {
-    const symbolType = checker.getTypeOfSymbolAtLocation(symbol, decl);
-    if (!isErroredType(symbolType)) {
-      return symbolType;
-    }
-  }
-  if ((symbol as any).target) {
-    const tar: ts.Symbol = (symbol as any).target;
-    return relevantTypeForSymbol(checker, tar);
-  }
-  if ((symbol as any).type) {
-    return (symbol as any).type;
-  }
-  throw new Error(
-    `Could not identify appropriate type for symbol ${checker.symbolToString(symbol)}`,
-  );
-}
-function lastResortTypeForSymbol(
-  checker: ts.TypeChecker,
-  symbol: ts.Symbol,
-  decl?: ts.Declaration,
-): ts.Type {
-  let typ = checker.getDeclaredTypeOfSymbol(symbol);
-  if (isErroredType(typ) && symbol.valueDeclaration) {
-    typ = checker.getTypeAtLocation(symbol.valueDeclaration);
-  }
-  if (isErroredType(typ) && decl) {
-    return checker.getTypeAtLocation(decl);
-  }
-  return typ;
-}
-
-// tslint:disable-next-line:cognitive-complexity
-export function relevantTypeForSymbol(
-  checker: ts.TypeChecker,
-  symbol: ts.Symbol,
-): ts.Type | undefined {
-  const decl = relevantDeclarationForSymbol(symbol);
-
-  if (symbol.flags & (ts.SymbolFlags.Variable | ts.SymbolFlags.Property)) {
-    return relevantTypeForVariableOrPropertySymbol(checker, symbol);
-  }
-
-  if (
-    (decl && ts.isSourceFile(decl)) ||
-    symbol.flags &
-      (ts.SymbolFlags.Function |
-        ts.SymbolFlags.Method |
-        ts.SymbolFlags.Class |
-        ts.SymbolFlags.Enum |
-        ts.SymbolFlags.Accessor |
-        ts.SymbolFlags.ValueModule)
-  ) {
-    if (decl) {
-      // ensure class is handled as `typeof Foo` instead of `Foo`
-      return checker.getTypeOfSymbolAtLocation(symbol, decl);
-    }
-    return checker.getDeclaredTypeOfSymbol(symbol);
-  }
-  if (decl && symbol.flags & ts.SymbolFlags.EnumMember) {
-    return checker.getTypeAtLocation(decl);
-  }
-  if (symbol.flags & ts.SymbolFlags.TypeAlias) {
-    return relevantTypeForTypeAliasSymbol(checker, symbol);
-  }
-  if (symbol.flags & ts.SymbolFlags.TypeParameter) {
-    return checker.getDeclaredTypeOfSymbol(symbol);
-  }
-  if (
-    symbol.flags & ts.SymbolFlags.TypeLiteral &&
-    symbol.declarations &&
-    symbol.declarations.length > 0
-  ) {
-    // TODO: handle >1 case
-    return checker.getTypeAtLocation(symbol.declarations[0]);
-  }
-
-  const lastResort = lastResortTypeForSymbol(checker, symbol, decl);
-
-  log(`LAST RESORT: ${checker.symbolToString(symbol)} --> ${checker.typeToString(lastResort)}`);
-  return lastResort;
 }
