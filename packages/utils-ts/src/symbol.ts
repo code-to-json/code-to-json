@@ -76,8 +76,8 @@ export function getRelevantTypesForSymbol(
     }
   }
 
-  if (Object.keys(st).length >= 0) {
-    return st;
+  if (Object.keys(st).length === 0) {
+    return undefined;
   }
-  return undefined;
+  return st;
 }
