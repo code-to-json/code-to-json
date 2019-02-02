@@ -40,3 +40,4 @@ export {
 } from './symbol';
 export { isErroredType } from './type';
 export { modifiersToStrings } from './modifiers';
+export { nameForNode } from './node';

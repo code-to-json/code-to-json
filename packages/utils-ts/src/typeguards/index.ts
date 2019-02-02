@@ -38,6 +38,7 @@ const DECLARATION_KINDS = [
 ];
 
 export * from './type';
+export * from './declaration';
 
 /**
  * Returns true if the specified SyntaxKind is part of a declaration form.
