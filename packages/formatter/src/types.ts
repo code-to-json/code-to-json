@@ -171,7 +171,6 @@ export interface FormattedSymbol<K extends FormattedSymbolKind = FormattedSymbol
   valueType?: FormattedTypeRef;
   otherDeclarationTypes?: Array<{ declaration: FormattedDeclarationRef; type?: FormattedTypeRef }>;
   related?: FormattedSymbolRef[];
-  instanceType?: FormattedTypeRef;
 }
 
 export interface FormattedSignature {

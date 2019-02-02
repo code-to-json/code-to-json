@@ -35,6 +35,7 @@ const {
   getRelevantTypesForSymbol,
   isIndexedAccessType,
   isPrimitiveType,
+  nameForNode,
   modifiersToStrings,
   PASSTHROUGH_MODULE_PATH_NORMALIZER,
 } = Exported;
@@ -84,6 +85,7 @@ export class PublicApiSurface {
     expect(isErroredType).to.be.a('function', 'isErroredType is a function');
     expect(isTupleType).to.be.a('function', 'isTupleType is a function');
     expect(isMappedType).to.be.a('function', 'isMappedType is a function');
+    expect(nameForNode).to.be.a('function', 'nameForNode is a function');
     expect(generateHash).to.be.a('function', 'generateHash is a function');
     expect(createIdGenerator).to.be.a('function', 'generateId is a function');
     expect(generateModulePathNormalizer).to.be.a(
@@ -134,6 +136,7 @@ export class PublicApiSurface {
       'isType',
       'mapDict',
       'modifiersToStrings',
+      'nameForNode',
       'reduceDict',
     ]);
   }

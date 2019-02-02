@@ -17,7 +17,7 @@ export class VariableAcceptanceTests {
     const varSymbol = fileExports.x!;
     expect(varSymbol.text).to.eq('x');
     expect(varSymbol.kind).to.eq(FormattedSymbolKind.variable);
-    const varType = t.resolveReference(varSymbol.type);
+    const varType = t.resolveReference(varSymbol.valueType);
     expect(varType.text).to.eq('string');
     expect(varType.kind).to.eq(FormattedTypeKind.string);
     t.cleanup();
@@ -33,7 +33,7 @@ export class VariableAcceptanceTests {
     const varSymbol = fileExports.x!;
     expect(varSymbol.text).to.eq('x');
     expect(varSymbol.kind).to.eq(FormattedSymbolKind.variable);
-    const varType = t.resolveReference(varSymbol.type);
+    const varType = t.resolveReference(varSymbol.valueType);
     expect(varType.text).to.eq('"foo"');
     expect(varType.kind).to.eq(FormattedTypeKind.stringLiteral);
     t.cleanup();
@@ -49,7 +49,7 @@ export class VariableAcceptanceTests {
     const varSymbol = fileExports.x!;
     expect(varSymbol.text).to.eq('x');
     expect(varSymbol.kind).to.eq(FormattedSymbolKind.variable);
-    const varType = t.resolveReference(varSymbol.type);
+    const varType = t.resolveReference(varSymbol.valueType);
     expect(varType.text).to.eq('string');
     expect(varType.kind).to.eq(FormattedTypeKind.string);
     t.cleanup();
@@ -65,7 +65,7 @@ export class VariableAcceptanceTests {
     const varSymbol = fileExports.x!;
     expect(varSymbol.text).to.eq('x');
     expect(varSymbol.kind).to.eq(FormattedSymbolKind.variable);
-    const varType = t.resolveReference(varSymbol.type);
+    const varType = t.resolveReference(varSymbol.valueType);
     expect(varType.text).to.eq('number');
     expect(varType.kind).to.eq(FormattedTypeKind.number);
     t.cleanup();
@@ -81,7 +81,7 @@ export class VariableAcceptanceTests {
     const varSymbol = fileExports.x!;
     expect(varSymbol.text).to.eq('x');
     expect(varSymbol.kind).to.eq(FormattedSymbolKind.variable);
-    const varType = t.resolveReference(varSymbol.type);
+    const varType = t.resolveReference(varSymbol.valueType);
     expect(varType.text).to.eq('never');
     expect(varType.kind).to.eq(FormattedTypeKind.never);
     t.cleanup();
@@ -97,7 +97,7 @@ export class VariableAcceptanceTests {
     const varSymbol = fileExports.x!;
     expect(varSymbol.text).to.eq('x');
     expect(varSymbol.kind).to.eq(FormattedSymbolKind.variable);
-    const varType = t.resolveReference(varSymbol.type);
+    const varType = t.resolveReference(varSymbol.valueType);
     expect(varType.text).to.eq('42');
     expect(varType.kind).to.eq(FormattedTypeKind.numberLiteral);
     t.cleanup();
@@ -113,7 +113,7 @@ export class VariableAcceptanceTests {
     const varSymbol = fileExports.x!;
     expect(varSymbol.text).to.eq('x');
     expect(varSymbol.kind).to.eq(FormattedSymbolKind.variable);
-    const varType = t.resolveReference(varSymbol.type);
+    const varType = t.resolveReference(varSymbol.valueType);
     expect(varType.text).to.eq('() => string');
     expect(varType.kind).to.eq(FormattedTypeKind.object);
     expect(varType.objectKind).to.eq(FormattedObjectTypeKind.anonymous);
@@ -130,7 +130,7 @@ export class VariableAcceptanceTests {
     const varSymbol = fileExports.x!;
     expect(varSymbol.text).to.eq('x');
     expect(varSymbol.kind).to.eq(FormattedSymbolKind.variable);
-    const varType = t.resolveReference(varSymbol.type);
+    const varType = t.resolveReference(varSymbol.valueType);
     expect(varType.text).to.eq('null');
     expect(varType.kind).to.eq(FormattedTypeKind.null);
     t.cleanup();
@@ -146,7 +146,7 @@ export class VariableAcceptanceTests {
     const varSymbol = fileExports.x!;
     expect(varSymbol.text).to.eq('x');
     expect(varSymbol.kind).to.eq(FormattedSymbolKind.variable);
-    const varType = t.resolveReference(varSymbol.type);
+    const varType = t.resolveReference(varSymbol.valueType);
     expect(varType.text).to.eq('any');
     expect(varType.kind).to.eq(FormattedTypeKind.any);
     t.cleanup();
@@ -162,7 +162,7 @@ export class VariableAcceptanceTests {
     const varSymbol = fileExports.x!;
     expect(varSymbol.text).to.eq('x');
     expect(varSymbol.kind).to.eq(FormattedSymbolKind.variable);
-    const varType = t.resolveReference(varSymbol.type);
+    const varType = t.resolveReference(varSymbol.valueType);
     expect(varType.text).to.eq('true');
     expect(varType.kind).to.eq(FormattedTypeKind.booleanLiteral);
     t.cleanup();
@@ -178,7 +178,7 @@ export class VariableAcceptanceTests {
     const varSymbol = fileExports.x!;
     expect(varSymbol.text).to.eq('x');
     expect(varSymbol.kind).to.eq(FormattedSymbolKind.variable);
-    const varType = t.resolveReference(varSymbol.type);
+    const varType = t.resolveReference(varSymbol.valueType);
     expect(varType.text).to.eq('unique symbol');
     expect(varType.kind).to.eq(FormattedTypeKind.uniqueEssymbol);
     t.cleanup();
@@ -194,7 +194,7 @@ export class VariableAcceptanceTests {
     const varSymbol = fileExports.x!;
     expect(varSymbol.text).to.eq('x');
     expect(varSymbol.kind).to.eq(FormattedSymbolKind.variable);
-    const varType = t.resolveReference(varSymbol.type);
+    const varType = t.resolveReference(varSymbol.valueType);
     expect(varType.text).to.eq('symbol');
     expect(varType.kind).to.eq(FormattedTypeKind.essymbol);
     t.cleanup();
@@ -210,7 +210,7 @@ export class VariableAcceptanceTests {
     const varSymbol = fileExports.x!;
     expect(varSymbol.text).to.eq('x');
     expect(varSymbol.kind).to.eq(FormattedSymbolKind.variable);
-    const varType = t.resolveReference(varSymbol.type);
+    const varType = t.resolveReference(varSymbol.valueType);
     expect(varType.text).to.eq('any');
     expect(varType.kind).to.eq(FormattedTypeKind.any);
     t.cleanup();
@@ -228,7 +228,7 @@ export const x: Foo = {foo: "bar" }`;
     const varSymbol = fileExports.x!;
     expect(varSymbol.text).to.eq('x');
     expect(varSymbol.kind).to.eq(FormattedSymbolKind.variable);
-    const varType = t.resolveReference(varSymbol.type);
+    const varType = t.resolveReference(varSymbol.valueType);
     expect(varType.text).to.eq('Foo');
     expect(varType.kind).to.eq(FormattedTypeKind.object);
     expect(varType.objectKind).to.eq(FormattedObjectTypeKind.interface);

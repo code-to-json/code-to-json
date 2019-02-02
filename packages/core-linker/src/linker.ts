@@ -133,7 +133,8 @@ function linkSymbol(res: LinkedRefResolver, sym?: LinkedSymbol & SerializedSymbo
     return;
   }
   const newData: LinkedSymbolRelationships = {
-    type: res(sym.type),
+    symbolType: res(sym.symbolType),
+    valueDeclarationType: res(sym.valueDeclarationType),
     exports: resolveRefDict(sym.exports, res),
     members: resolveRefDict(sym.members, res),
     decorators: resolveRefList(sym.decorators, res),

@@ -138,6 +138,39 @@ function formatSymbolDocumentation(
   return out;
 }
 
+function formatSymbolTypes(
+  wo: WalkerOutputData,
+  symbol: Readonly<SerializedSymbol>,
+  collector: DataCollector,
+): Pick<FormattedSymbol, 'type' | 'valueType' | 'otherDeclarationTypes'> {
+  const {
+    symbolType: symbolTypeRef,
+    valueDeclarationType: valueDeclarationTypeRef,
+    otherDeclarationTypes: otherDeclarationTypeRefs,
+  } = symbol;
+  const out: Pick<FormattedSymbol, 'type' | 'valueType' | 'otherDeclarationTypes'> = {};
+
+  let symbolType: SerializedType | undefined;
+  if (symbolTypeRef) {
+    symbolType = resolveReference(wo, symbolTypeRef);
+    out.type = collector.queue(symbolType, 't');
+  }
+  let valueDeclarationType: SerializedType | undefined;
+  if (valueDeclarationTypeRef) {
+    valueDeclarationType = resolveReference(wo, valueDeclarationTypeRef);
+    out.valueType = collector.queue(valueDeclarationType, 't');
+  }
+  if (otherDeclarationTypeRefs) {
+    out.otherDeclarationTypes = otherDeclarationTypeRefs
+      .map(dtr => ({
+        declaration: collector.queue(resolveReference(wo, dtr.declaration), 'd')!,
+        type: dtr.type ? collector.queue(resolveReference(wo, dtr.type), 't') : undefined,
+      }))
+      .filter(isDefined);
+  }
+  return out;
+}
+
 export default function formatSymbol(
   wo: WalkerOutputData,
   symbol: Readonly<SerializedSymbol>,
@@ -148,9 +181,7 @@ export default function formatSymbol(
     name,
     flags: _rawFlags,
     exports,
-    symbolType: symbolTypeRef,
-    valueDeclarationType: valueDeclarationTypeRef,
-    otherDeclarationTypes: otherDeclarationTypeRefs,
+
     modifiers,
     decorators,
     // heritageClauses,
@@ -176,6 +207,7 @@ export default function formatSymbol(
     formatSymbolModifiers(modifiers),
     formatSymbolDecorators(wo, collector, decorators),
     formatSymbolDocumentation(symbol),
+    formatSymbolTypes(wo, symbol, collector),
   );
   if (relatedSymbols) {
     info.related = relatedSymbols
@@ -196,24 +228,6 @@ export default function formatSymbol(
   }
   if (sourceFile) {
     info.sourceFile = collector.queue(resolveReference(wo, sourceFile), 'f');
-  }
-  let symbolType: SerializedType | undefined;
-  if (symbolTypeRef) {
-    symbolType = resolveReference(wo, symbolTypeRef);
-    info.type = collector.queue(symbolType, 't');
-  }
-  let valueDeclarationType: SerializedType | undefined;
-  if (valueDeclarationTypeRef) {
-    valueDeclarationType = resolveReference(wo, valueDeclarationTypeRef);
-    info.type = collector.queue(valueDeclarationType, 't');
-  }
-  if (otherDeclarationTypeRefs) {
-    info.otherDeclarationTypes = otherDeclarationTypeRefs
-      .map(dtr => ({
-        declaration: collector.queue(resolveReference(wo, dtr.declaration), 'd')!,
-        type: dtr.type ? collector.queue(resolveReference(wo, dtr.type), 't') : undefined,
-      }))
-      .filter(isDefined);
   }
 
   conditionallyMergeTransformed(info, documentation, 'documentation', d => d);
@@ -244,19 +258,6 @@ export default function formatSymbol(
     mem => formatSymbolRefMap(mem, wo, collector),
     mem => !!(mem && Object.keys(mem).length > 0),
   );
-
-  if (
-    info.kind === FormattedSymbolKind.class &&
-    valueDeclarationType &&
-    valueDeclarationType.constructorSignatures &&
-    valueDeclarationType.constructorSignatures.length > 0
-  ) {
-    const instanceType = resolveReference(
-      wo,
-      valueDeclarationType.constructorSignatures[0].returnType!,
-    );
-    info.instanceType = collector.queue(instanceType, 't');
-  }
 
   return info;
 }

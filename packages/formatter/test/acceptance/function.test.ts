@@ -16,7 +16,7 @@ export class FunctionAcceptanceTests {
     const fnSymbol = fileExports.add!;
     expect(fnSymbol.text).to.eq('add');
     expect(!!fnSymbol.isAsync).to.eq(false);
-    const fnType = t.resolveReference(fnSymbol.type);
+    const fnType = t.resolveReference(fnSymbol.valueType);
     expect(fnType.text).to.eq('(a: number, b: number) => number');
     expect(!!fnType.callSignatures).to.eq(true);
     expect(fnType.callSignatures!.length).to.eq(1);
@@ -37,7 +37,7 @@ export class FunctionAcceptanceTests {
     const fnSymbol = fileExports.add!;
     expect(fnSymbol.text).to.eq('add');
     expect(fnSymbol.isAsync).to.eq(true);
-    const fnType = t.resolveReference(fnSymbol.type);
+    const fnType = t.resolveReference(fnSymbol.valueType);
     expect(fnType.text).to.eq('(a: number, b: number) => Promise<number>');
     expect(!!fnType.callSignatures).to.eq(true);
     expect(fnType.callSignatures!.length).to.eq(1);
@@ -62,7 +62,7 @@ export class FunctionAcceptanceTests {
     const fnSymbol = fileExports.add!;
     expect(fnSymbol.text).to.eq('add');
     expect(!!fnSymbol.isAsync).to.eq(false);
-    const fnType = t.resolveReference(fnSymbol.type);
+    const fnType = t.resolveReference(fnSymbol.valueType);
     expect(fnType.text).to.eq(
       '{ (a: number, b: number): number; (a: string, b: string): string; }',
     );
@@ -94,7 +94,7 @@ export class FunctionAcceptanceTests {
     const fnSymbol = fileExports.x!;
     expect(fnSymbol.text).to.eq('x');
     expect(!!fnSymbol.isAsync).to.eq(false);
-    const fnType = t.resolveReference(fnSymbol.type);
+    const fnType = t.resolveReference(fnSymbol.valueType);
     expect(fnType.text).to.eq('(...args: string[]) => string');
     expect(!!fnType.callSignatures).to.eq(true);
     expect(fnType.callSignatures!.length).to.eq(1);
