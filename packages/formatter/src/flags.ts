@@ -3,28 +3,14 @@ import { Flags } from '@code-to-json/utils-ts';
 import { Dict } from '@mike-north/types';
 
 const FLAGS_TRANSLATION_MAP: Dict<string> = {
-  Class: 'class',
   Function: 'function',
   BlockScopedVariable: 'variable',
   ValueModule: 'module',
-  Property: 'property',
-  Method: 'method',
-  Alias: 'alias',
-  TypeAlias: 'typeAlias',
-  Object: 'object',
-  Void: 'void',
-  Reference: 'reference',
-  NumberLiteral: 'numberLiteral',
-  Number: 'number',
-  String: 'string',
-  Interface: 'interface',
-  Prototype: 'prototype',
-  Constructor: 'constructor',
-  TypeParameter: 'typeParameter',
 };
 
 function formatFlag(flagString: string): string {
-  return FLAGS_TRANSLATION_MAP[flagString] || flagString;
+  const str = FLAGS_TRANSLATION_MAP[flagString] || flagString;
+  return `${str[0].toLowerCase()}${str.substr(1)}`;
 }
 
 export default function formatFlags(flags?: Flags): string[] {

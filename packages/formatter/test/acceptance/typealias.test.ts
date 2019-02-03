@@ -1,7 +1,6 @@
 import { mapDict } from '@code-to-json/utils-ts';
 import { expect } from 'chai';
 import { slow, suite, test } from 'mocha-typescript';
-import { FormattedSymbolKind, FormattedTypeKind } from '../../src/types';
 import SingleFileAcceptanceTestCase from './helpers/test-case';
 
 @suite
@@ -35,9 +34,9 @@ export class TypeAliasAcceptanceTests {
     const fileExports = mapDict(fileSymbol.exports!, exp => t.resolveReference(exp));
     expect(Object.keys(fileExports)).to.deep.eq(['Bar', 'x', 'y']);
     const { Bar, x, y } = fileExports;
-    expect(Bar!.kind).to.eq(FormattedSymbolKind.typeAlias);
-    expect(x!.kind).to.eq(FormattedSymbolKind.variable);
-    expect(y!.kind).to.eq(FormattedSymbolKind.variable);
+    expect(Bar!.flags).to.deep.eq(['typeAlias']);
+    expect(x!.flags).to.deep.eq(['variable']);
+    expect(y!.flags).to.deep.eq(['variable']);
 
     const [barType, xType, yType] = [Bar, x, y].map(s =>
       t.resolveReference(s!.valueType || s!.type),
@@ -47,7 +46,7 @@ export class TypeAliasAcceptanceTests {
     expect(yType.text).to.eq('number[]');
 
     expect(barType.text).to.eq('Bar<T>');
-    expect(barType.kind).to.eq(FormattedTypeKind.conditional);
+    expect(barType.flags).to.deep.eq(['conditional']);
 
     expect(!!barType.conditionalInfo).to.eq(true);
     expect(t.resolveReference(barType.conditionalInfo!.checkType).text).to.eq('T');
@@ -56,7 +55,7 @@ export class TypeAliasAcceptanceTests {
     const falseType = t.resolveReference(barType.conditionalInfo!.falseType);
     expect(trueType.text).to.eq('T');
     expect(falseType.text).to.eq('number[]');
-    expect(trueType.kind).to.eq(FormattedTypeKind.substitution);
-    expect(falseType.kind).to.eq(FormattedTypeKind.object);
+    expect(trueType.flags).to.deep.eq(['substitution']);
+    expect(falseType.flags).to.deep.eq(['object']);
   }
 }

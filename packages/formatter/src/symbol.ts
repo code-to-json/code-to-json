@@ -1,64 +1,11 @@
 import { SerializedSymbol, SerializedType, SymbolRef, WalkerOutputData } from '@code-to-json/core';
 import { conditionallyMergeTransformed, isDefined, refId } from '@code-to-json/utils';
 import { DataCollector } from './data-collector';
+import formatFlags from './flags';
 import { convertLocation } from './location';
 import resolveReference from './resolve-reference';
-import { FormattedSymbol, FormattedSymbolKind, FormattedSymbolRef } from './types';
+import { FormattedSymbol, FormattedSymbolRef } from './types';
 import { formatSymbolRefMap } from './utils';
-
-const IRRELEVANT_SYMBOL_FLAGS: string[] = ['Transient', 'Optional'];
-
-const SYMBOL_KIND_MAP: { [k: string]: FormattedSymbolKind } = {
-  ValueModule: FormattedSymbolKind.module,
-  Class: FormattedSymbolKind.class,
-  Interface: FormattedSymbolKind.interface,
-  TypeAlias: FormattedSymbolKind.typeAlias,
-  TypeParameter: FormattedSymbolKind.typeParameter,
-  Property: FormattedSymbolKind.property,
-  Function: FormattedSymbolKind.function,
-  Method: FormattedSymbolKind.method,
-  BlockScopedVariable: FormattedSymbolKind.variable,
-  RegularEnum: FormattedSymbolKind.enum,
-  ConstEnum: FormattedSymbolKind.constEnum,
-  EnumMember: FormattedSymbolKind.enumMember,
-  TypeLiteral: FormattedSymbolKind.typeLiteral,
-  Alias: FormattedSymbolKind.alias,
-  GetAccessor: FormattedSymbolKind.getAccessor,
-};
-
-function determineSymbolKind(symbol: SerializedSymbol): FormattedSymbolKind {
-  const { flags } = symbol;
-  const filteredFlags = flags.filter(f => IRRELEVANT_SYMBOL_FLAGS.indexOf(f) < 0);
-  const kinds = filteredFlags.map(f => {
-    if (SYMBOL_KIND_MAP[f]) {
-      return SYMBOL_KIND_MAP[f];
-    }
-    throw new Error(`Could not determine symbol kind\n${JSON.stringify(symbol, null, '  ')}`);
-  });
-
-  switch (kinds.length) {
-    case 1:
-      return kinds[0];
-    case 0:
-      throw new Error(`Empty symbol flags ${JSON.stringify(symbol, null, '  ')}`);
-    default:
-      if (
-        kinds.length === 2 &&
-        kinds.includes(FormattedSymbolKind.interface) &&
-        kinds.includes(FormattedSymbolKind.variable)
-      ) {
-        return FormattedSymbolKind.interface;
-      }
-
-      throw new Error(
-        `Multiple symbol kinds identified: ${kinds.join(', ')}\n ${JSON.stringify(
-          symbol,
-          null,
-          '  ',
-        )}`,
-      );
-  }
-}
 
 function formatSymbolDecorators(
   wo: WalkerOutputData,
@@ -179,7 +126,7 @@ export default function formatSymbol(
 ): FormattedSymbol {
   const {
     name,
-    flags: _rawFlags,
+    flags,
     exports,
 
     modifiers,
@@ -198,7 +145,7 @@ export default function formatSymbol(
   const id = refId(ref);
   const info: FormattedSymbol = {
     id,
-    kind: determineSymbolKind(symbol),
+    flags: formatFlags(flags),
     text,
     name: name || '(anonymous)',
   };
@@ -216,9 +163,6 @@ export default function formatSymbol(
   }
   if (isAbstract) {
     info.isAbstract = true;
-  }
-  if (_rawFlags.indexOf('Transient') >= 0) {
-    info.isTransient = true;
   }
   if (location) {
     info.location = convertLocation(wo, collector, location);
