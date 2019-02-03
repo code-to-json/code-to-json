@@ -1,5 +1,4 @@
 import { createTempFixtureFolder, TestCaseFolder } from '@code-to-json/test-helpers';
-import { FileExistenceChecker } from '@code-to-json/utils';
 import { expect } from 'chai';
 import { existsSync, statSync, unlinkSync, writeFileSync } from 'fs';
 import { suite, test } from 'mocha-typescript';
@@ -8,7 +7,7 @@ import * as ts from 'typescript';
 import { createProgramFromCodeString, createProgramFromTsConfig, SysHost } from '../src/index';
 import { nodeHost } from './helpers';
 
-const DEFAULT_FILE_EXISTENCE_CHECKER: FileExistenceChecker = f =>
+const DEFAULT_FILE_EXISTENCE_CHECKER: (fileName: string) => boolean = f =>
   existsSync(f) && statSync(f).isFile();
 
 const TEST_FILE_UTILS: [SysHost] = [nodeHost];

@@ -1,6 +1,6 @@
 import { walkProgram } from '@code-to-json/core';
 import { setupTestCase } from '@code-to-json/test-helpers';
-import { nodeHost } from '@code-to-json/utils-node';
+import { NODE_HOST } from '@code-to-json/utils-node';
 import { expect } from 'chai';
 import { Program } from 'typescript';
 import {
@@ -60,7 +60,7 @@ export default class SingleFileAcceptanceTestCase {
     );
     this.rootPath = rootPath;
     this.cleanupFn = cleanup;
-    const walkerOutput = walkProgram(program, nodeHost);
+    const walkerOutput = walkProgram(program, NODE_HOST);
     const formattedOutput = formatWalkerOutput(walkerOutput);
     const { types, symbols, sourceFiles } = formattedOutput.data;
 

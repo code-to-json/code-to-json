@@ -1,3 +1,5 @@
+import BaseError from './base';
+
 const BASE_MESSAGE = 'Reached code that should be unreachable';
 
 /**
@@ -14,8 +16,11 @@ function createMessage(message?: string): string {
 
 /**
  * An error that's associated with un-reachable code
+ *
+ * @public
  */
-class UnreachableError extends Error {
+class UnreachableError extends BaseError<'unreachable'> {
+  public readonly kind = 'unreachable';
   constructor(_arg: never, message?: string) {
     super(createMessage(message));
   }

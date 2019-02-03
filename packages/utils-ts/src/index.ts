@@ -13,6 +13,7 @@ export {
   isConditionalType,
   isIndexedAccessType,
   isPrimitiveType,
+  isErroredType,
 } from './typeguards';
 export { mapDict, filterDict, reduceDict, forEachDict } from './dict';
 export {
@@ -23,12 +24,12 @@ export {
 export { isAbstractDeclaration, isDeclarationExported } from './declaration';
 export { default as SysHost } from './host';
 export {
-  generateModulePathNormalizer,
+  createReverseResolver,
   ModuleInfo,
   ProjectInfo,
-  ModulePathNormalizer,
-  PASSTHROUGH_MODULE_PATH_NORMALIZER,
-} from './module-path-normalizer';
+  ReverseResolver,
+  PASSTHROUGH as PASSTHROUGH_REVERSE_RESOLVER,
+} from './reverse-resolver';
 export { createIdGenerator, generateHash, IDableEntity } from './generate-id';
 export { flagsToString, getObjectFlags, Flags } from './flags';
 export { getTsLibName } from './ts-lib';
@@ -38,6 +39,5 @@ export {
   getRelevantTypesForSymbol,
   SymbolRelevantTypes,
 } from './symbol';
-export { isErroredType } from './type';
 export { modifiersToStrings } from './modifiers';
-export { nameForNode } from './node';
+export { getNameForNode } from './node';

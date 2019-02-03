@@ -1,13 +1,13 @@
 import { expect } from 'chai';
 import { suite, test } from 'mocha-typescript';
-import { generateModulePathNormalizer } from '../src/index';
+import { createReverseResolver } from '../src/index';
 import { nodeHost } from './helpers';
 
 @suite
 export class ModulePathNormalizerTests {
   @test
   public async 'no project folder or main'() {
-    const mn = generateModulePathNormalizer(nodeHost);
+    const mn = createReverseResolver(nodeHost);
     expect(mn.filePathToModuleInfo('foo/bar/baz.ts')).to.deep.eq({
       originalFileName: 'foo/bar/baz.ts',
       relativePath: 'foo/bar/baz',
@@ -46,7 +46,7 @@ export class ModulePathNormalizerTests {
 
   @test
   public async 'yes project folder, no main'() {
-    const mn = generateModulePathNormalizer(nodeHost, { path: 'foo/bar', name: 'biz' });
+    const mn = createReverseResolver(nodeHost, { path: 'foo/bar', name: 'biz' });
     expect(mn.filePathToModuleInfo('foo/bar/baz.ts')).to.deep.eq({
       originalFileName: 'foo/bar/baz.ts',
       relativePath: 'baz',
@@ -57,7 +57,7 @@ export class ModulePathNormalizerTests {
 
   @test
   public async 'yes project folder, yes main'() {
-    const mn = generateModulePathNormalizer(nodeHost, {
+    const mn = createReverseResolver(nodeHost, {
       path: 'foo/bar',
       name: 'biz',
       main: 'src/main.ts',
@@ -81,7 +81,7 @@ export class ModulePathNormalizerTests {
   @test
   // tslint:disable-next-line:no-identical-functions
   public async 'scoped packages'() {
-    const mn = generateModulePathNormalizer(nodeHost, {
+    const mn = createReverseResolver(nodeHost, {
       path: 'foo/bar',
       name: '@code-to-json/cli',
       main: 'src/index.ts',

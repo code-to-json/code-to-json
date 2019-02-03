@@ -51,16 +51,19 @@ function isDeclarationKind(kind: ts.SyntaxKind): boolean {
 }
 
 /**
- * Check to see whether a value is a Declaration
- * @param node value to check
+ * Check to see whether a given node is a ts.Declaration
+ *
+ * @param node node to check
+ * @public
  */
-export function isDeclaration(node?: ts.Node | ts.Declaration): node is ts.Declaration {
-  return !!node && isDeclarationKind(node.kind);
+export function isDeclaration(thing: any): thing is ts.Declaration {
+  return isNode(thing) && isDeclarationKind(thing.kind);
 }
 
 /**
  * Check to see whether a value is a Node
  * @param thing value to check
+ * @public
  */
 export function isNode(thing: any): thing is ts.Node {
   return !!thing && typeof (thing as ts.Node).getChildAt === 'function';
@@ -69,6 +72,7 @@ export function isNode(thing: any): thing is ts.Node {
 /**
  * Check to see whether a value is a Type
  * @param thing value to check
+ * @public
  */
 export function isType(thing: any): thing is ts.Type {
   return !!thing && !!(thing as ts.Type).getBaseTypes && !!(thing as ts.Type).isUnion;
@@ -77,6 +81,7 @@ export function isType(thing: any): thing is ts.Type {
 /**
  * Check to see whether a value is a Symbol
  * @param thing value to check
+ * @public
  */
 export function isSymbol(thing: any): thing is ts.Symbol {
   return !!thing && typeof (thing as ts.Symbol).getEscapedName === 'function';

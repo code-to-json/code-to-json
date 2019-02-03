@@ -1,11 +1,17 @@
 import SysHost from './host';
 
+/**
+ * @private
+ */
 export interface ProjectInfo {
   path: string;
   name: string;
   main?: string;
 }
 
+/**
+ * @private
+ */
 export interface ModuleInfo {
   /**
    * Path of file as read on diek
@@ -16,11 +22,17 @@ export interface ModuleInfo {
   extension: string | null;
 }
 
-export interface ModulePathNormalizer {
+/**
+ * @private
+ */
+export interface ReverseResolver {
   filePathToModuleInfo(filePath: string): ModuleInfo;
 }
 
-export const PASSTHROUGH_MODULE_PATH_NORMALIZER: ModulePathNormalizer = {
+/**
+ * @private
+ */
+export const PASSTHROUGH: ReverseResolver = {
   filePathToModuleInfo(originalFileName: string): ModuleInfo {
     const dotIdx = originalFileName.lastIndexOf('.');
     const extension = dotIdx > 0 ? originalFileName.substr(dotIdx + 1) : null;
@@ -34,12 +46,16 @@ export const PASSTHROUGH_MODULE_PATH_NORMALIZER: ModulePathNormalizer = {
     };
   },
 };
-Object.assign(PASSTHROUGH_MODULE_PATH_NORMALIZER, { __passthroughNormalizer: true });
+Object.assign(PASSTHROUGH, { __passthroughNormalizer: true });
 
-export function generateModulePathNormalizer(
-  host: SysHost,
-  project?: ProjectInfo,
-): ModulePathNormalizer {
+/**
+ * Create a reverse resolver based on a project
+ *
+ * @param host system host
+ * @param project project information
+ * @private
+ */
+export function createReverseResolver(host: SysHost, project?: ProjectInfo): ReverseResolver {
   return {
     filePathToModuleInfo(originalFileName: string): ModuleInfo {
       const dotIdx = originalFileName.lastIndexOf('.');

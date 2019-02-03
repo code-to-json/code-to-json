@@ -14,6 +14,12 @@ const MODIFIERS_MAP: { [k: string]: string } = {
   StaticKeyword: 'static',
 };
 
+/**
+ * Transform an array of modifiers to an array of strings
+ *
+ * @param modifiers node array of modifiers
+ * @public
+ */
 export function modifiersToStrings(modifiers: ts.NodeArray<ts.Modifier>): string[] {
   return modifiers.map(m => {
     const mName = ts.SyntaxKind[m.kind];

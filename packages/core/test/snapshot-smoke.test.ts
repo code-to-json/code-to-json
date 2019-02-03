@@ -1,6 +1,6 @@
 import { setupTestCase } from '@code-to-json/test-helpers';
-import { nodeHost } from '@code-to-json/utils-node';
-import { PASSTHROUGH_MODULE_PATH_NORMALIZER } from '@code-to-json/utils-ts';
+import { NODE_HOST } from '@code-to-json/utils-node';
+import { PASSTHROUGH_REVERSE_RESOLVER } from '@code-to-json/utils-ts';
 import { expect } from 'chai';
 import { suite, test } from 'mocha-typescript';
 import * as path from 'path';
@@ -35,9 +35,9 @@ export class SimpleSnapshotSmokeTests {
     const queue = createQueue(checker);
     const collector: Collector = {
       queue,
-      host: nodeHost,
+      host: NODE_HOST,
       cfg: new WalkerConfig({
-        pathNormalizer: PASSTHROUGH_MODULE_PATH_NORMALIZER,
+        pathNormalizer: PASSTHROUGH_REVERSE_RESOLVER,
         includeDeclarations: 'none',
       }),
     };

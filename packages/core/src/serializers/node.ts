@@ -1,5 +1,5 @@
 import { refId } from '@code-to-json/utils';
-import { flagsToString, nameForNode } from '@code-to-json/utils-ts';
+import { flagsToString, getNameForNode } from '@code-to-json/utils-ts';
 import * as ts from 'typescript';
 import { DeclarationRef, NodeRef, SourceFileRef } from '../types/ref';
 import { SerializedNode } from '../types/serialized-entities';
@@ -27,7 +27,7 @@ export default function serializeNode(
     id: refId(ref),
     entity: 'node',
     location: serializeLocation(n.getSourceFile(), pos, end, q),
-    name: nameForNode(n, checker),
+    name: getNameForNode(n, checker),
     text: n.getText(),
     kind: ts.SyntaxKind[kind],
     flags: flagsToString(flags, 'node'),

@@ -3,6 +3,7 @@ import * as ts from 'typescript';
 /**
  * Check to see whether a value is a named declaration
  * @param node value to check
+ * @private
  */
 export function isNamedDeclaration(node?: ts.Node): node is ts.NamedDeclaration {
   return (

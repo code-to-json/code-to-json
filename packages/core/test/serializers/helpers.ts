@@ -1,5 +1,5 @@
-import { nodeHost } from '@code-to-json/utils-node';
-import { createProgramFromCodeString, generateModulePathNormalizer } from '@code-to-json/utils-ts';
+import { NODE_HOST } from '@code-to-json/utils-node';
+import { createProgramFromCodeString, createReverseResolver } from '@code-to-json/utils-ts';
 import { create as createQueue } from '../../src/processing-queue';
 import { Collector } from '../../src/types/walker';
 import WalkerConfig from '../../src/walker/config';
@@ -17,10 +17,10 @@ export function setupScenario(code: string) {
   const queue = createQueue(checker);
   const collector: Collector = {
     queue,
-    host: nodeHost,
+    host: NODE_HOST,
     cfg: new WalkerConfig({
       includeDeclarations: 'none',
-      pathNormalizer: generateModulePathNormalizer(nodeHost, {
+      pathNormalizer: createReverseResolver(NODE_HOST, {
         path: '.',
         name: 'temp-project',
       }),

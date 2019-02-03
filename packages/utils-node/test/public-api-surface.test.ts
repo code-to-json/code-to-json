@@ -5,13 +5,13 @@ import * as Exported from '../src/index';
 @suite
 export class PublicApiSurfaceTests {
   @test
-  public 'nodeHost object exists'(): void {
-    expect(Exported.nodeHost).to.be.a('object');
+  public 'NODE_HOST object exists'(): void {
+    expect(Exported.NODE_HOST).to.be.a('object');
   }
 
   @test
-  public 'pathNormalizerForPackageJson exists'(): void {
-    expect(Exported.pathNormalizerForPackageJson).to.be.a('function');
+  public 'createReverseResolverForProject exists'(): void {
+    expect(Exported.createReverseResolverForProject).to.be.a('function');
   }
 
   @test
@@ -22,9 +22,9 @@ export class PublicApiSurfaceTests {
   @test
   public 'no extra exports'(): void {
     expect(Object.keys(Exported).sort()).to.eql([
+      'NODE_HOST',
+      'createReverseResolverForProject',
       'findPkgJson',
-      'nodeHost',
-      'pathNormalizerForPackageJson',
     ]);
   }
 }

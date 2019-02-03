@@ -1,34 +1,25 @@
-import {
-  ModifierFlags,
-  NodeBuilderFlags,
-  NodeFlags,
-  ObjectFlags,
-  SymbolFlags,
-  SymbolFormatFlags,
-  Type,
-  TypeFlags,
-} from 'typescript';
+import * as ts from 'typescript';
 import { isObjectType } from './typeguards';
 
 /**
  * Get the object flags from a type
  * @param type bitmask of object flags
+ * @public
  */
-export function getObjectFlags(type: Type): ObjectFlags | undefined {
-  // tslint:disable-next-line:no-bitwise
+export function getObjectFlags(type: ts.Type): ts.ObjectFlags | undefined {
   return isObjectType(type) ? type.objectFlags : undefined;
 }
 
 export type Flags = string[];
 
 export interface FlagsMap {
-  type: TypeFlags;
-  node: NodeFlags;
-  object: ObjectFlags;
-  nodeBuilder: NodeBuilderFlags;
-  modifier: ModifierFlags;
-  symbol: SymbolFlags;
-  symbolFormat: SymbolFormatFlags;
+  type: ts.TypeFlags;
+  node: ts.NodeFlags;
+  object: ts.ObjectFlags;
+  nodeBuilder: ts.NodeBuilderFlags;
+  modifier: ts.ModifierFlags;
+  symbol: ts.SymbolFlags;
+  symbolFormat: ts.SymbolFormatFlags;
 }
 
 /**
@@ -40,17 +31,17 @@ export interface FlagsMap {
 function getFlagMap<T extends keyof FlagsMap>(type: T): { [k: string]: any } {
   switch (type) {
     case 'type':
-      return TypeFlags;
+      return ts.TypeFlags;
     case 'object':
-      return ObjectFlags;
+      return ts.ObjectFlags;
     case 'node':
-      return NodeFlags;
+      return ts.NodeFlags;
     case 'nodeBuilder':
-      return NodeBuilderFlags;
+      return ts.NodeBuilderFlags;
     case 'symbol':
-      return SymbolFlags;
+      return ts.SymbolFlags;
     case 'symbolFormat':
-      return SymbolFormatFlags;
+      return ts.SymbolFormatFlags;
     default:
       throw new Error(`Unsupported flag type: ${type}`);
   }
@@ -61,6 +52,7 @@ function getFlagMap<T extends keyof FlagsMap>(type: T): { [k: string]: any } {
  * @param flags
  * @param flagMap
  * @author Kris Selden <https://github.com/krisselden>
+ * @public
  */
 export function flagsToString<T extends keyof FlagsMap>(
   flags: FlagsMap[T],

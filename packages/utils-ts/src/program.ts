@@ -39,8 +39,10 @@ const STD_COMPILER_OPTIONS: CompilerOptions = {
 };
 
 /**
- * Create a typescript program, given a search path
+ * Create a typescript program, given a search path for a `tsconfig.json`
+ *
  * @param searchPath Search path to use when looking for a typescript configuration
+ * @public
  */
 export async function createProgramFromTsConfig(
   searchPath: string,
@@ -83,7 +85,9 @@ export async function createProgramFromTsConfig(
 
 /**
  * Create a typescript program from a list of entry files
+ *
  * @param entries paths to one or more entries
+ * @public
  */
 export async function createProgramFromEntries(entries: string[]): Promise<Program> {
   const prog = createProgram({
@@ -125,6 +129,15 @@ function determineScriptKind(codeType: 'ts' | 'js', options: CompilerOptions): S
   }
 }
 
+/**
+ * Create a typescript program from a string
+ *
+ * @param input JS/TS module as a string
+ * @param codeType the type of code (i.e., 'js' or 'ts')
+ * @param options
+ *
+ * @public
+ */
 export function createProgramFromCodeString(
   input: string,
   codeType: 'ts' | 'js',

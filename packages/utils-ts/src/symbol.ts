@@ -1,5 +1,5 @@
 import * as ts from 'typescript';
-import { isErroredType } from './type';
+import { isErroredType } from './typeguards';
 
 export interface SymbolRelevantTypes {
   symbolType?: ts.Type;
@@ -7,6 +7,13 @@ export interface SymbolRelevantTypes {
   otherDeclarationTypes?: Map<ts.Declaration, ts.Type | undefined>;
 }
 
+/**
+ * Produce a string representation of the types associated with a symbol
+ *
+ * @param checker type-checker
+ * @param t relevant types for a symbol
+ * @private
+ */
 export function getTypeStringForRelevantTypes(
   checker: ts.TypeChecker,
   t: SymbolRelevantTypes,
@@ -37,6 +44,7 @@ export function getTypeStringForRelevantTypes(
  *
  * @param checker type-checker
  * @param symbol symbol whose types are desired
+ * @private
  */
 export function getRelevantTypesForSymbol(
   checker: ts.TypeChecker,
