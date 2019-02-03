@@ -30,7 +30,7 @@
     "@types/chai": "4.1.7",
     "@types/debug": "0.0.31",
     "chai": "4.2.0",
-    "eslint": "5.12.1",
+    "eslint": "5.13.0",
     "eslint-config-airbnb-base": "13.1.0",
     "eslint-config-prettier": "4.0.0",
     "eslint-plugin-import": "2.16.0",
