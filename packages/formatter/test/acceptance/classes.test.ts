@@ -17,14 +17,14 @@ export class ClassFormatterAcceptanceTests {
     const classSymbol = fileExports.Foo!;
     expect(classSymbol.name).to.eq('Foo');
     expect(classSymbol.text).to.eq('Foo');
-    expect(classSymbol.kind).to.eq('class');
+    expect(classSymbol.flags).to.deep.eq(['class']);
     expect(classSymbol.sourceFile!.length).to.eq(2);
 
     const classType = t.resolveReference(classSymbol.valueType);
     expect(classType.text).to.eq('typeof Foo');
 
-    expect(classType.kind).to.eq('object');
-    expect(classType.objectKind).to.eq('anonymous');
+    expect(classType.flags).to.deep.eq(['object']);
+    expect(classType.objectFlags).to.deep.eq(['anonymous']);
     expect(classType.constructorSignatures!.length).to.eq(1);
     const instanceType = t.resolveReference(classSymbol.type);
     expect(instanceType.text).to.eql('Foo');
@@ -42,14 +42,14 @@ export class ClassFormatterAcceptanceTests {
     const classSymbol = fileExports.default!;
     expect(classSymbol.name).to.eq('default');
     expect(classSymbol.text).to.eq('Foo');
-    expect(classSymbol.kind).to.eq('class');
+    expect(classSymbol.flags).to.deep.eq(['class']);
     expect(classSymbol.sourceFile!.length).to.eq(2);
 
     const classType = t.resolveReference(classSymbol.valueType);
     expect(classType.text).to.eq('typeof Foo');
 
-    expect(classType.kind).to.eq('object');
-    expect(classType.objectKind).to.eq('anonymous');
+    expect(classType.flags).to.deep.eq(['object']);
+    expect(classType.objectFlags).to.deep.eq(['anonymous']);
     expect(classType.constructorSignatures!.length).to.eq(1);
     expect(t.resolveReference(classSymbol.type).text).to.eql('Foo');
     t.cleanup();
@@ -69,23 +69,23 @@ export class ClassFormatterAcceptanceTests {
     const classSymbol = fileExports.Foo!;
     expect(classSymbol.name).to.eq('Foo');
     expect(classSymbol.text).to.eq('Foo');
-    expect(classSymbol.kind).to.eq('class');
+    expect(classSymbol.flags).to.deep.include('class');
     expect(classSymbol.sourceFile!.length).to.eq(2);
 
     const classType = t.resolveReference(classSymbol.valueType);
     expect(classType.text).to.eq('typeof Foo');
     expect(classType.properties).to.eq(undefined);
 
-    expect(classType.kind).to.eq('object');
-    expect(classType.objectKind).to.eq('anonymous');
+    expect(classType.flags).to.deep.eq(['object']);
+    expect(classType.objectFlags).to.deep.eq(['anonymous']);
     expect(classType.constructorSignatures!.length).to.eq(1);
     const instanceType = t.resolveReference(classSymbol.type);
     expect(instanceType.text).to.eql('Foo');
     const instanceMembers = mapDict(instanceType.properties!, p => t.resolveReference(p));
     expect(Object.keys(instanceMembers)).to.deep.eq(['bar', 'baz']);
     const { bar, baz } = instanceMembers;
-    expect(bar!.kind).to.eq('method');
-    expect(baz!.kind).to.eq('method');
+    expect(bar!.flags).to.deep.eq(['method', 'transient']);
+    expect(baz!.flags).to.deep.eq(['method', 'transient']);
     expect(bar!.text).to.eq('bar');
     expect(baz!.text).to.eq('baz');
     t.cleanup();
@@ -107,9 +107,9 @@ export class ClassFormatterAcceptanceTests {
     const instanceMembers = mapDict(instanceType.properties!, p => t.resolveReference(p));
     expect(Object.keys(instanceMembers)).to.deep.eq(['biz', 'bar', 'baz']);
     const { biz, bar, baz } = instanceMembers;
-    expect(bar!.kind).to.eq('method');
-    expect(baz!.kind).to.eq('method');
-    expect(biz!.kind).to.eq('property');
+    expect(bar!.flags).to.deep.eq(['method', 'transient']);
+    expect(baz!.flags).to.deep.eq(['method', 'transient']);
+    expect(biz!.flags).to.deep.eq(['property']);
     expect(bar!.text).to.eq('bar');
     expect(baz!.text).to.eq('baz');
     expect(biz!.text).to.eq('biz');
@@ -211,13 +211,13 @@ export class ClassFormatterAcceptanceTests {
 
     const firstDecorator = t.resolveReference(classSymbol.decorators![0]);
     expect(firstDecorator.name).to.eql('baz');
-    expect(firstDecorator.kind).to.eq('function');
+    expect(firstDecorator.flags).to.deep.eq(['function']);
     expect(firstDecorator.text).to.eq('baz');
 
     const firstDecoratorType = t.resolveReference(firstDecorator.valueType);
     expect(firstDecoratorType.text).to.eq('<O>(target: new () => O) => void');
-    expect(firstDecoratorType.kind).to.eq('object');
-    expect(firstDecoratorType.objectKind).to.eq('anonymous');
+    expect(firstDecoratorType.flags).to.deep.eq(['object']);
+    expect(firstDecoratorType.objectFlags).to.deep.eq(['anonymous']);
 
     t.cleanup();
   }
@@ -253,22 +253,22 @@ export class ClassFormatterAcceptanceTests {
       t.resolveReference(d),
     );
     expect(firstDecorator.name).to.eql('baz');
-    expect(firstDecorator.kind).to.eq('function');
+    expect(firstDecorator.flags).to.deep.eq(['function']);
     expect(firstDecorator.text).to.eq('baz');
 
     const firstDecoratorType = t.resolveReference(firstDecorator.valueType);
     expect(firstDecoratorType.text).to.eq('<O>(target: new () => O) => void');
-    expect(firstDecoratorType.kind).to.eq('object');
-    expect(firstDecoratorType.objectKind).to.eq('anonymous');
+    expect(firstDecoratorType.flags).to.deep.eq(['object']);
+    expect(firstDecoratorType.objectFlags).to.deep.eq(['anonymous']);
 
     expect(secondDecorator.name).to.eql('bar');
-    expect(secondDecorator.kind).to.eq('function');
+    expect(secondDecorator.flags).to.deep.eq(['function']);
     expect(secondDecorator.text).to.eq('bar');
 
     const secondDecoratorType = t.resolveReference(secondDecorator.valueType);
     expect(secondDecoratorType.text).to.eq('<O>(target: new () => O) => void');
-    expect(secondDecoratorType.kind).to.eq('object');
-    expect(secondDecoratorType.objectKind).to.eq('anonymous');
+    expect(secondDecoratorType.flags).to.deep.eq(['object']);
+    expect(secondDecoratorType.objectFlags).to.deep.eq(['anonymous']);
 
     t.cleanup();
   }

@@ -1,7 +1,6 @@
 import { mapDict } from '@code-to-json/utils-ts';
 import { expect } from 'chai';
 import { slow, suite, test } from 'mocha-typescript';
-import { FormattedObjectTypeKind, FormattedSymbolKind, FormattedTypeKind } from '../../src/types';
 import SingleFileAcceptanceTestCase from './helpers/test-case';
 
 @suite
@@ -16,10 +15,10 @@ export class VariableAcceptanceTests {
     const fileExports = mapDict(fileSymbol.exports!, e => t.resolveReference(e));
     const varSymbol = fileExports.x!;
     expect(varSymbol.text).to.eq('x');
-    expect(varSymbol.kind).to.eq(FormattedSymbolKind.variable);
+    expect(varSymbol.flags).to.deep.eq(['variable']);
     const varType = t.resolveReference(varSymbol.valueType);
     expect(varType.text).to.eq('string');
-    expect(varType.kind).to.eq(FormattedTypeKind.string);
+    expect(varType.flags).to.deep.eq(['string']);
     t.cleanup();
   }
 
@@ -32,10 +31,10 @@ export class VariableAcceptanceTests {
     const fileExports = mapDict(fileSymbol.exports!, e => t.resolveReference(e));
     const varSymbol = fileExports.x!;
     expect(varSymbol.text).to.eq('x');
-    expect(varSymbol.kind).to.eq(FormattedSymbolKind.variable);
+    expect(varSymbol.flags).to.deep.eq(['variable']);
     const varType = t.resolveReference(varSymbol.valueType);
     expect(varType.text).to.eq('"foo"');
-    expect(varType.kind).to.eq(FormattedTypeKind.stringLiteral);
+    expect(varType.flags).to.deep.eq(['stringLiteral']);
     t.cleanup();
   }
 
@@ -48,10 +47,10 @@ export class VariableAcceptanceTests {
     const fileExports = mapDict(fileSymbol.exports!, e => t.resolveReference(e));
     const varSymbol = fileExports.x!;
     expect(varSymbol.text).to.eq('x');
-    expect(varSymbol.kind).to.eq(FormattedSymbolKind.variable);
+    expect(varSymbol.flags).to.deep.eq(['variable']);
     const varType = t.resolveReference(varSymbol.valueType);
     expect(varType.text).to.eq('string');
-    expect(varType.kind).to.eq(FormattedTypeKind.string);
+    expect(varType.flags).to.deep.eq(['string']);
     t.cleanup();
   }
 
@@ -64,10 +63,10 @@ export class VariableAcceptanceTests {
     const fileExports = mapDict(fileSymbol.exports!, e => t.resolveReference(e));
     const varSymbol = fileExports.x!;
     expect(varSymbol.text).to.eq('x');
-    expect(varSymbol.kind).to.eq(FormattedSymbolKind.variable);
+    expect(varSymbol.flags).to.deep.eq(['variable']);
     const varType = t.resolveReference(varSymbol.valueType);
     expect(varType.text).to.eq('number');
-    expect(varType.kind).to.eq(FormattedTypeKind.number);
+    expect(varType.flags).to.deep.eq(['number']);
     t.cleanup();
   }
 
@@ -80,10 +79,10 @@ export class VariableAcceptanceTests {
     const fileExports = mapDict(fileSymbol.exports!, e => t.resolveReference(e));
     const varSymbol = fileExports.x!;
     expect(varSymbol.text).to.eq('x');
-    expect(varSymbol.kind).to.eq(FormattedSymbolKind.variable);
+    expect(varSymbol.flags).to.deep.eq(['variable']);
     const varType = t.resolveReference(varSymbol.valueType);
     expect(varType.text).to.eq('never');
-    expect(varType.kind).to.eq(FormattedTypeKind.never);
+    expect(varType.flags).to.deep.eq(['never']);
     t.cleanup();
   }
 
@@ -96,10 +95,10 @@ export class VariableAcceptanceTests {
     const fileExports = mapDict(fileSymbol.exports!, e => t.resolveReference(e));
     const varSymbol = fileExports.x!;
     expect(varSymbol.text).to.eq('x');
-    expect(varSymbol.kind).to.eq(FormattedSymbolKind.variable);
+    expect(varSymbol.flags).to.deep.eq(['variable']);
     const varType = t.resolveReference(varSymbol.valueType);
     expect(varType.text).to.eq('42');
-    expect(varType.kind).to.eq(FormattedTypeKind.numberLiteral);
+    expect(varType.flags).to.deep.eq(['numberLiteral']);
     t.cleanup();
   }
 
@@ -112,11 +111,11 @@ export class VariableAcceptanceTests {
     const fileExports = mapDict(fileSymbol.exports!, e => t.resolveReference(e));
     const varSymbol = fileExports.x!;
     expect(varSymbol.text).to.eq('x');
-    expect(varSymbol.kind).to.eq(FormattedSymbolKind.variable);
+    expect(varSymbol.flags).to.deep.eq(['variable']);
     const varType = t.resolveReference(varSymbol.valueType);
     expect(varType.text).to.eq('() => string');
-    expect(varType.kind).to.eq(FormattedTypeKind.object);
-    expect(varType.objectKind).to.eq(FormattedObjectTypeKind.anonymous);
+    expect(varType.flags).to.deep.eq(['object']);
+    expect(varType.objectFlags).to.deep.eq(['anonymous']);
     t.cleanup();
   }
 
@@ -129,10 +128,10 @@ export class VariableAcceptanceTests {
     const fileExports = mapDict(fileSymbol.exports!, e => t.resolveReference(e));
     const varSymbol = fileExports.x!;
     expect(varSymbol.text).to.eq('x');
-    expect(varSymbol.kind).to.eq(FormattedSymbolKind.variable);
+    expect(varSymbol.flags).to.deep.eq(['variable']);
     const varType = t.resolveReference(varSymbol.valueType);
     expect(varType.text).to.eq('null');
-    expect(varType.kind).to.eq(FormattedTypeKind.null);
+    expect(varType.flags).to.deep.eq(['null']);
     t.cleanup();
   }
 
@@ -145,10 +144,10 @@ export class VariableAcceptanceTests {
     const fileExports = mapDict(fileSymbol.exports!, e => t.resolveReference(e));
     const varSymbol = fileExports.x!;
     expect(varSymbol.text).to.eq('x');
-    expect(varSymbol.kind).to.eq(FormattedSymbolKind.variable);
+    expect(varSymbol.flags).to.deep.eq(['variable']);
     const varType = t.resolveReference(varSymbol.valueType);
     expect(varType.text).to.eq('any');
-    expect(varType.kind).to.eq(FormattedTypeKind.any);
+    expect(varType.flags).to.deep.eq(['any']);
     t.cleanup();
   }
 
@@ -161,10 +160,10 @@ export class VariableAcceptanceTests {
     const fileExports = mapDict(fileSymbol.exports!, e => t.resolveReference(e));
     const varSymbol = fileExports.x!;
     expect(varSymbol.text).to.eq('x');
-    expect(varSymbol.kind).to.eq(FormattedSymbolKind.variable);
+    expect(varSymbol.flags).to.deep.eq(['variable']);
     const varType = t.resolveReference(varSymbol.valueType);
     expect(varType.text).to.eq('true');
-    expect(varType.kind).to.eq(FormattedTypeKind.booleanLiteral);
+    expect(varType.flags).to.deep.eq(['booleanLiteral']);
     t.cleanup();
   }
 
@@ -177,10 +176,10 @@ export class VariableAcceptanceTests {
     const fileExports = mapDict(fileSymbol.exports!, e => t.resolveReference(e));
     const varSymbol = fileExports.x!;
     expect(varSymbol.text).to.eq('x');
-    expect(varSymbol.kind).to.eq(FormattedSymbolKind.variable);
+    expect(varSymbol.flags).to.deep.eq(['variable']);
     const varType = t.resolveReference(varSymbol.valueType);
     expect(varType.text).to.eq('unique symbol');
-    expect(varType.kind).to.eq(FormattedTypeKind.uniqueEssymbol);
+    expect(varType.flags).to.deep.eq(['uniqueESSymbol']);
     t.cleanup();
   }
 
@@ -193,10 +192,10 @@ export class VariableAcceptanceTests {
     const fileExports = mapDict(fileSymbol.exports!, e => t.resolveReference(e));
     const varSymbol = fileExports.x!;
     expect(varSymbol.text).to.eq('x');
-    expect(varSymbol.kind).to.eq(FormattedSymbolKind.variable);
+    expect(varSymbol.flags).to.deep.eq(['variable']);
     const varType = t.resolveReference(varSymbol.valueType);
     expect(varType.text).to.eq('symbol');
-    expect(varType.kind).to.eq(FormattedTypeKind.essymbol);
+    expect(varType.flags).to.deep.eq(['eSSymbol']);
     t.cleanup();
   }
 
@@ -209,17 +208,17 @@ export class VariableAcceptanceTests {
     const fileExports = mapDict(fileSymbol.exports!, e => t.resolveReference(e));
     const varSymbol = fileExports.x!;
     expect(varSymbol.text).to.eq('x');
-    expect(varSymbol.kind).to.eq(FormattedSymbolKind.variable);
+    expect(varSymbol.flags).to.deep.eq(['variable']);
     const varType = t.resolveReference(varSymbol.valueType);
     expect(varType.text).to.eq('any');
-    expect(varType.kind).to.eq(FormattedTypeKind.any);
+    expect(varType.flags).to.deep.eq(['any']);
     t.cleanup();
   }
 
   @test public async 'const x: {foo: "bar"} = {foo: "bar" }'() {
     const code = `
-interface Foo {foo: "bar"};
-export const x: Foo = {foo: "bar" }`;
+  interface Foo {foo: "bar"};
+  export const x: Foo = {foo: "bar" }`;
     const t = new SingleFileAcceptanceTestCase(code);
     await t.run();
     const file = t.sourceFile();
@@ -227,11 +226,11 @@ export const x: Foo = {foo: "bar" }`;
     const fileExports = mapDict(fileSymbol.exports!, e => t.resolveReference(e));
     const varSymbol = fileExports.x!;
     expect(varSymbol.text).to.eq('x');
-    expect(varSymbol.kind).to.eq(FormattedSymbolKind.variable);
+    expect(varSymbol.flags).to.deep.eq(['variable']);
     const varType = t.resolveReference(varSymbol.valueType);
     expect(varType.text).to.eq('Foo');
-    expect(varType.kind).to.eq(FormattedTypeKind.object);
-    expect(varType.objectKind).to.eq(FormattedObjectTypeKind.interface);
+    expect(varType.flags).to.deep.eq(['object']);
+    expect(varType.objectFlags).to.deep.eq(['interface']);
     t.cleanup();
   }
 }

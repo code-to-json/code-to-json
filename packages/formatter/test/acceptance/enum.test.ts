@@ -24,10 +24,10 @@ export class EnumFormatterAcceptanceTests {
     const enumMembers = mapDict(enumSymbol.exports!, en => t.resolveReference(en));
     const { heart, club, diamond, spade } = filterDict(enumMembers, isDefined);
 
-    expect(heart!.kind).to.eq('enumMember');
-    expect(club!.kind).to.eq('enumMember');
-    expect(diamond!.kind).to.eq('enumMember');
-    expect(spade!.kind).to.eq('enumMember');
+    expect(heart!.flags).to.deep.eq(['enumMember']);
+    expect(club!.flags).to.deep.eq(['enumMember']);
+    expect(diamond!.flags).to.deep.eq(['enumMember']);
+    expect(spade!.flags).to.deep.eq(['enumMember']);
 
     expect(heart!.name).to.eq('heart');
     expect(club!.name).to.eq('club');
@@ -72,10 +72,10 @@ export class EnumFormatterAcceptanceTests {
     const enumMembers = mapDict(enumSymbol.exports!, en => t.resolveReference(en));
     const { heart, club, diamond, spade } = filterDict(enumMembers, isDefined);
 
-    expect(heart!.kind).to.eq('enumMember');
-    expect(club!.kind).to.eq('enumMember');
-    expect(diamond!.kind).to.eq('enumMember');
-    expect(spade!.kind).to.eq('enumMember');
+    expect(heart!.flags).to.deep.eq(['enumMember']);
+    expect(club!.flags).to.deep.eq(['enumMember']);
+    expect(diamond!.flags).to.deep.eq(['enumMember']);
+    expect(spade!.flags).to.deep.eq(['enumMember']);
 
     expect(heart!.name).to.eq('heart');
     expect(club!.name).to.eq('club');

@@ -13,8 +13,5 @@ export {
   FormattedSymbolRef,
   FormattedTypeRef,
   FormatterRefRegistry,
-  FormattedSymbolKind,
-  FormattedTypeKind,
-  FormattedObjectTypeKind,
   FormattedTypeConditionInfo,
 } from './types';

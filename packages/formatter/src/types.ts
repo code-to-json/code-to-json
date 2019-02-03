@@ -1,5 +1,6 @@
 import { CommentData } from '@code-to-json/comments';
 import { Ref } from '@code-to-json/utils';
+import { Flags } from '@code-to-json/utils-ts';
 import { Dict } from '@mike-north/types';
 
 export type FormattedTypeRef = Ref<'t'>;
@@ -50,61 +51,6 @@ export interface FormatterRefRegistry {
   d: FormattedDeclarationRef;
 }
 
-export enum FormattedSymbolKind {
-  variable = 'variable',
-  module = 'module',
-  class = 'class',
-  method = 'method',
-  function = 'function',
-  property = 'property',
-  interface = 'interface',
-  typeAlias = 'typeAlias',
-  typeParameter = 'typeParameter',
-  enum = 'enum',
-  constEnum = 'constEnum',
-  enumMember = 'enumMember',
-  typeLiteral = 'typeLiteral',
-  alias = 'alias',
-  getAccessor = 'getAccessor',
-}
-
-export enum FormattedTypeKind {
-  string = 'string',
-  number = 'number',
-  boolean = 'boolean',
-  null = 'null',
-  undefined = 'undefined',
-  essymbol = 'essymbol',
-  uniqueEssymbol = 'uniqueEssymbol',
-  indexedAccess = 'indexedAccess',
-  index = 'index',
-
-  never = 'never',
-  any = 'any',
-
-  void = 'void',
-  unknown = 'unknown',
-
-  stringLiteral = 'stringLiteral',
-  booleanLiteral = 'booleanLiteral',
-  numberLiteral = 'numberLiteral',
-  enumLiteral = 'enumLiteral',
-
-  object = 'object',
-  typeParameter = 'typeParameter',
-
-  union = 'union',
-  intersection = 'intersection',
-
-  conditional = 'conditional',
-  substitution = 'substitution',
-}
-export enum FormattedObjectTypeKind {
-  anonymous = 'anonymous',
-  class = 'class',
-  interface = 'interface',
-  mapped = 'mapped',
-}
 export interface FormattedTypeConditionInfo {
   extendsType: FormattedTypeRef;
   checkType: FormattedTypeRef;
@@ -112,13 +58,10 @@ export interface FormattedTypeConditionInfo {
   trueType?: FormattedTypeRef;
 }
 
-export interface FormattedType<
-  K extends FormattedTypeKind = FormattedTypeKind,
-  OK extends FormattedObjectTypeKind = FormattedObjectTypeKind
-> extends FormattedEntity {
+export interface FormattedType extends FormattedEntity {
   text: string;
-  kind: K;
-  objectKind?: OK;
+  flags?: Flags;
+  objectFlags?: Flags;
   symbol?: FormattedSymbolRef;
   constraint?: FormattedTypeRef;
   properties?: Dict<FormattedSymbolRef>;
@@ -126,7 +69,6 @@ export interface FormattedType<
   isThisType?: boolean;
   thisType?: FormattedTypeRef;
   isOptional?: boolean;
-  isReferenceType?: boolean;
   numberIndexType?: FormattedTypeRef;
   stringIndexType?: FormattedTypeRef;
   defaultType?: FormattedTypeRef;
@@ -138,20 +80,13 @@ export interface FormattedType<
   conditionalInfo?: FormattedTypeConditionInfo;
 }
 
-export interface FormattedEnumLiteralType extends FormattedType<FormattedTypeKind.enumLiteral> {
-  enumKind: FormattedTypeKind;
-}
-export interface FormattedSymbol<K extends FormattedSymbolKind = FormattedSymbolKind>
-  extends FormattedEntity,
-    HasDocumentation,
-    HasPosition {
+export interface FormattedSymbol extends FormattedEntity, HasDocumentation, HasPosition {
   name: string;
-  kind: K;
   text?: string;
+  flags?: Flags;
   isAbstract?: boolean;
   documentation?: CommentData;
   external?: boolean;
-  isTransient?: boolean;
   isConst?: boolean;
   isExported?: boolean;
   accessModifier?: 'private' | 'public' | 'protected';
