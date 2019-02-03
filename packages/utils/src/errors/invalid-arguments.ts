@@ -1,13 +1,13 @@
+import BaseError from './base';
+
 /**
  * Throw an error describing invalid arguments passed to the CLI
  */
-export default class InvalidArgumentsError extends Error {
+export default class InvalidArgumentsError extends BaseError<'invalidArguments'> {
   /**
    * Invalid arguments brand
    */
-  // tslint:disable-next-line:variable-name
-  public readonly __invalid_arguments_error = true;
-
+  public readonly kind = 'invalidArguments';
   constructor(msg: string) {
     super(`[Invalid arguments] ${msg}`);
   }

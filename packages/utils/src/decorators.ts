@@ -12,6 +12,14 @@ function createMemoized<A extends object, R>(fn: (arg: A) => R): (arg: A) => R {
   };
 }
 
+/**
+ * Apply a simple caching layer to a unary method
+ *
+ * @param target class containing the method
+ * @param propertyKey name of method
+ * @param _descriptor property descriptor
+ * @public
+ */
 export function memoize<
   T,
   O extends object,

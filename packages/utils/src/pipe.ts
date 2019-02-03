@@ -1,5 +1,10 @@
-type UnaryFunction<Arg, Ret> = (a: Arg) => Ret;
+import { UnaryFunction } from './types';
 
+/**
+ * Create a pipeline of unary functions
+ *
+ * @public
+ */
 export function pipe(): <T>(x: T) => T;
 export function pipe<A, R>(f1: UnaryFunction<A, R>): (a: A) => R;
 export function pipe<A1, R1, R2>(

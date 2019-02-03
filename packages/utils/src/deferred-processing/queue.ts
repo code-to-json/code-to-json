@@ -1,11 +1,21 @@
 import { createRef, Ref, RefTypes } from './ref';
 
+/**
+ * @internal
+ */
 interface EntityInfo<K, O> {
+  /** reference */
   ref: Ref<K>;
+  /** additional information */
   otherInfo?: O;
+  /** whether this entity has been processed or not */
   processed: boolean;
 }
 
+/**
+ * A work queue
+ * @private
+ */
 export interface Queue<K, T extends object, OtherInfo> {
   queue(item: T): Ref<K>;
   numUnprocessed(): number;
@@ -13,6 +23,14 @@ export interface Queue<K, T extends object, OtherInfo> {
   drainUntilEmpty(cb: (ref: Ref<K>, item: T) => void): { processedCount: number };
 }
 
+/**
+ * Create a new work queue for a type of entity
+ *
+ * @param k the name of the entity type
+ * @param getIdInfo function used to generate id-data from an object
+ * @param extractId function used to extract an id from id-data
+ * @private
+ */
 export function createQueue<
   RefRegistry,
   K extends RefTypes<RefRegistry>,
