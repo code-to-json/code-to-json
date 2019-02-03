@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-rc.14](https://github.com/mike-north/code-to-json/compare/@code-to-json/formatter@1.0.0-rc.13...@code-to-json/formatter@1.0.0-rc.14) (2019-02-03)
+
+
+### Bug Fixes
+
+* update tests and helpers for new symbol -> type mapping ([53220ae](https://github.com/mike-north/code-to-json/commit/53220ae))
+
+
+### Features
+
+* updates for new symbol -> type detection ([27649d5](https://github.com/mike-north/code-to-json/commit/27649d5))
+
+
+
+
+
 # [1.0.0-rc.13](https://github.com/mike-north/code-to-json/compare/@code-to-json/formatter@1.0.0-rc.12...@code-to-json/formatter@1.0.0-rc.13) (2019-01-31)
 
 **Note:** Version bump only for package @code-to-json/formatter

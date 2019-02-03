@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-rc.10](https://github.com/mike-north/code-to-json/compare/@code-to-json/utils@1.0.0-rc.9...@code-to-json/utils@1.0.0-rc.10) (2019-02-03)
+
+
+### Features
+
+* move memoize decorator to utils ([132e5df](https://github.com/mike-north/code-to-json/commit/132e5df))
+
+
+
+
+
 # [1.0.0-rc.9](https://github.com/mike-north/code-to-json/compare/@code-to-json/utils@1.0.0-rc.8...@code-to-json/utils@1.0.0-rc.9) (2019-01-31)
 
 **Note:** Version bump only for package @code-to-json/utils

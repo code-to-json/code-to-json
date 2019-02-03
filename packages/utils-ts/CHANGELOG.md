@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-rc.13](https://github.com/mike-north/code-to-json/compare/@code-to-json/utils-ts@1.0.0-rc.12...@code-to-json/utils-ts@1.0.0-rc.13) (2019-02-03)
+
+
+### Bug Fixes
+
+* restore previously-removed nameToNode ([b4c5ab0](https://github.com/mike-north/code-to-json/commit/b4c5ab0))
+* update tests and helpers for new symbol -> type mapping ([53220ae](https://github.com/mike-north/code-to-json/commit/53220ae))
+
+
+### Features
+
+* rewrite of symbol -> type resolution ([cb1d358](https://github.com/mike-north/code-to-json/commit/cb1d358))
+
+
+
+
+
 # [1.0.0-rc.12](https://github.com/mike-north/code-to-json/compare/@code-to-json/utils-ts@1.0.0-rc.11...@code-to-json/utils-ts@1.0.0-rc.12) (2019-01-31)
 
 **Note:** Version bump only for package @code-to-json/utils-ts
