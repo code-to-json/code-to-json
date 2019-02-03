@@ -1,6 +1,6 @@
 {
   "name": "@code-to-json/formatter",
-  "version": "1.0.0-rc.16",
+  "version": "1.0.0-rc.17",
   "description": "Data formatter for code-to-json",
   "main": "lib/src/index.js",
   "typings": "lib/src/index.d.ts",
