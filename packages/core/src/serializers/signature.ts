@@ -27,12 +27,14 @@ export default function serializeSignature(
       !declaration || !declaration.modifiers
         ? undefined
         : declaration.modifiers.map(m => m.getText()),
-    typeParameters: !typeParameters
-      ? undefined
-      : typeParameters.map(tp => q.queue(tp, 'type')).filter(isDefined),
-    parameters: !parameters
-      ? undefined
-      : parameters.map(p => q.queue(p, 'symbol')).filter(isDefined),
+    typeParameters:
+      !typeParameters || typeParameters.length === 0
+        ? undefined
+        : typeParameters.map(tp => q.queue(tp, 'type')).filter(isDefined),
+    parameters:
+      !parameters || parameters.length === 0
+        ? undefined
+        : parameters.map(p => q.queue(p, 'symbol')).filter(isDefined),
     text: checker.signatureToString(signature),
     typePredicate: !typePredicate ? undefined : q.queue(typePredicate.type, 'type'),
   };
