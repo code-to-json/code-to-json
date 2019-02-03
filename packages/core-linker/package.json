@@ -34,7 +34,7 @@
     "@code-to-json/utils-node": "^1.0.0-rc.14",
     "@types/chai": "4.1.7",
     "chai": "4.2.0",
-    "eslint": "5.12.1",
+    "eslint": "5.13.0",
     "eslint-config-airbnb-base": "13.1.0",
     "eslint-plugin-import": "2.16.0",
     "eslint-plugin-prettier": "3.0.1",
