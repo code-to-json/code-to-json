@@ -113,7 +113,7 @@ function serializeMembers(
   return { members: mapDict(filteredMembers, exp => c.queue.queue(exp, 'symbol')) };
 }
 
-function handleRelatedEntities(
+function serializeRelatedEntities(
   _symbol: ts.Symbol,
   _ref: SymbolRef,
   relatedEntities: ts.Symbol[] | undefined,
@@ -237,21 +237,29 @@ export default function serializeSymbol(
     name,
     text: checker.symbolToString(symbol),
     flags: flagsToString(flags, 'symbol') || [],
-    ...handleRelatedEntities(symbol, ref, relatedEntities, q),
+    external: undefined,
+    modifiers: undefined,
+    isAbstract: undefined,
+    jsDocTags: undefined,
+    symbolType: undefined,
+    valueDeclarationType: undefined,
+    otherDeclarationTypes: undefined,
+    declarations: undefined,
+    valueDeclaration: undefined,
+    location: undefined,
+    exports: undefined,
+    members: undefined,
+    decorators: undefined,
+    sourceFile: undefined,
+    globalExports: undefined,
+    relatedSymbols: undefined,
+    ...serializeRelatedEntities(symbol, ref, relatedEntities, q),
+    ...serializeSymbolTypes(symbol, checker, c),
+    ...serializeBasicSymbolDeclarationData(symbol, valueDeclaration, checker, c),
+    ...serializeExports(symbol, checker, c),
+    ...serializeExtendedSymbolDeclarationData(symbol, valueDeclaration, checker, c),
+    ...serializeMembers(symbol, checker, c),
   };
-
-  Object.assign(
-    serialized,
-    serializeSymbolTypes(symbol, checker, c),
-    serializeBasicSymbolDeclarationData(symbol, valueDeclaration, checker, c),
-  );
-
-  Object.assign(
-    serialized,
-    serializeExports(symbol, checker, c),
-    serializeExtendedSymbolDeclarationData(symbol, valueDeclaration, checker, c),
-    serializeMembers(symbol, checker, c),
-  );
 
   forEach(symbol.declarations, d => {
     // Type queries are too far resolved when we just visit the symbol's type
