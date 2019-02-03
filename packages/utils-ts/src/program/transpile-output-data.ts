@@ -1,6 +1,9 @@
 import { CompilerOptions, createProgram, Program, SourceFile } from 'typescript';
 import TranspileOuptut from './transpile-output';
 
+/**
+ * @private
+ */
 export default class TranspileOuptutData implements TranspileOuptut {
   public program: Program;
 

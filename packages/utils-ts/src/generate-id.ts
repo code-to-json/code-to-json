@@ -17,9 +17,41 @@ import { flagsToString } from './flags';
 import { isDeclaration, isNode, isSymbol, isType } from './typeguards';
 
 const log = debug('code-to-json:generate-id');
+
+function iteratorValues<T>(it: Iterator<T> | undefined, converter: (t: T) => string): string {
+  if (!it) {
+    return '';
+  }
+  const parts: string[] = [];
+  let v = it.next();
+  while (!v.done) {
+    parts.push(converter(v.value));
+    v = it.next();
+  }
+  return parts.join(', ');
+}
+
+function generateDuplicateIdErrorMessage(
+  id: string,
+  existing: IDableEntity[],
+  thing: IDableEntity,
+  checker: TypeChecker,
+): string {
+  return `Duplicate ID detected: ${id}
+    existing: ${existing
+      .map(e => entityToString(e, checker))
+      // tslint:disable-next-line no-nested-template-literals
+      .map(s => `   ${s}`)
+      .join('\n')
+      .trim()}
+    second: ${entityToString(thing, checker)}`;
+}
+
 /**
  * Generate a stable hash from a string
+ *
  * @param str string to generate a hash from
+ * @public
  */
 export function generateHash(str: string): string {
   let hash = 0;
@@ -37,19 +69,6 @@ export function generateHash(str: string): string {
   }
 
   return hex.slice(-12);
-}
-
-function iteratorValues<T>(it: Iterator<T> | undefined, converter: (t: T) => string): string {
-  if (!it) {
-    return '';
-  }
-  const parts: string[] = [];
-  let v = it.next();
-  while (!v.done) {
-    parts.push(converter(v.value));
-    v = it.next();
-  }
-  return parts.join(', ');
 }
 
 /**
@@ -84,29 +103,18 @@ export function entityToString(thing: any, checker: TypeChecker): string {
   return `${thing}`;
 }
 
+/**
+ * Entities that we can generate unique and stable IDs for
+ */
 export type IDableEntity = Sym | Node | Type | Declaration | SourceFile;
-
-function generateDuplicateIdErrorMessage(
-  id: string,
-  existing: IDableEntity[],
-  thing: IDableEntity,
-  checker: TypeChecker,
-): string {
-  return `Duplicate ID detected: ${id}
-    existing: ${existing
-      .map(e => entityToString(e, checker))
-      // tslint:disable-next-line no-nested-template-literals
-      .map(s => `   ${s}`)
-      .join('\n')
-      .trim()}
-    second: ${entityToString(thing, checker)}`;
-}
 
 export type NewEntityGenerateIdResult = ['ok', string];
 export type NewEntityWithRelatedGenerateIdResult = ['ok-related', string, IDableEntity[]];
-
 export type GenerateIdResult = NewEntityGenerateIdResult | NewEntityWithRelatedGenerateIdResult;
 
+/**
+ * A utility for generating unique but stable ids for TypeScript compiler API entities
+ */
 export interface IdGenerator {
   /**
    * Generate an id for an entity
@@ -116,12 +124,17 @@ export interface IdGenerator {
   (thing: IDableEntity): GenerateIdResult;
 }
 
-export function generateIdForSourceFileName(fileName: string): string {
+function generateIdForSourceFileName(fileName: string): string {
   return generateHash(
     fileName.substr(Math.max(0, fileName.length - 10)).replace(/[\\/:"'`.-\s]+/g, ''),
   );
 }
 
+/**
+ * Create an ID generator, using information from the provided type-checker
+ *
+ * @param checker type-checker
+ */
 export function createIdGenerator(checker: TypeChecker): IdGenerator {
   function generateIdForType(thing: Type): string {
     const { symbol } = thing;
@@ -187,9 +200,11 @@ export function createIdGenerator(checker: TypeChecker): IdGenerator {
     throw new UnreachableError(thing, 'Cannot generate an id for this object');
   }
 
+  // Track IDs that have already been issued, to ensure there are never any duplicates
   const USED_IDS: {
     [k: string]: Array<[string, IDableEntity]> | undefined;
   } = {};
+
   return function generateId<T extends IDableEntity>(thing: T): GenerateIdResult {
     if (typeof thing === 'undefined' || thing === null) {
       throw new Error('Cannot generate an ID for empty values');

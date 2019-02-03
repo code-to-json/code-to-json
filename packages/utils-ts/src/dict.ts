@@ -1,8 +1,8 @@
 /* eslint-disable import/prefer-default-export */
 import { Dict } from '@mike-north/types';
-import { __String, UnderscoreEscapedMap } from 'typescript';
+import * as ts from 'typescript';
 
-function isUem<T>(dict: UnderscoreEscapedMap<T> | Dict<T>): dict is UnderscoreEscapedMap<T> {
+function isUem<T>(dict: ts.UnderscoreEscapedMap<T> | Dict<T>): dict is ts.UnderscoreEscapedMap<T> {
   return typeof dict.clear === 'function';
 }
 
@@ -10,10 +10,11 @@ function isUem<T>(dict: UnderscoreEscapedMap<T> | Dict<T>): dict is UnderscoreEs
  * Invoke a callback for each key-value pair in a dictionary
  * @param dict dictionary to iterate over
  * @param callback mapping function to apply to each key-value pair
+ * @public
  */
 export function forEachDict<T>(
-  dict: UnderscoreEscapedMap<T> | Dict<T>,
-  cb: (t: T, key: __String | string) => void,
+  dict: ts.UnderscoreEscapedMap<T> | Dict<T>,
+  cb: (t: T, key: ts.__String | string) => void,
 ): void {
   if (isUem(dict)) {
     dict.forEach(cb);
@@ -29,10 +30,11 @@ export function forEachDict<T>(
  * Map over a dictionary
  * @param dict dictionary to iterate over
  * @param callback mapping function to apply to each key-value pair
+ * @public
  */
 export function mapDict<T, S>(
-  dict: UnderscoreEscapedMap<T> | Dict<T>,
-  callback: ((t: T, key: __String | string) => S | undefined),
+  dict: ts.UnderscoreEscapedMap<T> | Dict<T>,
+  callback: (t: T, key: ts.__String | string) => S | undefined,
 ): Dict<S> {
   return reduceDict(
     dict,
@@ -52,10 +54,11 @@ export function mapDict<T, S>(
  * Filter a dictionary
  * @param dict dictionary to iterate over
  * @param callback mapping function to apply to each key-value pair
+ * @public
  */
 export function filterDict<T>(
-  dict: UnderscoreEscapedMap<T> | Dict<T>,
-  filterFn: ((t: T, key: __String | string) => boolean),
+  dict: ts.UnderscoreEscapedMap<T> | Dict<T>,
+  filterFn: (t: T, key: ts.__String | string) => boolean,
 ): Dict<T> {
   return reduceDict(
     dict,
@@ -75,10 +78,11 @@ export function filterDict<T>(
  * Reduce a dictionary
  * @param dict dictionary to iterate over
  * @param callback mapping function to apply to each key-value pair
+ * @public
  */
 export function reduceDict<T, R>(
-  dict: UnderscoreEscapedMap<T> | Dict<T>,
-  callback: ((reduced: R, t: T, key: __String | string) => R),
+  dict: ts.UnderscoreEscapedMap<T> | Dict<T>,
+  callback: (reduced: R, t: T, key: ts.__String | string) => R,
   initial: R,
 ): R {
   let reducedVal: R = initial;

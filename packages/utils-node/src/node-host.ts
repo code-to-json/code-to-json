@@ -8,7 +8,7 @@ import { promisify } from 'util';
 
 const primraf = promisify(rimraf);
 
-const nodeHost: SysHost = {
+const NODE_HOST: SysHost = {
   readFileSync(filePath: string, encoding?: string): string | undefined {
     return ts.sys.readFile(filePath, encoding);
   },
@@ -63,4 +63,4 @@ const nodeHost: SysHost = {
   },
 };
 
-export default nodeHost;
+export default NODE_HOST;

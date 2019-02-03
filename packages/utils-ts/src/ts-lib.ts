@@ -9,6 +9,7 @@
  * getTsLibName('/Users/mike/foo/bar/node_modules/typescript/lib/lib.es5.d.ts'); // 'lib.es5.d.ts'
  * getTsLibName('/Users/mike/foo/bar/index.ts'); // undefined
  * ```
+ * @public
  */
 export function getTsLibName(fileName: string): string | undefined {
   const [, libName] = fileName.split(/\/node_modules\/typescript\/lib\//);

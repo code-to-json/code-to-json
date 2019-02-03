@@ -1,23 +1,23 @@
 import { expect } from 'chai';
 import { suite, test } from 'mocha-typescript';
 import { join } from 'path';
-import nodeHost from '../src/node-host';
-import { pathNormalizerForPackageJson } from '../src/path-normalizer';
+import NODE_HOST from '../src/node-host';
+import { createReverseResolverForProject } from '../src/reverse-resolver';
 
 @suite
 export class PathNormalizerTests {
   @test
   public async 'obtaining a non-passthrough normalizer'() {
-    const normalizer = await pathNormalizerForPackageJson(__dirname, nodeHost);
+    const normalizer = await createReverseResolverForProject(__dirname, NODE_HOST);
     expect(!!normalizer).to.eq(true);
     expect((normalizer as any).__passthroughNormalizer).to.eq(undefined);
   }
 
   @test
   public async 'obtaining a passthrough normalizer'() {
-    const normalizer = await pathNormalizerForPackageJson(
+    const normalizer = await createReverseResolverForProject(
       join(__dirname, '..', '..', '..', '..', '..'),
-      nodeHost,
+      NODE_HOST,
     );
     expect(!!normalizer).to.eq(true);
     expect((normalizer as any).__passthroughNormalizer).to.eq(true);
@@ -25,7 +25,7 @@ export class PathNormalizerTests {
 
   @test
   public async 'accessing project root module through non-passthrough normalizer'() {
-    const normalizer = await pathNormalizerForPackageJson(__dirname, nodeHost);
+    const normalizer = await createReverseResolverForProject(__dirname, NODE_HOST);
     const normalizedData = normalizer.filePathToModuleInfo(
       join(__dirname, '..', 'src', 'index.ts'),
     );
@@ -36,7 +36,7 @@ export class PathNormalizerTests {
 
   @test
   public async 'accessing project non-root module through non-passthrough normalizer'() {
-    const normalizer = await pathNormalizerForPackageJson(__dirname, nodeHost);
+    const normalizer = await createReverseResolverForProject(__dirname, NODE_HOST);
     const normalizedData = normalizer.filePathToModuleInfo(
       join(__dirname, '..', 'src', 'node-host.ts'),
     );

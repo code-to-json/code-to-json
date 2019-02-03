@@ -14,7 +14,7 @@ const {
   createProgramFromEntries,
   createIdGenerator,
   generateHash,
-  generateModulePathNormalizer,
+  createReverseResolver,
   forEachDict,
   flagsToString,
   getFirstIdentifier,
@@ -35,9 +35,9 @@ const {
   getRelevantTypesForSymbol,
   isIndexedAccessType,
   isPrimitiveType,
-  nameForNode,
+  getNameForNode,
   modifiersToStrings,
-  PASSTHROUGH_MODULE_PATH_NORMALIZER,
+  PASSTHROUGH_REVERSE_RESOLVER,
 } = Exported;
 
 @suite
@@ -85,34 +85,32 @@ export class PublicApiSurface {
     expect(isErroredType).to.be.a('function', 'isErroredType is a function');
     expect(isTupleType).to.be.a('function', 'isTupleType is a function');
     expect(isMappedType).to.be.a('function', 'isMappedType is a function');
-    expect(nameForNode).to.be.a('function', 'nameForNode is a function');
+    expect(getNameForNode).to.be.a('function', 'getNameForNode is a function');
     expect(generateHash).to.be.a('function', 'generateHash is a function');
     expect(createIdGenerator).to.be.a('function', 'generateId is a function');
-    expect(generateModulePathNormalizer).to.be.a(
-      'function',
-      'generateModulePathNormalizer is a function',
-    );
+    expect(createReverseResolver).to.be.a('function', 'createReverseResolver is a function');
     expect(mapDict).to.be.a('function', 'mapUem is a function');
-    expect(PASSTHROUGH_MODULE_PATH_NORMALIZER).to.be.a(
+    expect(PASSTHROUGH_REVERSE_RESOLVER).to.be.a(
       'object',
-      'PASSTHROUGH_MODULE_PATH_NORMALIZER is a object',
+      'PASSTHROUGH_REVERSE_RESOLVER is a object',
     );
   }
 
   @test
   public 'no extra exports'(): void {
     expect(Object.keys(Exported).sort()).to.eql([
-      'PASSTHROUGH_MODULE_PATH_NORMALIZER',
+      'PASSTHROUGH_REVERSE_RESOLVER',
       'createIdGenerator',
       'createProgramFromCodeString',
       'createProgramFromEntries',
       'createProgramFromTsConfig',
+      'createReverseResolver',
       'filterDict',
       'flagsToString',
       'forEachDict',
       'generateHash',
-      'generateModulePathNormalizer',
       'getFirstIdentifier',
+      'getNameForNode',
       'getObjectFlags',
       'getRelevantTypesForSymbol',
       'getTsLibName',
@@ -136,7 +134,6 @@ export class PublicApiSurface {
       'isType',
       'mapDict',
       'modifiersToStrings',
-      'nameForNode',
       'reduceDict',
     ]);
   }

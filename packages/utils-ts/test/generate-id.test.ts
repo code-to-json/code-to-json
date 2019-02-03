@@ -2,7 +2,6 @@ import { getDeclarationFiles } from '@code-to-json/test-helpers';
 import { expect } from 'chai';
 import { suite, test } from 'mocha-typescript';
 import * as ts from 'typescript';
-import { generateIdForSourceFileName } from '../lib/src/generate-id';
 import { createIdGenerator, entityToString } from '../src/generate-id';
 import { createProgramFromCodeString, mapDict } from '../src/index';
 
@@ -136,23 +135,6 @@ export const x: string = 'foo';
         .to.be.a('string')
         .and.to.have.lengthOf(13);
     });
-  }
-
-  @test
-  public 'sourceFile IDs are insulated from path differences betwen POSIX and Windows'() {
-    expect(
-      generateIdForSourceFileName(
-        'C:/Users/VSSADM~1/AppData/Local/Temp/tmp-8S4881UXySQ6x/src/index',
-      ),
-    ).to.eql('01m4wmj9uhye', 'Windows-style filenames');
-    expect(
-      generateIdForSourceFileName(
-        'C:/Users/VSSADM~1/AppData/Local/Temp/tmp-8S4881UXySQ6x/src/index"',
-      ),
-    ).to.eql('01m4wmj9uhye', 'Windows-style filenames with quotes');
-    expect(
-      generateIdForSourceFileName('/Users/VSSADM~1/AppData/Local/Temp/tmp-8S4881UXySQ6x/src/index'),
-    ).to.eql('01m4wmj9uhye', 'POSIX-style filenames');
   }
 
   @test

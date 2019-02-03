@@ -1,5 +1,5 @@
 import { setupTestCase } from '@code-to-json/test-helpers';
-import { nodeHost } from '@code-to-json/utils-node';
+import { NODE_HOST } from '@code-to-json/utils-node';
 import { Dict } from '@mike-north/types';
 import { expect } from 'chai';
 import { Program } from 'typescript';
@@ -58,7 +58,7 @@ export default class SingleFileAcceptanceTestCase {
     );
     this.rootPath = rootPath;
     this.cleanupFn = cleanup;
-    const walkerOutput = walkProgram(program, nodeHost);
+    const walkerOutput = walkProgram(program, NODE_HOST);
     const { types, symbols, sourceFiles } = walkerOutput.data;
 
     Object.keys(types).forEach(k =>

@@ -9,6 +9,10 @@ import * as _ts from './ts-internal';
  */
 const ERROR_UNSUPPORTED_FILE_ENCODING = -2147024809;
 
+/**
+ * Compiler host used to wrap a {@link SysHost} for use by the typescript compiler
+ * @private
+ */
 class CompilerHost implements ts.CompilerHost {
   private currentDirectory?: string;
 

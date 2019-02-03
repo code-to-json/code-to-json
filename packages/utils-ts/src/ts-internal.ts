@@ -31,8 +31,8 @@ export function normalizePath(path: string): string {
 }
 
 /**
- * @private
  * @see https://raw.githubusercontent.com/Microsoft/TypeScript/9bd23652ef8c4e6a614a2f27c467b1a68ce3340e/src/compiler/checker.ts
+ * @private
  */
 export function getFirstIdentifier(node: ts.EntityNameOrEntityNameExpression): ts.Identifier {
   const { kind } = node;

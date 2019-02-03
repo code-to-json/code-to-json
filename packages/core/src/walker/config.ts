@@ -1,9 +1,5 @@
 import { memoize, UnreachableError } from '@code-to-json/utils';
-import {
-  filterDict,
-  ModulePathNormalizer,
-  PASSTHROUGH_MODULE_PATH_NORMALIZER,
-} from '@code-to-json/utils-ts';
+import { filterDict, PASSTHROUGH_REVERSE_RESOLVER, ReverseResolver } from '@code-to-json/utils-ts';
 import { Dict } from '@mike-north/types';
 import * as ts from 'typescript';
 import { DEFAULT_WALKER_OPTIONS, WalkerOptions } from './options';
@@ -22,14 +18,12 @@ export function isInternalSymbol(sym: ts.Symbol): boolean {
 }
 
 export default class WalkerConfig {
+  public pathNormalizer: ReverseResolver;
   protected opts: WalkerOptions;
-
-  // tslint:disable-next-line member-ordering
-  public pathNormalizer: ModulePathNormalizer;
 
   constructor(opts: Partial<WalkerOptions>) {
     this.opts = { ...DEFAULT_WALKER_OPTIONS, ...opts };
-    this.pathNormalizer = this.opts.pathNormalizer || PASSTHROUGH_MODULE_PATH_NORMALIZER;
+    this.pathNormalizer = this.opts.pathNormalizer || PASSTHROUGH_REVERSE_RESOLVER;
   }
 
   @memoize

@@ -1,11 +1,8 @@
 import { walkProgram } from '@code-to-json/core';
 import { formatWalkerOutput } from '@code-to-json/formatter';
 import { InvalidArgumentsError } from '@code-to-json/utils';
-import { nodeHost, pathNormalizerForPackageJson } from '@code-to-json/utils-node';
-import {
-  createProgramFromTsConfig,
-  PASSTHROUGH_MODULE_PATH_NORMALIZER,
-} from '@code-to-json/utils-ts';
+import { createReverseResolverForProject, NODE_HOST } from '@code-to-json/utils-node';
+import { createProgramFromTsConfig, PASSTHROUGH_REVERSE_RESOLVER } from '@code-to-json/utils-ts';
 import * as fs from 'fs';
 import * as path from 'path';
 import * as ts from 'typescript';
@@ -35,12 +32,12 @@ export default async function generateJSON(
     project: string;
   };
   let program!: ts.Program;
-  let pathNormalizer = PASSTHROUGH_MODULE_PATH_NORMALIZER;
+  let pathNormalizer = PASSTHROUGH_REVERSE_RESOLVER;
 
   if (typeof project === 'string') {
     // run tool based on tsconfig.json
-    program = await createProgramFromTsConfig(project, nodeHost);
-    pathNormalizer = await pathNormalizerForPackageJson(project, nodeHost);
+    program = await createProgramFromTsConfig(project, NODE_HOST);
+    pathNormalizer = await createReverseResolverForProject(project, NODE_HOST);
   } else if (!project && rawEntries && rawEntries.length > 0) {
     // run tool based on entries
     program = await createProgramFromEntryGlobs(rawEntries);
@@ -51,7 +48,7 @@ export default async function generateJSON(
     throw new Error(`Invalid --format option: ${format}`);
   }
   // get the raw result
-  const walkResult = walkProgram(program, nodeHost, {
+  const walkResult = walkProgram(program, NODE_HOST, {
     pathNormalizer,
   });
 
