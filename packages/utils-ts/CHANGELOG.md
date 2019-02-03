@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-rc.14](https://github.com/mike-north/code-to-json/compare/@code-to-json/utils-ts@1.0.0-rc.13...@code-to-json/utils-ts@1.0.0-rc.14) (2019-02-03)
+
+
+### Features
+
+* prune away unused util functions ([3b6c828](https://github.com/mike-north/code-to-json/commit/3b6c828))
+
+
+
+
+
 # [1.0.0-rc.13](https://github.com/mike-north/code-to-json/compare/@code-to-json/utils-ts@1.0.0-rc.12...@code-to-json/utils-ts@1.0.0-rc.13) (2019-02-03)
 
 
