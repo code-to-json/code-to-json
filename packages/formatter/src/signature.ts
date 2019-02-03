@@ -16,8 +16,8 @@ export default function formatSignature(
       parameters &&
       parameters.map(p => {
         const sym = resolveReference(wo, p);
-        const { type } = sym;
-        const typ = type && resolveReference(wo, type);
+        const { valueDeclarationType } = sym;
+        const typ = valueDeclarationType && resolveReference(wo, valueDeclarationType);
         return {
           name: sym.name,
           type: typ && collector.queue(typ, 't'),

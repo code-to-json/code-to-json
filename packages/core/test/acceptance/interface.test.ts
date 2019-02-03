@@ -18,7 +18,7 @@ export class InterfaceSerializationTests {
     expect(variableSymbol.text).to.eql('x');
     expect(variableSymbol.flags).to.eql(['BlockScopedVariable'], 'Regarded as a variable');
 
-    const variableType = t.resolveReference(variableSymbol.type);
+    const variableType = t.resolveReference(variableSymbol.valueDeclarationType);
     expect(variableType.text).to.eql('Foo');
     expect(variableType.flags).to.deep.eq(['Object']);
     expect(variableType.objectFlags).to.deep.eq(['Interface']);
@@ -26,7 +26,7 @@ export class InterfaceSerializationTests {
     expect(typePropertyNames).to.deep.eq(['num']);
     const firstProp = t.resolveReference(variableType.properties!.num);
     expect(firstProp.name).to.eql('num');
-    const firstPropType = t.resolveReference(firstProp.type);
+    const firstPropType = t.resolveReference(firstProp.valueDeclarationType);
     expect(firstPropType.text).to.eql('number');
     t.cleanup();
   }
@@ -42,7 +42,7 @@ export class InterfaceSerializationTests {
     expect(interfaceSymbol.text).to.eql('Foo');
     expect(interfaceSymbol.flags).to.eql(['Interface'], 'Regarded as an interface');
 
-    const interfaceType = t.resolveReference(interfaceSymbol.type);
+    const interfaceType = t.resolveReference(interfaceSymbol.symbolType);
     expect(interfaceType.text).to.eql('Foo', 'has correct type');
     expect(interfaceType.text).to.eql('Foo');
     expect(interfaceType.flags).to.deep.eq(['Object']);
@@ -52,7 +52,7 @@ export class InterfaceSerializationTests {
     const [bar, baz] = Object.keys(interfaceType.properties!).map(pName =>
       t.resolveReference(interfaceType.properties![pName]),
     );
-    const [barType, bazType] = [bar, baz].map(s => t.resolveReference(s.type));
+    const [barType, bazType] = [bar, baz].map(s => t.resolveReference(s.valueDeclarationType));
     expect(bar.name).to.eql('bar');
     expect(barType.text).to.eql('number');
     expect(bar.modifiers).to.deep.eq(undefined);

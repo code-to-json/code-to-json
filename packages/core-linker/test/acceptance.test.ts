@@ -12,7 +12,9 @@ export class SimpleSnapshotSmokeTests {
     await t.run();
     const file = t.sourceFile();
 
-    expect(file.symbol!.name).to.eq('"--ROOT PATH--/src/index"');
+    expect(file.symbol!.name)
+      .to.contain('src')
+      .to.contain('index');
     expect(file.symbol!.exports!.x!.name).to.eq('x');
     t.cleanup();
   }
@@ -42,18 +44,18 @@ export class Thing {
     await t.run();
     const file = t.sourceFile();
 
-    expect(file.symbol!.name).to.eq('"--ROOT PATH--/src/index"');
-    expect(file.symbol!.exports!.Foo!.type!.text).to.eq('Foo<T>');
-    expect(file.symbol!.exports!.FooOrBar!.type!.text).to.eq('FooOrBar<T>');
-    expect(file.symbol!.exports!.x!.type!.text).to.eq('string[]');
-    expect(file.symbol!.exports!.Thing!.type!.text).to.eq('typeof Thing');
-    expect(file.symbol!.exports!.Thing!.type!.constructorSignatures![0].returnType!.text).to.eq(
-      'Thing',
-    );
+    expect(file.symbol!.name)
+      .to.contain('src')
+      .to.contain('index');
+    expect(file.symbol!.exports!.Foo!.symbolType!.text).to.eq('Foo<T>');
+    expect(file.symbol!.exports!.FooOrBar!.symbolType!.text).to.eq('FooOrBar<T>');
+    expect(file.symbol!.exports!.x!.valueDeclarationType!.text).to.eq('string[]');
+    expect(file.symbol!.exports!.Thing!.valueDeclarationType!.text).to.eq('typeof Thing');
+    expect(file.symbol!.exports!.Thing!.symbolType!.text).to.eq('Thing');
     expect(
       mapDict(
-        file.symbol!.exports!.Thing!.type!.constructorSignatures![0].returnType!.properties!,
-        p => p.type!.text,
+        file.symbol!.exports!.Thing!.symbolType!.properties!,
+        p => p.valueDeclarationType!.text,
       ),
     ).to.deep.eq({
       go: '() => Promise<string>',

@@ -17,7 +17,7 @@ export class EnumFormatterAcceptanceTests {
     expect(Object.keys(fileExports)).to.deep.eq(['Suit']);
     const enumSymbol = fileExports.Suit!;
     expect(enumSymbol.name).to.eq('Suit');
-    const enumType = t.resolveReference(enumSymbol.type);
+    const enumType = t.resolveReference(enumSymbol.valueType);
     expect(enumType.text).to.eq('typeof Suit');
     expect(!!enumSymbol.exports).to.eq(true, 'members exist');
     expect(Object.keys(enumSymbol.exports!)).to.deep.eq(['heart', 'club', 'diamond', 'spade']);
@@ -48,7 +48,7 @@ export class EnumFormatterAcceptanceTests {
     expect(Object.keys(fileExports)).to.deep.eq(['x']);
     const enumMemberSymbol = fileExports.x!;
     expect(enumMemberSymbol.name).to.eq('x');
-    const enumType = t.resolveReference(enumMemberSymbol.type);
+    const enumType = t.resolveReference(enumMemberSymbol.valueType);
     expect(enumType.text).to.eq('Suit.heart');
 
     t.cleanup();
@@ -65,7 +65,7 @@ export class EnumFormatterAcceptanceTests {
     const enumSymbol = fileExports.Suit!;
     expect(enumSymbol.name).to.eq('Suit');
     expect(enumSymbol.isConst).to.eq(true);
-    const enumType = t.resolveReference(enumSymbol.type);
+    const enumType = t.resolveReference(enumSymbol.valueType);
     expect(enumType.text).to.eq('typeof Suit');
     expect(!!enumSymbol.exports).to.eq(true, 'members exist');
     expect(Object.keys(enumSymbol.exports!)).to.deep.eq(['heart', 'club', 'diamond', 'spade']);
@@ -96,7 +96,7 @@ export class EnumFormatterAcceptanceTests {
     expect(Object.keys(fileExports)).to.deep.eq(['x']);
     const enumMemberSymbol = fileExports.x!;
     expect(enumMemberSymbol.name).to.eq('x');
-    const enumType = t.resolveReference(enumMemberSymbol.type);
+    const enumType = t.resolveReference(enumMemberSymbol.valueType);
     expect(enumType.text).to.eq('Suit.heart');
 
     t.cleanup();

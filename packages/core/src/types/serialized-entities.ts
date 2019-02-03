@@ -1,7 +1,7 @@
 import { CommentData } from '@code-to-json/comments';
 import { Flags } from '@code-to-json/utils-ts';
 import { Dict } from '@mike-north/types';
-import { SourceFileRef, SymbolRef, TypeRef } from './ref';
+import { DeclarationRef, SourceFileRef, SymbolRef, TypeRef } from './ref';
 
 // ======================================
 // =============== SYMBOL ===============
@@ -21,7 +21,11 @@ export interface SerializedSymbolAttributes extends SerializedEntity<'symbol'> {
 }
 
 export interface SerializedSymbolRelationships {
-  type?: TypeRef;
+  symbolType?: TypeRef;
+  valueDeclarationType?: TypeRef;
+  otherDeclarationTypes?: Array<{ declaration: DeclarationRef; type?: TypeRef }>;
+  declarations?: DeclarationRef[];
+  valueDeclaration?: DeclarationRef;
   location?: SerializedCodeRange;
   exports?: Dict<SymbolRef>;
   members?: Dict<SymbolRef>;
@@ -158,11 +162,7 @@ export interface SerializedSignature
 export interface SerializedNode<Type extends string = 'node'> extends SerializedEntity<Type> {
   text: string;
   kind: string;
-  decorators?: string[];
   location?: SerializedCodeRange;
-  modifiers?: string[];
-  isExposed: boolean;
-  isExported: boolean;
 }
 
 // ======================================

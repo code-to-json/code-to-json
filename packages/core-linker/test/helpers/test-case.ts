@@ -81,7 +81,9 @@ export default class SingleFileAcceptanceTestCase {
       throw new Error('No data!');
     }
     const { sourceFiles } = this.data;
-    const fileIds = Object.keys(sourceFiles);
+    const fileIds = Object.keys(sourceFiles).filter(
+      sfName => !sourceFiles[sfName]!.isDeclarationFile,
+    );
     expect(fileIds).to.have.lengthOf(1, 'One source file');
     const file = sourceFiles[fileIds[0]];
     if (!file) {

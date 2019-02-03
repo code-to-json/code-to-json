@@ -18,7 +18,7 @@ export class TypeAliasAcceptanceTests {
     const typeType = t.resolveReference(typeSymbol.type);
     expect(typeType.text).to.eq('Foo');
     expect(
-      mapDict(typeType.properties!, p => t.resolveReference(t.resolveReference(p).type).text),
+      mapDict(typeType.properties!, p => t.resolveReference(t.resolveReference(p).valueType).text),
     ).to.deep.eq({
       bar: 'string',
     });
@@ -39,7 +39,9 @@ export class TypeAliasAcceptanceTests {
     expect(x!.kind).to.eq(FormattedSymbolKind.variable);
     expect(y!.kind).to.eq(FormattedSymbolKind.variable);
 
-    const [barType, xType, yType] = [Bar, x, y].map(s => t.resolveReference(s!.type));
+    const [barType, xType, yType] = [Bar, x, y].map(s =>
+      t.resolveReference(s!.valueType || s!.type),
+    );
 
     expect(xType.text).to.eq('"foo"');
     expect(yType.text).to.eq('number[]');

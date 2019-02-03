@@ -16,7 +16,7 @@ export class FunctionAnalysisTests {
     expect(functionSymbol.text).to.eql('foo');
     expect(functionSymbol.flags).to.eql(['Function'], 'Regarded as a function');
 
-    const functionType = t.resolveReference(functionSymbol.type);
+    const functionType = t.resolveReference(functionSymbol.valueDeclarationType);
     expect(functionType.text).to.eql('() => string');
     expect(functionType.flags).to.deep.eq(['Object']);
     expect(functionType.text).to.eql('() => string', 'has correct type');
@@ -43,7 +43,7 @@ export class FunctionAnalysisTests {
     expect(functionSymbol.text).to.eql('foo');
     expect(functionSymbol.flags).to.eql(['Function'], 'Regarded as a function');
 
-    const functionType = t.resolveReference(functionSymbol.type);
+    const functionType = t.resolveReference(functionSymbol.valueDeclarationType);
     expect(functionType.text).to.eql('(...parts: string[]) => string');
     expect(functionType.flags).to.deep.eq(['Object']);
 
@@ -54,7 +54,7 @@ export class FunctionAnalysisTests {
     expect(callSig.hasRestParameter).to.eql(true);
     const [firstParamSym] = callSig.parameters!.map(p => t.resolveReference(p));
     expect(firstParamSym.name).to.eq('parts');
-    const firstParamType = t.resolveReference(firstParamSym.type);
+    const firstParamType = t.resolveReference(firstParamSym.valueDeclarationType);
     expect(firstParamType.text).to.eq('string[]');
     const returnType = t.resolveReference(callSig.returnType!);
     expect(returnType.text).to.eq('string');
@@ -73,7 +73,7 @@ export class FunctionAnalysisTests {
     expect(functionSymbol.text).to.eql('foo');
     expect(functionSymbol.flags).to.eql(['Function'], 'Regarded as a function');
 
-    const functionType = t.resolveReference(functionSymbol.type);
+    const functionType = t.resolveReference(functionSymbol.valueDeclarationType);
     expect(functionType.text).to.eql('(str: string) => string');
     expect(functionType.flags).to.deep.eq(['Object']);
 
@@ -84,7 +84,7 @@ export class FunctionAnalysisTests {
     expect(callSig.hasRestParameter).to.eql(false);
     const paramSym = t.resolveReference(callSig.parameters![0]);
     expect(paramSym.name).to.eq('str');
-    const paramType = t.resolveReference(paramSym.type);
+    const paramType = t.resolveReference(paramSym.valueDeclarationType);
     expect(paramType.text).to.eq('string');
     const returnType = t.resolveReference(callSig.returnType!);
     expect(returnType.text).to.eq('string');
@@ -109,7 +109,7 @@ export class FunctionAnalysisTests {
     expect(functionSymbol.text).to.eql('adder');
     expect(functionSymbol.flags).to.eql(['Function'], 'Regarded as a function');
 
-    const functionType = t.resolveReference(functionSymbol.type);
+    const functionType = t.resolveReference(functionSymbol.valueDeclarationType);
     expect(functionType.text).to.eql(
       '{ (a: string, b: string): string; (a: number, b: number): number; }',
     );
@@ -122,7 +122,7 @@ export class FunctionAnalysisTests {
     expect(callSig1.parameters!.length).to.eql(2);
     const [sig1Param1, sig1Param2] = callSig1.parameters!.map(p => t.resolveReference(p));
     const [sig1Param1Type, sig1Param2Type] = [sig1Param1, sig1Param2].map(s =>
-      t.resolveReference(s.type),
+      t.resolveReference(s.valueDeclarationType),
     );
     expect(sig1Param1.name).to.eq('a');
     expect(sig1Param1Type.text).to.eq('string');
@@ -135,7 +135,7 @@ export class FunctionAnalysisTests {
     expect(callSig2.parameters!.length).to.eql(2);
     const [sig2Param1, sig2Param2] = callSig2.parameters!.map(p => t.resolveReference(p));
     const [sig2Param1Type, sig2Param2Type] = [sig2Param1, sig2Param2].map(s =>
-      t.resolveReference(s.type),
+      t.resolveReference(s.valueDeclarationType),
     );
     expect(sig2Param1.name).to.eq('a');
     expect(sig2Param1Type.text).to.eq('number');

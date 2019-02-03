@@ -26,7 +26,7 @@ export class InterfaceAcceptanceTests {
 
     const interfacePropertySymbols = mapDict(interfaceType.properties!, p => t.resolveReference(p));
     const interfacePropertyTypes = mapDict(interfacePropertySymbols, ps =>
-      t.resolveReference(ps.type),
+      t.resolveReference(ps.valueType),
     );
 
     expect(Object.keys(interfacePropertySymbols)).to.deep.eq(['bar']);
@@ -62,7 +62,7 @@ export class InterfaceAcceptanceTests {
 
     const interfacePropertySymbols = mapDict(interfaceType.properties!, p => t.resolveReference(p));
     const interfacePropertyTypes = mapDict(interfacePropertySymbols, ps =>
-      t.resolveReference(ps.type),
+      t.resolveReference(ps.valueType),
     );
 
     expect(Object.keys(interfacePropertySymbols)).to.deep.eq(['bar']);
@@ -98,7 +98,7 @@ export class InterfaceAcceptanceTests {
 
     const interfacePropertySymbols = mapDict(interfaceType.properties!, p => t.resolveReference(p));
     const interfacePropertyTypes = mapDict(interfacePropertySymbols, ps =>
-      t.resolveReference(ps.type),
+      t.resolveReference(ps.valueType),
     );
 
     expect(Object.keys(interfacePropertySymbols)).to.deep.eq(['bar']);

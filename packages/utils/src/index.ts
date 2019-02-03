@@ -16,3 +16,4 @@ export {
 } from './deferred-processing/ref';
 export { timeout } from './promise';
 export { conditionallyMergeTransformed } from './object';
+export { memoize } from './decorators';

@@ -4,6 +4,8 @@ import { Dict } from '@mike-north/types';
 
 export type FormattedTypeRef = Ref<'t'>;
 export type FormattedSymbolRef = Ref<'s'>;
+export type FormattedDeclarationRef = Ref<'d'>;
+export type FormattedNodeRef = Ref<'d'>;
 export type FormattedSourceFileRef = Ref<'f'>;
 
 /**
@@ -45,6 +47,7 @@ export interface FormatterRefRegistry {
   t: FormattedTypeRef;
   s: FormattedSymbolRef;
   f: FormattedSourceFileRef;
+  d: FormattedDeclarationRef;
 }
 
 export enum FormattedSymbolKind {
@@ -72,6 +75,7 @@ export enum FormattedTypeKind {
   null = 'null',
   undefined = 'undefined',
   essymbol = 'essymbol',
+  uniqueEssymbol = 'uniqueEssymbol',
   indexedAccess = 'indexedAccess',
   index = 'index',
 
@@ -164,8 +168,9 @@ export interface FormattedSymbol<K extends FormattedSymbolKind = FormattedSymbol
   properties?: Dict<FormattedSymbolRef>;
   jsDocTags?: Array<{ name: string; text?: string }>;
   type?: FormattedTypeRef;
+  valueType?: FormattedTypeRef;
+  otherDeclarationTypes?: Array<{ declaration: FormattedDeclarationRef; type?: FormattedTypeRef }>;
   related?: FormattedSymbolRef[];
-  instanceType?: FormattedTypeRef;
 }
 
 export interface FormattedSignature {
@@ -174,6 +179,9 @@ export interface FormattedSignature {
   typeParameters?: FormattedTypeRef[];
   returnType?: FormattedTypeRef;
 }
+
+// tslint:disable-next-line:no-empty-interface
+export interface FormattedDeclaration extends FormattedEntity {}
 
 export interface FormattedSourceFile extends FormattedEntity, HasDocumentation {
   path: string;

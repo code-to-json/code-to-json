@@ -4,11 +4,11 @@ import { suite, test } from 'mocha-typescript';
 import * as ts from 'typescript';
 import {
   createProgramFromCodeString,
+  getRelevantTypesForSymbol,
   isAnonymousType,
-  isClassOrInterfaceType,
   isConditionalType,
   isDeclaration,
-  isNamedDeclaration,
+  isInterfaceType,
   isNode,
   isObjectReferenceType,
   isObjectType,
@@ -16,10 +16,10 @@ import {
   isSymbol,
   isType,
   mapDict,
-  relevantTypeForSymbol,
+  SymbolRelevantTypes,
 } from '../src/index';
 
-@suite('Guard tests')
+@suite
 export class GuardTests {
   private sf!: ts.SourceFile;
 
@@ -27,7 +27,7 @@ export class GuardTests {
 
   private sfType!: ts.Type;
 
-  private exports!: Dict<{ sym: ts.Symbol; typ: ts.Type }>;
+  private exports!: Dict<{ sym: ts.Symbol; typ: SymbolRelevantTypes }>;
 
   private checker!: ts.TypeChecker;
 
@@ -59,12 +59,15 @@ export function addToX(y: number): number { return x + y; }`;
       throw new Error('SourceFile has no symbol');
     }
     this.sfSym = sfSym;
-    this.sfType = relevantTypeForSymbol(this.checker, sfSym)!;
-
+    const sfType = getRelevantTypesForSymbol(this.checker, sfSym)!.valueDeclarationType;
+    if (!sfType) {
+      throw new Error('Source file type could not be obtained');
+    }
+    this.sfType = sfType;
     this.exports = mapDict(this.sfSym.exports!, exp => {
       return {
         sym: exp,
-        typ: relevantTypeForSymbol(this.checker, exp)!,
+        typ: getRelevantTypesForSymbol(this.checker, exp)!,
       };
     });
   }
@@ -72,31 +75,6 @@ export function addToX(y: number): number { return x + y; }`;
   @test
   public isDeclaration(): void {
     expect(isDeclaration(this.sf)).to.eql(true, 'SourceFile is a declaration');
-  }
-
-  @test
-  public isNamedDeclaration(): void {
-    expect(isNamedDeclaration(this.sf)).to.eql(false, 'SourceFile is not a named declaration');
-    const { exports } = this.sfSym;
-    if (!exports) {
-      throw new Error('SourceFile has no exports');
-    }
-
-    expect(this.exports.addToX!.sym.declarations[0].getText()).to.eql(
-      'export function addToX(y: number): number { return x + y; }',
-    );
-    expect(isNamedDeclaration(this.exports.addToX!.sym.declarations[0])).to.eql(
-      true,
-      'function is a named declaration',
-    );
-
-    expect(this.exports.Foo!.sym.declarations[0].getText()).to.eql(
-      'export class Foo { bar: string; }',
-    );
-    expect(isNamedDeclaration(this.exports.addToX!.sym.declarations[0])).to.eql(
-      true,
-      'class is a named declaration',
-    );
   }
 
   @test
@@ -124,33 +102,39 @@ export function addToX(y: number): number { return x + y; }`;
 
   @test
   public isObjectType(): void {
-    expect(isObjectType(this.exports.Foo!.typ)).to.eql(true, 'class is an object type');
-    expect(isObjectType(this.exports.x!.typ)).to.eql(false, 'number is not an object type');
+    expect(isObjectType(this.exports.Foo!.typ.valueDeclarationType!)).to.eql(
+      true,
+      'class is an object type',
+    );
+    expect(isObjectType(this.exports.x!.typ.valueDeclarationType!)).to.eql(
+      false,
+      'number is not an object type',
+    );
   }
 
   @test
   public isObjectReferenceType(): void {
-    expect(isObjectReferenceType(this.exports.myFoo!.typ as ts.ObjectType)).to.eql(
+    expect(isObjectReferenceType(this.exports.myFoo!.typ.valueDeclarationType!)).to.eql(
       true,
       'Class instance type is a reference type',
     );
-    expect(isObjectReferenceType(this.sfType as ts.ObjectType)).to.eql(
+    expect(isObjectReferenceType(this.sfType)).to.eql(
       false,
       'SourceFile type is not a reference type',
     );
   }
 
   @test
-  public isClassOrInterfaceType(): void {
-    expect(isObjectReferenceType(this.exports.myFoo!.typ as ts.ObjectType)).to.eql(
+  public isInterfaceType(): void {
+    expect(isInterfaceType(this.exports.myFoo!.typ.valueDeclarationType!)).to.eql(
       true,
       'Class instance type is a class/interface type',
     );
-    expect(isObjectReferenceType(this.exports.Foo!.typ as ts.ObjectType)).to.eql(
+    expect(isInterfaceType(this.exports.Foo!.typ.valueDeclarationType!)).to.eql(
       false,
       'Class constructor type is not a class/interface type',
     );
-    expect(isClassOrInterfaceType(this.sfType as ts.ObjectType)).to.eql(
+    expect(isInterfaceType(this.sfType)).to.eql(
       false,
       'SourceFile type is not a class/interface type',
     );
@@ -158,11 +142,11 @@ export function addToX(y: number): number { return x + y; }`;
 
   @test
   public isAnonymousType(): void {
-    expect(isAnonymousType(this.exports.helloFn!.typ as ts.ObjectType)).to.eql(
+    expect(isAnonymousType(this.exports.helloFn!.typ.valueDeclarationType!)).to.eql(
       true,
       'helloFn type is anonymous',
     );
-    expect(isAnonymousType(this.exports.myFoo!.typ as ts.ObjectType)).to.eql(
+    expect(isAnonymousType(this.exports.myFoo!.typ.valueDeclarationType!)).to.eql(
       false,
       'Class instance type is not anonymous',
     );
@@ -170,11 +154,11 @@ export function addToX(y: number): number { return x + y; }`;
 
   @test
   public isConditionalType(): void {
-    expect(isConditionalType(this.exports.CondTyp!.typ)).to.eql(
+    expect(isConditionalType(this.exports.CondTyp!.typ.symbolType!)).to.eql(
       true,
       'CondTyp type is conditional',
     );
-    expect(isConditionalType(this.exports.helloFn!.typ)).to.eql(
+    expect(isConditionalType(this.exports.helloFn!.typ.valueDeclarationType!)).to.eql(
       false,
       'helloFn type is not conditional',
     );
@@ -182,12 +166,18 @@ export function addToX(y: number): number { return x + y; }`;
 
   @test
   public isPrimitiveType(): void {
-    expect(isPrimitiveType(this.exports.x!.typ)).to.eql(true, 'number is a primitive type');
-    expect(isPrimitiveType(this.exports.str!.typ)).to.eql(true, 'string is a primitive type');
-    expect(isPrimitiveType(this.exports.boolVal!.typ)).to.eql(true, 'boolean is a primitive type');
-    expect(isPrimitiveType(this.sfType as ts.ObjectType)).to.eql(
-      false,
-      'SourceFile type is not primitive',
+    expect(isPrimitiveType(this.exports.x!.typ.valueDeclarationType!)).to.eql(
+      true,
+      'number is a primitive type',
     );
+    expect(isPrimitiveType(this.exports.str!.typ.valueDeclarationType!)).to.eql(
+      true,
+      'string is a primitive type',
+    );
+    expect(isPrimitiveType(this.exports.boolVal!.typ.valueDeclarationType!)).to.eql(
+      true,
+      'boolean is a primitive type',
+    );
+    expect(isPrimitiveType(this.sfType)).to.eql(false, 'SourceFile type is not primitive');
   }
 }

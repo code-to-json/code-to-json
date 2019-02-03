@@ -71,6 +71,7 @@ const TYPE_KIND_MAP: { [k: string]: FormattedTypeKind } = {
   StringLiteral: FormattedTypeKind.stringLiteral,
   NumberLiteral: FormattedTypeKind.numberLiteral,
   BooleanLiteral: FormattedTypeKind.booleanLiteral,
+  UniqueESSymbol: FormattedTypeKind.uniqueEssymbol,
 
   /* Logical Operators */
   Union: FormattedTypeKind.union,

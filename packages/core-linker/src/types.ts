@@ -91,7 +91,8 @@ export interface LinkedSymbol
     LinkedSymbolRelationships {}
 
 export interface LinkedSymbolRelationships {
-  type?: LinkedType;
+  symbolType?: LinkedType;
+  valueDeclarationType?: LinkedType;
   exports?: Dict<LinkedSymbol>;
   members?: Dict<LinkedSymbol>;
   decorators?: LinkedSymbol[];

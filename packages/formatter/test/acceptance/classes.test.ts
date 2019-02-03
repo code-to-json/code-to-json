@@ -20,14 +20,13 @@ export class ClassFormatterAcceptanceTests {
     expect(classSymbol.kind).to.eq('class');
     expect(classSymbol.sourceFile!.length).to.eq(2);
 
-    const classType = t.resolveReference(classSymbol.type);
+    const classType = t.resolveReference(classSymbol.valueType);
     expect(classType.text).to.eq('typeof Foo');
 
     expect(classType.kind).to.eq('object');
     expect(classType.objectKind).to.eq('anonymous');
     expect(classType.constructorSignatures!.length).to.eq(1);
-    expect(!!classSymbol.instanceType).to.eql(true);
-    const instanceType = t.resolveReference(classSymbol.instanceType);
+    const instanceType = t.resolveReference(classSymbol.type);
     expect(instanceType.text).to.eql('Foo');
     t.cleanup();
   }
@@ -46,15 +45,13 @@ export class ClassFormatterAcceptanceTests {
     expect(classSymbol.kind).to.eq('class');
     expect(classSymbol.sourceFile!.length).to.eq(2);
 
-    const classType = t.resolveReference(classSymbol.type);
+    const classType = t.resolveReference(classSymbol.valueType);
     expect(classType.text).to.eq('typeof Foo');
 
     expect(classType.kind).to.eq('object');
     expect(classType.objectKind).to.eq('anonymous');
     expect(classType.constructorSignatures!.length).to.eq(1);
-    expect(!!classSymbol.instanceType).to.eql(true);
-    const instanceType = t.resolveReference(classSymbol.instanceType);
-    expect(instanceType.text).to.eql('Foo');
+    expect(t.resolveReference(classSymbol.type).text).to.eql('Foo');
     t.cleanup();
   }
 
@@ -75,15 +72,14 @@ export class ClassFormatterAcceptanceTests {
     expect(classSymbol.kind).to.eq('class');
     expect(classSymbol.sourceFile!.length).to.eq(2);
 
-    const classType = t.resolveReference(classSymbol.type);
+    const classType = t.resolveReference(classSymbol.valueType);
     expect(classType.text).to.eq('typeof Foo');
     expect(classType.properties).to.eq(undefined);
 
     expect(classType.kind).to.eq('object');
     expect(classType.objectKind).to.eq('anonymous');
     expect(classType.constructorSignatures!.length).to.eq(1);
-    expect(!!classSymbol.instanceType).to.eql(true);
-    const instanceType = t.resolveReference(classSymbol.instanceType);
+    const instanceType = t.resolveReference(classSymbol.type);
     expect(instanceType.text).to.eql('Foo');
     const instanceMembers = mapDict(instanceType.properties!, p => t.resolveReference(p));
     expect(Object.keys(instanceMembers)).to.deep.eq(['bar', 'baz']);
@@ -107,8 +103,7 @@ export class ClassFormatterAcceptanceTests {
     const fileSymbol = t.resolveReference(file.symbol!);
     const fileExports = mapDict(fileSymbol.exports!, e => t.resolveReference(e));
     const classSymbol = fileExports.Foo!;
-
-    const instanceType = t.resolveReference(classSymbol.instanceType);
+    const instanceType = t.resolveReference(classSymbol.type);
     const instanceMembers = mapDict(instanceType.properties!, p => t.resolveReference(p));
     expect(Object.keys(instanceMembers)).to.deep.eq(['biz', 'bar', 'baz']);
     const { biz, bar, baz } = instanceMembers;
@@ -135,8 +130,7 @@ export class ClassFormatterAcceptanceTests {
     const fileSymbol = t.resolveReference(file.symbol!);
     const fileExports = mapDict(fileSymbol.exports!, e => t.resolveReference(e));
     const classSymbol = fileExports.Foo!;
-
-    const instanceType = t.resolveReference(classSymbol.instanceType);
+    const instanceType = t.resolveReference(classSymbol.type);
     const instanceMembers = mapDict(instanceType.properties!, p => t.resolveReference(p));
     expect(Object.keys(instanceMembers)).to.deep.eq(['biz', 'baa', 'bee', 'bar', 'baz']);
     const { biz, bar, baz, bee, baa } = instanceMembers;
@@ -161,10 +155,10 @@ export class ClassFormatterAcceptanceTests {
     const fileSymbol = t.resolveReference(file.symbol!);
     const fileExports = mapDict(fileSymbol.exports!, e => t.resolveReference(e));
     const classSymbol = fileExports.Foo!;
-    const classType = t.resolveReference(classSymbol.type);
+    const classType = t.resolveReference(classSymbol.valueType);
     const staticMembers = mapDict(classType.properties!, p => t.resolveReference(p));
     expect(Object.keys(staticMembers)).to.deep.eq(['baz', 'biz', 'bar', 'bee']);
-    const instanceType = t.resolveReference(classSymbol.instanceType);
+    const instanceType = t.resolveReference(classSymbol.type);
     expect(instanceType.properties).to.eq(undefined);
 
     t.cleanup();
@@ -181,9 +175,10 @@ export class ClassFormatterAcceptanceTests {
     const fileExports = mapDict(fileSymbol.exports!, e => t.resolveReference(e));
     const classSymbol = fileExports.Foo!;
     expect(classSymbol.isAbstract).to.eq(true);
-    const classType = t.resolveReference(classSymbol.type);
+    const classType = t.resolveReference(classSymbol.valueType);
     expect(classType.properties).to.eq(undefined);
-    const instanceType = t.resolveReference(classSymbol.instanceType);
+    const instanceType = t.resolveReference(classSymbol.type);
+
     const instanceMembers = mapDict(instanceType.properties!, p => t.resolveReference(p));
     expect(Object.keys(instanceMembers)).to.deep.eq(['abstractBar']);
     const { abstractBar } = instanceMembers;
@@ -219,7 +214,7 @@ export class ClassFormatterAcceptanceTests {
     expect(firstDecorator.kind).to.eq('function');
     expect(firstDecorator.text).to.eq('baz');
 
-    const firstDecoratorType = t.resolveReference(firstDecorator.type);
+    const firstDecoratorType = t.resolveReference(firstDecorator.valueType);
     expect(firstDecoratorType.text).to.eq('<O>(target: new () => O) => void');
     expect(firstDecoratorType.kind).to.eq('object');
     expect(firstDecoratorType.objectKind).to.eq('anonymous');
@@ -261,7 +256,7 @@ export class ClassFormatterAcceptanceTests {
     expect(firstDecorator.kind).to.eq('function');
     expect(firstDecorator.text).to.eq('baz');
 
-    const firstDecoratorType = t.resolveReference(firstDecorator.type);
+    const firstDecoratorType = t.resolveReference(firstDecorator.valueType);
     expect(firstDecoratorType.text).to.eq('<O>(target: new () => O) => void');
     expect(firstDecoratorType.kind).to.eq('object');
     expect(firstDecoratorType.objectKind).to.eq('anonymous');
@@ -270,7 +265,7 @@ export class ClassFormatterAcceptanceTests {
     expect(secondDecorator.kind).to.eq('function');
     expect(secondDecorator.text).to.eq('bar');
 
-    const secondDecoratorType = t.resolveReference(secondDecorator.type);
+    const secondDecoratorType = t.resolveReference(secondDecorator.valueType);
     expect(secondDecoratorType.text).to.eq('<O>(target: new () => O) => void');
     expect(secondDecoratorType.kind).to.eq('object');
     expect(secondDecoratorType.objectKind).to.eq('anonymous');
@@ -294,9 +289,10 @@ export class ClassFormatterAcceptanceTests {
     const fileExports = mapDict(fileSymbol.exports!, e => t.resolveReference(e));
     const classSymbol = fileExports.Baz!;
     expect(!!classSymbol.isAbstract).to.eq(false);
-    const classType = t.resolveReference(classSymbol.type);
-    const instanceType = t.resolveReference(classSymbol.instanceType);
+    const classType = t.resolveReference(classSymbol.valueType);
     expect(!!classType).to.eq(true);
+
+    const instanceType = t.resolveReference(classSymbol.type);
     expect(!!instanceType.baseTypes).to.eq(true);
     expect(instanceType.baseTypes!.length).to.eq(1);
     const [baseType] = instanceType.baseTypes!.map(bt => t.resolveReference(bt));

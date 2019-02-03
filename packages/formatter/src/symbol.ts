@@ -138,6 +138,39 @@ function formatSymbolDocumentation(
   return out;
 }
 
+function formatSymbolTypes(
+  wo: WalkerOutputData,
+  symbol: Readonly<SerializedSymbol>,
+  collector: DataCollector,
+): Pick<FormattedSymbol, 'type' | 'valueType' | 'otherDeclarationTypes'> {
+  const {
+    symbolType: symbolTypeRef,
+    valueDeclarationType: valueDeclarationTypeRef,
+    otherDeclarationTypes: otherDeclarationTypeRefs,
+  } = symbol;
+  const out: Pick<FormattedSymbol, 'type' | 'valueType' | 'otherDeclarationTypes'> = {};
+
+  let symbolType: SerializedType | undefined;
+  if (symbolTypeRef) {
+    symbolType = resolveReference(wo, symbolTypeRef);
+    out.type = collector.queue(symbolType, 't');
+  }
+  let valueDeclarationType: SerializedType | undefined;
+  if (valueDeclarationTypeRef) {
+    valueDeclarationType = resolveReference(wo, valueDeclarationTypeRef);
+    out.valueType = collector.queue(valueDeclarationType, 't');
+  }
+  if (otherDeclarationTypeRefs) {
+    out.otherDeclarationTypes = otherDeclarationTypeRefs
+      .map(dtr => ({
+        declaration: collector.queue(resolveReference(wo, dtr.declaration), 'd')!,
+        type: dtr.type ? collector.queue(resolveReference(wo, dtr.type), 't') : undefined,
+      }))
+      .filter(isDefined);
+  }
+  return out;
+}
+
 export default function formatSymbol(
   wo: WalkerOutputData,
   symbol: Readonly<SerializedSymbol>,
@@ -148,7 +181,7 @@ export default function formatSymbol(
     name,
     flags: _rawFlags,
     exports,
-    type: typeRef,
+
     modifiers,
     decorators,
     // heritageClauses,
@@ -174,6 +207,7 @@ export default function formatSymbol(
     formatSymbolModifiers(modifiers),
     formatSymbolDecorators(wo, collector, decorators),
     formatSymbolDocumentation(symbol),
+    formatSymbolTypes(wo, symbol, collector),
   );
   if (relatedSymbols) {
     info.related = relatedSymbols
@@ -195,11 +229,7 @@ export default function formatSymbol(
   if (sourceFile) {
     info.sourceFile = collector.queue(resolveReference(wo, sourceFile), 'f');
   }
-  let type: SerializedType | undefined;
-  if (typeRef) {
-    type = resolveReference(wo, typeRef);
-    info.type = collector.queue(type, 't');
-  }
+
   conditionallyMergeTransformed(info, documentation, 'documentation', d => d);
   // conditionallyMergeTransformed(info, heritageClauses, 'heritageClauses', hc =>
   //   hc.map(h => h.clauseType),
@@ -228,15 +258,6 @@ export default function formatSymbol(
     mem => formatSymbolRefMap(mem, wo, collector),
     mem => !!(mem && Object.keys(mem).length > 0),
   );
-  if (
-    info.kind === FormattedSymbolKind.class &&
-    type &&
-    type.constructorSignatures &&
-    type.constructorSignatures.length > 0
-  ) {
-    const instanceType = resolveReference(wo, type.constructorSignatures[0].returnType!);
-    info.instanceType = collector.queue(instanceType, 't');
-  }
 
   return info;
 }
