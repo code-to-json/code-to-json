@@ -1,6 +1,6 @@
 {
   "name": "@code-to-json/core-linker",
-  "version": "1.0.0-rc.6",
+  "version": "1.0.0-rc.7",
   "description": "Data linker for @code-to-json/core",
   "main": "lib/src/index.js",
   "typings": "lib/src/index.d.ts",
@@ -24,7 +24,7 @@
   "homepage": "https://github.com/mike-north/code-to-json/tree/master/packages/core-linker",
   "keywords": [],
   "dependencies": {
-    "@code-to-json/core": "^1.0.0-rc.15",
+    "@code-to-json/core": "^1.0.0-rc.16",
     "@mike-north/types": "^1.0.7",
     "debug": "^4.0.0",
     "typescript": "^3.2.4"

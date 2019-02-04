@@ -1,6 +1,6 @@
 {
   "name": "@code-to-json/formatter",
-  "version": "1.0.0-rc.17",
+  "version": "1.0.0-rc.18",
   "description": "Data formatter for code-to-json",
   "main": "lib/src/index.js",
   "typings": "lib/src/index.d.ts",
@@ -52,7 +52,7 @@
     "typescript-eslint-parser": "21.0.2"
   },
   "dependencies": {
-    "@code-to-json/core": "^1.0.0-rc.15",
+    "@code-to-json/core": "^1.0.0-rc.16",
     "@code-to-json/utils": "^1.0.0-rc.12",
     "@mike-north/types": "^1.0.7"
   },
