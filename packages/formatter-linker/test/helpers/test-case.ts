@@ -28,7 +28,7 @@ export default class SingleFileAcceptanceTestCase {
     this.codeString = codeString;
   }
 
-  public async run() {
+  public async run(): Promise<void> {
     const { program, cleanup, rootPath } = await setupTestCase(
       {
         // tslint:disable-next-line:no-duplicate-string
@@ -80,7 +80,7 @@ export default class SingleFileAcceptanceTestCase {
     return file;
   }
 
-  public cleanup() {
+  public cleanup(): void {
     if (this.cleanupFn) {
       this.cleanupFn();
     }

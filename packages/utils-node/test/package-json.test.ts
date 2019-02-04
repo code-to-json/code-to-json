@@ -6,7 +6,7 @@ import { findPkgJson } from '../src/package-json';
 @suite
 export class PackageJsonUtilitiesTests {
   @test
-  public async 'findPkgJson for a package within this monorepo'() {
+  public async 'findPkgJson for a package within this monorepo'(): Promise<void> {
     const pkg = await findPkgJson(__dirname);
     if (!pkg) {
       throw new Error('could not find package.json info');
@@ -16,7 +16,7 @@ export class PackageJsonUtilitiesTests {
   }
 
   @test
-  public async 'findPkgJson the main monorepo'() {
+  public async 'findPkgJson the main monorepo'(): Promise<void> {
     const pkg = await findPkgJson(join(__dirname, '..', '..'));
     if (!pkg) {
       throw new Error('could not find package.json info');
@@ -26,13 +26,13 @@ export class PackageJsonUtilitiesTests {
   }
 
   @test
-  public async 'findPkgJson outside this project'() {
+  public async 'findPkgJson outside this project'(): Promise<void> {
     const pkg = await findPkgJson(join(__dirname, '..', '..', '..', '..'));
     expect(pkg).to.eq(undefined);
   }
 
   @test
-  public async 'attempting to pass invalid arguments'() {
+  public async 'attempting to pass invalid arguments'(): Promise<void> {
     try {
       await findPkgJson(null as any);
       expect(false).to.eq(true); // should never reach this

@@ -6,7 +6,7 @@ import SingleFileAcceptanceTestCase from './helpers/test-case';
 @suite
 @slow(800)
 export class TypeAliasAcceptanceTests {
-  @test public async 'simple type alias'() {
+  @test public async 'simple type alias'(): Promise<void> {
     const code = 'export type Foo = { bar: string }';
     const t = new SingleFileAcceptanceTestCase(code);
     await t.run();
@@ -23,7 +23,7 @@ export class TypeAliasAcceptanceTests {
     });
   }
 
-  @test public async 'conditional type'() {
+  @test public async 'conditional type'(): Promise<void> {
     const code = `export type Bar<T> = T extends string ? T : number[];
     export const x: Bar<'foo'> = 'foo';
     export const y: Bar<Promise<string>> = [1, 2, 3];`;

@@ -26,14 +26,12 @@ export class ArraySerializationTests {
 
   @test
   public async 'export let x: [string, number, number]'(): Promise<void> {
-    const code = 'export let x: [string, number, number]';
-    const t = new SingleFileAcceptanceTestCase(code);
+    const src = 'export let x: [string, number, number]';
+    const t = new SingleFileAcceptanceTestCase(src);
     await t.run();
     const file = t.sourceFile();
     const fileSymbol = t.resolveReference(file.symbol);
     const variableSymbol = t.resolveReference(fileSymbol.exports!.x);
-    expect(variableSymbol.text).to.eql('x');
-    expect(variableSymbol.flags).to.eql(['BlockScopedVariable'], 'Regarded as a variable');
 
     const variableType = t.resolveReference(variableSymbol.valueDeclarationType);
     expect(variableType.text).to.eql('[string, number, number]');

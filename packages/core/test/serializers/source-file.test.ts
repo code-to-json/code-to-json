@@ -67,7 +67,7 @@ console.log(x);`,
     });
 
     const { symbols } = collector.queue.process({
-      mapSymbol(_ref: SymbolRef, sym: ts.Symbol) {
+      mapSymbol(_ref: SymbolRef, sym: ts.Symbol): ts.Symbol {
         return sym;
       },
     });

@@ -6,7 +6,7 @@ import SingleFileAcceptanceTestCase from './helpers/test-case';
 @suite
 @slow(800)
 export class FunctionAcceptanceTests {
-  @test public async 'simple function declaration'() {
+  @test public async 'simple function declaration'(): Promise<void> {
     const code = `export function add(a: number, b: number) { return a + b; }`;
     const t = new SingleFileAcceptanceTestCase(code);
     await t.run();
@@ -27,7 +27,7 @@ export class FunctionAcceptanceTests {
     expect(btype.text).to.eq('number');
   }
 
-  @test public async 'simple async function declaration'() {
+  @test public async 'simple async function declaration'(): Promise<void> {
     const code = `export async function add(a: number, b: number) { return a + b; }`;
     const t = new SingleFileAcceptanceTestCase(code);
     await t.run();
@@ -48,7 +48,7 @@ export class FunctionAcceptanceTests {
     expect(btype.text).to.eq('number');
   }
 
-  @test public async 'overloaded function declaration'() {
+  @test public async 'overloaded function declaration'(): Promise<void> {
     const code = `
     export function add(a: number, b: number): number;
     export function add(a: string, b: string): string;
@@ -84,7 +84,7 @@ export class FunctionAcceptanceTests {
     expect(dtype.text).to.eq('string');
   }
 
-  @test public async 'function w/ rest param'() {
+  @test public async 'function w/ rest param'(): Promise<void> {
     const code = `export function x(...args: string[]) { return args.join(', '); }`;
     const t = new SingleFileAcceptanceTestCase(code);
     await t.run();

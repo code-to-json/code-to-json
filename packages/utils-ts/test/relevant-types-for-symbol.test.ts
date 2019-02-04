@@ -9,7 +9,7 @@ import { getRelevantTypesForSymbol } from '../src/symbol';
 
 @suite
 export class RelevantTypesForSymbolTests {
-  public static before() {
+  public static before(): void {
     const code = `
 // Symbol Value checker get type of symbol value declaration
 const TextType = "Text";

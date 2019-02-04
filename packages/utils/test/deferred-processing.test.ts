@@ -6,7 +6,7 @@ import { createQueue, Queue } from '../src/index';
 export class DeferredProcessingTests {
   public q!: Queue<'foo', { idd: string }, any>;
 
-  public before() {
+  public before(): void {
     this.q = createQueue<{ foo: any }, 'foo', { idd: string }>(
       'foo',
       (val: { idd: string }) => `~~${val.idd}~~`,
@@ -43,15 +43,15 @@ export class DeferredProcessingTests {
   @test
   public '.drainUntilEmpty completely drains everything'(): void {
     this.q.queue({ idd: '23456' });
-    let iterationCount = 0;
-    this.q.drainUntilEmpty((ref, item) => {
-      expect(ref).to.deep.eq(['foo', '~~23456~~']);
+    let icount = 0;
+    this.q.drainUntilEmpty((reff, item) => {
+      expect(reff).to.deep.eq(['foo', '~~23456~~']);
       expect(item).to.deep.eq({
         idd: '23456',
       });
-      iterationCount++;
+      icount++;
     });
-    expect(iterationCount).to.eq(1);
+    expect(icount).to.eq(1);
   }
 
   @test
@@ -60,8 +60,8 @@ export class DeferredProcessingTests {
     this.q.queue(obj);
     this.q.queue(obj);
     let iterationCount = 0;
-    this.q.drain((ref, item) => {
-      expect(ref).to.deep.eq(['foo', '~~34567~~']);
+    this.q.drain((r, item) => {
+      expect(r).to.deep.eq(['foo', '~~34567~~']);
       expect(item).to.deep.eq({
         idd: '34567',
       });

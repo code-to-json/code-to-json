@@ -1,10 +1,11 @@
 module.exports = {
-  parser: 'typescript-eslint-parser',
-  plugins: ['typescript'],
+  parser: '@typescript-eslint/parser',
+  plugins: ['@typescript-eslint', '@typescript-eslint/tslint'],
   extends: ['eslint:recommended', 'airbnb-base', 'prettier'],
   parserOptions: {
     ecmaVersion: 9,
     sourceType: 'module',
+    project: 'tsconfig.json',
   },
   env: {
     es6: true,
@@ -13,6 +14,12 @@ module.exports = {
     node: false,
   },
   rules: {
+    '@typescript-eslint/tslint/config': [
+      'error',
+      {
+        lintFile: './tslint.json', // path to tslint.json of your project
+      },
+    ],
     camelcase: 'off',
     'no-unused-vars': 'off',
     'import/no-unresolved': 'off',
@@ -29,16 +36,19 @@ module.exports = {
     'no-console': 'off',
     'lines-between-class-members': 'off',
     'no-dupe-class-members': 'off',
+    'max-classes-per-file': ['error', 1],
     complexity: 'off',
   },
   overrides: [
     {
       files: ['**/test/**/*.ts'],
+
       env: {
         node: true,
       },
       rules: {
         'class-methods-use-this': 'off',
+        'max-classes-per-file': 'off',
       },
     },
     {

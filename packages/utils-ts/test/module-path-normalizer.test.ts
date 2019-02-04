@@ -6,7 +6,7 @@ import { nodeHost } from './helpers';
 @suite
 export class ModulePathNormalizerTests {
   @test
-  public async 'no project folder or main'() {
+  public async 'no project folder or main'(): Promise<void> {
     const mn = createReverseResolver(nodeHost);
     expect(mn.filePathToModuleInfo('foo/bar/baz.ts')).to.deep.eq({
       originalFileName: 'foo/bar/baz.ts',
@@ -45,7 +45,7 @@ export class ModulePathNormalizerTests {
   }
 
   @test
-  public async 'yes project folder, no main'() {
+  public async 'yes project folder, no main'(): Promise<void> {
     const mn = createReverseResolver(nodeHost, { path: 'foo/bar', name: 'biz' });
     expect(mn.filePathToModuleInfo('foo/bar/baz.ts')).to.deep.eq({
       originalFileName: 'foo/bar/baz.ts',
@@ -56,7 +56,7 @@ export class ModulePathNormalizerTests {
   }
 
   @test
-  public async 'yes project folder, yes main'() {
+  public async 'yes project folder, yes main'(): Promise<void> {
     const mn = createReverseResolver(nodeHost, {
       path: 'foo/bar',
       name: 'biz',
@@ -80,7 +80,7 @@ export class ModulePathNormalizerTests {
 
   @test
   // tslint:disable-next-line:no-identical-functions
-  public async 'scoped packages'() {
+  public async 'scoped packages'(): Promise<void> {
     const mn = createReverseResolver(nodeHost, {
       path: 'foo/bar',
       name: '@code-to-json/cli',

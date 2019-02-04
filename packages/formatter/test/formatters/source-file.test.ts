@@ -9,7 +9,7 @@ import formatSourceFile from '../../src/source-file';
 @suite
 export class SourceFileFormatterTests {
   @test
-  public async 'file without exports'() {
+  public async 'file without exports'(): Promise<void> {
     const wo: WalkerOutputData = {
       symbols: {},
       types: {},
@@ -50,7 +50,7 @@ export class SourceFileFormatterTests {
   }
 
   @test
-  public async 'file with exports'() {
+  public async 'file with exports'(): Promise<void> {
     const wo: WalkerOutputData = {
       symbols: {
         '12345': {

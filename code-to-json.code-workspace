@@ -2,8 +2,6 @@
   "settings": {
     "typescript.tsdk": "node_modules/typescript/lib",
     "prettier.eslintIntegration": true,
-    "eslint.validate": ["javascript", "typescript"],
-
     "files.exclude": {
       "**/.git": true,
       "**/.svn": true,
@@ -25,10 +23,11 @@
       "**/node_modules/**": true,
       "**/packages/*/lib/**": true
     },
-    "tslint.autoFixOnSave": true,
-    "prettier.tslintIntegration": true,
-    "tslint.exclude": ["**/node_modules/**/*"],
-    "eslint.enable": true
+    "eslint.enable": true,
+    "eslint.autoFixOnSave": true,
+    "eslint.validate": ["javascript", "typescript"],
+    "eslint.packageManager": "yarn",
+    "eslint.run": "onSave"
   },
   "folders": [
     {
@@ -56,7 +55,6 @@
       "ryanluker.vscode-coverage-gutters",
       "dbaeumer.vscode-eslint",
       "timonwong.shellcheck",
-      "eg2.tslint",
       "esbenp.prettier-vscode",
       "plievone.vscode-template-literal-editor"
     ]
