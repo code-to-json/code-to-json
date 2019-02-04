@@ -9,6 +9,7 @@
     { "path": "core" },
     { "path": "core-linker" },
     { "path": "formatter" },
+    { "path": "formatter-linker" },
     { "path": "schema" },
     { "path": "cli" }
   ]
