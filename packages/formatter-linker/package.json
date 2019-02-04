@@ -20,7 +20,7 @@
     "prepublishOnly": "tsc -b ."
   },
   "repository": "https://github.com/mike-north/code-to-json/",
-  "homepage": "https://github.com/mike-north/code-to-json/tree/master/packages/core-linker",
+  "homepage": "https://github.com/mike-north/code-to-json/tree/master/packages/formatter-linker",
   "keywords": [],
   "dependencies": {
     "@code-to-json/formatter": "^1.0.0-rc.20",
