@@ -17,30 +17,27 @@ export default function serializeSignature(
 ): SerializedSignature {
   const { queue: q } = c;
   const { hasRestParameter }: { hasRestParameter: boolean } = signature as any;
+  const { parameters, typeParameters, declaration } = signature;
+  const typePredicate: ts.TypePredicate = (checker as any).getTypePredicateOfSignature(signature);
+
   const out: SerializedSignature = {
     returnType: q.queue(signature.getReturnType(), 'type'),
     hasRestParameter,
+    modifiers:
+      !declaration || !declaration.modifiers
+        ? undefined
+        : declaration.modifiers.map(m => m.getText()),
+    typeParameters:
+      !typeParameters || typeParameters.length === 0
+        ? undefined
+        : typeParameters.map(tp => q.queue(tp, 'type')).filter(isDefined),
+    parameters:
+      !parameters || parameters.length === 0
+        ? undefined
+        : parameters.map(p => q.queue(p, 'symbol')).filter(isDefined),
+    text: checker.signatureToString(signature),
+    typePredicate: !typePredicate ? undefined : q.queue(typePredicate.type, 'type'),
   };
-  const { parameters, typeParameters, declaration } = signature;
-
-  if (declaration && declaration.modifiers) {
-    out.modifiers = declaration.modifiers.map(m => m.getText());
-  }
-  const typePredicate: ts.TypePredicate = (checker as any).getTypePredicateOfSignature(signature);
-  if (typePredicate) {
-    q.queue(typePredicate.type, 'type');
-  }
-
-  if (typeParameters && typeParameters.length > 0) {
-    out.typeParameters = typeParameters.map(tp => q.queue(tp, 'type')).filter(isDefined);
-  }
-  if (parameters && parameters.length > 0) {
-    out.parameters = parameters.map(p => q.queue(p, 'symbol')).filter(isDefined);
-  }
-  out.text = checker.signatureToString(signature);
-  // tslint:disable-next-line:no-commented-code
-  // visitType(getRestTypeOfSignature(signature));
-  // TODO: ...rest type signature??
 
   return out;
 }

@@ -285,24 +285,42 @@ export default function serializeType(
     id: refId(ref),
     flags: flagsToString(type.flags, 'type') || [],
     symbol: c.queue.queue(symbol, 'symbol'),
+    relatedTypes: !relatedEntities
+      ? undefined
+      : relatedEntities.map(t => c.queue.queue(t, 'type')).filter(isDefined),
+    isPrimitive: isPrimitiveType(type),
+    isThisType,
+    conditionalInfo: undefined,
+    numberIndexType: undefined,
+    stringIndexType: undefined,
+    default: undefined,
+    location: undefined,
+    types: undefined,
+    baseTypes: undefined,
+    target: undefined,
+    sourceFile: undefined,
+    libName: undefined,
+    moduleName: undefined,
+    objectFlags: undefined,
+    typeParameters: undefined,
+    constraint: undefined,
+    templateType: undefined,
+    thisType: undefined,
+    modifiersType: undefined,
+    aliasSymbol: undefined,
+    defaultType: undefined,
+    simplified: undefined,
+    indexType: undefined,
+    objectType: undefined,
+    properties: undefined,
+    constructorSignatures: undefined,
+    callSignatures: undefined,
+    ...serializeBasicUnionOrIntersectionTypeInfo(type, checker, c),
+    ...serializeBasicConditionalTypeInfo(type, checker, c),
+    ...serializeBasicIndexTypeInfo(type, checker, c),
+    ...serializeBasicIndexAccessTypeInfo(type, checker, c),
+    ...serializeBasicRelatedTypes(type, checker, c),
   };
-  if (relatedEntities) {
-    serialized.relatedTypes = relatedEntities.map(t => c.queue.queue(t, 'type')).filter(isDefined);
-  }
-  if (isPrimitiveType(type)) {
-    serialized.isPrimitive = true;
-  }
-  if (isThisType) {
-    serialized.isThisType = true;
-  }
-  Object.assign(
-    serialized,
-    serializeBasicUnionOrIntersectionTypeInfo(type, checker, c),
-    serializeBasicConditionalTypeInfo(type, checker, c),
-    serializeBasicIndexTypeInfo(type, checker, c),
-    serializeBasicIndexAccessTypeInfo(type, checker, c),
-    serializeBasicRelatedTypes(type, checker, c),
-  );
 
   if (symbol) {
     const decl = symbol.valueDeclaration;
@@ -319,11 +337,9 @@ export default function serializeType(
     return serialized;
   }
 
-  Object.assign(
-    serialized,
-    serializeTypeParameterType(type, checker, c),
-    serializeExtendedRelatedTypes(type, checker, c),
-  );
-
-  return serialized;
+  return {
+    ...serialized,
+    ...serializeTypeParameterType(type, checker, c),
+    ...serializeExtendedRelatedTypes(type, checker, c),
+  };
 }
