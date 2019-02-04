@@ -968,14 +968,14 @@
     "@types/unist" "*"
     "@types/vfile-message" "*"
 
-"@typescript-eslint/eslint-plugin-tslint@^1.2.0":
+"@typescript-eslint/eslint-plugin-tslint@1.2.0":
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/@typescript-eslint/eslint-plugin-tslint/-/eslint-plugin-tslint-1.2.0.tgz#9797c52559e46ee7a9b56b6e4cfb7f0214757fd2"
   integrity sha512-bu1V5uNXKrUfvLqP5taMrjThvKn8zbi6vHjE3cIQh2rU2zNUzFKtn2GpS+qPcRGHJIRjMXhh1sEsdx/f1oQKCQ==
   dependencies:
     lodash.memoize "^4.1.2"
 
-"@typescript-eslint/eslint-plugin@^1.2.0":
+"@typescript-eslint/eslint-plugin@1.2.0":
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/@typescript-eslint/eslint-plugin/-/eslint-plugin-1.2.0.tgz#a73021a0d5bd1116a88689186844ce4421d52ab0"
   integrity sha512-em3q8Gg3euesNohOwaz+SqrQM2Jn1ZWELMM+vgKi4dEk5fC+eVoi05yfubgAi2qPE5ifG4F0SOXM1XTamB0Aig==
@@ -984,7 +984,7 @@
     requireindex "^1.2.0"
     tsutils "^3.7.0"
 
-"@typescript-eslint/parser@1.2.0", "@typescript-eslint/parser@^1.2.0":
+"@typescript-eslint/parser@1.2.0":
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/@typescript-eslint/parser/-/parser-1.2.0.tgz#256de163b7cb0d79d0388266a5bfb5585bccb1ff"
   integrity sha512-IXXiXgs6ocKTmtbzJjGyUvRHZFLuk2mYXyk+ayEql1woh1+rYS/Uct8b4jGtfHG8ZRUBZ12zjzsrDKFYC2pbrQ==
@@ -2443,7 +2443,7 @@ escape-string-regexp@1.0.5, escape-string-regexp@^1.0.2, escape-string-regexp@^1
   resolved "https://registry.yarnpkg.com/escape-string-regexp/-/escape-string-regexp-1.0.5.tgz#1b61c0562190a8dff6ae3bb2cf0200ca130b86d4"
   integrity sha1-G2HAViGQqN/2rjuyzwIAyhMLhtQ=
 
-eslint-config-airbnb-base@13.1.0, eslint-config-airbnb-base@^13.1.0:
+eslint-config-airbnb-base@13.1.0:
   version "13.1.0"
   resolved "https://registry.yarnpkg.com/eslint-config-airbnb-base/-/eslint-config-airbnb-base-13.1.0.tgz#b5a1b480b80dfad16433d6c4ad84e6605052c05c"
   integrity sha512-XWwQtf3U3zIoKO1BbHh6aUhJZQweOwSt4c2JrPDg9FP3Ltv3+YfEv7jIDB8275tVnO/qOHbfuYg3kzw6Je7uWw==
@@ -2452,7 +2452,7 @@ eslint-config-airbnb-base@13.1.0, eslint-config-airbnb-base@^13.1.0:
     object.assign "^4.1.0"
     object.entries "^1.0.4"
 
-eslint-config-prettier@4.0.0, eslint-config-prettier@^4.0.0:
+eslint-config-prettier@4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/eslint-config-prettier/-/eslint-config-prettier-4.0.0.tgz#16cedeea0a56e74de60dcbbe3be0ab2c645405b9"
   integrity sha512-kWuiJxzV5NwOwZcpyozTzDT5KJhBw292bbYro9Is7BWnbNMg15Gmpluc1CTetiCatF8DRkNvgPAOaSyg+bYr3g==
@@ -2483,7 +2483,7 @@ eslint-plugin-es@^1.3.1:
     eslint-utils "^1.3.0"
     regexpp "^2.0.1"
 
-eslint-plugin-import@2.16.0, eslint-plugin-import@^2.16.0:
+eslint-plugin-import@2.16.0:
   version "2.16.0"
   resolved "https://registry.yarnpkg.com/eslint-plugin-import/-/eslint-plugin-import-2.16.0.tgz#97ac3e75d0791c4fac0e15ef388510217be7f66f"
   integrity sha512-z6oqWlf1x5GkHIFgrSvtmudnqM6Q60KM4KvpWi5ubonMjycLjndvd5+8VAZIsTlHC03djdgJuyKG6XO577px6A==
@@ -2511,7 +2511,7 @@ eslint-plugin-node@8.0.1:
     resolve "^1.8.1"
     semver "^5.5.0"
 
-eslint-plugin-prettier@3.0.1, eslint-plugin-prettier@^3.0.1:
+eslint-plugin-prettier@3.0.1:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/eslint-plugin-prettier/-/eslint-plugin-prettier-3.0.1.tgz#19d521e3981f69dd6d14f64aec8c6a6ac6eb0b0d"
   integrity sha512-/PMttrarPAY78PLvV3xfWibMOdMDl57hmlQ2XqFeA37wd+CJ7WSxV7txqjVPHi/AAFKd2lX0ZqfsOc/i5yFCSQ==
