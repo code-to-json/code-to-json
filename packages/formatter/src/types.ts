@@ -6,7 +6,7 @@ import { Dict } from '@mike-north/types';
 export type FormattedTypeRef = Ref<'t'>;
 export type FormattedSymbolRef = Ref<'s'>;
 export type FormattedDeclarationRef = Ref<'d'>;
-export type FormattedNodeRef = Ref<'d'>;
+export type FormattedNodeRef = Ref<'n'>;
 export type FormattedSourceFileRef = Ref<'f'>;
 
 /**
@@ -32,7 +32,6 @@ export type CodeRange = [FormattedSourceFileRef, number, number, number, number]
  * within a file
  */
 export interface HasPosition {
-  sourceFile?: FormattedSourceFileRef;
   location?: CodeRange;
 }
 
@@ -49,6 +48,7 @@ export interface FormatterRefRegistry {
   s: FormattedSymbolRef;
   f: FormattedSourceFileRef;
   d: FormattedDeclarationRef;
+  n: FormattedNodeRef;
 }
 
 export interface FormattedTypeConditionInfo {
@@ -58,17 +58,21 @@ export interface FormattedTypeConditionInfo {
   trueType?: FormattedTypeRef;
 }
 
-export interface FormattedType extends FormattedEntity {
+export interface FormattedType extends FormattedTypeAttributes, FormattedTypeRelationships {}
+export interface FormattedTypeAttributes extends FormattedEntity<'type'> {
   text: string;
   flags?: Flags;
   objectFlags?: Flags;
+  isThisType?: boolean;
+  isOptional?: boolean;
+  libName?: string;
+}
+export interface FormattedTypeRelationships {
   symbol?: FormattedSymbolRef;
   constraint?: FormattedTypeRef;
   properties?: Dict<FormattedSymbolRef>;
   baseTypes?: FormattedTypeRef[];
-  isThisType?: boolean;
   thisType?: FormattedTypeRef;
-  isOptional?: boolean;
   numberIndexType?: FormattedTypeRef;
   stringIndexType?: FormattedTypeRef;
   defaultType?: FormattedTypeRef;
@@ -76,11 +80,11 @@ export interface FormattedType extends FormattedEntity {
   constructorSignatures?: FormattedSignature[];
   typeParameters?: FormattedTypeRef[];
   types?: FormattedTypeRef[];
-  libName?: string;
   conditionalInfo?: FormattedTypeConditionInfo;
 }
 
-export interface FormattedSymbol extends FormattedEntity, HasDocumentation, HasPosition {
+export interface FormattedSymbol extends FormattedSymbolAttributes, FormattedSymbolRelationships {}
+export interface FormattedSymbolAttributes extends FormattedEntity<'symbol'>, HasDocumentation {
   name: string;
   text?: string;
   flags?: Flags;
@@ -94,21 +98,28 @@ export interface FormattedSymbol extends FormattedEntity, HasDocumentation, HasP
   isAsync?: boolean;
   isReadOnly?: boolean;
   isAnonymous?: boolean;
-  // modifiers?: string[];
+  jsDocTags?: Array<{ name: string; text?: string }>;
+}
+export interface FormattedSymbolRelationships extends HasPosition {
+  otherDeclarationTypes?: Array<{ declaration: FormattedDeclarationRef; type?: FormattedTypeRef }>;
   decorators?: FormattedSymbolRef[];
-  // heritageClauses?: string[];
   exports?: Dict<FormattedSymbolRef>;
   globalExports?: Dict<FormattedSymbolRef>;
   members?: Dict<FormattedSymbolRef>;
   properties?: Dict<FormattedSymbolRef>;
-  jsDocTags?: Array<{ name: string; text?: string }>;
   type?: FormattedTypeRef;
   valueType?: FormattedTypeRef;
-  otherDeclarationTypes?: Array<{ declaration: FormattedDeclarationRef; type?: FormattedTypeRef }>;
   related?: FormattedSymbolRef[];
+  valueDeclaration?: FormattedDeclarationRef;
 }
 
-export interface FormattedSignature {
+export interface FormattedSignature
+  extends FormattedSignatureAttributes,
+    FormattedSignatureRelationships {}
+export interface FormattedSignatureAttributes {
+  hasRestParameter: boolean;
+}
+export interface FormattedSignatureRelationships {
   hasRestParameter: boolean;
   parameters?: Array<{ name: string; type?: FormattedTypeRef }>;
   typeParameters?: FormattedTypeRef[];
@@ -116,16 +127,26 @@ export interface FormattedSignature {
 }
 
 // tslint:disable-next-line:no-empty-interface
-export interface FormattedDeclaration extends FormattedEntity {}
+export interface FormattedNode<Kind extends string = 'node'> extends FormattedEntity<Kind> {}
+// tslint:disable-next-line:no-empty-interface
+export interface FormattedDeclaration extends FormattedNode<'declaration'> {}
 
-export interface FormattedSourceFile extends FormattedEntity, HasDocumentation {
+export interface FormattedSourceFile
+  extends FormattedSourceFileAttributes,
+    FormattedSourceFileRelationships {}
+export interface FormattedSourceFileAttributes
+  extends FormattedEntity<'sourceFile'>,
+    HasDocumentation {
   path: string;
   moduleName: string;
   extension: string | null;
   isDeclarationFile: boolean;
+}
+export interface FormattedSourceFileRelationships {
   symbol?: FormattedSymbolRef;
 }
 
-export interface FormattedEntity {
+export interface FormattedEntity<Kind extends string> {
+  kind: Kind;
   id: string;
 }

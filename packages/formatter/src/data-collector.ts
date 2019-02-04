@@ -2,6 +2,7 @@
 
 import {
   SerializedDeclaration,
+  SerializedNode,
   SerializedSourceFile,
   SerializedSymbol,
   SerializedType,
@@ -10,6 +11,7 @@ import { createQueue, RefFor, refId, UnreachableError } from '@code-to-json/util
 import * as debug from 'debug';
 import {
   FormattedDeclarationRef,
+  FormattedNodeRef,
   FormattedSourceFileRef,
   FormattedSymbolRef,
   FormattedTypeRef,
@@ -18,18 +20,20 @@ import {
 
 const log = debug('code-to-json:formatter:data-collector');
 
-export interface QueueSink<S, T, D, SF> {
+export interface QueueSink<S, T, D, N, SF> {
   handleType(ref: FormattedTypeRef, item: SerializedType): T;
   handleSymbol(ref: FormattedSymbolRef, item: SerializedSymbol): S;
   handleSourceFile(ref: FormattedSourceFileRef, item: SerializedSourceFile): SF;
   handleDeclaration(ref: FormattedDeclarationRef, item: SerializedDeclaration): D;
+  handleNode(ref: FormattedNodeRef, item: SerializedNode): N;
 }
 
-export interface DrainOutput<S, T, D, SF> {
+export interface DrainOutput<S, T, D, N, SF> {
   symbols: { [k: string]: S };
   types: { [k: string]: T };
   sourceFiles: { [k: string]: SF };
   declarations: { [k: string]: D };
+  nodes: { [k: string]: N };
 }
 
 interface DataCollectorInputs {
@@ -37,6 +41,7 @@ interface DataCollectorInputs {
   s: SerializedSymbol;
   f: SerializedSourceFile;
   d: SerializedDeclaration;
+  n: SerializedNode;
 }
 
 export interface DataCollector {
@@ -47,7 +52,7 @@ export interface DataCollector {
     thing: E,
     refType: K,
   ): RefFor<FormatterRefRegistry, K> | undefined;
-  drain<S, T, D, SF>(sink: Partial<QueueSink<S, T, D, SF>>): DrainOutput<S, T, D, SF>;
+  drain<S, T, D, N, SF>(sink: Partial<QueueSink<S, T, D, N, SF>>): DrainOutput<S, T, D, N, SF>;
 }
 
 export function create(): DataCollector {
@@ -72,6 +77,11 @@ export function create(): DataCollector {
       d => d.id,
       id => ({ id }),
     ),
+    nodes: createQueue<FormatterRefRegistry, 'n', SerializedNode, string, undefined>(
+      'n',
+      n => n.id,
+      id => ({ id }),
+    ),
   };
 
   return {
@@ -89,16 +99,19 @@ export function create(): DataCollector {
           return registries.files.queue(thing as SerializedSourceFile);
         case 'd':
           return registries.declarations.queue(thing as SerializedDeclaration);
+        case 'n':
+          return registries.nodes.queue(thing as SerializedNode);
         default:
           throw new UnreachableError(refType);
       }
     },
-    drain<S, T, D, SF>(sink: Partial<QueueSink<S, T, D, SF>>): DrainOutput<S, T, D, SF> {
-      const out: DrainOutput<S, T, D, SF> = {
+    drain<S, T, D, N, SF>(sink: Partial<QueueSink<S, T, D, N, SF>>): DrainOutput<S, T, D, N, SF> {
+      const out: DrainOutput<S, T, D, N, SF> = {
         symbols: {},
         types: {},
         sourceFiles: {},
         declarations: {},
+        nodes: {},
       };
       /**
        * Flush any un-processed items from the processing queue to the drain output
@@ -112,9 +125,10 @@ export function create(): DataCollector {
             f: 0,
             s: 0,
             d: 0,
+            n: 0,
           },
         };
-        const { handleSourceFile, handleType, handleSymbol } = sink;
+        const { handleSourceFile, handleType, handleSymbol, handleDeclaration, handleNode } = sink;
         if (handleSourceFile) {
           outputInfo.processed.f += registries.files.drain(
             (ref, item) => (out.sourceFiles[refId(ref)] = handleSourceFile(ref, item)),
@@ -128,6 +142,16 @@ export function create(): DataCollector {
         if (handleType) {
           outputInfo.processed.t += registries.types.drain(
             (ref, item) => (out.types[refId(ref)] = handleType(ref, item)),
+          ).processedCount;
+        }
+        if (handleDeclaration) {
+          outputInfo.processed.t += registries.declarations.drain(
+            (ref, item) => (out.declarations[refId(ref)] = handleDeclaration(ref, item)),
+          ).processedCount;
+        }
+        if (handleNode) {
+          outputInfo.processed.t += registries.nodes.drain(
+            (ref, item) => (out.nodes[refId(ref)] = handleNode(ref, item)),
           ).processedCount;
         }
 

@@ -10,5 +10,6 @@ export default function formatDeclaration(
 ): FormattedDeclaration {
   return {
     id: decl.id,
+    kind: 'declaration',
   };
 }

@@ -37,16 +37,15 @@ export default function resolveReference(
   switch (refTyp) {
     case 't':
       return wo.types[id];
-    // case 'n':
-    //   return wo.nodes[id];
-    // case 'd':
-    //   return wo.declarations[id];
+    case 'n':
+      return wo.nodes[id];
+    case 'd':
+      return wo.declarations[id];
     case 'f':
       return wo.sourceFiles[id];
     case 's':
       return wo.symbols[id];
-    case 'd':
-      return wo.declarations[id];
+
     default:
       throw new UnreachableError(refTyp, `reference type: ${refTyp}`);
   }

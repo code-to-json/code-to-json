@@ -131,23 +131,26 @@ export default function formatSymbol(
 
     modifiers,
     decorators,
-    // heritageClauses,
     location,
     members,
-    sourceFile,
     globalExports,
     external,
     documentation,
     isAbstract,
     text,
+    valueDeclaration,
     relatedSymbols,
   } = symbol;
   const id = refId(ref);
   const info: FormattedSymbol = {
     id,
     flags: formatFlags(flags),
+    kind: 'symbol',
     text,
     name: name || '(anonymous)',
+    valueDeclaration: valueDeclaration
+      ? collector.queue(resolveReference(wo, valueDeclaration), 'd')
+      : undefined,
   };
   Object.assign(
     info,
@@ -169,9 +172,6 @@ export default function formatSymbol(
   }
   if (external) {
     info.external = external;
-  }
-  if (sourceFile) {
-    info.sourceFile = collector.queue(resolveReference(wo, sourceFile), 'f');
   }
 
   conditionallyMergeTransformed(info, documentation, 'documentation', d => d);

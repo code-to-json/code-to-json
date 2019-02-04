@@ -1,38 +1,41 @@
 {
-  "name": "@code-to-json/comments",
-  "version": "1.0.0-rc.12",
-  "description": "Comment-parsing utilities for code-to-json",
+  "name": "@code-to-json/formatter-linker",
+  "version": "1.0.0-rc.0",
+  "description": "Data linker for @code-to-json/formatter",
   "main": "lib/src/index.js",
   "typings": "lib/src/index.d.ts",
   "license": "BSD-2-Clause",
   "author": "Mike North <michael.l.north@gmail.com> (https://mike.works)",
-  "repository": "https://github.com/mike-north/code-to-json",
-  "homepage": "https://github.com/mike-north/code-to-json/tree/master/packages/utils",
   "scripts": {
     "lint": "yarn lint:ts && yarn lint:js && yarn lint:md",
     "lint:ts": "tslint --project . && tsc -b test && tslint --project test",
     "lint:js": "eslint . --ext js,ts",
-    "lint:md": "remark .",
+    "lint:md": "./node_modules/.bin/remark .",
     "test": "mocha",
+    "test:debug": "mocha --inspect-brk",
     "test:coverage": "nyc npm test",
     "codacy:transmit-coverage": "cat coverage/lcov.info | codacy-coverage",
-    "coveralls:transmit-coverage": "cat coverage/lcov.info | coveralls",
     "clean": "rm -rf ./lib",
     "build": "tsc -b .",
-    "rebuild": "npm run clean & npm run build",
+    "rebuild": "yarn clean & yarn build",
     "prepublishOnly": "tsc -b ."
   },
+  "repository": "https://github.com/mike-north/code-to-json/",
+  "homepage": "https://github.com/mike-north/code-to-json/tree/master/packages/core-linker",
   "keywords": [],
-  "publishConfig": {
-    "access": "public"
+  "dependencies": {
+    "@code-to-json/formatter": "^1.0.0-rc.18",
+    "@mike-north/types": "^1.0.7",
+    "debug": "^4.0.0",
+    "typescript": "^3.2.4"
   },
   "devDependencies": {
+    "@code-to-json/test-helpers": "^1.0.0-rc.13",
+    "@code-to-json/utils-node": "^1.0.0-rc.15",
     "@types/chai": "4.1.7",
-    "@types/debug": "0.0.31",
     "chai": "4.2.0",
     "eslint": "5.13.0",
     "eslint-config-airbnb-base": "13.1.0",
-    "eslint-config-prettier": "4.0.0",
     "eslint-plugin-import": "2.16.0",
     "eslint-plugin-prettier": "3.0.1",
     "eslint-plugin-typescript": "0.14.0",
@@ -49,7 +52,6 @@
     "tslint": "5.12.1",
     "tslint-config-prettier": "1.17.0",
     "tslint-sonarts": "1.9.0",
-    "typescript": "3.3.1",
     "typescript-eslint-parser": "^22.0.0"
   },
   "nyc": {
@@ -86,17 +88,5 @@
       "json",
       "text-summary"
     ]
-  },
-  "remarkConfig": {
-    "plugins": [
-      "remark-preset-lint-recommended",
-      "remark-preset-lint-markdown-style-guide"
-    ]
-  },
-  "dependencies": {
-    "@code-to-json/utils": "^1.0.0-rc.12",
-    "@microsoft/tsdoc": "^0.12.4",
-    "@mike-north/types": "^1.0.7",
-    "debug": "^4.1.0"
   }
 }

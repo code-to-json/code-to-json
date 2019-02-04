@@ -833,9 +833,9 @@
     rimraf "^2.5.2"
 
 "@microsoft/tsdoc@^0.12.4":
-  version "0.12.4"
-  resolved "https://registry.yarnpkg.com/@microsoft/tsdoc/-/tsdoc-0.12.4.tgz#42159590f2b12e23f6028c70aed41dd5b11275c3"
-  integrity sha512-nQZVQg3fXygj+9JT/FSPZOz3vqAIVAAR3ZuAuUdU4DSM/ubJq5lbl1hpLtl+REFmEq1rkvDmmPoJAbSoqjcmZQ==
+  version "0.12.5"
+  resolved "https://registry.yarnpkg.com/@microsoft/tsdoc/-/tsdoc-0.12.5.tgz#c448a38902ccb5601c1b2ef3b1a105012ef7712c"
+  integrity sha512-xEAyvLXo4Cter/b0EMCWUZTgXOfLOPJ/Xr52WdjVclPx9eDmNTGFtZl8Pn/nqSnZsQBNcHL0eHk/YyRyyXXpiQ==
 
 "@mike-north/types@^1.0.7":
   version "1.1.0"
@@ -7586,32 +7586,27 @@ typedarray@^0.0.6:
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
   integrity sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=
 
-typescript-eslint-parser@21.0.2:
-  version "21.0.2"
-  resolved "https://registry.yarnpkg.com/typescript-eslint-parser/-/typescript-eslint-parser-21.0.2.tgz#270af10e4724528677fbcf34ea495284bec3a894"
-  integrity sha512-u+pj4RVJBr4eTzj0n5npoXD/oRthvfUCjSKndhNI714MG0mQq2DJw5WP7qmonRNIFgmZuvdDOH3BHm9iOjIAfg==
+typescript-eslint-parser@^22.0.0:
+  version "22.0.0"
+  resolved "https://registry.yarnpkg.com/typescript-eslint-parser/-/typescript-eslint-parser-22.0.0.tgz#f5e766c9b50711b03535e29a10b45f957e3c516a"
+  integrity sha512-pD8D7oTeRwWvFVxK3PaY6FYAiZsuRXFkIc2+1xkwCT3NduySgCgjeAkR5/dnIWecOiFVcEHf4ypXurF02Q6Z3Q==
   dependencies:
     eslint-scope "^4.0.0"
     eslint-visitor-keys "^1.0.0"
-    typescript-estree "5.3.0"
+    typescript-estree "18.0.0"
 
-typescript-estree@5.3.0:
-  version "5.3.0"
-  resolved "https://registry.yarnpkg.com/typescript-estree/-/typescript-estree-5.3.0.tgz#fb6c977b5e21073eb16cbdc0338a7f752da99ff5"
-  integrity sha512-Vu0KmYdSCkpae+J48wsFC1ti19Hq3Wi/lODUaE+uesc3gzqhWbZ5itWbsjylLVbjNW4K41RqDzSfnaYNbmEiMQ==
+typescript-estree@18.0.0:
+  version "18.0.0"
+  resolved "https://registry.yarnpkg.com/typescript-estree/-/typescript-estree-18.0.0.tgz#a309f6c6502c64d74b3f88c205d871a9af0b1d40"
+  integrity sha512-HxTWrzFyYOPWA91Ij7xL9mNUVpGTKLH2KiaBn28CMbYgX2zgWdJqU9hO7Are+pAPAqY91NxAYoaAyDDZ3rLj2A==
   dependencies:
     lodash.unescape "4.0.1"
     semver "5.5.0"
 
-typescript@3.3.1:
+typescript@3.3.1, typescript@^3.1.0, typescript@^3.2.4:
   version "3.3.1"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.3.1.tgz#6de14e1db4b8a006ac535e482c8ba018c55f750b"
   integrity sha512-cTmIDFW7O0IHbn1DPYjkiebHxwtCMU+eTy30ZtJNBPF9j2O1ITu5XH2YnBeVRKWHqF+3JQwWJv0Q0aUgX8W7IA==
-
-typescript@^3.1.0, typescript@^3.2.4:
-  version "3.2.4"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.2.4.tgz#c585cb952912263d915b462726ce244ba510ef3d"
-  integrity sha512-0RNDbSdEokBeEAkgNbxJ+BLwSManFy9TeXz8uW+48j/xhEXv1ePME60olyzw2XzUqUBNAYFeJadIqAgNqIACwg==
 
 uglify-js@^3.1.4:
   version "3.4.9"

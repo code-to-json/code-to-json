@@ -13,6 +13,7 @@ export default function formatSourceFile(
   const { pathInPackage, extension, isDeclarationFile, moduleName, documentation } = sourceFile;
   const info: FormattedSourceFile = {
     id: refId(ref),
+    kind: 'sourceFile',
     path: `${pathInPackage}.${extension}`,
     moduleName,
     extension,

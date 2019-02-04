@@ -24,5 +24,8 @@
   },
   "bugs": {
     "url": "https://github.com/code-to-json/code-to-json/issues"
+  },
+  "devDependencies": {
+    "typescript-eslint-parser": "^22.0.0"
   }
 }
