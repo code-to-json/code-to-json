@@ -44,6 +44,7 @@ export class SourceFileFormatterTests {
       moduleName: 'module',
       extension: 'ts',
       path: 'module.ts',
+      kind: 'sourceFile',
       isDeclarationFile: false,
     });
   }
@@ -67,8 +68,8 @@ export class SourceFileFormatterTests {
         'module.ts': {
           entity: 'sourceFile',
           moduleName: 'module',
-          isDeclarationFile: false,
           id: 'module.ts',
+          isDeclarationFile: false,
           pathInPackage: 'module',
           extension: 'ts',
           symbol: ['symbol', '12345'] as any,
@@ -96,6 +97,7 @@ export class SourceFileFormatterTests {
       symbol: ['s', '12345'],
       moduleName: 'module',
       isDeclarationFile: false,
+      kind: 'sourceFile',
     });
   }
 }

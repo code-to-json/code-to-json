@@ -29,4 +29,6 @@ export {
   FormattedEntity,
   HasDocumentation,
   HasPosition,
+  CodePoisition,
+  CodeRange,
 } from './types';

@@ -1,4 +1,3 @@
-import { FormatterOutputData } from '@code-to-json/formatter';
 import {
   CodePoisition,
   CodeRange,
@@ -8,7 +7,8 @@ import {
   FormattedSymbol,
   FormattedType,
   FormattedTypeRef,
-} from '@code-to-json/formatter/lib/src/types';
+  FormatterOutputData,
+} from '@code-to-json/formatter';
 import { isDefined, Ref, refId, refType } from '@code-to-json/utils';
 import { Dict } from '@mike-north/types';
 import { createLinkedFormattedRefResolver, resolveRefDict, resolveRefList } from './ref-resolver';

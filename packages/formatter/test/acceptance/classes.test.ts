@@ -18,7 +18,6 @@ export class ClassFormatterAcceptanceTests {
     expect(classSymbol.name).to.eq('Foo');
     expect(classSymbol.text).to.eq('Foo');
     expect(classSymbol.flags).to.deep.eq(['class']);
-    expect(classSymbol.sourceFile!.length).to.eq(2);
 
     const classType = t.resolveReference(classSymbol.valueType);
     expect(classType.text).to.eq('typeof Foo');
@@ -43,7 +42,6 @@ export class ClassFormatterAcceptanceTests {
     expect(classSymbol.name).to.eq('default');
     expect(classSymbol.text).to.eq('Foo');
     expect(classSymbol.flags).to.deep.eq(['class']);
-    expect(classSymbol.sourceFile!.length).to.eq(2);
 
     const classType = t.resolveReference(classSymbol.valueType);
     expect(classType.text).to.eq('typeof Foo');
@@ -70,7 +68,6 @@ export class ClassFormatterAcceptanceTests {
     expect(classSymbol.name).to.eq('Foo');
     expect(classSymbol.text).to.eq('Foo');
     expect(classSymbol.flags).to.deep.include('class');
-    expect(classSymbol.sourceFile!.length).to.eq(2);
 
     const classType = t.resolveReference(classSymbol.valueType);
     expect(classType.text).to.eq('typeof Foo');
