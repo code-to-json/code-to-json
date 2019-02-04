@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-rc.14](https://github.com/mike-north/code-to-json/compare/@code-to-json/utils@1.0.0-rc.13...@code-to-json/utils@1.0.0-rc.14) (2019-02-04)
+
+
+### Bug Fixes
+
+* convert to new typescript eslint infrastructure ([6e8aabd](https://github.com/mike-north/code-to-json/commit/6e8aabd))
+
+
+
+
+
 # [1.0.0-rc.13](https://github.com/mike-north/code-to-json/compare/@code-to-json/utils@1.0.0-rc.12...@code-to-json/utils@1.0.0-rc.13) (2019-02-04)
 
 **Note:** Version bump only for package @code-to-json/utils
