@@ -156,6 +156,7 @@ export default function formatType(
   const typeInfo: FormattedType = {
     id: refId(ref),
     text,
+    kind: 'type',
     flags: formatFlags(flags),
     isThisType,
   };
