@@ -1,6 +1,6 @@
 {
   "name": "@code-to-json/formatter-linker",
-  "version": "1.0.0-rc.2",
+  "version": "1.0.0-rc.3",
   "description": "Data linker for @code-to-json/formatter",
   "main": "lib/src/index.js",
   "typings": "lib/src/index.d.ts",
