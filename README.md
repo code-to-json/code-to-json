@@ -57,6 +57,8 @@ Path to the root of a JavaScript or TypeScript project, which should contain bot
 
 - [@code-to-json/formatter](https://github.com/code-to-json/code-to-json/tree/master/packages/formatter) [![Version](https://img.shields.io/npm/v/@code-to-json/formatter.svg)](https://www.npmjs.com/package/@code-to-json/formatter) - Data formatter
 
+- [@code-to-json/formatter-linker](https://github.com/code-to-json/code-to-json/tree/master/packages/formatter-linker) [![Version](https://img.shields.io/npm/v/@code-to-json/formatter-linker.svg)](https://www.npmjs.com/package/@code-to-json/formatter-linker) - Data linker for "formatted" data format
+
 - [@code-to-json/comments](https://github.com/code-to-json/code-to-json/tree/master/packages/comments) [![Version](https://img.shields.io/npm/v/@code-to-json/comments.svg)](https://www.npmjs.com/package/@code-to-json/comments) - Comment-parsing functionality
 
 - [@code-to-json/test-helpers](https://github.com/code-to-json/code-to-json/tree/master/packages/test-helpers) [![Version](https://img.shields.io/npm/v/@code-to-json/test-helpers.svg)](https://www.npmjs.com/package/@code-to-json/test-helpers) - <b>[NODE]</b> Testing helpers for running mocha in node
