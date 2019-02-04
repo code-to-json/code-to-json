@@ -6,7 +6,7 @@ import SingleFileAcceptanceTestCase from './helpers/test-case';
 @suite
 @slow(800)
 export class VariableAcceptanceTests {
-  @test public async 'let x = "foo";'() {
+  @test public async 'let x = "foo";'(): Promise<void> {
     const code = `export let x = "foo";`;
     const t = new SingleFileAcceptanceTestCase(code);
     await t.run();
@@ -22,7 +22,7 @@ export class VariableAcceptanceTests {
     t.cleanup();
   }
 
-  @test public async 'const x = "foo";'() {
+  @test public async 'const x = "foo";'(): Promise<void> {
     const code = `export const x = "foo";`;
     const t = new SingleFileAcceptanceTestCase(code);
     await t.run();
@@ -38,7 +38,7 @@ export class VariableAcceptanceTests {
     t.cleanup();
   }
 
-  @test public async 'const x: string = "foo";'() {
+  @test public async 'const x: string = "foo";'(): Promise<void> {
     const code = `export const x: string = "foo";`;
     const t = new SingleFileAcceptanceTestCase(code);
     await t.run();
@@ -54,7 +54,7 @@ export class VariableAcceptanceTests {
     t.cleanup();
   }
 
-  @test public async 'const x: number = 42;'() {
+  @test public async 'const x: number = 42;'(): Promise<void> {
     const code = `export const x: number = 42;`;
     const t = new SingleFileAcceptanceTestCase(code);
     await t.run();
@@ -70,7 +70,7 @@ export class VariableAcceptanceTests {
     t.cleanup();
   }
 
-  @test public async 'let x: never;'() {
+  @test public async 'let x: never;'(): Promise<void> {
     const code = `export let x: never;`;
     const t = new SingleFileAcceptanceTestCase(code);
     await t.run();
@@ -86,7 +86,7 @@ export class VariableAcceptanceTests {
     t.cleanup();
   }
 
-  @test public async 'const x = 42;'() {
+  @test public async 'const x = 42;'(): Promise<void> {
     const code = `export const x = 42;`;
     const t = new SingleFileAcceptanceTestCase(code);
     await t.run();
@@ -102,7 +102,7 @@ export class VariableAcceptanceTests {
     t.cleanup();
   }
 
-  @test public async 'const x = () => "foo";'() {
+  @test public async 'const x = () => "foo";'(): Promise<void> {
     const code = `export const x = () => "foo";`;
     const t = new SingleFileAcceptanceTestCase(code);
     await t.run();
@@ -119,7 +119,7 @@ export class VariableAcceptanceTests {
     t.cleanup();
   }
 
-  @test public async 'const x: null = null;'() {
+  @test public async 'const x: null = null;'(): Promise<void> {
     const code = `export const x: null = null;`;
     const t = new SingleFileAcceptanceTestCase(code);
     await t.run();
@@ -135,7 +135,7 @@ export class VariableAcceptanceTests {
     t.cleanup();
   }
 
-  @test public async 'const x = null;'() {
+  @test public async 'const x = null;'(): Promise<void> {
     const code = `export const x = null;`;
     const t = new SingleFileAcceptanceTestCase(code);
     await t.run();
@@ -151,7 +151,7 @@ export class VariableAcceptanceTests {
     t.cleanup();
   }
 
-  @test public async 'const x = true;'() {
+  @test public async 'const x = true;'(): Promise<void> {
     const code = `export const x = true;`;
     const t = new SingleFileAcceptanceTestCase(code);
     await t.run();
@@ -167,7 +167,7 @@ export class VariableAcceptanceTests {
     t.cleanup();
   }
 
-  @test public async 'const x = Symbol("abc");'() {
+  @test public async 'const x = Symbol("abc");'(): Promise<void> {
     const code = `export const x = Symbol("abc");`;
     const t = new SingleFileAcceptanceTestCase(code);
     await t.run();
@@ -183,7 +183,7 @@ export class VariableAcceptanceTests {
     t.cleanup();
   }
 
-  @test public async 'let x = Symbol("abc");'() {
+  @test public async 'let x = Symbol("abc");'(): Promise<void> {
     const code = `export let x = Symbol("abc");`;
     const t = new SingleFileAcceptanceTestCase(code);
     await t.run();
@@ -199,7 +199,7 @@ export class VariableAcceptanceTests {
     t.cleanup();
   }
 
-  @test public async 'const x: any = 41;'() {
+  @test public async 'const x: any = 41;'(): Promise<void> {
     const code = `export const x: any = 41;`;
     const t = new SingleFileAcceptanceTestCase(code);
     await t.run();
@@ -215,7 +215,7 @@ export class VariableAcceptanceTests {
     t.cleanup();
   }
 
-  @test public async 'const x: {foo: "bar"} = {foo: "bar" }'() {
+  @test public async 'const x: {foo: "bar"} = {foo: "bar" }'(): Promise<void> {
     const code = `
   interface Foo {foo: "bar"};
   export const x: Foo = {foo: "bar" }`;

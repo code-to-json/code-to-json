@@ -6,7 +6,7 @@ import SingleFileAcceptanceTestCase from './helpers/test-case';
 @suite
 @slow(800)
 export class ClassFormatterAcceptanceTests {
-  @test public async 'simple class'() {
+  @test public async 'simple class'(): Promise<void> {
     const code = `export class Foo{}`;
     const t = new SingleFileAcceptanceTestCase(code);
     await t.run();
@@ -30,7 +30,7 @@ export class ClassFormatterAcceptanceTests {
     t.cleanup();
   }
 
-  @test public async 'simple class (default export)'() {
+  @test public async 'simple class (default export)'(): Promise<void> {
     const code = `export default class Foo{}`;
     const t = new SingleFileAcceptanceTestCase(code);
     await t.run();
@@ -53,7 +53,7 @@ export class ClassFormatterAcceptanceTests {
     t.cleanup();
   }
 
-  @test public async 'class with methods'() {
+  @test public async 'class with methods'(): Promise<void> {
     const code = `export class Foo {
       bar() { return '--bar--'; }
       baz() { return '--baz--'; }
@@ -88,7 +88,7 @@ export class ClassFormatterAcceptanceTests {
     t.cleanup();
   }
 
-  @test public async 'class with methods and properties'() {
+  @test public async 'class with methods and properties'(): Promise<void> {
     const code = `export class Foo {
       biz: string = '--biz--';
       bar() { return '--bar--'; }
@@ -113,7 +113,7 @@ export class ClassFormatterAcceptanceTests {
     t.cleanup();
   }
 
-  @test public async 'class with methods, properties and access modifiers'() {
+  @test public async 'class with methods, properties and access modifiers'(): Promise<void> {
     const code = `export class Foo {
       protected biz: string = '--biz--';
       public baa: string = '--baa--';
@@ -139,7 +139,7 @@ export class ClassFormatterAcceptanceTests {
     t.cleanup();
   }
 
-  @test public async 'class with static functions'() {
+  @test public async 'class with static functions'(): Promise<void> {
     const code = `export class Foo {
       public static baz(): undefined { return undefined; }
       public static biz(): unknown { return unknown; }
@@ -161,7 +161,7 @@ export class ClassFormatterAcceptanceTests {
     t.cleanup();
   }
 
-  @test public async 'abstract class'() {
+  @test public async 'abstract class'(): Promise<void> {
     const code = `export abstract class Foo {
       protected abstract abstractBar(): string;
     }`;
@@ -184,7 +184,7 @@ export class ClassFormatterAcceptanceTests {
     t.cleanup();
   }
 
-  @test public async 'class w/ class decorator'() {
+  @test public async 'class w/ class decorator'(): Promise<void> {
     const code = `
     function baz<O>(target: new () => O) {
       Object.defineProperty(target, 'bar', {
@@ -219,7 +219,7 @@ export class ClassFormatterAcceptanceTests {
     t.cleanup();
   }
 
-  @test public async 'class w/ multiple class decorators'() {
+  @test public async 'class w/ multiple class decorators'(): Promise<void> {
     const code = `
     function baz<O>(target: new () => O) {
       Object.defineProperty(target, 'bazzz', {
@@ -270,7 +270,7 @@ export class ClassFormatterAcceptanceTests {
     t.cleanup();
   }
 
-  @test public async 'class w/ non-exported base class'() {
+  @test public async 'class w/ non-exported base class'(): Promise<void> {
     const code = `abstract class Foo {
     protected abstract abstractBar(): string;
   }

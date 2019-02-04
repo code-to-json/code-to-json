@@ -11,7 +11,7 @@ export class ChecksTests {
 
   private checker!: ts.TypeChecker;
 
-  public before() {
+  public before(): void {
     const code = `export class Foo { bar: string; };
 let x: number = 4;
 function addToX(y: number): number { return x + y; }`;

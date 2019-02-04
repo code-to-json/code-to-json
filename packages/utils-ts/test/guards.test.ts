@@ -31,7 +31,7 @@ export class GuardTests {
 
   private checker!: ts.TypeChecker;
 
-  public before() {
+  public before(): void {
     const code = `export class Foo { bar: string; };
 export let x: number = 4;
 export let str: string = 'abc';

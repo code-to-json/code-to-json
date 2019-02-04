@@ -13,8 +13,10 @@ export class ArrayUtilsTests {
     expect(isArray({})).to.eql(false, 'pojo');
     expect(isArray([])).to.eql(true, 'array');
     expect(isArray(() => '')).to.eql(false, 'function');
-    expect(isArray(class {})).to.eql(false, 'class');
-    expect(isArray(new class {}() as any)).to.eql(false, 'instance');
+    // tslint-disable-next-line
+    expect(isArray(class A {})).to.eql(false, 'class');
+    // tslint-disable-next-line
+    expect(isArray(new class B {}() as any)).to.eql(false, 'instance');
   }
 
   @test

@@ -6,7 +6,7 @@ import { setupSingleModuleProgram } from './helpers';
 
 @suite
 export class DeclarationUtilTests {
-  @test public async 'invalid attemot to obtain the name of a tslib'() {
+  @test public async 'invalid attemot to obtain the name of a tslib'(): Promise<void> {
     const t = await setupSingleModuleProgram(
       `export abstract class Foo { abstract bar(): string };`,
     );

@@ -29,7 +29,9 @@
     "no-small-switch": false,
     "parameters-max-number": [true, 5],
     "prefer-type-guard": true,
-    "use-primitive-type": true
+    "use-primitive-type": true,
+    "max-classes-per-file": false,
+    "no-duplicate-string": false
   },
   "rulesDirectory": []
 }

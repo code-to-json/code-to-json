@@ -27,7 +27,7 @@ export class GenerateIdTests {
 
   private node!: ts.Node;
 
-  public before() {
+  public before(): void {
     const { program } = createProgramFromCodeString(
       `
 export class Car {

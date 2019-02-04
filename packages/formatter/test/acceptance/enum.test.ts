@@ -7,7 +7,7 @@ import SingleFileAcceptanceTestCase from './helpers/test-case';
 @suite
 @slow(800)
 export class EnumFormatterAcceptanceTests {
-  @test public async 'regular enum'() {
+  @test public async 'regular enum'(): Promise<void> {
     const code = `export enum Suit { heart, club, diamond, spade }`;
     const t = new SingleFileAcceptanceTestCase(code);
     await t.run();
@@ -37,7 +37,7 @@ export class EnumFormatterAcceptanceTests {
     t.cleanup();
   }
 
-  @test public async 'regular enum member'() {
+  @test public async 'regular enum member'(): Promise<void> {
     const code = `enum Suit { heart, club, diamond, spade }
     export const x = Suit.heart;`;
     const t = new SingleFileAcceptanceTestCase(code);
@@ -54,7 +54,7 @@ export class EnumFormatterAcceptanceTests {
     t.cleanup();
   }
 
-  @test public async 'const enum'() {
+  @test public async 'const enum'(): Promise<void> {
     const code = `export const enum Suit { heart, club, diamond, spade }`;
     const t = new SingleFileAcceptanceTestCase(code);
     await t.run();
@@ -85,7 +85,7 @@ export class EnumFormatterAcceptanceTests {
     t.cleanup();
   }
 
-  @test public async 'const enum member'() {
+  @test public async 'const enum member'(): Promise<void> {
     const code = `const enum Suit { heart, club, diamond, spade }
     export const x = Suit.heart;`;
     const t = new SingleFileAcceptanceTestCase(code);

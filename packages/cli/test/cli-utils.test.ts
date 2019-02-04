@@ -40,7 +40,7 @@ Options:
   public async 'runAction successful scenario'(): Promise<void> {
     const cmd = commander.name('foo');
     const logs: string[] = [];
-    function log(str: string) {
+    function log(str: string): void {
       logs.push(str);
     }
     let invocationCt = 0;
@@ -68,7 +68,7 @@ Options:
   public async 'runAction runtime error scenario'(): Promise<void> {
     const cmd = commander.name('foo');
     const logs: string[] = [];
-    function log(str: string) {
+    function log(str: string): void {
       logs.push(str);
     }
     let invocationCt = 0;

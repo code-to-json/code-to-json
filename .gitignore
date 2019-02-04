@@ -4,3 +4,4 @@ packages/*/lib
 out
 **/.nyc_output
 coverage
+.vscode

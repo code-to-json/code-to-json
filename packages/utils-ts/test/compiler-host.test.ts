@@ -7,7 +7,7 @@ import { nodeHost } from './helpers';
 
 @suite
 export class CompilerHostTests {
-  @test public 'invalid attemot to obtain the name of a tslib'() {
+  @test public 'invalid attemot to obtain the name of a tslib'(): void {
     const ch = new CompilerHost(nodeHost);
     const prog = createProgram(
       [join(__dirname, '..', '..', '..', 'samples', 'ts-multi-file')],

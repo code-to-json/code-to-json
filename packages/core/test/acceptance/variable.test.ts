@@ -17,7 +17,7 @@ export class VariableSerializationTests {
 
     const variableSymbol = t.resolveReference(fileSymbol.exports!.x);
     expect(variableSymbol.text).to.eql('x');
-    expect(variableSymbol.flags).to.eql(['BlockScopedVariable'], 'Regarded as a variable');
+    expect(variableSymbol.flags).to.eql(['BlockScopedVariable']);
     expect(variableSymbol.modifiers).to.eql(undefined, 'No modifiers');
 
     const variableType = t.resolveReference(variableSymbol.valueDeclarationType);
@@ -35,7 +35,7 @@ export class VariableSerializationTests {
     const fileSymbol = t.resolveReference(file.symbol);
     const variableSymbol = t.resolveReference(fileSymbol.exports!.x);
     expect(variableSymbol.text).to.eql('x');
-    expect(variableSymbol.flags).to.eql(['BlockScopedVariable'], 'Regarded as a variable');
+    expect(variableSymbol.flags).to.eql(['BlockScopedVariable']);
     expect(variableSymbol.modifiers).to.eql(undefined, 'No modifiers');
 
     const variableType = t.resolveReference(variableSymbol.valueDeclarationType);
@@ -53,7 +53,7 @@ export class VariableSerializationTests {
     const fileSymbol = t.resolveReference(file.symbol);
     const variableSymbol = t.resolveReference(fileSymbol.exports!.x);
     expect(variableSymbol.text).to.eql('x');
-    expect(variableSymbol.flags).to.eql(['BlockScopedVariable'], 'Regarded as a variable');
+    expect(variableSymbol.flags).to.eql(['BlockScopedVariable']);
 
     const variableType = t.resolveReference(variableSymbol.valueDeclarationType);
     expect(variableType.text).to.eql('number');
@@ -63,14 +63,14 @@ export class VariableSerializationTests {
 
   @test
   public async 'export let x: string | number = 33;'(): Promise<void> {
-    const code = 'export let x: string | number = 33;';
-    const t = new SingleFileAcceptanceTestCase(code);
+    const src = 'export let x: string | number = 33;';
+    const t = new SingleFileAcceptanceTestCase(src);
     await t.run();
     const file = t.sourceFile();
     const fileSymbol = t.resolveReference(file.symbol);
     const variableSymbol = t.resolveReference(fileSymbol.exports!.x);
     expect(variableSymbol.text).to.eql('x');
-    expect(variableSymbol.flags).to.eql(['BlockScopedVariable'], 'Regarded as a variable');
+    expect(variableSymbol.flags).to.eql(['BlockScopedVariable']);
 
     const variableType = t.resolveReference(variableSymbol.valueDeclarationType);
     expect(variableType.text).to.eql('string | number');
@@ -87,7 +87,7 @@ export class VariableSerializationTests {
     const fileSymbol = t.resolveReference(file.symbol);
     const variableSymbol = t.resolveReference(fileSymbol.exports!.x);
     expect(variableSymbol.text).to.eql('x');
-    expect(variableSymbol.flags).to.eql(['BlockScopedVariable'], 'Regarded as a variable');
+    expect(variableSymbol.flags).to.eql(['BlockScopedVariable']);
 
     const variableType = t.resolveReference(variableSymbol.valueDeclarationType);
     expect(variableType.text).to.eql('Promise<number>');
@@ -109,7 +109,7 @@ export class VariableSerializationTests {
     const fileSymbol = t.resolveReference(file.symbol);
     const variableSymbol = t.resolveReference(fileSymbol.exports!.x);
     expect(variableSymbol.text).to.eql('x');
-    expect(variableSymbol.flags).to.eql(['BlockScopedVariable'], 'Regarded as a variable');
+    expect(variableSymbol.flags).to.eql(['BlockScopedVariable']);
 
     const variableType = t.resolveReference(variableSymbol.valueDeclarationType);
     expect(variableType.text).to.eql('{ p: Promise<number[]>; }');
@@ -136,7 +136,7 @@ export class VariableSerializationTests {
     const fileSymbol = t.resolveReference(file.symbol);
     const variableSymbol = t.resolveReference(fileSymbol.exports!.x);
     expect(variableSymbol.text).to.eql('x');
-    expect(variableSymbol.flags).to.eql(['BlockScopedVariable'], 'Regarded as a variable');
+    expect(variableSymbol.flags).to.eql(['BlockScopedVariable']);
 
     const variableType = t.resolveReference(variableSymbol.valueDeclarationType);
     expect(variableType.text).to.eql('Pick<Promise<number>, "then">');
