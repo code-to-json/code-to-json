@@ -26,15 +26,15 @@ export default function serializeSignature(
     modifiers:
       !declaration || !declaration.modifiers
         ? undefined
-        : declaration.modifiers.map(m => m.getText()),
+        : declaration.modifiers.map((m) => m.getText()),
     typeParameters:
       !typeParameters || typeParameters.length === 0
         ? undefined
-        : typeParameters.map(tp => q.queue(tp, 'type')).filter(isDefined),
+        : typeParameters.map((tp) => q.queue(tp, 'type')).filter(isDefined),
     parameters:
       !parameters || parameters.length === 0
         ? undefined
-        : parameters.map(p => q.queue(p, 'symbol')).filter(isDefined),
+        : parameters.map((p) => q.queue(p, 'symbol')).filter(isDefined),
     text: checker.signatureToString(signature),
     typePredicate: !typePredicate ? undefined : q.queue(typePredicate.type, 'type'),
   };

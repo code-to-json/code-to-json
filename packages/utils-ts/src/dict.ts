@@ -19,7 +19,7 @@ export function forEachDict<T>(
   if (isUem(dict)) {
     dict.forEach(cb);
   } else {
-    Object.keys(dict).forEach(key => {
+    Object.keys(dict).forEach((key) => {
       const item = dict[key] as T;
       cb(item, key);
     });

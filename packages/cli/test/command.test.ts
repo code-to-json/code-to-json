@@ -13,7 +13,7 @@ async function makeWorkspace(): Promise<TestCaseFolder> {
         noEmit: true,
       },
     }),
-    src: {
+    "src": {
       'index.ts': "const x: string = 'foo';",
       'other.ts': "const y: string = 'bar';",
       'more.js': "const z = 'baz';",

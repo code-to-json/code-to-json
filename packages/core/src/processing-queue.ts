@@ -241,7 +241,7 @@ export function create(checker: ts.TypeChecker): Queue {
           Object.keys(lastResult.processed)
             .sort()
             // eslint-disable-next-line no-loop-func
-            .map(k => {
+            .map((k) => {
               const amt = (lastResult.processed as any)[k];
               return amt > 0 ? `${amt} ${k}s` : null;
             })

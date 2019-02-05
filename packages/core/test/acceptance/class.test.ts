@@ -40,14 +40,14 @@ export class ClassSerializationTests {
     expect(instanceType.text).to.eq('Vehicle');
     const instancePropNames = Object.keys(instanceType.properties!);
     expect(instancePropNames).to.deep.eq(['numWheels', 'drive']);
-    const props = instancePropNames.map(p => t.resolveReference(instanceType.properties![p]));
+    const props = instancePropNames.map((p) => t.resolveReference(instanceType.properties![p]));
     const [numWheelsSym, driveSym] = props;
     expect(numWheelsSym.flags).to.deep.eq(['Property']);
     expect(driveSym.flags).to.deep.eq(['Method', 'Transient']);
     expect(numWheelsSym.text).to.eq('numWheels');
     expect(driveSym.text).to.eq('drive');
 
-    const [numWheelsType, driveType] = props.map(s => t.resolveReference(s.valueDeclarationType));
+    const [numWheelsType, driveType] = props.map((s) => t.resolveReference(s.valueDeclarationType));
     expect(numWheelsType.text).to.eql('number');
     expect(driveType.text).to.eql('() => string');
     expect(numWheelsType.flags).to.deep.eq(['Number']);
@@ -88,7 +88,7 @@ export class ClassSerializationTests {
 
     const instancePropNames = Object.keys(classSymbolType.properties!);
     expect(instancePropNames).to.deep.eq(['numWheels', 'drive']);
-    const props = instancePropNames.map(p => t.resolveReference(classSymbolType.properties![p]));
+    const props = instancePropNames.map((p) => t.resolveReference(classSymbolType.properties![p]));
     const [numWheelsSym, driveSym] = props;
     expect(numWheelsSym.flags).to.deep.eq(['Property']);
     expect(driveSym.flags).to.deep.eq(['Method']);
@@ -137,7 +137,7 @@ export class ClassSerializationTests {
   public readonly abc = 'def'
   constructor(n: number) { setTimeout(() => console.log('hello'), n)}
 }
-    
+
 export class Car extends Vehicle {}`;
     const t = new SingleFileAcceptanceTestCase(code);
     await t.run();
@@ -181,7 +181,7 @@ export class Car extends Vehicle {}`;
   constructor(n: number, coeff: number);
   constructor(n: number, coeff: number = 1) { setTimeout(() => console.log('hello'), n * coeff)}
 }
-    
+
 export class Car extends Vehicle {}`;
     const t = new SingleFileAcceptanceTestCase(code);
     await t.run();
@@ -249,7 +249,7 @@ export class Car extends Vehicle {}`;
 
     const classPropNames = Object.keys(classValueDeclarationType.properties!);
     expect(classPropNames).to.deep.eq(['hello', 'planet']);
-    const [helloSym, planetSym] = classPropNames.map(n =>
+    const [helloSym, planetSym] = classPropNames.map((n) =>
       t.resolveReference(classValueDeclarationType.properties![n]),
     );
     expect(helloSym.text).to.eq('hello');
@@ -265,11 +265,11 @@ export class Car extends Vehicle {}`;
     expect(instanceType.text).to.eq('SimpleClass');
     const instancePropNames = Object.keys(instanceType.properties!);
     expect(instancePropNames).to.deep.eq(['foo']);
-    const props = instancePropNames.map(p => t.resolveReference(instanceType.properties![p]));
+    const props = instancePropNames.map((p) => t.resolveReference(instanceType.properties![p]));
     const [fooSym] = props;
     expect(fooSym.flags).to.deep.eq(['Property']);
     expect(fooSym.text).to.eq('foo');
-    const [fooType] = props.map(s => t.resolveReference(s.valueDeclarationType));
+    const [fooType] = props.map((s) => t.resolveReference(s.valueDeclarationType));
 
     expect(fooType.text).to.eql('string');
     expect(fooType.flags).to.deep.eq(['String']);
@@ -315,7 +315,7 @@ export class Car extends Vehicle {}`;
 
     const classPropNames = Object.keys(classValueDeclarationType.properties!);
     expect(classPropNames).to.deep.eq(['hello']);
-    const [helloSym] = classPropNames.map(n =>
+    const [helloSym] = classPropNames.map((n) =>
       t.resolveReference(classValueDeclarationType.properties![n]),
     );
     expect(helloSym.text).to.eq('hello');
@@ -329,11 +329,11 @@ export class Car extends Vehicle {}`;
     expect(instanceType.text).to.eq('SimpleClass');
     const instancePropNames = Object.keys(instanceType.properties!);
     expect(instancePropNames).to.deep.eq(['foo', 'myBar', 'myBaz']);
-    const props = instancePropNames.map(p => t.resolveReference(instanceType.properties![p]));
+    const props = instancePropNames.map((p) => t.resolveReference(instanceType.properties![p]));
     const [fooSym, myBarSym, myBazSym] = props;
     expect(fooSym.flags).to.deep.eq(['Property']);
     expect(fooSym.text).to.eq('foo');
-    const [fooType] = props.map(s => t.resolveReference(s.valueDeclarationType));
+    const [fooType] = props.map((s) => t.resolveReference(s.valueDeclarationType));
 
     expect(fooType.text).to.eql('string');
     expect(fooType.flags).to.deep.eq(['String']);

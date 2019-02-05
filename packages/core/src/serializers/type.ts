@@ -32,7 +32,7 @@ function serializeTypeReference(
     target: q.queue(target, 'type'),
   };
   if (typeArguments) {
-    out.typeParameters = typeArguments.map(ta => q.queue(ta, 'type')).filter(isDefined);
+    out.typeParameters = typeArguments.map((ta) => q.queue(ta, 'type')).filter(isDefined);
   }
   return out;
 }
@@ -64,10 +64,10 @@ function serializeInterfaceType(
     ...serializeObjectType(type, checker, c),
   };
   if (typeParameters && typeParameters.length > 0) {
-    out.typeParameters = typeParameters.map(tp => c.queue.queue(tp, 'type')).filter(isDefined);
+    out.typeParameters = typeParameters.map((tp) => c.queue.queue(tp, 'type')).filter(isDefined);
   }
   if (baseTypes && baseTypes.length > 0) {
-    out.baseTypes = baseTypes.map(bt => c.queue.queue(bt, 'type')).filter(isDefined);
+    out.baseTypes = baseTypes.map((bt) => c.queue.queue(bt, 'type')).filter(isDefined);
   }
   if (thisType) {
     out.thisType = c.queue.queue(thisType, 'type');
@@ -90,13 +90,13 @@ function serializeObjectType(
   const { queue: q } = c;
 
   if (aliasTypeArguments && aliasTypeArguments.length > 0) {
-    out.typeParameters = aliasTypeArguments.map(tp => c.queue.queue(tp, 'type')).filter(isDefined);
+    out.typeParameters = aliasTypeArguments.map((tp) => c.queue.queue(tp, 'type')).filter(isDefined);
   }
   if (c.cfg.shouldSerializeTypeDetails(type)) {
     const properties: ts.Symbol[] = type.getProperties();
     if (properties && properties.length > 0) {
       out.properties = properties
-        .filter(prop => {
+        .filter((prop) => {
           if (prop.flags & ts.SymbolFlags.Prototype) {
             return false;
           }
@@ -136,11 +136,11 @@ function serializeExtendedRelatedTypes(
 
   const callSignatures = type.getCallSignatures();
   if (callSignatures && callSignatures.length > 0) {
-    out.callSignatures = callSignatures.map(cs => serializeSignature(cs, checker, c));
+    out.callSignatures = callSignatures.map((cs) => serializeSignature(cs, checker, c));
   }
   const constructSignatures = type.getConstructSignatures();
   if (constructSignatures && constructSignatures.length > 0) {
-    out.constructorSignatures = constructSignatures.map(cs => serializeSignature(cs, checker, c));
+    out.constructorSignatures = constructSignatures.map((cs) => serializeSignature(cs, checker, c));
   }
   return out;
 }
@@ -200,7 +200,7 @@ function serializeBasicUnionOrIntersectionTypeInfo(
   }
 
   const out: Partial<SerializedType> = {
-    types: typ.types.map(t => c.queue.queue(t, 'type')).filter(isDefined),
+    types: typ.types.map((t) => c.queue.queue(t, 'type')).filter(isDefined),
   };
   return out;
 }
@@ -287,7 +287,7 @@ export default function serializeType(
     symbol: c.queue.queue(symbol, 'symbol'),
     relatedTypes: !relatedEntities
       ? undefined
-      : relatedEntities.map(t => c.queue.queue(t, 'type')).filter(isDefined),
+      : relatedEntities.map((t) => c.queue.queue(t, 'type')).filter(isDefined),
     isPrimitive: isPrimitiveType(type),
     isThisType,
     conditionalInfo: undefined,

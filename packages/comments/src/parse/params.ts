@@ -5,7 +5,7 @@ import { extractParamDescription, trimParagraphContent } from './utils';
 
 function parseTagSection(_tagName: string, node: DocSection): CommentParagraphContent {
   const parts: CommentParagraphContent = [];
-  node.getChildNodes().forEach(ch => {
+  node.getChildNodes().forEach((ch) => {
     const { kind: k } = ch;
     switch (k) {
       case DocNodeKind.Paragraph:
@@ -18,7 +18,7 @@ function parseTagSection(_tagName: string, node: DocSection): CommentParagraphCo
 }
 
 export default function parseParams(params: DocParamCollection): CommentParam[] {
-  return params.blocks.map(p => {
+  return params.blocks.map((p) => {
     const rawContent = parseTagSection('params', p.content);
     trimParagraphContent(rawContent);
     if (p.parameterName) {

@@ -43,7 +43,7 @@ function addToX(y: number): number { return x + y; }`;
     if (!exports) {
       throw new Error('SourceFile has no exports');
     }
-    const allExports = mapDict(exports, sym => sym.declarations[0]);
+    const allExports = mapDict(exports, (sym) => sym.declarations[0]);
     expect(Object.keys(allExports).length).to.eql(1);
 
     expect(this.sf.statements.length).to.eql(4);

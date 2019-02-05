@@ -1,6 +1,6 @@
 {
   "defaultSeverity": "error",
-  "extends": ["tslint:recommended", "tslint-config-prettier", "tslint-sonarts"],
+  "extends": ["tslint:recommended", "tslint-sonarts"],
   "jsRules": {
     "quotemark": false,
     "whitespace": false,
@@ -27,11 +27,13 @@
     "mccabe-complexity": [true, 20],
     "bool-param-default": true,
     "no-small-switch": false,
+    "ordered-imports": false,
     "parameters-max-number": [true, 5],
     "prefer-type-guard": true,
     "use-primitive-type": true,
     "max-classes-per-file": false,
-    "no-duplicate-string": false
+    "no-duplicate-string": false,
+    "max-line-length": false
   },
   "rulesDirectory": []
 }

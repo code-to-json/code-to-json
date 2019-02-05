@@ -53,7 +53,7 @@ export class SourceFileFormatterTests {
   public async 'file with exports'(): Promise<void> {
     const wo: WalkerOutputData = {
       symbols: {
-        '12345': {
+        12345: {
           name: 'module.ts',
           entity: 'symbol',
           id: '12345',

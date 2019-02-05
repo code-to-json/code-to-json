@@ -13,7 +13,7 @@ export class EnumFormatterAcceptanceTests {
     await t.run();
     const file = t.sourceFile();
     const fileSymbol = t.resolveReference(file.symbol!);
-    const fileExports = mapDict(fileSymbol.exports!, e => t.resolveReference(e));
+    const fileExports = mapDict(fileSymbol.exports!, (e) => t.resolveReference(e));
     expect(Object.keys(fileExports)).to.deep.eq(['Suit']);
     const enumSymbol = fileExports.Suit!;
     expect(enumSymbol.name).to.eq('Suit');
@@ -21,7 +21,7 @@ export class EnumFormatterAcceptanceTests {
     expect(enumType.text).to.eq('typeof Suit');
     expect(!!enumSymbol.exports).to.eq(true, 'members exist');
     expect(Object.keys(enumSymbol.exports!)).to.deep.eq(['heart', 'club', 'diamond', 'spade']);
-    const enumMembers = mapDict(enumSymbol.exports!, en => t.resolveReference(en));
+    const enumMembers = mapDict(enumSymbol.exports!, (en) => t.resolveReference(en));
     const { heart, club, diamond, spade } = filterDict(enumMembers, isDefined);
 
     expect(heart!.flags).to.deep.eq(['enumMember']);
@@ -44,7 +44,7 @@ export class EnumFormatterAcceptanceTests {
     await t.run();
     const file = t.sourceFile();
     const fileSymbol = t.resolveReference(file.symbol!);
-    const fileExports = mapDict(fileSymbol.exports!, e => t.resolveReference(e));
+    const fileExports = mapDict(fileSymbol.exports!, (e) => t.resolveReference(e));
     expect(Object.keys(fileExports)).to.deep.eq(['x']);
     const enumMemberSymbol = fileExports.x!;
     expect(enumMemberSymbol.name).to.eq('x');
@@ -60,7 +60,7 @@ export class EnumFormatterAcceptanceTests {
     await t.run();
     const file = t.sourceFile();
     const fileSymbol = t.resolveReference(file.symbol!);
-    const fileExports = mapDict(fileSymbol.exports!, e => t.resolveReference(e));
+    const fileExports = mapDict(fileSymbol.exports!, (e) => t.resolveReference(e));
     expect(Object.keys(fileExports)).to.deep.eq(['Suit']);
     const enumSymbol = fileExports.Suit!;
     expect(enumSymbol.name).to.eq('Suit');
@@ -69,7 +69,7 @@ export class EnumFormatterAcceptanceTests {
     expect(enumType.text).to.eq('typeof Suit');
     expect(!!enumSymbol.exports).to.eq(true, 'members exist');
     expect(Object.keys(enumSymbol.exports!)).to.deep.eq(['heart', 'club', 'diamond', 'spade']);
-    const enumMembers = mapDict(enumSymbol.exports!, en => t.resolveReference(en));
+    const enumMembers = mapDict(enumSymbol.exports!, (en) => t.resolveReference(en));
     const { heart, club, diamond, spade } = filterDict(enumMembers, isDefined);
 
     expect(heart!.flags).to.deep.eq(['enumMember']);
@@ -92,7 +92,7 @@ export class EnumFormatterAcceptanceTests {
     await t.run();
     const file = t.sourceFile();
     const fileSymbol = t.resolveReference(file.symbol!);
-    const fileExports = mapDict(fileSymbol.exports!, e => t.resolveReference(e));
+    const fileExports = mapDict(fileSymbol.exports!, (e) => t.resolveReference(e));
     expect(Object.keys(fileExports)).to.deep.eq(['x']);
     const enumMemberSymbol = fileExports.x!;
     expect(enumMemberSymbol.name).to.eq('x');

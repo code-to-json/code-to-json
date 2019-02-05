@@ -94,8 +94,8 @@ function linkType(res: LinkedRefResolver, type?: LinkedType & SerializedType): v
     properties: resolveRefDict(type.properties, res),
     // conditionalInfo?: LinkedTypeConditionInfo;
   };
-  [type.constructorSignatures, type.callSignatures].filter(isDefined).forEach(sigList => {
-    sigList.forEach(sig => linkSignature(sig as LinkedSignature & SerializedSignature, res));
+  [type.constructorSignatures, type.callSignatures].filter(isDefined).forEach((sigList) => {
+    sigList.forEach((sig) => linkSignature(sig as LinkedSignature & SerializedSignature, res));
   });
   if (type.conditionalInfo) {
     Object.assign(type.conditionalInfo, {
@@ -122,8 +122,8 @@ function linkSourceFile(
   };
   [sym.referencedFiles, sym.typeReferenceDirectives, sym.libReferenceDirectives]
     .filter(isDefined)
-    .forEach(fileRefList => {
-      fileRefList.forEach(fr => linkFileReference(fr, res));
+    .forEach((fileRefList) => {
+      fileRefList.forEach((fr) => linkFileReference(fr, res));
     });
   Object.assign(sym, pruneUndefinedValues(newData));
 }
@@ -132,15 +132,17 @@ function linkSymbol(res: LinkedRefResolver, sym?: LinkedSymbol & SerializedSymbo
   if (!sym) {
     return;
   }
+  const { symbolType, valueDeclaration, valueDeclarationType, exports, members, decorators, sourceFile, globalExports, relatedSymbols } = sym;
   const newData: LinkedSymbolRelationships = {
-    symbolType: res(sym.symbolType),
-    valueDeclarationType: res(sym.valueDeclarationType),
-    exports: resolveRefDict(sym.exports, res),
-    members: resolveRefDict(sym.members, res),
-    decorators: resolveRefList(sym.decorators, res),
-    sourceFile: res(sym.sourceFile),
-    globalExports: resolveRefDict(sym.globalExports, res),
-    relatedSymbols: resolveRefList(sym.relatedSymbols, res),
+    symbolType: res(symbolType),
+    valueDeclarationType: res(valueDeclarationType),
+    exports: resolveRefDict(exports, res),
+    members: resolveRefDict(members, res),
+    decorators: resolveRefList(decorators, res),
+    sourceFile: res(sourceFile),
+    globalExports: resolveRefDict(globalExports, res),
+    relatedSymbols: resolveRefList(relatedSymbols, res),
+    valueDeclaration: res(valueDeclaration)
   };
 
   Object.assign(sym, pruneUndefinedValues(newData));
@@ -151,9 +153,9 @@ export function linkWalkerOutputData(unlinked: WalkerOutputData): LinkedWalkerOu
   const out = JSON.parse(JSON.stringify(unlinked)) as MaybeLinkedWalkerOutputData;
   const { symbols, types, sourceFiles } = out;
   const resolver = createLinkedRefResolver(out);
-  Object.keys(symbols).forEach(symKey => linkSymbol(resolver, symbols[symKey]));
-  Object.keys(types).forEach(typeKey => linkType(resolver, types[typeKey]));
-  Object.keys(sourceFiles).forEach(sourceFileKey =>
+  Object.keys(symbols).forEach((symKey) => linkSymbol(resolver, symbols[symKey]));
+  Object.keys(types).forEach((typeKey) => linkType(resolver, types[typeKey]));
+  Object.keys(sourceFiles).forEach((sourceFileKey) =>
     linkSourceFile(resolver, sourceFiles[sourceFileKey]),
   );
   return out;

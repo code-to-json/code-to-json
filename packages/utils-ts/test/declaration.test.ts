@@ -10,7 +10,7 @@ export class DeclarationUtilTests {
     const t = await setupSingleModuleProgram(
       `export abstract class Foo { abstract bar(): string };`,
     );
-    const [file] = t.program.getSourceFiles().filter(f => !f.isDeclarationFile);
+    const [file] = t.program.getSourceFiles().filter((f) => !f.isDeclarationFile);
     expect(!!file).to.eq(true);
     const checker = t.program.getTypeChecker();
     const fileSym = checker.getSymbolAtLocation(file)!;

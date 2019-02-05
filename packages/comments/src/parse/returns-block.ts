@@ -45,7 +45,7 @@ export default function parseReturnsBlock(block?: DocBlock): CommentParam | unde
   const [stFirst, ...stRest] = st;
   const desc: CommentParam = extractParamDescription('returns', stFirst);
   desc.content = desc.content ? desc.content.concat(stRest) : stRest;
-  otherChildren.forEach(otherch => {
+  otherChildren.forEach((otherch) => {
     if (otherch.kind !== DocNodeKind.Paragraph) {
       throw new Error(
         `Expected children of a @returns DocBlock to be a Paragraph. Found ${otherch.kind} instead`,

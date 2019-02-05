@@ -13,7 +13,7 @@ export class CliUtilTests {
       helpStr = str;
       return str;
     });
-    await new Promise(res => setTimeout(res, 100));
+    await new Promise((res) => setTimeout(res, 100));
     expect(helpStr.length).to.be.greaterThan(0);
     expect(helpStr).to.eql(`Usage: code-to-json [options] [entries...]
 
@@ -30,7 +30,7 @@ Options:
   @test
   public async 'timeString tests'(): Promise<void> {
     const start = process.hrtime();
-    await new Promise(res => setTimeout(res, 100));
+    await new Promise((res) => setTimeout(res, 100));
     const delta = process.hrtime(start);
     const s = timeString(delta, 'test time');
     expect(s).to.contain(' ms (test time)');
@@ -55,7 +55,7 @@ Options:
     await a([], cmd);
     expect(invocationCt).to.eq(1);
     expect(
-      logs.map(s =>
+      logs.map((s) =>
         s
           .substr(s.indexOf('(') + 1)
           .replace(')', '')
@@ -81,7 +81,7 @@ Options:
       log,
     );
     expect(!!a).to.eql(true, 'action is truthy');
-    expect(logs.map(s => s.substr(s.indexOf(')') + 1).trim())).to.deep.eq([]);
+    expect(logs.map((s) => s.substr(s.indexOf(')') + 1).trim())).to.deep.eq([]);
 
     try {
       await a([], cmd);

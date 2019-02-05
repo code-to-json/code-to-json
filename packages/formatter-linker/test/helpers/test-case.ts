@@ -32,9 +32,9 @@ export default class SingleFileAcceptanceTestCase {
     const { program, cleanup, rootPath } = await setupTestCase(
       {
         // tslint:disable-next-line:no-duplicate-string
-        src: { 'index.ts': this.codeString },
+        "src": { 'index.ts': this.codeString },
         'package.json': JSON.stringify({
-          name: 'pkg-ts-single-file',
+          "name": 'pkg-ts-single-file',
           'doc:main': 'src/index.ts',
         }),
         'tsconfig.json': JSON.stringify({
@@ -70,7 +70,7 @@ export default class SingleFileAcceptanceTestCase {
     }
     const { sourceFiles } = this.data;
     const fileIds = Object.keys(sourceFiles).filter(
-      sfName => !sourceFiles[sfName]!.isDeclarationFile,
+      (sfName) => !sourceFiles[sfName]!.isDeclarationFile,
     );
     expect(fileIds).to.have.lengthOf(1, 'One source file');
     const file = sourceFiles[fileIds[0]];

@@ -14,7 +14,7 @@ export default function formatSignature(
     hasRestParameter,
     parameters:
       parameters &&
-      parameters.map(p => {
+      parameters.map((p) => {
         const sym = resolveReference(wo, p);
         const { valueDeclarationType } = sym;
         const typ = valueDeclarationType && resolveReference(wo, valueDeclarationType);
@@ -30,7 +30,7 @@ export default function formatSignature(
   }
   if (typeParameters) {
     signatureInfo.typeParameters = typeParameters
-      .map(tp => {
+      .map((tp) => {
         const typ = resolveReference(wo, tp);
         return collector.queue(typ, 't');
       })

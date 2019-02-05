@@ -44,7 +44,7 @@ function formatTypeParametersAndConstraints(
   }
   if (typeParameters) {
     const typeParameterRefs = typeParameters
-      .map(tp => {
+      .map((tp) => {
         if (!tp) {
           return undefined;
         }
@@ -57,11 +57,11 @@ function formatTypeParametersAndConstraints(
         return typ;
       })
       .filter(isDefined);
-    const thisType: SerializedType | undefined = typeParameterRefs.filter(t => t.isThisType)[0];
-    const otherTypeParams: SerializedType[] = typeParameterRefs.filter(t => !t.isThisType);
+    const thisType: SerializedType | undefined = typeParameterRefs.filter((t) => t.isThisType)[0];
+    const otherTypeParams: SerializedType[] = typeParameterRefs.filter((t) => !t.isThisType);
     if (otherTypeParams.length > 0) {
       typeInfo.typeParameters = otherTypeParams
-        .map(tp => collector.queue(tp, 't'))
+        .map((tp) => collector.queue(tp, 't'))
         .filter(isDefined);
     }
     if (thisType) {
@@ -101,12 +101,12 @@ function formatCallAndConstructSignatures(
   const typeInfo: Pick<FormattedType, 'constructorSignatures' | 'callSignatures'> = {};
   const { constructorSignatures, callSignatures } = type;
   if (constructorSignatures) {
-    typeInfo.constructorSignatures = constructorSignatures.map(cs =>
+    typeInfo.constructorSignatures = constructorSignatures.map((cs) =>
       formatSignature(wo, cs, collector),
     );
   }
   if (callSignatures) {
-    typeInfo.callSignatures = callSignatures.map(cs => formatSignature(wo, cs, collector));
+    typeInfo.callSignatures = callSignatures.map((cs) => formatSignature(wo, cs, collector));
   }
   return typeInfo;
 }
@@ -168,7 +168,7 @@ export default function formatType(
   }
   if (baseTypes && baseTypes.length > 0) {
     typeInfo.baseTypes = baseTypes
-      .map(bt => collector.queue(resolveReference(wo, bt), 't'))
+      .map((bt) => collector.queue(resolveReference(wo, bt), 't'))
       .filter(isDefined);
   }
 
@@ -180,7 +180,7 @@ export default function formatType(
   }
   if (types) {
     typeInfo.types = types
-      .map(t => collector.queue(resolveReference(wo, t), 't'))
+      .map((t) => collector.queue(resolveReference(wo, t), 't'))
       .filter(isDefined);
   }
 

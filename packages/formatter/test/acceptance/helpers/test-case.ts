@@ -42,9 +42,9 @@ export default class SingleFileAcceptanceTestCase {
     const { program, cleanup, rootPath } = await setupTestCase(
       {
         // tslint:disable-next-line:no-duplicate-string
-        src: { 'index.ts': this.codeString },
+        "src": { 'index.ts': this.codeString },
         'package.json': JSON.stringify({
-          name: 'pkg-ts-single-file',
+          "name": 'pkg-ts-single-file',
           'doc:main': 'src/index.ts',
         }),
         'tsconfig.json': JSON.stringify({
@@ -64,13 +64,13 @@ export default class SingleFileAcceptanceTestCase {
     const formattedOutput = formatWalkerOutput(walkerOutput);
     const { types, symbols, sourceFiles } = formattedOutput.data;
 
-    Object.keys(types).forEach(k =>
+    Object.keys(types).forEach((k) =>
       sanitizeFormattedType(types[k], { replace: STANDARD_REPLACERS(rootPath) }),
     );
-    Object.keys(symbols).forEach(k =>
+    Object.keys(symbols).forEach((k) =>
       sanitizeFormattedSymbol(symbols[k], { replace: STANDARD_REPLACERS(rootPath) }),
     );
-    Object.keys(sourceFiles).forEach(k =>
+    Object.keys(sourceFiles).forEach((k) =>
       sanitizeFormattedSourceFile(sourceFiles[k], { replace: STANDARD_REPLACERS(rootPath) }),
     );
     this.data = formattedOutput.data;
@@ -98,7 +98,7 @@ export default class SingleFileAcceptanceTestCase {
     }
     const { sourceFiles } = this.data;
     const fileIds = Object.keys(sourceFiles).filter(
-      sfName => !sourceFiles[sfName].isDeclarationFile,
+      (sfName) => !sourceFiles[sfName].isDeclarationFile,
     );
     expect(fileIds).to.have.lengthOf(1, 'One source file');
     const file = sourceFiles[fileIds[0]];

@@ -63,7 +63,7 @@ export const favSuit = Suit.Heart;
     }
     this.sfSym = sfSym;
 
-    this.exports = mapDict(this.sfSym.exports!, exp => {
+    this.exports = mapDict(this.sfSym.exports!, (exp) => {
       const typ = getRelevantTypesForSymbol(this.checker, exp)!;
       return {
         sym: exp,

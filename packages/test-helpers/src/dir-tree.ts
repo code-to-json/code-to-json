@@ -17,7 +17,7 @@ function dirTreeAsObject(tree: DirectoryTree, obj: treeify.TreeObject): treeify.
         // eslint-disable-next-line no-param-reassign
         obj[name] = o;
         if (children) {
-          children.forEach(ch => dirTreeAsObject(ch, o));
+          children.forEach((ch) => dirTreeAsObject(ch, o));
         }
       }
       break;
@@ -33,7 +33,7 @@ function dirTreeAsString(tree: DirectoryTree): string {
   if (!children || children.length === 0) {
     return '(empty)';
   }
-  children.forEach(ch => dirTreeAsObject(ch, obj));
+  children.forEach((ch) => dirTreeAsObject(ch, obj));
   return treeify.asTree(obj, false, true);
 }
 
@@ -49,6 +49,6 @@ export function asObject(pth: string): treeify.TreeObject {
   if (!children) {
     return {};
   }
-  children.forEach(ch => dirTreeAsObject(ch, obj));
+  children.forEach((ch) => dirTreeAsObject(ch, obj));
   return obj;
 }

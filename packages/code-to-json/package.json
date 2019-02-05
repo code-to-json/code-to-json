@@ -16,7 +16,10 @@
   },
   "scripts": {
     "build": "node cp-readme.js",
-    "test": "echo \"Error: run tests from root\" && exit 0"
+    "lint": "echo \"Error: run linter from root\" && exit 0",
+    "lint:js": "echo \"Error: run linter from root\" && exit 0",
+    "test:debug": "echo \"Error: run tests from root\" && exit 0",
+    "test:coverage": "echo \"Error: run tests from root\" && exit 0"
   },
   "dependencies": {
     "@code-to-json/cli": "^1.0.0-rc.21",

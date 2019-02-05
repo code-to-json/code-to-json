@@ -27,9 +27,9 @@ export async function globsToPaths(
     ) =>
       pGlob(g) // get the collection of files
         .then((files: string[]) => {
-          files.forEach(f => valueSet.add(f)); // add each file to the set
+          files.forEach((f) => valueSet.add(f)); // add each file to the set
         })
-        .catch(er => {
+        .catch((er) => {
           throw new InvalidArgumentsError(`Invalid glob: ${g}\n${er}`);
         }),
     ),
@@ -37,7 +37,7 @@ export async function globsToPaths(
   const allPaths = [...valueSet]; // Set<string> -> string[]
   // If extensions are provided, only return those files that match
   return extensions
-    ? allPaths.filter(f => extensions.indexOf(path.extname(f).toLowerCase()) >= 0)
+    ? allPaths.filter((f) => extensions.indexOf(path.extname(f).toLowerCase()) >= 0)
     : allPaths;
 }
 

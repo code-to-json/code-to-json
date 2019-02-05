@@ -19,9 +19,9 @@ function createProgramFromTestCaseFolder(
   if (!fs.statSync(rootPath).isDirectory) {
     throw new Error(`"${rootPath}" is not a folder`);
   }
-  const entries = entryPaths.map(pth => path.join(rootPath, pth));
+  const entries = entryPaths.map((pth) => path.join(rootPath, pth));
   const entryErrors: { [k: string]: string[] } = {};
-  entries.forEach(pth => {
+  entries.forEach((pth) => {
     const localErrors: string[] = [];
     if (!fs.existsSync(pth)) {
       localErrors.push('was not found');

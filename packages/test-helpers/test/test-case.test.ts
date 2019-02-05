@@ -26,7 +26,7 @@ export class TestCaseCreation {
   @test
   public async 'Attempting to create a test case from a non-existent folder'(): Promise<void> {
     const errors: Error[] = [];
-    await createTempFixtureFolder(path.join(TEST_CASES_FOLDER_PATH, 'foo-bar-baz')).catch(err => {
+    await createTempFixtureFolder(path.join(TEST_CASES_FOLDER_PATH, 'foo-bar-baz')).catch((err) => {
       errors.push(err);
     });
     expect(errors.length).to.eq(1);
@@ -39,7 +39,7 @@ export class TestCaseCreation {
     const filePath = path.join(workspace.name, 'file.txt');
     fs.writeFileSync(filePath, 'hello world');
     const errors: Error[] = [];
-    await createTempFixtureFolder(filePath).catch(err => {
+    await createTempFixtureFolder(filePath).catch((err) => {
       errors.push(err);
     });
     expect(errors.length).to.eq(1);
@@ -59,8 +59,8 @@ export class TestCaseCreation {
     expect(cleanup).to.be.an.instanceOf(Function);
     const relevantFiles = program
       .getSourceFiles()
-      .filter(sf => !sf.isDeclarationFile)
-      .map(sf => sf.fileName);
+      .filter((sf) => !sf.isDeclarationFile)
+      .map((sf) => sf.fileName);
     expect(relevantFiles).to.have.lengthOf(1);
     cleanup();
   }
@@ -78,7 +78,7 @@ export class TestCaseCreation {
         "include": ["src"]
       }
       `,
-        src: {
+        "src": {
           'index.ts': `/**
           * This is a variable with an explicit type
           */
@@ -108,8 +108,8 @@ export class TestCaseCreation {
     expect(cleanup).to.be.an.instanceOf(Function);
     const relevantFiles = program
       .getSourceFiles()
-      .filter(sf => !sf.isDeclarationFile)
-      .map(sf => sf.fileName);
+      .filter((sf) => !sf.isDeclarationFile)
+      .map((sf) => sf.fileName);
     expect(relevantFiles).to.have.lengthOf(1);
     cleanup();
   }

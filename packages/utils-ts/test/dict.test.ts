@@ -7,12 +7,12 @@ import { filterDict, forEachDict, mapDict, reduceDict } from '../src/dict';
 export class DictUtilTests {
   @test public async 'forEachDict - Dict<T>'(): Promise<void> {
     const vals: string[] = [];
-    forEachDict({ foo: 'bar', biz: 'baz' } as Dict<string>, s => vals.push(s.toUpperCase()));
+    forEachDict({ foo: 'bar', biz: 'baz' } as Dict<string>, (s) => vals.push(s.toUpperCase()));
     expect(vals).to.deep.eq(['BAR', 'BAZ']);
   }
 
   @test public async 'mapDict - Dict<T>'(): Promise<void> {
-    expect(mapDict({ foo: 'bar', biz: 'baz' } as Dict<string>, s => s.toUpperCase())).to.deep.eq({
+    expect(mapDict({ foo: 'bar', biz: 'baz' } as Dict<string>, (s) => s.toUpperCase())).to.deep.eq({
       foo: 'BAR',
       biz: 'BAZ',
     });
@@ -26,7 +26,7 @@ export class DictUtilTests {
 
   @test public async 'filterDict - Dict<T>'(): Promise<void> {
     expect(
-      filterDict({ foo: 'bar', biz: 'baz' } as Dict<string>, s => s[s.length - 1] === 'z'),
+      filterDict({ foo: 'bar', biz: 'baz' } as Dict<string>, (s) => s[s.length - 1] === 'z'),
     ).to.deep.eq({
       biz: 'baz',
     });

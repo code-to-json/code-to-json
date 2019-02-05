@@ -59,28 +59,28 @@ export function create(): DataCollector {
   const registries = {
     symbols: createQueue<FormatterRefRegistry, 's', SerializedSymbol, string, undefined>(
       's',
-      s => s.id,
-      id => ({ id }),
+      (s) => s.id,
+      (id) => ({ id }),
     ),
     types: createQueue<FormatterRefRegistry, 't', SerializedType, string, undefined>(
       't',
-      t => t.id,
-      id => ({ id }),
+      (t) => t.id,
+      (id) => ({ id }),
     ),
     files: createQueue<FormatterRefRegistry, 'f', SerializedSourceFile, string, undefined>(
       'f',
-      f => f.id,
-      id => ({ id }),
+      (f) => f.id,
+      (id) => ({ id }),
     ),
     declarations: createQueue<FormatterRefRegistry, 'd', SerializedDeclaration, string, undefined>(
       'd',
-      d => d.id,
-      id => ({ id }),
+      (d) => d.id,
+      (id) => ({ id }),
     ),
     nodes: createQueue<FormatterRefRegistry, 'n', SerializedNode, string, undefined>(
       'n',
-      n => n.id,
-      id => ({ id }),
+      (n) => n.id,
+      (id) => ({ id }),
     ),
   };
 
@@ -172,7 +172,7 @@ export function create(): DataCollector {
         const reportMessage = Object.keys(lastResult.processed)
           .sort()
           // eslint-disable-next-line no-loop-func
-          .map(k => {
+          .map((k) => {
             const amt = (lastResult.processed as any)[k];
             return amt > 0 ? `${amt} ${k}s` : null;
           })

@@ -39,7 +39,7 @@ function linkSignature(
   const newData: LinkedFormattedSignatureRelationships = {
     parameters: !parameters
       ? undefined
-      : parameters.map(p => {
+      : parameters.map((p) => {
           return {
             name: p.name,
             type: p.type ? res(p.type) : undefined,
@@ -96,8 +96,8 @@ function linkType(
     typeParameters: resolveRefList(typeParameters, res),
     types: resolveRefList(types, res),
   };
-  [constructorSignatures, callSignatures].filter(isDefined).forEach(sigList => {
-    sigList.forEach(sig =>
+  [constructorSignatures, callSignatures].filter(isDefined).forEach((sigList) => {
+    sigList.forEach((sig) =>
       linkSignature(sig as LinkedFormattedSignature & FormattedSignature, res),
     );
   });
@@ -143,12 +143,13 @@ function linkSymbol(
     type,
     valueType,
     related,
+    valueDeclaration
   } = sym;
   const newData: LinkedFormattedSymbolRelationships = {
     otherDeclarationTypes: !otherDeclarationTypes
       ? undefined
       : otherDeclarationTypes
-          .map(odt => {
+          .map((odt) => {
             return {
               declaration: res(
                 (odt.declaration as any) as FormattedDeclarationRef,
@@ -165,6 +166,7 @@ function linkSymbol(
     type: res(type),
     valueType: res(valueType),
     related: resolveRefList(related, res),
+    valueDeclaration: res(valueDeclaration)
   };
   if (sym.location) {
     linkCodePositionOrRange(sym.location, res);
@@ -178,9 +180,9 @@ export function linkFormatterData(unlinked: FormatterOutputData): LinkedFormatte
   const out = JSON.parse(JSON.stringify(unlinked)) as MaybeLinkedFormattedOutputData;
   const { symbols, types, sourceFiles } = out;
   const resolver = createLinkedFormattedRefResolver(out);
-  Object.keys(symbols).forEach(symKey => linkSymbol(resolver, symbols[symKey]));
-  Object.keys(types).forEach(typeKey => linkType(resolver, types[typeKey]));
-  Object.keys(sourceFiles).forEach(sourceFileKey =>
+  Object.keys(symbols).forEach((symKey) => linkSymbol(resolver, symbols[symKey]));
+  Object.keys(types).forEach((typeKey) => linkType(resolver, types[typeKey]));
+  Object.keys(sourceFiles).forEach((sourceFileKey) =>
     linkSourceFile(resolver, sourceFiles[sourceFileKey]),
   );
   return out;

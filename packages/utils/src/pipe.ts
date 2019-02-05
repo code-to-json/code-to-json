@@ -31,5 +31,5 @@ export function pipe<A1, R1, R2, R3, R4, R5>(
 ): (a: A1) => R5;
 
 export function pipe(...fns: Array<(arg: any) => any>): (a: any) => any {
-  return arg => fns.reduce((x, fn) => fn(x), arg);
+  return (arg) => fns.reduce((x, fn) => fn(x), arg);
 }
