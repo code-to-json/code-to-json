@@ -43,7 +43,7 @@ export class SimpleSnapshotSmokeTests {
     };
 
     this.sourceFiles = program.getSourceFiles();
-    this.sourceFiles.forEach(sf => queue.queue(sf, 'sourceFile'));
+    this.sourceFiles.forEach((sf) => queue.queue(sf, 'sourceFile'));
     const data = queue.process({
       mapType: (_ref, item) => checker.typeToString(item),
       mapSymbol: (_ref: SymbolRef, item: ts.Symbol) => item.getName(),
@@ -55,15 +55,15 @@ export class SimpleSnapshotSmokeTests {
 
   @test
   public async 'SourceFile serialization'(): Promise<void> {
-    const indexFile = this.sourceFiles.filter(sf => !sf.isDeclarationFile)[0];
+    const indexFile = this.sourceFiles.filter((sf) => !sf.isDeclarationFile)[0];
     expect(indexFile.fileName.replace(this.rootPath, ''))
       .to.contain('src')
       .to.contain('index.js');
     const { sourceFiles } = this.data;
 
     const [indexFileData] = Object.keys(sourceFiles)
-      .filter(sf => !sourceFiles[sf].isDeclarationFile)
-      .map(sf => sourceFiles[sf]);
+      .filter((sf) => !sourceFiles[sf].isDeclarationFile)
+      .map((sf) => sourceFiles[sf]);
     expect(Object.keys(indexFileData))
       .contains('id')
       .contains('entity')

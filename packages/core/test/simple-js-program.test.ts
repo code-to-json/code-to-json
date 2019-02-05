@@ -75,7 +75,7 @@ export class TypeScriptFixturePrograms {
     "include": ["**/*.test.ts", "../src/**/*.ts"]
   }
 `,
-        src: {
+        "src": {
           'index.js': `import { readdirSync } from 'fs';
 
 /**

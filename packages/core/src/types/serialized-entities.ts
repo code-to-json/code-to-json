@@ -161,7 +161,7 @@ export interface SerializedSignature
  */
 export interface SerializedNode<Type extends string = 'node'> extends SerializedEntity<Type> {
   text: string;
-  kind: string;
+  syntaxKind: string;
   location?: SerializedCodeRange;
 }
 

@@ -57,7 +57,7 @@ function serializeExtendedSymbolDeclarationData(
 
   if (symbol.getJsDocTags().length > 0 || symbol.getDocumentationComment(checker).length > 0) {
     const txt = extractDocumentationText(decl);
-    serialized.jsDocTags = symbol.getJsDocTags().map(t => ({ name: t.name, text: t.text }));
+    serialized.jsDocTags = symbol.getJsDocTags().map((t) => ({ name: t.name, text: t.text }));
     if (typeof txt === 'string') {
       serialized.documentation = parseCommentString(txt);
     }
@@ -83,12 +83,12 @@ function serializeExports(
   if (!exportSymbols) {
     return {};
   }
-  const filteredExports = filterDict(exportSymbols, e => !(e.flags & ts.SymbolFlags.Prototype));
+  const filteredExports = filterDict(exportSymbols, (e) => !(e.flags & ts.SymbolFlags.Prototype));
   if (Object.keys(filteredExports).length === 0) {
     return {};
   }
 
-  return { exports: mapDict(filteredExports, exp => c.queue.queue(exp, 'symbol')) };
+  return { exports: mapDict(filteredExports, (exp) => c.queue.queue(exp, 'symbol')) };
 }
 
 function serializeMembers(
@@ -105,12 +105,12 @@ function serializeMembers(
   }
   const filteredMembers = filterDict(
     members,
-    e => !(e.flags & (ts.SymbolFlags.Constructor | ts.SymbolFlags.Signature)),
+    (e) => !(e.flags & (ts.SymbolFlags.Constructor | ts.SymbolFlags.Signature)),
   );
   if (Object.keys(filteredMembers).length === 0) {
     return {};
   }
-  return { members: mapDict(filteredMembers, exp => c.queue.queue(exp, 'symbol')) };
+  return { members: mapDict(filteredMembers, (exp) => c.queue.queue(exp, 'symbol')) };
 }
 
 function serializeRelatedEntities(
@@ -123,7 +123,7 @@ function serializeRelatedEntities(
     return undefined;
   }
   const relatedSymbols = relatedEntities
-    .map(relatedSym => q.queue(relatedSym, 'symbol'))
+    .map((relatedSym) => q.queue(relatedSym, 'symbol'))
     .filter(isDefined);
 
   return { relatedSymbols };
@@ -147,7 +147,7 @@ function serializeBasicSymbolDeclarationData(
   }
   if (decorators) {
     out.decorators = decorators
-      .map(d => c.queue.queue(checker.getSymbolAtLocation(d.expression), 'symbol'))
+      .map((d) => c.queue.queue(checker.getSymbolAtLocation(d.expression), 'symbol'))
       .filter(isDefined);
   }
 
@@ -188,7 +188,7 @@ function serializeSymbolTypes(
     out.valueDeclaration = c.queue.queue(valueDeclaration, 'declaration');
   }
   if (declarations) {
-    out.declarations = declarations.map(d => c.queue.queue(d, 'declaration')).filter(isDefined);
+    out.declarations = declarations.map((d) => c.queue.queue(d, 'declaration')).filter(isDefined);
   }
   if (valueDeclarationType) {
     out.valueDeclarationType = c.queue.queue(valueDeclarationType, 'type');
@@ -261,7 +261,7 @@ export default function serializeSymbol(
     ...serializeMembers(symbol, checker, c),
   };
 
-  forEach(symbol.declarations, d => {
+  forEach(symbol.declarations, (d) => {
     // Type queries are too far resolved when we just visit the symbol's type
     //  (their type resolved directly to the member deeply referenced)
     // So to get the intervening symbols, we need to check if there's a type

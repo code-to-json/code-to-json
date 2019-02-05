@@ -15,14 +15,14 @@ import { WalkerOptions } from './options';
 
 function postProcessSymbol({ symbols }: WalkerOutputData, sym: SerializedSymbol): void {
   if (sym.relatedSymbols) {
-    sym.relatedSymbols.forEach(relatedRef => {
+    sym.relatedSymbols.forEach((relatedRef) => {
       const related: SerializedSymbol | undefined = symbols[refId(relatedRef)];
       if (related) {
         const selfRef = createRef<RefRegistry, 'symbol'>('symbol', sym.id);
         if (!related.relatedSymbols) {
           related.relatedSymbols = [selfRef];
         } else {
-          const tracked = related.relatedSymbols.map(ref => refId(ref)).includes(sym.id);
+          const tracked = related.relatedSymbols.map((ref) => refId(ref)).includes(sym.id);
           if (!tracked) {
             related.relatedSymbols.push();
           }
@@ -34,14 +34,14 @@ function postProcessSymbol({ symbols }: WalkerOutputData, sym: SerializedSymbol)
 
 function postProcessType({ types }: WalkerOutputData, type: SerializedType): void {
   if (type.relatedTypes) {
-    type.relatedTypes.forEach(relatedRef => {
+    type.relatedTypes.forEach((relatedRef) => {
       const related: SerializedType | undefined = types[refId(relatedRef)];
       if (related) {
         const selfRef = createRef<RefRegistry, 'type'>('type', type.id);
         if (!related.relatedTypes) {
           related.relatedTypes = [selfRef];
         } else {
-          const tracked = related.relatedTypes.map(ref => refId(ref)).includes(type.id);
+          const tracked = related.relatedTypes.map((ref) => refId(ref)).includes(type.id);
           if (!tracked) {
             related.relatedTypes.push();
           }
@@ -53,13 +53,13 @@ function postProcessType({ types }: WalkerOutputData, type: SerializedType): voi
 
 function postprocessData(wod: WalkerOutputData): void {
   const { symbols, types } = wod;
-  Object.keys(symbols).forEach(s => {
+  Object.keys(symbols).forEach((s) => {
     const sym = symbols[s];
     if (sym) {
       postProcessSymbol(wod, sym);
     }
   });
-  Object.keys(types).forEach(s => {
+  Object.keys(types).forEach((s) => {
     const typ = types[s];
     if (typ) {
       postProcessType(wod, typ);
@@ -85,11 +85,11 @@ export function walkProgram(
   const checker = program.getTypeChecker();
 
   // Get all non-declaration source files
-  const sourceFiles = program.getSourceFiles().filter(sf => cfg.shouldIncludeSourceFile(sf));
+  const sourceFiles = program.getSourceFiles().filter((sf) => cfg.shouldIncludeSourceFile(sf));
 
   // Initialize the work-processing queue
   const queue = createQueue(checker);
-  sourceFiles.forEach(sf => queue.queue(sf, 'sourceFile'));
+  sourceFiles.forEach((sf) => queue.queue(sf, 'sourceFile'));
   const collector: Collector = {
     queue,
     host,

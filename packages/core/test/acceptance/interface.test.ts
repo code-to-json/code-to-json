@@ -49,10 +49,10 @@ export class InterfaceSerializationTests {
     expect(interfaceType.objectFlags).to.deep.eq(['Interface']);
     const typePropertyNames = Object.keys(interfaceType.properties!);
     expect(typePropertyNames).to.deep.eq(['bar', 'baz']);
-    const [bar, baz] = Object.keys(interfaceType.properties!).map(pName =>
+    const [bar, baz] = Object.keys(interfaceType.properties!).map((pName) =>
       t.resolveReference(interfaceType.properties![pName]),
     );
-    const [barType, bazType] = [bar, baz].map(s => t.resolveReference(s.valueDeclarationType));
+    const [barType, bazType] = [bar, baz].map((s) => t.resolveReference(s.valueDeclarationType));
     expect(bar.name).to.eql('bar');
     expect(barType.text).to.eql('number');
     expect(bar.modifiers).to.deep.eq(undefined);

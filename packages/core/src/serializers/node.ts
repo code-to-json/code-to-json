@@ -1,6 +1,8 @@
-import { refId } from '@code-to-json/utils';
-import { flagsToString, getNameForNode } from '@code-to-json/utils-ts';
 import * as ts from 'typescript';
+
+import { camelize, refId } from '@code-to-json/utils';
+import { flagsToString, getNameForNode } from '@code-to-json/utils-ts';
+
 import { DeclarationRef, NodeRef, SourceFileRef } from '../types/ref';
 import { SerializedNode } from '../types/serialized-entities';
 import { Collector } from '../types/walker';
@@ -29,7 +31,7 @@ export default function serializeNode(
     location: serializeLocation(n.getSourceFile(), pos, end, q),
     name: getNameForNode(n, checker),
     text: n.getText(),
-    kind: ts.SyntaxKind[kind],
+    syntaxKind: camelize(ts.SyntaxKind[kind]),
     flags: flagsToString(flags, 'node'),
   };
 

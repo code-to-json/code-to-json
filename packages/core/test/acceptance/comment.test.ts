@@ -104,7 +104,7 @@ export class CommentSerializationTests {
     expect(functionType.text).to.eql('(a: number, b: number) => number');
     const [callSig1] = functionType.callSignatures!;
     expect(callSig1.parameters!.length).to.eql(2);
-    const [sig1Param1, sig1Param2] = callSig1.parameters!.map(p => t.resolveReference(p));
+    const [sig1Param1, sig1Param2] = callSig1.parameters!.map((p) => t.resolveReference(p));
     expect(sig1Param1.jsDocTags![0].name).to.eq('param');
     expect(sig1Param2.jsDocTags![0].name).to.eq('param');
     expect(sig1Param1.jsDocTags![0].text).contains('first number');

@@ -4,10 +4,10 @@ import { Dict } from '@mike-north/types';
 import * as ts from 'typescript';
 import { DEFAULT_WALKER_OPTIONS, WalkerOptions } from './options';
 
-const banned = filterDict((ts.InternalSymbolName as unknown) as Dict<string>, s =>
+const banned = filterDict((ts.InternalSymbolName as unknown) as Dict<string>, (s) =>
   s.startsWith('__'),
 );
-const values = Object.keys(banned).map(k => banned[k]);
+const values = Object.keys(banned).map((k) => banned[k]);
 
 /**
  *
@@ -49,7 +49,7 @@ export default class WalkerConfig {
 
     const { declarations } = sym;
 
-    const filteredDeclarations = (declarations || []).filter(d => {
+    const filteredDeclarations = (declarations || []).filter((d) => {
       const sf = d.getSourceFile();
       return this.shouldSerializeSourceFile(sf);
     });

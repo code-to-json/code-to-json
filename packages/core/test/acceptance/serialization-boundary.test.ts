@@ -19,7 +19,7 @@ export class SerializationBoundaryTests {
     const varType = t.resolveReference(varSymbol.valueDeclarationType);
 
     const { allTypes, allSymbols } = t;
-    const allSerializedTypeNames = Object.keys(allTypes).map(tid => allTypes[tid]!.text);
+    const allSerializedTypeNames = Object.keys(allTypes).map((tid) => allTypes[tid]!.text);
 
     expect(allSerializedTypeNames).to.include.deep.members([
       'string[]',
@@ -30,7 +30,7 @@ export class SerializationBoundaryTests {
     ]);
     expect(allSerializedTypeNames).to.not.include.deep.members(['indexOf']);
 
-    const allSerializedSymbolNames = Object.keys(allSymbols).map(tid => allSymbols[tid]!.text);
+    const allSerializedSymbolNames = Object.keys(allSymbols).map((tid) => allSymbols[tid]!.text);
 
     expect(allSerializedSymbolNames).to.include.deep.members([
       'x',
@@ -58,11 +58,11 @@ export class SerializationBoundaryTests {
     const varType = t.resolveReference(varSymbol.valueDeclarationType);
 
     const { allTypes, allSymbols } = t;
-    const allSerializedTypeNames = Object.keys(allTypes).map(tid => allTypes[tid]!.text);
+    const allSerializedTypeNames = Object.keys(allTypes).map((tid) => allTypes[tid]!.text);
 
     expect(allSerializedTypeNames).to.include.deep.members(['Promise<number>', 'Promise<T>']);
 
-    const allSerializedSymbolNames = Object.keys(allSymbols).map(tid => allSymbols[tid]!.text);
+    const allSerializedSymbolNames = Object.keys(allSymbols).map((tid) => allSymbols[tid]!.text);
 
     expect(allSerializedSymbolNames).to.include.deep.members([
       'x',
@@ -89,11 +89,11 @@ export class SerializationBoundaryTests {
     const varType = t.resolveReference(varSymbol.valueDeclarationType);
 
     const { allTypes, allSymbols } = t;
-    const allSerializedTypeNames = Object.keys(allTypes).map(tid => allTypes[tid]!.text);
+    const allSerializedTypeNames = Object.keys(allTypes).map((tid) => allTypes[tid]!.text);
 
     expect(allSerializedTypeNames).to.contain.deep.members(['Promise<number>', 'Promise<T>']);
 
-    const allSerializedSymbolNames = Object.keys(allSymbols).map(tid => allSymbols[tid]!.text);
+    const allSerializedSymbolNames = Object.keys(allSymbols).map((tid) => allSymbols[tid]!.text);
 
     expect(allSerializedSymbolNames).to.include.deep.members([
       'x',

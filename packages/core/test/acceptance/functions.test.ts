@@ -52,7 +52,7 @@ export class FunctionAnalysisTests {
     expect(callSig.text).to.eql('(...parts: string[]): string');
     expect(callSig.parameters!.length).to.eql(1);
     expect(callSig.hasRestParameter).to.eql(true);
-    const [firstParamSym] = callSig.parameters!.map(p => t.resolveReference(p));
+    const [firstParamSym] = callSig.parameters!.map((p) => t.resolveReference(p));
     expect(firstParamSym.name).to.eq('parts');
     const firstParamType = t.resolveReference(firstParamSym.valueDeclarationType);
     expect(firstParamType.text).to.eq('string[]');
@@ -120,8 +120,8 @@ export class FunctionAnalysisTests {
     const [callSig1, callSig2] = functionType.callSignatures!;
     expect(callSig1.text).to.eql('(a: string, b: string): string');
     expect(callSig1.parameters!.length).to.eql(2);
-    const [sig1Param1, sig1Param2] = callSig1.parameters!.map(p => t.resolveReference(p));
-    const [sig1Param1Type, sig1Param2Type] = [sig1Param1, sig1Param2].map(s =>
+    const [sig1Param1, sig1Param2] = callSig1.parameters!.map((p) => t.resolveReference(p));
+    const [sig1Param1Type, sig1Param2Type] = [sig1Param1, sig1Param2].map((s) =>
       t.resolveReference(s.valueDeclarationType),
     );
     expect(sig1Param1.name).to.eq('a');
@@ -133,8 +133,8 @@ export class FunctionAnalysisTests {
 
     expect(callSig2.text).to.eql('(a: number, b: number): number');
     expect(callSig2.parameters!.length).to.eql(2);
-    const [sig2Param1, sig2Param2] = callSig2.parameters!.map(p => t.resolveReference(p));
-    const [sig2Param1Type, sig2Param2Type] = [sig2Param1, sig2Param2].map(s =>
+    const [sig2Param1, sig2Param2] = callSig2.parameters!.map((p) => t.resolveReference(p));
+    const [sig2Param1Type, sig2Param2Type] = [sig2Param1, sig2Param2].map((s) =>
       t.resolveReference(s.valueDeclarationType),
     );
     expect(sig2Param1.name).to.eq('a');

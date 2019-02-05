@@ -38,7 +38,7 @@ export class TypeSerializationTests {
     const typeType = t.resolveReference(typeSymbol.symbolType);
     expect(typeType.text).to.eql('Dict<T>', 'has correct type');
     expect(typeType.flags).to.deep.eq(['Object']);
-    const [typeParam] = typeType.typeParameters!.map(tp => t.resolveReference(tp));
+    const [typeParam] = typeType.typeParameters!.map((tp) => t.resolveReference(tp));
     expect(typeParam.text).to.eq('T');
     expect(!!typeParam.constraint).to.eq(false);
     const stringIndexType = t.resolveReference(typeType.stringIndexType);
@@ -61,7 +61,7 @@ export class TypeSerializationTests {
     const typeType = t.resolveReference(typeSymbol.symbolType);
     expect(typeType.text).to.eql('Dict<T>');
     expect(typeType.flags).to.deep.eq(['Object']);
-    const [typeParam] = typeType.typeParameters!.map(tp => t.resolveReference(tp));
+    const [typeParam] = typeType.typeParameters!.map((tp) => t.resolveReference(tp));
     expect(typeParam.text).to.eq('T');
     expect(t.resolveReference(typeParam.constraint).text).to.eq('"foo" | "bar" | "baz"');
     const stringIndexType = t.resolveReference(typeType.stringIndexType);
@@ -85,7 +85,7 @@ export class TypeSerializationTests {
     expect(typeType.flags).to.deep.eq(['Union']);
     expect(!!typeType.typeParameters).to.eq(false);
 
-    const unionParts = typeType.types!.map(typ => t.resolveReference(typ));
+    const unionParts = typeType.types!.map((typ) => t.resolveReference(typ));
 
     expect(unionParts.length).to.eql(3);
     const [l, c, r] = unionParts;
