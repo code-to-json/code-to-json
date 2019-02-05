@@ -227,7 +227,7 @@ export default function serializeSymbol(
   c: Collector,
 ): SerializedSymbol {
   const { queue: q } = c;
-  const { flags, name, valueDeclaration } = symbol;
+  const { flags, name, valueDeclaration, declarations } = symbol;
   // starting point w/ minimal (and mandatory) information
 
   const id = refId(ref);
@@ -255,9 +255,9 @@ export default function serializeSymbol(
     relatedSymbols: undefined,
     ...serializeRelatedEntities(symbol, ref, relatedEntities, q),
     ...serializeSymbolTypes(symbol, checker, c),
-    ...serializeBasicSymbolDeclarationData(symbol, valueDeclaration, checker, c),
+    ...serializeBasicSymbolDeclarationData(symbol, valueDeclaration || declarations[0], checker, c),
     ...serializeExports(symbol, checker, c),
-    ...serializeExtendedSymbolDeclarationData(symbol, valueDeclaration, checker, c),
+    ...serializeExtendedSymbolDeclarationData(symbol, valueDeclaration || declarations[0], checker, c),
     ...serializeMembers(symbol, checker, c),
   };
 

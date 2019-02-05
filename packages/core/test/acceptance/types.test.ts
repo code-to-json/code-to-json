@@ -33,7 +33,7 @@ export class TypeSerializationTests {
     const fileSymbol = t.resolveReference(file.symbol);
     const typeSymbol = t.resolveReference(fileSymbol.exports!.Dict);
     expect(typeSymbol.text).to.eql('Dict');
-    expect(typeSymbol.flags).to.eql(['TypeAlias'], 'Regarded as a type alias');
+    expect(typeSymbol.flags).to.deep.eq(['TypeAlias'], 'Regarded as a type alias');
 
     const typeType = t.resolveReference(typeSymbol.symbolType);
     expect(typeType.text).to.eql('Dict<T>', 'has correct type');
@@ -44,6 +44,23 @@ export class TypeSerializationTests {
     const stringIndexType = t.resolveReference(typeType.stringIndexType);
     // TODO: this should really be T | undefined, although it's coming through as T
     expect(stringIndexType.text).to.include('T');
+    t.cleanup();
+  }
+  @test
+  public async 'with comments'(): Promise<void> {
+    const code = `/**
+ * A dictionary
+ */
+export type Dict<T> = { [k: string]: T | undefined }`;
+    const t = new SingleFileAcceptanceTestCase(code);
+    await t.run();
+    const file = t.sourceFile();
+    const fileSymbol = t.resolveReference(file.symbol);
+    const typeSymbol = t.resolveReference(fileSymbol.exports!.Dict);
+    expect(typeSymbol.text).to.eql('Dict');
+    expect(typeSymbol.flags).to.eql(['TypeAlias'], 'Regarded as a type alias');
+    expect(typeSymbol.documentation).to.deep.eq({ summary: [ 'A dictionary' ] }, 'Documentation');
+
     t.cleanup();
   }
 
