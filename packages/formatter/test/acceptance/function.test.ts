@@ -12,7 +12,7 @@ export class FunctionAcceptanceTests {
     await t.run();
     const file = t.sourceFile();
     const fileSymbol = t.resolveReference(file.symbol!);
-    const fileExports = mapDict(fileSymbol.exports!, e => t.resolveReference(e));
+    const fileExports = mapDict(fileSymbol.exports!, (e) => t.resolveReference(e));
     const fnSymbol = fileExports.add!;
     expect(fnSymbol.text).to.eq('add');
     expect(!!fnSymbol.isAsync).to.eq(false);
@@ -22,7 +22,7 @@ export class FunctionAcceptanceTests {
     expect(fnType.callSignatures!.length).to.eq(1);
     expect(fnType.callSignatures![0].parameters!.length).to.eq(2);
     const [a, b] = fnType.callSignatures![0].parameters!;
-    const [atype, btype] = [a, b].map(x => t.resolveReference(x.type));
+    const [atype, btype] = [a, b].map((x) => t.resolveReference(x.type));
     expect(atype.text).to.eq('number');
     expect(btype.text).to.eq('number');
   }
@@ -33,7 +33,7 @@ export class FunctionAcceptanceTests {
     await t.run();
     const file = t.sourceFile();
     const fileSymbol = t.resolveReference(file.symbol!);
-    const fileExports = mapDict(fileSymbol.exports!, e => t.resolveReference(e));
+    const fileExports = mapDict(fileSymbol.exports!, (e) => t.resolveReference(e));
     const fnSymbol = fileExports.add!;
     expect(fnSymbol.text).to.eq('add');
     expect(fnSymbol.isAsync).to.eq(true);
@@ -43,7 +43,7 @@ export class FunctionAcceptanceTests {
     expect(fnType.callSignatures!.length).to.eq(1);
     expect(fnType.callSignatures![0].parameters!.length).to.eq(2);
     const [a, b] = fnType.callSignatures![0].parameters!;
-    const [atype, btype] = [a, b].map(x => t.resolveReference(x.type));
+    const [atype, btype] = [a, b].map((x) => t.resolveReference(x.type));
     expect(atype.text).to.eq('number');
     expect(btype.text).to.eq('number');
   }
@@ -58,7 +58,7 @@ export class FunctionAcceptanceTests {
     await t.run();
     const file = t.sourceFile();
     const fileSymbol = t.resolveReference(file.symbol!);
-    const fileExports = mapDict(fileSymbol.exports!, e => t.resolveReference(e));
+    const fileExports = mapDict(fileSymbol.exports!, (e) => t.resolveReference(e));
     const fnSymbol = fileExports.add!;
     expect(fnSymbol.text).to.eq('add');
     expect(!!fnSymbol.isAsync).to.eq(false);
@@ -74,12 +74,12 @@ export class FunctionAcceptanceTests {
     expect(fnType.callSignatures![1].hasRestParameter).to.eq(false);
 
     const [a, b] = fnType.callSignatures![0].parameters!;
-    const [atype, btype] = [a, b].map(x => t.resolveReference(x.type));
+    const [atype, btype] = [a, b].map((x) => t.resolveReference(x.type));
     expect(atype.text).to.eq('number');
     expect(btype.text).to.eq('number');
 
     const [c, d] = fnType.callSignatures![1].parameters!;
-    const [ctype, dtype] = [c, d].map(x => t.resolveReference(x.type));
+    const [ctype, dtype] = [c, d].map((x) => t.resolveReference(x.type));
     expect(ctype.text).to.eq('string');
     expect(dtype.text).to.eq('string');
   }
@@ -90,7 +90,7 @@ export class FunctionAcceptanceTests {
     await t.run();
     const file = t.sourceFile();
     const fileSymbol = t.resolveReference(file.symbol!);
-    const fileExports = mapDict(fileSymbol.exports!, e => t.resolveReference(e));
+    const fileExports = mapDict(fileSymbol.exports!, (e) => t.resolveReference(e));
     const fnSymbol = fileExports.x!;
     expect(fnSymbol.text).to.eq('x');
     expect(!!fnSymbol.isAsync).to.eq(false);
@@ -101,7 +101,7 @@ export class FunctionAcceptanceTests {
     expect(fnType.callSignatures![0].parameters!.length).to.eq(1);
     expect(fnType.callSignatures![0].hasRestParameter).to.eq(true);
     const [a] = fnType.callSignatures![0].parameters!;
-    const [atype] = [a].map(x => t.resolveReference(x.type));
+    const [atype] = [a].map((x) => t.resolveReference(x.type));
     expect(atype.text).to.eq('string[]');
   }
 }

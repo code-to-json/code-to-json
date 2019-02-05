@@ -12,7 +12,7 @@ export class VariableAcceptanceTests {
     await t.run();
     const file = t.sourceFile();
     const fileSymbol = t.resolveReference(file.symbol!);
-    const fileExports = mapDict(fileSymbol.exports!, e => t.resolveReference(e));
+    const fileExports = mapDict(fileSymbol.exports!, (e) => t.resolveReference(e));
     const varSymbol = fileExports.x!;
     expect(varSymbol.text).to.eq('x');
     expect(varSymbol.flags).to.deep.eq(['variable']);
@@ -28,7 +28,7 @@ export class VariableAcceptanceTests {
     await t.run();
     const file = t.sourceFile();
     const fileSymbol = t.resolveReference(file.symbol!);
-    const fileExports = mapDict(fileSymbol.exports!, e => t.resolveReference(e));
+    const fileExports = mapDict(fileSymbol.exports!, (e) => t.resolveReference(e));
     const varSymbol = fileExports.x!;
     expect(varSymbol.text).to.eq('x');
     expect(varSymbol.flags).to.deep.eq(['variable']);
@@ -44,7 +44,7 @@ export class VariableAcceptanceTests {
     await t.run();
     const file = t.sourceFile();
     const fileSymbol = t.resolveReference(file.symbol!);
-    const fileExports = mapDict(fileSymbol.exports!, e => t.resolveReference(e));
+    const fileExports = mapDict(fileSymbol.exports!, (e) => t.resolveReference(e));
     const varSymbol = fileExports.x!;
     expect(varSymbol.text).to.eq('x');
     expect(varSymbol.flags).to.deep.eq(['variable']);
@@ -60,7 +60,7 @@ export class VariableAcceptanceTests {
     await t.run();
     const file = t.sourceFile();
     const fileSymbol = t.resolveReference(file.symbol!);
-    const fileExports = mapDict(fileSymbol.exports!, e => t.resolveReference(e));
+    const fileExports = mapDict(fileSymbol.exports!, (e) => t.resolveReference(e));
     const varSymbol = fileExports.x!;
     expect(varSymbol.text).to.eq('x');
     expect(varSymbol.flags).to.deep.eq(['variable']);
@@ -76,7 +76,7 @@ export class VariableAcceptanceTests {
     await t.run();
     const file = t.sourceFile();
     const fileSymbol = t.resolveReference(file.symbol!);
-    const fileExports = mapDict(fileSymbol.exports!, e => t.resolveReference(e));
+    const fileExports = mapDict(fileSymbol.exports!, (e) => t.resolveReference(e));
     const varSymbol = fileExports.x!;
     expect(varSymbol.text).to.eq('x');
     expect(varSymbol.flags).to.deep.eq(['variable']);
@@ -92,7 +92,7 @@ export class VariableAcceptanceTests {
     await t.run();
     const file = t.sourceFile();
     const fileSymbol = t.resolveReference(file.symbol!);
-    const fileExports = mapDict(fileSymbol.exports!, e => t.resolveReference(e));
+    const fileExports = mapDict(fileSymbol.exports!, (e) => t.resolveReference(e));
     const varSymbol = fileExports.x!;
     expect(varSymbol.text).to.eq('x');
     expect(varSymbol.flags).to.deep.eq(['variable']);
@@ -108,7 +108,7 @@ export class VariableAcceptanceTests {
     await t.run();
     const file = t.sourceFile();
     const fileSymbol = t.resolveReference(file.symbol!);
-    const fileExports = mapDict(fileSymbol.exports!, e => t.resolveReference(e));
+    const fileExports = mapDict(fileSymbol.exports!, (e) => t.resolveReference(e));
     const varSymbol = fileExports.x!;
     expect(varSymbol.text).to.eq('x');
     expect(varSymbol.flags).to.deep.eq(['variable']);
@@ -125,7 +125,7 @@ export class VariableAcceptanceTests {
     await t.run();
     const file = t.sourceFile();
     const fileSymbol = t.resolveReference(file.symbol!);
-    const fileExports = mapDict(fileSymbol.exports!, e => t.resolveReference(e));
+    const fileExports = mapDict(fileSymbol.exports!, (e) => t.resolveReference(e));
     const varSymbol = fileExports.x!;
     expect(varSymbol.text).to.eq('x');
     expect(varSymbol.flags).to.deep.eq(['variable']);
@@ -141,7 +141,7 @@ export class VariableAcceptanceTests {
     await t.run();
     const file = t.sourceFile();
     const fileSymbol = t.resolveReference(file.symbol!);
-    const fileExports = mapDict(fileSymbol.exports!, e => t.resolveReference(e));
+    const fileExports = mapDict(fileSymbol.exports!, (e) => t.resolveReference(e));
     const varSymbol = fileExports.x!;
     expect(varSymbol.text).to.eq('x');
     expect(varSymbol.flags).to.deep.eq(['variable']);
@@ -157,7 +157,7 @@ export class VariableAcceptanceTests {
     await t.run();
     const file = t.sourceFile();
     const fileSymbol = t.resolveReference(file.symbol!);
-    const fileExports = mapDict(fileSymbol.exports!, e => t.resolveReference(e));
+    const fileExports = mapDict(fileSymbol.exports!, (e) => t.resolveReference(e));
     const varSymbol = fileExports.x!;
     expect(varSymbol.text).to.eq('x');
     expect(varSymbol.flags).to.deep.eq(['variable']);
@@ -173,7 +173,7 @@ export class VariableAcceptanceTests {
     await t.run();
     const file = t.sourceFile();
     const fileSymbol = t.resolveReference(file.symbol!);
-    const fileExports = mapDict(fileSymbol.exports!, e => t.resolveReference(e));
+    const fileExports = mapDict(fileSymbol.exports!, (e) => t.resolveReference(e));
     const varSymbol = fileExports.x!;
     expect(varSymbol.text).to.eq('x');
     expect(varSymbol.flags).to.deep.eq(['variable']);
@@ -189,7 +189,7 @@ export class VariableAcceptanceTests {
     await t.run();
     const file = t.sourceFile();
     const fileSymbol = t.resolveReference(file.symbol!);
-    const fileExports = mapDict(fileSymbol.exports!, e => t.resolveReference(e));
+    const fileExports = mapDict(fileSymbol.exports!, (e) => t.resolveReference(e));
     const varSymbol = fileExports.x!;
     expect(varSymbol.text).to.eq('x');
     expect(varSymbol.flags).to.deep.eq(['variable']);
@@ -205,7 +205,7 @@ export class VariableAcceptanceTests {
     await t.run();
     const file = t.sourceFile();
     const fileSymbol = t.resolveReference(file.symbol!);
-    const fileExports = mapDict(fileSymbol.exports!, e => t.resolveReference(e));
+    const fileExports = mapDict(fileSymbol.exports!, (e) => t.resolveReference(e));
     const varSymbol = fileExports.x!;
     expect(varSymbol.text).to.eq('x');
     expect(varSymbol.flags).to.deep.eq(['variable']);
@@ -223,7 +223,7 @@ export class VariableAcceptanceTests {
     await t.run();
     const file = t.sourceFile();
     const fileSymbol = t.resolveReference(file.symbol!);
-    const fileExports = mapDict(fileSymbol.exports!, e => t.resolveReference(e));
+    const fileExports = mapDict(fileSymbol.exports!, (e) => t.resolveReference(e));
     const varSymbol = fileExports.x!;
     expect(varSymbol.text).to.eq('x');
     expect(varSymbol.flags).to.deep.eq(['variable']);

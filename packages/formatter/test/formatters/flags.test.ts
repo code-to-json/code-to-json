@@ -23,7 +23,7 @@ export class FlagFormatterTests {
       'Prototype',
       'Constructor',
       'TypeParameter',
-    ].forEach(flag => {
+    ].forEach((flag) => {
       expect(formatFlags([flag])).to.eql([flag[0].toLowerCase() + flag.substr(1)]);
     });
   }

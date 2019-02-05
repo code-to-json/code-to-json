@@ -11,7 +11,7 @@ export class ResolveReferenceTests {
     const resolved = resolveReference(
       {
         types: {
-          '12345': {
+          12345: {
             id: '12345',
           },
         },
@@ -27,7 +27,7 @@ export class ResolveReferenceTests {
     const resolved = resolveReference(
       {
         symbols: {
-          '12345': {
+          12345: {
             id: '12345',
           },
         },
@@ -43,7 +43,7 @@ export class ResolveReferenceTests {
     const resolved = resolveReference(
       {
         nodes: {
-          '12345': {
+          12345: {
             id: '12345',
           },
         },
@@ -59,7 +59,7 @@ export class ResolveReferenceTests {
     const resolved = resolveReference(
       {
         declarations: {
-          '12345': {
+          12345: {
             id: '12345',
           },
         },
@@ -75,7 +75,7 @@ export class ResolveReferenceTests {
     const resolved = resolveReference(
       {
         sourceFiles: {
-          '12345': {
+          12345: {
             id: '12345',
           },
         },

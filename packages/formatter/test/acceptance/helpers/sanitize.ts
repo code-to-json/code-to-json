@@ -10,7 +10,7 @@ export function sanitizeFormattedSymbol(
   if (!symbol) {
     return;
   }
-  replace.forEach(rep => {
+  replace.forEach((rep) => {
     symbol.name = symbol.name.replace(rep[0], rep[1]);
     if (symbol.text) {
       symbol.text = symbol.text.replace(rep[0], rep[1]);
@@ -26,7 +26,7 @@ export function sanitizeFormattedType(
   if (!type) {
     return;
   }
-  replace.forEach(rep => {
+  replace.forEach((rep) => {
     type.text = type.text.replace(rep[0], rep[1]);
   });
 }
@@ -39,7 +39,7 @@ export function sanitizeFormattedSourceFile(
   if (!type) {
     return;
   }
-  replace.forEach(rep => {
+  replace.forEach((rep) => {
     if (type.moduleName) {
       type.moduleName = type.moduleName.replace(rep[0], rep[1]);
     }

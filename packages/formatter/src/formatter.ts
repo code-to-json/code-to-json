@@ -59,9 +59,9 @@ export function formatWalkerOutput(
   } = wo;
   const collector = createDataCollector();
   Object.keys(sourceFiles)
-    .map(sf => sourceFiles[sf])
+    .map((sf) => sourceFiles[sf])
     .filter(isDefined)
-    .forEach(sf => collector.queue(sf, 'f'));
+    .forEach((sf) => collector.queue(sf, 'f'));
   const data = collector.drain({
     handleType(ref: FormattedTypeRef, item: SerializedType): FormattedType {
       return formatType(wo.data, item, ref, collector);
