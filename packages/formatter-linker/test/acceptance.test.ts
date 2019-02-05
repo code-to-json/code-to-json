@@ -4,7 +4,7 @@ import { suite, test } from 'mocha-typescript';
 import SingleFileAcceptanceTestCase from './helpers/test-case';
 
 @suite
-export class SimpleSnapshotSmokeTests {
+export class FormatterLinkerAcceptanceTests {
   @test
   public async 'linking completes without error'(): Promise<void> {
     const code = 'export let x: string[] = ["33"];';
@@ -53,7 +53,7 @@ export class Thing {
     expect(file.symbol!.exports!.Thing!.valueType!.text).to.eq('typeof Thing');
     expect(file.symbol!.exports!.Thing!.type!.text).to.eq('Thing');
     expect(
-      mapDict(file.symbol!.exports!.Thing!.type!.properties!, p => p.valueType!.text),
+      mapDict(file.symbol!.exports!.Thing!.type!.properties!, (p) => p.valueType!.text),
     ).to.deep.eq({
       go: '() => Promise<string>',
       myProp: 'string',

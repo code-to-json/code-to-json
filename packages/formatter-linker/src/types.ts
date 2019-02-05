@@ -90,6 +90,7 @@ export interface LinkedFormattedSymbolRelationships {
   type?: LinkedFormattedType;
   valueType?: LinkedFormattedType;
   related?: LinkedFormattedSymbol[];
+  valueDeclaration?: LinkedFormattedDeclaration;
 }
 
 export interface LinkedFormattedSourceFileRelationships {
