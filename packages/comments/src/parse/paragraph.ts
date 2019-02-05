@@ -22,7 +22,7 @@ function handleHTMLStartTag(node: DocHtmlStartTag): CommentHTMLStartTag {
   const out: CommentHTMLStartTag = {
     kind: 'htmlStartTag',
     isSelfClosingTag: selfClosingTag,
-    attributes: htmlAttributes.map(attr => ({ name: attr.name, value: attr.value })),
+    attributes: htmlAttributes.map((attr) => ({ name: attr.name, value: attr.value })),
     name,
   };
   return out;
