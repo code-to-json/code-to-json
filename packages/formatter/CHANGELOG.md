@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-rc.22](https://github.com/mike-north/code-to-json/compare/@code-to-json/formatter@1.0.0-rc.21...@code-to-json/formatter@1.0.0-rc.22) (2019-02-05)
+
+
+### Bug Fixes
+
+* declaration syntaxKind is now camelized ([9385d27](https://github.com/mike-north/code-to-json/commit/9385d27))
+
+
+
+
+
 # [1.0.0-rc.21](https://github.com/mike-north/code-to-json/compare/@code-to-json/formatter@1.0.0-rc.20...@code-to-json/formatter@1.0.0-rc.21) (2019-02-05)
 
 **Note:** Version bump only for package @code-to-json/formatter
