@@ -1,7 +1,6 @@
 {
   "settings": {
     "typescript.tsdk": "node_modules/typescript/lib",
-    "prettier.eslintIntegration": true,
     "files.exclude": {
       "**/.git": true,
       "**/.svn": true,
@@ -24,7 +23,6 @@
       "**/packages/*/lib/**": true
     },
     "eslint.enable": true,
-    "eslint.autoFixOnSave": true,
     "eslint.validate": ["javascript", "typescript"],
     "eslint.packageManager": "yarn",
     "eslint.run": "onSave"
