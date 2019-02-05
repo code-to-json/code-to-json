@@ -120,7 +120,7 @@ export const x: string = 'foo';
     if (!members) {
       throw new Error('No members in class');
     }
-    const memberSyms = mapDict(members, s => s);
+    const memberSyms = mapDict(members, (s) => s);
     const memberSym = memberSyms[Object.keys(memberSyms)[0]];
     if (!memberSym) {
       throw new Error('Expected to find at least one member symbol');
@@ -130,7 +130,7 @@ export const x: string = 'foo';
     expect(generateId(memberDecl)[1])
       .to.be.a('string')
       .and.to.have.lengthOf(13);
-    ts.forEachChild(memberDecl, ch => {
+    ts.forEachChild(memberDecl, (ch) => {
       expect(generateId(ch)[1])
         .to.be.a('string')
         .and.to.have.lengthOf(13);

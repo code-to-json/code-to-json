@@ -52,7 +52,7 @@ namespace Foo {
 
 // hover over ElementType shows both type and const
 export { Foo, ElementType, TextType, NodeType, DefaultType };
-    
+
 `;
     const out = createProgramFromCodeString(code, 'ts');
     const p = out.program;
@@ -66,7 +66,7 @@ export { Foo, ElementType, TextType, NodeType, DefaultType };
     if (!sfSym) {
       throw new Error('SourceFile has no symbol');
     }
-    this.exports = mapDict(sfSym.exports!, exp => ({
+    this.exports = mapDict(sfSym.exports!, (exp) => ({
       sym: exp,
       type: getRelevantTypesForSymbol(out.program.getTypeChecker(), exp),
     }));
@@ -182,9 +182,9 @@ export { Foo, ElementType, TextType, NodeType, DefaultType };
     expect(checker.typeToString(atype!)).to.eq('typeof Foo', `typeToSTring - ${a.getText()}`);
 
     expect(atype!.getProperties().length).to.eq(2);
-    expect(atype!.getProperties().map(p => p.name)).to.include.deep.members(['biz']);
+    expect(atype!.getProperties().map((p) => p.name)).to.include.deep.members(['biz']);
 
     expect(symbolType!.getProperties().length).to.eq(2);
-    expect(symbolType!.getProperties().map(p => p.name)).to.deep.eq(['baz', 'bar']);
+    expect(symbolType!.getProperties().map((p) => p.name)).to.deep.eq(['baz', 'bar']);
   }
 }

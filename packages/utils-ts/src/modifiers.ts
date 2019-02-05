@@ -21,7 +21,7 @@ const MODIFIERS_MAP: { [k: string]: string } = {
  * @public
  */
 export function modifiersToStrings(modifiers: ts.NodeArray<ts.Modifier>): string[] {
-  return modifiers.map(m => {
+  return modifiers.map((m) => {
     const mName = ts.SyntaxKind[m.kind];
     return MODIFIERS_MAP[mName] || mName;
   });
