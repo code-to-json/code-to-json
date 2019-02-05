@@ -1,6 +1,6 @@
 {
   "name": "@code-to-json/core",
-  "version": "1.0.0-rc.20",
+  "version": "1.0.0-rc.21",
   "description": "Core analysis tools for code-to-json",
   "main": "lib/src/index.js",
   "typings": "lib/src/index.d.ts",
