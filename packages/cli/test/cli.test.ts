@@ -26,7 +26,7 @@ const SAMPLE_PROJECT_CODE = {
 "include": ["src"]
 }
 `,
-  src: {
+  "src": {
     'index.ts': `/**
 * This is a variable with an explicit type
 */
@@ -35,9 +35,9 @@ const constWithExplicitType: string = 'foo';
   },
 };
 
-const disableIf: (predicate: boolean) => ClassDecorator = predicate => target => {
+const disableIf: (predicate: boolean) => ClassDecorator = (predicate) => (target) => {
   if (predicate) {
-    Object.getOwnPropertyNames(target.prototype).forEach(methodName => {
+    Object.getOwnPropertyNames(target.prototype).forEach((methodName) => {
       if (methodName === 'constructor') {
         return;
       }
