@@ -40,7 +40,7 @@ export function createQueue<
 >(
   k: K,
   getIdInfo: (t: T) => IDInfo,
-  extractId: (info: IDInfo) => { id: string; otherInfo?: OtherInfo } = id => ({ id: id as any }),
+  extractId: (info: IDInfo) => { id: string; otherInfo?: OtherInfo } = (id) => ({ id: id as any }),
 ): Queue<K, T, OtherInfo> {
   const itemToRef = new Map<T, EntityInfo<K, OtherInfo>>();
   return {

@@ -16,3 +16,4 @@ export {
 export { timeout } from './promise';
 export { conditionallyMergeTransformed } from './object';
 export { memoize } from './decorators';
+export { camelize } from './string';
