@@ -4,7 +4,7 @@ import { suite, test } from 'mocha-typescript';
 import SingleFileAcceptanceTestCase from './helpers/test-case';
 
 @suite
-export class SimpleSnapshotSmokeTests {
+export class CoreLiknerAcceptanceTests {
   @test
   public async 'linking completes without error'(): Promise<void> {
     const code = 'export let x: string[] = ["33"];';
@@ -48,14 +48,16 @@ export class Thing {
       .to.contain('src')
       .to.contain('index');
     expect(file.symbol!.exports!.Foo!.symbolType!.text).to.eq('Foo<T>');
+    expect(file.symbol!.valueDeclaration!).to.have.property('syntaxKind', 'sourceFile');
     expect(file.symbol!.exports!.FooOrBar!.symbolType!.text).to.eq('FooOrBar<T>');
     expect(file.symbol!.exports!.x!.valueDeclarationType!.text).to.eq('string[]');
     expect(file.symbol!.exports!.Thing!.valueDeclarationType!.text).to.eq('typeof Thing');
+    expect(file.symbol!.exports!.Thing!.valueDeclaration).to.have.property('syntaxKind', 'classDeclaration');
     expect(file.symbol!.exports!.Thing!.symbolType!.text).to.eq('Thing');
     expect(
       mapDict(
         file.symbol!.exports!.Thing!.symbolType!.properties!,
-        p => p.valueDeclarationType!.text,
+        (p) => p.valueDeclarationType!.text,
       ),
     ).to.deep.eq({
       go: '() => Promise<string>',

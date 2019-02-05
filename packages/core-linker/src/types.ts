@@ -99,6 +99,7 @@ export interface LinkedSymbolRelationships {
   sourceFile?: LinkedSourceFile;
   globalExports?: Dict<LinkedSymbol>;
   relatedSymbols?: LinkedSymbol[];
+  valueDeclaration?: LinkedDeclaration;
 }
 
 export interface LinkedSourceFileRelationships {
