@@ -48,6 +48,10 @@ jobs:
       before_script:
         - .travis/setup-ts-version.sh ~3.2.0
         - yarn build
+    - name: 'TS 3.3'
+      before_script:
+        - .travis/setup-ts-version.sh ~3.3.0
+        - yarn build
     - name: 'TS@latest'
       before_script:
         - .travis/setup-ts-version.sh latest
