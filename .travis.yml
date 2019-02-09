@@ -18,7 +18,7 @@ stages:
 jobs:
   fail_fast: true
   allow_failures:
-    - name: 'typescript@next'
+    - name: 'TS@next'
     - name: 'Publish to NPM'
   include:
     - stage: 'Basic Tests'
