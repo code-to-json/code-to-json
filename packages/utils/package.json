@@ -1,6 +1,6 @@
 {
   "name": "@code-to-json/utils",
-  "version": "1.0.0-rc.17",
+  "version": "1.0.0-rc.18",
   "description": "Low-level utilities for code-to-json",
   "main": "lib/src/index.js",
   "typings": "lib/src/index.d.ts",
