@@ -25,7 +25,7 @@
   "keywords": [],
   "devDependencies": {
     "@types/chai": "4.1.7",
-    "@types/mocha": "5.2.5",
+    "@types/mocha": "5.2.6",
     "@types/pkg-up": "2.0.0",
     "@types/rimraf": "2.0.2",
     "@types/tmp": "0.0.34",
