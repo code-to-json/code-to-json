@@ -25,6 +25,13 @@ config.addTagDefinitions([
     allowMultiple: true,
   },
   {
+    tagName: '@doctest',
+    tagNameWithUpperCase: '@DOCTEST',
+    syntaxKind: TSDocTagSyntaxKind.BlockTag,
+    standardization: Standardization.Extended,
+    allowMultiple: true,
+  },
+  {
     tagName: '@since',
     tagNameWithUpperCase: '@SINCE',
     syntaxKind: TSDocTagSyntaxKind.BlockTag,

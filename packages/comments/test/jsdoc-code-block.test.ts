@@ -29,4 +29,66 @@ export class JSDocCodeBlockTests {
       ],
     });
   }
+  @test
+  public '@example tag'(): void {
+    expect(
+      parseCommentString(`
+/**
+ * This is only a comment in a file
+ *
+ * @example
+ *
+ * function foo() {}
+ * foo(); // equal: undefined
+ *
+ */
+`),
+    ).to.deep.eq({
+      summary: [
+        'This is only a comment in a file',
+      ],
+      customTags: [
+        {
+          content: [
+            "function foo() {} ",
+            "\n",
+            "foo(); // equal: undefined"
+          ],
+          kind: "blockTag",
+          tagName: "example"
+        }
+      ]
+    });
+  }
+  @test
+  public '@doctest tag'(): void {
+    expect(
+      parseCommentString(`
+/**
+ * This is only a comment in a file
+ *
+ * @doctest
+ *
+ * function foo() {}
+ * foo(); // equal: undefined
+ *
+ */
+`),
+    ).to.deep.eq({
+      summary: [
+        'This is only a comment in a file',
+      ],
+      customTags: [
+        {
+          content: [
+            "function foo() {} ",
+            "\n",
+            "foo(); // equal: undefined"
+          ],
+          kind: "blockTag",
+          tagName: "doctest"
+        }
+      ]
+    });
+  }
 }

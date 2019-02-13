@@ -60,11 +60,13 @@ export interface CommentHTMLStartTag extends CommentParagraphContentBase<'htmlSt
 
 export interface CommentData {
   summary: CommentParagraphContent;
-  params?: CommentParam[];
-  typeParams?: CommentParam[];
-  modifiers?: string[];
   remarks?: CommentParagraphContent;
   deprecated?: CommentParagraphContent;
-  returns?: any;
+
+  params?: CommentParam[];
+  typeParams?: CommentParam[];
   customTags?: CommentBlockTag[];
+
+  modifiers?: string[];
+  returns?: any;
 }
