@@ -1,6 +1,6 @@
 {
   "name": "@code-to-json/core-linker",
-  "version": "1.0.0-rc.16",
+  "version": "1.0.0-rc.17",
   "description": "Data linker for @code-to-json/core",
   "main": "lib/src/index.js",
   "typings": "lib/src/index.d.ts",
@@ -23,14 +23,14 @@
   "homepage": "https://github.com/mike-north/code-to-json/tree/master/packages/core-linker",
   "keywords": [],
   "dependencies": {
-    "@code-to-json/core": "^1.0.0-rc.25",
+    "@code-to-json/core": "^1.0.0-rc.26",
     "@mike-north/types": "^1.0.7",
     "debug": "^4.0.0",
     "typescript": "^3.2.4"
   },
   "devDependencies": {
-    "@code-to-json/test-helpers": "^1.0.0-rc.20",
-    "@code-to-json/utils-node": "^1.0.0-rc.22",
+    "@code-to-json/test-helpers": "^1.0.0-rc.21",
+    "@code-to-json/utils-node": "^1.0.0-rc.23",
     "@types/chai": "4.1.7",
     "@typescript-eslint/eslint-plugin": "1.3.0",
     "@typescript-eslint/eslint-plugin-tslint": "1.3.0",
