@@ -1,45 +1,13 @@
 import { parseCommentString } from '@code-to-json/comments';
 import { forEach, isDefined, refId } from '@code-to-json/utils';
-import {
-  filterDict,
-  flagsToString,
-  getFirstIdentifier,
-  getRelevantTypesForSymbol,
-  isAbstractDeclaration,
-  mapDict,
-  modifiersToStrings,
-} from '@code-to-json/utils-ts';
+import { filterDict, flagsToString, getFirstIdentifier, getRelevantTypesForSymbol, isAbstractDeclaration, mapDict, modifiersToStrings } from '@code-to-json/utils-ts';
 import * as ts from 'typescript';
 import { Queue } from '../processing-queue';
 import { DeclarationRef, SymbolRef, TypeRef } from '../types/ref';
 import { SerializedSymbol } from '../types/serialized-entities';
 import { Collector } from '../types/walker';
+import { extractDocumentationText } from '../utils/doc';
 import serializeLocation from './location';
-
-function walkToNodeWithJSDoc(node: ts.Node): (ts.Node & { jsDoc?: ts.Node[] }) | undefined {
-  let relevantNode: (ts.Node & { jsDoc?: ts.Node[] }) | undefined = node;
-  while (relevantNode) {
-    const { jsDoc } = relevantNode;
-    if (jsDoc && jsDoc instanceof Array && jsDoc.length > 0) {
-      return relevantNode;
-    }
-    relevantNode = relevantNode.parent;
-  }
-  return relevantNode;
-}
-
-function extractDocumentationText(decl: ts.Declaration): string | undefined {
-  const n = walkToNodeWithJSDoc(decl);
-  if (!n) {
-    return undefined;
-  }
-  const { jsDoc }: { jsDoc?: ts.Node[] } = n;
-  if (jsDoc && jsDoc.length > 0) {
-    const commentText: string = jsDoc[0].getText();
-    return commentText;
-  }
-  return undefined;
-}
 
 type SYMBOL_EXTENDED_DECLARATION_PROPS = 'jsDocTags' | 'documentation' | 'sourceFile' | 'location';
 
