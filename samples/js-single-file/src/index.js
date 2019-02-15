@@ -1,7 +1,7 @@
 import { readdirSync } from 'fs';
 
 /**
- * @module js-single-file
+ * // todo module js-single-file
  */
 
 /**
@@ -17,6 +17,12 @@ export const SECRET_STRING = 'shhhhh!';
 
 /**
  * A vehicle is a thing that goes places
+ *
+ * @author Mike North
+ *
+ * @example
+ * // create a new vehicle
+ * const v = new Vehicle(4);
  */
 class Vehicle {
   /**
@@ -37,6 +43,12 @@ class Vehicle {
 
 /**
  * A car is a 4-wheeled vehicle
+ *
+ * @author Mike North
+ *
+ * @example
+ * // create a new car
+ * const v = new Car();
  */
 export class Car extends Vehicle {
   /**
