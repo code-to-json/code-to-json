@@ -123,7 +123,8 @@ export interface LinkedSignatureRelationships {
 }
 
 export interface LinkedSignature
-  extends SerializedSignatureAttributes,
+  extends HasDocumentation,
+    SerializedSignatureAttributes,
     LinkedSignatureRelationships {}
 
 export interface LinkedNode<Type extends string = 'node'> extends SerializedEntity<Type> {
