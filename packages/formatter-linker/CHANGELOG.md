@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-rc.16](https://github.com/mike-north/code-to-json/compare/@code-to-json/formatter-linker@1.0.0-rc.15...@code-to-json/formatter-linker@1.0.0-rc.16) (2019-02-15)
+
+
+### Features
+
+* documentation is serialized on a per-signature basis ([d343354](https://github.com/mike-north/code-to-json/commit/d343354))
+
+
+
+
+
 # [1.0.0-rc.15](https://github.com/mike-north/code-to-json/compare/@code-to-json/formatter-linker@1.0.0-rc.14...@code-to-json/formatter-linker@1.0.0-rc.15) (2019-02-15)
 
 **Note:** Version bump only for package @code-to-json/formatter-linker

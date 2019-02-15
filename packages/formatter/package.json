@@ -1,6 +1,6 @@
 {
   "name": "@code-to-json/formatter",
-  "version": "1.0.0-rc.32",
+  "version": "1.0.0-rc.33",
   "description": "Data formatter for code-to-json",
   "main": "lib/src/index.js",
   "typings": "lib/src/index.d.ts",
@@ -52,7 +52,7 @@
     "typescript": "3.3.3"
   },
   "dependencies": {
-    "@code-to-json/core": "^1.0.0-rc.30",
+    "@code-to-json/core": "^1.0.0-rc.31",
     "@code-to-json/utils": "^1.0.0-rc.20",
     "@mike-north/types": "^1.0.7"
   },

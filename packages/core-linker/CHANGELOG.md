@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-rc.22](https://github.com/mike-north/code-to-json/compare/@code-to-json/core-linker@1.0.0-rc.21...@code-to-json/core-linker@1.0.0-rc.22) (2019-02-15)
+
+
+### Features
+
+* documentation is serialized on a per-signature basis ([3b2dca4](https://github.com/mike-north/code-to-json/commit/3b2dca4))
+
+
+
+
+
 # [1.0.0-rc.21](https://github.com/mike-north/code-to-json/compare/@code-to-json/core-linker@1.0.0-rc.20...@code-to-json/core-linker@1.0.0-rc.21) (2019-02-15)
 
 **Note:** Version bump only for package @code-to-json/core-linker
