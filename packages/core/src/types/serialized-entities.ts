@@ -147,7 +147,8 @@ export interface SerializedSignatureRelationships {
  * Serialized representation of a ts.Signature
  */
 export interface SerializedSignature
-  extends SerializedSignatureAttributes,
+  extends HasDocumentation,
+    SerializedSignatureAttributes,
     SerializedSignatureRelationships {}
 
 // ======================================

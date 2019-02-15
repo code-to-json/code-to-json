@@ -109,7 +109,8 @@ export interface LinkedFormattedSignatureRelationships {
 }
 
 export interface LinkedFormattedSignature
-  extends FormattedSignatureAttributes,
+  extends HasDocumentation,
+    FormattedSignatureAttributes,
     LinkedFormattedSignatureRelationships {}
 
 export interface LinkedFormattedNode<Type extends string = 'node'> extends FormattedEntity<Type> {

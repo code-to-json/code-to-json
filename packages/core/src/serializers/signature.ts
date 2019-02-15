@@ -1,7 +1,9 @@
+import { parseCommentString } from '@code-to-json/comments';
 import { isDefined } from '@code-to-json/utils';
 import * as ts from 'typescript';
 import { SerializedSignature } from '../types/serialized-entities';
 import { Collector } from '../types/walker';
+import { extractDocumentationText } from '../utils/doc';
 
 /**
  * Serialize a ts.Signature to JSON
@@ -38,6 +40,13 @@ export default function serializeSignature(
     text: checker.signatureToString(signature),
     typePredicate: !typePredicate ? undefined : q.queue(typePredicate.type, 'type'),
   };
+
+  if (declaration) {
+    const txt = extractDocumentationText(declaration);
+    if (typeof txt === 'string') {
+      out.documentation = parseCommentString(txt);
+    }
+  }
 
   return out;
 }

@@ -114,7 +114,7 @@ export interface FormattedSymbolRelationships extends HasPosition {
 }
 
 export interface FormattedSignature
-  extends FormattedSignatureAttributes,
+  extends HasDocumentation, FormattedSignatureAttributes,
     FormattedSignatureRelationships {}
 export interface FormattedSignatureAttributes {
   hasRestParameter: boolean;
