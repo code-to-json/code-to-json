@@ -1,6 +1,6 @@
 {
   "name": "@code-to-json/utils-node",
-  "version": "1.0.0-rc.22",
+  "version": "1.0.0-rc.26",
   "description": "Node.js utilities for code-to-json",
   "main": "lib/src/index.js",
   "typings": "lib/src/index.d.ts",
@@ -25,10 +25,10 @@
   "keywords": [],
   "devDependencies": {
     "@types/chai": "4.1.7",
-    "@types/mocha": "5.2.5",
+    "@types/mocha": "5.2.6",
     "@types/pkg-up": "2.0.0",
     "@types/rimraf": "2.0.2",
-    "@types/tmp": "0.0.33",
+    "@types/tmp": "0.0.34",
     "@typescript-eslint/eslint-plugin": "1.3.0",
     "@typescript-eslint/eslint-plugin-tslint": "1.3.0",
     "@typescript-eslint/parser": "1.3.0",
@@ -40,7 +40,7 @@
     "eslint-plugin-prettier": "3.0.1",
     "mocha": "5.2.0",
     "mocha-typescript": "1.1.17",
-    "nyc": "13.2.0",
+    "nyc": "13.3.0",
     "remark-cli": "6.0.1",
     "remark-lint": "6.0.4",
     "remark-lint-no-dead-urls": "0.4.1",
@@ -95,8 +95,8 @@
     ]
   },
   "dependencies": {
-    "@code-to-json/utils": "^1.0.0-rc.18",
-    "@code-to-json/utils-ts": "^1.0.0-rc.22",
+    "@code-to-json/utils": "^1.0.0-rc.19",
+    "@code-to-json/utils-ts": "^1.0.0-rc.25",
     "@mike-north/types": "^1.0.7",
     "pkg-up": "^2.0.0",
     "rimraf": "^2.6.3",
