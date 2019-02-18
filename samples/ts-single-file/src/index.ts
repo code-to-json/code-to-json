@@ -9,9 +9,17 @@
  */
 export function add(a: number, b: number): number;
 /**
+ * @deprecated
+ */
+export function add(a: null, b: null): null;
+/**
  * Concatenate two strings
  * @param a a string
  * @param b a string
+ *
+ * @example
+ * add('foo', 'bar');
+ *
  *
  * @public
  */
@@ -28,15 +36,30 @@ export type Dict<T extends string[]> = { [k: string]: T | undefined };
 
 export const SECRET_STRING = 'shhhhh!';
 
+class BasicObject {}
+
 /**
  * A vehicle is a thing that goes places
+ *
+ * @author Mike
  */
-class Vehicle {
+class Vehicle extends BasicObject {
+  protected numWheels: number;
   /**
    * Create a new vehicle
    * @param {number} numWheels Number of wheels
    */
-  constructor(protected numWheels: number) {}
+  constructor(numWheels: number);
+  /**
+   * @deprecated
+   * @param numWheels number of wheels
+   */
+  constructor(numWheels: string);
+  constructor(numWheels: string | number) {
+    super();
+    if (typeof numWheels === 'string') this.numWheels = parseInt(numWheels, 10);
+    else this.numWheels = numWheels;
+  }
   /**
    * Drive the vehicle
    * @returns {string}
