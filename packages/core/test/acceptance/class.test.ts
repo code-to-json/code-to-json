@@ -217,6 +217,43 @@ export class Car extends Vehicle {}`;
   }
 
   @test
+  public async 'heritage clause serialization'(): Promise<void> {
+    const code = `export interface HasVinNumber {
+  vin: number;
+}
+
+export class Vehicle {
+  public readonly abc = 'def'
+  constructor(n: number) { setTimeout(() => console.log('hello'), n)}
+}
+
+export class Car extends Vehicle implements HasVinNumber {
+  constructor() {
+    super();
+    this.vin = 4;
+  }
+}`;
+    const t = new SingleFileAcceptanceTestCase(code);
+    await t.run();
+    const file = t.sourceFile();
+    const fileSymbol = t.resolveReference(file.symbol);
+    const classSymbol = t.resolveReference(fileSymbol.exports!.Car);
+
+    const classSymbolType = t.resolveReference(classSymbol.symbolType);
+    const baseTypes = classSymbolType.baseTypes!.map((bc) => t.resolveReference(bc));
+    expect(baseTypes.map((bt) => bt.text).join(', ')).to.eq('Vehicle');
+
+    const { heritageClauses } = classSymbol;
+    expect(heritageClauses!.length).to.eq(2);
+    expect(heritageClauses![0].kind).to.eq('extends');
+    expect(heritageClauses![0].types.map((typ) => t.resolveReference(typ).text).join(', ')).to.eq('Vehicle');
+    expect(heritageClauses![1].kind).to.eq('implements');
+    expect(heritageClauses![1].types.map((typ) => t.resolveReference(typ).text).join(', ')).to.eq('HasVinNumber');
+
+    t.cleanup();
+  }
+
+  @test
   public async 'inheriting multiple constructor signatures from a base class'(): Promise<void> {
     const code = `class Vehicle {
   public readonly abc = 'def'

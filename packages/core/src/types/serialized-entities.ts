@@ -20,6 +20,11 @@ export interface SerializedSymbolAttributes extends SerializedEntity<'symbol'> {
   }>;
 }
 
+export interface SerializedHeritageClause {
+  kind: 'extends' | 'implements';
+  types: TypeRef[];
+}
+
 export interface SerializedSymbolRelationships {
   symbolType?: TypeRef;
   valueDeclarationType?: TypeRef;
@@ -33,6 +38,7 @@ export interface SerializedSymbolRelationships {
   sourceFile?: SourceFileRef;
   globalExports?: Dict<SymbolRef>;
   relatedSymbols?: SymbolRef[];
+  heritageClauses?: SerializedHeritageClause[];
 }
 
 /**

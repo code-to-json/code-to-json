@@ -1,5 +1,5 @@
 import { parseCommentString } from '@code-to-json/comments';
-import { forEach, isDefined, refId } from '@code-to-json/utils';
+import { forEach, isDefined, refId, UnreachableError } from '@code-to-json/utils';
 import { filterDict, flagsToString, getFirstIdentifier, getRelevantTypesForSymbol, isAbstractDeclaration, mapDict, modifiersToStrings } from '@code-to-json/utils-ts';
 import * as ts from 'typescript';
 import { Queue } from '../processing-queue';
@@ -97,7 +97,7 @@ function serializeRelatedEntities(
   return { relatedSymbols };
 }
 
-type SYMBOL_BASIC_DECLARATION_PROPS = 'modifiers' | 'decorators' | 'isAbstract';
+type SYMBOL_BASIC_DECLARATION_PROPS = 'modifiers' | 'decorators' | 'isAbstract' | 'heritageClauses';
 
 function serializeBasicSymbolDeclarationData(
   _symbol: ts.Symbol,
@@ -110,6 +110,19 @@ function serializeBasicSymbolDeclarationData(
   }
   const out: Pick<SerializedSymbol, SYMBOL_BASIC_DECLARATION_PROPS> = {};
   const { modifiers, decorators } = decl;
+  if (ts.isClassLike(decl) && decl.heritageClauses) {
+    const { heritageClauses } = decl;
+    out.heritageClauses = heritageClauses.map((hc: ts.HeritageClause) => {
+      const types = hc.types.map((t) => c.queue.queue(checker.getTypeAtLocation(t), 'type')).filter(isDefined);
+      if (hc.token === ts.SyntaxKind.ExtendsKeyword) {
+        return {kind: 'extends' as 'extends', types };
+      }
+      if (hc.token === ts.SyntaxKind.ImplementsKeyword) {
+        return {kind: 'implements' as 'implements', types };
+      }
+      throw new UnreachableError(hc.token);
+    });
+  }
   if (modifiers) {
     out.modifiers = modifiersToStrings(modifiers);
   }
