@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-rc.33](https://github.com/mike-north/code-to-json/compare/@code-to-json/core@1.0.0-rc.32...@code-to-json/core@1.0.0-rc.33) (2019-02-18)
+
+
+### Bug Fixes
+
+* **core:** access modifiers are serialized consistently. Fixes [#226](https://github.com/mike-north/code-to-json/issues/226) ([047b8d5](https://github.com/mike-north/code-to-json/commit/047b8d5))
+* **core:** export heritage clause type ([a256d00](https://github.com/mike-north/code-to-json/commit/a256d00))
+
+
+### Features
+
+* **core:** heritage clause serialization ([c648aae](https://github.com/mike-north/code-to-json/commit/c648aae)), closes [#228](https://github.com/mike-north/code-to-json/issues/228)
+
+
+
+
+
 # [1.0.0-rc.32](https://github.com/mike-north/code-to-json/compare/@code-to-json/core@1.0.0-rc.31...@code-to-json/core@1.0.0-rc.32) (2019-02-16)
 
 **Note:** Version bump only for package @code-to-json/core

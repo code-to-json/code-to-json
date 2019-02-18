@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-rc.24](https://github.com/mike-north/code-to-json/compare/@code-to-json/core-linker@1.0.0-rc.23...@code-to-json/core-linker@1.0.0-rc.24) (2019-02-18)
+
+
+### Bug Fixes
+
+* **core-linker:** signature types as text ([c33e88b](https://github.com/mike-north/code-to-json/commit/c33e88b))
+
+
+### Features
+
+* add support for heritage clauses ([c00483d](https://github.com/mike-north/code-to-json/commit/c00483d))
+
+
+
+
+
 # [1.0.0-rc.23](https://github.com/mike-north/code-to-json/compare/@code-to-json/core-linker@1.0.0-rc.22...@code-to-json/core-linker@1.0.0-rc.23) (2019-02-16)
 
 **Note:** Version bump only for package @code-to-json/core-linker

@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-rc.24](https://github.com/mike-north/code-to-json/compare/@code-to-json/comments@1.0.0-rc.23...@code-to-json/comments@1.0.0-rc.24) (2019-02-18)
+
+
+### Bug Fixes
+
+* **comments:** allow parsing of a fenced code block in a docsection ([154fe70](https://github.com/mike-north/code-to-json/commit/154fe70))
+
+
+
+
+
 # [1.0.0-rc.23](https://github.com/mike-north/code-to-json/compare/@code-to-json/comments@1.0.0-rc.22...@code-to-json/comments@1.0.0-rc.23) (2019-02-16)
 
 **Note:** Version bump only for package @code-to-json/comments

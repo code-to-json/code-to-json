@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-rc.35](https://github.com/mike-north/code-to-json/compare/@code-to-json/formatter@1.0.0-rc.34...@code-to-json/formatter@1.0.0-rc.35) (2019-02-18)
+
+
+### Bug Fixes
+
+* **formatter:** signature types as text ([8afadc0](https://github.com/mike-north/code-to-json/commit/8afadc0))
+
+
+### Features
+
+* **formatter:** support for heritage clauses ([e4142b2](https://github.com/mike-north/code-to-json/commit/e4142b2))
+
+
+
+
+
 # [1.0.0-rc.34](https://github.com/mike-north/code-to-json/compare/@code-to-json/formatter@1.0.0-rc.33...@code-to-json/formatter@1.0.0-rc.34) (2019-02-16)
 
 **Note:** Version bump only for package @code-to-json/formatter
