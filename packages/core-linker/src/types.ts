@@ -90,6 +90,11 @@ export interface LinkedSymbol
     SerializedSymbolAttributes,
     LinkedSymbolRelationships {}
 
+export interface LinkedHeritageClause {
+  kind: 'extends' | 'implements';
+  types: LinkedType[];
+}
+
 export interface LinkedSymbolRelationships {
   symbolType?: LinkedType;
   valueDeclarationType?: LinkedType;
@@ -100,6 +105,7 @@ export interface LinkedSymbolRelationships {
   globalExports?: Dict<LinkedSymbol>;
   relatedSymbols?: LinkedSymbol[];
   valueDeclaration?: LinkedDeclaration;
+  heritageClauses?: LinkedHeritageClause[];
 }
 
 export interface LinkedSourceFileRelationships {
