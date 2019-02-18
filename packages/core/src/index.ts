@@ -14,6 +14,7 @@ export {
   SerializedSourceFileAttributes,
   SerializedEntity,
   SerializedSignatureAttributes,
+  SerializedHeritageClause
 } from './types/serialized-entities';
 export {
   DeclarationRef,
