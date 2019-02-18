@@ -47,16 +47,20 @@ export class Thing {
     expect(file.symbol!.name)
       .to.contain('src')
       .to.contain('index');
-    expect(file.symbol!.exports!.Foo!.symbolType!.text).to.eq('Foo<T>');
+    const exportSymbols = file.symbol!.exports!;
+    expect(exportSymbols.Foo!.symbolType!.text).to.eq('Foo<T>');
     expect(file.symbol!.valueDeclaration!).to.have.property('syntaxKind', 'sourceFile');
-    expect(file.symbol!.exports!.FooOrBar!.symbolType!.text).to.eq('FooOrBar<T>');
-    expect(file.symbol!.exports!.x!.valueDeclarationType!.text).to.eq('string[]');
-    expect(file.symbol!.exports!.Thing!.valueDeclarationType!.text).to.eq('typeof Thing');
-    expect(file.symbol!.exports!.Thing!.valueDeclaration).to.have.property('syntaxKind', 'classDeclaration');
-    expect(file.symbol!.exports!.Thing!.symbolType!.text).to.eq('Thing');
+    expect(exportSymbols.FooOrBar!.symbolType!.text).to.eq('FooOrBar<T>');
+    expect(exportSymbols.x!.valueDeclarationType!.text).to.eq('string[]');
+    expect(exportSymbols.Thing!.valueDeclarationType!.text).to.eq('typeof Thing');
+    expect(exportSymbols.Thing!.valueDeclaration).to.have.property('syntaxKind', 'classDeclaration');
+    expect(exportSymbols.Thing!.symbolType!.text).to.eq('Thing');
+    expect(Object.keys(exportSymbols.Thing!.symbolType!.properties!).join(', ')).to.eq('myProp, otherThing, go');
+    expect(exportSymbols.Thing!.symbolType!.properties!.go!.valueDeclarationType!.callSignatures!.length).to.eq(1);
+    expect(exportSymbols.Thing!.symbolType!.properties!.go!.valueDeclarationType!.callSignatures![0].text).to.eq('(): Promise<string>');
     expect(
       mapDict(
-        file.symbol!.exports!.Thing!.symbolType!.properties!,
+        exportSymbols.Thing!.symbolType!.properties!,
         (p) => p.valueDeclarationType!.text,
       ),
     ).to.deep.eq({
