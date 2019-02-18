@@ -1,31 +1,8 @@
-import {
-  CodePoisition,
-  CodeRange,
-  FormattedDeclarationRef,
-  FormattedSignature,
-  FormattedSourceFile,
-  FormattedSymbol,
-  FormattedType,
-  FormattedTypeRef,
-  FormatterOutputData,
-} from '@code-to-json/formatter';
+import { CodePoisition, CodeRange, FormattedDeclarationRef, FormattedHeritageClause, FormattedSignature, FormattedSourceFile, FormattedSymbol, FormattedType, FormattedTypeRef, FormatterOutputData } from '@code-to-json/formatter';
 import { isDefined, Ref, refId, refType } from '@code-to-json/utils';
 import { Dict } from '@mike-north/types';
 import { createLinkedFormattedRefResolver, resolveRefDict, resolveRefList } from './ref-resolver';
-import {
-  LinkedFormattedDeclaration,
-  LinkedFormattedOutputData,
-  LinkedFormattedRefResolver,
-  LinkedFormattedSignature,
-  LinkedFormattedSignatureRelationships,
-  LinkedFormattedSourceFile,
-  LinkedFormattedSourceFileRelationships,
-  LinkedFormattedSymbol,
-  LinkedFormattedSymbolRelationships,
-  LinkedFormattedType,
-  LinkedFormattedTypeRelationships,
-  MaybeLinkedFormattedOutputData,
-} from './types';
+import { LinkedFormattedDeclaration, LinkedFormattedOutputData, LinkedFormattedRefResolver, LinkedFormattedSignature, LinkedFormattedSignatureRelationships, LinkedFormattedSourceFile, LinkedFormattedSourceFileRelationships, LinkedFormattedSymbol, LinkedFormattedSymbolRelationships, LinkedFormattedType, LinkedFormattedTypeRelationships, MaybeLinkedFormattedOutputData } from './types';
 import { pruneUndefinedValues } from './utils';
 
 function linkSignature(
@@ -143,7 +120,8 @@ function linkSymbol(
     type,
     valueType,
     related,
-    valueDeclaration
+    valueDeclaration,
+    heritageClauses
   } = sym;
   const newData: LinkedFormattedSymbolRelationships = {
     otherDeclarationTypes: !otherDeclarationTypes
@@ -170,6 +148,12 @@ function linkSymbol(
   };
   if (sym.location) {
     linkCodePositionOrRange(sym.location, res);
+  }
+  if (heritageClauses) {
+    newData.heritageClauses = heritageClauses.map((hc: FormattedHeritageClause) => ({
+      kind: hc.kind,
+      types: resolveRefList(hc.types, res) || []
+    }));
   }
 
   Object.assign(sym, pruneUndefinedValues(newData));

@@ -1,25 +1,11 @@
-import { DocNodeKind, DocParagraph, DocParamCollection, DocSection } from '@microsoft/tsdoc';
-import { CommentParagraphContent, CommentParam } from '../types';
-import parseParagraph from './paragraph';
+import { DocParamCollection } from '@microsoft/tsdoc';
+import { CommentParam } from '../types';
+import parseDocSection from './section';
 import { extractParamDescription, trimParagraphContent } from './utils';
-
-function parseTagSection(_tagName: string, node: DocSection): CommentParagraphContent {
-  const parts: CommentParagraphContent = [];
-  node.getChildNodes().forEach((ch) => {
-    const { kind: k } = ch;
-    switch (k) {
-      case DocNodeKind.Paragraph:
-        return parts.push(...parseParagraph(ch as DocParagraph));
-      default:
-        throw new Error(`Didn't expect to encounter a ${k} as a child of a DocSection`);
-    }
-  });
-  return parts;
-}
 
 export default function parseParams(params: DocParamCollection): CommentParam[] {
   return params.blocks.map((p) => {
-    const rawContent = parseTagSection('params', p.content);
+    const rawContent = parseDocSection(p.content);
     trimParagraphContent(rawContent);
     if (p.parameterName) {
       return {

@@ -60,6 +60,7 @@ function serializeInterfaceType(
 ): Partial<SerializedType> {
   const { typeParameters, thisType } = type;
   const baseTypes = type.getBaseTypes();
+
   const out: Partial<SerializedType> = {
     ...serializeObjectType(type, checker, c),
   };

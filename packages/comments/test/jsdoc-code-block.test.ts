@@ -91,4 +91,33 @@ export class JSDocCodeBlockTests {
       ]
     });
   }
+
+  @test
+  public 'fenced code block in a docsection'(): void {
+    expect(
+      parseCommentString(`/**
+ * Concatenate two strings
+ *
+ *\`\`\`ts
+ * foo('foo', 'bar');
+ *\`\`\`
+ *
+ * @public
+ */`),
+    ).to.deep.eq({
+      modifiers: [
+        "public"
+      ],
+      summary: [
+        "Concatenate two strings",
+        "\n",
+        "\n",
+        {
+          code: "foo('foo', 'bar');\n",
+          kind: "fencedCode",
+          language: "ts"
+        }
+      ]
+    });
+  }
 }

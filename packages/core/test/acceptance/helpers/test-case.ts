@@ -24,26 +24,29 @@ const STANDARD_REPLACERS = (rootPath: string) =>
 export default class SingleFileAcceptanceTestCase {
   protected cleanupFn!: () => void;
 
+  protected fileExt: 'ts' | 'js';
+
+  protected codeString: string;
+
   protected rootPath!: string;
 
   protected program!: Program;
 
-  protected codeString: string;
-
   protected data?: WalkerOutputData;
 
-  constructor(codeString: string) {
+  constructor(codeString: string, fileExt: 'js' | 'ts' = 'ts') {
     this.codeString = codeString;
+    this.fileExt = fileExt;
   }
 
   public async run(): Promise<void> {
     const { program, cleanup, rootPath } = await setupTestCase(
       {
         // tslint:disable-next-line:no-duplicate-string
-        "src": { 'index.ts': this.codeString },
+        "src": { [`index.${this.fileExt}`]: this.codeString },
         'package.json': JSON.stringify({
-          "name": 'pkg-ts-single-file',
-          'doc:main': 'src/index.ts',
+          "name": `pkg-${this.fileExt}-single-file`,
+          'doc:main': `src/index.${this.fileExt}`,
         }),
         'tsconfig.json': JSON.stringify({
           compilerOptions: {
@@ -54,7 +57,7 @@ export default class SingleFileAcceptanceTestCase {
           include: ['./src/**/*'],
         }),
       },
-      ['src/index.ts'],
+      [`src/index.${this.fileExt}`],
     );
     this.rootPath = rootPath;
     this.cleanupFn = cleanup;

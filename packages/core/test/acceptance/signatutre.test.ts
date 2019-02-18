@@ -3,7 +3,7 @@ import { expect } from 'chai';
 import { slow, suite, test } from 'mocha-typescript';
 import SingleFileAcceptanceTestCase from './helpers/test-case';
 
-@suite.only
+@suite
 @slow(800)
 export class SignatureSerializationTests {
   @test
@@ -29,6 +29,38 @@ export class SignatureSerializationTests {
       name: 'a', type: 'number'
     }, {
       name: 'b', type: 'number'
+    }]);
+    t.cleanup();
+  }
+
+  @test
+  public async 'param and return types via JSDoc comment'(): Promise<void> {
+    const code = `/**
+ * @param a {string} first thing
+ * @param b {string} second thing
+ * @returns {string} concatenated strings
+ */
+export function add(a, b) { return a + b; }`;
+    const t = new SingleFileAcceptanceTestCase(code, 'js');
+    await t.run();
+    const file = t.sourceFile();
+    const fileSymbol = t.resolveReference(file.symbol);
+    const fnSymbol = t.resolveReference(fileSymbol.exports!.add);
+    expect(fnSymbol.text).to.eql('add');
+    expect(fnSymbol.flags).to.eql(['Function'], 'Regarded as a function');
+
+    const fnType = t.resolveReference(fnSymbol.valueDeclarationType);
+    expect(fnType.text).to.eq('(a: string, b: string) => string');
+
+    expect(fnType.callSignatures!.length).to.eq(1);
+    expect(fnType.callSignatures![0].text).to.eq('(a: string, b: string): string');
+    expect(fnType.callSignatures![0].parameters!.map((p) => t.resolveReference(p)).filter(isDefined).map((s) => ({
+      name: s.text || s.name,
+      type: t.resolveReference(s.valueDeclarationType).text
+    }))).to.deep.eq([{
+      name: 'a', type: 'string'
+    }, {
+      name: 'b', type: 'string'
     }]);
     t.cleanup();
   }

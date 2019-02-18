@@ -1,3 +1,4 @@
+import { mapDict } from '@code-to-json/utils-ts';
 import { expect } from 'chai';
 import { slow, suite, test } from 'mocha-typescript';
 import SingleFileAcceptanceTestCase from './helpers/test-case';
@@ -131,6 +132,49 @@ export class ClassSerializationTests {
     t.cleanup();
   }
 
+  @test public async 'access modifier keyword on class method'(): Promise<void> {
+    const code = `export class Foo {
+      protected bar() {}
+    }`;
+    const t = new SingleFileAcceptanceTestCase(code);
+    await t.run();
+    const file = t.sourceFile();
+    const fileSymbol = t.resolveReference(file.symbol!);
+    const fileExports = mapDict(fileSymbol.exports!, (e) => t.resolveReference(e));
+    expect(Object.keys(fileExports)).to.deep.eq(['Foo']);
+    const classSymbol = fileExports.Foo!;
+
+    const instanceType = t.resolveReference(classSymbol.symbolType);
+    const instanceMembers = mapDict(instanceType.properties!, (p) => t.resolveReference(p));
+    const { bar } = instanceMembers;
+    expect(bar!.modifiers).to.deep.include('protected');
+
+    t.cleanup();
+  }
+
+  @test public async 'access modifier keyword via comment'(): Promise<void> {
+    const code = `export class Foo {
+      /**
+       * @protected
+       */
+      bar() {}
+    }`;
+    const t = new SingleFileAcceptanceTestCase(code, 'js');
+    await t.run();
+    const file = t.sourceFile();
+    const fileSymbol = t.resolveReference(file.symbol!);
+    const fileExports = mapDict(fileSymbol.exports!, (e) => t.resolveReference(e));
+    expect(Object.keys(fileExports)).to.deep.eq(['Foo']);
+    const classSymbol = fileExports.Foo!;
+
+    const instanceType = t.resolveReference(classSymbol.symbolType);
+    const instanceMembers = mapDict(instanceType.properties!, (p) => t.resolveReference(p));
+    const { bar } = instanceMembers;
+    expect(bar!.modifiers).to.deep.include('protected');
+
+    t.cleanup();
+  }
+
   @test
   public async 'inheriting a constructor from a base class'(): Promise<void> {
     const code = `class Vehicle {
@@ -168,6 +212,43 @@ export class Car extends Vehicle {}`;
     expect(staticPropNames).to.deep.eq([]);
     const [constructorSig] = classValueDeclarationType.constructorSignatures!;
     expect(constructorSig.text).to.eq('(n: number): Car');
+
+    t.cleanup();
+  }
+
+  @test
+  public async 'heritage clause serialization'(): Promise<void> {
+    const code = `export interface HasVinNumber {
+  vin: number;
+}
+
+export class Vehicle {
+  public readonly abc = 'def'
+  constructor(n: number) { setTimeout(() => console.log('hello'), n)}
+}
+
+export class Car extends Vehicle implements HasVinNumber {
+  constructor() {
+    super();
+    this.vin = 4;
+  }
+}`;
+    const t = new SingleFileAcceptanceTestCase(code);
+    await t.run();
+    const file = t.sourceFile();
+    const fileSymbol = t.resolveReference(file.symbol);
+    const classSymbol = t.resolveReference(fileSymbol.exports!.Car);
+
+    const classSymbolType = t.resolveReference(classSymbol.symbolType);
+    const baseTypes = classSymbolType.baseTypes!.map((bc) => t.resolveReference(bc));
+    expect(baseTypes.map((bt) => bt.text).join(', ')).to.eq('Vehicle');
+
+    const { heritageClauses } = classSymbol;
+    expect(heritageClauses!.length).to.eq(2);
+    expect(heritageClauses![0].kind).to.eq('extends');
+    expect(heritageClauses![0].types.map((typ) => t.resolveReference(typ).text).join(', ')).to.eq('Vehicle');
+    expect(heritageClauses![1].kind).to.eq('implements');
+    expect(heritageClauses![1].types.map((typ) => t.resolveReference(typ).text).join(', ')).to.eq('HasVinNumber');
 
     t.cleanup();
   }

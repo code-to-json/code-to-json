@@ -31,7 +31,8 @@ export type FooOrBar<T> = T extends string ? Foo<T> : Bar<T>;
 
 export let x: string[] = ["33"];
 
-export class Thing {
+export class Thing implements Foo<string> {
+  bar: [string, string] = ['a', 'b'];
   protected myProp = this.otherThing.join(', ');
   constructor(public otherThing: number[] = [12, 21]) {
   }
@@ -52,9 +53,13 @@ export class Thing {
     expect(file.symbol!.exports!.x!.valueType!.text).to.eq('string[]');
     expect(file.symbol!.exports!.Thing!.valueType!.text).to.eq('typeof Thing');
     expect(file.symbol!.exports!.Thing!.type!.text).to.eq('Thing');
+    expect(file.symbol!.exports!.Thing!.heritageClauses!.length).to.eq(1);
+    expect(file.symbol!.exports!.Thing!.heritageClauses![0].kind).to.eq('implements');
+    expect(file.symbol!.exports!.Thing!.heritageClauses![0].types[0].text).to.eq('Foo<string>');
     expect(
       mapDict(file.symbol!.exports!.Thing!.type!.properties!, (p) => p.valueType!.text),
     ).to.deep.eq({
+      bar: '[string, string]',
       go: '() => Promise<string>',
       myProp: 'string',
       otherThing: 'number[]',

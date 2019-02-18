@@ -9,10 +9,11 @@ export default function formatSignature(
   s: Readonly<SerializedSignature>,
   collector: DataCollector,
 ): FormattedSignature {
-  const { parameters, typeParameters, returnType, hasRestParameter, documentation } = s;
+  const { parameters, typeParameters, returnType, hasRestParameter, documentation, text } = s;
   const signatureInfo: FormattedSignature = {
     hasRestParameter,
     documentation,
+    text,
     parameters:
       parameters &&
       parameters.map((p) => {

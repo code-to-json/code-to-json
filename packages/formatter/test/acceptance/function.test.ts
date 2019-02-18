@@ -72,6 +72,7 @@ export class FunctionAcceptanceTests {
     expect(fnType.callSignatures![0].hasRestParameter).to.eq(false);
     expect(fnType.callSignatures![1].parameters!.length).to.eq(2);
     expect(fnType.callSignatures![1].hasRestParameter).to.eq(false);
+    expect(fnType.callSignatures![1].text).to.eq('(a: string, b: string): string');
 
     const [a, b] = fnType.callSignatures![0].parameters!;
     const [atype, btype] = [a, b].map((x) => t.resolveReference(x.type));

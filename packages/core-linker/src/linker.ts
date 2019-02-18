@@ -1,32 +1,9 @@
-import {
-  SerializedSourceFile,
-  SerializedSymbol,
-  SerializedType,
-  WalkerOutputData,
-} from '@code-to-json/core';
-import {
-  SerializedCodePoisition,
-  SerializedCodeRange,
-  SerializedFileReference,
-  SerializedSignature,
-} from '@code-to-json/core/lib/src/types/serialized-entities';
+import { SerializedSourceFile, SerializedSymbol, SerializedType, WalkerOutputData } from '@code-to-json/core';
+import { SerializedCodePoisition, SerializedCodeRange, SerializedFileReference, SerializedHeritageClause, SerializedSignature } from '@code-to-json/core/lib/src/types/serialized-entities';
 import { isDefined, Ref, refId, refType } from '@code-to-json/utils';
 import { Dict } from '@mike-north/types';
 import { createLinkedRefResolver, resolveRefDict, resolveRefList } from './ref-resolver';
-import {
-  LinkedFileReference,
-  LinkedRefResolver,
-  LinkedSignature,
-  LinkedSignatureRelationships,
-  LinkedSourceFile,
-  LinkedSourceFileRelationships,
-  LinkedSymbol,
-  LinkedSymbolRelationships,
-  LinkedType,
-  LinkedTypeRelationships,
-  LinkedWalkerOutputData,
-  MaybeLinkedWalkerOutputData,
-} from './types';
+import { LinkedFileReference, LinkedRefResolver, LinkedSignature, LinkedSignatureRelationships, LinkedSourceFile, LinkedSourceFileRelationships, LinkedSymbol, LinkedSymbolRelationships, LinkedType, LinkedTypeRelationships, LinkedWalkerOutputData, MaybeLinkedWalkerOutputData } from './types';
 import { pruneUndefinedValues } from './utils';
 
 function linkSignature(
@@ -132,7 +109,8 @@ function linkSymbol(res: LinkedRefResolver, sym?: LinkedSymbol & SerializedSymbo
   if (!sym) {
     return;
   }
-  const { symbolType, valueDeclaration, valueDeclarationType, exports, members, decorators, sourceFile, globalExports, relatedSymbols } = sym;
+  const { symbolType, valueDeclaration, valueDeclarationType, exports, members, decorators, sourceFile, globalExports, relatedSymbols, heritageClauses } = sym;
+  const hcs = heritageClauses as (undefined | SerializedHeritageClause[]);
   const newData: LinkedSymbolRelationships = {
     symbolType: res(symbolType),
     valueDeclarationType: res(valueDeclarationType),
@@ -142,8 +120,14 @@ function linkSymbol(res: LinkedRefResolver, sym?: LinkedSymbol & SerializedSymbo
     sourceFile: res(sourceFile),
     globalExports: resolveRefDict(globalExports, res),
     relatedSymbols: resolveRefList(relatedSymbols, res),
-    valueDeclaration: res(valueDeclaration)
+    valueDeclaration: res(valueDeclaration),
   };
+  if (hcs) {
+    newData.heritageClauses = hcs.map((hc) => ({
+      kind: hc.kind,
+      types: resolveRefList(hc.types, res) ||[]
+    }));
+  }
 
   Object.assign(sym, pruneUndefinedValues(newData));
 }
