@@ -83,6 +83,11 @@ export interface FormattedTypeRelationships {
   conditionalInfo?: FormattedTypeConditionInfo;
 }
 
+export interface FormattedHeritageClause {
+  kind: 'extends' | 'implements';
+  types: FormattedTypeRef[];
+}
+
 export interface FormattedSymbol extends FormattedSymbolAttributes, FormattedSymbolRelationships {}
 export interface FormattedSymbolAttributes extends FormattedEntity<'symbol'>, HasDocumentation {
   name: string;
@@ -111,6 +116,7 @@ export interface FormattedSymbolRelationships extends HasPosition {
   valueType?: FormattedTypeRef;
   related?: FormattedSymbolRef[];
   valueDeclaration?: FormattedDeclarationRef;
+  heritageClauses?: FormattedHeritageClause[];
 }
 
 export interface FormattedSignature

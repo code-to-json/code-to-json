@@ -27,6 +27,7 @@ export {
   FormattedTypeRelationships,
   FormattedTypeConditionInfo,
   FormattedEntity,
+  FormattedHeritageClause,
   HasDocumentation,
   HasPosition,
   CodePoisition,

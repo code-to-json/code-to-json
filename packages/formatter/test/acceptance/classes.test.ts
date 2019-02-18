@@ -296,5 +296,37 @@ export class ClassFormatterAcceptanceTests {
     expect(baseType.text).to.eq('Foo');
     const baseTypeSymbol = t.resolveReference(baseType.symbol);
     expect(baseTypeSymbol.isAbstract).to.eq(true);
+
+    t.cleanup();
+  }
+
+  @test.only public async 'class w/ heritage clauses'(): Promise<void> {
+    const code = `class Foo {
+  bar: string;
+}
+
+interface HasBiz {
+  biz: number[];
+}
+
+export class Baz extends Foo implements HasBiz {
+  bar = 'abc';
+  biz = [32, 21];
+  public baz() { return 42; }
+}
+  `;
+    const t = new SingleFileAcceptanceTestCase(code);
+    await t.run();
+    const file = t.sourceFile();
+    const fileSymbol = t.resolveReference(file.symbol!);
+    const fileExports = mapDict(fileSymbol.exports!, (e) => t.resolveReference(e));
+    const classSymbol = fileExports.Baz!;
+    expect(classSymbol.heritageClauses!.length).to.eq(2);
+    expect(classSymbol.heritageClauses![0].kind).to.eq('extends');
+    expect(classSymbol.heritageClauses![0].types.map((typ) => t.resolveReference(typ).text).join(', ')).to.eq('Foo');
+    expect(classSymbol.heritageClauses![1].kind).to.eq('implements');
+    expect(classSymbol.heritageClauses![1].types.map((typ) => t.resolveReference(typ).text).join(', ')).to.eq('HasBiz');
+
+    t.cleanup();
   }
 }

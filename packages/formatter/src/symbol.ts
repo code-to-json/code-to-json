@@ -128,7 +128,7 @@ export default function formatSymbol(
     name,
     flags,
     exports,
-
+    heritageClauses,
     modifiers,
     decorators,
     location,
@@ -172,6 +172,12 @@ export default function formatSymbol(
   }
   if (external) {
     info.external = external;
+  }
+  if (heritageClauses) {
+    info.heritageClauses = heritageClauses.map((hc) => ({
+      kind: hc.kind,
+      types: hc.types.map((typ) => collector.queue(resolveReference(wo, typ),'t')).filter(isDefined)
+    }));
   }
 
   conditionallyMergeTransformed(info, documentation, 'documentation', (d) => d);
