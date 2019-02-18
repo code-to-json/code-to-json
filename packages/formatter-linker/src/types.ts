@@ -72,6 +72,12 @@ export interface LinkedFormattedTypeConditionInfo {
   falseType?: LinkedFormattedType;
   trueType?: LinkedFormattedType;
 }
+
+export interface LinkedFormattedHeritageClause {
+  kind: 'extends' | 'implements';
+  types: LinkedFormattedType[];
+}
+
 export interface LinkedFormattedSymbol
   extends HasDocumentation,
     FormattedSymbolAttributes,
@@ -91,6 +97,7 @@ export interface LinkedFormattedSymbolRelationships {
   valueType?: LinkedFormattedType;
   related?: LinkedFormattedSymbol[];
   valueDeclaration?: LinkedFormattedDeclaration;
+  heritageClauses?: LinkedFormattedHeritageClause[];
 }
 
 export interface LinkedFormattedSourceFileRelationships {

@@ -14,4 +14,5 @@ export {
   LinkedFormattedSymbolRelationships,
   LinkedFormattedTypeConditionInfo,
   LinkedFormattedTypeRelationships,
+  LinkedFormattedHeritageClause
 } from './types';
