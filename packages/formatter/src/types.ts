@@ -118,6 +118,7 @@ export interface FormattedSignature
     FormattedSignatureRelationships {}
 export interface FormattedSignatureAttributes {
   hasRestParameter: boolean;
+  text?: string;
 }
 export interface FormattedSignatureRelationships {
   hasRestParameter: boolean;
