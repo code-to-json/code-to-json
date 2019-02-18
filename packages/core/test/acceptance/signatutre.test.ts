@@ -3,7 +3,7 @@ import { expect } from 'chai';
 import { slow, suite, test } from 'mocha-typescript';
 import SingleFileAcceptanceTestCase from './helpers/test-case';
 
-@suite.only
+@suite
 @slow(800)
 export class SignatureSerializationTests {
   @test

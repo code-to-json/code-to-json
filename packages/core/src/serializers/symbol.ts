@@ -132,39 +132,41 @@ function serializeSymbolTypes(
   c: Collector,
 ): Pick<
   SerializedSymbol,
+  // eslint-disable-next-line @typescript-eslint/tslint/config
   | 'symbolType'
   | 'valueDeclarationType'
   | 'otherDeclarationTypes'
   | 'declarations'
   | 'valueDeclaration'
-> {
-  const out: Pick<
+  > {
+    const out: Pick<
     SerializedSymbol,
+    // eslint-disable-next-line @typescript-eslint/tslint/config
     | 'symbolType'
     | 'valueDeclarationType'
     | 'otherDeclarationTypes'
     | 'declarations'
     | 'valueDeclaration'
   > = {};
-  const { valueDeclaration, declarations } = symbol;
-  const types = getRelevantTypesForSymbol(checker, symbol);
-  if (!types) {
+    const { valueDeclaration, declarations } = symbol;
+    const types = getRelevantTypesForSymbol(checker, symbol);
+    if (!types) {
     throw new Error(`Unable to determine type for symbol ${checker.symbolToString(symbol)}`);
   }
-  const { valueDeclarationType, symbolType, otherDeclarationTypes } = types;
-  if (valueDeclaration) {
+    const { valueDeclarationType, symbolType, otherDeclarationTypes } = types;
+    if (valueDeclaration) {
     out.valueDeclaration = c.queue.queue(valueDeclaration, 'declaration');
   }
-  if (declarations) {
+    if (declarations) {
     out.declarations = declarations.map((d) => c.queue.queue(d, 'declaration')).filter(isDefined);
   }
-  if (valueDeclarationType) {
+    if (valueDeclarationType) {
     out.valueDeclarationType = c.queue.queue(valueDeclarationType, 'type');
   }
-  if (symbolType) {
+    if (symbolType) {
     out.symbolType = c.queue.queue(symbolType, 'type');
   }
-  if (otherDeclarationTypes) {
+    if (otherDeclarationTypes) {
     const declTypeArr: Array<{ declaration: DeclarationRef; type: TypeRef }> = [];
     for (const [k, v] of otherDeclarationTypes) {
       if (v) {
@@ -176,7 +178,20 @@ function serializeSymbolTypes(
     }
     out.otherDeclarationTypes = declTypeArr;
   }
-  return out;
+    return out;
+}
+
+const MODIFIER_COMMENT_TAGS = ['public', 'private', 'protected'];
+function patchCommentData(sym: SerializedSymbol): void {
+  const { jsDocTags } =sym;
+  if (!jsDocTags) {return;}
+  const jsDocTagNames = jsDocTags.map((t) => t.name).filter((n) => MODIFIER_COMMENT_TAGS.indexOf(n) >= 0);
+  if (jsDocTagNames.length === 0) { return; }
+  // eslint-disable-next-line no-param-reassign
+  if (typeof sym.modifiers === 'undefined') { sym.modifiers = []; }
+  jsDocTagNames.forEach((t) => {
+    if (sym.modifiers!.indexOf(t) < 0) { sym.modifiers!.push(t); }
+  });
 }
 
 /**
@@ -241,6 +256,6 @@ export default function serializeSymbol(
       q.queue(entity, 'symbol');
     }
   });
-
+  patchCommentData(serialized);
   return serialized;
 }

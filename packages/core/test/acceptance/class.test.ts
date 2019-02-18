@@ -1,3 +1,4 @@
+import { mapDict } from '@code-to-json/utils-ts';
 import { expect } from 'chai';
 import { slow, suite, test } from 'mocha-typescript';
 import SingleFileAcceptanceTestCase from './helpers/test-case';
@@ -127,6 +128,49 @@ export class ClassSerializationTests {
     expect(classPropNames).to.deep.eq([]);
     const [constructorSig] = classValueDeclarationType.constructorSignatures!;
     expect(constructorSig.text).to.eq('(): Vehicle');
+
+    t.cleanup();
+  }
+
+  @test public async 'access modifier keyword on class method'(): Promise<void> {
+    const code = `export class Foo {
+      protected bar() {}
+    }`;
+    const t = new SingleFileAcceptanceTestCase(code);
+    await t.run();
+    const file = t.sourceFile();
+    const fileSymbol = t.resolveReference(file.symbol!);
+    const fileExports = mapDict(fileSymbol.exports!, (e) => t.resolveReference(e));
+    expect(Object.keys(fileExports)).to.deep.eq(['Foo']);
+    const classSymbol = fileExports.Foo!;
+
+    const instanceType = t.resolveReference(classSymbol.symbolType);
+    const instanceMembers = mapDict(instanceType.properties!, (p) => t.resolveReference(p));
+    const { bar } = instanceMembers;
+    expect(bar!.modifiers).to.deep.include('protected');
+
+    t.cleanup();
+  }
+
+  @test public async 'access modifier keyword via comment'(): Promise<void> {
+    const code = `export class Foo {
+      /**
+       * @protected
+       */
+      bar() {}
+    }`;
+    const t = new SingleFileAcceptanceTestCase(code, 'js');
+    await t.run();
+    const file = t.sourceFile();
+    const fileSymbol = t.resolveReference(file.symbol!);
+    const fileExports = mapDict(fileSymbol.exports!, (e) => t.resolveReference(e));
+    expect(Object.keys(fileExports)).to.deep.eq(['Foo']);
+    const classSymbol = fileExports.Foo!;
+
+    const instanceType = t.resolveReference(classSymbol.symbolType);
+    const instanceMembers = mapDict(instanceType.properties!, (p) => t.resolveReference(p));
+    const { bar } = instanceMembers;
+    expect(bar!.modifiers).to.deep.include('protected');
 
     t.cleanup();
   }
