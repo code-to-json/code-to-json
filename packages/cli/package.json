@@ -1,6 +1,6 @@
 {
   "name": "@code-to-json/cli",
-  "version": "1.0.0-rc.35",
+  "version": "1.0.0-rc.36",
   "description": "CLI for code-to-json",
   "main": "lib/src/index.js",
   "doc:main": "src/index.ts",
