@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-rc.19](https://github.com/mike-north/code-to-json/compare/@code-to-json/formatter-linker@1.0.0-rc.18...@code-to-json/formatter-linker@1.0.0-rc.19) (2019-02-20)
+
+**Note:** Version bump only for package @code-to-json/formatter-linker
+
+
+
+
+
 # [1.0.0-rc.18](https://github.com/mike-north/code-to-json/compare/@code-to-json/formatter-linker@1.0.0-rc.17...@code-to-json/formatter-linker@1.0.0-rc.18) (2019-02-18)
 
 
