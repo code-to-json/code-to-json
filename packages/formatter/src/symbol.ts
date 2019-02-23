@@ -140,6 +140,7 @@ export default function formatSymbol(
     text,
     valueDeclaration,
     relatedSymbols,
+    aliasedSymbol,
   } = symbol;
   const id = refId(ref);
   const info: FormattedSymbol = {
@@ -163,6 +164,9 @@ export default function formatSymbol(
     info.related = relatedSymbols
       .map(rs => collector.queue(resolveReference(wo, rs), 's'))
       .filter(isDefined);
+  }
+  if (aliasedSymbol) {
+    info.aliasedSymbol = collector.queue(resolveReference(wo, aliasedSymbol), 's');
   }
   if (isAbstract) {
     info.isAbstract = true;
