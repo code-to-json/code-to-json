@@ -9,7 +9,7 @@ import { findPkgJson } from './package-json';
 /**
  * Create a {@link ReverseResolver} for a project at the specified path
  *
- * @param project path to project (containing a `tsconfig.json` and `package.json`) that you want a reverse resolver for
+ * @param project path to project (containing `tsconfig.json`, `package.json`)
  * @param host runtime host
  * @public
  */
