@@ -11,6 +11,7 @@
   "devDependencies": {
     "@commitlint/cli": "7.5.2",
     "@commitlint/config-conventional": "7.5.0",
+    "@commitlint/config-lerna-scopes": "^7.5.1",
     "@commitlint/travis-cli": "7.5.2",
     "@types/rimraf": "2.0.2",
     "concurrently": "4.1.0",
@@ -22,7 +23,8 @@
   },
   "commitlint": {
     "extends": [
-      "@commitlint/config-conventional"
+      "@commitlint/config-conventional",
+      "@commitlint/config-lerna-scopes"
     ],
     "rules": {
       "subject-case": [

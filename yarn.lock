@@ -112,6 +112,15 @@
   resolved "https://registry.yarnpkg.com/@commitlint/config-conventional/-/config-conventional-7.5.0.tgz#3afd4e3e34e5c2f6ec6af03e78ae924fed883ce7"
   integrity sha512-odLgBfQ5xntFAmMfAmDY2C4EWhW+cSTbvbsRS7seb55DCa3IaxxSHHC9eXrR+hN/BdUT5vqAxdX1PkR996sq9Q==
 
+"@commitlint/config-lerna-scopes@^7.5.1":
+  version "7.5.1"
+  resolved "https://registry.yarnpkg.com/@commitlint/config-lerna-scopes/-/config-lerna-scopes-7.5.1.tgz#b4747e9cc7558f14a0fc9d59715e771d73a63caa"
+  integrity sha512-llv08M+b/VSemUfDsKFo8Dv1LHGVTMPsA8J1/ISMAlJCayTCCkgnJS812E8HPOVVQlMxBmqXvMmSOhvp3gFkZQ==
+  dependencies:
+    import-from "2.1.0"
+    resolve-pkg "1.0.0"
+    semver "5.6.0"
+
 "@commitlint/ensure@^7.5.2":
   version "7.5.2"
   resolved "https://registry.yarnpkg.com/@commitlint/ensure/-/ensure-7.5.2.tgz#57bb7dcbf1e9913e27c3b294325d0d68dd14cebf"
@@ -3604,6 +3613,13 @@ import-fresh@^3.0.0:
     parent-module "^1.0.0"
     resolve-from "^4.0.0"
 
+import-from@2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/import-from/-/import-from-2.1.0.tgz#335db7f2a7affd53aaa471d4b8021dee36b7f3b1"
+  integrity sha1-M1238qev/VOqpHHUuAId7ja387E=
+  dependencies:
+    resolve-from "^3.0.0"
+
 import-lazy@^2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/import-lazy/-/import-lazy-2.1.0.tgz#05698e3d45c88e8d7e9d92cb0584e77f096f3e43"
@@ -6874,7 +6890,7 @@ resolve-global@0.1.0, resolve-global@^0.1.0:
   dependencies:
     global-dirs "^0.1.0"
 
-resolve-pkg@^1.0.0:
+resolve-pkg@1.0.0, resolve-pkg@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/resolve-pkg/-/resolve-pkg-1.0.0.tgz#e19a15e78aca2e124461dc92b2e3943ef93494d9"
   integrity sha1-4ZoV54rKLhJEYdySsuOUPvk0lNk=
