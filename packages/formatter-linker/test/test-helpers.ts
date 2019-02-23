@@ -1,6 +1,5 @@
 import * as ts from 'typescript';
 
-// tslint-disable-next-line typedef
 export function getDeclarationFiles(
   sourceFiles: ReadonlyArray<ts.SourceFile>,
 ): {
@@ -9,13 +8,13 @@ export function getDeclarationFiles(
   tsLibNames: string[];
   tsLibs: ts.SourceFile[];
 } {
-  const declarationFiles = sourceFiles.filter((sf) => sf.isDeclarationFile);
-  const nonDeclarationFiles = sourceFiles.filter((sf) => !sf.isDeclarationFile);
+  const declarationFiles = sourceFiles.filter(sf => sf.isDeclarationFile);
+  const nonDeclarationFiles = sourceFiles.filter(sf => !sf.isDeclarationFile);
   const tsLibs = declarationFiles.filter(
-    (sf) => sf.fileName.indexOf('node_modules/typescript/lib') > 0,
+    sf => sf.fileName.indexOf('node_modules/typescript/lib') > 0,
   );
   const tsLibNames = tsLibs.map(
-    (sf) =>
+    sf =>
       `${sf.fileName.substring(
         sf.fileName.lastIndexOf('typescript/lib/') + 'typescript/lib/'.length,
       )}`,

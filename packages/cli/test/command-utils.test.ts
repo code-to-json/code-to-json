@@ -1,4 +1,3 @@
-// tslint:disable:no-duplicate-string
 import { createTempFixtureFolder, TestCaseFolder } from '@code-to-json/test-helpers';
 import { expect } from 'chai';
 import * as fs from 'fs';
@@ -17,7 +16,7 @@ async function makeWorkspace(): Promise<TestCaseFolder> {
         noEmit: true,
       },
     }),
-    "src": {
+    src: {
       'index.ts': "const x: string = 'foo';",
       'other.ts': "const y: string = 'bar';",
       'more.js': "const z = 'baz';",
@@ -57,7 +56,7 @@ export class CommandUtilsTests {
 
     const pth = findConfigFile(
       path.join(workspace.rootPath),
-      (f) => fs.existsSync(f) && fs.statSync(f).isFile(),
+      f => fs.existsSync(f) && fs.statSync(f).isFile(),
     );
     if (!pth) {
       throw new Error('No path to tsconfig');
@@ -75,7 +74,7 @@ export class CommandUtilsTests {
     const globs = await globsToPaths([myGlob]);
     const prog = await createProgramFromEntryGlobs(globs);
     expect(!!prog).to.eql(true);
-    expect(prog.getSourceFiles().filter((sf) => !sf.isDeclarationFile).length).to.eql(3);
+    expect(prog.getSourceFiles().filter(sf => !sf.isDeclarationFile).length).to.eql(3);
     expect(prog.getSourceFiles().length).to.be.greaterThan(3);
     workspace.cleanup();
   }

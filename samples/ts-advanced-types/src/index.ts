@@ -48,7 +48,7 @@ export class VehicleUtils {
   }
 }
 
-// tslint:disable-next-line:no-namespace
+
 export namespace VehicleUtils {
   /**
    * Create a new bike

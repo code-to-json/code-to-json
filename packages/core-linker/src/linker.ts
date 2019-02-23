@@ -169,7 +169,6 @@ function linkSymbol(res: LinkedRefResolver, sym?: LinkedSymbol & SerializedSymbo
   Object.assign(sym, pruneUndefinedValues(newData));
 }
 
-// tslint:disable-next-line:no-empty
 export function linkWalkerOutputData(unlinked: WalkerOutputData): LinkedWalkerOutputData {
   const out = JSON.parse(JSON.stringify(unlinked)) as MaybeLinkedWalkerOutputData;
   const { symbols, types, sourceFiles } = out;

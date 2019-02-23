@@ -67,10 +67,9 @@ export const nodeHost: SysHost = {
 export async function setupSingleModuleProgram(code: string): Promise<TestCase> {
   return setupTestCase(
     {
-      // tslint:disable-next-line:no-duplicate-string
-      "src": { 'index.ts': code },
+      src: { 'index.ts': code },
       'package.json': JSON.stringify({
-        "name": 'pkg-ts-single-file',
+        name: 'pkg-ts-single-file',
         'doc:main': 'src/index.ts',
       }),
       'tsconfig.json': JSON.stringify({

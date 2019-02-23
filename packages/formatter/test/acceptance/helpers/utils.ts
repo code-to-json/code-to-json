@@ -18,7 +18,7 @@ export default function resolveReference(
   wo: FormatterOutputData,
   ref: FormattedTypeRef,
 ): FormattedType;
-// tslint:disable-next-line:no-commented-code
+
 // export default function resolveReference(
 //   wo: FormatterOutputData,
 //   ref: FormattedDeclarationRef,

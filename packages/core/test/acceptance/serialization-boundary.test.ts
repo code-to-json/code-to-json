@@ -1,4 +1,4 @@
-// tslint:disable no-identical-functions
+
 import { expect } from 'chai';
 import { slow, suite, test } from 'mocha-typescript';
 import SingleFileAcceptanceTestCase from './helpers/test-case';

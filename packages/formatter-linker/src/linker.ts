@@ -181,7 +181,7 @@ function linkSymbol(
   Object.assign(sym, pruneUndefinedValues(newData));
 }
 
-// tslint:disable-next-line:no-empty
+
 export function linkFormatterData(unlinked: FormatterOutputData): LinkedFormattedOutputData {
   const out = JSON.parse(JSON.stringify(unlinked)) as MaybeLinkedFormattedOutputData;
   const { symbols, types, sourceFiles } = out;

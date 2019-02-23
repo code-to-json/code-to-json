@@ -70,9 +70,7 @@ export function flagsToString<T extends keyof FlagsMap>(
       continue;
     }
 
-    // tslint:disable-next-line no-bitwise
     if ((flag & flg) === flag) {
-      // tslint:disable-next-line no-bitwise
       flg &= ~flag;
       flagNames.push(flagName);
     }

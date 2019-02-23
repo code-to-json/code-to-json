@@ -1,4 +1,4 @@
-// tslint:disable:max-classes-per-file
+
 
 /**
  * Add two numbers

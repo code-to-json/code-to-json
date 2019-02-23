@@ -135,9 +135,8 @@ export interface FormattedSignatureRelationships {
   returnType?: FormattedTypeRef;
 }
 
-// tslint:disable-next-line:no-empty-interface
 export interface FormattedNode<Kind extends string = 'node'> extends FormattedEntity<Kind> {}
-// tslint:disable-next-line:no-empty-interface
+
 export interface FormattedDeclaration extends FormattedNode<'declaration'> {}
 
 export interface FormattedSourceFile

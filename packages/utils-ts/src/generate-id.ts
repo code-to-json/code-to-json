@@ -1,5 +1,5 @@
 /* eslint-disable no-bitwise */
-// tslint:disable:no-bitwise
+
 import { UnreachableError } from '@code-to-json/utils';
 import * as debug from 'debug';
 import {
@@ -39,9 +39,8 @@ function generateDuplicateIdErrorMessage(
 ): string {
   return `Duplicate ID detected: ${id}
     existing: ${existing
-      .map((e) => entityToString(e, checker))
-      // tslint:disable-next-line no-nested-template-literals
-      .map((s) => `   ${s}`)
+      .map(e => entityToString(e, checker))
+      .map(s => `   ${s}`)
       .join('\n')
       .trim()}
     second: ${entityToString(thing, checker)}`;
@@ -120,7 +119,7 @@ export interface IdGenerator {
    * Generate an id for an entity
    * @param thing Entity to generate an Id for
    */
-  // tslint:disable-next-line callable-types
+
   (thing: IDableEntity): GenerateIdResult;
 }
 
@@ -166,8 +165,8 @@ export function createIdGenerator(checker: TypeChecker): IdGenerator {
   function generateIdForSymbol(thing: Sym): string {
     const parts: Array<string | number> = [
       (flagsToString(thing.flags & ~SymbolFlags.Transient, 'symbol') || []).join(''),
-      iteratorValues(thing.exports ? thing.exports.keys() : undefined, (s) => s.toString()),
-      iteratorValues(thing.members ? thing.members.keys() : undefined, (s) => s.toString()),
+      iteratorValues(thing.exports ? thing.exports.keys() : undefined, s => s.toString()),
+      iteratorValues(thing.members ? thing.members.keys() : undefined, s => s.toString()),
     ];
     const { valueDeclaration } = thing;
     if (!(thing.flags & SymbolFlags.ValueModule)) {
@@ -220,9 +219,9 @@ export function createIdGenerator(checker: TypeChecker): IdGenerator {
 
     if (existingEntities.length > 0) {
       // not the first time
-      log(generateDuplicateIdErrorMessage(id, existingEntities.map((e) => e[1]), thing, checker));
+      log(generateDuplicateIdErrorMessage(id, existingEntities.map(e => e[1]), thing, checker));
       id = `${id}1`;
-      return ['ok-related', id, [...existingEntities.map((e) => e[1])]];
+      return ['ok-related', id, [...existingEntities.map(e => e[1])]];
     }
     throw new Error('Empty array detected in ID map');
   };

@@ -46,7 +46,7 @@ export interface FormatterOutput {
   data: FormatterOutputData;
 }
 
-// tslint:disable-next-line:no-empty-interface
+
 export interface FormatterOptions {}
 
 // eslint-disable-next-line import/prefer-default-export
