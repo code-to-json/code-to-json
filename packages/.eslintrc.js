@@ -37,6 +37,14 @@ module.exports = {
     indent: 'off',
     complexity: 'off',
     'no-empty-function': 'off',
+    'object-curly-newline': 'off',
+    'operator-linebreak': 'off',
+    'space-before-function-paren': 'off',
+    quotes: 'off',
+    'quote-props': 'off',
+    semi: 'off',
+    'max-len': 'off',
+    'arrow-body-style': 'off',
   },
   overrides: [
     {
