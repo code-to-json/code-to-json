@@ -144,6 +144,7 @@ function linkSymbol(res: LinkedRefResolver, sym?: LinkedSymbol & SerializedSymbo
     globalExports,
     relatedSymbols,
     heritageClauses,
+    aliasedSymbol,
   } = sym;
   const hcs = heritageClauses as (undefined | SerializedHeritageClause[]);
   const newData: LinkedSymbolRelationships = {
@@ -156,6 +157,7 @@ function linkSymbol(res: LinkedRefResolver, sym?: LinkedSymbol & SerializedSymbo
     globalExports: resolveRefDict(globalExports, res),
     relatedSymbols: resolveRefList(relatedSymbols, res),
     valueDeclaration: res(valueDeclaration),
+    aliasedSymbol: res(aliasedSymbol),
   };
   if (hcs) {
     newData.heritageClauses = hcs.map(hc => ({
