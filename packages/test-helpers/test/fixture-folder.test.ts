@@ -1,6 +1,6 @@
+import { expect } from 'chai';
 import { describe, it } from 'mocha';
 import { flatten } from '../src/file-fixtures';
-import { expect } from 'chai';
 
 describe('fixture folder tests', () => {
   it('should flatten properly', () => {
