@@ -1,7 +1,7 @@
 module.exports = {
   parser: '@typescript-eslint/parser',
-  plugins: ['@typescript-eslint', '@typescript-eslint/tslint'],
-  extends: ['eslint:recommended', 'airbnb-base', 'prettier'],
+  plugins: ['@typescript-eslint'],
+  extends: ['eslint:recommended', 'airbnb-base'],
   parserOptions: {
     ecmaVersion: 9,
     sourceType: 'module',
@@ -14,12 +14,6 @@ module.exports = {
     node: false,
   },
   rules: {
-    '@typescript-eslint/tslint/config': [
-      'error',
-      {
-        lintFile: './tslint.json', // path to tslint.json of your project
-      },
-    ],
     camelcase: 'off',
     'no-unused-vars': 'off',
     'import/no-unresolved': 'off',
@@ -37,7 +31,12 @@ module.exports = {
     'lines-between-class-members': 'off',
     'no-dupe-class-members': 'off',
     'max-classes-per-file': ['error', 1],
+    'implicit-arrow-linebreak': 'off',
+    'function-paren-newline': 'off',
+    'arrow-parens': 'off',
+    indent: 'off',
     complexity: 'off',
+    'no-empty-function': 'off',
   },
   overrides: [
     {
