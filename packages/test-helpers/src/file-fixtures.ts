@@ -1,4 +1,5 @@
 import { UnreachableError } from '@code-to-json/utils';
+import { Dict } from '@mike-north/types';
 import * as debug from 'debug';
 import * as fs from 'fs';
 import { copy, existsSync, statSync } from 'fs-extra';
@@ -114,4 +115,27 @@ export async function createTempFixtureFolder(
   }
 
   throw new UnreachableError(cse);
+}
+
+export function flatten(fixture: FixtureFolder): Dict<string> {
+  const data: Dict<string> = {};
+
+  function populatefolderData(folder: FixtureFolder, p = ''): void {
+    for (const k in folder) {
+      if (Object.prototype.hasOwnProperty.call(folder, k)) {
+        const v = folder[k];
+        if (typeof v === 'string') {
+          // file
+          data[path.join(p, k)] = v;
+        } else {
+          // folder
+          populatefolderData(v, path.join(p, k));
+        }
+      }
+    }
+  }
+
+  populatefolderData(fixture);
+
+  return data;
 }

@@ -38,7 +38,7 @@ export class TypeSerializationTests {
     const typeType = t.resolveReference(typeSymbol.symbolType);
     expect(typeType.text).to.eql('Dict<T>', 'has correct type');
     expect(typeType.flags).to.deep.eq(['Object']);
-    const [typeParam] = typeType.typeParameters!.map((tp) => t.resolveReference(tp));
+    const [typeParam] = typeType.typeParameters!.map(tp => t.resolveReference(tp));
     expect(typeParam.text).to.eq('T');
     expect(!!typeParam.constraint).to.eq(false);
     const stringIndexType = t.resolveReference(typeType.stringIndexType);
@@ -59,7 +59,7 @@ export type Dict<T> = { [k: string]: T | undefined }`;
     const typeSymbol = t.resolveReference(fileSymbol.exports!.Dict);
     expect(typeSymbol.text).to.eql('Dict');
     expect(typeSymbol.flags).to.eql(['TypeAlias'], 'Regarded as a type alias');
-    expect(typeSymbol.documentation).to.deep.eq({ summary: [ 'A dictionary' ] }, 'Documentation');
+    expect(typeSymbol.documentation).to.deep.eq({ summary: ['A dictionary'] }, 'Documentation');
 
     t.cleanup();
   }
@@ -78,7 +78,7 @@ export type Dict<T> = { [k: string]: T | undefined }`;
     const typeType = t.resolveReference(typeSymbol.symbolType);
     expect(typeType.text).to.eql('Dict<T>');
     expect(typeType.flags).to.deep.eq(['Object']);
-    const [typeParam] = typeType.typeParameters!.map((tp) => t.resolveReference(tp));
+    const [typeParam] = typeType.typeParameters!.map(tp => t.resolveReference(tp));
     expect(typeParam.text).to.eq('T');
     expect(t.resolveReference(typeParam.constraint).text).to.eq('"foo" | "bar" | "baz"');
     const stringIndexType = t.resolveReference(typeType.stringIndexType);
@@ -102,7 +102,7 @@ export type Dict<T> = { [k: string]: T | undefined }`;
     expect(typeType.flags).to.deep.eq(['Union']);
     expect(!!typeType.typeParameters).to.eq(false);
 
-    const unionParts = typeType.types!.map((typ) => t.resolveReference(typ));
+    const unionParts = typeType.types!.map(typ => t.resolveReference(typ));
 
     expect(unionParts.length).to.eql(3);
     const [l, c, r] = unionParts;

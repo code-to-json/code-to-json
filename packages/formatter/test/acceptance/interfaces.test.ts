@@ -12,7 +12,7 @@ export class InterfaceAcceptanceTests {
     await t.run();
     const file = t.sourceFile();
     const fileSymbol = t.resolveReference(file.symbol!);
-    const fileExports = mapDict(fileSymbol.exports!, (e) => t.resolveReference(e));
+    const fileExports = mapDict(fileSymbol.exports!, e => t.resolveReference(e));
     const { Foo: interfaceSymbol } = fileExports;
     expect(!!interfaceSymbol).to.eq(true);
     expect(interfaceSymbol!.text).to.eq('Foo');
@@ -24,15 +24,15 @@ export class InterfaceAcceptanceTests {
     expect(interfaceType.objectFlags).to.deep.eq(['interface']);
     expect(interfaceType.typeParameters).to.eq(undefined);
 
-    const interfacePropertySymbols = mapDict(interfaceType.properties!, (p) => t.resolveReference(p));
-    const interfacePropertyTypes = mapDict(interfacePropertySymbols, (ps) =>
+    const interfacePropertySymbols = mapDict(interfaceType.properties!, p => t.resolveReference(p));
+    const interfacePropertyTypes = mapDict(interfacePropertySymbols, ps =>
       t.resolveReference(ps.valueType),
     );
 
     expect(Object.keys(interfacePropertySymbols)).to.deep.eq(['bar']);
     expect(Object.keys(interfacePropertyTypes)).to.deep.eq(['bar']);
 
-    expect(mapDict(interfacePropertyTypes, (typ) => typ.text)).to.deep.eq({
+    expect(mapDict(interfacePropertyTypes, typ => typ.text)).to.deep.eq({
       bar: 'string',
     });
 
@@ -45,7 +45,7 @@ export class InterfaceAcceptanceTests {
     await t.run();
     const file = t.sourceFile();
     const fileSymbol = t.resolveReference(file.symbol!);
-    const fileExports = mapDict(fileSymbol.exports!, (e) => t.resolveReference(e));
+    const fileExports = mapDict(fileSymbol.exports!, e => t.resolveReference(e));
     const { Foo: interfaceSymbol } = fileExports;
     expect(!!interfaceSymbol).to.eq(true);
     expect(interfaceSymbol!.text).to.eq('Foo');
@@ -56,19 +56,19 @@ export class InterfaceAcceptanceTests {
     expect(interfaceType.objectFlags).to.deep.eq(['interface', 'reference']);
     expect(interfaceType.typeParameters!.length).to.eq(1);
 
-    const [firstTypeParam] = interfaceType.typeParameters!.map((tp) => t.resolveReference(tp));
+    const [firstTypeParam] = interfaceType.typeParameters!.map(tp => t.resolveReference(tp));
     expect(firstTypeParam.text).to.eq('T');
     expect(firstTypeParam.constraint).to.eq(undefined);
 
-    const interfacePropertySymbols = mapDict(interfaceType.properties!, (p) => t.resolveReference(p));
-    const interfacePropertyTypes = mapDict(interfacePropertySymbols, (ps) =>
+    const interfacePropertySymbols = mapDict(interfaceType.properties!, p => t.resolveReference(p));
+    const interfacePropertyTypes = mapDict(interfacePropertySymbols, ps =>
       t.resolveReference(ps.valueType),
     );
 
     expect(Object.keys(interfacePropertySymbols)).to.deep.eq(['bar']);
     expect(Object.keys(interfacePropertyTypes)).to.deep.eq(['bar']);
 
-    expect(mapDict(interfacePropertyTypes, (typ) => typ.text)).to.deep.eq({
+    expect(mapDict(interfacePropertyTypes, typ => typ.text)).to.deep.eq({
       bar: 'T',
     });
 
@@ -81,7 +81,7 @@ export class InterfaceAcceptanceTests {
     await t.run();
     const file = t.sourceFile();
     const fileSymbol = t.resolveReference(file.symbol!);
-    const fileExports = mapDict(fileSymbol.exports!, (e) => t.resolveReference(e));
+    const fileExports = mapDict(fileSymbol.exports!, e => t.resolveReference(e));
     const { Foo: interfaceSymbol } = fileExports;
     expect(!!interfaceSymbol).to.eq(true);
     expect(interfaceSymbol!.text).to.eq('Foo');
@@ -92,19 +92,19 @@ export class InterfaceAcceptanceTests {
     expect(interfaceType.objectFlags).to.deep.eq(['interface', 'reference']);
     expect(interfaceType.typeParameters!.length).to.eq(1);
 
-    const [firstTypeParam] = interfaceType.typeParameters!.map((tp) => t.resolveReference(tp));
+    const [firstTypeParam] = interfaceType.typeParameters!.map(tp => t.resolveReference(tp));
     expect(firstTypeParam.text).to.eq('T');
     expect(t.resolveReference(firstTypeParam.constraint).text).to.eq('number');
 
-    const interfacePropertySymbols = mapDict(interfaceType.properties!, (p) => t.resolveReference(p));
-    const interfacePropertyTypes = mapDict(interfacePropertySymbols, (ps) =>
+    const interfacePropertySymbols = mapDict(interfaceType.properties!, p => t.resolveReference(p));
+    const interfacePropertyTypes = mapDict(interfacePropertySymbols, ps =>
       t.resolveReference(ps.valueType),
     );
 
     expect(Object.keys(interfacePropertySymbols)).to.deep.eq(['bar']);
     expect(Object.keys(interfacePropertyTypes)).to.deep.eq(['bar']);
 
-    expect(mapDict(interfacePropertyTypes, (typ) => typ.text)).to.deep.eq({
+    expect(mapDict(interfacePropertyTypes, typ => typ.text)).to.deep.eq({
       bar: 'T',
     });
 
@@ -117,7 +117,7 @@ export class InterfaceAcceptanceTests {
     await t.run();
     const file = t.sourceFile();
     const fileSymbol = t.resolveReference(file.symbol!);
-    const fileExports = mapDict(fileSymbol.exports!, (e) => t.resolveReference(e));
+    const fileExports = mapDict(fileSymbol.exports!, e => t.resolveReference(e));
     const { Foo: interfaceSymbol } = fileExports;
     expect(!!interfaceSymbol).to.eq(true);
     expect(interfaceSymbol!.text).to.eq('Foo');
@@ -140,7 +140,7 @@ export class InterfaceAcceptanceTests {
     await t.run();
     const file = t.sourceFile();
     const fileSymbol = t.resolveReference(file.symbol!);
-    const fileExports = mapDict(fileSymbol.exports!, (e) => t.resolveReference(e));
+    const fileExports = mapDict(fileSymbol.exports!, e => t.resolveReference(e));
     const { Foo: interfaceSymbol } = fileExports;
     expect(!!interfaceSymbol).to.eq(true);
     expect(interfaceSymbol!.text).to.eq('Foo');
@@ -164,7 +164,7 @@ export class InterfaceAcceptanceTests {
     await t.run();
     const file = t.sourceFile();
     const fileSymbol = t.resolveReference(file.symbol!);
-    const fileExports = mapDict(fileSymbol.exports!, (e) => t.resolveReference(e));
+    const fileExports = mapDict(fileSymbol.exports!, e => t.resolveReference(e));
     const { Foo: interfaceSymbol } = fileExports;
     expect(!!interfaceSymbol).to.eq(true);
     expect(interfaceSymbol!.text).to.eq('Foo');
@@ -179,7 +179,7 @@ export class InterfaceAcceptanceTests {
 
     expect(stringIndexType.flags).to.deep.eq(['union']);
     const types = stringIndexType.types!;
-    const [l, r] = types.map((typ) => t.resolveReference(typ));
+    const [l, r] = types.map(typ => t.resolveReference(typ));
     expect(l.text).to.eq('T');
     expect(r.text).to.eq('T[]');
 
@@ -197,7 +197,7 @@ export class InterfaceAcceptanceTests {
     await t.run();
     const file = t.sourceFile();
     const fileSymbol = t.resolveReference(file.symbol!);
-    const fileExports = mapDict(fileSymbol.exports!, (e) => t.resolveReference(e));
+    const fileExports = mapDict(fileSymbol.exports!, e => t.resolveReference(e));
     const { Foo: interfaceSymbol } = fileExports;
     expect(!!interfaceSymbol).to.eq(true);
     expect(interfaceSymbol!.text).to.eq('Foo');
@@ -212,14 +212,14 @@ export class InterfaceAcceptanceTests {
 
     expect(stringIndexType.flags).to.deep.eq(['union']);
     const types = stringIndexType.types!;
-    const [l, r] = types.map((typ) => t.resolveReference(typ));
+    const [l, r] = types.map(typ => t.resolveReference(typ));
     expect(l.text).to.eq('T & { foo: string; }');
     expect(l.flags).to.deep.eq(['intersection']);
     expect(r.text).to.eq('T[] & { foo: string; }');
     expect(r.flags).to.deep.eq(['intersection']);
 
-    const [ll, lr] = l.types!.map((typ) => t.resolveReference(typ));
-    const [rl, rr] = r.types!.map((typ) => t.resolveReference(typ));
+    const [ll, lr] = l.types!.map(typ => t.resolveReference(typ));
+    const [rl, rr] = r.types!.map(typ => t.resolveReference(typ));
 
     expect(ll.text).to.eq('T');
     expect(ll.flags).to.deep.eq(['typeParameter']);

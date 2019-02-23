@@ -98,6 +98,7 @@ export interface LinkedFormattedSymbolRelationships {
   related?: LinkedFormattedSymbol[];
   valueDeclaration?: LinkedFormattedDeclaration;
   heritageClauses?: LinkedFormattedHeritageClause[];
+  aliasedSymbol?: LinkedFormattedSymbol;
 }
 
 export interface LinkedFormattedSourceFileRelationships {
