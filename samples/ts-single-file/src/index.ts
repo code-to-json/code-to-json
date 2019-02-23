@@ -32,7 +32,18 @@ export function add(a: number | string, b: number | string): number | string {
   }
 }
 
+/**
+ * Could be a string or a number!
+ */
+export const x: string | number = Math.random() >= 0.5 ? 'foo' : 44;
+
+/** a dictionary as type alias */
 export type Dict<T extends string[]> = { [k: string]: T | undefined };
+
+/** a dictionary as interface */
+export interface IDict<T extends string[]> {
+  [k: string]: T | undefined;
+}
 
 export const SECRET_STRING = 'shhhhh!';
 
