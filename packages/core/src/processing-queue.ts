@@ -227,8 +227,9 @@ export function create(checker: ts.TypeChecker): Queue {
       // names of entity types where work was done in the most recent pass
       let lastNonZeroCategories: string[];
       // reducer for determining categories where work was done
-      const nonzeroCategoryReducer = (list: string[], k: string) =>
-        lastResult.processed[k as keyof EntityMap] > 0 ? list.concat(k) : list;
+      const nonzeroCategoryReducer = (list: string[], k: string) => {
+        return lastResult.processed[k as keyof EntityMap] > 0 ? list.concat(k) : list;
+      };
 
       log(`beginning processing queue drain (max passes: ${maxPasses})`);
 
@@ -241,7 +242,7 @@ export function create(checker: ts.TypeChecker): Queue {
           Object.keys(lastResult.processed)
             .sort()
             // eslint-disable-next-line no-loop-func
-            .map((k) => {
+            .map(k => {
               const amt = (lastResult.processed as any)[k];
               return amt > 0 ? `${amt} ${k}s` : null;
             })

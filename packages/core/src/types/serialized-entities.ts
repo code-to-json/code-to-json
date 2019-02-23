@@ -39,6 +39,7 @@ export interface SerializedSymbolRelationships {
   globalExports?: Dict<SymbolRef>;
   relatedSymbols?: SymbolRef[];
   heritageClauses?: SerializedHeritageClause[];
+  aliasedSymbol?: SymbolRef;
 }
 
 /**
