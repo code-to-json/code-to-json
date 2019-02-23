@@ -1,8 +1,32 @@
-import { CodePoisition, CodeRange, FormattedDeclarationRef, FormattedHeritageClause, FormattedSignature, FormattedSourceFile, FormattedSymbol, FormattedType, FormattedTypeRef, FormatterOutputData } from '@code-to-json/formatter';
+import {
+  CodePoisition,
+  CodeRange,
+  FormattedDeclarationRef,
+  FormattedHeritageClause,
+  FormattedSignature,
+  FormattedSourceFile,
+  FormattedSymbol,
+  FormattedType,
+  FormattedTypeRef,
+  FormatterOutputData,
+} from '@code-to-json/formatter';
 import { isDefined, Ref, refId, refType } from '@code-to-json/utils';
 import { Dict } from '@mike-north/types';
 import { createLinkedFormattedRefResolver, resolveRefDict, resolveRefList } from './ref-resolver';
-import { LinkedFormattedDeclaration, LinkedFormattedOutputData, LinkedFormattedRefResolver, LinkedFormattedSignature, LinkedFormattedSignatureRelationships, LinkedFormattedSourceFile, LinkedFormattedSourceFileRelationships, LinkedFormattedSymbol, LinkedFormattedSymbolRelationships, LinkedFormattedType, LinkedFormattedTypeRelationships, MaybeLinkedFormattedOutputData } from './types';
+import {
+  LinkedFormattedDeclaration,
+  LinkedFormattedOutputData,
+  LinkedFormattedRefResolver,
+  LinkedFormattedSignature,
+  LinkedFormattedSignatureRelationships,
+  LinkedFormattedSourceFile,
+  LinkedFormattedSourceFileRelationships,
+  LinkedFormattedSymbol,
+  LinkedFormattedSymbolRelationships,
+  LinkedFormattedType,
+  LinkedFormattedTypeRelationships,
+  MaybeLinkedFormattedOutputData,
+} from './types';
 import { pruneUndefinedValues } from './utils';
 
 function linkSignature(
@@ -16,12 +40,10 @@ function linkSignature(
   const newData: LinkedFormattedSignatureRelationships = {
     parameters: !parameters
       ? undefined
-      : parameters.map((p) => {
-          return {
-            name: p.name,
-            type: p.type ? res(p.type) : undefined,
-          };
-        }),
+      : parameters.map(p => ({
+          name: p.name,
+          type: p.type ? res(p.type) : undefined,
+        })),
     typeParameters: !typeParameters ? undefined : resolveRefList(typeParameters, res),
     returnType: !returnType ? undefined : res(returnType),
   };
@@ -73,8 +95,8 @@ function linkType(
     typeParameters: resolveRefList(typeParameters, res),
     types: resolveRefList(types, res),
   };
-  [constructorSignatures, callSignatures].filter(isDefined).forEach((sigList) => {
-    sigList.forEach((sig) =>
+  [constructorSignatures, callSignatures].filter(isDefined).forEach(sigList => {
+    sigList.forEach(sig =>
       linkSignature(sig as LinkedFormattedSignature & FormattedSignature, res),
     );
   });
@@ -121,20 +143,19 @@ function linkSymbol(
     valueType,
     related,
     valueDeclaration,
-    heritageClauses
+    heritageClauses,
+    aliasedSymbol,
   } = sym;
   const newData: LinkedFormattedSymbolRelationships = {
     otherDeclarationTypes: !otherDeclarationTypes
       ? undefined
       : otherDeclarationTypes
-          .map((odt) => {
-            return {
-              declaration: res(
-                (odt.declaration as any) as FormattedDeclarationRef,
-              ) as LinkedFormattedDeclaration,
-              type: res((odt.type as any) as FormattedTypeRef) as LinkedFormattedType | undefined,
-            };
-          })
+          .map(odt => ({
+            declaration: res(
+              (odt.declaration as any) as FormattedDeclarationRef,
+            ) as LinkedFormattedDeclaration,
+            type: res((odt.type as any) as FormattedTypeRef) as LinkedFormattedType | undefined,
+          }))
           .filter(isDefined),
     decorators: resolveRefList(decorators, res),
     exports: resolveRefDict(exports, res),
@@ -144,7 +165,8 @@ function linkSymbol(
     type: res(type),
     valueType: res(valueType),
     related: resolveRefList(related, res),
-    valueDeclaration: res(valueDeclaration)
+    valueDeclaration: res(valueDeclaration),
+    aliasedSymbol: res(aliasedSymbol),
   };
   if (sym.location) {
     linkCodePositionOrRange(sym.location, res);
@@ -152,7 +174,7 @@ function linkSymbol(
   if (heritageClauses) {
     newData.heritageClauses = heritageClauses.map((hc: FormattedHeritageClause) => ({
       kind: hc.kind,
-      types: resolveRefList(hc.types, res) || []
+      types: resolveRefList(hc.types, res) || [],
     }));
   }
 
@@ -164,9 +186,9 @@ export function linkFormatterData(unlinked: FormatterOutputData): LinkedFormatte
   const out = JSON.parse(JSON.stringify(unlinked)) as MaybeLinkedFormattedOutputData;
   const { symbols, types, sourceFiles } = out;
   const resolver = createLinkedFormattedRefResolver(out);
-  Object.keys(symbols).forEach((symKey) => linkSymbol(resolver, symbols[symKey]));
-  Object.keys(types).forEach((typeKey) => linkType(resolver, types[typeKey]));
-  Object.keys(sourceFiles).forEach((sourceFileKey) =>
+  Object.keys(symbols).forEach(symKey => linkSymbol(resolver, symbols[symKey]));
+  Object.keys(types).forEach(typeKey => linkType(resolver, types[typeKey]));
+  Object.keys(sourceFiles).forEach(sourceFileKey =>
     linkSourceFile(resolver, sourceFiles[sourceFileKey]),
   );
   return out;

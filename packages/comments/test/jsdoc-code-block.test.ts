@@ -44,20 +44,14 @@ export class JSDocCodeBlockTests {
  */
 `),
     ).to.deep.eq({
-      summary: [
-        'This is only a comment in a file',
-      ],
+      summary: ['This is only a comment in a file'],
       customTags: [
         {
-          content: [
-            "function foo() {} ",
-            "\n",
-            "foo(); // equal: undefined"
-          ],
-          kind: "blockTag",
-          tagName: "example"
-        }
-      ]
+          content: ['function foo() {} ', '\n', 'foo(); // equal: undefined'],
+          kind: 'blockTag',
+          tagName: 'example',
+        },
+      ],
     });
   }
   @test
@@ -75,20 +69,14 @@ export class JSDocCodeBlockTests {
  */
 `),
     ).to.deep.eq({
-      summary: [
-        'This is only a comment in a file',
-      ],
+      summary: ['This is only a comment in a file'],
       customTags: [
         {
-          content: [
-            "function foo() {} ",
-            "\n",
-            "foo(); // equal: undefined"
-          ],
-          kind: "blockTag",
-          tagName: "doctest"
-        }
-      ]
+          content: ['function foo() {} ', '\n', 'foo(); // equal: undefined'],
+          kind: 'blockTag',
+          tagName: 'doctest',
+        },
+      ],
     });
   }
 
@@ -105,19 +93,17 @@ export class JSDocCodeBlockTests {
  * @public
  */`),
     ).to.deep.eq({
-      modifiers: [
-        "public"
-      ],
+      modifiers: ['public'],
       summary: [
-        "Concatenate two strings",
-        "\n",
-        "\n",
+        'Concatenate two strings',
+        '\n',
+        '\n',
         {
           code: "foo('foo', 'bar');\n",
-          kind: "fencedCode",
-          language: "ts"
-        }
-      ]
+          kind: 'fencedCode',
+          language: 'ts',
+        },
+      ],
     });
   }
 }

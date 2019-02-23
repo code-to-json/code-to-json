@@ -117,10 +117,12 @@ export interface FormattedSymbolRelationships extends HasPosition {
   related?: FormattedSymbolRef[];
   valueDeclaration?: FormattedDeclarationRef;
   heritageClauses?: FormattedHeritageClause[];
+  aliasedSymbol?: FormattedSymbolRef;
 }
 
 export interface FormattedSignature
-  extends HasDocumentation, FormattedSignatureAttributes,
+  extends HasDocumentation,
+    FormattedSignatureAttributes,
     FormattedSignatureRelationships {}
 export interface FormattedSignatureAttributes {
   hasRestParameter: boolean;

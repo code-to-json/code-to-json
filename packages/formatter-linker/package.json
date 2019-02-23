@@ -1,6 +1,6 @@
 {
   "name": "@code-to-json/formatter-linker",
-  "version": "1.0.0-rc.19",
+  "version": "1.0.0-rc.20",
   "description": "Data linker for @code-to-json/formatter",
   "main": "lib/src/index.js",
   "typings": "lib/src/index.d.ts",
@@ -23,20 +23,20 @@
   "homepage": "https://github.com/mike-north/code-to-json/tree/master/packages/formatter-linker",
   "keywords": [],
   "dependencies": {
-    "@code-to-json/formatter": "^1.0.0-rc.36",
+    "@code-to-json/formatter": "^1.0.0-rc.37",
     "@mike-north/types": "^1.0.7",
     "debug": "^4.0.0",
     "typescript": "^3.2.4"
   },
   "devDependencies": {
-    "@code-to-json/test-helpers": "^1.0.0-rc.26",
-    "@code-to-json/utils-node": "^1.0.0-rc.29",
+    "@code-to-json/test-helpers": "^1.0.0-rc.27",
+    "@code-to-json/utils-node": "^1.0.0-rc.30",
     "@types/chai": "4.1.7",
     "@typescript-eslint/eslint-plugin": "1.3.0",
     "@typescript-eslint/eslint-plugin-tslint": "1.3.0",
     "@typescript-eslint/parser": "1.3.0",
     "chai": "4.2.0",
-    "eslint": "5.14.0",
+    "eslint": "5.14.1",
     "eslint-config-airbnb-base": "13.1.0",
     "eslint-config-prettier": "4.0.0",
     "eslint-plugin-import": "2.16.0",

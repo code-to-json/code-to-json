@@ -22,7 +22,9 @@
     "prefer-immediate-return": false,
     "no-bitwise": false,
     "max-classes-per-file": false,
-    "no-duplicate-string": false
+    "no-duplicate-string": false,
+    "object-literal-key-quotes": false,
+    "arrow-parens": false
   },
   "rulesDirectory": []
 }

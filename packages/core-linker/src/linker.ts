@@ -1,9 +1,33 @@
-import { SerializedSourceFile, SerializedSymbol, SerializedType, WalkerOutputData } from '@code-to-json/core';
-import { SerializedCodePoisition, SerializedCodeRange, SerializedFileReference, SerializedHeritageClause, SerializedSignature } from '@code-to-json/core/lib/src/types/serialized-entities';
+import {
+  SerializedSourceFile,
+  SerializedSymbol,
+  SerializedType,
+  WalkerOutputData,
+} from '@code-to-json/core';
+import {
+  SerializedCodePoisition,
+  SerializedCodeRange,
+  SerializedFileReference,
+  SerializedHeritageClause,
+  SerializedSignature,
+} from '@code-to-json/core/lib/src/types/serialized-entities';
 import { isDefined, Ref, refId, refType } from '@code-to-json/utils';
 import { Dict } from '@mike-north/types';
 import { createLinkedRefResolver, resolveRefDict, resolveRefList } from './ref-resolver';
-import { LinkedFileReference, LinkedRefResolver, LinkedSignature, LinkedSignatureRelationships, LinkedSourceFile, LinkedSourceFileRelationships, LinkedSymbol, LinkedSymbolRelationships, LinkedType, LinkedTypeRelationships, LinkedWalkerOutputData, MaybeLinkedWalkerOutputData } from './types';
+import {
+  LinkedFileReference,
+  LinkedRefResolver,
+  LinkedSignature,
+  LinkedSignatureRelationships,
+  LinkedSourceFile,
+  LinkedSourceFileRelationships,
+  LinkedSymbol,
+  LinkedSymbolRelationships,
+  LinkedType,
+  LinkedTypeRelationships,
+  LinkedWalkerOutputData,
+  MaybeLinkedWalkerOutputData,
+} from './types';
 import { pruneUndefinedValues } from './utils';
 
 function linkSignature(
@@ -71,8 +95,8 @@ function linkType(res: LinkedRefResolver, type?: LinkedType & SerializedType): v
     properties: resolveRefDict(type.properties, res),
     // conditionalInfo?: LinkedTypeConditionInfo;
   };
-  [type.constructorSignatures, type.callSignatures].filter(isDefined).forEach((sigList) => {
-    sigList.forEach((sig) => linkSignature(sig as LinkedSignature & SerializedSignature, res));
+  [type.constructorSignatures, type.callSignatures].filter(isDefined).forEach(sigList => {
+    sigList.forEach(sig => linkSignature(sig as LinkedSignature & SerializedSignature, res));
   });
   if (type.conditionalInfo) {
     Object.assign(type.conditionalInfo, {
@@ -99,8 +123,8 @@ function linkSourceFile(
   };
   [sym.referencedFiles, sym.typeReferenceDirectives, sym.libReferenceDirectives]
     .filter(isDefined)
-    .forEach((fileRefList) => {
-      fileRefList.forEach((fr) => linkFileReference(fr, res));
+    .forEach(fileRefList => {
+      fileRefList.forEach(fr => linkFileReference(fr, res));
     });
   Object.assign(sym, pruneUndefinedValues(newData));
 }
@@ -109,7 +133,19 @@ function linkSymbol(res: LinkedRefResolver, sym?: LinkedSymbol & SerializedSymbo
   if (!sym) {
     return;
   }
-  const { symbolType, valueDeclaration, valueDeclarationType, exports, members, decorators, sourceFile, globalExports, relatedSymbols, heritageClauses } = sym;
+  const {
+    symbolType,
+    valueDeclaration,
+    valueDeclarationType,
+    exports,
+    members,
+    decorators,
+    sourceFile,
+    globalExports,
+    relatedSymbols,
+    heritageClauses,
+    aliasedSymbol,
+  } = sym;
   const hcs = heritageClauses as (undefined | SerializedHeritageClause[]);
   const newData: LinkedSymbolRelationships = {
     symbolType: res(symbolType),
@@ -121,11 +157,12 @@ function linkSymbol(res: LinkedRefResolver, sym?: LinkedSymbol & SerializedSymbo
     globalExports: resolveRefDict(globalExports, res),
     relatedSymbols: resolveRefList(relatedSymbols, res),
     valueDeclaration: res(valueDeclaration),
+    aliasedSymbol: res(aliasedSymbol),
   };
   if (hcs) {
-    newData.heritageClauses = hcs.map((hc) => ({
+    newData.heritageClauses = hcs.map(hc => ({
       kind: hc.kind,
-      types: resolveRefList(hc.types, res) ||[]
+      types: resolveRefList(hc.types, res) || [],
     }));
   }
 
@@ -137,9 +174,9 @@ export function linkWalkerOutputData(unlinked: WalkerOutputData): LinkedWalkerOu
   const out = JSON.parse(JSON.stringify(unlinked)) as MaybeLinkedWalkerOutputData;
   const { symbols, types, sourceFiles } = out;
   const resolver = createLinkedRefResolver(out);
-  Object.keys(symbols).forEach((symKey) => linkSymbol(resolver, symbols[symKey]));
-  Object.keys(types).forEach((typeKey) => linkType(resolver, types[typeKey]));
-  Object.keys(sourceFiles).forEach((sourceFileKey) =>
+  Object.keys(symbols).forEach(symKey => linkSymbol(resolver, symbols[symKey]));
+  Object.keys(types).forEach(typeKey => linkType(resolver, types[typeKey]));
+  Object.keys(sourceFiles).forEach(sourceFileKey =>
     linkSourceFile(resolver, sourceFiles[sourceFileKey]),
   );
   return out;

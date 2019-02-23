@@ -106,6 +106,7 @@ export interface LinkedSymbolRelationships {
   relatedSymbols?: LinkedSymbol[];
   valueDeclaration?: LinkedDeclaration;
   heritageClauses?: LinkedHeritageClause[];
+  aliasedSymbol?: LinkedSymbol;
 }
 
 export interface LinkedSourceFileRelationships {
