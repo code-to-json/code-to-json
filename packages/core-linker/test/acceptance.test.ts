@@ -53,18 +53,22 @@ export class Thing implements Foo<string> {
     expect(exportSymbols.FooOrBar!.symbolType!.text).to.eq('FooOrBar<T>');
     expect(exportSymbols.x!.valueDeclarationType!.text).to.eq('string[]');
     expect(exportSymbols.Thing!.valueDeclarationType!.text).to.eq('typeof Thing');
-    expect(exportSymbols.Thing!.valueDeclaration).to.have.property('syntaxKind', 'classDeclaration');
+    expect(exportSymbols.Thing!.valueDeclaration).to.have.property(
+      'syntaxKind',
+      'classDeclaration',
+    );
     expect(exportSymbols.Thing!.symbolType!.text).to.eq('Thing');
-    expect(Object.keys(exportSymbols.Thing!.symbolType!.properties!).join(', ')).to.eq('bar, myProp, otherThing, go');
-    expect(exportSymbols.Thing!.symbolType!.properties!.go!.valueDeclarationType!.callSignatures!.length).to.eq(1);
+    expect(Object.keys(exportSymbols.Thing!.symbolType!.properties!).join(', ')).to.eq(
+      'bar, myProp, otherThing, go',
+    );
+    expect(
+      exportSymbols.Thing!.symbolType!.properties!.go!.valueDeclarationType!.callSignatures!.length,
+    ).to.eq(1);
     expect(exportSymbols.Thing!.heritageClauses!.length).to.eq(1);
     expect(exportSymbols.Thing!.heritageClauses![0].kind).to.eq('implements');
     expect(exportSymbols.Thing!.heritageClauses![0].types[0].text).to.eq('Foo<string>');
     expect(
-      mapDict(
-        exportSymbols.Thing!.symbolType!.properties!,
-        (p) => p.valueDeclarationType!.text,
-      ),
+      mapDict(exportSymbols.Thing!.symbolType!.properties!, p => p.valueDeclarationType!.text),
     ).to.deep.eq({
       bar: '[string, string]',
       go: '() => Promise<string>',
