@@ -1,4 +1,3 @@
-// tslint:disable prefer-const
 /* eslint-disable prefer-const */
 import { FormatterOptions, FormatterOutput } from '../src/index';
 

@@ -188,7 +188,7 @@ export default function formatSymbol(
   // conditionallyMergeTransformed(info, heritageClauses, 'heritageClauses', hc =>
   //   hc.map(h => h.clauseType),
   // );
-  // tslint:disable-next-line:no-commented-code
+
   // conditionallyMergeTransformed(info, _rawFlags, 'flags', f => f, f => !!(f && f.length > 0));
 
   conditionallyMergeTransformed(

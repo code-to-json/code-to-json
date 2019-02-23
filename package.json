@@ -40,7 +40,8 @@
     "watch:debug": "scripty",
     "test": "lerna run test --parallel",
     "test:watch": "scripty",
-    "lint": "lerna run lint --parallel",
+    "lint": "lerna run lint --parallel --concurrency 8",
+    "lint:js": "lerna run lint:js --parallel --concurrency 8",
     "lint:watch": "scripty"
   },
   "repository": {

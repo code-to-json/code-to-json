@@ -49,7 +49,6 @@ module.exports = {
   overrides: [
     {
       files: ['**/test/**/*.ts'],
-
       env: {
         node: true,
       },

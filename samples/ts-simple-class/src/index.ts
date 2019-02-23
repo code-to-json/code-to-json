@@ -27,7 +27,7 @@ abstract class Bar {
 /**
  * A Foo example class
  */
-// tslint:disable-next-line:max-classes-per-file
+
 export class Foo extends Bar {
   protected bar(): Promise<void> {
     return Promise.resolve();

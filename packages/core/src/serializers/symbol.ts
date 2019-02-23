@@ -155,7 +155,6 @@ function serializeSymbolTypes(
   c: Collector,
 ): Pick<
   SerializedSymbol,
-  // eslint-disable-next-line @typescript-eslint/tslint/config
   | 'symbolType'
   | 'valueDeclarationType'
   | 'otherDeclarationTypes'
@@ -164,7 +163,6 @@ function serializeSymbolTypes(
 > {
   const out: Pick<
     SerializedSymbol,
-    // eslint-disable-next-line @typescript-eslint/tslint/config
     | 'symbolType'
     | 'valueDeclarationType'
     | 'otherDeclarationTypes'

@@ -1,9 +1,7 @@
 #!/usr/bin/env node
-// tslint:disable
 /* eslint-disable global-require, no-var */
 /* eslint-env node */
 
-// tslint:disable-next-line:typedef
 (function runCodeToJson() {
   'use strict';
 

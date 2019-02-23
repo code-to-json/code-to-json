@@ -134,7 +134,7 @@ function formatConditionInfo(
   };
 }
 
-// tslint:disable-next-line:cognitive-complexity
+
 export default function formatType(
   wo: WalkerOutputData,
   type: Readonly<SerializedType>,

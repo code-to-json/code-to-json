@@ -19,7 +19,6 @@ export function isAbstractDeclaration(declaration: ts.Declaration): boolean {
  */
 export function isDeclarationExported(declaration: ts.Declaration): boolean {
   return (
-    // tslint:disable-next-line:no-bitwise
     (ts.getCombinedModifierFlags(declaration) & ts.ModifierFlags.Export) !== 0 ||
     (!!declaration.parent && declaration.parent.kind === ts.SyntaxKind.SourceFile)
   );

@@ -1,4 +1,3 @@
-// tslint:disable:no-duplicate-string
 import { createTempFixtureFolder, TestCaseFolder } from '@code-to-json/test-helpers';
 import { expect } from 'chai';
 import { suite, test } from 'mocha-typescript';
@@ -13,7 +12,7 @@ async function makeWorkspace(): Promise<TestCaseFolder> {
         noEmit: true,
       },
     }),
-    "src": {
+    src: {
       'index.ts': "const x: string = 'foo';",
       'other.ts': "const y: string = 'bar';",
       'more.js': "const z = 'baz';",

@@ -164,13 +164,12 @@ class CompilerHost implements ts.CompilerHost {
    * @param writeByteOrderMark  Whether the UTF-8 BOM should be written or not.
    * @param onError  A callback that will be invoked if an error occurs.
    */
-  // tslint:disable-next-line:typedef
+
   public writeFile(
     _fileName: string,
     _data: string,
     _writeByteOrderMark: boolean,
     _onError?: (message: string) => void,
-    // tslint:disable-next-line:no-empty
   ) {}
 }
 

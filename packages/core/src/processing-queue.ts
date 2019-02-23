@@ -67,7 +67,7 @@ const log = debug('code-to-json:processor');
  *
  * @internal
  */
-// tslint:disable-next-line:no-big-function
+
 export function create(checker: ts.TypeChecker): Queue {
   const generateId = createIdGenerator(checker);
   const idExtractor = (x: GenerateIdResult) => ({ id: x[1], otherInfo: x[2] });

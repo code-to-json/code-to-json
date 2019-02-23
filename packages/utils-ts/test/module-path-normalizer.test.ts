@@ -79,7 +79,6 @@ export class ModulePathNormalizerTests {
   }
 
   @test
-  // tslint:disable-next-line:no-identical-functions
   public async 'scoped packages'(): Promise<void> {
     const mn = createReverseResolver(nodeHost, {
       path: 'foo/bar',
