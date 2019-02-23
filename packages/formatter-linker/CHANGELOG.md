@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-rc.21](https://github.com/mike-north/code-to-json/compare/@code-to-json/formatter-linker@1.0.0-rc.20...@code-to-json/formatter-linker@1.0.0-rc.21) (2019-02-23)
+
+
+### Features
+
+* **formatter-linker:** type alias aliasSymbol ([7ca7836](https://github.com/mike-north/code-to-json/commit/7ca7836))
+
+
+
+
+
 # [1.0.0-rc.20](https://github.com/mike-north/code-to-json/compare/@code-to-json/formatter-linker@1.0.0-rc.19...@code-to-json/formatter-linker@1.0.0-rc.20) (2019-02-23)
 
 **Note:** Version bump only for package @code-to-json/formatter-linker

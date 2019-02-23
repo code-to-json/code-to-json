@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-rc.38](https://github.com/mike-north/code-to-json/compare/@code-to-json/formatter@1.0.0-rc.37...@code-to-json/formatter@1.0.0-rc.38) (2019-02-23)
+
+
+### Features
+
+* **formatter:** type alias aliasSymbol ([d86fc9c](https://github.com/mike-north/code-to-json/commit/d86fc9c))
+
+
+
+
+
 # [1.0.0-rc.37](https://github.com/mike-north/code-to-json/compare/@code-to-json/formatter@1.0.0-rc.36...@code-to-json/formatter@1.0.0-rc.37) (2019-02-23)
 
 **Note:** Version bump only for package @code-to-json/formatter

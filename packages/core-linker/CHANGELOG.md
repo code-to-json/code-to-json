@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-rc.27](https://github.com/mike-north/code-to-json/compare/@code-to-json/core-linker@1.0.0-rc.26...@code-to-json/core-linker@1.0.0-rc.27) (2019-02-23)
+
+
+### Features
+
+* **core-linker:** aliased symbol support ([85329b3](https://github.com/mike-north/code-to-json/commit/85329b3))
+
+
+
+
+
 # [1.0.0-rc.26](https://github.com/mike-north/code-to-json/compare/@code-to-json/core-linker@1.0.0-rc.25...@code-to-json/core-linker@1.0.0-rc.26) (2019-02-23)
 
 **Note:** Version bump only for package @code-to-json/core-linker

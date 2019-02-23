@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-rc.28](https://github.com/mike-north/code-to-json/compare/@code-to-json/test-helpers@1.0.0-rc.27...@code-to-json/test-helpers@1.0.0-rc.28) (2019-02-23)
+
+
+### Features
+
+* **test-helpers:** produce flattened representation of fixture folders ([8cd1e35](https://github.com/mike-north/code-to-json/commit/8cd1e35))
+
+
+
+
+
 # [1.0.0-rc.27](https://github.com/mike-north/code-to-json/compare/@code-to-json/test-helpers@1.0.0-rc.26...@code-to-json/test-helpers@1.0.0-rc.27) (2019-02-23)
 
 **Note:** Version bump only for package @code-to-json/test-helpers

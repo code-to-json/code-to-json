@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-rc.36](https://github.com/mike-north/code-to-json/compare/@code-to-json/core@1.0.0-rc.35...@code-to-json/core@1.0.0-rc.36) (2019-02-23)
+
+
+### Features
+
+* **core:** serialization of aliased symbols ([344d9a0](https://github.com/mike-north/code-to-json/commit/344d9a0))
+
+
+
+
+
 # [1.0.0-rc.35](https://github.com/mike-north/code-to-json/compare/@code-to-json/core@1.0.0-rc.34...@code-to-json/core@1.0.0-rc.35) (2019-02-23)
 
 **Note:** Version bump only for package @code-to-json/core
