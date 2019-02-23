@@ -17,7 +17,7 @@ function formatSymbolDecorators(
   }
   const out: Pick<FormattedSymbol, 'decorators'> = {
     decorators: decorators
-      .map((d) => collector.queue(resolveReference(wo, d), 's'))
+      .map(d => collector.queue(resolveReference(wo, d), 's'))
       .filter(isDefined),
   };
   return out;
@@ -36,7 +36,7 @@ function formatSymbolModifiers(modifiers?: string[]): Pick<FormattedSymbol, MODI
     return {};
   }
   const out: Pick<FormattedSymbol, MODIFIER_PROPERTIES> = {};
-  modifiers.forEach((m) => {
+  modifiers.forEach(m => {
     switch (m) {
       case 'export':
       case 'default':
@@ -109,7 +109,7 @@ function formatSymbolTypes(
   }
   if (otherDeclarationTypeRefs) {
     out.otherDeclarationTypes = otherDeclarationTypeRefs
-      .map((dtr) => ({
+      .map(dtr => ({
         declaration: collector.queue(resolveReference(wo, dtr.declaration), 'd')!,
         type: dtr.type ? collector.queue(resolveReference(wo, dtr.type), 't') : undefined,
       }))
@@ -161,7 +161,7 @@ export default function formatSymbol(
   );
   if (relatedSymbols) {
     info.related = relatedSymbols
-      .map((rs) => collector.queue(resolveReference(wo, rs), 's'))
+      .map(rs => collector.queue(resolveReference(wo, rs), 's'))
       .filter(isDefined);
   }
   if (isAbstract) {
@@ -174,13 +174,13 @@ export default function formatSymbol(
     info.external = external;
   }
   if (heritageClauses) {
-    info.heritageClauses = heritageClauses.map((hc) => ({
+    info.heritageClauses = heritageClauses.map(hc => ({
       kind: hc.kind,
-      types: hc.types.map((typ) => collector.queue(resolveReference(wo, typ),'t')).filter(isDefined)
+      types: hc.types.map(typ => collector.queue(resolveReference(wo, typ), 't')).filter(isDefined),
     }));
   }
 
-  conditionallyMergeTransformed(info, documentation, 'documentation', (d) => d);
+  conditionallyMergeTransformed(info, documentation, 'documentation', d => d);
   // conditionallyMergeTransformed(info, heritageClauses, 'heritageClauses', hc =>
   //   hc.map(h => h.clauseType),
   // );
@@ -191,22 +191,22 @@ export default function formatSymbol(
     info,
     exports,
     'exports',
-    (ex) => formatSymbolRefMap(ex, wo, collector),
-    (ex) => !!(ex && Object.keys(ex).length > 0),
+    ex => formatSymbolRefMap(ex, wo, collector),
+    ex => !!(ex && Object.keys(ex).length > 0),
   );
   conditionallyMergeTransformed(
     info,
     globalExports,
     'globalExports',
-    (ex) => formatSymbolRefMap(ex, wo, collector),
-    (ex) => !!(ex && Object.keys(ex).length > 0),
+    ex => formatSymbolRefMap(ex, wo, collector),
+    ex => !!(ex && Object.keys(ex).length > 0),
   );
   conditionallyMergeTransformed(
     info,
     members,
     'members',
-    (mem) => formatSymbolRefMap(mem, wo, collector),
-    (mem) => !!(mem && Object.keys(mem).length > 0),
+    mem => formatSymbolRefMap(mem, wo, collector),
+    mem => !!(mem && Object.keys(mem).length > 0),
   );
 
   return info;
