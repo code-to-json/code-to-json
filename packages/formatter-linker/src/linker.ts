@@ -144,6 +144,7 @@ function linkSymbol(
     related,
     valueDeclaration,
     heritageClauses,
+    aliasedSymbol,
   } = sym;
   const newData: LinkedFormattedSymbolRelationships = {
     otherDeclarationTypes: !otherDeclarationTypes
@@ -165,6 +166,7 @@ function linkSymbol(
     valueType: res(valueType),
     related: resolveRefList(related, res),
     valueDeclaration: res(valueDeclaration),
+    aliasedSymbol: res(aliasedSymbol),
   };
   if (sym.location) {
     linkCodePositionOrRange(sym.location, res);
