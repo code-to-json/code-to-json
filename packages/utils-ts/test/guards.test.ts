@@ -64,12 +64,10 @@ export function addToX(y: number): number { return x + y; }`;
       throw new Error('Source file type could not be obtained');
     }
     this.sfType = sfType;
-    this.exports = mapDict(this.sfSym.exports!, (exp) => {
-      return {
-        sym: exp,
-        typ: getRelevantTypesForSymbol(this.checker, exp)!,
-      };
-    });
+    this.exports = mapDict(this.sfSym.exports!, exp => ({
+      sym: exp,
+      typ: getRelevantTypesForSymbol(this.checker, exp)!,
+    }));
   }
 
   @test

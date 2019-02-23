@@ -7,7 +7,7 @@ import * as ts from 'typescript';
 import { createProgramFromCodeString, createProgramFromTsConfig, SysHost } from '../src/index';
 import { nodeHost } from './helpers';
 
-const DEFAULT_FILE_EXISTENCE_CHECKER: (fileName: string) => boolean = (f) =>
+const DEFAULT_FILE_EXISTENCE_CHECKER: (fileName: string) => boolean = f =>
   existsSync(f) && statSync(f).isFile();
 
 const TEST_FILE_UTILS: [SysHost] = [nodeHost];
@@ -40,7 +40,7 @@ async function makeWorkspace(): Promise<TestCaseFolder> {
         noEmit: true,
       },
     }),
-    "src": {
+    src: {
       'index.ts': "const x: string = 'foo';",
       'other.ts': "const y: string = 'bar';",
       'more.js': "const z = 'baz';",
@@ -57,7 +57,7 @@ export class TranspileProgramTest {
 
     export function addToX(y: number): number { return x + y; }`;
     const out = createProgramFromCodeString(code, 'ts');
-    const sourceFileNames = out.program.getSourceFiles().map((sf) => sf.fileName);
+    const sourceFileNames = out.program.getSourceFiles().map(sf => sf.fileName);
     expect(sourceFileNames.length).to.eql(1);
     expect(sourceFileNames.join(',')).to.eql('module.ts');
 
@@ -82,7 +82,7 @@ exports.addToX = addToX;
 
     export function addToX(y) { return x + y; }`;
     const out = createProgramFromCodeString(code, 'js');
-    const sourceFileNames = out.program.getSourceFiles().map((sf) => sf.fileName);
+    const sourceFileNames = out.program.getSourceFiles().map(sf => sf.fileName);
     expect(sourceFileNames.length).to.eql(1);
     expect(sourceFileNames.join(',')).to.eql('module.js');
 
@@ -106,7 +106,7 @@ exports.addToX = addToX;
   public 'simple valid jsx program'(): void {
     const code = `export let x = <span>4</span>;`;
     const out = createProgramFromCodeString(code, 'js', { jsx: ts.JsxEmit.React });
-    const sourceFileNames = out.program.getSourceFiles().map((sf) => sf.fileName);
+    const sourceFileNames = out.program.getSourceFiles().map(sf => sf.fileName);
     expect(sourceFileNames.length).to.eql(1);
     expect(sourceFileNames.join(',')).to.eql('module.jsx');
 
@@ -128,7 +128,7 @@ exports.x = React.createElement("span", null, "4");
   public 'simple valid tsx program'(): void {
     const code = `export const x = <span>4</span>;`;
     const out = createProgramFromCodeString(code, 'ts', { jsx: ts.JsxEmit.React });
-    const sourceFileNames = out.program.getSourceFiles().map((sf) => sf.fileName);
+    const sourceFileNames = out.program.getSourceFiles().map(sf => sf.fileName);
     expect(sourceFileNames.length).to.eql(1);
     expect(sourceFileNames.join(',')).to.eql('module.tsx');
 
@@ -151,7 +151,7 @@ exports.x = React.createElement("span", null, "4");
     const code = `export let x: number = 4;
     x = false;`;
     const out = createProgramFromCodeString(code, 'ts');
-    const sourceFileNames = out.program.getSourceFiles().map((sf) => sf.fileName);
+    const sourceFileNames = out.program.getSourceFiles().map(sf => sf.fileName);
     expect(sourceFileNames.length).to.eql(1);
     expect(sourceFileNames.join(',')).to.eql('module.ts');
 
@@ -183,7 +183,7 @@ exports.x = false;
     const code = `export let x: number = 4;
     x = false;`;
     const out = createProgramFromCodeString(code, 'js');
-    const sourceFileNames = out.program.getSourceFiles().map((sf) => sf.fileName);
+    const sourceFileNames = out.program.getSourceFiles().map(sf => sf.fileName);
     expect(sourceFileNames.length).to.eql(1, 'one source file');
     expect(sourceFileNames.join(',')).to.eql('module.js');
 
@@ -224,7 +224,7 @@ exports.x = false;
     const code = `export let x = <span>4;
     x = false;`;
     const out = createProgramFromCodeString(code, 'js', { jsx: ts.JsxEmit.React });
-    const sourceFileNames = out.program.getSourceFiles().map((sf) => sf.fileName);
+    const sourceFileNames = out.program.getSourceFiles().map(sf => sf.fileName);
     expect(sourceFileNames.length).to.eql(1, 'one source file');
     expect(sourceFileNames.join(',')).to.eql('module.jsx');
 
@@ -256,7 +256,7 @@ exports.x = React.createElement("span", null, "4; x = false;");
     const code = `export let x = <div>4;
     x = false;`;
     const out = createProgramFromCodeString(code, 'ts', { jsx: ts.JsxEmit.React });
-    const sourceFileNames = out.program.getSourceFiles().map((sf) => sf.fileName);
+    const sourceFileNames = out.program.getSourceFiles().map(sf => sf.fileName);
     expect(sourceFileNames.length).to.eql(1, 'one source file');
     expect(sourceFileNames.join(',')).to.eql('module.tsx');
 
@@ -289,7 +289,7 @@ exports.x = React.createElement("div", null, "4; x = false;");
 
     const prog = await createProgramFromTsConfig(workspace.rootPath, ...TEST_FILE_UTILS);
     expect(!!prog).to.eql(true);
-    expect(prog.getSourceFiles().filter((sf) => !sf.isDeclarationFile).length).to.eql(3);
+    expect(prog.getSourceFiles().filter(sf => !sf.isDeclarationFile).length).to.eql(3);
     expect(prog.getSourceFiles().length).to.be.greaterThan(3);
     workspace.cleanup();
   }
