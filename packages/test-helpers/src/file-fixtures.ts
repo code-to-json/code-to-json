@@ -8,6 +8,7 @@ import * as tmp from 'tmp';
 import { asTree } from 'treeify';
 import { asObject as folderAsObject } from './dir-tree';
 import { FixtureFileContent, FixtureFolder, TestCaseFolder } from './types';
+import { Dict } from '@mike-north/types';
 
 const log = debug('code-to-json:test-helpers');
 
@@ -114,4 +115,27 @@ export async function createTempFixtureFolder(
   }
 
   throw new UnreachableError(cse);
+}
+
+export function flatten(fixture: FixtureFolder): Dict<string> {
+  const data: Dict<string> = {};
+
+  function populatefolderData(folder: FixtureFolder, p = ''): void {
+    for (let k in folder) {
+      if (folder.hasOwnProperty(k)) {
+        const v = folder[k];
+        if (typeof v === 'string') {
+          // file
+          data[path.join(p, k)] = v;
+        } else {
+          // folder
+          populatefolderData(v, path.join(p, k));
+        }
+      }
+    }
+  }
+
+  populatefolderData(fixture);
+
+  return data;
 }
