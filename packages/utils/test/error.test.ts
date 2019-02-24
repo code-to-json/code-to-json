@@ -1,6 +1,6 @@
 import { expect } from 'chai';
-import { UnreachableError } from '../src/index';
 import { describe, it } from 'mocha';
+import { UnreachableError } from '../src/index';
 
 describe('Error tests', () => {
   it('UnreachableError tests', () => {
