@@ -1,13 +1,9 @@
-
 import { expect } from 'chai';
-import { slow, suite, test } from 'mocha-typescript';
+import { describe, it } from 'mocha';
 import SingleFileAcceptanceTestCase from './helpers/test-case';
 
-@suite
-@slow(800)
-export class TypeSerializationTests {
-  @test
-  public async 'type queries'(): Promise<void> {
+describe('Type serialization tests', () => {
+  it('type queries', async () => {
     const code = `let rectangle1 = { width: 100, height: 200 };
     export let x: typeof rectangle1;`;
     const t = new SingleFileAcceptanceTestCase(code);
@@ -22,10 +18,9 @@ export class TypeSerializationTests {
     expect(typeType.text).to.eql('{ width: number; height: number; }');
     expect(typeType.flags).to.deep.eq(['Object']);
     t.cleanup();
-  }
+  });
 
-  @test
-  public async 'type Dict<T> = { [k: string]: T | undefined }'(): Promise<void> {
+  it('type Dict<T> = { [k: string]: T | undefined }', async () => {
     const code = `export type Dict<T> = { [k: string]: T | undefined }`;
     const t = new SingleFileAcceptanceTestCase(code);
     await t.run();
@@ -45,9 +40,8 @@ export class TypeSerializationTests {
     // TODO: this should really be T | undefined, although it's coming through as T
     expect(stringIndexType.text).to.include('T');
     t.cleanup();
-  }
-  @test
-  public async 'with comments'(): Promise<void> {
+  });
+  it('with comments', async () => {
     const code = `/**
  * A dictionary
  */
@@ -62,10 +56,9 @@ export type Dict<T> = { [k: string]: T | undefined }`;
     expect(typeSymbol.documentation).to.deep.eq({ summary: ['A dictionary'] }, 'Documentation');
 
     t.cleanup();
-  }
+  });
 
-  @test
-  public async 'type Dict<T extends "foo"|"bar"|"baz"> = { [k: string]: T }'(): Promise<void> {
+  it('type Dict<T extends "foo"|"bar"|"baz"> = { [k: string]: T }', async () => {
     const code = `export type Dict<T extends "foo"|"bar"|"baz"> = { [k: string]: T }`;
     const t = new SingleFileAcceptanceTestCase(code);
     await t.run();
@@ -84,10 +77,9 @@ export type Dict<T> = { [k: string]: T | undefined }`;
     const stringIndexType = t.resolveReference(typeType.stringIndexType);
     expect(stringIndexType.text).to.include('T');
     t.cleanup();
-  }
+  });
 
-  @test
-  public async 'type StringNumberOrBoolean = string | number | true'(): Promise<void> {
+  it('type StringNumberOrBoolean = string | number | true', async () => {
     const code = `export type StringNumberOrBoolean = string | number | true`;
     const t = new SingleFileAcceptanceTestCase(code);
     await t.run();
@@ -114,10 +106,9 @@ export type Dict<T> = { [k: string]: T | undefined }`;
     expect(r.flags).to.deep.eq(['BooleanLiteral']);
 
     t.cleanup();
-  }
+  });
 
-  @test
-  public async 'type Split = typeof String.prototype.split'(): Promise<void> {
+  it('type Split = typeof String.prototype.split', async () => {
     const code = `export type Split = typeof String.prototype.split`;
     const t = new SingleFileAcceptanceTestCase(code);
     await t.run();
@@ -134,5 +125,5 @@ export type Dict<T> = { [k: string]: T | undefined }`;
     expect(!!typeType.typeParameters).to.eq(false);
 
     t.cleanup();
-  }
-}
+  });
+});

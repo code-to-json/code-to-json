@@ -1,13 +1,9 @@
-
 import { expect } from 'chai';
-import { slow, suite, test } from 'mocha-typescript';
+import { describe, it } from 'mocha';
 import SingleFileAcceptanceTestCase from './helpers/test-case';
 
-@suite
-@slow(800)
-export class SerializationBoundaryTests {
-  @test
-  public async 'array members should not be serialized - string[]'(): Promise<void> {
+describe('Serializatino boundary tests', () => {
+  it('array members should not be serialized - string[]', async () => {
     const code = `export let x = ['a', 'b', 'c']`;
     const t = new SingleFileAcceptanceTestCase(code);
     await t.run();
@@ -19,7 +15,7 @@ export class SerializationBoundaryTests {
     const varType = t.resolveReference(varSymbol.valueDeclarationType);
 
     const { allTypes, allSymbols } = t;
-    const allSerializedTypeNames = Object.keys(allTypes).map((tid) => allTypes[tid]!.text);
+    const allSerializedTypeNames = Object.keys(allTypes).map(tid => allTypes[tid]!.text);
 
     expect(allSerializedTypeNames).to.include.deep.members([
       'string[]',
@@ -30,7 +26,7 @@ export class SerializationBoundaryTests {
     ]);
     expect(allSerializedTypeNames).to.not.include.deep.members(['indexOf']);
 
-    const allSerializedSymbolNames = Object.keys(allSymbols).map((tid) => allSymbols[tid]!.text);
+    const allSerializedSymbolNames = Object.keys(allSymbols).map(tid => allSymbols[tid]!.text);
 
     expect(allSerializedSymbolNames).to.include.deep.members([
       'x',
@@ -42,10 +38,9 @@ export class SerializationBoundaryTests {
     expect(varType.text).to.eql('string[]');
     expect(varType.flags).to.deep.eq(['Object']);
     t.cleanup();
-  }
+  });
 
-  @test
-  public async 'promise should not be serialized - explicit Promise<number>'(): Promise<void> {
+  it('promise should not be serialized - explicit Promise<number>', async () => {
     const code = `export const x: Promise<number> = Promise.resolve(4)`;
     const t = new SingleFileAcceptanceTestCase(code);
     await t.run();
@@ -58,11 +53,11 @@ export class SerializationBoundaryTests {
     const varType = t.resolveReference(varSymbol.valueDeclarationType);
 
     const { allTypes, allSymbols } = t;
-    const allSerializedTypeNames = Object.keys(allTypes).map((tid) => allTypes[tid]!.text);
+    const allSerializedTypeNames = Object.keys(allTypes).map(tid => allTypes[tid]!.text);
 
     expect(allSerializedTypeNames).to.include.deep.members(['Promise<number>', 'Promise<T>']);
 
-    const allSerializedSymbolNames = Object.keys(allSymbols).map((tid) => allSymbols[tid]!.text);
+    const allSerializedSymbolNames = Object.keys(allSymbols).map(tid => allSymbols[tid]!.text);
 
     expect(allSerializedSymbolNames).to.include.deep.members([
       'x',
@@ -73,10 +68,9 @@ export class SerializationBoundaryTests {
     expect(varType.text).to.eql('Promise<number>');
     expect(varType.flags).to.deep.eq(['Object']);
     t.cleanup();
-  }
+  });
 
-  @test
-  public async 'promise should not be serialized - implicit Promise<number>'(): Promise<void> {
+  it('promise should not be serialized - implicit Promise<number>', async () => {
     const code = `export const x = Promise.resolve(4)`;
     const t = new SingleFileAcceptanceTestCase(code);
     await t.run();
@@ -89,11 +83,11 @@ export class SerializationBoundaryTests {
     const varType = t.resolveReference(varSymbol.valueDeclarationType);
 
     const { allTypes, allSymbols } = t;
-    const allSerializedTypeNames = Object.keys(allTypes).map((tid) => allTypes[tid]!.text);
+    const allSerializedTypeNames = Object.keys(allTypes).map(tid => allTypes[tid]!.text);
 
     expect(allSerializedTypeNames).to.contain.deep.members(['Promise<number>', 'Promise<T>']);
 
-    const allSerializedSymbolNames = Object.keys(allSymbols).map((tid) => allSymbols[tid]!.text);
+    const allSerializedSymbolNames = Object.keys(allSymbols).map(tid => allSymbols[tid]!.text);
 
     expect(allSerializedSymbolNames).to.include.deep.members([
       'x',
@@ -104,5 +98,5 @@ export class SerializationBoundaryTests {
     expect(varType.text).to.eql('Promise<number>');
     expect(varType.flags).to.deep.eq(['Object']);
     t.cleanup();
-  }
-}
+  });
+});

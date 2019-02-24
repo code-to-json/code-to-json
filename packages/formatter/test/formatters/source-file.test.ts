@@ -1,15 +1,13 @@
 import { WalkerOutputData } from '@code-to-json/core';
 import { createRef } from '@code-to-json/utils';
 import { expect } from 'chai';
-import { suite, test } from 'mocha-typescript';
+import { describe, it } from 'mocha';
 import { FormatterRefRegistry } from '../../src';
 import { create } from '../../src/data-collector';
 import formatSourceFile from '../../src/source-file';
 
-@suite
-export class SourceFileFormatterTests {
-  @test
-  public async 'file without exports'(): Promise<void> {
+describe('SourceFile formatting tests', () => {
+  it('file without exports', async () => {
     const wo: WalkerOutputData = {
       symbols: {},
       types: {},
@@ -47,10 +45,9 @@ export class SourceFileFormatterTests {
       kind: 'sourceFile',
       isDeclarationFile: false,
     });
-  }
+  });
 
-  @test
-  public async 'file with exports'(): Promise<void> {
+  it('file with exports', async () => {
     const wo: WalkerOutputData = {
       symbols: {
         12345: {
@@ -99,5 +96,5 @@ export class SourceFileFormatterTests {
       isDeclarationFile: false,
       kind: 'sourceFile',
     });
-  }
-}
+  });
+});

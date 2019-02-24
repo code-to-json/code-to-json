@@ -1,11 +1,9 @@
 import { expect } from 'chai';
-import { suite, test } from 'mocha-typescript';
+import { describe, it } from 'mocha';
 import { trimParagraphContent } from '../src/parse/utils';
 
-@suite
-export class CommentUtilTest {
-  @test
-  public async 'content array trimming'(): Promise<void> {
+describe('Comment utilities tests', () => {
+  it('content array trimming', async () => {
     expect(trimParagraphContent(['\n', '\n', 'foo', '\n', 'bar'])).to.deep.eq(['foo', '\n', 'bar']);
     expect(trimParagraphContent(['\n', '\n', 'foo', '\n', 'bar', '\n', '\n'])).to.deep.eq([
       'foo',
@@ -13,5 +11,5 @@ export class CommentUtilTest {
       'bar',
     ]);
     expect(trimParagraphContent(['foo', '\n', 'bar'])).to.deep.eq(['foo', '\n', 'bar']);
-  }
-}
+  });
+});

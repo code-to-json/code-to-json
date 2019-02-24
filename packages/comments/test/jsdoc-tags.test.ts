@@ -1,11 +1,9 @@
 import { expect } from 'chai';
-import { suite, test } from 'mocha-typescript';
+import { describe, it } from 'mocha';
 import { parseCommentString } from '../src/index';
 
-@suite
-export class JSDocTagsTests {
-  @test
-  public '@returns tag'(): void {
+describe('JSDoc tags tests', () => {
+  it('@returns tag', () => {
     expect(
       parseCommentString(`
 /**
@@ -25,10 +23,9 @@ export class JSDocTagsTests {
         content: ['another thing', '\n', 'bar', '\n', '\n', 'third thing'],
       },
     });
-  }
+  });
 
-  @test
-  public '@deprecated'(): void {
+  it('@deprecated', () => {
     expect(
       parseCommentString(`
 /**
@@ -53,10 +50,9 @@ export class JSDocTagsTests {
       summary: ['This is only a comment in a file'],
       deprecated: ['until v99.0.0'],
     });
-  }
+  });
 
-  @test
-  public '@see'(): void {
+  it('@see', () => {
     expect(
       parseCommentString(`
 /**
@@ -75,5 +71,5 @@ export class JSDocTagsTests {
         },
       ],
     });
-  }
-}
+  });
+});

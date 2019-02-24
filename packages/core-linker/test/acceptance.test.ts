@@ -1,12 +1,10 @@
 import { mapDict } from '@code-to-json/utils-ts';
 import { expect } from 'chai';
-import { suite, test } from 'mocha-typescript';
+import { describe, it } from 'mocha';
 import SingleFileAcceptanceTestCase from './helpers/test-case';
 
-@suite
-export class CoreLiknerAcceptanceTests {
-  @test
-  public async 'linking completes without error'(): Promise<void> {
+describe('Core linker acceptance tests', () => {
+  it('linking completes without error', async () => {
     const code = 'export let x: string[] = ["33"];';
     const t = new SingleFileAcceptanceTestCase(code);
     await t.run();
@@ -17,10 +15,9 @@ export class CoreLiknerAcceptanceTests {
       .to.contain('index');
     expect(file.symbol!.exports!.x!.name).to.eq('x');
     t.cleanup();
-  }
+  });
 
-  @test
-  public async 'linking a sampler of various symbols and types'(): Promise<void> {
+  it('linking a sampler of various symbols and types', async () => {
     const code = `export interface Foo<T> {
   bar: [T, string];
 }
@@ -76,5 +73,5 @@ export class Thing implements Foo<string> {
       otherThing: 'number[]',
     });
     t.cleanup();
-  }
-}
+  });
+});

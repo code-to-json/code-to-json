@@ -1,12 +1,9 @@
 import { expect } from 'chai';
-import { slow, suite, test } from 'mocha-typescript';
+import { describe, it } from 'mocha';
 import SingleFileAcceptanceTestCase from './helpers/test-case';
 
-@suite
-@slow(800)
-export class ArraySerializationTests {
-  @test
-  public async 'export let x: string[] = ["33"];'(): Promise<void> {
+describe('Array serialization tests', () => {
+  it('export let x: string[] = ["33"];', async () => {
     const code = 'export let x: string[] = ["33"];';
     const t = new SingleFileAcceptanceTestCase(code);
     await t.run();
@@ -22,10 +19,9 @@ export class ArraySerializationTests {
     const arrayType = t.resolveReference(variableType.numberIndexType);
     expect(arrayType.text).to.eq('string');
     t.cleanup();
-  }
+  });
 
-  @test
-  public async 'export let x: [string, number, number]'(): Promise<void> {
+  it('export let x: [string, number, number]', async () => {
     const src = 'export let x: [string, number, number]';
     const t = new SingleFileAcceptanceTestCase(src);
     await t.run();
@@ -39,5 +35,5 @@ export class ArraySerializationTests {
     const arrayType = t.resolveReference(variableType.numberIndexType);
     expect(arrayType.text).to.eq('string | number');
     t.cleanup();
-  }
-}
+  });
+});

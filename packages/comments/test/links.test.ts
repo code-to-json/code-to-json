@@ -1,11 +1,9 @@
 import { expect } from 'chai';
-import { suite, test } from 'mocha-typescript';
+import { describe, it } from 'mocha';
 import { parseCommentString } from '../src/index';
 
-@suite
-export class LinkTagsTests {
-  @test
-  public '{@link url}'(): void {
+describe('JSDoc link tag tests', () => {
+  it('{@link url}', () => {
     expect(
       parseCommentString(`
 /**
@@ -25,10 +23,9 @@ export class LinkTagsTests {
         },
       ],
     });
-  }
+  });
 
-  @test
-  public '{@link url | text}'(): void {
+  it('{@link url | text}', () => {
     expect(
       parseCommentString(`
 /**
@@ -48,5 +45,5 @@ export class LinkTagsTests {
         },
       ],
     });
-  }
-}
+  });
+});

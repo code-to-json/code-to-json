@@ -1,11 +1,9 @@
 import { expect } from 'chai';
-import { suite, test } from 'mocha-typescript';
+import { describe, it } from 'mocha';
 import { formattedSchema } from '../src/index';
 
-@suite
-export class PublicApiSurface {
-  @test
-  public 'schema exists'(): void {
+describe('Public API surface tests', () => {
+  it('schema exists', () => {
     expect(formattedSchema).to.be.a('object');
-  }
-}
+  });
+});

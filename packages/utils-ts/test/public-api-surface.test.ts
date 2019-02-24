@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { suite, test } from 'mocha-typescript';
+import { describe, it } from 'mocha';
 import * as Exported from '../src/index';
 
 const {
@@ -39,11 +39,8 @@ const {
   modifiersToStrings,
   PASSTHROUGH_REVERSE_RESOLVER,
 } = Exported;
-
-@suite
-export class PublicApiSurface {
-  @test
-  public 'public API surface is as expected'(): void {
+describe('public API surface tests', () => {
+  it('public API surface is as expected', () => {
     expect(isDeclaration).to.be.a('function', 'isDeclaration is a function');
     expect(isDeclarationExported).to.be.a('function', 'isDeclarationExported is a function');
     expect(createProgramFromTsConfig).to.be.a(
@@ -94,10 +91,9 @@ export class PublicApiSurface {
       'object',
       'PASSTHROUGH_REVERSE_RESOLVER is a object',
     );
-  }
+  });
 
-  @test
-  public 'no extra exports'(): void {
+  it('no extra exports', () => {
     expect(Object.keys(Exported).sort()).to.eql([
       'PASSTHROUGH_REVERSE_RESOLVER',
       'createIdGenerator',
@@ -136,5 +132,5 @@ export class PublicApiSurface {
       'modifiersToStrings',
       'reduceDict',
     ]);
-  }
-}
+  });
+});

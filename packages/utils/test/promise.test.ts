@@ -1,11 +1,9 @@
 import { expect } from 'chai';
-import { suite, test } from 'mocha-typescript';
+import { describe, it } from 'mocha';
 import { timeout } from '../src/index';
 
-@suite
-export class PromiseTests {
-  @test
-  public async 'timeout tests'(): Promise<void> {
+describe('Promise tests', () => {
+  it('timeout tests', async () => {
     let resolved = false;
     const p = timeout(100).then(() => {
       resolved = true;
@@ -15,5 +13,5 @@ export class PromiseTests {
     expect(resolved).to.eq(false, 'short timeout resolves sooner than longer timeout (1)');
     await timeout(101);
     expect(resolved).to.eq(true, 'short timeout resolves sooner than longer timeout (2)');
-  }
-}
+  });
+});

@@ -1,16 +1,13 @@
 import { expect } from 'chai';
-import { suite, test } from 'mocha-typescript';
+import { describe, it } from 'mocha';
 import * as Exported from '../src/index';
 
-@suite
-export class PublicApiSurfaceTests {
-  @test
-  public 'runCli method exists'(): void {
+describe('public API surface tests', () => {
+  it('runCli method exists', () => {
     expect(Exported.runCli).to.be.a('function');
-  }
+  });
 
-  @test
-  public 'no extra exports'(): void {
+  it('no extra exports', () => {
     expect(Object.keys(Exported).sort()).to.eql(['generateJSONCommand', 'runCli']);
-  }
-}
+  });
+});

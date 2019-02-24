@@ -1,11 +1,9 @@
 import { expect } from 'chai';
-import { suite, test } from 'mocha-typescript';
+import { describe, it } from 'mocha';
 import { parseCommentString } from '../src/index';
 
-@suite
-export class CommentWhitespaceTests {
-  @test
-  public 'simple comment with no tags'(): void {
+describe('Comment whitespace formatting tests', () => {
+  it('simple comment with no tags', () => {
     expect(parseCommentString('/** hello world */')).to.deep.eq(
       {
         summary: ['hello world'],
@@ -37,5 +35,5 @@ export class CommentWhitespaceTests {
       },
       'multi-line comment with blank lines',
     );
-  }
-}
+  });
+});

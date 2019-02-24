@@ -38,7 +38,6 @@
     "eslint-plugin-import": "2.16.0",
     "eslint-plugin-prettier": "3.0.1",
     "mocha": "5.2.0",
-    "mocha-typescript": "1.1.17",
     "nyc": "13.3.0",
     "remark-cli": "6.0.1",
     "remark-lint": "6.0.4",

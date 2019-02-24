@@ -1,17 +1,15 @@
 import { createRef } from '@code-to-json/utils';
 import { createIdGenerator } from '@code-to-json/utils-ts';
 import { expect } from 'chai';
-import { suite, test } from 'mocha-typescript';
+import { describe, it } from 'mocha';
 import * as ts from 'typescript';
 import { RefRegistry, SymbolRef } from '../../src';
 import serializeSourceFile from '../../src/serializers/source-file';
 import serializeSymbol from '../../src/serializers/symbol';
 import { setupScenario } from './helpers';
 
-@suite
-export class SourceFileSerializtionTests {
-  @test
-  public async 'single-function, no exports'(): Promise<void> {
+describe('SourceFile serialization tests', () => {
+  it('single-function, no exports', async () => {
     const { checker, sf, collector } = setupScenario(
       `function add(a: number, b: number): number { return a + b; }
 const x = add(4, 5);
@@ -36,10 +34,9 @@ console.log(x);`,
       id: 'F01m4wncyo0ry',
       isDeclarationFile: false,
     });
-  }
+  });
 
-  @test
-  public async 'single exported function'(): Promise<void> {
+  it('single exported function', async () => {
     const { checker, sf, collector } = setupScenario(
       `export function add(a: number, b: number): number { return a + b; }`,
     );
@@ -95,5 +92,5 @@ console.log(x);`,
       .to.haveOwnProperty('valueDeclarationType')
       .instanceOf(Array)
       .lengthOf(2);
-  }
-}
+  });
+});

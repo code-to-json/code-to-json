@@ -1,38 +1,33 @@
 import { expect } from 'chai';
-import { suite, test } from 'mocha-typescript';
+import { describe, it } from 'mocha';
 import { join } from 'path';
 import { findPkgJson } from '../src/package-json';
 
-@suite
-export class PackageJsonUtilitiesTests {
-  @test
-  public async 'findPkgJson for a package within this monorepo'(): Promise<void> {
+describe('package.json utilities tests', () => {
+  it('findPkgJson for a package within this monorepo', async () => {
     const pkg = await findPkgJson(__dirname);
     if (!pkg) {
       throw new Error('could not find package.json info');
     }
     const knownPath = join(__dirname, '..');
     expect(pkg.path).to.eq(knownPath);
-  }
+  });
 
-  @test
-  public async 'findPkgJson the main monorepo'(): Promise<void> {
+  it('findPkgJson the main monorepo', async () => {
     const pkg = await findPkgJson(join(__dirname, '..', '..'));
     if (!pkg) {
       throw new Error('could not find package.json info');
     }
     const knownPath = join(__dirname, '..', '..', '..');
     expect(pkg.path).to.eq(knownPath);
-  }
+  });
 
-  @test
-  public async 'findPkgJson outside this project'(): Promise<void> {
+  it('findPkgJson outside this project', async () => {
     const pkg = await findPkgJson(join(__dirname, '..', '..', '..', '..'));
     expect(pkg).to.eq(undefined);
-  }
+  });
 
-  @test
-  public async 'attempting to pass invalid arguments'(): Promise<void> {
+  it('attempting to pass invalid arguments', async () => {
     try {
       await findPkgJson(null as any);
       expect(false).to.eq(true); // should never reach this
@@ -43,5 +38,5 @@ export class PackageJsonUtilitiesTests {
         expect(false).to.eq(true); // should never reach this
       }
     }
-  }
-}
+  });
+});

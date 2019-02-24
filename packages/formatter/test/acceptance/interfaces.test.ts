@@ -1,12 +1,10 @@
 import { mapDict } from '@code-to-json/utils-ts';
 import { expect } from 'chai';
-import { slow, suite, test } from 'mocha-typescript';
+import { describe, it } from 'mocha';
 import SingleFileAcceptanceTestCase from './helpers/test-case';
 
-@suite
-@slow(800)
-export class InterfaceAcceptanceTests {
-  @test public async 'simple interface'(): Promise<void> {
+describe('Interface formatting acceptance tests', () => {
+  it('simple interface', async () => {
     const code = `export interface Foo { bar: string; }`;
     const t = new SingleFileAcceptanceTestCase(code);
     await t.run();
@@ -37,9 +35,9 @@ export class InterfaceAcceptanceTests {
     });
 
     t.cleanup();
-  }
+  });
 
-  @test public async 'interface w/ type param'(): Promise<void> {
+  it('interface w/ type param', async () => {
     const code = `export interface Foo<T> { bar: T; }`;
     const t = new SingleFileAcceptanceTestCase(code);
     await t.run();
@@ -73,9 +71,9 @@ export class InterfaceAcceptanceTests {
     });
 
     t.cleanup();
-  }
+  });
 
-  @test public async 'interface w/ constrained type param'(): Promise<void> {
+  it('interface w/ constrained type param', async () => {
     const code = `export interface Foo<T extends number> { bar: T; }`;
     const t = new SingleFileAcceptanceTestCase(code);
     await t.run();
@@ -109,9 +107,9 @@ export class InterfaceAcceptanceTests {
     });
 
     t.cleanup();
-  }
+  });
 
-  @test public async 'interface w/ string index signature'(): Promise<void> {
+  it('interface w/ string index signature', async () => {
     const code = `export interface Foo<T> { [k: string]: T }`;
     const t = new SingleFileAcceptanceTestCase(code);
     await t.run();
@@ -132,9 +130,9 @@ export class InterfaceAcceptanceTests {
     expect(interfaceType.properties).to.eq(undefined);
 
     t.cleanup();
-  }
+  });
 
-  @test public async 'interface w/ string and number index signatures'(): Promise<void> {
+  it('interface w/ string and number index signatures', async () => {
     const code = `export interface Foo<T> { [k: string]: T; [k: number]: T[]; }`;
     const t = new SingleFileAcceptanceTestCase(code);
     await t.run();
@@ -156,9 +154,9 @@ export class InterfaceAcceptanceTests {
     expect(interfaceType.properties).to.eq(undefined);
 
     t.cleanup();
-  }
+  });
 
-  @test public async 'interface w/ index signature involving union type'(): Promise<void> {
+  it('interface w/ index signature involving union type', async () => {
     const code = `export interface Foo<T> { [k: string]: T | T[] }`;
     const t = new SingleFileAcceptanceTestCase(code);
     await t.run();
@@ -186,12 +184,9 @@ export class InterfaceAcceptanceTests {
     expect(interfaceType.properties).to.eq(undefined);
 
     t.cleanup();
-  }
+  });
 
-  @test
-  public async 'interface w/ index signature involving union and intersection types'(): Promise<
-    void
-  > {
+  it('interface w/ index signature involving union and intersection types', async () => {
     const code = `export interface Foo<T> { [k: string]: (T | T[]) & { foo: string } }`;
     const t = new SingleFileAcceptanceTestCase(code);
     await t.run();
@@ -237,5 +232,5 @@ export class InterfaceAcceptanceTests {
     expect(interfaceType.properties).to.eq(undefined);
 
     t.cleanup();
-  }
-}
+  });
+});

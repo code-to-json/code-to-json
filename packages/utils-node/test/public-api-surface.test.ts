@@ -1,30 +1,25 @@
 import { expect } from 'chai';
-import { suite, test } from 'mocha-typescript';
+import { describe, it } from 'mocha';
 import * as Exported from '../src/index';
 
-@suite
-export class PublicApiSurfaceTests {
-  @test
-  public 'NODE_HOST object exists'(): void {
+describe('Public API surface tests', () => {
+  it('NODE_HOST object exists', () => {
     expect(Exported.NODE_HOST).to.be.a('object');
-  }
+  });
 
-  @test
-  public 'createReverseResolverForProject exists'(): void {
+  it('createReverseResolverForProject exists', () => {
     expect(Exported.createReverseResolverForProject).to.be.a('function');
-  }
+  });
 
-  @test
-  public 'findPkgJson exists'(): void {
+  it('findPkgJson exists', () => {
     expect(Exported.findPkgJson).to.be.a('function');
-  }
+  });
 
-  @test
-  public 'no extra exports'(): void {
+  it('no extra exports', () => {
     expect(Object.keys(Exported).sort()).to.eql([
       'NODE_HOST',
       'createReverseResolverForProject',
       'findPkgJson',
     ]);
-  }
-}
+  });
+});

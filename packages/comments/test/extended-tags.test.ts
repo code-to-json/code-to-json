@@ -1,11 +1,9 @@
 import { expect } from 'chai';
-import { suite, test } from 'mocha-typescript';
+import { describe, it } from 'mocha';
 import { parseCommentString } from '../src/index';
 
-@suite
-export class ExtendedTagsTests {
-  @test
-  public 'modifier tags'(): void {
+describe('Extended tags tests', () => {
+  it('modifier tags', () => {
     expect(
       parseCommentString(`
 /**
@@ -40,5 +38,5 @@ export class ExtendedTagsTests {
         },
       ],
     });
-  }
-}
+  });
+});

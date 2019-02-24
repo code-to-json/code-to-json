@@ -1,12 +1,10 @@
 import { mapDict } from '@code-to-json/utils-ts';
 import { expect } from 'chai';
-import { suite, test } from 'mocha-typescript';
+import { describe, it } from 'mocha';
 import SingleFileAcceptanceTestCase from './helpers/test-case';
 
-@suite
-export class FormatterLinkerAcceptanceTests {
-  @test
-  public async 'linking completes without error'(): Promise<void> {
+describe('Formatter linker acceptance tests', () => {
+  it('linking completes without error', async () => {
     const code = 'export let x: string[] = ["33"];';
     const t = new SingleFileAcceptanceTestCase(code);
     await t.run();
@@ -17,10 +15,9 @@ export class FormatterLinkerAcceptanceTests {
       .to.contain('index');
     expect(file.symbol!.exports!.x!.name).to.eq('x');
     t.cleanup();
-  }
+  });
 
-  @test
-  public async 'linking a sampler of various symbols and types'(): Promise<void> {
+  it('linking a sampler of various symbols and types', async () => {
     const code = `export interface Foo<T> {
   bar: [T, string];
 }
@@ -57,7 +54,7 @@ export class Thing implements Foo<string> {
     expect(file.symbol!.exports!.Thing!.heritageClauses![0].kind).to.eq('implements');
     expect(file.symbol!.exports!.Thing!.heritageClauses![0].types[0].text).to.eq('Foo<string>');
     expect(
-      mapDict(file.symbol!.exports!.Thing!.type!.properties!, (p) => p.valueType!.text),
+      mapDict(file.symbol!.exports!.Thing!.type!.properties!, p => p.valueType!.text),
     ).to.deep.eq({
       bar: '[string, string]',
       go: '() => Promise<string>',
@@ -65,5 +62,5 @@ export class Thing implements Foo<string> {
       otherThing: 'number[]',
     });
     t.cleanup();
-  }
-}
+  });
+});

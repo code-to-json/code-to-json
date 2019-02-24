@@ -1,7 +1,7 @@
 import { createTempFixtureFolder, TestCaseFolder } from '@code-to-json/test-helpers';
 import { expect } from 'chai';
 import { existsSync, statSync, unlinkSync, writeFileSync } from 'fs';
-import { suite, test } from 'mocha-typescript';
+import { describe, it } from 'mocha';
 import * as path from 'path';
 import * as ts from 'typescript';
 import { createProgramFromCodeString, createProgramFromTsConfig, SysHost } from '../src/index';
@@ -49,10 +49,8 @@ async function makeWorkspace(): Promise<TestCaseFolder> {
   return workspace;
 }
 
-@suite('String to TypeScript program tests')
-export class TranspileProgramTest {
-  @test
-  public 'simple valid ts program'(): void {
+describe('String to TypeScript program tests', () => {
+  it('simple valid ts program', () => {
     const code = `export let x: number = 4;
 
     export function addToX(y: number): number { return x + y; }`;
@@ -74,10 +72,9 @@ function addToX(y) { return exports.x + y; }
 exports.addToX = addToX;
 `,
     );
-  }
+  });
 
-  @test
-  public 'simple valid js program'(): void {
+  it('simple valid js program', () => {
     const code = `export let x = 4;
 
     export function addToX(y) { return x + y; }`;
@@ -100,10 +97,9 @@ function addToX(y) { return exports.x + y; }
 exports.addToX = addToX;
 `,
     );
-  }
+  });
 
-  @test
-  public 'simple valid jsx program'(): void {
+  it('simple valid jsx program', () => {
     const code = `export let x = <span>4</span>;`;
     const out = createProgramFromCodeString(code, 'js', { jsx: ts.JsxEmit.React });
     const sourceFileNames = out.program.getSourceFiles().map(sf => sf.fileName);
@@ -122,10 +118,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.x = React.createElement("span", null, "4");
 `,
     );
-  }
+  });
 
-  @test
-  public 'simple valid tsx program'(): void {
+  it('simple valid tsx program', () => {
     const code = `export const x = <span>4</span>;`;
     const out = createProgramFromCodeString(code, 'ts', { jsx: ts.JsxEmit.React });
     const sourceFileNames = out.program.getSourceFiles().map(sf => sf.fileName);
@@ -144,10 +139,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.x = React.createElement("span", null, "4");
 `,
     );
-  }
+  });
 
-  @test
-  public 'simple invalid ts program'(): void {
+  it('simple invalid ts program', () => {
     const code = `export let x: number = 4;
     x = false;`;
     const out = createProgramFromCodeString(code, 'ts');
@@ -176,10 +170,9 @@ exports.x = 4;
 exports.x = false;
 `,
     );
-  }
+  });
 
-  @test
-  public 'simple invalid js program'(): void {
+  it('simple invalid js program', () => {
     const code = `export let x: number = 4;
     x = false;`;
     const out = createProgramFromCodeString(code, 'js');
@@ -217,10 +210,9 @@ exports.x = 4;
 exports.x = false;
 `,
     );
-  }
+  });
 
-  @test
-  public 'simple invalid jsx program'(): void {
+  it('simple invalid jsx program', () => {
     const code = `export let x = <span>4;
     x = false;`;
     const out = createProgramFromCodeString(code, 'js', { jsx: ts.JsxEmit.React });
@@ -249,10 +241,9 @@ exports.x = false;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.x = React.createElement("span", null, "4; x = false;");
 `);
-  }
+  });
 
-  @test
-  public 'simple invalid tsx program'(): void {
+  it('simple invalid tsx program', () => {
     const code = `export let x = <div>4;
     x = false;`;
     const out = createProgramFromCodeString(code, 'ts', { jsx: ts.JsxEmit.React });
@@ -281,10 +272,9 @@ exports.x = React.createElement("span", null, "4; x = false;");
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.x = React.createElement("div", null, "4; x = false;");
 `);
-  }
+  });
 
-  @test
-  public async 'createProgramFromTsConfig - simple case'(): Promise<void> {
+  it('createProgramFromTsConfig - simple case', async () => {
     const workspace = await makeWorkspace();
 
     const prog = await createProgramFromTsConfig(workspace.rootPath, ...TEST_FILE_UTILS);
@@ -292,10 +282,9 @@ exports.x = React.createElement("div", null, "4; x = false;");
     expect(prog.getSourceFiles().filter(sf => !sf.isDeclarationFile).length).to.eql(3);
     expect(prog.getSourceFiles().length).to.be.greaterThan(3);
     workspace.cleanup();
-  }
+  });
 
-  @test
-  public async 'createProgramFromTsConfig - missing config'(): Promise<void> {
+  it('createProgramFromTsConfig - missing config', async () => {
     const workspace = await makeWorkspace();
     unlinkSync(path.join(workspace.rootPath, 'tsconfig.json'));
 
@@ -307,10 +296,9 @@ exports.x = React.createElement("div", null, "4; x = false;");
         expect(err.message).to.contain('Could not find a tsconfig.json via path');
       });
     workspace.cleanup();
-  }
+  });
 
-  @test
-  public async 'createProgramFromTsConfig - invalid config (non-json)'(): Promise<void> {
+  it('createProgramFromTsConfig - invalid config (non-json)', async () => {
     const workspace = await makeWorkspace();
     writeFileSync(path.join(workspace.rootPath, 'tsconfig.json'), '---');
 
@@ -322,10 +310,9 @@ exports.x = React.createElement("div", null, "4; x = false;");
         expect(err.message).to.contain('TSConfig error');
       });
     workspace.cleanup();
-  }
+  });
 
-  @test
-  public async 'createProgramFromTsConfig - invalid config (invalid schema)'(): Promise<void> {
+  it('createProgramFromTsConfig - invalid config (invalid schema)', async () => {
     const workspace = await makeWorkspace();
     writeFileSync(
       path.join(workspace.rootPath, 'tsconfig.json'),
@@ -342,10 +329,9 @@ exports.x = React.createElement("div", null, "4; x = false;");
         expect(err.message).to.contain('Detected errors while parsing tsconfig file');
       });
     workspace.cleanup();
-  }
+  });
 
-  @test
-  public async tsConfigForPathTests(): Promise<void> {
+  it('tsConfigForPathTests', async () => {
     const workspace = await makeWorkspace();
 
     const pth = ts.findConfigFile(path.join(workspace.rootPath), DEFAULT_FILE_EXISTENCE_CHECKER);
@@ -355,5 +341,5 @@ exports.x = React.createElement("div", null, "4; x = false;");
     expect(pth).to.contain('tsconfig.json');
     expect(existsSync(pth)).to.equal(true);
     workspace.cleanup();
-  }
-}
+  });
+});

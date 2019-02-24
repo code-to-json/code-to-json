@@ -1,12 +1,9 @@
 import { expect } from 'chai';
-import { slow, suite, test } from 'mocha-typescript';
+import { describe, it } from 'mocha';
 import SingleFileAcceptanceTestCase from './helpers/test-case';
 
-@suite
-@slow(800)
-export class FunctionAnalysisTests {
-  @test
-  public async 'zero-argument function'(): Promise<void> {
+describe('Function serialization tests', () => {
+  it('zero-argument function', async () => {
     const code = "export function foo() { return 'bar'; }";
     const t = new SingleFileAcceptanceTestCase(code);
     await t.run();
@@ -30,10 +27,9 @@ export class FunctionAnalysisTests {
     expect(returnType.text).to.eq('string');
 
     t.cleanup();
-  }
+  });
 
-  @test
-  public async 'function w/ rest param'(): Promise<void> {
+  it('function w/ rest param', async () => {
     const code = "export function foo(...parts: string[]) { return parts.join(', '); }";
     const t = new SingleFileAcceptanceTestCase(code);
     await t.run();
@@ -60,10 +56,9 @@ export class FunctionAnalysisTests {
     expect(returnType.text).to.eq('string');
 
     t.cleanup();
-  }
+  });
 
-  @test
-  public async 'unary function'(): Promise<void> {
+  it('unary function', async () => {
     const code = 'export function foo(str: string) { return str.toUpperCase(); }';
     const t = new SingleFileAcceptanceTestCase(code);
     await t.run();
@@ -90,10 +85,9 @@ export class FunctionAnalysisTests {
     expect(returnType.text).to.eq('string');
 
     t.cleanup();
-  }
+  });
 
-  @test
-  public async 'function with multiple signatures'(): Promise<void> {
+  it('function with multiple signatures', async () => {
     const code = `
     export function adder(a: string, b: string): string;
     export function adder(a: number, b: number): number;
@@ -145,5 +139,5 @@ export class FunctionAnalysisTests {
     expect(sig2ReturnType.text).to.eq('number');
 
     t.cleanup();
-  }
-}
+  });
+});

@@ -1,7 +1,7 @@
 import { createTempFixtureFolder, TestCaseFolder } from '@code-to-json/test-helpers';
 import { expect } from 'chai';
 import * as fs from 'fs';
-import { suite, test } from 'mocha-typescript';
+import { describe, it } from 'mocha';
 import * as path from 'path';
 import { findConfigFile } from 'typescript';
 import { createProgramFromEntryGlobs, globsToPaths } from '../src/command-utils';
@@ -25,10 +25,8 @@ async function makeWorkspace(): Promise<TestCaseFolder> {
   return workspace;
 }
 
-@suite
-export class CommandUtilsTests {
-  @test
-  public async 'globToPathsTest - positive cases'(): Promise<void> {
+describe('Command utilities tests', () => {
+  it('globToPathsTest - positive cases', async () => {
     const workspace = await makeWorkspace();
     const myGlob = path.join(workspace.rootPath, 'src', '*');
 
@@ -37,10 +35,9 @@ export class CommandUtilsTests {
     expect((await globsToPaths([myGlob], ['.ts'])).length).to.eql(2, '2 ts files found');
     expect((await globsToPaths([myGlob], ['.qq'])).length).to.eql(0, '0 qq files found');
     workspace.cleanup();
-  }
+  });
 
-  @test
-  public async 'globToPathsTest - negative case'(): Promise<void> {
+  it('globToPathsTest - negative case', async () => {
     await globsToPaths([undefined as any])
       .then(() => {
         expect(false).to.eql(true);
@@ -48,10 +45,9 @@ export class CommandUtilsTests {
       .catch((err: Error) => {
         expect(err.message).to.contain('Invalid glob');
       });
-  }
+  });
 
-  @test
-  public async tsConfigForEntryGlobsTest(): Promise<void> {
+  it('tsConfigForEntryGlobsTest', async () => {
     const workspace = await makeWorkspace();
 
     const pth = findConfigFile(
@@ -64,10 +60,9 @@ export class CommandUtilsTests {
     expect(pth).to.contain('tsconfig.json');
     expect(fs.existsSync(pth)).to.equal(true);
     workspace.cleanup();
-  }
+  });
 
-  @test
-  public async 'createProgramFromEntryGlobs - simple case'(): Promise<void> {
+  it('createProgramFromEntryGlobs - simple case', async () => {
     const workspace = await makeWorkspace();
     const myGlob = path.join(workspace.rootPath, 'src', '*');
 
@@ -77,5 +72,5 @@ export class CommandUtilsTests {
     expect(prog.getSourceFiles().filter(sf => !sf.isDeclarationFile).length).to.eql(3);
     expect(prog.getSourceFiles().length).to.be.greaterThan(3);
     workspace.cleanup();
-  }
-}
+  });
+});

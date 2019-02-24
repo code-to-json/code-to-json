@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import * as fs from 'fs';
-import { suite, test } from 'mocha-typescript';
+import { describe, it } from 'mocha';
 import * as path from 'path';
 import * as tmp from 'tmp';
 import { createTempFixtureFolder } from '../src/file-fixtures';
@@ -9,10 +9,8 @@ import { setupTestCase } from '../src/index';
 export const TEST_CASES_FOLDER_PATH = path.join(__dirname, '..', 'test-cases');
 const SIMPLE_VARIABLES_TEST_CASE_NAME = 'simple-variables';
 
-@suite
-export class TestCaseCreation {
-  @test
-  public async 'Create a new test case folder from a template'(): Promise<void> {
+describe('Test case creation', () => {
+  it('Create a new test case folder from a template', async () => {
     const { rootPath, cleanup } = await createTempFixtureFolder(
       path.join(TEST_CASES_FOLDER_PATH, SIMPLE_VARIABLES_TEST_CASE_NAME),
     );
@@ -21,20 +19,18 @@ export class TestCaseCreation {
     expect(rootPath).length.to.be.greaterThan(0);
     expect(cleanup).to.be.an.instanceOf(Function);
     cleanup();
-  }
+  });
 
-  @test
-  public async 'Attempting to create a test case from a non-existent folder'(): Promise<void> {
+  it('Attempting to create a test case from a non-existent folder', async () => {
     const errors: Error[] = [];
     await createTempFixtureFolder(path.join(TEST_CASES_FOLDER_PATH, 'foo-bar-baz')).catch(err => {
       errors.push(err);
     });
     expect(errors.length).to.eq(1);
     expect(errors[0].message).to.contain('does not exist');
-  }
+  });
 
-  @test
-  public async 'Attempting to create a test case from a non-folder (file)'(): Promise<void> {
+  it('Attempting to create a test case from a non-folder (file)', async () => {
     const workspace = tmp.dirSync({ unsafeCleanup: true });
     const filePath = path.join(workspace.name, 'file.txt');
     fs.writeFileSync(filePath, 'hello world');
@@ -44,10 +40,9 @@ export class TestCaseCreation {
     });
     expect(errors.length).to.eq(1);
     workspace.removeCallback();
-  }
+  });
 
-  @test
-  public async 'Create a new test case from a template on disk'(): Promise<void> {
+  it('Create a new test case from a template on disk', async () => {
     const { rootPath, program, cleanup } = await setupTestCase(
       path.join(TEST_CASES_FOLDER_PATH, SIMPLE_VARIABLES_TEST_CASE_NAME),
       ['src/index.ts'],
@@ -63,10 +58,9 @@ export class TestCaseCreation {
       .map(sf => sf.fileName);
     expect(relevantFiles).to.have.lengthOf(1);
     cleanup();
-  }
+  });
 
-  @test
-  public async 'Create a new test case from a template object'(): Promise<void> {
+  it('Create a new test case from a template object', async () => {
     const { rootPath, program, cleanup } = await setupTestCase(
       {
         'tsconfig.json': `{
@@ -112,24 +106,22 @@ export class TestCaseCreation {
       .map(sf => sf.fileName);
     expect(relevantFiles).to.have.lengthOf(1);
     cleanup();
-  }
+  });
 
-  @test
-  public async 'Test case actually exists on disk, and is a folder'(): Promise<void> {
+  it('Test case actually exists on disk, and is a folder', async () => {
     const { rootPath } = await createTempFixtureFolder(
       path.join(TEST_CASES_FOLDER_PATH, SIMPLE_VARIABLES_TEST_CASE_NAME),
     );
     expect(fs.existsSync(rootPath), 'exists').to.equal(true);
     expect(fs.statSync(rootPath).isDirectory(), 'is a directory').to.equal(true);
-  }
+  });
 
-  @test
-  public async 'Cleanup function removes test case from disk'(): Promise<void> {
+  it('Cleanup function removes test case from disk', async () => {
     const { rootPath, cleanup } = await createTempFixtureFolder(
       path.join(TEST_CASES_FOLDER_PATH, SIMPLE_VARIABLES_TEST_CASE_NAME),
     );
     expect(fs.existsSync(rootPath), 'exists').to.equal(true);
     cleanup();
     expect(fs.existsSync(rootPath), 'exists').to.equal(false);
-  }
-}
+  });
+});

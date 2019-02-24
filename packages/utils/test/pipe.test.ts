@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { suite, test } from 'mocha-typescript';
+import { describe, it } from 'mocha';
 import { pipe } from '../src/pipe';
 
 function square(x: number): number {
@@ -19,9 +19,8 @@ function digitSum(x: number): number {
   return s.split('').reduce((sum, y) => sum + parseInt(y, 10), 0);
 }
 
-@suite
-export class PipeTests {
-  @test public 'basic use'(): void {
+describe('Pipe tests', () => {
+  it('basic use', () => {
     expect(pipe()(3)).to.eql(3);
     expect(pipe(square)(3)).to.eql(9);
     expect(
@@ -54,5 +53,5 @@ export class PipeTests {
         digitSum,
       )(4),
     ).to.eql(12);
-  }
-}
+  });
+});

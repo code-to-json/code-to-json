@@ -1,12 +1,9 @@
 import { expect } from 'chai';
-import { slow, suite, test } from 'mocha-typescript';
+import { describe, it } from 'mocha';
 import SingleFileAcceptanceTestCase from './helpers/test-case';
 
-@suite
-@slow(800)
-export class CommentSerializationTests {
-  @test
-  public async 'basic comments'(): Promise<void> {
+describe('Comment serialization tests', () => {
+  it('basic comments', async () => {
     const code = `interface Foo { num: number; }
 
     /**
@@ -28,10 +25,9 @@ export class CommentSerializationTests {
     expect(variableType.text).to.eql('Foo', 'has correct type');
 
     t.cleanup();
-  }
+  });
 
-  @test
-  public async 'with @see block tag'(): Promise<void> {
+  it('with @see block tag', async () => {
     const code = `interface Foo { num: number; }
 
     /**
@@ -62,10 +58,9 @@ export class CommentSerializationTests {
     expect(variableType.text).to.eql('Foo', 'has correct type');
 
     t.cleanup();
-  }
+  });
 
-  @test
-  public async 'with @param tags'(): Promise<void> {
+  it('with @param tags', async () => {
     const code = `interface Foo { num: number; }
 
     /**
@@ -104,17 +99,16 @@ export class CommentSerializationTests {
     expect(functionType.text).to.eql('(a: number, b: number) => number');
     const [callSig1] = functionType.callSignatures!;
     expect(callSig1.parameters!.length).to.eql(2);
-    const [sig1Param1, sig1Param2] = callSig1.parameters!.map((p) => t.resolveReference(p));
+    const [sig1Param1, sig1Param2] = callSig1.parameters!.map(p => t.resolveReference(p));
     expect(sig1Param1.jsDocTags![0].name).to.eq('param');
     expect(sig1Param2.jsDocTags![0].name).to.eq('param');
     expect(sig1Param1.jsDocTags![0].text).contains('first number');
     expect(sig1Param2.jsDocTags![0].text).contains('second number');
 
     t.cleanup();
-  }
+  });
 
-  @test
-  public async 'with an @example tag and fenced code example'(): Promise<void> {
+  it('with an @example tag and fenced code example', async () => {
     const code = `interface Foo { num: number; }
 
     /**
@@ -149,10 +143,9 @@ export class CommentSerializationTests {
       ],
     });
     t.cleanup();
-  }
+  });
 
-  @test
-  public async 'with inline code'(): Promise<void> {
+  it('with inline code', async () => {
     const code = `interface Foo { num: number; }
 
     /**
@@ -179,10 +172,9 @@ export class CommentSerializationTests {
       ],
     });
     t.cleanup();
-  }
+  });
 
-  @test
-  public async 'with HTML tags'(): Promise<void> {
+  it('with HTML tags', async () => {
     const code = `interface Foo { num: number; }
 
     /**
@@ -245,5 +237,5 @@ export class CommentSerializationTests {
       ],
     });
     t.cleanup();
-  }
-}
+  });
+});
