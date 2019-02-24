@@ -1,6 +1,6 @@
 import { createTempFixtureFolder, TestCaseFolder } from '@code-to-json/test-helpers';
 import { expect } from 'chai';
-import { suite, test } from 'mocha-typescript';
+import { describe, it } from 'mocha';
 import * as path from 'path';
 import generateJSONCommand from '../src/commands/generate-json';
 
@@ -21,10 +21,8 @@ async function makeWorkspace(): Promise<TestCaseFolder> {
   return workspace;
 }
 
-@suite
-export class CommandTests {
-  @test
-  public async 'run command: --project'(): Promise<void> {
+describe('Command tests', () => {
+  it('run command: --project', async () => {
     const workspace = await makeWorkspace();
     await generateJSONCommand({
       project: workspace.rootPath,
@@ -41,10 +39,9 @@ export class CommandTests {
 `,
     );
     workspace.cleanup();
-  }
+  });
 
-  @test.skip
-  public async 'run command: entries'(): Promise<void> {
+  it.skip('run command: entries', async () => {
     const workspace = await makeWorkspace();
     await generateJSONCommand({ out: path.join(workspace.rootPath, 'out') }, ['src/index.ts']);
     expect(workspace.toString()).to.eql(
@@ -58,10 +55,9 @@ export class CommandTests {
 `,
     );
     workspace.cleanup();
-  }
+  });
 
-  @test
-  public async 'run command: insufficient CLI args'(): Promise<void> {
+  it('run command: insufficient CLI args', async () => {
     const workspace = await makeWorkspace();
     try {
       await generateJSONCommand({ out: path.join(workspace.rootPath, 'out') }).then(() => {
@@ -72,5 +68,5 @@ export class CommandTests {
     }
 
     workspace.cleanup();
-  }
-}
+  });
+});

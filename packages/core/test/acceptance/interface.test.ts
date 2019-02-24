@@ -1,12 +1,9 @@
 import { expect } from 'chai';
-import { slow, suite, test } from 'mocha-typescript';
+import { describe, it } from 'mocha';
 import SingleFileAcceptanceTestCase from './helpers/test-case';
 
-@suite
-@slow(800)
-export class InterfaceSerializationTests {
-  @test
-  public async 'non-exported interface'(): Promise<void> {
+describe('Interface serialization tests', () => {
+  it('non-exported interface', async () => {
     const code = `interface Foo { num: number; }
 
     export const x: Foo = { num: 4 };`;
@@ -29,10 +26,9 @@ export class InterfaceSerializationTests {
     const firstPropType = t.resolveReference(firstProp.valueDeclarationType);
     expect(firstPropType.text).to.eql('number');
     t.cleanup();
-  }
+  });
 
-  @test
-  public async 'interface Foo {bar: number; readonly baz: Promise<string>}'(): Promise<void> {
+  it('interface Foo {bar: number; readonly baz: Promise<string>}', async () => {
     const code = `export interface Foo {bar: number; readonly baz: Promise<string>}`;
     const t = new SingleFileAcceptanceTestCase(code);
     await t.run();
@@ -49,10 +45,10 @@ export class InterfaceSerializationTests {
     expect(interfaceType.objectFlags).to.deep.eq(['Interface']);
     const typePropertyNames = Object.keys(interfaceType.properties!);
     expect(typePropertyNames).to.deep.eq(['bar', 'baz']);
-    const [bar, baz] = Object.keys(interfaceType.properties!).map((pName) =>
+    const [bar, baz] = Object.keys(interfaceType.properties!).map(pName =>
       t.resolveReference(interfaceType.properties![pName]),
     );
-    const [barType, bazType] = [bar, baz].map((s) => t.resolveReference(s.valueDeclarationType));
+    const [barType, bazType] = [bar, baz].map(s => t.resolveReference(s.valueDeclarationType));
     expect(bar.name).to.eql('bar');
     expect(barType.text).to.eql('number');
     expect(bar.modifiers).to.deep.eq(undefined);
@@ -60,5 +56,5 @@ export class InterfaceSerializationTests {
     expect(bazType.text).to.eql('Promise<string>');
     expect(baz.modifiers).to.deep.eq(['readonly']);
     t.cleanup();
-  }
-}
+  });
+});

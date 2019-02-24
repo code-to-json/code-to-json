@@ -1,11 +1,9 @@
 import { expect } from 'chai';
-import { suite, test } from 'mocha-typescript';
+import { describe, it } from 'mocha';
 import { parseCommentString } from '../src/index';
 
-@suite
-export class JSDocParamsTests {
-  @test
-  public '@param tags (TS style)'(): void {
+describe('JSDoc params tests', () => {
+  it('@param tags (TS style)', () => {
     expect(
       parseCommentString(`
 /**
@@ -30,10 +28,9 @@ export class JSDocParamsTests {
       },
       'single-line comment',
     );
-  }
+  });
 
-  @test
-  public '@param tags (JS style) (1)'(): void {
+  it('@param tags (JS style) (1)', () => {
     expect(
       parseCommentString(`
 /**
@@ -57,10 +54,9 @@ export class JSDocParamsTests {
       },
       'single-line comment',
     );
-  }
+  });
 
-  @test
-  public '@param tags (JS style) (2)'(): void {
+  it('@param tags (JS style) (2)', () => {
     expect(
       parseCommentString(`
 /**
@@ -92,5 +88,5 @@ export class JSDocParamsTests {
       },
       'single-line comment',
     );
-  }
-}
+  });
+});

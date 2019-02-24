@@ -1,18 +1,16 @@
 import { mapDict } from '@code-to-json/utils-ts';
 import { expect } from 'chai';
-import { slow, suite, test } from 'mocha-typescript';
+import { describe, it } from 'mocha';
 import SingleFileAcceptanceTestCase from './helpers/test-case';
 
-@suite
-@slow(800)
-export class FunctionAcceptanceTests {
-  @test public async 'simple function declaration'(): Promise<void> {
+describe('Function acceptance tests', () => {
+  it('simple function declaration', async () => {
     const code = `export function add(a: number, b: number) { return a + b; }`;
     const t = new SingleFileAcceptanceTestCase(code);
     await t.run();
     const file = t.sourceFile();
     const fileSymbol = t.resolveReference(file.symbol!);
-    const fileExports = mapDict(fileSymbol.exports!, (e) => t.resolveReference(e));
+    const fileExports = mapDict(fileSymbol.exports!, e => t.resolveReference(e));
     const fnSymbol = fileExports.add!;
     expect(fnSymbol.text).to.eq('add');
     expect(!!fnSymbol.isAsync).to.eq(false);
@@ -22,18 +20,18 @@ export class FunctionAcceptanceTests {
     expect(fnType.callSignatures!.length).to.eq(1);
     expect(fnType.callSignatures![0].parameters!.length).to.eq(2);
     const [a, b] = fnType.callSignatures![0].parameters!;
-    const [atype, btype] = [a, b].map((x) => t.resolveReference(x.type));
+    const [atype, btype] = [a, b].map(x => t.resolveReference(x.type));
     expect(atype.text).to.eq('number');
     expect(btype.text).to.eq('number');
-  }
+  });
 
-  @test public async 'simple async function declaration'(): Promise<void> {
+  it('simple async function declaration', async () => {
     const code = `export async function add(a: number, b: number) { return a + b; }`;
     const t = new SingleFileAcceptanceTestCase(code);
     await t.run();
     const file = t.sourceFile();
     const fileSymbol = t.resolveReference(file.symbol!);
-    const fileExports = mapDict(fileSymbol.exports!, (e) => t.resolveReference(e));
+    const fileExports = mapDict(fileSymbol.exports!, e => t.resolveReference(e));
     const fnSymbol = fileExports.add!;
     expect(fnSymbol.text).to.eq('add');
     expect(fnSymbol.isAsync).to.eq(true);
@@ -43,12 +41,12 @@ export class FunctionAcceptanceTests {
     expect(fnType.callSignatures!.length).to.eq(1);
     expect(fnType.callSignatures![0].parameters!.length).to.eq(2);
     const [a, b] = fnType.callSignatures![0].parameters!;
-    const [atype, btype] = [a, b].map((x) => t.resolveReference(x.type));
+    const [atype, btype] = [a, b].map(x => t.resolveReference(x.type));
     expect(atype.text).to.eq('number');
     expect(btype.text).to.eq('number');
-  }
+  });
 
-  @test public async 'overloaded function declaration'(): Promise<void> {
+  it('overloaded function declaration', async () => {
     const code = `
     export function add(a: number, b: number): number;
     export function add(a: string, b: string): string;
@@ -58,7 +56,7 @@ export class FunctionAcceptanceTests {
     await t.run();
     const file = t.sourceFile();
     const fileSymbol = t.resolveReference(file.symbol!);
-    const fileExports = mapDict(fileSymbol.exports!, (e) => t.resolveReference(e));
+    const fileExports = mapDict(fileSymbol.exports!, e => t.resolveReference(e));
     const fnSymbol = fileExports.add!;
     expect(fnSymbol.text).to.eq('add');
     expect(!!fnSymbol.isAsync).to.eq(false);
@@ -75,23 +73,23 @@ export class FunctionAcceptanceTests {
     expect(fnType.callSignatures![1].text).to.eq('(a: string, b: string): string');
 
     const [a, b] = fnType.callSignatures![0].parameters!;
-    const [atype, btype] = [a, b].map((x) => t.resolveReference(x.type));
+    const [atype, btype] = [a, b].map(x => t.resolveReference(x.type));
     expect(atype.text).to.eq('number');
     expect(btype.text).to.eq('number');
 
     const [c, d] = fnType.callSignatures![1].parameters!;
-    const [ctype, dtype] = [c, d].map((x) => t.resolveReference(x.type));
+    const [ctype, dtype] = [c, d].map(x => t.resolveReference(x.type));
     expect(ctype.text).to.eq('string');
     expect(dtype.text).to.eq('string');
-  }
+  });
 
-  @test public async 'function w/ rest param'(): Promise<void> {
+  it('function w/ rest param', async () => {
     const code = `export function x(...args: string[]) { return args.join(', '); }`;
     const t = new SingleFileAcceptanceTestCase(code);
     await t.run();
     const file = t.sourceFile();
     const fileSymbol = t.resolveReference(file.symbol!);
-    const fileExports = mapDict(fileSymbol.exports!, (e) => t.resolveReference(e));
+    const fileExports = mapDict(fileSymbol.exports!, e => t.resolveReference(e));
     const fnSymbol = fileExports.x!;
     expect(fnSymbol.text).to.eq('x');
     expect(!!fnSymbol.isAsync).to.eq(false);
@@ -102,7 +100,7 @@ export class FunctionAcceptanceTests {
     expect(fnType.callSignatures![0].parameters!.length).to.eq(1);
     expect(fnType.callSignatures![0].hasRestParameter).to.eq(true);
     const [a] = fnType.callSignatures![0].parameters!;
-    const [atype] = [a].map((x) => t.resolveReference(x.type));
+    const [atype] = [a].map(x => t.resolveReference(x.type));
     expect(atype.text).to.eq('string[]');
-  }
-}
+  });
+});

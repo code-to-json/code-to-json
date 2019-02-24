@@ -2,7 +2,7 @@ import { setupTestCase } from '@code-to-json/test-helpers';
 import { NODE_HOST } from '@code-to-json/utils-node';
 import { PASSTHROUGH_REVERSE_RESOLVER } from '@code-to-json/utils-ts';
 import { expect } from 'chai';
-import { suite, test } from 'mocha-typescript';
+import { before, describe, it } from 'mocha';
 import * as path from 'path';
 import * as ts from 'typescript';
 import { SerializedSourceFile, SourceFileRef, SymbolRef } from '../src';
@@ -11,27 +11,25 @@ import serializeSourceFile from '../src/serializers/source-file';
 import { Collector } from '../src/types/walker';
 import WalkerConfig from '../src/walker/config';
 
-@suite
-export class SimpleSnapshotSmokeTests {
-  protected program!: ts.Program;
+describe('Snapshot smoke tests', () => {
+  let program: ts.Program;
 
-  protected checker!: ts.TypeChecker;
+  let checker: ts.TypeChecker;
 
-  protected rootPath!: string;
+  let rootPath: string;
 
-  protected sourceFiles!: ReadonlyArray<ts.SourceFile>;
+  let sourceFiles: ReadonlyArray<ts.SourceFile>;
 
-  protected data!: ProcessResult<string, any, {}, {}, SerializedSourceFile>;
+  let data: ProcessResult<string, any, {}, {}, SerializedSourceFile>;
 
-  public async before(): Promise<void> {
-    const { program, rootPath } = await setupTestCase(
+  before(async () => {
+    const { program: _program, rootPath: _rootPath } = await setupTestCase(
       path.join(__dirname, '..', '..', '..', 'samples', 'js-single-file'),
       ['src/index.js'],
     );
-    this.program = program;
-    this.rootPath = rootPath;
-    const checker = program.getTypeChecker();
-    this.checker = checker;
+    program = _program;
+    rootPath = _rootPath;
+    checker = program.getTypeChecker();
     const queue = createQueue(checker);
     const collector: Collector = {
       queue,
@@ -42,28 +40,27 @@ export class SimpleSnapshotSmokeTests {
       }),
     };
 
-    this.sourceFiles = program.getSourceFiles();
-    this.sourceFiles.forEach((sf) => queue.queue(sf, 'sourceFile'));
-    const data = queue.process({
+    sourceFiles = program.getSourceFiles();
+    sourceFiles.forEach(sf => queue.queue(sf, 'sourceFile'));
+    const _data = queue.process({
       mapType: (_ref, item) => checker.typeToString(item),
       mapSymbol: (_ref: SymbolRef, item: ts.Symbol) => item.getName(),
       mapSourceFile: (ref: SourceFileRef, item: ts.SourceFile) =>
         serializeSourceFile(item, checker, ref, undefined, collector),
     });
-    this.data = data;
-  }
+    data = _data;
+  });
 
-  @test
-  public async 'SourceFile serialization'(): Promise<void> {
-    const indexFile = this.sourceFiles.filter((sf) => !sf.isDeclarationFile)[0];
-    expect(indexFile.fileName.replace(this.rootPath, ''))
+  it('SourceFile serialization', async () => {
+    const indexFile = sourceFiles.filter(sf => !sf.isDeclarationFile)[0];
+    expect(indexFile.fileName.replace(rootPath, ''))
       .to.contain('src')
       .to.contain('index.js');
-    const { sourceFiles } = this.data;
+    const { sourceFiles: mySourceFiles } = data;
 
-    const [indexFileData] = Object.keys(sourceFiles)
-      .filter((sf) => !sourceFiles[sf].isDeclarationFile)
-      .map((sf) => sourceFiles[sf]);
+    const [indexFileData] = Object.keys(mySourceFiles)
+      .filter(sf => !mySourceFiles[sf].isDeclarationFile)
+      .map(sf => mySourceFiles[sf]);
     expect(Object.keys(indexFileData))
       .contains('id')
       .contains('entity')
@@ -73,5 +70,5 @@ export class SimpleSnapshotSmokeTests {
       .contains('extension')
       .contains('symbol')
       .contains('isDeclarationFile');
-  }
-}
+  });
+});

@@ -1,18 +1,16 @@
 import { mapDict } from '@code-to-json/utils-ts';
 import { expect } from 'chai';
-import { slow, suite, test } from 'mocha-typescript';
+import { describe, it } from 'mocha';
 import SingleFileAcceptanceTestCase from './helpers/test-case';
 
-@suite
-@slow(800)
-export class ClassFormatterAcceptanceTests {
-  @test public async 'simple class'(): Promise<void> {
+describe('Class formatter acceptance tests', () => {
+  it('simple class', async () => {
     const code = `export class Foo{}`;
     const t = new SingleFileAcceptanceTestCase(code);
     await t.run();
     const file = t.sourceFile();
     const fileSymbol = t.resolveReference(file.symbol!);
-    const fileExports = mapDict(fileSymbol.exports!, (e) => t.resolveReference(e));
+    const fileExports = mapDict(fileSymbol.exports!, e => t.resolveReference(e));
     expect(Object.keys(fileExports)).to.deep.eq(['Foo']);
     const classSymbol = fileExports.Foo!;
     expect(classSymbol.name).to.eq('Foo');
@@ -28,15 +26,15 @@ export class ClassFormatterAcceptanceTests {
     const instanceType = t.resolveReference(classSymbol.type);
     expect(instanceType.text).to.eql('Foo');
     t.cleanup();
-  }
+  });
 
-  @test public async 'simple class (default export)'(): Promise<void> {
+  it('simple class (default export)', async () => {
     const code = `export default class Foo{}`;
     const t = new SingleFileAcceptanceTestCase(code);
     await t.run();
     const file = t.sourceFile();
     const fileSymbol = t.resolveReference(file.symbol!);
-    const fileExports = mapDict(fileSymbol.exports!, (e) => t.resolveReference(e));
+    const fileExports = mapDict(fileSymbol.exports!, e => t.resolveReference(e));
     expect(Object.keys(fileExports)).to.deep.eq(['default']);
     const classSymbol = fileExports.default!;
     expect(classSymbol.name).to.eq('default');
@@ -51,9 +49,9 @@ export class ClassFormatterAcceptanceTests {
     expect(classType.constructorSignatures!.length).to.eq(1);
     expect(t.resolveReference(classSymbol.type).text).to.eql('Foo');
     t.cleanup();
-  }
+  });
 
-  @test public async 'class with methods'(): Promise<void> {
+  it('class with methods', async () => {
     const code = `export class Foo {
       bar() { return '--bar--'; }
       baz() { return '--baz--'; }
@@ -62,7 +60,7 @@ export class ClassFormatterAcceptanceTests {
     await t.run();
     const file = t.sourceFile();
     const fileSymbol = t.resolveReference(file.symbol!);
-    const fileExports = mapDict(fileSymbol.exports!, (e) => t.resolveReference(e));
+    const fileExports = mapDict(fileSymbol.exports!, e => t.resolveReference(e));
     expect(Object.keys(fileExports)).to.deep.eq(['Foo']);
     const classSymbol = fileExports.Foo!;
     expect(classSymbol.name).to.eq('Foo');
@@ -78,7 +76,7 @@ export class ClassFormatterAcceptanceTests {
     expect(classType.constructorSignatures!.length).to.eq(1);
     const instanceType = t.resolveReference(classSymbol.type);
     expect(instanceType.text).to.eql('Foo');
-    const instanceMembers = mapDict(instanceType.properties!, (p) => t.resolveReference(p));
+    const instanceMembers = mapDict(instanceType.properties!, p => t.resolveReference(p));
     expect(Object.keys(instanceMembers)).to.deep.eq(['bar', 'baz']);
     const { bar, baz } = instanceMembers;
     expect(bar!.flags).to.deep.eq(['method', 'transient']);
@@ -86,9 +84,9 @@ export class ClassFormatterAcceptanceTests {
     expect(bar!.text).to.eq('bar');
     expect(baz!.text).to.eq('baz');
     t.cleanup();
-  }
+  });
 
-  @test public async 'class with methods and properties'(): Promise<void> {
+  it('class with methods and properties', async () => {
     const code = `export class Foo {
       biz: string = '--biz--';
       bar() { return '--bar--'; }
@@ -98,10 +96,10 @@ export class ClassFormatterAcceptanceTests {
     await t.run();
     const file = t.sourceFile();
     const fileSymbol = t.resolveReference(file.symbol!);
-    const fileExports = mapDict(fileSymbol.exports!, (e) => t.resolveReference(e));
+    const fileExports = mapDict(fileSymbol.exports!, e => t.resolveReference(e));
     const classSymbol = fileExports.Foo!;
     const instanceType = t.resolveReference(classSymbol.type);
-    const instanceMembers = mapDict(instanceType.properties!, (p) => t.resolveReference(p));
+    const instanceMembers = mapDict(instanceType.properties!, p => t.resolveReference(p));
     expect(Object.keys(instanceMembers)).to.deep.eq(['biz', 'bar', 'baz']);
     const { biz, bar, baz } = instanceMembers;
     expect(bar!.flags).to.deep.eq(['method', 'transient']);
@@ -111,9 +109,9 @@ export class ClassFormatterAcceptanceTests {
     expect(baz!.text).to.eq('baz');
     expect(biz!.text).to.eq('biz');
     t.cleanup();
-  }
+  });
 
-  @test public async 'class with methods, properties and access modifiers'(): Promise<void> {
+  it('class with methods, properties and access modifiers', async () => {
     const code = `export class Foo {
       protected biz: string = '--biz--';
       public baa: string = '--baa--';
@@ -125,10 +123,10 @@ export class ClassFormatterAcceptanceTests {
     await t.run();
     const file = t.sourceFile();
     const fileSymbol = t.resolveReference(file.symbol!);
-    const fileExports = mapDict(fileSymbol.exports!, (e) => t.resolveReference(e));
+    const fileExports = mapDict(fileSymbol.exports!, e => t.resolveReference(e));
     const classSymbol = fileExports.Foo!;
     const instanceType = t.resolveReference(classSymbol.type);
-    const instanceMembers = mapDict(instanceType.properties!, (p) => t.resolveReference(p));
+    const instanceMembers = mapDict(instanceType.properties!, p => t.resolveReference(p));
     expect(Object.keys(instanceMembers)).to.deep.eq(['biz', 'baa', 'bee', 'bar', 'baz']);
     const { biz, bar, baz, bee, baa } = instanceMembers;
     expect(biz!.accessModifier).to.eq('protected');
@@ -137,9 +135,9 @@ export class ClassFormatterAcceptanceTests {
     expect(bee!.accessModifier).to.eq('private');
     expect(baa!.accessModifier).to.eq('public');
     t.cleanup();
-  }
+  });
 
-  @test public async 'class with static functions'(): Promise<void> {
+  it('class with static functions', async () => {
     const code = `export class Foo {
       public static baz(): undefined { return undefined; }
       public static biz(): unknown { return unknown; }
@@ -150,18 +148,18 @@ export class ClassFormatterAcceptanceTests {
     await t.run();
     const file = t.sourceFile();
     const fileSymbol = t.resolveReference(file.symbol!);
-    const fileExports = mapDict(fileSymbol.exports!, (e) => t.resolveReference(e));
+    const fileExports = mapDict(fileSymbol.exports!, e => t.resolveReference(e));
     const classSymbol = fileExports.Foo!;
     const classType = t.resolveReference(classSymbol.valueType);
-    const staticMembers = mapDict(classType.properties!, (p) => t.resolveReference(p));
+    const staticMembers = mapDict(classType.properties!, p => t.resolveReference(p));
     expect(Object.keys(staticMembers)).to.deep.eq(['baz', 'biz', 'bar', 'bee']);
     const instanceType = t.resolveReference(classSymbol.type);
     expect(instanceType.properties).to.eq(undefined);
 
     t.cleanup();
-  }
+  });
 
-  @test public async 'abstract class'(): Promise<void> {
+  it('abstract class', async () => {
     const code = `export abstract class Foo {
       protected abstract abstractBar(): string;
     }`;
@@ -169,22 +167,22 @@ export class ClassFormatterAcceptanceTests {
     await t.run();
     const file = t.sourceFile();
     const fileSymbol = t.resolveReference(file.symbol!);
-    const fileExports = mapDict(fileSymbol.exports!, (e) => t.resolveReference(e));
+    const fileExports = mapDict(fileSymbol.exports!, e => t.resolveReference(e));
     const classSymbol = fileExports.Foo!;
     expect(classSymbol.isAbstract).to.eq(true);
     const classType = t.resolveReference(classSymbol.valueType);
     expect(classType.properties).to.eq(undefined);
     const instanceType = t.resolveReference(classSymbol.type);
 
-    const instanceMembers = mapDict(instanceType.properties!, (p) => t.resolveReference(p));
+    const instanceMembers = mapDict(instanceType.properties!, p => t.resolveReference(p));
     expect(Object.keys(instanceMembers)).to.deep.eq(['abstractBar']);
     const { abstractBar } = instanceMembers;
     expect(abstractBar!.isAbstract).to.eq(true);
 
     t.cleanup();
-  }
+  });
 
-  @test public async 'class w/ class decorator'(): Promise<void> {
+  it('class w/ class decorator', async () => {
     const code = `
     function baz<O>(target: new () => O) {
       Object.defineProperty(target, 'bar', {
@@ -201,7 +199,7 @@ export class ClassFormatterAcceptanceTests {
     await t.run();
     const file = t.sourceFile();
     const fileSymbol = t.resolveReference(file.symbol!);
-    const fileExports = mapDict(fileSymbol.exports!, (e) => t.resolveReference(e));
+    const fileExports = mapDict(fileSymbol.exports!, e => t.resolveReference(e));
     const classSymbol = fileExports.Foo!;
     expect(!!classSymbol.isAbstract).to.eq(false);
     expect(classSymbol.decorators!.length).to.eq(1);
@@ -217,9 +215,9 @@ export class ClassFormatterAcceptanceTests {
     expect(firstDecoratorType.objectFlags).to.deep.eq(['anonymous']);
 
     t.cleanup();
-  }
+  });
 
-  @test public async 'class w/ multiple class decorators'(): Promise<void> {
+  it('class w/ multiple class decorators', async () => {
     const code = `
     function baz<O>(target: new () => O) {
       Object.defineProperty(target, 'bazzz', {
@@ -242,11 +240,11 @@ export class ClassFormatterAcceptanceTests {
     await t.run();
     const file = t.sourceFile();
     const fileSymbol = t.resolveReference(file.symbol!);
-    const fileExports = mapDict(fileSymbol.exports!, (e) => t.resolveReference(e));
+    const fileExports = mapDict(fileSymbol.exports!, e => t.resolveReference(e));
     const classSymbol = fileExports.Foo!;
     expect(!!classSymbol.isAbstract).to.eq(false);
     expect(classSymbol.decorators!.length).to.eq(2);
-    const [firstDecorator, secondDecorator] = classSymbol.decorators!.map((d) =>
+    const [firstDecorator, secondDecorator] = classSymbol.decorators!.map(d =>
       t.resolveReference(d),
     );
     expect(firstDecorator.name).to.eql('baz');
@@ -268,9 +266,9 @@ export class ClassFormatterAcceptanceTests {
     expect(secondDecoratorType.objectFlags).to.deep.eq(['anonymous']);
 
     t.cleanup();
-  }
+  });
 
-  @test public async 'class w/ non-exported base class'(): Promise<void> {
+  it('class w/ non-exported base class', async () => {
     const code = `abstract class Foo {
     protected abstract abstractBar(): string;
   }
@@ -283,7 +281,7 @@ export class ClassFormatterAcceptanceTests {
     await t.run();
     const file = t.sourceFile();
     const fileSymbol = t.resolveReference(file.symbol!);
-    const fileExports = mapDict(fileSymbol.exports!, (e) => t.resolveReference(e));
+    const fileExports = mapDict(fileSymbol.exports!, e => t.resolveReference(e));
     const classSymbol = fileExports.Baz!;
     expect(!!classSymbol.isAbstract).to.eq(false);
     const classType = t.resolveReference(classSymbol.valueType);
@@ -292,15 +290,15 @@ export class ClassFormatterAcceptanceTests {
     const instanceType = t.resolveReference(classSymbol.type);
     expect(!!instanceType.baseTypes).to.eq(true);
     expect(instanceType.baseTypes!.length).to.eq(1);
-    const [baseType] = instanceType.baseTypes!.map((bt) => t.resolveReference(bt));
+    const [baseType] = instanceType.baseTypes!.map(bt => t.resolveReference(bt));
     expect(baseType.text).to.eq('Foo');
     const baseTypeSymbol = t.resolveReference(baseType.symbol);
     expect(baseTypeSymbol.isAbstract).to.eq(true);
 
     t.cleanup();
-  }
+  });
 
-  @test.only public async 'class w/ heritage clauses'(): Promise<void> {
+  it('class w/ heritage clauses', async () => {
     const code = `class Foo {
   bar: string;
 }
@@ -319,14 +317,18 @@ export class Baz extends Foo implements HasBiz {
     await t.run();
     const file = t.sourceFile();
     const fileSymbol = t.resolveReference(file.symbol!);
-    const fileExports = mapDict(fileSymbol.exports!, (e) => t.resolveReference(e));
+    const fileExports = mapDict(fileSymbol.exports!, e => t.resolveReference(e));
     const classSymbol = fileExports.Baz!;
     expect(classSymbol.heritageClauses!.length).to.eq(2);
     expect(classSymbol.heritageClauses![0].kind).to.eq('extends');
-    expect(classSymbol.heritageClauses![0].types.map((typ) => t.resolveReference(typ).text).join(', ')).to.eq('Foo');
+    expect(
+      classSymbol.heritageClauses![0].types.map(typ => t.resolveReference(typ).text).join(', '),
+    ).to.eq('Foo');
     expect(classSymbol.heritageClauses![1].kind).to.eq('implements');
-    expect(classSymbol.heritageClauses![1].types.map((typ) => t.resolveReference(typ).text).join(', ')).to.eq('HasBiz');
+    expect(
+      classSymbol.heritageClauses![1].types.map(typ => t.resolveReference(typ).text).join(', '),
+    ).to.eq('HasBiz');
 
     t.cleanup();
-  }
-}
+  });
+});

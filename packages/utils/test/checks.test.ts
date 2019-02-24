@@ -1,11 +1,9 @@
 import { expect } from 'chai';
-import { suite, test } from 'mocha-typescript';
+import { describe, it } from 'mocha';
 import { isDefined, isNotNull } from '../src/checks';
 
-@suite('Simple predicates')
-export class SimpleChecks {
-  @test
-  public 'isNotNull tests'(): void {
+describe('Simple predicates', () => {
+  it('isNotNull tests', () => {
     expect(isNotNull(0)).to.eql(true);
     expect(isNotNull(null)).to.eql(false);
     expect(isNotNull(undefined)).to.eql(true);
@@ -16,10 +14,9 @@ export class SimpleChecks {
     expect(isNotNull({ length: 33 })).to.eql(true);
     expect(isNotNull((): string => 'foo')).to.eql(true);
     expect(isNotNull(new Map([['a', 1]]))).to.eql(true);
-  }
+  });
 
-  @test
-  public 'isDefined tests'(): void {
+  it('isDefined tests', () => {
     expect(isDefined(0)).to.eql(true);
     expect(isDefined(null)).to.eql(true);
     expect(isDefined(undefined)).to.eql(false);
@@ -30,5 +27,5 @@ export class SimpleChecks {
     expect(isDefined({ length: 33 })).to.eql(true);
     expect(isDefined((): string => 'foo')).to.eql(true);
     expect(isDefined(new Map([['a', 1]]))).to.eql(true);
-  }
-}
+  });
+});

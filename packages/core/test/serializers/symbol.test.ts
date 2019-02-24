@@ -1,16 +1,14 @@
 import { createRef } from '@code-to-json/utils';
 import { createIdGenerator } from '@code-to-json/utils-ts';
 import { expect } from 'chai';
-import { suite, test } from 'mocha-typescript';
+import { describe, it } from 'mocha';
 import * as ts from 'typescript';
 import { RefRegistry, SourceFileRef } from '../../src';
 import serializeSourceFile from '../../src/serializers/source-file';
 import { setupScenario } from './helpers';
 
-@suite
-export class SymbolSerializtionTests {
-  @test
-  public async 'Function signature'(): Promise<void> {
+describe('Symbol serialization tests', () => {
+  it('Function signature', async () => {
     const { checker, sf, collector } = setupScenario(
       'function add(a: number, b: number): number { return a + b; }',
     );
@@ -35,5 +33,5 @@ export class SymbolSerializtionTests {
       originalFileName: 'module.ts',
       pathInPackage: 'module',
     });
-  }
-}
+  });
+});

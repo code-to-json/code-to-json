@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import * as fs from 'fs-extra';
-import { suite, test } from 'mocha-typescript';
 import * as path from 'path';
+import { describe, it } from 'mocha';
 
 const TEST_CASES_FOLDER_PATH = path.join(__dirname, '..', 'test-cases');
 
@@ -13,10 +13,8 @@ const TEST_CASE_FOLDERS = fs
   // and transformed into absolute paths
   .map(f => path.join(TEST_CASES_FOLDER_PATH, f));
 
-@suite
-export class TestCaseIntegrity {
-  @test
-  public async 'every test case has a tsconfig.json file'(): Promise<void> {
+describe('Test case integrity', () => {
+  it('every test case has a tsconfig.json file', async () => {
     // each test case
     const offenders = TEST_CASE_FOLDERS.filter(projectRoot => {
       // this should be the path of tsconfig.json
@@ -28,10 +26,9 @@ export class TestCaseIntegrity {
       return true;
     });
     expect(offenders.join(',')).to.eq('');
-  }
+  });
 
-  @test
-  public async 'every test case has a src folder'(): Promise<void> {
+  it('every test case has a src folder', async () => {
     // each test case
     const offenders = TEST_CASE_FOLDERS.filter(projectRoot => {
       // should be the path of the src folder
@@ -43,10 +40,9 @@ export class TestCaseIntegrity {
       return true;
     });
     expect(offenders.join(',')).to.eq('');
-  }
+  });
 
-  @test
-  public async 'every test case has a src/index.ts or src/index.js file'(): Promise<void> {
+  it('every test case has a src/index.ts or src/index.js file', async () => {
     // each test case
     const offenders = TEST_CASE_FOLDERS.filter(projectRoot => {
       // this should be the index.ts file
@@ -58,5 +54,5 @@ export class TestCaseIntegrity {
       return true;
     });
     expect(offenders.join(',')).to.eq('');
-  }
-}
+  });
+});

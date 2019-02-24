@@ -1,15 +1,14 @@
 import { Dict } from '@mike-north/types';
 import { expect } from 'chai';
-import { suite, test } from 'mocha-typescript';
+import { before, describe, it } from 'mocha';
 import { SymbolRelevantTypes } from 'symbol';
 import * as ts from 'typescript';
 import { mapDict } from '../src/dict';
 import { createProgramFromCodeString } from '../src/program';
 import { getRelevantTypesForSymbol } from '../src/symbol';
 
-@suite
-export class RelevantTypesForSymbolTests {
-  public static before(): void {
+describe('RelevantTypesForSymbol Tests', () => {
+  before(() => {
     const code = `
 // Symbol Value checker get type of symbol value declaration
 const TextType = "Text";
@@ -56,57 +55,48 @@ export { Foo, ElementType, TextType, NodeType, DefaultType };
 `;
     const out = createProgramFromCodeString(code, 'ts');
     const p = out.program;
-    const sf = p.getSourceFile('module.ts');
+    sf = p.getSourceFile('module.ts')!;
     if (!sf) {
       throw new Error('No source file module.ts found');
     }
-    this.sf = sf;
-    this.checker = p.getTypeChecker();
-    const sfSym = this.checker.getSymbolAtLocation(this.sf);
+    checker = p.getTypeChecker();
+    sfSym = checker.getSymbolAtLocation(sf)!;
     if (!sfSym) {
       throw new Error('SourceFile has no symbol');
     }
-    this.exports = mapDict(sfSym.exports!, (exp) => ({
+    exports = mapDict(sfSym.exports!, exp => ({
       sym: exp,
       type: getRelevantTypesForSymbol(out.program.getTypeChecker(), exp),
     }));
-  }
-  private static sf: ts.SourceFile;
+  });
+  let sf: ts.SourceFile;
 
-  private static checker: ts.TypeChecker;
+  let sfSym: ts.Symbol;
 
-  private static exports: Dict<{ sym: ts.Symbol; type?: SymbolRelevantTypes }>;
+  let checker: ts.TypeChecker;
 
-  @test
-  public 'symbols are truthy'(): void {
-    const {
-      exports: { ElementType, TextType, NodeType, DefaultType, Foo },
-    } = RelevantTypesForSymbolTests;
+  let exports: Dict<{ sym: ts.Symbol; type?: SymbolRelevantTypes }>;
+
+  it('symbols are truthy', () => {
+    const { ElementType, TextType, NodeType, DefaultType, Foo } = exports;
     expect(!!ElementType!.sym).to.eql(true);
     expect(!!TextType!.sym).to.eql(true);
     expect(!!NodeType!.sym).to.eql(true);
     expect(!!Foo!.sym).to.eql(true);
     expect(!!DefaultType!.sym).to.eql(true);
-  }
+  });
 
-  @test
-  public 'types are truthy'(): void {
-    const {
-      exports: { ElementType, TextType, NodeType, DefaultType, Foo },
-    } = RelevantTypesForSymbolTests;
+  it('types are truthy', () => {
+    const { ElementType, TextType, NodeType, DefaultType, Foo } = exports;
     expect(!!ElementType!.type).to.eql(true);
     expect(!!TextType!.type).to.eql(true);
     expect(!!NodeType!.type).to.eql(true);
     expect(!!Foo!.type).to.eql(true);
     expect(!!DefaultType!.type).to.eql(true);
-  }
+  });
 
-  @test
-  public 'DefaultTypes type'(): void {
-    const {
-      checker,
-      exports: { DefaultType },
-    } = RelevantTypesForSymbolTests;
+  it('DefaultTypes type', () => {
+    const { DefaultType } = exports;
     expect(!!DefaultType!.type!.symbolType).to.eq(false, 'symbol type');
     expect(!!DefaultType!.type!.valueDeclarationType).to.eq(false, 'value declaration');
     expect(!!DefaultType!.type!.otherDeclarationTypes).to.eq(true, 'another declaration');
@@ -115,14 +105,10 @@ export { Foo, ElementType, TextType, NodeType, DefaultType };
       'NodeType',
       'typeToString - first declaration',
     );
-  }
+  });
 
-  @test
-  public 'NodeTypes type'(): void {
-    const {
-      checker,
-      exports: { NodeType },
-    } = RelevantTypesForSymbolTests;
+  it('NodeTypes type', () => {
+    const { NodeType } = exports;
     expect(!!NodeType!.type!.symbolType).to.eq(true, 'symbol type');
     expect(!!NodeType!.type!.valueDeclarationType).to.eq(false, 'value declaration');
     expect(!!NodeType!.type!.otherDeclarationTypes).to.eq(true, 'another declaration');
@@ -130,14 +116,10 @@ export { Foo, ElementType, TextType, NodeType, DefaultType };
       'NodeType',
       'typeToString - symbol type',
     );
-  }
+  });
 
-  @test
-  public 'TextTypes type'(): void {
-    const {
-      checker,
-      exports: { TextType },
-    } = RelevantTypesForSymbolTests;
+  it('TextTypes type', () => {
+    const { TextType } = exports;
     expect(!!TextType!.type!.symbolType).to.eq(true, 'symbol type');
     expect(!!TextType!.type!.valueDeclarationType).to.eq(false, 'value declaration');
     expect(!!TextType!.type!.otherDeclarationTypes).to.eq(true, 'another declaration');
@@ -147,14 +129,10 @@ export { Foo, ElementType, TextType, NodeType, DefaultType };
     );
     const [[a, atype]] = TextType!.type!.otherDeclarationTypes!;
     expect(checker.typeToString(atype!)).to.eq('"Text"', `typeToSTring - ${a}`);
-  }
+  });
 
-  @test
-  public 'ElementTypes type'(): void {
-    const {
-      checker,
-      exports: { ElementType },
-    } = RelevantTypesForSymbolTests;
+  it('ElementTypes type', () => {
+    const { ElementType } = exports;
     expect(!!ElementType!.type!.symbolType).to.eq(true, 'symbol type');
     expect(!!ElementType!.type!.valueDeclarationType).to.eq(false, 'value declaration');
     expect(!!ElementType!.type!.otherDeclarationTypes).to.eq(true, 'another declaration');
@@ -164,14 +142,10 @@ export { Foo, ElementType, TextType, NodeType, DefaultType };
     );
     const [[a, atype]] = ElementType!.type!.otherDeclarationTypes!;
     expect(checker.typeToString(atype!)).to.eq('"Element"', `typeToSTring - ${a}`);
-  }
+  });
 
-  @test
-  public 'Foos type'(): void {
-    const {
-      checker,
-      exports: { Foo },
-    } = RelevantTypesForSymbolTests;
+  it('Foos type', () => {
+    const { Foo } = exports;
     const { symbolType, otherDeclarationTypes, valueDeclarationType } = Foo!.type!;
     expect(!!symbolType).to.eq(true, 'symbol type');
     expect(!!valueDeclarationType).to.eq(false, 'value declaration');
@@ -182,9 +156,9 @@ export { Foo, ElementType, TextType, NodeType, DefaultType };
     expect(checker.typeToString(atype!)).to.eq('typeof Foo', `typeToSTring - ${a.getText()}`);
 
     expect(atype!.getProperties().length).to.eq(2);
-    expect(atype!.getProperties().map((p) => p.name)).to.include.deep.members(['biz']);
+    expect(atype!.getProperties().map(p => p.name)).to.include.deep.members(['biz']);
 
     expect(symbolType!.getProperties().length).to.eq(2);
-    expect(symbolType!.getProperties().map((p) => p.name)).to.deep.eq(['baz', 'bar']);
-  }
-}
+    expect(symbolType!.getProperties().map(p => p.name)).to.deep.eq(['baz', 'bar']);
+  });
+});

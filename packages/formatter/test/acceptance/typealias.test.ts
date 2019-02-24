@@ -1,12 +1,10 @@
 import { mapDict } from '@code-to-json/utils-ts';
 import { expect } from 'chai';
-import { slow, suite, test } from 'mocha-typescript';
+import { describe, it } from 'mocha';
 import SingleFileAcceptanceTestCase from './helpers/test-case';
 
-@suite
-@slow(800)
-export class TypeAliasAcceptanceTests {
-  @test public async 'simple type alias'(): Promise<void> {
+describe('TypeAlias formatting acceptance tests', () => {
+  it('simple type alias', async () => {
     const code = 'export type Foo = { bar: string }';
     const t = new SingleFileAcceptanceTestCase(code);
     await t.run();
@@ -21,9 +19,9 @@ export class TypeAliasAcceptanceTests {
     ).to.deep.eq({
       bar: 'string',
     });
-  }
+  });
 
-  @test public async 'conditional type'(): Promise<void> {
+  it('conditional type', async () => {
     const code = `export type Bar<T> = T extends string ? T : number[];
     export const x: Bar<'foo'> = 'foo';
     export const y: Bar<Promise<string>> = [1, 2, 3];`;
@@ -57,5 +55,5 @@ export class TypeAliasAcceptanceTests {
     expect(falseType.text).to.eq('number[]');
     expect(trueType.flags).to.deep.eq(['substitution']);
     expect(falseType.flags).to.deep.eq(['object']);
-  }
-}
+  });
+});

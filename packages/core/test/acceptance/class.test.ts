@@ -1,15 +1,10 @@
 import { mapDict } from '@code-to-json/utils-ts';
 import { expect } from 'chai';
-import { slow, suite, test } from 'mocha-typescript';
+import { describe, it } from 'mocha';
 import SingleFileAcceptanceTestCase from './helpers/test-case';
 
-@suite
-@slow(800)
-export class ClassSerializationTests {
-  @test
-  public async 'class Vehicle { numWheels: number = 4; drive() { return "vroom";} }'(): Promise<
-    void
-  > {
+describe('Class serialization tests', () => {
+  it('class Vehicle { numWheels: number = 4; drive() { return "vroom";} }', async () => {
     const code = 'export class Vehicle { numWheels: number = 4; drive() { return "vroom";} }';
     const t = new SingleFileAcceptanceTestCase(code);
     await t.run();
@@ -41,14 +36,14 @@ export class ClassSerializationTests {
     expect(instanceType.text).to.eq('Vehicle');
     const instancePropNames = Object.keys(instanceType.properties!);
     expect(instancePropNames).to.deep.eq(['numWheels', 'drive']);
-    const props = instancePropNames.map((p) => t.resolveReference(instanceType.properties![p]));
+    const props = instancePropNames.map(p => t.resolveReference(instanceType.properties![p]));
     const [numWheelsSym, driveSym] = props;
     expect(numWheelsSym.flags).to.deep.eq(['Property']);
     expect(driveSym.flags).to.deep.eq(['Method', 'Transient']);
     expect(numWheelsSym.text).to.eq('numWheels');
     expect(driveSym.text).to.eq('drive');
 
-    const [numWheelsType, driveType] = props.map((s) => t.resolveReference(s.valueDeclarationType));
+    const [numWheelsType, driveType] = props.map(s => t.resolveReference(s.valueDeclarationType));
     expect(numWheelsType.text).to.eql('number');
     expect(driveType.text).to.eql('() => string');
     expect(numWheelsType.flags).to.deep.eq(['Number']);
@@ -56,12 +51,9 @@ export class ClassSerializationTests {
     expect(driveType.objectFlags).to.includes('Anonymous');
 
     t.cleanup();
-  }
+  });
 
-  @test
-  public async 'abstract class Vehicle { numWheels: number = 4; abstract drive(): string; }'(): Promise<
-    void
-  > {
+  it('abstract class Vehicle { numWheels: number = 4; abstract drive(): string; }', async () => {
     const code =
       'export abstract class Vehicle { numWheels: number = 4; abstract drive(): string; }';
     const t = new SingleFileAcceptanceTestCase(code);
@@ -89,7 +81,7 @@ export class ClassSerializationTests {
 
     const instancePropNames = Object.keys(classSymbolType.properties!);
     expect(instancePropNames).to.deep.eq(['numWheels', 'drive']);
-    const props = instancePropNames.map((p) => t.resolveReference(classSymbolType.properties![p]));
+    const props = instancePropNames.map(p => t.resolveReference(classSymbolType.properties![p]));
     const [numWheelsSym, driveSym] = props;
     expect(numWheelsSym.flags).to.deep.eq(['Property']);
     expect(driveSym.flags).to.deep.eq(['Method']);
@@ -98,10 +90,9 @@ export class ClassSerializationTests {
     expect(driveSym.isAbstract).to.eq(true);
 
     t.cleanup();
-  }
+  });
 
-  @test
-  public async 'class that inherits from nothing with implied constructor'(): Promise<void> {
+  it('class that inherits from nothing with implied constructor', async () => {
     const code = 'export class Vehicle { }';
     const t = new SingleFileAcceptanceTestCase(code);
     await t.run();
@@ -130,9 +121,9 @@ export class ClassSerializationTests {
     expect(constructorSig.text).to.eq('(): Vehicle');
 
     t.cleanup();
-  }
+  });
 
-  @test public async 'access modifier keyword on class method'(): Promise<void> {
+  it('access modifier keyword on class method', async () => {
     const code = `export class Foo {
       protected bar() {}
     }`;
@@ -140,19 +131,19 @@ export class ClassSerializationTests {
     await t.run();
     const file = t.sourceFile();
     const fileSymbol = t.resolveReference(file.symbol!);
-    const fileExports = mapDict(fileSymbol.exports!, (e) => t.resolveReference(e));
+    const fileExports = mapDict(fileSymbol.exports!, e => t.resolveReference(e));
     expect(Object.keys(fileExports)).to.deep.eq(['Foo']);
     const classSymbol = fileExports.Foo!;
 
     const instanceType = t.resolveReference(classSymbol.symbolType);
-    const instanceMembers = mapDict(instanceType.properties!, (p) => t.resolveReference(p));
+    const instanceMembers = mapDict(instanceType.properties!, p => t.resolveReference(p));
     const { bar } = instanceMembers;
     expect(bar!.modifiers).to.deep.include('protected');
 
     t.cleanup();
-  }
+  });
 
-  @test public async 'access modifier keyword via comment'(): Promise<void> {
+  it('access modifier keyword via comment', async () => {
     const code = `export class Foo {
       /**
        * @protected
@@ -163,20 +154,19 @@ export class ClassSerializationTests {
     await t.run();
     const file = t.sourceFile();
     const fileSymbol = t.resolveReference(file.symbol!);
-    const fileExports = mapDict(fileSymbol.exports!, (e) => t.resolveReference(e));
+    const fileExports = mapDict(fileSymbol.exports!, e => t.resolveReference(e));
     expect(Object.keys(fileExports)).to.deep.eq(['Foo']);
     const classSymbol = fileExports.Foo!;
 
     const instanceType = t.resolveReference(classSymbol.symbolType);
-    const instanceMembers = mapDict(instanceType.properties!, (p) => t.resolveReference(p));
+    const instanceMembers = mapDict(instanceType.properties!, p => t.resolveReference(p));
     const { bar } = instanceMembers;
     expect(bar!.modifiers).to.deep.include('protected');
 
     t.cleanup();
-  }
+  });
 
-  @test
-  public async 'inheriting a constructor from a base class'(): Promise<void> {
+  it('inheriting a constructor from a base class', async () => {
     const code = `class Vehicle {
   public readonly abc = 'def'
   constructor(n: number) { setTimeout(() => console.log('hello'), n)}
@@ -214,10 +204,9 @@ export class Car extends Vehicle {}`;
     expect(constructorSig.text).to.eq('(n: number): Car');
 
     t.cleanup();
-  }
+  });
 
-  @test
-  public async 'heritage clause serialization'(): Promise<void> {
+  it('heritage clause serialization', async () => {
     const code = `export interface HasVinNumber {
   vin: number;
 }
@@ -240,21 +229,24 @@ export class Car extends Vehicle implements HasVinNumber {
     const classSymbol = t.resolveReference(fileSymbol.exports!.Car);
 
     const classSymbolType = t.resolveReference(classSymbol.symbolType);
-    const baseTypes = classSymbolType.baseTypes!.map((bc) => t.resolveReference(bc));
-    expect(baseTypes.map((bt) => bt.text).join(', ')).to.eq('Vehicle');
+    const baseTypes = classSymbolType.baseTypes!.map(bc => t.resolveReference(bc));
+    expect(baseTypes.map(bt => bt.text).join(', ')).to.eq('Vehicle');
 
     const { heritageClauses } = classSymbol;
     expect(heritageClauses!.length).to.eq(2);
     expect(heritageClauses![0].kind).to.eq('extends');
-    expect(heritageClauses![0].types.map((typ) => t.resolveReference(typ).text).join(', ')).to.eq('Vehicle');
+    expect(heritageClauses![0].types.map(typ => t.resolveReference(typ).text).join(', ')).to.eq(
+      'Vehicle',
+    );
     expect(heritageClauses![1].kind).to.eq('implements');
-    expect(heritageClauses![1].types.map((typ) => t.resolveReference(typ).text).join(', ')).to.eq('HasVinNumber');
+    expect(heritageClauses![1].types.map(typ => t.resolveReference(typ).text).join(', ')).to.eq(
+      'HasVinNumber',
+    );
 
     t.cleanup();
-  }
+  });
 
-  @test
-  public async 'inheriting multiple constructor signatures from a base class'(): Promise<void> {
+  it('inheriting multiple constructor signatures from a base class', async () => {
     const code = `class Vehicle {
   public readonly abc = 'def'
 
@@ -296,10 +288,9 @@ export class Car extends Vehicle {}`;
     expect(constructorSig2.text).to.eq('(n: number, coeff: number): Car');
 
     t.cleanup();
-  }
+  });
 
-  @test
-  public async 'class with properties, methods and static functions'(): Promise<void> {
+  it('class with properties, methods and static functions', async () => {
     const code = `export class SimpleClass {
   constructor(bar: string) { console.log(bar); }
   public foo: string = 'bar';
@@ -330,7 +321,7 @@ export class Car extends Vehicle {}`;
 
     const classPropNames = Object.keys(classValueDeclarationType.properties!);
     expect(classPropNames).to.deep.eq(['hello', 'planet']);
-    const [helloSym, planetSym] = classPropNames.map((n) =>
+    const [helloSym, planetSym] = classPropNames.map(n =>
       t.resolveReference(classValueDeclarationType.properties![n]),
     );
     expect(helloSym.text).to.eq('hello');
@@ -346,22 +337,19 @@ export class Car extends Vehicle {}`;
     expect(instanceType.text).to.eq('SimpleClass');
     const instancePropNames = Object.keys(instanceType.properties!);
     expect(instancePropNames).to.deep.eq(['foo']);
-    const props = instancePropNames.map((p) => t.resolveReference(instanceType.properties![p]));
+    const props = instancePropNames.map(p => t.resolveReference(instanceType.properties![p]));
     const [fooSym] = props;
     expect(fooSym.flags).to.deep.eq(['Property']);
     expect(fooSym.text).to.eq('foo');
-    const [fooType] = props.map((s) => t.resolveReference(s.valueDeclarationType));
+    const [fooType] = props.map(s => t.resolveReference(s.valueDeclarationType));
 
     expect(fooType.text).to.eql('string');
     expect(fooType.flags).to.deep.eq(['String']);
 
     t.cleanup();
-  }
+  });
 
-  @test
-  public async 'class with properties, methods and static functions using a variety of access modifier keywords'(): Promise<
-    void
-  > {
+  it('class with properties, methods and static functions using a variety of access modifier keywords', async () => {
     const code = `export abstract class SimpleClass {
 
   protected static hello(): string { return 'world'; }
@@ -396,7 +384,7 @@ export class Car extends Vehicle {}`;
 
     const classPropNames = Object.keys(classValueDeclarationType.properties!);
     expect(classPropNames).to.deep.eq(['hello']);
-    const [helloSym] = classPropNames.map((n) =>
+    const [helloSym] = classPropNames.map(n =>
       t.resolveReference(classValueDeclarationType.properties![n]),
     );
     expect(helloSym.text).to.eq('hello');
@@ -410,11 +398,11 @@ export class Car extends Vehicle {}`;
     expect(instanceType.text).to.eq('SimpleClass');
     const instancePropNames = Object.keys(instanceType.properties!);
     expect(instancePropNames).to.deep.eq(['foo', 'myBar', 'myBaz']);
-    const props = instancePropNames.map((p) => t.resolveReference(instanceType.properties![p]));
+    const props = instancePropNames.map(p => t.resolveReference(instanceType.properties![p]));
     const [fooSym, myBarSym, myBazSym] = props;
     expect(fooSym.flags).to.deep.eq(['Property']);
     expect(fooSym.text).to.eq('foo');
-    const [fooType] = props.map((s) => t.resolveReference(s.valueDeclarationType));
+    const [fooType] = props.map(s => t.resolveReference(s.valueDeclarationType));
 
     expect(fooType.text).to.eql('string');
     expect(fooType.flags).to.deep.eq(['String']);
@@ -422,5 +410,5 @@ export class Car extends Vehicle {}`;
     expect(myBarSym.modifiers).to.deep.eq(['public']);
     expect(myBazSym.modifiers).to.deep.eq(['private']);
     t.cleanup();
-  }
-}
+  });
+});

@@ -1,13 +1,10 @@
 import { isDefined } from '@code-to-json/utils';
 import { expect } from 'chai';
-import { slow, suite, test } from 'mocha-typescript';
+import { describe, it } from 'mocha';
 import SingleFileAcceptanceTestCase from './helpers/test-case';
 
-@suite
-@slow(800)
-export class SignatureSerializationTests {
-  @test
-  public async 'function with one signature'(): Promise<void> {
+describe('Signature serialization tests', () => {
+  it('function with one signature', async () => {
     const code = `export function add(a: number, b: number) { return a + b; }`;
     const t = new SingleFileAcceptanceTestCase(code);
     await t.run();
@@ -41,10 +38,9 @@ export class SignatureSerializationTests {
       },
     ]);
     t.cleanup();
-  }
+  });
 
-  @test
-  public async 'param and return types via JSDoc comment'(): Promise<void> {
+  it('param and return types via JSDoc comment', async () => {
     const code = `/**
  * @param a {string} first thing
  * @param b {string} second thing
@@ -83,10 +79,9 @@ export function add(a, b) { return a + b; }`;
       },
     ]);
     t.cleanup();
-  }
+  });
 
-  @test
-  public async 'function with multiple signatures'(): Promise<void> {
+  it('function with multiple signatures', async () => {
     const code = `export function add(a: string, b: string): string;
 export function add(a: number, b: number): number;
 export function add(a: number | string, b: number | string): number | string {
@@ -152,10 +147,9 @@ export function add(a: number | string, b: number | string): number | string {
     ]);
 
     t.cleanup();
-  }
+  });
 
-  @test
-  public async 'function with multiple signatures, sharing documentation'(): Promise<void> {
+  it('function with multiple signatures, sharing documentation', async () => {
     const code = `
 /**
  * Add a couple of things together
@@ -240,12 +234,9 @@ export function add(a: number | string, b: number | string): number | string {
     });
     expect(fnType.callSignatures![1].documentation).to.eq(undefined);
     t.cleanup();
-  }
+  });
 
-  @test
-  public async 'function with multiple signatures, with a doc override for several signatures'(): Promise<
-    void
-  > {
+  it('function with multiple signatures, with a doc override for several signatures', async () => {
     const code = `
 /**
  * Add a couple of strings together
@@ -360,5 +351,5 @@ export function add(a: number | string, b: number | string): number | string {
       summary: ['Add a couple of numbers together'],
     });
     t.cleanup();
-  }
-}
+  });
+});

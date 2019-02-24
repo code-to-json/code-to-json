@@ -1,13 +1,11 @@
 /* eslint-disable no-bitwise */
 import { expect } from 'chai';
-import { suite, test } from 'mocha-typescript';
+import { describe, it } from 'mocha';
 import * as ts from 'typescript';
 import { flagsToString } from '../src/flags';
 
-@suite
-export class FlagsTests {
-  @test
-  public async flagsToStringTests(): Promise<void> {
+describe('Flags tests', () => {
+  it('flagsToStringTests', async () => {
     expect(flagsToString(ts.ObjectFlags.Class, 'object')).to.deep.eq(['Class'], 'single flag');
     expect(flagsToString(ts.ObjectFlags.ClassOrInterface, 'object')).to.eql(
       ['Class', 'Interface'],
@@ -18,29 +16,29 @@ export class FlagsTests {
       undefined,
       'flag does not exist in map',
     );
-  }
+  });
 
-  @test public async 'type flags'(): Promise<void> {
+  it('type flags', async () => {
     expect(flagsToString(ts.TypeFlags.Intersection, 'type')).to.deep.equal(['Intersection']);
-  }
+  });
 
-  @test public async 'node flags'(): Promise<void> {
+  it('node flags', async () => {
     expect(flagsToString(ts.NodeFlags.AwaitContext, 'node')).to.deep.equal(['AwaitContext']);
-  }
+  });
 
-  @test public async 'nodeBuilder flags'(): Promise<void> {
+  it('nodeBuilder flags', async () => {
     expect(flagsToString(ts.NodeBuilderFlags.AllowEmptyTuple, 'nodeBuilder')).to.deep.eq([
       'AllowEmptyTuple',
     ]);
-  }
+  });
 
-  @test public async 'symbolFormat flags'(): Promise<void> {
+  it('symbolFormat flags', async () => {
     expect(
       flagsToString(ts.SymbolFormatFlags.UseAliasDefinedOutsideCurrentScope, 'symbolFormat'),
     ).to.deep.eq(['UseAliasDefinedOutsideCurrentScope']);
-  }
+  });
 
-  @test public async 'invalid flag type'(): Promise<void> {
+  it('invalid flag type', async () => {
     expect(() => flagsToString(33, 'xxx' as any)).to.throw('Unsupported flag type: xxx');
-  }
-}
+  });
+});

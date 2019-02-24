@@ -1,18 +1,15 @@
 import { expect } from 'chai';
-import { suite, test } from 'mocha-typescript';
+import { describe, it } from 'mocha';
 import * as Exports from '../src/index';
 
 const { formatWalkerOutput } = Exports;
 
-@suite
-export class PublicApiSurface {
-  @test
-  public 'formatWalkerOutput exists'(): void {
+describe('Public API surface tests', () => {
+  it('formatWalkerOutput exists', () => {
     expect(formatWalkerOutput).to.be.a('function');
-  }
+  });
 
-  @test
-  public 'only intended exports'(): void {
+  it('only intended exports', () => {
     expect(Object.keys(Exports).sort()).to.deep.eq(['formatWalkerOutput']);
-  }
-}
+  });
+});

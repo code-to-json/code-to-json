@@ -1,11 +1,9 @@
 import { expect } from 'chai';
-import { suite, test } from 'mocha-typescript';
+import { describe, it } from 'mocha';
 import { parseCommentString } from '../src/index';
 
-@suite
-export class TSDocTagsTests {
-  @test
-  public '@typeparam tags'(): void {
+describe('TSDoc tags tests', () => {
+  it('@typeparam tags', () => {
     expect(
       parseCommentString(`
 /**
@@ -25,10 +23,9 @@ export class TSDocTagsTests {
         },
       ],
     });
-  }
+  });
 
-  @test
-  public '@remarks'(): void {
+  it('@remarks', () => {
     expect(
       parseCommentString(`
 /**
@@ -50,10 +47,9 @@ export class TSDocTagsTests {
       summary: ['This is only a comment in a file'],
       remarks: ['This is my first line', '\n', '\n', 'another line', '\n', '\n', 'the last line'],
     });
-  }
+  });
 
-  @test
-  public 'modifier tags'(): void {
+  it('modifier tags', () => {
     expect(
       parseCommentString(`
 /**
@@ -67,5 +63,5 @@ export class TSDocTagsTests {
       summary: ['This is only a comment in a file', '\n', '\n', '\n', '\n', 'third thing'],
       modifiers: ['internal', 'beta'],
     });
-  }
-}
+  });
+});

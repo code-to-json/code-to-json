@@ -1,12 +1,10 @@
 import { expect } from 'chai';
-import { suite, test } from 'mocha-typescript';
+import { describe, it } from 'mocha';
 import { createReverseResolver } from '../src/index';
 import { nodeHost } from './helpers';
 
-@suite
-export class ModulePathNormalizerTests {
-  @test
-  public async 'no project folder or main'(): Promise<void> {
+describe('ModulePathNormalizer tests', () => {
+  it('no project folder or main', async () => {
     const mn = createReverseResolver(nodeHost);
     expect(mn.filePathToModuleInfo('foo/bar/baz.ts')).to.deep.eq({
       originalFileName: 'foo/bar/baz.ts',
@@ -42,10 +40,9 @@ export class ModulePathNormalizerTests {
       moduleName: 'bin/code-to-json',
       extension: null,
     });
-  }
+  });
 
-  @test
-  public async 'yes project folder, no main'(): Promise<void> {
+  it('yes project folder, no main', async () => {
     const mn = createReverseResolver(nodeHost, { path: 'foo/bar', name: 'biz' });
     expect(mn.filePathToModuleInfo('foo/bar/baz.ts')).to.deep.eq({
       originalFileName: 'foo/bar/baz.ts',
@@ -53,10 +50,9 @@ export class ModulePathNormalizerTests {
       moduleName: 'biz/baz',
       extension: 'ts',
     });
-  }
+  });
 
-  @test
-  public async 'yes project folder, yes main'(): Promise<void> {
+  it('yes project folder, yes main', async () => {
     const mn = createReverseResolver(nodeHost, {
       path: 'foo/bar',
       name: 'biz',
@@ -76,10 +72,9 @@ export class ModulePathNormalizerTests {
       moduleName: 'biz',
       extension: 'ts',
     });
-  }
+  });
 
-  @test
-  public async 'scoped packages'(): Promise<void> {
+  it('scoped packages', async () => {
     const mn = createReverseResolver(nodeHost, {
       path: 'foo/bar',
       name: '@code-to-json/cli',
@@ -99,5 +94,5 @@ export class ModulePathNormalizerTests {
       moduleName: '@code-to-json/cli',
       extension: 'ts',
     });
-  }
-}
+  });
+});

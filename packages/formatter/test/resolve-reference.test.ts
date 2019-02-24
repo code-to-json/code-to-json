@@ -1,12 +1,10 @@
 import { createRef, Ref } from '@code-to-json/utils';
 import { expect } from 'chai';
-import { suite, test } from 'mocha-typescript';
+import { describe, it } from 'mocha';
 import resolveReference from '../src/resolve-reference';
 
-@suite
-export class ResolveReferenceTests {
-  @test
-  public type(): void {
+describe('Resolve reference tests', () => {
+  it('type', () => {
     const typeRef: Ref<'type'> = (createRef as any)('type', '12345');
     const resolved = resolveReference(
       {
@@ -19,10 +17,9 @@ export class ResolveReferenceTests {
       typeRef,
     );
     expect(resolved).to.deep.eq({ id: '12345' });
-  }
+  });
 
-  @test
-  public symbol(): void {
+  it('symbol', () => {
     const symbolRef: Ref<'symbol'> = (createRef as any)('symbol', '12345');
     const resolved = resolveReference(
       {
@@ -35,10 +32,9 @@ export class ResolveReferenceTests {
       symbolRef,
     );
     expect(resolved).to.deep.eq({ id: '12345' });
-  }
+  });
 
-  @test
-  public node(): void {
+  it('node', () => {
     const nodeRef: Ref<'node'> = (createRef as any)('node', '12345');
     const resolved = resolveReference(
       {
@@ -51,10 +47,9 @@ export class ResolveReferenceTests {
       nodeRef,
     );
     expect(resolved).to.deep.eq({ id: '12345' });
-  }
+  });
 
-  @test
-  public declaration(): void {
+  it('declaration', () => {
     const declarationRef: Ref<'declaration'> = (createRef as any)('declaration', '12345');
     const resolved = resolveReference(
       {
@@ -67,10 +62,9 @@ export class ResolveReferenceTests {
       declarationRef,
     );
     expect(resolved).to.deep.eq({ id: '12345' });
-  }
+  });
 
-  @test
-  public sourceFile(): void {
+  it('sourceFile', () => {
     const sourceFileRef: Ref<'sourceFile'> = (createRef as any)('sourceFile', '12345');
     const resolved = resolveReference(
       {
@@ -83,5 +77,5 @@ export class ResolveReferenceTests {
       sourceFileRef,
     );
     expect(resolved).to.deep.eq({ id: '12345' });
-  }
-}
+  });
+});

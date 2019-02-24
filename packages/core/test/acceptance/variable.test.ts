@@ -1,12 +1,9 @@
 import { expect } from 'chai';
-import { slow, suite, test } from 'mocha-typescript';
+import { describe, it } from 'mocha';
 import SingleFileAcceptanceTestCase from './helpers/test-case';
 
-@suite
-@slow(800)
-export class VariableSerializationTests {
-  @test
-  public async 'export const x: number = 1;'(): Promise<void> {
+describe('Variable serialization tests', () => {
+  it('export const x: number = 1;', async () => {
     const code = 'export const x: number = 1;';
     const t = new SingleFileAcceptanceTestCase(code);
     await t.run();
@@ -24,10 +21,9 @@ export class VariableSerializationTests {
     expect(variableType.text).to.eql('number');
     expect(variableType.flags).to.deep.eq(['Number']);
     t.cleanup();
-  }
+  });
 
-  @test
-  public async 'export const x = 1;'(): Promise<void> {
+  it('export const x = 1;', async () => {
     const code = 'export const x = 1;';
     const t = new SingleFileAcceptanceTestCase(code);
     await t.run();
@@ -42,10 +38,9 @@ export class VariableSerializationTests {
     expect(variableType.text).to.eql('1');
     expect(variableType.flags).to.deep.eq(['NumberLiteral']);
     t.cleanup();
-  }
+  });
 
-  @test
-  public async 'export let x = 1;'(): Promise<void> {
+  it('export let x = 1;', async () => {
     const code = 'export let x = 1;';
     const t = new SingleFileAcceptanceTestCase(code);
     await t.run();
@@ -59,10 +54,9 @@ export class VariableSerializationTests {
     expect(variableType.text).to.eql('number');
     expect(variableType.flags).to.deep.eq(['Number']);
     t.cleanup();
-  }
+  });
 
-  @test
-  public async 'export let x: string | number = 33;'(): Promise<void> {
+  it('export let x: string | number = 33;', async () => {
     const src = 'export let x: string | number = 33;';
     const t = new SingleFileAcceptanceTestCase(src);
     await t.run();
@@ -76,10 +70,9 @@ export class VariableSerializationTests {
     expect(variableType.text).to.eql('string | number');
     expect(variableType.flags).to.deep.eq(['Union']);
     t.cleanup();
-  }
+  });
 
-  @test
-  public async 'export const x: Promise<number> = Promise.resolve(4);'(): Promise<void> {
+  it('export const x: Promise<number> = Promise.resolve(4);', async () => {
     const code = 'export const x: Promise<number> = Promise.resolve(4);';
     const t = new SingleFileAcceptanceTestCase(code);
     await t.run();
@@ -95,12 +88,9 @@ export class VariableSerializationTests {
     expect(variableType.libName).to.eq('lib.es2015.promise.d.ts');
     expect(variableType.objectFlags).to.deep.eq(['Reference']);
     t.cleanup();
-  }
+  });
 
-  @test
-  public async 'export const x: { p: Promise<number[]> } = { p: Promise.resolve([1, 2, 3]) };'(): Promise<
-    void
-  > {
+  it('export const x: { p: Promise<number[]> } = { p: Promise.resolve([1, 2, 3]) };', async () => {
     const code = 'export const x: { p: Promise<number[]> } = { p: Promise.resolve([1, 2, 3]) };';
     const t = new SingleFileAcceptanceTestCase(code);
     await t.run();
@@ -125,10 +115,9 @@ export class VariableSerializationTests {
     expect(pTyp.text).to.eq('Promise<number[]>');
     expect(pTyp.libName).to.eq('lib.es2015.promise.d.ts');
     t.cleanup();
-  }
+  });
 
-  @test
-  public async "export const x: Pick<Promise<number>, 'then'>"(): Promise<void> {
+  it("export const x: Pick<Promise<number>, 'then'>", async () => {
     const code = "export const x: Pick<Promise<number>, 'then'>";
     const t = new SingleFileAcceptanceTestCase(code);
     await t.run();
@@ -144,5 +133,5 @@ export class VariableSerializationTests {
     expect(variableType.objectFlags).to.deep.eq(['Mapped', 'Instantiated']);
 
     t.cleanup();
-  }
-}
+  });
+});

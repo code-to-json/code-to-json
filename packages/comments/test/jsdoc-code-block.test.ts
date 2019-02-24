@@ -1,11 +1,9 @@
 import { expect } from 'chai';
-import { suite, test } from 'mocha-typescript';
+import { describe, it } from 'mocha';
 import { parseCommentString } from '../src/index';
 
-@suite
-export class JSDocCodeBlockTests {
-  @test
-  public 'fenced code'(): void {
+describe('JSDoc code block tests', () => {
+  it('fenced code', () => {
     expect(
       parseCommentString(`
 /**
@@ -28,9 +26,8 @@ export class JSDocCodeBlockTests {
         },
       ],
     });
-  }
-  @test
-  public '@example tag'(): void {
+  });
+  it('@example tag', () => {
     expect(
       parseCommentString(`
 /**
@@ -53,9 +50,8 @@ export class JSDocCodeBlockTests {
         },
       ],
     });
-  }
-  @test
-  public '@doctest tag'(): void {
+  });
+  it('@doctest tag', () => {
     expect(
       parseCommentString(`
 /**
@@ -78,10 +74,9 @@ export class JSDocCodeBlockTests {
         },
       ],
     });
-  }
+  });
 
-  @test
-  public 'fenced code block in a docsection'(): void {
+  it('fenced code block in a docsection', () => {
     expect(
       parseCommentString(`/**
  * Concatenate two strings
@@ -105,5 +100,5 @@ export class JSDocCodeBlockTests {
         },
       ],
     });
-  }
-}
+  });
+});

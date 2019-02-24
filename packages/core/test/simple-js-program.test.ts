@@ -1,7 +1,7 @@
 import { setupTestCase } from '@code-to-json/test-helpers';
 import { createProgramFromCodeString } from '@code-to-json/utils-ts';
 import { expect } from 'chai';
-import { slow, suite, test } from 'mocha-typescript';
+import { describe, it } from 'mocha';
 import * as path from 'path';
 import { getDeclarationFiles } from './test-helpers';
 
@@ -42,11 +42,8 @@ const STANDARD_LIBS = [
   'lib.esnext.full.d.ts',
 ];
 
-@suite
-@slow(800)
-export class TypeScriptFixturePrograms {
-  @test
-  public async 'creation of a simple JS program from fixture files'(): Promise<void> {
+describe('TypeScript fixture program tests', () => {
+  it('creation of a simple JS program from fixture files', async () => {
     const { program } = await setupTestCase(
       path.join(__dirname, '..', '..', '..', 'samples', 'js-single-file'),
       ['src/index.js'],
@@ -60,10 +57,9 @@ export class TypeScriptFixturePrograms {
     expect(nonDeclarationFiles[0].fileName)
       .to.contain('src')
       .to.contain('index.js');
-  }
+  });
 
-  @test
-  public async 'creation of a simple JS program from fixture object'(): Promise<void> {
+  it('creation of a simple JS program from fixture object', async () => {
     const { program } = await setupTestCase(
       {
         'tsconfig.json': `{
@@ -75,7 +71,7 @@ export class TypeScriptFixturePrograms {
     "include": ["**/*.test.ts", "../src/**/*.ts"]
   }
 `,
-        "src": {
+        src: {
           'index.js': `import { readdirSync } from 'fs';
 
 /**
@@ -156,10 +152,9 @@ export class Unicycle extends Vehicle {
     expect(nonDeclarationFiles[0].fileName)
       .to.contain('src')
       .to.contain('index.js');
-  }
+  });
 
-  @test
-  public async 'creation of a simple TS program from string'(): Promise<void> {
+  it('creation of a simple TS program from string', async () => {
     const { program } = createProgramFromCodeString("export const x: string = 'foo';", 'ts');
     const { tsLibNames, nonDeclarationFiles } = getDeclarationFiles(program.getSourceFiles());
 
@@ -170,5 +165,5 @@ export class Unicycle extends Vehicle {
     expect(nonDeclarationFiles[0].fileName)
       .and.to.contain('module.ts')
       .but.not.contain('src');
-  }
-}
+  });
+});

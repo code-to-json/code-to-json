@@ -1,19 +1,16 @@
 import { expect } from 'chai';
-import { suite, test } from 'mocha-typescript';
+import { describe, it } from 'mocha';
 import * as Exported from '../src/index';
 
 const { parseCommentString, parser } = Exported;
 
-@suite
-export class PublicApiSurface {
-  @test
-  public 'public API surface is as expected'(): void {
+describe('Public API surface tests', () => {
+  it('public API surface is as expected', () => {
     expect(parseCommentString).to.be.a('function', 'parseCommentString is a function');
     expect(parser).to.be.a('object', 'parser is an object');
-  }
+  });
 
-  @test
-  public 'no extra exports'(): void {
+  it('no extra exports', () => {
     expect(Object.keys(Exported).sort()).to.eql(['parseCommentString', 'parser']);
-  }
-}
+  });
+});

@@ -1,16 +1,15 @@
 import { expect } from 'chai';
-import { suite, test } from 'mocha-typescript';
+import { describe, it } from 'mocha';
 import { getTsLibName } from '../src/ts-lib';
 
-@suite
-export class TsLibsTests {
-  @test public 'invalid attemot to obtain the name of a tslib'(): void {
+describe('TSLib tests', () => {
+  it('invalid attemot to obtain the name of a tslib', () => {
     expect(getTsLibName('/Users/mike/foo/bar/index.ts')).to.eq(undefined);
-  }
+  });
 
-  @test public 'valid attemot to obtain the name of a tslib'(): void {
+  it('valid attemot to obtain the name of a tslib', () => {
     expect(getTsLibName('/Users/mike/foo/bar/node_modules/typescript/lib/lib.es5.d.ts')).to.eq(
       'lib.es5.d.ts',
     );
-  }
-}
+  });
+});
