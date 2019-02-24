@@ -2,8 +2,8 @@
 import { FormatterOptions, FormatterOutput } from '../src/index';
 
 // ensure the exported types exist
-let x!: FormatterOutput;
-let y!: FormatterOptions;
+let x: FormatterOutput = { data: {} } as any;
+let y: FormatterOptions = { data: {} } as any;
 
 let yAsObject = y as object;
 let xAsObject = x as object;
