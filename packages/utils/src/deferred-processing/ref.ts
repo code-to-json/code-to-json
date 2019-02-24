@@ -46,7 +46,7 @@ export type AnyRef<RefRegistry> = RefRegistry[RefTypes<RefRegistry>];
  * @public
  */
 export function isRef<R extends Ref<any>>(thing?: R): thing is R;
-export function isRef<K extends string>(thing: any, refType: K): thing is Ref<K>;
+export function isRef<K extends string>(thing: any, refTyp: K): thing is Ref<K>;
 export function isRef<R extends Ref<any>>(thing?: R): thing is R {
   return (
     !!thing &&
