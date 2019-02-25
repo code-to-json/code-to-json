@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-rc.31](https://github.com/mike-north/code-to-json/compare/@code-to-json/core-linker@1.0.0-rc.30...@code-to-json/core-linker@1.0.0-rc.31) (2019-02-25)
+
+
+### Bug Fixes
+
+* add missing relationships to core-linker ([7c5aa8b](https://github.com/mike-north/code-to-json/commit/7c5aa8b))
+* add missing relationships, discovered by completeness tests ([3141b4f](https://github.com/mike-north/code-to-json/commit/3141b4f))
+
+
+
+
+
 # [1.0.0-rc.30](https://github.com/mike-north/code-to-json/compare/@code-to-json/core-linker@1.0.0-rc.29...@code-to-json/core-linker@1.0.0-rc.30) (2019-02-24)
 
 **Note:** Version bump only for package @code-to-json/core-linker

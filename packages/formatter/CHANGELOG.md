@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-rc.42](https://github.com/mike-north/code-to-json/compare/@code-to-json/formatter@1.0.0-rc.41...@code-to-json/formatter@1.0.0-rc.42) (2019-02-25)
+
+
+### Bug Fixes
+
+* add missing relationships, discovered by completeness tests ([3141b4f](https://github.com/mike-north/code-to-json/commit/3141b4f))
+* add missing relationships, discovered by completeness tests ([eaccae9](https://github.com/mike-north/code-to-json/commit/eaccae9))
+
+
+
+
+
 # [1.0.0-rc.41](https://github.com/mike-north/code-to-json/compare/@code-to-json/formatter@1.0.0-rc.40...@code-to-json/formatter@1.0.0-rc.41) (2019-02-24)
 
 **Note:** Version bump only for package @code-to-json/formatter
