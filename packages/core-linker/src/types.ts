@@ -107,6 +107,9 @@ export interface LinkedSymbolRelationships {
   valueDeclaration?: LinkedDeclaration;
   heritageClauses?: LinkedHeritageClause[];
   aliasedSymbol?: LinkedSymbol;
+  declarations?: LinkedDeclaration[];
+  otherDeclarationTypes?: Array<{ declaration: LinkedDeclaration; type?: LinkedType }>;
+  location?: LinkedCodeRange;
 }
 
 export interface LinkedSourceFileRelationships {
@@ -136,12 +139,8 @@ export interface LinkedSignature
 
 export interface LinkedNode<Type extends string = 'node'> extends SerializedEntity<Type> {
   text: string;
-  kind: string;
-  decorators?: string[];
+  syntaxKind: string;
   location?: LinkedCodeRange;
-  modifiers?: string[];
-  isExposed: boolean;
-  isExported: boolean;
 }
 
 export type LinkedCodePoisition = [LinkedSourceFile, number, number];
