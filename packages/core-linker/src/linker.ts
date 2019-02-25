@@ -3,6 +3,8 @@ import {
   SerializedSymbol,
   SerializedType,
   WalkerOutputData,
+  DeclarationRef,
+  TypeRef,
 } from '@code-to-json/core';
 import {
   SerializedCodePoisition,
@@ -10,6 +12,8 @@ import {
   SerializedFileReference,
   SerializedHeritageClause,
   SerializedSignature,
+  SerializedDeclaration,
+  SerializedNode,
 } from '@code-to-json/core/lib/src/types/serialized-entities';
 import { isDefined, Ref, refId, refType } from '@code-to-json/utils';
 import { Dict } from '@mike-north/types';
@@ -27,6 +31,8 @@ import {
   LinkedTypeRelationships,
   LinkedWalkerOutputData,
   MaybeLinkedWalkerOutputData,
+  LinkedDeclaration,
+  LinkedNode,
 } from './types';
 import { pruneUndefinedValues } from './utils';
 
@@ -145,7 +151,21 @@ function linkSymbol(res: LinkedRefResolver, sym?: LinkedSymbol & SerializedSymbo
     relatedSymbols,
     heritageClauses,
     aliasedSymbol,
+    declarations,
+    otherDeclarationTypes,
+    location,
   } = sym;
+  if (otherDeclarationTypes) {
+    for (const odt of otherDeclarationTypes) {
+      const linkedDecl = res(odt.declaration as DeclarationRef);
+      if (!linkedDecl) throw new Error(`malformed otherDeclarationTypes entry: ${JSON.stringify(odt)}`);
+      odt.declaration = linkedDecl;
+      if (odt.type) {
+        odt.type = res(odt.type as TypeRef);
+      }
+    }
+  }
+  linkCodePositionOrRange(location, res);
   const hcs = heritageClauses as (undefined | SerializedHeritageClause[]);
   const newData: LinkedSymbolRelationships = {
     symbolType: res(symbolType),
@@ -158,6 +178,8 @@ function linkSymbol(res: LinkedRefResolver, sym?: LinkedSymbol & SerializedSymbo
     relatedSymbols: resolveRefList(relatedSymbols, res),
     valueDeclaration: res(valueDeclaration),
     aliasedSymbol: res(aliasedSymbol),
+    declarations: resolveRefList(declarations, res),
+    otherDeclarationTypes,
   };
   if (hcs) {
     newData.heritageClauses = hcs.map(hc => ({
@@ -169,12 +191,29 @@ function linkSymbol(res: LinkedRefResolver, sym?: LinkedSymbol & SerializedSymbo
   Object.assign(sym, pruneUndefinedValues(newData));
 }
 
+function linkDeclaration(
+  res: LinkedRefResolver,
+  decl?: LinkedDeclaration & SerializedDeclaration,
+): void {
+  if (!decl) return;
+  const { location } = decl;
+  linkCodePositionOrRange(location, res);
+}
+
+function linkNode(res: LinkedRefResolver, nod?: LinkedNode & SerializedNode): void {
+  if (!nod) return;
+  const { location } = nod;
+  linkCodePositionOrRange(location, res);
+}
+
 export function linkWalkerOutputData(unlinked: WalkerOutputData): LinkedWalkerOutputData {
   const out = JSON.parse(JSON.stringify(unlinked)) as MaybeLinkedWalkerOutputData;
-  const { symbols, types, sourceFiles } = out;
+  const { symbols, types, sourceFiles, declarations, nodes } = out;
   const resolver = createLinkedRefResolver(out);
   Object.keys(symbols).forEach(symKey => linkSymbol(resolver, symbols[symKey]));
   Object.keys(types).forEach(typeKey => linkType(resolver, types[typeKey]));
+  Object.keys(declarations).forEach(declKey => linkDeclaration(resolver, declarations[declKey]));
+  Object.keys(nodes).forEach(nodeKey => linkNode(resolver, nodes[nodeKey]));
   Object.keys(sourceFiles).forEach(sourceFileKey =>
     linkSourceFile(resolver, sourceFiles[sourceFileKey]),
   );

@@ -145,6 +145,8 @@ function linkSymbol(
     valueDeclaration,
     heritageClauses,
     aliasedSymbol,
+    declarations,
+    sourceFile,
   } = sym;
   const newData: LinkedFormattedSymbolRelationships = {
     otherDeclarationTypes: !otherDeclarationTypes
@@ -167,6 +169,8 @@ function linkSymbol(
     related: resolveRefList(related, res),
     valueDeclaration: res(valueDeclaration),
     aliasedSymbol: res(aliasedSymbol),
+    sourceFile: res(sourceFile),
+    declarations: resolveRefList(declarations, res),
   };
   if (sym.location) {
     linkCodePositionOrRange(sym.location, res);
@@ -180,7 +184,6 @@ function linkSymbol(
 
   Object.assign(sym, pruneUndefinedValues(newData));
 }
-
 
 export function linkFormatterData(unlinked: FormatterOutputData): LinkedFormattedOutputData {
   const out = JSON.parse(JSON.stringify(unlinked)) as MaybeLinkedFormattedOutputData;

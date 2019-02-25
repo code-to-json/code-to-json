@@ -2,4 +2,4 @@
 --require source-map-support/register
 --timeout 60000
 --watch-extensions js,ts,json
- **/*.test.ts
+**/*.test.ts

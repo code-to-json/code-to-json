@@ -64,6 +64,8 @@ export class Thing implements Foo<string> {
     expect(exportSymbols.Thing!.heritageClauses!.length).to.eq(1);
     expect(exportSymbols.Thing!.heritageClauses![0].kind).to.eq('implements');
     expect(exportSymbols.Thing!.heritageClauses![0].types[0].text).to.eq('Foo<string>');
+    expect(exportSymbols.Thing!.location![0].entity).to.eq('sourceFile');
+    expect(exportSymbols.Thing!.sourceFile!.entity).to.eq('sourceFile');
     expect(
       mapDict(exportSymbols.Thing!.symbolType!.properties!, p => p.valueDeclarationType!.text),
     ).to.deep.eq({

@@ -63,8 +63,7 @@ export interface LinkedFormattedTypeRelationships {
 
 export interface LinkedFormattedType
   extends FormattedTypeAttributes,
-    LinkedFormattedTypeRelationships,
-    HasDocumentation {}
+    LinkedFormattedTypeRelationships {}
 
 export interface LinkedFormattedTypeConditionInfo {
   extendsType: LinkedFormattedType;
@@ -99,6 +98,9 @@ export interface LinkedFormattedSymbolRelationships {
   valueDeclaration?: LinkedFormattedDeclaration;
   heritageClauses?: LinkedFormattedHeritageClause[];
   aliasedSymbol?: LinkedFormattedSymbol;
+  location?: LinkedFormattedCodeRange;
+  sourceFile?: LinkedFormattedSourceFile;
+  declarations?: LinkedFormattedDeclaration[];
 }
 
 export interface LinkedFormattedSourceFileRelationships {
@@ -123,12 +125,8 @@ export interface LinkedFormattedSignature
 
 export interface LinkedFormattedNode<Type extends string = 'node'> extends FormattedEntity<Type> {
   text: string;
-  kind: Type;
-  decorators?: string[];
+  syntaxKind: string;
   location?: LinkedFormattedCodeRange;
-  modifiers?: string[];
-  isExposed: boolean;
-  isExported: boolean;
 }
 
 export type LinkedFormattedCodePoisition = [LinkedFormattedSourceFile, number, number];

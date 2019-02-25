@@ -865,9 +865,9 @@
   integrity sha512-xEAyvLXo4Cter/b0EMCWUZTgXOfLOPJ/Xr52WdjVclPx9eDmNTGFtZl8Pn/nqSnZsQBNcHL0eHk/YyRyyXXpiQ==
 
 "@mike-north/types@^1.0.7":
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/@mike-north/types/-/types-1.1.0.tgz#265d26ab4f93120957fe4331265af8de340150bb"
-  integrity sha512-txbrBmm2k9hDN7khRbsxPKijUjrGAMRR2/kFW/oYcO2+SkS2B8blym8g/MdsYpZm+cViw/DOOb66PoNP5GnAJQ==
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/@mike-north/types/-/types-1.2.0.tgz#2b59fb511699ed2cf1eb26a5ac269b457897d285"
+  integrity sha512-RuDLFRjo4nkAKLGJxqdPo07lgLvvYjzqlIlUjUAZDW3GKBgE5lkPx+VieuS2Z9H53pizfjfCLWkQjNW0zdReOQ==
 
 "@mrmlnc/readdir-enhanced@^2.2.1":
   version "2.2.1"

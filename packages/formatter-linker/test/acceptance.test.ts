@@ -50,6 +50,8 @@ export class Thing implements Foo<string> {
     expect(file.symbol!.exports!.x!.valueType!.text).to.eq('string[]');
     expect(file.symbol!.exports!.Thing!.valueType!.text).to.eq('typeof Thing');
     expect(file.symbol!.exports!.Thing!.type!.text).to.eq('Thing');
+    expect(file.symbol!.location![0].kind).to.eq('sourceFile');
+    expect(file.symbol!.sourceFile!.kind).to.eq('sourceFile');
     expect(file.symbol!.exports!.Thing!.heritageClauses!.length).to.eq(1);
     expect(file.symbol!.exports!.Thing!.heritageClauses![0].kind).to.eq('implements');
     expect(file.symbol!.exports!.Thing!.heritageClauses![0].types[0].text).to.eq('Foo<string>');
