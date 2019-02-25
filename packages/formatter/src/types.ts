@@ -118,6 +118,8 @@ export interface FormattedSymbolRelationships extends HasPosition {
   valueDeclaration?: FormattedDeclarationRef;
   heritageClauses?: FormattedHeritageClause[];
   aliasedSymbol?: FormattedSymbolRef;
+  declarations?: FormattedDeclarationRef[];
+  sourceFile?: FormattedSourceFileRef;
 }
 
 export interface FormattedSignature
@@ -135,7 +137,11 @@ export interface FormattedSignatureRelationships {
   returnType?: FormattedTypeRef;
 }
 
-export interface FormattedNode<Kind extends string = 'node'> extends FormattedEntity<Kind> {}
+export interface FormattedNode<Kind extends string = 'node'> extends FormattedEntity<Kind> {
+  text: string;
+  syntaxKind: string;
+  location?: CodeRange;
+}
 
 export interface FormattedDeclaration extends FormattedNode<'declaration'> {}
 
@@ -157,4 +163,6 @@ export interface FormattedSourceFileRelationships {
 export interface FormattedEntity<Kind extends string> {
   kind: Kind;
   id: string;
+  flags?: Flags;
+  name?: string;
 }

@@ -40,6 +40,10 @@ describe('Class formatter acceptance tests', () => {
     expect(classSymbol.name).to.eq('default');
     expect(classSymbol.text).to.eq('Foo');
     expect(classSymbol.flags).to.deep.eq(['class']);
+    expect(t.resolveReference(classSymbol.sourceFile!).moduleName).to.eq('--ROOT PATH--/src/index');
+    expect(t.resolveReference(classSymbol.location![0]).moduleName).to.eq(
+      '--ROOT PATH--/src/index',
+    );
 
     const classType = t.resolveReference(classSymbol.valueType);
     expect(classType.text).to.eq('typeof Foo');

@@ -1,15 +1,23 @@
 import { SerializedNode, WalkerOutputData } from '@code-to-json/core';
 import { DataCollector } from './data-collector';
 import { FormattedNode, FormattedNodeRef } from './types';
+import { convertLocation } from './location';
 
 export default function formatNode(
-  _wo: WalkerOutputData,
-  decl: Readonly<SerializedNode>,
+  wo: WalkerOutputData,
+  nod: Readonly<SerializedNode>,
   _ref: FormattedNodeRef,
-  _collector: DataCollector,
+  collector: DataCollector,
 ): FormattedNode {
+  const { id, syntaxKind, text, name, flags, location, entity } = nod;
+
   return {
-    id: decl.id,
-    kind: 'node',
+    id,
+    name,
+    syntaxKind,
+    text,
+    flags,
+    location: location ? convertLocation(wo, collector, location) : undefined,
+    kind: entity,
   };
 }

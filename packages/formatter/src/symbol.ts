@@ -141,6 +141,8 @@ export default function formatSymbol(
     valueDeclaration,
     relatedSymbols,
     aliasedSymbol,
+    declarations,
+    sourceFile,
   } = symbol;
   const id = refId(ref);
   const info: FormattedSymbol = {
@@ -153,6 +155,14 @@ export default function formatSymbol(
       ? collector.queue(resolveReference(wo, valueDeclaration), 'd')
       : undefined,
   };
+  if (sourceFile) {
+    info.sourceFile = collector.queue(resolveReference(wo, sourceFile), 'f');
+  }
+  if (declarations) {
+    info.declarations = declarations
+      .map(d => collector.queue(resolveReference(wo, d), 'd'))
+      .filter(isDefined);
+  }
   Object.assign(
     info,
     formatSymbolModifiers(modifiers),
