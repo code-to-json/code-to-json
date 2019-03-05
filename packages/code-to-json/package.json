@@ -1,6 +1,6 @@
 {
   "name": "code-to-json",
-  "version": "1.0.0-rc.47",
+  "version": "1.0.0-rc.48",
   "description": "TypeScript & JavaScript code data extraction",
   "keywords": [
     "documentation",
@@ -22,7 +22,7 @@
     "test:coverage": "echo \"Error: run tests from root\" && exit 0"
   },
   "dependencies": {
-    "@code-to-json/cli": "^1.0.0-rc.47",
+    "@code-to-json/cli": "^1.0.0-rc.48",
     "@mike-north/types": "^1.0.7"
   },
   "bugs": {
