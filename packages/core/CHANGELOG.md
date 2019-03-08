@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-rc.47](https://github.com/mike-north/code-to-json/compare/@code-to-json/core@1.0.0-rc.46...@code-to-json/core@1.0.0-rc.47) (2019-03-08)
+
+**Note:** Version bump only for package @code-to-json/core
+
+
+
+
+
 # [1.0.0-rc.46](https://github.com/mike-north/code-to-json/compare/@code-to-json/core@1.0.0-rc.45...@code-to-json/core@1.0.0-rc.46) (2019-03-07)
 
 **Note:** Version bump only for package @code-to-json/core
