@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.3.5-rc.40](https://github.com/mike-north/code-to-json/compare/@code-to-json/schema@0.3.5-rc.39...@code-to-json/schema@0.3.5-rc.40) (2019-03-20)
+
+**Note:** Version bump only for package @code-to-json/schema
+
+
+
+
+
 ## [0.3.5-rc.39](https://github.com/mike-north/code-to-json/compare/@code-to-json/schema@0.3.5-rc.38...@code-to-json/schema@0.3.5-rc.39) (2019-03-18)
 
 **Note:** Version bump only for package @code-to-json/schema
