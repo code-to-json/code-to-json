@@ -93,7 +93,7 @@
     "@code-to-json/utils": "^1.0.0-rc.36",
     "@code-to-json/utils-ts": "^1.0.0-rc.43",
     "@mike-north/types": "^1.0.7",
-    "pkg-up": "^2.0.0",
+    "pkg-up": "^3.0.0",
     "rimraf": "^2.6.3",
     "tmp": "^0.0.33"
   }
