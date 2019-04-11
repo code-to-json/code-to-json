@@ -1,5 +1,5 @@
 import { SysHost } from '@code-to-json/utils-ts';
-import * as fs from 'fs';
+import * as fs from 'fs-extra';
 import * as path from 'path';
 import * as rimraf from 'rimraf';
 import * as tmp from 'tmp';
@@ -42,7 +42,7 @@ const NODE_HOST: SysHost = {
   },
 
   createFolder(pth: string): void {
-    fs.mkdirSync(pth, { recursive: true });
+    fs.mkdirsSync(pth);
   },
 
   removeFolderAndContents(pth: string): Promise<void> {
