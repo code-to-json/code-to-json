@@ -25,7 +25,7 @@
   "dependencies": {
     "@code-to-json/utils": "^1.0.0-rc.36",
     "@mike-north/types": "^1.0.7",
-    "typescript": "^3.1.0"
+    "typescript": "^3.4.1"
   },
   "devDependencies": {
     "@code-to-json/test-helpers": "^1.0.0-rc.42",
