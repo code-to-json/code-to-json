@@ -3,6 +3,94 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-rc.53](https://github.com/code-to-json/code-to-json/compare/code-to-json@1.0.0-rc.52...code-to-json@1.0.0-rc.53) (2019-03-28)
+
+**Note:** Version bump only for package code-to-json
+
+
+
+
+
+# [1.0.0-rc.52](https://github.com/code-to-json/code-to-json/compare/code-to-json@1.0.0-rc.51...code-to-json@1.0.0-rc.52) (2019-03-20)
+
+**Note:** Version bump only for package code-to-json
+
+
+
+
+
+# [1.0.0-rc.51](https://github.com/code-to-json/code-to-json/compare/code-to-json@1.0.0-rc.50...code-to-json@1.0.0-rc.51) (2019-03-18)
+
+**Note:** Version bump only for package code-to-json
+
+
+
+
+
+# [1.0.0-rc.50](https://github.com/code-to-json/code-to-json/compare/code-to-json@1.0.0-rc.49...code-to-json@1.0.0-rc.50) (2019-03-08)
+
+**Note:** Version bump only for package code-to-json
+
+
+
+
+
+# [1.0.0-rc.49](https://github.com/code-to-json/code-to-json/compare/code-to-json@1.0.0-rc.48...code-to-json@1.0.0-rc.49) (2019-03-07)
+
+**Note:** Version bump only for package code-to-json
+
+
+
+
+
+# [1.0.0-rc.48](https://github.com/code-to-json/code-to-json/compare/code-to-json@1.0.0-rc.47...code-to-json@1.0.0-rc.48) (2019-03-05)
+
+**Note:** Version bump only for package code-to-json
+
+
+
+
+
+# [1.0.0-rc.47](https://github.com/code-to-json/code-to-json/compare/code-to-json@1.0.0-rc.46...code-to-json@1.0.0-rc.47) (2019-03-02)
+
+**Note:** Version bump only for package code-to-json
+
+
+
+
+
+# [1.0.0-rc.46](https://github.com/code-to-json/code-to-json/compare/code-to-json@1.0.0-rc.45...code-to-json@1.0.0-rc.46) (2019-02-26)
+
+**Note:** Version bump only for package code-to-json
+
+
+
+
+
+# [1.0.0-rc.45](https://github.com/code-to-json/code-to-json/compare/code-to-json@1.0.0-rc.44...code-to-json@1.0.0-rc.45) (2019-02-26)
+
+**Note:** Version bump only for package code-to-json
+
+
+
+
+
+# [1.0.0-rc.44](https://github.com/code-to-json/code-to-json/compare/code-to-json@1.0.0-rc.43...code-to-json@1.0.0-rc.44) (2019-02-25)
+
+**Note:** Version bump only for package code-to-json
+
+
+
+
+
+# [1.0.0-rc.43](https://github.com/code-to-json/code-to-json/compare/code-to-json@1.0.0-rc.42...code-to-json@1.0.0-rc.43) (2019-02-25)
+
+**Note:** Version bump only for package code-to-json
+
+
+
+
+
 # [1.0.0-rc.42](https://github.com/code-to-json/code-to-json/compare/code-to-json@1.0.0-rc.41...code-to-json@1.0.0-rc.42) (2019-02-24)
 
 **Note:** Version bump only for package code-to-json

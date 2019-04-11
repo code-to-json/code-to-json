@@ -3,6 +3,86 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-rc.36](https://github.com/mike-north/code-to-json/compare/@code-to-json/utils@1.0.0-rc.35...@code-to-json/utils@1.0.0-rc.36) (2019-03-20)
+
+**Note:** Version bump only for package @code-to-json/utils
+
+
+
+
+
+# [1.0.0-rc.35](https://github.com/mike-north/code-to-json/compare/@code-to-json/utils@1.0.0-rc.34...@code-to-json/utils@1.0.0-rc.35) (2019-03-18)
+
+**Note:** Version bump only for package @code-to-json/utils
+
+
+
+
+
+# [1.0.0-rc.34](https://github.com/mike-north/code-to-json/compare/@code-to-json/utils@1.0.0-rc.33...@code-to-json/utils@1.0.0-rc.34) (2019-03-08)
+
+**Note:** Version bump only for package @code-to-json/utils
+
+
+
+
+
+# [1.0.0-rc.33](https://github.com/mike-north/code-to-json/compare/@code-to-json/utils@1.0.0-rc.32...@code-to-json/utils@1.0.0-rc.33) (2019-03-07)
+
+**Note:** Version bump only for package @code-to-json/utils
+
+
+
+
+
+# [1.0.0-rc.32](https://github.com/mike-north/code-to-json/compare/@code-to-json/utils@1.0.0-rc.31...@code-to-json/utils@1.0.0-rc.32) (2019-03-05)
+
+**Note:** Version bump only for package @code-to-json/utils
+
+
+
+
+
+# [1.0.0-rc.31](https://github.com/mike-north/code-to-json/compare/@code-to-json/utils@1.0.0-rc.30...@code-to-json/utils@1.0.0-rc.31) (2019-03-02)
+
+**Note:** Version bump only for package @code-to-json/utils
+
+
+
+
+
+# [1.0.0-rc.30](https://github.com/mike-north/code-to-json/compare/@code-to-json/utils@1.0.0-rc.29...@code-to-json/utils@1.0.0-rc.30) (2019-02-26)
+
+**Note:** Version bump only for package @code-to-json/utils
+
+
+
+
+
+# [1.0.0-rc.29](https://github.com/mike-north/code-to-json/compare/@code-to-json/utils@1.0.0-rc.28...@code-to-json/utils@1.0.0-rc.29) (2019-02-26)
+
+**Note:** Version bump only for package @code-to-json/utils
+
+
+
+
+
+# [1.0.0-rc.28](https://github.com/mike-north/code-to-json/compare/@code-to-json/utils@1.0.0-rc.27...@code-to-json/utils@1.0.0-rc.28) (2019-02-25)
+
+**Note:** Version bump only for package @code-to-json/utils
+
+
+
+
+
+# [1.0.0-rc.27](https://github.com/mike-north/code-to-json/compare/@code-to-json/utils@1.0.0-rc.26...@code-to-json/utils@1.0.0-rc.27) (2019-02-25)
+
+**Note:** Version bump only for package @code-to-json/utils
+
+
+
+
+
 # [1.0.0-rc.26](https://github.com/mike-north/code-to-json/compare/@code-to-json/utils@1.0.0-rc.25...@code-to-json/utils@1.0.0-rc.26) (2019-02-24)
 
 **Note:** Version bump only for package @code-to-json/utils

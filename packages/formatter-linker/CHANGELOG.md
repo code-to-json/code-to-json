@@ -3,6 +3,97 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-rc.35](https://github.com/mike-north/code-to-json/compare/@code-to-json/formatter-linker@1.0.0-rc.34...@code-to-json/formatter-linker@1.0.0-rc.35) (2019-03-28)
+
+**Note:** Version bump only for package @code-to-json/formatter-linker
+
+
+
+
+
+# [1.0.0-rc.34](https://github.com/mike-north/code-to-json/compare/@code-to-json/formatter-linker@1.0.0-rc.33...@code-to-json/formatter-linker@1.0.0-rc.34) (2019-03-20)
+
+**Note:** Version bump only for package @code-to-json/formatter-linker
+
+
+
+
+
+# [1.0.0-rc.33](https://github.com/mike-north/code-to-json/compare/@code-to-json/formatter-linker@1.0.0-rc.32...@code-to-json/formatter-linker@1.0.0-rc.33) (2019-03-18)
+
+**Note:** Version bump only for package @code-to-json/formatter-linker
+
+
+
+
+
+# [1.0.0-rc.32](https://github.com/mike-north/code-to-json/compare/@code-to-json/formatter-linker@1.0.0-rc.31...@code-to-json/formatter-linker@1.0.0-rc.32) (2019-03-08)
+
+**Note:** Version bump only for package @code-to-json/formatter-linker
+
+
+
+
+
+# [1.0.0-rc.31](https://github.com/mike-north/code-to-json/compare/@code-to-json/formatter-linker@1.0.0-rc.30...@code-to-json/formatter-linker@1.0.0-rc.31) (2019-03-07)
+
+**Note:** Version bump only for package @code-to-json/formatter-linker
+
+
+
+
+
+# [1.0.0-rc.30](https://github.com/mike-north/code-to-json/compare/@code-to-json/formatter-linker@1.0.0-rc.29...@code-to-json/formatter-linker@1.0.0-rc.30) (2019-03-05)
+
+**Note:** Version bump only for package @code-to-json/formatter-linker
+
+
+
+
+
+# [1.0.0-rc.29](https://github.com/mike-north/code-to-json/compare/@code-to-json/formatter-linker@1.0.0-rc.28...@code-to-json/formatter-linker@1.0.0-rc.29) (2019-03-02)
+
+**Note:** Version bump only for package @code-to-json/formatter-linker
+
+
+
+
+
+# [1.0.0-rc.28](https://github.com/mike-north/code-to-json/compare/@code-to-json/formatter-linker@1.0.0-rc.27...@code-to-json/formatter-linker@1.0.0-rc.28) (2019-02-26)
+
+**Note:** Version bump only for package @code-to-json/formatter-linker
+
+
+
+
+
+# [1.0.0-rc.27](https://github.com/mike-north/code-to-json/compare/@code-to-json/formatter-linker@1.0.0-rc.26...@code-to-json/formatter-linker@1.0.0-rc.27) (2019-02-26)
+
+**Note:** Version bump only for package @code-to-json/formatter-linker
+
+
+
+
+
+# [1.0.0-rc.26](https://github.com/mike-north/code-to-json/compare/@code-to-json/formatter-linker@1.0.0-rc.25...@code-to-json/formatter-linker@1.0.0-rc.26) (2019-02-25)
+
+**Note:** Version bump only for package @code-to-json/formatter-linker
+
+
+
+
+
+# [1.0.0-rc.25](https://github.com/mike-north/code-to-json/compare/@code-to-json/formatter-linker@1.0.0-rc.24...@code-to-json/formatter-linker@1.0.0-rc.25) (2019-02-25)
+
+
+### Bug Fixes
+
+* add missing relationships, discovered by completeness tests ([3141b4f](https://github.com/mike-north/code-to-json/commit/3141b4f))
+
+
+
+
+
 # [1.0.0-rc.24](https://github.com/mike-north/code-to-json/compare/@code-to-json/formatter-linker@1.0.0-rc.23...@code-to-json/formatter-linker@1.0.0-rc.24) (2019-02-24)
 
 **Note:** Version bump only for package @code-to-json/formatter-linker

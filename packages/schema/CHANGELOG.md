@@ -3,6 +3,94 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.3.5-rc.41](https://github.com/mike-north/code-to-json/compare/@code-to-json/schema@0.3.5-rc.40...@code-to-json/schema@0.3.5-rc.41) (2019-03-28)
+
+**Note:** Version bump only for package @code-to-json/schema
+
+
+
+
+
+## [0.3.5-rc.40](https://github.com/mike-north/code-to-json/compare/@code-to-json/schema@0.3.5-rc.39...@code-to-json/schema@0.3.5-rc.40) (2019-03-20)
+
+**Note:** Version bump only for package @code-to-json/schema
+
+
+
+
+
+## [0.3.5-rc.39](https://github.com/mike-north/code-to-json/compare/@code-to-json/schema@0.3.5-rc.38...@code-to-json/schema@0.3.5-rc.39) (2019-03-18)
+
+**Note:** Version bump only for package @code-to-json/schema
+
+
+
+
+
+## [0.3.5-rc.38](https://github.com/mike-north/code-to-json/compare/@code-to-json/schema@0.3.5-rc.37...@code-to-json/schema@0.3.5-rc.38) (2019-03-08)
+
+**Note:** Version bump only for package @code-to-json/schema
+
+
+
+
+
+## [0.3.5-rc.37](https://github.com/mike-north/code-to-json/compare/@code-to-json/schema@0.3.5-rc.36...@code-to-json/schema@0.3.5-rc.37) (2019-03-07)
+
+**Note:** Version bump only for package @code-to-json/schema
+
+
+
+
+
+## [0.3.5-rc.36](https://github.com/mike-north/code-to-json/compare/@code-to-json/schema@0.3.5-rc.35...@code-to-json/schema@0.3.5-rc.36) (2019-03-05)
+
+**Note:** Version bump only for package @code-to-json/schema
+
+
+
+
+
+## [0.3.5-rc.35](https://github.com/mike-north/code-to-json/compare/@code-to-json/schema@0.3.5-rc.34...@code-to-json/schema@0.3.5-rc.35) (2019-03-02)
+
+**Note:** Version bump only for package @code-to-json/schema
+
+
+
+
+
+## [0.3.5-rc.34](https://github.com/mike-north/code-to-json/compare/@code-to-json/schema@0.3.5-rc.33...@code-to-json/schema@0.3.5-rc.34) (2019-02-26)
+
+**Note:** Version bump only for package @code-to-json/schema
+
+
+
+
+
+## [0.3.5-rc.33](https://github.com/mike-north/code-to-json/compare/@code-to-json/schema@0.3.5-rc.32...@code-to-json/schema@0.3.5-rc.33) (2019-02-26)
+
+**Note:** Version bump only for package @code-to-json/schema
+
+
+
+
+
+## [0.3.5-rc.32](https://github.com/mike-north/code-to-json/compare/@code-to-json/schema@0.3.5-rc.31...@code-to-json/schema@0.3.5-rc.32) (2019-02-25)
+
+**Note:** Version bump only for package @code-to-json/schema
+
+
+
+
+
+## [0.3.5-rc.31](https://github.com/mike-north/code-to-json/compare/@code-to-json/schema@0.3.5-rc.30...@code-to-json/schema@0.3.5-rc.31) (2019-02-25)
+
+**Note:** Version bump only for package @code-to-json/schema
+
+
+
+
+
 ## [0.3.5-rc.30](https://github.com/mike-north/code-to-json/compare/@code-to-json/schema@0.3.5-rc.29...@code-to-json/schema@0.3.5-rc.30) (2019-02-24)
 
 **Note:** Version bump only for package @code-to-json/schema

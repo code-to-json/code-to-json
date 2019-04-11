@@ -3,6 +3,98 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-rc.41](https://github.com/mike-north/code-to-json/compare/@code-to-json/core-linker@1.0.0-rc.40...@code-to-json/core-linker@1.0.0-rc.41) (2019-03-28)
+
+**Note:** Version bump only for package @code-to-json/core-linker
+
+
+
+
+
+# [1.0.0-rc.40](https://github.com/mike-north/code-to-json/compare/@code-to-json/core-linker@1.0.0-rc.39...@code-to-json/core-linker@1.0.0-rc.40) (2019-03-20)
+
+**Note:** Version bump only for package @code-to-json/core-linker
+
+
+
+
+
+# [1.0.0-rc.39](https://github.com/mike-north/code-to-json/compare/@code-to-json/core-linker@1.0.0-rc.38...@code-to-json/core-linker@1.0.0-rc.39) (2019-03-18)
+
+**Note:** Version bump only for package @code-to-json/core-linker
+
+
+
+
+
+# [1.0.0-rc.38](https://github.com/mike-north/code-to-json/compare/@code-to-json/core-linker@1.0.0-rc.37...@code-to-json/core-linker@1.0.0-rc.38) (2019-03-08)
+
+**Note:** Version bump only for package @code-to-json/core-linker
+
+
+
+
+
+# [1.0.0-rc.37](https://github.com/mike-north/code-to-json/compare/@code-to-json/core-linker@1.0.0-rc.36...@code-to-json/core-linker@1.0.0-rc.37) (2019-03-07)
+
+**Note:** Version bump only for package @code-to-json/core-linker
+
+
+
+
+
+# [1.0.0-rc.36](https://github.com/mike-north/code-to-json/compare/@code-to-json/core-linker@1.0.0-rc.35...@code-to-json/core-linker@1.0.0-rc.36) (2019-03-05)
+
+**Note:** Version bump only for package @code-to-json/core-linker
+
+
+
+
+
+# [1.0.0-rc.35](https://github.com/mike-north/code-to-json/compare/@code-to-json/core-linker@1.0.0-rc.34...@code-to-json/core-linker@1.0.0-rc.35) (2019-03-02)
+
+**Note:** Version bump only for package @code-to-json/core-linker
+
+
+
+
+
+# [1.0.0-rc.34](https://github.com/mike-north/code-to-json/compare/@code-to-json/core-linker@1.0.0-rc.33...@code-to-json/core-linker@1.0.0-rc.34) (2019-02-26)
+
+**Note:** Version bump only for package @code-to-json/core-linker
+
+
+
+
+
+# [1.0.0-rc.33](https://github.com/mike-north/code-to-json/compare/@code-to-json/core-linker@1.0.0-rc.32...@code-to-json/core-linker@1.0.0-rc.33) (2019-02-26)
+
+**Note:** Version bump only for package @code-to-json/core-linker
+
+
+
+
+
+# [1.0.0-rc.32](https://github.com/mike-north/code-to-json/compare/@code-to-json/core-linker@1.0.0-rc.31...@code-to-json/core-linker@1.0.0-rc.32) (2019-02-25)
+
+**Note:** Version bump only for package @code-to-json/core-linker
+
+
+
+
+
+# [1.0.0-rc.31](https://github.com/mike-north/code-to-json/compare/@code-to-json/core-linker@1.0.0-rc.30...@code-to-json/core-linker@1.0.0-rc.31) (2019-02-25)
+
+
+### Bug Fixes
+
+* add missing relationships to core-linker ([7c5aa8b](https://github.com/mike-north/code-to-json/commit/7c5aa8b))
+* add missing relationships, discovered by completeness tests ([3141b4f](https://github.com/mike-north/code-to-json/commit/3141b4f))
+
+
+
+
+
 # [1.0.0-rc.30](https://github.com/mike-north/code-to-json/compare/@code-to-json/core-linker@1.0.0-rc.29...@code-to-json/core-linker@1.0.0-rc.30) (2019-02-24)
 
 **Note:** Version bump only for package @code-to-json/core-linker
