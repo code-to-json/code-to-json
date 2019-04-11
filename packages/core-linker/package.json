@@ -26,7 +26,7 @@
     "@code-to-json/core": "^1.0.0-rc.50",
     "@mike-north/types": "^1.0.7",
     "debug": "^4.0.0",
-    "typescript": "^3.2.4"
+    "typescript": "^3.4.3"
   },
   "devDependencies": {
     "@code-to-json/test-helpers": "^1.0.0-rc.42",

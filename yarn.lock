@@ -860,9 +860,9 @@
     rimraf "^2.5.2"
 
 "@microsoft/tsdoc@^0.12.4":
-  version "0.12.5"
-  resolved "https://registry.yarnpkg.com/@microsoft/tsdoc/-/tsdoc-0.12.5.tgz#c448a38902ccb5601c1b2ef3b1a105012ef7712c"
-  integrity sha512-xEAyvLXo4Cter/b0EMCWUZTgXOfLOPJ/Xr52WdjVclPx9eDmNTGFtZl8Pn/nqSnZsQBNcHL0eHk/YyRyyXXpiQ==
+  version "0.12.9"
+  resolved "https://registry.yarnpkg.com/@microsoft/tsdoc/-/tsdoc-0.12.9.tgz#f92538bebf649b1b9d00bdd34a9c9971aef17d01"
+  integrity sha512-sDhulvuVk65eMppYOE6fr6mMI6RUqs53KUg9deYzNCBpP+2FhR0OFB5innEfdtSedk0LK+1Ppu6MxkfiNjS/Cw==
 
 "@mike-north/types@^1.0.7":
   version "1.2.0"
@@ -1856,9 +1856,9 @@ combined-stream@^1.0.6, combined-stream@~1.0.6:
     delayed-stream "~1.0.0"
 
 commander@^2.19.0:
-  version "2.19.0"
-  resolved "https://registry.yarnpkg.com/commander/-/commander-2.19.0.tgz#f6198aa84e5b83c46054b94ddedbfed5ee9ff12a"
-  integrity sha512-6tvAOO+D6OENvRAh524Dh9jcfKTYDQAqvqezbCW82xj5X0pSrcpxtvRKHLG0yBY6SD7PSDrJaj+0AiOcKVd1Xg==
+  version "2.20.0"
+  resolved "https://registry.yarnpkg.com/commander/-/commander-2.20.0.tgz#d58bb2b5c1ee8f87b0d340027e9e94e222c5a422"
+  integrity sha512-7j2y+40w61zy6YC2iRNpUe/NwhNyoXrYpHMrSunaMG64nRnaf96zO/KMQR4OyN/UnE5KLyEBnKHd4aG3rskjpQ==
 
 commander@~2.17.1:
   version "2.17.1"
@@ -7735,15 +7735,10 @@ typedarray@^0.0.6:
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
   integrity sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=
 
-typescript@3.3.4000:
-  version "3.3.4000"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.3.4000.tgz#76b0f89cfdbf97827e1112d64f283f1151d6adf0"
-  integrity sha512-jjOcCZvpkl2+z7JFn0yBOoLQyLoIkNZAs/fYJkUG6VKy6zLPHJGfQJYFHzibB6GJaF/8QrcECtlQ5cpvRHSMEA==
-
-typescript@^3.1.0, typescript@^3.2.4:
-  version "3.3.3333"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.3.3333.tgz#171b2c5af66c59e9431199117a3bcadc66fdcfd6"
-  integrity sha512-JjSKsAfuHBE/fB2oZ8NxtRTk5iGcg6hkYXMnZ3Wc+b2RSqejEqTaem11mHASMnFilHrax3sLK0GDzcJrekZYLw==
+typescript@3.4.3, typescript@^3.4.3:
+  version "3.4.3"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.4.3.tgz#0eb320e4ace9b10eadf5bc6103286b0f8b7c224f"
+  integrity sha512-FFgHdPt4T/duxx6Ndf7hwgMZZjZpB+U0nMNGVCYPq0rEzWKjEDobm4J6yb3CS7naZ0yURFqdw9Gwc7UOh/P9oQ==
 
 uglify-js@^3.1.4:
   version "3.4.9"

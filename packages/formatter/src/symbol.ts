@@ -1,11 +1,14 @@
 import { SerializedSymbol, SerializedType, SymbolRef, WalkerOutputData } from '@code-to-json/core';
 import { conditionallyMergeTransformed, isDefined, refId } from '@code-to-json/utils';
+import * as debug from 'debug';
 import { DataCollector } from './data-collector';
 import formatFlags from './flags';
 import { convertLocation } from './location';
 import resolveReference from './resolve-reference';
 import { FormattedSymbol, FormattedSymbolRef } from './types';
 import { formatSymbolRefMap } from './utils';
+
+const log = debug('code-to-json:formatter');
 
 function formatSymbolDecorators(
   wo: WalkerOutputData,
@@ -62,7 +65,7 @@ function formatSymbolModifiers(modifiers?: string[]): Pick<FormattedSymbol, MODI
       case 'FirstContextualKeyword':
         break;
       default:
-        throw new Error(`Unexpected modifier: ${m}`);
+        log(`WARNING: unexpected modifier: ${m}`);
     }
   });
   return out;

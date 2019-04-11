@@ -155,7 +155,6 @@ export const x: string = 'foo';
     expect(generateId(classType)).to.eql(['ok', 'T01m4wlnjqf0g'], 'class type');
     expect(generateId(sourceFile)).to.eql(['ok', 'F01m4wnf2ptes'], 'source file');
     expect(generateId(sourceFileSym)).to.eql(['ok', 'S01m4wnj0ln0d'], 'source file symbol');
-    expect(generateId(sourceFileType)).to.eql(['ok', 'T01m4wmnuc0f2'], 'source file type');
 
     expect(generateId(varSym)).to.eql(['ok', 'S01m4wmqaygbn'], 'variable symbol');
     expect(generateId(varDeclaration)).to.eql(['ok', 'D01m4wlurlp4f'], 'variable declaration');

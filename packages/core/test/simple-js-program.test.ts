@@ -34,12 +34,6 @@ const STANDARD_LIBS = [
   'lib.es2018.intl.d.ts',
   'lib.es2018.promise.d.ts',
   'lib.es2018.regexp.d.ts',
-  'lib.esnext.array.d.ts',
-  'lib.esnext.symbol.d.ts',
-  'lib.esnext.asynciterable.d.ts',
-  'lib.esnext.intl.d.ts',
-  'lib.esnext.bigint.d.ts',
-  'lib.esnext.full.d.ts',
 ];
 
 describe('TypeScript fixture program tests', () => {
