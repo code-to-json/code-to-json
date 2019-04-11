@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-rc.54](https://github.com/code-to-json/code-to-json/compare/code-to-json@1.0.0-rc.53...code-to-json@1.0.0-rc.54) (2019-04-11)
+
+**Note:** Version bump only for package code-to-json
+
+
+
+
+
 # [1.0.0-rc.53](https://github.com/code-to-json/code-to-json/compare/code-to-json@1.0.0-rc.52...code-to-json@1.0.0-rc.53) (2019-03-28)
 
 **Note:** Version bump only for package code-to-json

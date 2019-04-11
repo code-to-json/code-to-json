@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-rc.42](https://github.com/mike-north/code-to-json/compare/@code-to-json/core-linker@1.0.0-rc.41...@code-to-json/core-linker@1.0.0-rc.42) (2019-04-11)
+
+
+### Features
+
+* bump typescript to 3.4.1 across all packages ([0619edf](https://github.com/mike-north/code-to-json/commit/0619edf))
+* bump typescript to 3.4.3 across all packages ([70fb0a5](https://github.com/mike-north/code-to-json/commit/70fb0a5))
+
+
+
+
+
 # [1.0.0-rc.41](https://github.com/mike-north/code-to-json/compare/@code-to-json/core-linker@1.0.0-rc.40...@code-to-json/core-linker@1.0.0-rc.41) (2019-03-28)
 
 **Note:** Version bump only for package @code-to-json/core-linker
