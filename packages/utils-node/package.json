@@ -1,6 +1,6 @@
 {
   "name": "@code-to-json/utils-node",
-  "version": "1.0.0-rc.46",
+  "version": "1.0.0-rc.47",
   "description": "Node.js utilities for code-to-json",
   "main": "lib/src/index.js",
   "typings": "lib/src/index.d.ts",

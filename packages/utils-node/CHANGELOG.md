@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-rc.47](https://github.com/mike-north/code-to-json/compare/@code-to-json/utils-node@1.0.0-rc.46...@code-to-json/utils-node@1.0.0-rc.47) (2019-04-11)
+
+
+### Bug Fixes
+
+* use fs-extra to recursively mkdir ([b55d605](https://github.com/mike-north/code-to-json/commit/b55d605))
+
+
+
+
+
 # [1.0.0-rc.46](https://github.com/mike-north/code-to-json/compare/@code-to-json/utils-node@1.0.0-rc.45...@code-to-json/utils-node@1.0.0-rc.46) (2019-04-11)
 
 
