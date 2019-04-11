@@ -172,7 +172,8 @@ function serializeSymbolTypes(
   const { valueDeclaration, declarations } = symbol;
   const types = getRelevantTypesForSymbol(checker, symbol);
   if (!types) {
-    throw new Error(`Unable to determine type for symbol ${checker.symbolToString(symbol)}`);
+    console.warn(`Unable to determine type for symbol ${checker.symbolToString(symbol)}`);
+    return out;
   }
   const { valueDeclarationType, symbolType, otherDeclarationTypes } = types;
   if (valueDeclaration) {
@@ -268,16 +269,25 @@ export default function serializeSymbol(
     relatedSymbols: undefined,
     ...serializeRelatedEntities(symbol, ref, relatedEntities, q),
     ...serializeSymbolTypes(symbol, checker, c),
-    ...serializeBasicSymbolDeclarationData(symbol, valueDeclaration || declarations[0], checker, c),
     ...serializeExports(symbol, checker, c),
-    ...serializeExtendedSymbolDeclarationData(
-      symbol,
-      valueDeclaration || declarations[0],
-      checker,
-      c,
-    ),
     ...serializeMembers(symbol, checker, c),
   };
+  if (declarations && declarations[0]) {
+    Object.assign(serialized, {
+      ...serializeBasicSymbolDeclarationData(
+        symbol,
+        valueDeclaration || declarations[0],
+        checker,
+        c,
+      ),
+      ...serializeExtendedSymbolDeclarationData(
+        symbol,
+        valueDeclaration || declarations[0],
+        checker,
+        c,
+      ),
+    });
+  }
   if (symbol.flags & ts.SymbolFlags.Alias) {
     const aliasedSymbol = checker.getAliasedSymbol(symbol);
     serialized.aliasedSymbol = c.queue.queue(aliasedSymbol, 'symbol');

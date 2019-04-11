@@ -32,16 +32,11 @@
  * @author Mike
  * @file foo
  *
- * @example
- *
  * This is how you do a thing
  *
  * ```ts
  * function foo() {}
  * ```
- *
- * @example
- *
  * And another thing
  *
  * ```hbs

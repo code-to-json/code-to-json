@@ -125,10 +125,9 @@ export function create(checker: ts.TypeChecker): Queue {
         case 'type': {
           const typeToQueue = thing as ts.Type;
           if (isErroredType(typeToQueue)) {
-            throw new Error('Refusing to queue errored type');
-          } else {
-            return toProcess.types.queue(typeToQueue);
+            log('WARNING: Queued errored type');
           }
+          return toProcess.types.queue(typeToQueue);
         }
         case 'node':
           return toProcess.nodes.queue(thing as ts.Node);

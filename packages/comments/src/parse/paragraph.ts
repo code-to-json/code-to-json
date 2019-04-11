@@ -87,6 +87,9 @@ export default function parseParagraph(p: DocParagraph): CommentParagraphContent
       case DocNodeKind.HtmlStartTag:
         parts.push(handleHTMLStartTag(node as DocHtmlStartTag));
         break;
+      case DocNodeKind.EscapedText:
+        // TODO: handle escaped text
+        break;
       case DocNodeKind.HtmlEndTag:
         parts.push(handleHTMLEndTag(node as DocHtmlEndTag));
         break;
