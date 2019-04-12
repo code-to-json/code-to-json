@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-rc.44](https://github.com/mike-north/code-to-json/compare/@code-to-json/test-helpers@1.0.0-rc.43...@code-to-json/test-helpers@1.0.0-rc.44) (2019-04-12)
+
+**Note:** Version bump only for package @code-to-json/test-helpers
+
+
+
+
+
 # [1.0.0-rc.43](https://github.com/mike-north/code-to-json/compare/@code-to-json/test-helpers@1.0.0-rc.42...@code-to-json/test-helpers@1.0.0-rc.43) (2019-04-11)
 
 
