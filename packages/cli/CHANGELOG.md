@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-rc.59](https://github.com/mike-north/code-to-json/compare/@code-to-json/cli@1.0.0-rc.58...@code-to-json/cli@1.0.0-rc.59) (2019-04-15)
+
+**Note:** Version bump only for package @code-to-json/cli
+
+
+
+
+
 # [1.0.0-rc.58](https://github.com/mike-north/code-to-json/compare/@code-to-json/cli@1.0.0-rc.57...@code-to-json/cli@1.0.0-rc.58) (2019-04-13)
 
 **Note:** Version bump only for package @code-to-json/cli

@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-rc.49](https://github.com/mike-north/code-to-json/compare/@code-to-json/utils-ts@1.0.0-rc.48...@code-to-json/utils-ts@1.0.0-rc.49) (2019-04-15)
+
+**Note:** Version bump only for package @code-to-json/utils-ts
+
+
+
+
+
 # [1.0.0-rc.48](https://github.com/mike-north/code-to-json/compare/@code-to-json/utils-ts@1.0.0-rc.47...@code-to-json/utils-ts@1.0.0-rc.48) (2019-04-13)
 
 **Note:** Version bump only for package @code-to-json/utils-ts

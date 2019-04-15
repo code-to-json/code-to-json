@@ -1,6 +1,6 @@
 {
   "name": "@code-to-json/formatter-linker",
-  "version": "1.0.0-rc.40",
+  "version": "1.0.0-rc.41",
   "description": "Data linker for @code-to-json/formatter",
   "main": "lib/src/index.js",
   "typings": "lib/src/index.d.ts",
@@ -23,14 +23,14 @@
   "homepage": "https://github.com/mike-north/code-to-json/tree/master/packages/formatter-linker",
   "keywords": [],
   "dependencies": {
-    "@code-to-json/formatter": "^1.0.0-rc.57",
+    "@code-to-json/formatter": "^1.0.0-rc.58",
     "@mike-north/types": "^1.0.7",
     "debug": "^4.0.0",
     "typescript": "^3.4.3"
   },
   "devDependencies": {
-    "@code-to-json/test-helpers": "^1.0.0-rc.46",
-    "@code-to-json/utils-node": "^1.0.0-rc.50",
+    "@code-to-json/test-helpers": "^1.0.0-rc.47",
+    "@code-to-json/utils-node": "^1.0.0-rc.51",
     "@types/chai": "4.1.7",
     "@typescript-eslint/eslint-plugin": "1.5.0",
     "@typescript-eslint/parser": "1.5.0",
