@@ -1,6 +1,6 @@
 {
   "name": "@code-to-json/core",
-  "version": "1.0.0-rc.56",
+  "version": "1.0.0-rc.57",
   "description": "Core analysis tools for code-to-json",
   "main": "lib/src/index.js",
   "typings": "lib/src/index.d.ts",
@@ -23,16 +23,16 @@
   "homepage": "https://github.com/mike-north/code-to-json/tree/master/packages/core",
   "keywords": [],
   "dependencies": {
-    "@code-to-json/comments": "^1.0.0-rc.46",
-    "@code-to-json/utils": "^1.0.0-rc.40",
-    "@code-to-json/utils-ts": "^1.0.0-rc.49",
+    "@code-to-json/comments": "^1.0.0-rc.47",
+    "@code-to-json/utils": "^1.0.0-rc.41",
+    "@code-to-json/utils-ts": "^1.0.0-rc.50",
     "@mike-north/types": "^1.0.7",
     "debug": "^4.0.0",
     "typescript": "^3.4.3"
   },
   "devDependencies": {
-    "@code-to-json/test-helpers": "^1.0.0-rc.47",
-    "@code-to-json/utils-node": "^1.0.0-rc.51",
+    "@code-to-json/test-helpers": "^1.0.0-rc.48",
+    "@code-to-json/utils-node": "^1.0.0-rc.52",
     "@types/chai": "4.1.7",
     "@typescript-eslint/eslint-plugin": "1.5.0",
     "@typescript-eslint/parser": "1.5.0",
