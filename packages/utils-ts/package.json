@@ -30,8 +30,8 @@
   "devDependencies": {
     "@code-to-json/test-helpers": "^1.0.0-rc.48",
     "@types/chai": "4.1.7",
-    "@typescript-eslint/eslint-plugin": "1.5.0",
-    "@typescript-eslint/parser": "1.5.0",
+    "@typescript-eslint/eslint-plugin": "1.6.0",
+    "@typescript-eslint/parser": "1.6.0",
     "chai": "4.2.0",
     "eslint": "5.15.3",
     "eslint-config-airbnb-base": "13.1.0",
