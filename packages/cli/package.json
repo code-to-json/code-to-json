@@ -51,7 +51,7 @@
     "eslint-config-airbnb-base": "13.1.0",
     "eslint-config-prettier": "4.1.0",
     "eslint-plugin-import": "2.17.2",
-    "eslint-plugin-node": "8.0.1",
+    "eslint-plugin-node": "9.2.0",
     "eslint-plugin-prettier": "3.0.1",
     "eslint-plugin-typescript": "0.14.0",
     "hook-std": "1.2.0",
