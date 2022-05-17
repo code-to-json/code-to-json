@@ -2210,7 +2210,7 @@ check-error@^1.0.2:
   resolved "https://registry.yarnpkg.com/check-error/-/check-error-1.0.2.tgz#574d312edd88bb5dd8912e9286dd6c0aed4aac82"
   integrity sha1-V00xLt2Iu13YkS6Sht1sCu1KrII=
 
-check-links@^1.1.7:
+check-links@^1.1.8:
   version "1.1.8"
   resolved "https://registry.yarnpkg.com/check-links/-/check-links-1.1.8.tgz#842184178c85d9c2ab119175bcc2672681bc88a4"
   integrity sha512-lxt1EeQ1CVkmiZzPfbPufperYK0t7MvhdLs3zlRH9areA6NVT1tcGymAdJONolNWQBdCFU/sek59RpeLmVHCnw==
@@ -4622,7 +4622,7 @@ is-object@^1.0.1:
   resolved "https://registry.yarnpkg.com/is-object/-/is-object-1.0.1.tgz#8952688c5ec2ffd6b03ecc85e769e02903083470"
   integrity sha1-iVJojF7C/9awPsyF52ngKQMINHA=
 
-is-online@^8.2.0:
+is-online@^8.2.1:
   version "8.5.1"
   resolved "https://registry.yarnpkg.com/is-online/-/is-online-8.5.1.tgz#bcc6970c6a3fad552a41738c0f0d0737b0ce6e63"
   integrity sha512-RKyTQx/rJqw2QOXHwy7TmXdlkpe0Hhj7GBsr6TQJaj4ebNOfameZCMspU5vYbwBBzJ2brWArdSvNVox6T6oCTQ==
@@ -7176,15 +7176,15 @@ remark-lint-no-consecutive-blank-lines@^1.0.0:
     unist-util-position "^3.0.0"
     unist-util-visit "^1.1.1"
 
-remark-lint-no-dead-urls@0.5.0:
-  version "0.5.0"
-  resolved "https://registry.yarnpkg.com/remark-lint-no-dead-urls/-/remark-lint-no-dead-urls-0.5.0.tgz#c0637a6f05af1a9f07f36c2bfb5b3589170f83d4"
-  integrity sha512-wMr1+7Sh5rRGF9hmF9iyajRNQfA2BnADc9myYjpRxsYozRDj6p2ddVwBh76loUKwCZ64sLRKamyhMDwQ0NIdYA==
+remark-lint-no-dead-urls@1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/remark-lint-no-dead-urls/-/remark-lint-no-dead-urls-1.1.0.tgz#c3ba46ba0bf5f28e3789446295e27bcab68d4349"
+  integrity sha512-it3EZmMQ+hwGhUf60NkXN0mMIFuFkS0cxdbgEbhZ/Fj1PlUBpe3gDBtWJ/sqNwSNvQlNSzpvMQkNHSoAhlsVjA==
   dependencies:
-    check-links "^1.1.7"
-    is-online "^8.2.0"
+    check-links "^1.1.8"
+    is-online "^8.2.1"
     unified-lint-rule "^1.0.4"
-    unist-util-visit "^2.0.0"
+    unist-util-visit "^2.0.1"
 
 remark-lint-no-duplicate-definitions@^1.0.0:
   version "1.0.3"
@@ -8901,7 +8901,7 @@ unist-util-visit@^1.0.0, unist-util-visit@^1.1.0, unist-util-visit@^1.1.1, unist
   dependencies:
     unist-util-visit-parents "^2.0.0"
 
-unist-util-visit@^2.0.0:
+unist-util-visit@^2.0.1:
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/unist-util-visit/-/unist-util-visit-2.0.3.tgz#c3703893146df47203bb8a9795af47d7b971208c"
   integrity sha512-iJ4/RczbJMkD0712mGktuGpm/U4By4FfDonL7N/9tATGIF4imikjOuagyMY53tnZq3NP6BcmlrHhEKAfGWjh7Q==
