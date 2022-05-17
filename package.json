@@ -16,7 +16,7 @@
     "concurrently": "7.2.0",
     "husky": "8.0.1",
     "lerna": "4.0.0",
-    "nodemon": "1.19.4",
+    "nodemon": "2.0.16",
     "rimraf": "2.7.1",
     "scripty": "1.9.1"
   },
