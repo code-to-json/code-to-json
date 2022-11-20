@@ -24,11 +24,11 @@
   "keywords": [],
   "devDependencies": {
     "@code-to-json/test-helpers": "^1.0.0-rc.48",
-    "@types/chai": "4.3.1",
+    "@types/chai": "4.3.4",
     "@types/strip-json-comments": "0.0.30",
     "@typescript-eslint/eslint-plugin": "1.13.0",
     "@typescript-eslint/parser": "1.13.0",
-    "chai": "4.3.6",
+    "chai": "4.3.7",
     "eslint": "8.15.0",
     "eslint-config-airbnb-base": "15.0.0",
     "eslint-config-prettier": "8.5.0",
