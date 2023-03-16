@@ -18,7 +18,7 @@
     "lerna": "4.0.0",
     "nodemon": "2.0.21",
     "rimraf": "2.7.1",
-    "scripty": "2.1.0"
+    "scripty": "2.1.1"
   },
   "commitlint": {
     "extends": [
