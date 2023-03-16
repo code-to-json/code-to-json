@@ -14,7 +14,7 @@
     "@commitlint/travis-cli": "17.0.0",
     "@types/rimraf": "2.0.5",
     "concurrently": "7.2.0",
-    "husky": "8.0.1",
+    "husky": "8.0.3",
     "lerna": "4.0.0",
     "nodemon": "2.0.16",
     "rimraf": "2.7.1",
