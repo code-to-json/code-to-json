@@ -43,7 +43,7 @@
   "devDependencies": {
     "@code-to-json/test-helpers": "^1.0.0-rc.48",
     "@types/chai": "4.3.4",
-    "@types/glob": "7.2.0",
+    "@types/glob": "8.1.0",
     "@typescript-eslint/eslint-plugin": "1.13.0",
     "@typescript-eslint/parser": "1.13.0",
     "chai": "4.3.7",
