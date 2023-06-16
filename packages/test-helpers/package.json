@@ -34,7 +34,7 @@
   },
   "devDependencies": {
     "@types/chai": "4.3.5",
-    "@types/debug": "4.1.7",
+    "@types/debug": "4.1.8",
     "@types/fs-extra": "9.0.13",
     "@types/tmp": "0.2.3",
     "@types/treeify": "1.0.0",
