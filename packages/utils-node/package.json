@@ -24,7 +24,7 @@
   "doc:main": "src/index.ts",
   "keywords": [],
   "devDependencies": {
-    "@types/chai": "4.3.4",
+    "@types/chai": "4.3.5",
     "@types/mocha": "10.0.1",
     "@types/pkg-up": "2.0.0",
     "@types/rimraf": "3.0.2",
