@@ -9,9 +9,9 @@
   ],
   "private": true,
   "devDependencies": {
-    "@commitlint/cli": "17.5.1",
-    "@commitlint/config-conventional": "17.4.4",
-    "@commitlint/travis-cli": "17.5.1",
+    "@commitlint/cli": "17.6.5",
+    "@commitlint/config-conventional": "17.6.5",
+    "@commitlint/travis-cli": "17.6.5",
     "@types/rimraf": "3.0.2",
     "concurrently": "8.0.1",
     "husky": "8.0.3",
