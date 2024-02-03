@@ -37,7 +37,7 @@
     "@types/debug": "4.1.12",
     "@types/fs-extra": "9.0.13",
     "@types/tmp": "0.2.6",
-    "@types/treeify": "1.0.0",
+    "@types/treeify": "1.0.3",
     "@typescript-eslint/eslint-plugin": "1.13.0",
     "@typescript-eslint/parser": "1.13.0",
     "chai": "4.3.7",
