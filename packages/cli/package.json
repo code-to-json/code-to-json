@@ -18,7 +18,7 @@
     "@code-to-json/utils": "^1.0.0-rc.41",
     "@code-to-json/utils-node": "^1.0.0-rc.52",
     "@mike-north/types": "^1.0.7",
-    "chalk": "^2.4.1",
+    "chalk": "^5.0.0",
     "commander": "^2.19.0",
     "debug": "^4.1.0",
     "glob": "^7.1.3",
