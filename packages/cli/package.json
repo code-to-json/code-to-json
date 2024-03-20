@@ -42,7 +42,7 @@
   "keywords": [],
   "devDependencies": {
     "@code-to-json/test-helpers": "^1.0.0-rc.48",
-    "@types/chai": "4.3.11",
+    "@types/chai": "4.3.14",
     "@types/glob": "8.1.0",
     "@typescript-eslint/eslint-plugin": "1.13.0",
     "@typescript-eslint/parser": "1.13.0",
