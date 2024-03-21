@@ -27,7 +27,7 @@
     "@types/chai": "4.3.14",
     "@types/mocha": "10.0.6",
     "@types/pkg-up": "3.1.0",
-    "@types/rimraf": "3.0.2",
+    "@types/rimraf": "4.0.5",
     "@types/tmp": "0.2.6",
     "@typescript-eslint/eslint-plugin": "1.13.0",
     "@typescript-eslint/parser": "1.13.0",
