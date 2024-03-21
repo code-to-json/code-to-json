@@ -1306,10 +1306,12 @@
   resolved "https://registry.yarnpkg.com/@types/normalize-package-data/-/normalize-package-data-2.4.1.tgz#d3357479a0fdfdd5907fe67e17e0a85c906e1301"
   integrity sha512-Gj7cI7z+98M282Tqmp2K5EIsoouUEzbBJhQQzDE3jSIRk6r9gsz0oUokqIUR4u1R3dMHo0pDHM7sNOHyhulypw==
 
-"@types/pkg-up@2.0.0":
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/@types/pkg-up/-/pkg-up-2.0.0.tgz#a92ff6d4d52a1f60d24ac298499288a10a0a7f39"
-  integrity sha512-szyPFLtZW819uvaVIt3YflV+G6k9Vf7CD8QCOFo9RZ722fpuydDNo3BEylZchMpFD38Ln7AeyqFE1cziI2zaNw==
+"@types/pkg-up@3.1.0":
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/@types/pkg-up/-/pkg-up-3.1.0.tgz#d10ff63e43f64fcfbe561837fcb40ce6b122e278"
+  integrity sha512-1Q82ml3ipqaQoacThA7CQiDdPXVwy+ca2Km9APJ6rd4ZQNiqEqapvThBHmfiwA5A/qiEAD8IgAKDeq0viby/0A==
+  dependencies:
+    pkg-up "*"
 
 "@types/rimraf@3.0.2":
   version "3.0.2"
@@ -3278,6 +3280,14 @@ find-up@^4.0.0, find-up@^4.1.0:
     locate-path "^5.0.0"
     path-exists "^4.0.0"
 
+find-up@^6.2.0:
+  version "6.3.0"
+  resolved "https://registry.yarnpkg.com/find-up/-/find-up-6.3.0.tgz#2abab3d3280b2dc7ac10199ef324c4e002c8c790"
+  integrity sha512-v2ZsoEuVHYy8ZIlYqwPe/39Cy+cFDzp4dXPaxNvkEuouymu+2Jbz0PxpKarJHYJTmv2HWT3O382qY8l4jMWthw==
+  dependencies:
+    locate-path "^7.1.0"
+    path-exists "^5.0.0"
+
 find-up@^7.0.0:
   version "7.0.0"
   resolved "https://registry.yarnpkg.com/find-up/-/find-up-7.0.0.tgz#e8dec1455f74f78d888ad65bf7ca13dd2b4e66fb"
@@ -4989,7 +4999,7 @@ locate-path@^6.0.0:
   dependencies:
     p-locate "^5.0.0"
 
-locate-path@^7.2.0:
+locate-path@^7.1.0, locate-path@^7.2.0:
   version "7.2.0"
   resolved "https://registry.yarnpkg.com/locate-path/-/locate-path-7.2.0.tgz#69cb1779bd90b35ab1e771e1f2f89a202c2a8a8a"
   integrity sha512-gvVijfZvn7R+2qyPX8mAuKcFGDf6Nc61GdvGafQsHL0sBIxfKzA+usWn4GFC/bk+QdwPUD4kWFJLhElipq+0VA==
@@ -7008,6 +7018,13 @@ pkg-dir@^4.1.0, pkg-dir@^4.2.0:
   integrity sha512-HRDzbaKjC+AOWVXxAU/x54COGeIv9eb+6CkDSQoNTt4XyWoIJvuPsXizxu/Fr23EiekbtZwmh1IcIG/l/a10GQ==
   dependencies:
     find-up "^4.0.0"
+
+pkg-up@*:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/pkg-up/-/pkg-up-5.0.0.tgz#43fed23f28a60f669d6ebf5ed408187478733b53"
+  integrity sha512-NbJJ+WABU/AKhl3ooFwMc3+dQi0StEYrFj1g+D7BlaE07pL98rBLP21XMfNyGlckzHOt4onU5OuLE1GNkQqVsA==
+  dependencies:
+    find-up "^6.2.0"
 
 pkg-up@^2.0.0:
   version "2.0.0"
