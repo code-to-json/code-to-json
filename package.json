@@ -17,7 +17,7 @@
     "husky": "9.0.11",
     "lerna": "8.1.2",
     "nodemon": "3.1.0",
-    "rimraf": "2.7.1",
+    "rimraf": "5.0.8",
     "scripty": "2.1.1"
   },
   "commitlint": {
