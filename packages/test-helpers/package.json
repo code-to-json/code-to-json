@@ -33,7 +33,7 @@
     "typescript": "^3.4.3"
   },
   "devDependencies": {
-    "@types/chai": "4.3.14",
+    "@types/chai": "4.3.16",
     "@types/debug": "4.1.12",
     "@types/fs-extra": "9.0.13",
     "@types/tmp": "0.2.6",

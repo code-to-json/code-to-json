@@ -26,7 +26,7 @@
     "@code-to-json/comments": "^1.0.0-rc.47",
     "@code-to-json/test-helpers": "^1.0.0-rc.48",
     "@code-to-json/utils-node": "^1.0.0-rc.52",
-    "@types/chai": "4.3.14",
+    "@types/chai": "4.3.16",
     "@typescript-eslint/eslint-plugin": "1.13.0",
     "@typescript-eslint/parser": "1.13.0",
     "chai": "5.1.0",
