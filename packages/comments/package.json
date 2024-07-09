@@ -91,7 +91,7 @@
   },
   "dependencies": {
     "@code-to-json/utils": "^1.0.0-rc.41",
-    "@microsoft/tsdoc": "^0.14.0",
+    "@microsoft/tsdoc": "^0.15.0",
     "@mike-north/types": "^1.0.7",
     "debug": "^4.1.0"
   }
