@@ -56,7 +56,7 @@
     "eslint-plugin-typescript": "0.14.0",
     "hook-std": "3.0.0",
     "mocha": "10.6.0",
-    "nyc": "15.1.0",
+    "nyc": "17.0.0",
     "remark-cli": "12.0.1",
     "remark-lint": "9.1.2",
     "remark-lint-no-dead-urls": "1.1.0",
