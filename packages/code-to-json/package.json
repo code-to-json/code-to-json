@@ -35,6 +35,6 @@
     "eslint-config-prettier": "9.1.0",
     "eslint-plugin-import": "2.31.0",
     "eslint-plugin-prettier": "5.2.1",
-    "mocha": "10.8.2"
+    "mocha": "11.0.1"
   }
 }
