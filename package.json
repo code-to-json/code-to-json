@@ -9,9 +9,9 @@
   ],
   "private": true,
   "devDependencies": {
-    "@commitlint/cli": "19.6.1",
-    "@commitlint/config-conventional": "19.6.0",
-    "@commitlint/travis-cli": "19.6.1",
+    "@commitlint/cli": "19.8.1",
+    "@commitlint/config-conventional": "19.8.1",
+    "@commitlint/travis-cli": "19.8.1",
     "@types/rimraf": "4.0.5",
     "concurrently": "9.1.2",
     "husky": "9.1.7",
