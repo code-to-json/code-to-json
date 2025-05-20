@@ -55,7 +55,7 @@
     "eslint-plugin-prettier": "5.4.0",
     "eslint-plugin-typescript": "0.14.0",
     "hook-std": "3.0.0",
-    "mocha": "11.0.1",
+    "mocha": "11.4.0",
     "nyc": "17.1.0",
     "remark-cli": "12.0.1",
     "remark-lint": "10.0.1",
