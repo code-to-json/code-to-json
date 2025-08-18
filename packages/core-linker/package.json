@@ -26,14 +26,14 @@
     "@code-to-json/core": "^1.0.0-rc.57",
     "@mike-north/types": "^1.0.7",
     "debug": "^4.0.0",
-    "typescript": "^3.4.3"
+    "typescript": "^5.0.0"
   },
   "devDependencies": {
     "@code-to-json/test-helpers": "^1.0.0-rc.48",
     "@code-to-json/utils-node": "^1.0.0-rc.52",
     "@types/chai": "5.2.2",
-    "@typescript-eslint/eslint-plugin": "1.13.0",
-    "@typescript-eslint/parser": "1.13.0",
+    "@typescript-eslint/eslint-plugin": "8.40.0",
+    "@typescript-eslint/parser": "8.40.0",
     "chai": "5.2.0",
     "eslint": "9.27.0",
     "eslint-config-airbnb-base": "15.0.0",
