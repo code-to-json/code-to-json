@@ -26,8 +26,8 @@
     "@code-to-json/test-helpers": "^1.0.0-rc.48",
     "@types/chai": "5.2.2",
     "@types/strip-json-comments": "3.0.0",
-    "@typescript-eslint/eslint-plugin": "1.13.0",
-    "@typescript-eslint/parser": "1.13.0",
+    "@typescript-eslint/eslint-plugin": "8.40.0",
+    "@typescript-eslint/parser": "8.40.0",
     "chai": "5.2.0",
     "eslint": "9.27.0",
     "eslint-config-airbnb-base": "15.0.0",
@@ -44,7 +44,7 @@
     "remark-preset-lint-recommended": "7.0.1",
     "remark-validate-links": "13.1.0",
     "ts-node": "10.9.2",
-    "typescript": "3.9.10"
+    "typescript": "5.9.2"
   },
   "dependencies": {
     "@mike-north/types": "^1.0.7",

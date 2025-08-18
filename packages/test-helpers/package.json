@@ -30,7 +30,7 @@
     "fs-extra": "^7.0.0",
     "node-cleanup": "^2.1.2",
     "treeify": "^1.1.0",
-    "typescript": "^3.4.3"
+    "typescript": "^5.0.0"
   },
   "devDependencies": {
     "@types/chai": "5.2.2",
@@ -38,8 +38,8 @@
     "@types/fs-extra": "9.0.13",
     "@types/tmp": "0.2.6",
     "@types/treeify": "1.0.3",
-    "@typescript-eslint/eslint-plugin": "1.13.0",
-    "@typescript-eslint/parser": "1.13.0",
+    "@typescript-eslint/eslint-plugin": "8.40.0",
+    "@typescript-eslint/parser": "8.40.0",
     "chai": "5.2.0",
     "eslint": "9.27.0",
     "eslint-config-airbnb-base": "15.0.0",
